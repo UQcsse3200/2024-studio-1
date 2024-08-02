@@ -22,7 +22,7 @@ import java.util.function.Consumer;
  */
 public class EventHandler {
   private static final Logger logger = LoggerFactory.getLogger(EventHandler.class);
-  Map<String, Array<EventListener>> listeners;
+  final Map<String, Array<EventListener>> listeners;
 
   public EventHandler() {
     // Assume no events by default, which will be the case for most entities

@@ -18,7 +18,7 @@ import com.csse3200.game.physics.components.PhysicsComponent;
  * if target entity has a PhysicsComponent.
  */
 public class TouchAttackComponent extends Component {
-  private short targetLayer;
+  private final short targetLayer;
   private float knockbackForce = 0f;
   private CombatStatsComponent combatStats;
   private HitboxComponent hitboxComponent;

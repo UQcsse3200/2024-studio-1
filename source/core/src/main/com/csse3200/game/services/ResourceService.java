@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.Disposable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.badlogic.gdx.Gdx.files;
+
 /**
  * Service for loading resources, e.g. textures, texture atlases, sounds, music, etc. Add new load
  * methods when new types of resources are added to the game.
@@ -40,6 +42,9 @@ public class ResourceService implements Disposable {
    * @see AssetManager#get(String, Class)
    */
   public <T> T getAsset(String filename, Class<T> type) {
+    if (type.getSimpleName().equals("String")){
+      return (T) files.internal(filename).readString();
+    }
     return assetManager.get(filename, type);
   }
 

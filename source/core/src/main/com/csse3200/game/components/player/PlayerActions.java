@@ -13,8 +13,10 @@ import com.csse3200.game.services.ServiceLocator;
  */
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
+//  private static final Logger log = LoggerFactory.getLogger(PlayerActions.class);
 
   private PhysicsComponent physicsComponent;
+
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean moving = false;
 
@@ -67,5 +69,9 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
+  }
+
+  public Vector2 getWalkDirection() {
+    return walkDirection;
   }
 }

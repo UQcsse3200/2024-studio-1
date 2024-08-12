@@ -36,4 +36,4 @@ public class RandomNumberGenerator {
         }
         // Generate random double within a range [minVal, maxVal)
         return minVal + (maxVal - minVal) * random.nextDouble();
-    }
+    }}

@@ -10,7 +10,7 @@ public class WeaponComponent extends Component{
 
     private static final Logger logger = LoggerFactory.getLogger(Component.class);
 
-   
+
     private WeaponType weaponType; // weapon type
     private int damage; // damage of weapon
     private int range; // range of weapon
@@ -25,8 +25,8 @@ public class WeaponComponent extends Component{
 
     /**
      * Constructor for WeaponComponent
-     * @param weaponSprite sprite of weapon (complulsory)
-     * @param weaponType type of weapon (complulsory)
+     * @param weaponSprite sprite of weapon (compulsory)
+     * @param weaponType type of weapon (compulsory)
      * @param damage damage of weapon
      * @param range range of weapon
      * @param fireRate fire rate of weapon
@@ -49,8 +49,8 @@ public class WeaponComponent extends Component{
     /**
      * Constructor for WeaponComponent with default values
      * Note: This is acceptable but not recommended
-     * @param weaponSprite sprite of weapon (complulsory)
-     * @param weaponType type of weapon (complulsory)
+     * @param weaponSprite sprite of weapon (compulsory)
+     * @param weaponType type of weapon (compulsory)
      */
     public WeaponComponent(Sprite weaponSprite, WeaponType weaponType) {
         new WeaponComponent(weaponSprite, weaponType, 0, 0, 0, 0, 0, 0, 0);
@@ -97,7 +97,7 @@ public class WeaponComponent extends Component{
     }
 
     /**
-     * Get the reload time of weapon (both shotgun and melee)
+     * Get reloading time of weapon (both shotgun and melee)
      * @return reload time of weapon
      */
     public int getReloadTime() {
@@ -153,7 +153,7 @@ public class WeaponComponent extends Component{
     }
 
     /**
-     * Set the reload time of weapon to new value (shotgun only)
+     * Set reloading time of weapon to new value (shotgun only)
      * @param reloadTime new reload time of weapon
      */
     public void setReloadTime(int reloadTime) {

@@ -1,17 +1,23 @@
 package com.csse3200.game.components.player;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.csse3200.game.components.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.csse3200.game.components.Component;
-
 public class WeaponComponent extends Component{
+
+    /**
+     * Enum for weapon type (you can add more weapon types if needed)
+     */
+    public enum WeaponType {
+        MELEE,
+        SHOTGUN
+    }; 
 
     private static final Logger logger = LoggerFactory.getLogger(Component.class);
 
-
-    private WeaponType weaponType; // weapon type
+    private WeaponType weaponType; // type of weapon
     private int damage; // damage of weapon
     private int range; // range of weapon
     private int fireRate; // fire rate of weapon
@@ -34,7 +40,7 @@ public class WeaponComponent extends Component{
      * @param maxAmmo max ammo for shotgun only
      * @param reloadTime reload time for shotgun only
      */
-    public WeaponComponent(Sprite weaponSprite, WeaponType weaponType, int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime, int reloadTimer) {
+    public WeaponComponent(Sprite weaponSprite, WeaponType weaponType, int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime) {
         System.out.println("WeaponComponent created");
         this.damage = damage;
         this.range = range;
@@ -53,7 +59,24 @@ public class WeaponComponent extends Component{
      * @param weaponType type of weapon (compulsory)
      */
     public WeaponComponent(Sprite weaponSprite, WeaponType weaponType) {
-        new WeaponComponent(weaponSprite, weaponType, 0, 0, 0, 0, 0, 0, 0);
+        new WeaponComponent(weaponSprite, weaponType, 0, 0, 0, 0, 0, 0);
+    }
+
+    /**
+     * Get the type of weapon
+     * @return type of weapon
+     */
+    public WeaponType getWeaponType() {
+        return weaponType;
+    }
+
+    /**
+     * Set the type of weapon to new value
+     * @param weaponType new type of weapon
+     * @return type of weapon
+     */
+    public void setWeaponType(WeaponType weaponType) {
+        this.weaponType = weaponType;
     }
 
     /**
@@ -160,12 +183,4 @@ public class WeaponComponent extends Component{
         this.reloadTime = reloadTime;
     }
 
-}
-
-/**
- * Enum for WeaponType
- */
-enum WeaponType {
-    MELEE,
-    SHOTGUN
 }

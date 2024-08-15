@@ -1,3 +1,4 @@
+package com.csse3200.game.areas;
 import java.util.Random;
 
 public class RandomNumberGenerator {

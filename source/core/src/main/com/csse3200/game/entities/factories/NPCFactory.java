@@ -90,6 +90,7 @@ public class NPCFactory {
             new AITaskComponent()
                     .addTask(new WanderTask(new Vector2(4f, 4f), 2f, 0.7f))
                     .addTask(new ChargeTask(target, 10, 5f, 6f, 4f));
+
     Entity dog = createBaseNPC(aiComponent);
     GhostKingConfig config = configs.ghostKing;
 
@@ -122,9 +123,9 @@ public class NPCFactory {
    */
   public static Entity createCroc(Entity target) {
     AITaskComponent aiComponent =
-              new AITaskComponent()
-                      .addTask(new WanderTask(new Vector2(1f, 1f), 10f))
-                      .addTask(new ChaseTask(target, 10, 3f, 4f));
+            new AITaskComponent()
+                    .addTask(new WanderTask(new Vector2(1.5f, 1.5f), 5f, 0.1f))
+                    .addTask(new ChaseTask(target, 10, 2f, 2f, 0.2f));
 
     Entity croc = createBaseNPC(aiComponent);
     BaseEntityConfig config = configs.ghost;
@@ -156,9 +157,9 @@ public class NPCFactory {
    */
   public static Entity createGorilla(Entity target) {
     AITaskComponent aiComponent =
-        new AITaskComponent()
-              .addTask(new WanderTask(new Vector2(2f, 2f), 4f))
-              .addTask(new ChaseTask(target, 10, 3f, 4f));
+            new AITaskComponent()
+                    .addTask(new WanderTask(new Vector2(3f, 3f), 4f, 0.5f))
+                    .addTask(new ChaseTask(target, 10, 3f, 7f, 1f));
 
     Entity gorilla = createBaseNPC(aiComponent);
     BaseEntityConfig config = configs.ghost;

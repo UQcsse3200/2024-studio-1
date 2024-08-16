@@ -67,6 +67,11 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     this.targetPosition = target;
   }
 
+  /**
+   * Set the velocity on an entity.
+   *
+   * @param velocity velocity vector
+   */
   public void setVelocity(Vector2 velocity) {
     logger.trace("Setting velocity to {}", velocity);
     maxSpeed = velocity;

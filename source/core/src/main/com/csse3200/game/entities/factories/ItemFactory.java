@@ -23,7 +23,7 @@ public class ItemFactory {
         Entity medKit = createBaseItem();
         HealthItemConfig config = configs.medKit;
 
-        //medKit.addComponent(new TextureRenderComponent("images/tree.png"));
+        medKit.addComponent(new TextureRenderComponent("images/Medkit.png"));
         return medKit;
     }
 

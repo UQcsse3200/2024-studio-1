@@ -59,7 +59,7 @@ public class ItemFactory {
         Entity item =
                 new Entity()
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new ColliderComponent())
+                        .addComponent(new ColliderComponent());
                 // .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
         return item;
 

@@ -11,10 +11,12 @@ import org.slf4j.LoggerFactory;
 public class CombatStatsComponent extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
+  private int maxHealth;
   private int health;
   private int baseAttack;
 
   public CombatStatsComponent(int health, int baseAttack) {
+    this.maxHealth = health;
     setHealth(health);
     setBaseAttack(baseAttack);
   }
@@ -82,6 +84,18 @@ public class CombatStatsComponent extends Component {
     } else {
       logger.error("Can not set base attack to a negative attack value");
     }
+  }
+
+  public void takeDamage(int damage) {
+    setHealth(Math.max(0, getHealth() - damage));
+    if (getHealth() <= 0) {
+      entity.dispose();
+    }
+  }
+
+
+  public int getMaxHealth() {
+    return maxHealth;
   }
 
   public void hit(CombatStatsComponent attacker) {

@@ -51,9 +51,4 @@ public interface Collectible {
      * @param entity The character to apply the effect to.
      */
     void onPickup(Entity entity);
-
-    /**
-     * If this Collectible has a dependant entity.
-     */
-    Optional<Entity> getEntity();
 }

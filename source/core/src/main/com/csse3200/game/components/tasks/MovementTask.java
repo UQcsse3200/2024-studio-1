@@ -59,6 +59,12 @@ public class MovementTask extends DefaultTask {
     movementComponent.setTarget(target);
   }
 
+  public void setVelocity(float speed) {
+    Vector2 velocity = new Vector2(speed,speed);
+    logger.debug("Setting velocity to {}", velocity);
+    movementComponent.setVelocity(velocity);
+  }
+
   @Override
   public void stop() {
     super.stop();

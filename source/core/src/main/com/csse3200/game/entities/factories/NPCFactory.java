@@ -8,6 +8,7 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
+import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.tasks.ChaseTask;
 import com.csse3200.game.components.tasks.WanderTask;
@@ -60,7 +61,8 @@ public class NPCFactory {
             .addComponent(animator)
             .addComponent(new GhostAnimationController())
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDamageHandlerComponent());
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
 
     ghost.getComponent(AnimationRenderComponent.class).scaleEntity();
 
@@ -89,7 +91,8 @@ public class NPCFactory {
             .addComponent(animator)
             .addComponent(new GhostAnimationController())
             .addComponent(new NPCHealthBarComponent())  // Added Health Display Component
-            .addComponent(new NPCDamageHandlerComponent());
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
 
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
@@ -114,7 +117,8 @@ public class NPCFactory {
                     .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
                     .addComponent(aiComponent)
                     .addComponent(new NPCHealthBarComponent())
-                    .addComponent(new NPCDamageHandlerComponent());
+                    .addComponent(new NPCDamageHandlerComponent())
+                    .addComponent(new NPCDeathHandler());
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;

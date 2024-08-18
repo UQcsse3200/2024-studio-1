@@ -77,6 +77,8 @@ public class MainGameScreen extends ScreenAdapter {
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
     renderer.render();
+
+    // Test NPC damage every 5 seconds
     if (ServiceLocator.getTimeSource().getTime() % 5 < 0.1f) {
       testNPCDamage();
     }
@@ -127,26 +129,12 @@ public class MainGameScreen extends ScreenAdapter {
 
   private void testNPCDamage() {
     Entity[] entities = ServiceLocator.getEntityService().getEntities();
-    boolean foundNPC = false;
-
     for (Entity entity : entities) {
       NPCDamageHandlerComponent damageHandler = entity.getComponent(NPCDamageHandlerComponent.class);
       if (damageHandler != null) {
-        foundNPC = true;
-        int damageAmount = 1; // You can adjust this value as needed
+        int damageAmount = 10; // Adjust as needed
         entity.getEvents().trigger("takeDamage", damageAmount);
-
-        CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-        if (combatStats != null) {
-          logger.info("NPC (ID: " + entity.getId() + ") health after taking " + damageAmount + " damage: " + combatStats.getHealth());
-        } else {
-          logger.warn("NPC (ID: " + entity.getId() + ") has no CombatStatsComponent");
-        }
       }
-    }
-
-    if (!foundNPC) {
-      logger.info("No NPCs found to test damage");
     }
   }
 

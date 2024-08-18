@@ -16,6 +16,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private final int priority;
   private final float viewDistance;
   private final float maxChaseDistance;
+  private final float chaseSpeed;
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
@@ -26,12 +27,14 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    * @param priority Task priority when chasing (0 when not chasing).
    * @param viewDistance Maximum distance from the entity at which chasing can start.
    * @param maxChaseDistance Maximum distance from the entity while chasing before giving up.
+   * @param chaseSpeed The speed at which an entity chases at.
    */
-  public ChaseTask(Entity target, int priority, float viewDistance, float maxChaseDistance) {
+  public ChaseTask(Entity target, int priority, float viewDistance, float maxChaseDistance, float chaseSpeed) {
     this.target = target;
     this.priority = priority;
     this.viewDistance = viewDistance;
     this.maxChaseDistance = maxChaseDistance;
+    this.chaseSpeed = chaseSpeed;
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
@@ -42,7 +45,8 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask = new MovementTask(target.getPosition());
     movementTask.create(owner);
     movementTask.start();
-    
+    movementTask.setVelocity(chaseSpeed);
+
     this.owner.getEntity().getEvents().trigger("chaseStart");
   }
 

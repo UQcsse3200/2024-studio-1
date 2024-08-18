@@ -17,6 +17,8 @@ public class CombatStatsComponent extends Component {
 
   public CombatStatsComponent(int health, int baseAttack) {
     this.maxHealth = health;
+    this.health = health;
+    this.baseAttack = baseAttack;
     setHealth(health);
     setBaseAttack(baseAttack);
   }
@@ -87,9 +89,10 @@ public class CombatStatsComponent extends Component {
   }
 
   public void takeDamage(int damage) {
-    setHealth(Math.max(0, getHealth() - damage));
-    if (getHealth() <= 0) {
-      entity.dispose();
+    health = Math.max(0, health - damage);
+    entity.getEvents().trigger("healthChanged", health);
+    if (health == 0) {
+      entity.getEvents().trigger("died");
     }
   }
 

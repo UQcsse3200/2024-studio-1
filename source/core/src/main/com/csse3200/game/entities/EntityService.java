@@ -54,4 +54,8 @@ public class EntityService {
       entity.dispose();
     }
   }
+
+  public Entity[] getEntities() {
+    return entities.toArray(Entity.class);
+  }
 }

@@ -125,6 +125,31 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(mainGameTextures);
   }
 
+  private void testNPCDamage() {
+    Entity[] entities = ServiceLocator.getEntityService().getEntities();
+    boolean foundNPC = false;
+
+    for (Entity entity : entities) {
+      NPCDamageHandlerComponent damageHandler = entity.getComponent(NPCDamageHandlerComponent.class);
+      if (damageHandler != null) {
+        foundNPC = true;
+        int damageAmount = 1; // You can adjust this value as needed
+        entity.getEvents().trigger("takeDamage", damageAmount);
+
+        CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
+        if (combatStats != null) {
+          logger.info("NPC (ID: " + entity.getId() + ") health after taking " + damageAmount + " damage: " + combatStats.getHealth());
+        } else {
+          logger.warn("NPC (ID: " + entity.getId() + ") has no CombatStatsComponent");
+        }
+      }
+    }
+
+    if (!foundNPC) {
+      logger.info("No NPCs found to test damage");
+    }
+  }
+
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and
    * capturing and handling ui input.

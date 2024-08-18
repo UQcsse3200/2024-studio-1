@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class NPCDeathHandler extends Component {
     private static final Logger logger = LoggerFactory.getLogger(NPCDeathHandler.class);
-    private static final float DEATH_ANIMATION_DURATION = 3.0f; // Increased for visibility
+    private static final float DEATH_ANIMATION_DURATION = 1.0f; // Increased for visibility
 
     @Override
     public void create() {

@@ -6,10 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
-import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
+import com.csse3200.game.components.npc.RatAnimationController;
+import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.ChaseTask;
 import com.csse3200.game.components.tasks.WanderTask;
 import com.csse3200.game.entities.Entity;
@@ -41,13 +42,76 @@ public class NPCFactory {
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
-   * Creates a ghost entity.
+   * Creates a rat entity.
    *
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createGhost(Entity target) {
-    Entity ghost = createBaseNPC(target);
+  public static Entity createRat(Entity target) {
+
+    Entity rat = createBaseNPC(target);
+    BaseEntityConfig config = configs.rat;
+
+    AnimationRenderComponent animator =
+        new AnimationRenderComponent(
+            ServiceLocator.getResourceService().getAsset("images/rat.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.LOOP);
+
+    rat
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(animator)
+        .addComponent(new RatAnimationController())
+        .addComponent(new NPCHealthBarComponent())
+        .addComponent(new NPCDamageHandlerComponent())
+        .addComponent(new NPCDeathHandler());
+
+    rat.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return rat;
+  }
+
+  /**
+   * Creates a dog entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createDog(Entity target) {
+    Entity dog = createBaseNPC(target);
+    GhostKingConfig config = configs.ghostKing;
+
+    AnimationRenderComponent animator =
+        new AnimationRenderComponent(
+            ServiceLocator.getResourceService()
+                .getAsset("images/ghostKing.atlas", TextureAtlas.class));
+    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+
+    dog
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(animator)
+        .addComponent(new GhostAnimationController())
+        .addComponent(new NPCHealthBarComponent())
+        .addComponent(new NPCDamageHandlerComponent())
+        .addComponent(new NPCDeathHandler());
+
+
+    dog.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return dog;
+  }
+
+  /**
+   * Creates a crocodile entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createCroc(Entity target) {
+
+    Entity croc = createBaseNPC(target);
     BaseEntityConfig config = configs.ghost;
 
     AnimationRenderComponent animator =
@@ -56,7 +120,7 @@ public class NPCFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
 
-    ghost
+    croc
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
             .addComponent(new GhostAnimationController())
@@ -64,20 +128,22 @@ public class NPCFactory {
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
 
-    ghost.getComponent(AnimationRenderComponent.class).scaleEntity();
 
-    return ghost;
+    croc.getComponent(AnimationRenderComponent.class).scaleEntity();
+
+    return croc;
   }
 
   /**
-   * Creates a ghost king entity.
+   * Creates a gorilla entity.
    *
    * @param target entity to chase
    * @return entity
    */
   public static Entity createGhostKing(Entity target) {
+
     Entity ghostKing = createBaseNPC(target);
-    GhostKingConfig config = configs.ghostKing;
+    BaseEntityConfig config = configs.ghost;
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -90,11 +156,13 @@ public class NPCFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
             .addComponent(new GhostAnimationController())
-            .addComponent(new NPCHealthBarComponent())  // Added Health Display Component
+            .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
 
+
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
+
     return ghostKing;
   }
 

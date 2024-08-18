@@ -85,7 +85,7 @@ class ChaseTaskTest {
 
   private Entity makePhysicsEntity() {
     return new Entity()
-        .addComponent(new PhysicsComponent())
-        .addComponent(new PhysicsMovementComponent());
+            .addComponent(new PhysicsComponent())
+            .addComponent(new PhysicsMovementComponent());
   }
 }

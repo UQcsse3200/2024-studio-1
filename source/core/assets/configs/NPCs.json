@@ -7,6 +7,46 @@
     "health": 100,
     "baseAttack": 25,
     "spookyFactor": 7
+  },
+  "rat": {
+    "health": 5,
+    "speed": 20,
+    "baseAttack": 0,
+    "attackPerSecond": 2,
+    "burnAttack": 5,
+    "burnDuration": 2
+  },
+  "gorilla": {
+    "health": 30,
+    "speed": 10,
+    "baseAttack": 20,
+    "attackPerSecond": 1,
+    "burnAttack": 0,
+    "burnDuration": 0
+  },
+  "dog": {
+    "health": 15,
+    "speed": 25,
+    "baseAttack": 7,
+    "attackPerSecond": 3,
+    "burnAttack": 0,
+    "burnDuration": 0
+  },
+  "crocodile": {
+    "health": 50,
+    "speed": 5,
+    "baseAttack": 100,
+    "attackPerSecond": 1,
+    "burnAttack": 0,
+    "burnDuration": 0
+  },
+  "boss": {
+    "health": 100,
+    "speed": 15,
+    "baseAttack": 25,
+    "attackPerSecond": 1,
+    "burnAttack": 3,
+    "burnDuration": 3
   }
 }
 

@@ -50,7 +50,7 @@ public class NPCFactory {
                     .addTask(new ChaseTask(target, 10, 2f, 3f, 1.7f));
 
     Entity rat = createBaseNPC(aiComponent);
-    BaseEntityConfig config = configs.ghost;
+    BaseEntityConfig config = configs.rat;
 
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
@@ -59,7 +59,13 @@ public class NPCFactory {
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
 
     rat
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(
+                config.health,
+                config.baseAttack,
+                config.speed,
+                config.attackPerSecond,
+                config.burnAttack,
+                config.burnDuration))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
@@ -90,7 +96,13 @@ public class NPCFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     dog
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(
+                config.health,
+                config.baseAttack,
+                config.speed,
+                config.attackPerSecond,
+                config.burnAttack,
+                config.burnDuration))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
@@ -120,7 +132,13 @@ public class NPCFactory {
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
 
     croc
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack,
+                    config.speed,
+                    config.attackPerSecond,
+                    config.burnAttack,
+                    config.burnDuration))
             .addComponent(animator)
             .addComponent(new GhostAnimationController());
 
@@ -152,7 +170,13 @@ public class NPCFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     gorilla
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack,
+                    config.speed,
+                    config.attackPerSecond,
+                    config.burnAttack,
+                    config.burnDuration))
             .addComponent(animator)
             .addComponent(new GhostAnimationController());
 

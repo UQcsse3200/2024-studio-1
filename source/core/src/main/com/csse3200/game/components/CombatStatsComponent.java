@@ -12,11 +12,22 @@ public class CombatStatsComponent extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
   private int health;
+  private int speed;
   private int baseAttack;
+  private int attackPerSecond;
+  private int burnAttack;
+  private int burnDuration;
 
-  public CombatStatsComponent(int health, int baseAttack) {
+  public CombatStatsComponent(int health,
+                              int baseAttack,
+                              int speed,
+                              int attackPerSecond,
+                              int burnAttack,
+                              int burnDuration) {
     setHealth(health);
     setBaseAttack(baseAttack);
+    setSpeed(speed);
+
   }
 
   /**
@@ -81,6 +92,61 @@ public class CombatStatsComponent extends Component {
       this.baseAttack = attack;
     } else {
       logger.error("Can not set base attack to a negative attack value");
+    }
+  }
+
+  /**
+   * Sets the entity's movement speed. Movement speed has a minimum bound of 0.
+   *
+   * @param speed Movement speed
+   */
+  public void setSpeed(int speed) {
+    if (health >= 0) {
+      this.health = health;
+    } else {
+      this.health = 0;
+    }
+  }
+
+  /**
+   * Sets the entity's attack per second.
+   * Number of attack per second has a minimum bound of 0.
+   *
+   * @param attackPerSecond Number of attack per second
+   */
+  public void setAttackPerSecond(int attackPerSecond) {
+    if (attackPerSecond >= 0) {
+      this.attackPerSecond = attackPerSecond;
+    } else {
+      this.attackPerSecond = 0;
+    }
+  }
+
+  /**
+   * Sets the entity's burn damage.
+   * Burn damage has a minimum bound of 0.
+   *
+   * @param burnAttack Burn damage per second
+   */
+  public void setBurnAttack(int burnAttack) {
+    if (burnAttack >= 0) {
+      this.burnAttack = burnAttack;
+    } else {
+      this.burnAttack = 0;
+    }
+  }
+
+  /**
+   * Sets the entity's burn duration.
+   * Burn damage has a minimum bound of 0.
+   *
+   * @param burnDuration Burn duration (in second)
+   */
+  public void setBurnDuration(int burnDuration) {
+    if (burnDuration >= 0) {
+      this.burnDuration = burnDuration;
+    } else {
+      this.burnDuration = 0;
     }
   }
 

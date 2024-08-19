@@ -8,7 +8,9 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
 import com.csse3200.game.components.npc.RatAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
+import com.csse3200.game.components.tasks.ChargeTask;
 import com.csse3200.game.components.tasks.ChaseTask;
+import com.csse3200.game.components.tasks.StraightWanderTask;
 import com.csse3200.game.components.tasks.WanderTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.BaseEntityConfig;
@@ -47,8 +49,8 @@ public class NPCFactory {
   public static Entity createRat(Entity target) {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(6f, 6f), 1f, 1.5f))
-                    .addTask(new ChaseTask(target, 10, 2f, 3f, 1.7f));
+                    .addTask(new StraightWanderTask(2f))
+                    .addTask(new ChaseTask(target, 10, 2f, 3f, 1.5f));
 
     Entity rat = createBaseNPC(aiComponent);
     BaseEntityConfig config = configs.rat;
@@ -81,7 +83,7 @@ public class NPCFactory {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new WanderTask(new Vector2(4f, 4f), 2f, 0.7f))
-                    .addTask(new ChaseTask(target, 10, 4f, 5f, 1.5f));
+                    .addTask(new ChargeTask(target, 10, 5f, 6f, 4f));
     Entity dog = createBaseNPC(aiComponent);
     GhostKingConfig config = configs.ghostKing;
 

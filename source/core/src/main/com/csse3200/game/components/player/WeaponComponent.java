@@ -12,13 +12,14 @@ public class WeaponComponent extends Component{
      */
     public enum WeaponType {
         MELEE,
-        SHOTGUN
+        SHOTGUN,
+        NONE // barehanded
     }; 
 
     private static final Logger logger = LoggerFactory.getLogger(Component.class);
 
     private WeaponType weaponType; // type of weapon
-    private int damage; // damage of weapon
+    private int damage; // weapon damage
     private int range; // range of weapon
     private int fireRate; // fire rate of weapon
     private int ammo; // current ammo for shotgun only
@@ -33,7 +34,7 @@ public class WeaponComponent extends Component{
      * Constructor for WeaponComponent
      * @param weaponSprite sprite of weapon (compulsory)
      * @param weaponType type of weapon (compulsory)
-     * @param damage damage of weapon
+     * @param damage weapon damage
      * @param range range of weapon
      * @param fireRate fire rate of weapon
      * @param ammo current ammo for shotgun only
@@ -80,8 +81,8 @@ public class WeaponComponent extends Component{
     }
 
     /**
-     * Get the current damage of weapon
-     * @return damage of weapon
+     * Get the current weapon damage
+     * @return weapon damage
      */
     public int getDamage() {
         return damage;
@@ -128,8 +129,8 @@ public class WeaponComponent extends Component{
     }
 
     /**
-     * Set the damage of weapon to new value (upgradable, buff,...)
-     * @param damage new damage of weapon
+     * Set the weapon damage to new value (upgradable, buff,...)
+     * @param damage new weapon damage
      */
     public void setDamage(int damage) {
         this.damage = damage;

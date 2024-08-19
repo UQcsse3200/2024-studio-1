@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StraightWanderTask extends DefaultTask implements PriorityTask {
-    private static final Logger logger = LoggerFactory.getLogger(WanderTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(StraightWanderTask.class);
     private static final float MAX_WANDER_LIMIT = 50;
     private final float wanderSpeed;
     private MovementTask movementTask;
@@ -29,7 +29,7 @@ public class StraightWanderTask extends DefaultTask implements PriorityTask {
     public void start() {
         super.start();
         startMoving();
-        owner.getEntity().getEvents().trigger("wanderStart");
+        owner.getEntity().getEvents().trigger("walk");
         owner.getEntity().getEvents().addListener("collisionStart", this::onCollisionStart);
     }
 
@@ -58,6 +58,7 @@ public class StraightWanderTask extends DefaultTask implements PriorityTask {
 
     @Override
     public void stop() {
+        logger.debug("Stopping wander task");
         super.stop();
         movementTask.stop();
     }

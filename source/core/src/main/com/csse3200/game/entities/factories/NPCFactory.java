@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
+import com.csse3200.game.components.npc.RatAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.ChaseTask;
 import com.csse3200.game.components.tasks.StraightWanderTask;
@@ -51,21 +52,23 @@ public class NPCFactory {
                     .addTask(new ChaseTask(target, 10, 2f, 3f, 1.7f));
 
     Entity rat = createBaseNPC(aiComponent);
-    BaseEntityConfig config = configs.ghost;
+    BaseEntityConfig config = configs.rat;
 
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+            ServiceLocator.getResourceService().getAsset("images/rat.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     rat
         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
         .addComponent(animator)
-        .addComponent(new GhostAnimationController());
-
+        .addComponent(new RatAnimationController());
+    
     rat.getComponent(AnimationRenderComponent.class).scaleEntity();
-
     return rat;
   }
 

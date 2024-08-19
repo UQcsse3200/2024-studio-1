@@ -15,12 +15,11 @@ import java.util.Optional;
  */
 public class InventoryComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
-    private final Array<Collectible> items = new Array<>();
-    private Optional<MeleeWeapon> meleeWeapon = Optional.empty();
-    private Optional<RangedWeapon> rangedWeapon = Optional.empty();
+    private final Inventory inventory;
 
     public InventoryComponent() {
         super();
+        this.inventory = new Inventory(this.entity);
     }
 
     /**
@@ -29,7 +28,7 @@ public class InventoryComponent extends Component {
      * @param item The item to add to your inventory
      */
     public void pickup(Collectible item) {
-        item.pickup(this.entity);
+        item.pickup(inventory);
     }
 
     /**
@@ -38,69 +37,6 @@ public class InventoryComponent extends Component {
      * @param item The item to remove from your inventory
      */
     public void drop(Collectible item) {
-        item.drop(this.entity);
-    }
-
-    /**
-     * Set the player's currently held melee weapon.
-     *
-     * @param melee the melee weapon to pickup.
-     */
-    public void setMelee(MeleeWeapon melee) {
-        resetMelee();
-        this.meleeWeapon = Optional.of(melee);
-    }
-
-    /**
-     * Reset the player's currently held melee weapon to the default.
-     */
-    public void resetMelee() {
-        this.meleeWeapon.ifPresent(w -> w.drop(this.entity));
-        this.meleeWeapon = Optional.empty();
-    }
-
-    /**
-     * Set the player's currently held ranged weapon.
-     *
-     * @param ranged the ranged weapon to pickup.
-     */
-    public void setRanged(RangedWeapon ranged) {
-        resetRanged();
-        this.rangedWeapon = Optional.of(ranged);
-    }
-
-    /**
-     * Reset the player's currently held ranged weapon to the default.
-     */
-    public void resetRanged() {
-        this.rangedWeapon.ifPresent(w -> w.drop(this.entity));
-        this.rangedWeapon = Optional.empty();
-    }
-
-    /**
-     * Get the player's currently held melee weapon.
-     *
-     * @return the melee weapon currently held.
-     */
-    public MeleeWeapon getMelee() {
-        return meleeWeapon.orElse(null); // FIXME reset to default
-    }
-
-    /**
-     * Get the player's currently held ranged weapon.
-     *
-     * @return the ranged weapon currently held.
-     */
-    public RangedWeapon getRanged() {
-        return rangedWeapon.orElse(null); // FIXME reset to default
-    }
-
-    /**
-     * Get the current list of items.
-     *
-     * @return the current list of items
-     */
-    public Array<Collectible> getItems() {
-        return new Array<>(items);
+        item.drop(inventory);
     }
 }

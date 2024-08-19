@@ -1,7 +1,5 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.csse3200.game.entities.Entity;
-
 public abstract class MeleeWeapon implements Collectible {
     @Override
     public Type getType() {
@@ -9,14 +7,14 @@ public abstract class MeleeWeapon implements Collectible {
     }
 
     @Override
-    public void pickup(Entity entity) {
-        entity.getComponent(InventoryComponent.class).setMelee(this);
-        entity.getEvents().addListener("melee", this::attack); // Do nothing
+    public void pickup(Inventory inventory) {
+        inventory.setMelee(this);
+        inventory.getEntity().getEvents().addListener("melee", this::attack);
     }
 
     @Override
-    public void drop(Entity entity) {
-        entity.getComponent(InventoryComponent.class).resetMelee();
+    public void drop(Inventory inventory) {
+        inventory.resetMelee();
     }
 
     /**

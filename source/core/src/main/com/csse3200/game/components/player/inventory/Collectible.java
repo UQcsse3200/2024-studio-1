@@ -7,7 +7,6 @@ import com.csse3200.game.entities.Entity;
  * An item that can be collected.
  */
 public interface Collectible {
-
     enum Type {
         ITEM,
         MELEE_WEAPON,
@@ -46,13 +45,13 @@ public interface Collectible {
 
     /**
      * Make the entity pick us up, and apply any effects to them.
-     * @param entity The character to apply the effect to.
+     * @param inventory The inventory to be put in.
      */
-    void pickup(Entity entity);
+    void pickup(Inventory inventory);
 
     /**
      * Remove this collectible from the entity
-     * @param entity The character to remove ourselves from.
+     * @param inventory The inventory to be dropped out of.
      */
-    void drop(Entity entity);
+    void drop(Inventory inventory);
 }

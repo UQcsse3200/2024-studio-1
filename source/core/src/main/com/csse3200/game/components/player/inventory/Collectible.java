@@ -32,18 +32,6 @@ public interface Collectible {
     Texture getIcon();
 
     /**
-     * Apply the effect of this item to a provided character.
-     * @param entity The character to apply the effect to.
-     */
-    void apply(Entity entity);
-
-    /**
-     * Remove the effect of this item from a provided character.
-     * @param entity The character to remove the effect from.
-     */
-    void unapply(Entity entity);
-
-    /**
      * Make the entity pick us up, and apply any effects to them.
      * @param inventory The inventory to be put in.
      */

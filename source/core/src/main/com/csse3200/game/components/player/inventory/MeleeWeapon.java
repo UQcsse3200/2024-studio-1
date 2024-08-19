@@ -1,5 +1,7 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.csse3200.game.components.player.WeaponComponent;
+
 public abstract class MeleeWeapon implements Collectible {
     @Override
     public Type getType() {
@@ -10,6 +12,8 @@ public abstract class MeleeWeapon implements Collectible {
     public void pickup(Inventory inventory) {
         inventory.setMelee(this);
         inventory.getEntity().getEvents().addListener("melee", this::attack);
+
+        // Add a Weapon Component
     }
 
     @Override

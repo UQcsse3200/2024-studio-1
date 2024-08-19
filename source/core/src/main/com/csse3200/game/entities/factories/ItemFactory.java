@@ -14,12 +14,26 @@ public class ItemFactory {
     private static final ItemConfigs configs =
             FileLoader.readClass(ItemConfigs.class, "configs/items.json");
 
+    /**
+     * Creates a specified entity
+     *
+     * @param specification The specification of the item to create.
+     * @return the specified entity
+     */
+    public Entity create(String specification) {
+        return switch (specification){
+            case "medkit" -> createMedKit();
+            case "bandaid" -> createBandAid();
+            case "energydrink" -> createEnergyDrink();
+            default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
+        };
+    }
 
     /**
      * Creates a medKit entity
      * @return medKit entity
      */
-    public static Entity createMedKit() {
+    public Entity createMedKit() {
         Entity medKit = createBaseItem();
         HealthItemConfig config = configs.medKit;
 
@@ -31,7 +45,7 @@ public class ItemFactory {
      * Creates a bandAid entity
      * @return bandAid entity
      */
-    public static Entity createBandAid() {
+    public Entity createBandAid() {
         Entity bandAid = createBaseItem();
         HealthItemConfig config = configs.bandAid;
 
@@ -42,7 +56,7 @@ public class ItemFactory {
      * Creates an energyDrink entity
      * @return energyDrink entity
      */
-    public static Entity createEnergyDrink() {
+    public Entity createEnergyDrink() {
         Entity energyDrink = createBaseItem();
         SpeedBoostConfig config = configs.energyDrink;
 
@@ -55,7 +69,7 @@ public class ItemFactory {
      * NB: This is where we add more components
      * @return item entity
      */
-    private static Entity createBaseItem() {
+    private Entity createBaseItem() {
         Entity item =
                 new Entity()
                         .addComponent(new PhysicsComponent())

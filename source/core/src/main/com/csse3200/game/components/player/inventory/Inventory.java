@@ -12,18 +12,27 @@ import java.util.Optional;
  * Can also be used as a more generic component for other entities.
  */
 public class Inventory {
-    private final Entity entity;
+    private final InventoryComponent component;
     private final Array<Collectible> items = new Array<>();
     private Optional<MeleeWeapon> meleeWeapon = Optional.empty();
     private Optional<RangedWeapon> rangedWeapon = Optional.empty();
 
-    public Inventory(Entity entity) {
+    public Inventory(InventoryComponent component) {
         super();
-        this.entity = entity;
+        this.component = component;
     }
 
     public Entity getEntity() {
-        return entity;
+        return component.getEntity();
+    }
+
+    /**
+     * Get the player's currently held melee weapon.
+     *
+     * @return the melee weapon currently held.
+     */
+    public MeleeWeapon getMelee() {
+        return meleeWeapon.orElse(null); // FIXME reset to default
     }
 
     /**
@@ -40,8 +49,16 @@ public class Inventory {
      * Reset the player's currently held melee weapon to the default.
      */
     public void resetMelee() {
-        this.meleeWeapon.ifPresent(w -> w.drop(this.entity));
         this.meleeWeapon = Optional.empty();
+    }
+
+    /**
+     * Get the player's currently held ranged weapon.
+     *
+     * @return the ranged weapon currently held.
+     */
+    public RangedWeapon getRanged() {
+        return rangedWeapon.orElse(null); // FIXME reset to default
     }
 
     /**
@@ -58,26 +75,7 @@ public class Inventory {
      * Reset the player's currently held ranged weapon to the default.
      */
     public void resetRanged() {
-        this.rangedWeapon.ifPresent(w -> w.drop(this.entity));
         this.rangedWeapon = Optional.empty();
-    }
-
-    /**
-     * Get the player's currently held melee weapon.
-     *
-     * @return the melee weapon currently held.
-     */
-    public MeleeWeapon getMelee() {
-        return meleeWeapon.orElse(null); // FIXME reset to default
-    }
-
-    /**
-     * Get the player's currently held ranged weapon.
-     *
-     * @return the ranged weapon currently held.
-     */
-    public RangedWeapon getRanged() {
-        return rangedWeapon.orElse(null); // FIXME reset to default
     }
 
     /**
@@ -87,5 +85,14 @@ public class Inventory {
      */
     public Array<Collectible> getItems() {
         return new Array<>(items);
+    }
+
+    /**
+     * Add to the list of items.
+     *
+     * @param item The item to add.
+     */
+    public void addItem(Collectible item) {
+        this.items.add(item);
     }
 }

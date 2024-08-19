@@ -13,6 +13,8 @@ public abstract class RangedWeapon implements Collectible {
     public void pickup(Inventory inventory) {
         inventory.setRanged(this);
         inventory.getEntity().getEvents().addListener("shoot", this::shoot);
+
+        // Add a Weapon Component
     }
 
     @Override

@@ -19,7 +19,7 @@ public class InventoryComponent extends Component {
 
     public InventoryComponent() {
         super();
-        this.inventory = new Inventory(this.entity);
+        this.inventory = new Inventory(this);
     }
 
     /**
@@ -38,5 +38,9 @@ public class InventoryComponent extends Component {
      */
     public void drop(Collectible item) {
         item.drop(inventory);
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }

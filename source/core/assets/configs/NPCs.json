@@ -3,10 +3,6 @@
     "health": 40,
     "baseAttack": 10
   },
-  "rat": {
-    "health": 20,
-    "baseAttack": 15,
-  },
   "ghostKing": {
     "health": 100,
     "baseAttack": 25,

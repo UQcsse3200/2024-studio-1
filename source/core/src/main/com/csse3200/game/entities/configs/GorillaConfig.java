@@ -3,7 +3,7 @@ package com.csse3200.game.entities.configs;
 /**
  * Defines gorilla's properties stored in entities config files to be loaded by Entity Factories.
  */
-public class GorillaConfig {
+public class GorillaConfig extends BaseEntityConfig {
     public int health = 30;
     public int speed = 10;
     public int baseAttack = 20;

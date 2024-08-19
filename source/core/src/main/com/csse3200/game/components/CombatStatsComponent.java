@@ -27,7 +27,9 @@ public class CombatStatsComponent extends Component {
     setHealth(health);
     setBaseAttack(baseAttack);
     setSpeed(speed);
-
+    setAttackPerSecond(attackPerSecond);
+    setBurnAttack(burnAttack);
+    setBurnDuration(burnDuration);
   }
 
   /**

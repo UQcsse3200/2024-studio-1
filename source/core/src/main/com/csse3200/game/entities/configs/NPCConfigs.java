@@ -6,4 +6,9 @@ package com.csse3200.game.entities.configs;
 public class NPCConfigs {
   public BaseEntityConfig ghost = new BaseEntityConfig();
   public GhostKingConfig ghostKing = new GhostKingConfig();
+  public RatConfig rat = new RatConfig();
+  public DogConfig dog = new DogConfig();
+  public GorillaConfig gorilla = new GorillaConfig();
+  public CrocodileConfig crocodile = new CrocodileConfig();
+  public BossConfig boss = new BossConfig();
 }

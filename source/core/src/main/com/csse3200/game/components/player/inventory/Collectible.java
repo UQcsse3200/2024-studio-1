@@ -3,8 +3,6 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
 
-import java.util.Optional;
-
 /**
  * An item that can be collected.
  */
@@ -47,8 +45,14 @@ public interface Collectible {
     void unapply(Entity entity);
 
     /**
-     * Apply any effects that should occur immediately upon pickup.
+     * Make the entity pick us up, and apply any effects to them.
      * @param entity The character to apply the effect to.
      */
-    void onPickup(Entity entity);
+    void pickup(Entity entity);
+
+    /**
+     * Remove this collectible from the entity
+     * @param entity The character to remove ourselves from.
+     */
+    void drop(Entity entity);
 }

@@ -5,6 +5,8 @@ import com.csse3200.game.components.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 /**
  * A component intended to be used by the player to track their inventory.
  * <p>
@@ -13,51 +15,30 @@ import org.slf4j.LoggerFactory;
  */
 public class InventoryComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
-    private int gold;
     private final Array<Collectible> items = new Array<>();
-    private MeleeWeapon meleeWeapon; // FIXME this should be set
-    private RangedWeapon rangedWeapon; // FIXME this should be set
+    private Optional<MeleeWeapon> meleeWeapon = Optional.empty();
+    private Optional<RangedWeapon> rangedWeapon = Optional.empty();
 
-    public InventoryComponent(int gold) {
-        setGold(gold);
+    public InventoryComponent() {
+        super();
     }
 
     /**
-     * Returns the player's gold.
+     * Add an item to your inventory.
      *
-     * @return entity's health
+     * @param item The item to add to your inventory
      */
-    public int getGold() {
-        return this.gold;
+    public void pickup(Collectible item) {
+        item.pickup(this.entity);
     }
 
     /**
-     * Returns if the player has a certain amount of gold.
+     * Remove an item to your inventory.
      *
-     * @param gold required amount of gold
-     * @return player has greater than or equal to the required amount of gold
+     * @param item The item to remove from your inventory
      */
-    public Boolean hasGold(int gold) {
-        return this.gold >= gold;
-    }
-
-    /**
-     * Sets the player's gold. Gold has a minimum bound of 0.
-     *
-     * @param gold gold
-     */
-    public void setGold(int gold) {
-        this.gold = Math.max(gold, 0);
-        logger.debug("Setting gold to {}", this.gold);
-    }
-
-    /**
-     * Adds to the player's gold. The amount added can be negative.
-     *
-     * @param gold gold to add
-     */
-    public void addGold(int gold) {
-        setGold(this.gold + gold);
+    public void drop(Collectible item) {
+        item.drop(this.entity);
     }
 
     /**
@@ -66,7 +47,16 @@ public class InventoryComponent extends Component {
      * @param melee the melee weapon to pickup.
      */
     public void setMelee(MeleeWeapon melee) {
-        this.meleeWeapon = melee;
+        resetMelee();
+        this.meleeWeapon = Optional.of(melee);
+    }
+
+    /**
+     * Reset the player's currently held melee weapon to the default.
+     */
+    public void resetMelee() {
+        this.meleeWeapon.ifPresent(w -> w.drop(this.entity));
+        this.meleeWeapon = Optional.empty();
     }
 
     /**
@@ -75,16 +65,16 @@ public class InventoryComponent extends Component {
      * @param ranged the ranged weapon to pickup.
      */
     public void setRanged(RangedWeapon ranged) {
-        this.rangedWeapon = ranged;
+        resetRanged();
+        this.rangedWeapon = Optional.of(ranged);
     }
 
     /**
-     * Add an item to your inventory.
-     *
-     * @param item The item to add to your inventory
+     * Reset the player's currently held ranged weapon to the default.
      */
-    public void addItem(Collectible item) {
-        item.onPickup(this.entity);
+    public void resetRanged() {
+        this.rangedWeapon.ifPresent(w -> w.drop(this.entity));
+        this.rangedWeapon = Optional.empty();
     }
 
     /**
@@ -93,7 +83,7 @@ public class InventoryComponent extends Component {
      * @return the melee weapon currently held.
      */
     public MeleeWeapon getMelee() {
-        return meleeWeapon;
+        return meleeWeapon.orElse(null); // FIXME reset to default
     }
 
     /**
@@ -102,7 +92,7 @@ public class InventoryComponent extends Component {
      * @return the ranged weapon currently held.
      */
     public RangedWeapon getRanged() {
-        return rangedWeapon;
+        return rangedWeapon.orElse(null); // FIXME reset to default
     }
 
     /**

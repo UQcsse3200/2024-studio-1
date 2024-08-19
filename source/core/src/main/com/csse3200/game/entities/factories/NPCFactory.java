@@ -60,7 +60,7 @@ public class NPCFactory {
     animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("death", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     rat
         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))

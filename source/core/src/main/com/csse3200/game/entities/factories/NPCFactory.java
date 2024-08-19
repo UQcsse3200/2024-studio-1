@@ -89,6 +89,7 @@ public class NPCFactory {
                 .getAsset("images/ghostKing.atlas", TextureAtlas.class));
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+//    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     dog
         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))

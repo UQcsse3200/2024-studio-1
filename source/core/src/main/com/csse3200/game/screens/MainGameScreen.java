@@ -3,6 +3,7 @@ package com.csse3200.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.ForestGameArea;
 import com.csse3200.game.areas.terrain.TerrainFactory;
@@ -137,6 +138,19 @@ public class MainGameScreen extends ScreenAdapter {
       }
     }
   }
+
+// Remove any entities that have been marked for removal
+//  private void updateAndCleanupEntities() {
+//    ServiceLocator.getEntityService().update();
+//    Entity[] entities = ServiceLocator.getEntityService().getEntities();
+//    for (int i = entities.length - 1; i >= 0; i--) {
+//      Entity entity = entities[i];
+//      if (entity.getComponent(NPCDamageHandlerComponent.class) != null &&
+//              NPCDamageHandlerComponent.deadAnimals.contains(entity.getId())) {
+//        ServiceLocator.getEntityService().unregister(entity);
+//      }
+//    }
+//  }
 
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and

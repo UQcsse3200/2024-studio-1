@@ -3,33 +3,32 @@ package com.csse3200.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
+import com.csse3200.game.ai.tasks.Task;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
 import com.csse3200.game.rendering.DebugRenderer;
 import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/** Chases a target entity until they get too far away or line of sight is lost */
-public class ChaseTask extends DefaultTask implements PriorityTask {
+public class ChargeTask extends DefaultTask implements PriorityTask {
+  private static final Logger logger = LoggerFactory.getLogger(ChargeTask.class);
   private final Entity target;
   private final int priority;
   private final float viewDistance;
   private final float maxChaseDistance;
   private final float chaseSpeed;
+  private final float stunTime = 2f;
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
   private MovementTask movementTask;
+  private WaitTask waitTask;
+  private Task currentTask;
 
-  /**
-   * @param target The entity to chase.
-   * @param priority Task priority when chasing (0 when not chasing).
-   * @param viewDistance Maximum distance from the entity at which chasing can start.
-   * @param maxChaseDistance Maximum distance from the entity while chasing before giving up.
-   * @param chaseSpeed The speed at which an entity chases at.
-   */
-  public ChaseTask(Entity target, int priority, float viewDistance, float maxChaseDistance, float chaseSpeed) {
+  public ChargeTask(Entity target, int priority, float viewDistance, float maxChaseDistance, float chaseSpeed) {
     this.target = target;
     this.priority = priority;
     this.viewDistance = viewDistance;
@@ -42,36 +41,70 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   @Override
   public void start() {
     super.start();
-    movementTask = new MovementTask(target.getPosition());
-    movementTask.create(owner);
-    movementTask.start();
-    movementTask.setVelocity(chaseSpeed);
-
+    initialiseTasks();
+    startMoving();
     this.owner.getEntity().getEvents().trigger("chaseStart");
   }
 
   @Override
   public void update() {
-    movementTask.setTarget(target.getPosition());
-    movementTask.update();
-    if (movementTask.getStatus() != Status.ACTIVE) {
-      movementTask.start();
+    if (currentTask.getStatus() != Status.ACTIVE) {
+      if (currentTask == movementTask) {
+        this.owner.getEntity().getEvents().trigger("chaseEnd");
+        startWaiting();
+      } else {
+        this.owner.getEntity().getEvents().trigger("chaseStart");
+        startMoving();
+      }
     }
+    currentTask.update();
   }
 
   @Override
   public void stop() {
     super.stop();
-    movementTask.stop();
+    if (currentTask != null) {
+      currentTask.stop();
+    }
   }
 
   @Override
   public int getPriority() {
-    if (status == Status.ACTIVE) {
+    if (status == Task.Status.ACTIVE) {
       return getActivePriority();
     }
-
     return getInactivePriority();
+  }
+
+  private void initialiseTasks() {
+    waitTask = new WaitTask(stunTime);
+    waitTask.create(owner);
+    movementTask = new MovementTask(target.getPosition());
+    movementTask.create(owner);
+    movementTask.start();
+    movementTask.setVelocity(chaseSpeed);
+  }
+
+  private void startMoving() {
+    logger.debug("Starting moving towards {}", target.getPosition());
+    movementTask.setTarget(target.getPosition());
+    swapTask(movementTask);
+  }
+
+  private void startWaiting() {
+    logger.debug("Starting waiting");
+    if (movementTask != null) {
+        movementTask.stop();
+    }
+    swapTask(waitTask);
+  }
+
+  private void swapTask(Task newTask) {
+    if (currentTask != null) {
+      currentTask.stop();
+    }
+    currentTask = newTask;
+    currentTask.start();
   }
 
   private float getDistanceToTarget() {

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 public class PhysicsMovementComponent extends Component implements MovementController {
   private static final Logger logger = LoggerFactory.getLogger(PhysicsMovementComponent.class);
   private Vector2 maxSpeed = Vector2Utils.ONE;
-
   private PhysicsComponent physicsComponent;
   private Vector2 targetPosition;
   private boolean movementEnabled = true;

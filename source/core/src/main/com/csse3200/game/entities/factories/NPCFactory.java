@@ -6,9 +6,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
+import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
+import com.csse3200.game.components.npc.NPCDeathHandler;
+import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.npc.RatAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
+import com.csse3200.game.components.tasks.ChargeTask;
 import com.csse3200.game.components.tasks.ChaseTask;
+import com.csse3200.game.components.tasks.StraightWanderTask;
 import com.csse3200.game.components.tasks.WanderTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.BaseEntityConfig;
@@ -47,8 +52,8 @@ public class NPCFactory {
   public static Entity createRat(Entity target) {
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(6f, 6f), 1f, 1.5f))
-                    .addTask(new ChaseTask(target, 10, 2f, 3f, 1.7f));
+                    .addTask(new StraightWanderTask(2f))
+                    .addTask(new ChaseTask(target, 10, 2f, 3f, 1.5f));
 
     Entity rat = createBaseNPC(aiComponent);
     BaseEntityConfig config = configs.rat;
@@ -60,7 +65,7 @@ public class NPCFactory {
     animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("death", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     rat
         .addComponent(new CombatStatsComponent(
@@ -71,8 +76,11 @@ public class NPCFactory {
                 config.burnAttack,
                 config.burnDuration))
         .addComponent(animator)
-        .addComponent(new RatAnimationController());
-    
+        .addComponent(new RatAnimationController())
+        .addComponent(new NPCHealthBarComponent())
+        .addComponent(new NPCDamageHandlerComponent())
+        .addComponent(new NPCDeathHandler());
+
     rat.getComponent(AnimationRenderComponent.class).scaleEntity();
     return rat;
   }
@@ -87,7 +95,8 @@ public class NPCFactory {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new WanderTask(new Vector2(4f, 4f), 2f, 0.7f))
-                    .addTask(new ChaseTask(target, 10, 4f, 5f, 1.5f));
+                    .addTask(new ChargeTask(target, 10, 5f, 6f, 4f));
+
     Entity dog = createBaseNPC(aiComponent);
     GhostKingConfig config = configs.ghostKing;
 
@@ -97,6 +106,7 @@ public class NPCFactory {
                 .getAsset("images/ghostKing.atlas", TextureAtlas.class));
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+//    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     dog
         .addComponent(new CombatStatsComponent(
@@ -107,7 +117,11 @@ public class NPCFactory {
                 config.burnAttack,
                 config.burnDuration))
         .addComponent(animator)
-        .addComponent(new GhostAnimationController());
+        .addComponent(new GhostAnimationController())
+        .addComponent(new NPCHealthBarComponent())
+        .addComponent(new NPCDamageHandlerComponent())
+        .addComponent(new NPCDeathHandler());
+
 
     dog.getComponent(AnimationRenderComponent.class).scaleEntity();
     return dog;
@@ -143,7 +157,10 @@ public class NPCFactory {
                     config.burnAttack,
                     config.burnDuration))
             .addComponent(animator)
-            .addComponent(new GhostAnimationController());
+            .addComponent(new GhostAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
 
     croc.getComponent(AnimationRenderComponent.class).scaleEntity();
 
@@ -160,7 +177,7 @@ public class NPCFactory {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new WanderTask(new Vector2(3f, 3f), 4f, 0.5f))
-                    .addTask(new ChaseTask(target, 10, 3f, 5f, 1f));
+                    .addTask(new ChaseTask(target, 10, 3f, 7f, 1f));
 
     Entity gorilla = createBaseNPC(aiComponent);
     BaseEntityConfig config = configs.ghost;
@@ -181,12 +198,15 @@ public class NPCFactory {
                     config.burnAttack,
                     config.burnDuration))
             .addComponent(animator)
-            .addComponent(new GhostAnimationController());
+            .addComponent(new GhostAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
 
     gorilla.getComponent(AnimationRenderComponent.class).scaleEntity();
-
     return gorilla;
   }
+
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
@@ -194,15 +214,16 @@ public class NPCFactory {
    * @return entity
    */
   private static Entity createBaseNPC(AITaskComponent aiComponent) {
-
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
-            .addComponent(aiComponent);
-
+            .addComponent(aiComponent)
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;
   }

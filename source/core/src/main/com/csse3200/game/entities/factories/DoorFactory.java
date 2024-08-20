@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.csse3200.game.areas.Room
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.DoorConfig;
 import com.csse3200.game.files.FileLoader;
@@ -13,8 +14,8 @@ public class DoorFactory {
 
         // door config can be implemented later if deigned necessary
 
-        door.addComponent(new TextureRenderComponent("images/items/med_kit.png"));
-        return medKit;
+        door.addComponent(new TextureRenderComponent("images/items/rounded_door.png"));
+        return door;
     }
 
 

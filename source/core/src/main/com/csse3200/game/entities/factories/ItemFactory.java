@@ -25,7 +25,7 @@ public class ItemFactory {
     public Entity create(String specification) {
         return switch (specification){
             case "medkit" -> createMedKit();
-            case "bandaid" -> createBandAid();
+            case "bandaid" -> createBandage();
             case "energydrink" -> createEnergyDrink();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };

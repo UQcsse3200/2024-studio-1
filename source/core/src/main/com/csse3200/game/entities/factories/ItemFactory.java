@@ -16,6 +16,20 @@ public class ItemFactory {
     private static final ItemConfigs configs =
             FileLoader.readClass(ItemConfigs.class, "configs/items.json");
 
+    /**
+     * Creates a specified entity
+     *
+     * @param specification The specification of the item to create.
+     * @return the specified entity
+     */
+    public Entity create(String specification) {
+        return switch (specification){
+            case "medkit" -> createMedKit();
+            case "bandaid" -> createBandAid();
+            case "energydrink" -> createEnergyDrink();
+            default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
+        };
+    }
 
     /**
      * Creates a medKit entity that restores players health

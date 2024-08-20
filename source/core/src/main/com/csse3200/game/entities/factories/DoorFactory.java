@@ -8,8 +8,17 @@ import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 public class DoorFactory {
+    public static Entity createDoor(Room currentRoom, Room nextRoom) {
+        Entity door = createBaseDoor():
 
-    public static createBaseDoor() {
+        // door config can be implemented later if deigned necessary
+
+        door.addComponent(new TextureRenderComponent("images/items/med_kit.png"));
+        return medKit;
+    }
+
+
+    public static Entity createBaseDoor() {
         Entity door =
                 new Entity()
                         .addComponent(new PhysicsComponent())

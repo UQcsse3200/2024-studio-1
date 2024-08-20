@@ -2,9 +2,11 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.ui.UIComponent;
 
 
@@ -13,7 +15,7 @@ import com.csse3200.game.ui.UIComponent;
  */
 public class PlayerInventoryDisplay extends UIComponent {
     private Table inventoryTable;
-    private InventoryComponent inventoryComponent;
+    private InventoryComponent inventoryComponent = new InventoryComponent();
     private Label heading;
 
 
@@ -21,8 +23,8 @@ public class PlayerInventoryDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
-        inventoryComponent = entity.getComponent(InventoryComponent.class); // Ensure the inventory is properly fetched
         addActors();
+        updateInventoryUI();
         entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
         inventoryComponent.getInventory().addItem(new MeleeWeapon() {
             @Override
@@ -40,6 +42,24 @@ public class PlayerInventoryDisplay extends UIComponent {
                 return null;
             }
         });
+        inventoryComponent.getInventory().addItem(new RangedWeapon() {
+            @Override
+            public void shoot(Vector2 direction) {
+                //
+            }
+
+            @Override
+            public String getName() {
+                return "ranged";
+            }
+
+            @Override
+            public Texture getIcon() {
+                return null;
+            }
+        });
+        updateInventoryUI();
+
     }
 
     /**
@@ -52,7 +72,7 @@ public class PlayerInventoryDisplay extends UIComponent {
         inventoryTable.setFillParent(true);
         inventoryTable.padTop(50f).padLeft(5f);
         setHeading();
-        inventoryTable.row();
+        //inventoryTable.row();
         addItems();
 
 
@@ -65,12 +85,15 @@ public class PlayerInventoryDisplay extends UIComponent {
         heading = new Label(headingText, skin, "large");
         inventoryTable.add(heading);
         stage.addActor(inventoryTable);
+        inventoryTable.row();
     }
 
     void addItems() {
         for (Collectible item : inventoryComponent.getInventory().getItems()) {
+
+            System.out.println(item.getName());
             CharSequence itemText = item.getName();
-            Label itemLabel = new Label(itemText, skin, "small");
+            Label itemLabel = new Label(itemText, skin, "large");
             inventoryTable.add(itemLabel).pad(5f);
             inventoryTable.row();
         }

@@ -27,6 +27,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    * @param priority Task priority when chasing (0 when not chasing).
    * @param viewDistance Maximum distance from the entity at which chasing can start.
    * @param maxChaseDistance Maximum distance from the entity while chasing before giving up.
+   * @param chaseSpeed The speed at which an entity chases at.
    */
   public ChaseTask(Entity target, int priority, float viewDistance, float maxChaseDistance, float chaseSpeed) {
     this.target = target;

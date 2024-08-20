@@ -5,6 +5,7 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerStatsDisplay;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.components.player.WeaponComponent.WeaponType;
 import com.csse3200.game.entities.Entity;
@@ -53,6 +54,7 @@ public class PlayerFactory {
             .addComponent(new InventoryComponent())
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
+                .addComponent(new PlayerInventoryDisplay())
             .addComponent(new WeaponComponent(weaponSprite, weaponType, 10, 10, 10, 10, 10, 10));
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);

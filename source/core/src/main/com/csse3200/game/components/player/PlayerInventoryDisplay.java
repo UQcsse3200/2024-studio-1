@@ -1,17 +1,11 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.*;
-import com.csse3200.game.components.player.inventory.Inventory;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
-import com.badlogic.gdx.utils.Array;
+
 
 /**
  * A UI component for displaying the player's inventory (items and weapons).
@@ -34,10 +28,24 @@ public class PlayerInventoryDisplay extends UIComponent {
      * This will set up the initial layout of the inventory UI.
      */
     private void addActors() {
+        inventoryTable = new Table();
+        inventoryTable.bottom().left();
+        inventoryTable.setFillParent(true);
+        inventoryTable.padTop(50f).padLeft(5f);
+        setHeading();
+
 
         // Initial UI update
 
     }
+
+    void setHeading() {
+        CharSequence headingText = "Collected";
+        heading = new Label(headingText, skin, "large");
+        inventoryTable.add(heading);
+        stage.addActor(inventoryTable);
+    }
+
 
     /**
      * Updates the inventory UI with the current items and weapons the player has.
@@ -55,7 +63,6 @@ public class PlayerInventoryDisplay extends UIComponent {
     @Override
     public void dispose() {
         super.dispose();
-        inventoryTable.clear();
         heading.remove();
     }
 }

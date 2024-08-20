@@ -1,5 +1,6 @@
 package com.csse3200.game.components.player;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -15,12 +16,30 @@ public class PlayerInventoryDisplay extends UIComponent {
     private InventoryComponent inventoryComponent;
     private Label heading;
 
+
+
     @Override
     public void create() {
         super.create();
         inventoryComponent = entity.getComponent(InventoryComponent.class); // Ensure the inventory is properly fetched
         addActors();
         entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
+        inventoryComponent.getInventory().addItem(new MeleeWeapon() {
+            @Override
+            public void attack() {
+                //
+            }
+
+            @Override
+            public String getName() {
+                return "Melee";
+            }
+
+            @Override
+            public Texture getIcon() {
+                return null;
+            }
+        });
     }
 
     /**
@@ -33,6 +52,8 @@ public class PlayerInventoryDisplay extends UIComponent {
         inventoryTable.setFillParent(true);
         inventoryTable.padTop(50f).padLeft(5f);
         setHeading();
+        inventoryTable.row();
+        addItems();
 
 
         // Initial UI update
@@ -40,10 +61,19 @@ public class PlayerInventoryDisplay extends UIComponent {
     }
 
     void setHeading() {
-        CharSequence headingText = "Collected";
+        CharSequence headingText = "Collected: ";
         heading = new Label(headingText, skin, "large");
         inventoryTable.add(heading);
         stage.addActor(inventoryTable);
+    }
+
+    void addItems() {
+        for (Collectible item : inventoryComponent.getInventory().getItems()) {
+            CharSequence itemText = item.getName();
+            Label itemLabel = new Label(itemText, skin, "small");
+            inventoryTable.add(itemLabel).pad(5f);
+            inventoryTable.row();
+        }
     }
 
 
@@ -52,6 +82,9 @@ public class PlayerInventoryDisplay extends UIComponent {
      * This method will clear the existing inventory and repopulate it.
      */
     public void updateInventoryUI() {
+        inventoryTable.clear();
+        setHeading();
+        addItems();
 
     }
 

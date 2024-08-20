@@ -30,6 +30,7 @@ public class MapFactory {
 
     public static String getPlayerLocation() {
         return mapData.player_location;
+        //return Integer.parseInt(mapData.player_location);
     }
 
     public static long getSeed() {

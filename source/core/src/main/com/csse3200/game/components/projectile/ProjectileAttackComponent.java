@@ -1,5 +1,6 @@
 package com.csse3200.game.components.projectile;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.components.CombatStatsComponent;
@@ -12,15 +13,16 @@ import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 /**
- * NOTE - this component does not override create() this component is triggered by an owner event.
- *        Event will "autoCreate".
- *        This allows many projectiles to be triggered at once like a shotgun or a pack of animals.
+ *  This component is triggered by an owner event "shootProjectile".
+ *  This allows many entities to trigger the same projectile.
+ *  Projectile is disposed after colliding being triggered once.
  */
 
 public class ProjectileAttackComponent extends Component {
 
     private final short targetLayer;
     private final int owner;
+    private boolean hasShot = false;
     private CombatStatsComponent combatStats;
     private HitboxComponent hitboxComponent;
 
@@ -42,16 +44,24 @@ public class ProjectileAttackComponent extends Component {
 
     private void autoCreate(int callerId, Vector2 position, Vector2 direction) {
 
+        if (hasShot) {
+            // projectile is currently in flight.
+            return;
+        }
+
         if (owner != callerId) {
            // is this not my owner.
             return;
         }
 
+        // don't shoot again
+        hasShot = true;
+
         // Move to the owner.
         entity.setPosition(position);
 
         // Render.
-        entity.getComponent(TextureRenderComponent.class).create();
+        entity.getComponent(TextureRenderComponent.class).render(new SpriteBatch());
 
         // Move in a line.
         entity.getComponent(PhysicsMovementComponent.class).setEntity(entity);
@@ -64,7 +74,11 @@ public class ProjectileAttackComponent extends Component {
         hitboxComponent = entity.getComponent(HitboxComponent.class);
     }
 
-
+    /**
+     * Event driven. Attacks then cleans up.
+     * @param me - The entity doing the hit.
+     * @param other - The entity being hit.
+     */
     private void onCollisionStart(Fixture me, Fixture other) {
         if (hitboxComponent.getFixture() != me) {
             // Not triggered by not my hotbox, ignore.
@@ -85,7 +99,8 @@ public class ProjectileAttackComponent extends Component {
             targetStats.hit(combatStats);
         }
 
-        // ########################## clean up the projectile. - unsure about first two dispose()
+        // ########################## clean up the projectile.
+        // unsure about first two dispose() - think last might be enough.
 
         entity.getComponent(TextureRenderComponent.class).dispose();
         entity.getComponent(PhysicsMovementComponent.class).dispose();

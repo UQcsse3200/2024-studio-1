@@ -6,6 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
+import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
+import com.csse3200.game.components.npc.NPCDeathHandler;
+import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.npc.RatAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.ChaseTask;
@@ -45,12 +48,8 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createRat(Entity target) {
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(6f, 6f), 1f, 1.5f))
-                    .addTask(new ChaseTask(target, 10, 2f, 3f, 1.7f));
 
-    Entity rat = createBaseNPC(aiComponent);
+    Entity rat = createBaseNPC(target);
     BaseEntityConfig config = configs.rat;
 
     AnimationRenderComponent animator =
@@ -65,8 +64,11 @@ public class NPCFactory {
     rat
         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
         .addComponent(animator)
-        .addComponent(new RatAnimationController());
-    
+        .addComponent(new RatAnimationController())
+        .addComponent(new NPCHealthBarComponent())
+        .addComponent(new NPCDamageHandlerComponent())
+        .addComponent(new NPCDeathHandler());
+
     rat.getComponent(AnimationRenderComponent.class).scaleEntity();
     return rat;
   }
@@ -78,11 +80,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createDog(Entity target) {
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(4f, 4f), 2f, 0.7f))
-                    .addTask(new ChaseTask(target, 10, 4f, 5f, 1.5f));
-    Entity dog = createBaseNPC(aiComponent);
+    Entity dog = createBaseNPC(target);
     GhostKingConfig config = configs.ghostKing;
 
     AnimationRenderComponent animator =
@@ -91,11 +89,16 @@ public class NPCFactory {
                 .getAsset("images/ghostKing.atlas", TextureAtlas.class));
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+//    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     dog
         .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
         .addComponent(animator)
-        .addComponent(new GhostAnimationController());
+        .addComponent(new GhostAnimationController())
+        .addComponent(new NPCHealthBarComponent())
+        .addComponent(new NPCDamageHandlerComponent())
+        .addComponent(new NPCDeathHandler());
+
 
     dog.getComponent(AnimationRenderComponent.class).scaleEntity();
     return dog;
@@ -108,12 +111,8 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createCroc(Entity target) {
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(1.5f, 1.5f), 5f, 0.1f))
-                    .addTask(new ChaseTask(target, 10, 2f, 2f, 0.2f));
 
-    Entity croc = createBaseNPC(aiComponent);
+    Entity croc = createBaseNPC(target);
     BaseEntityConfig config = configs.ghost;
 
     AnimationRenderComponent animator =
@@ -125,7 +124,11 @@ public class NPCFactory {
     croc
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
-            .addComponent(new GhostAnimationController());
+            .addComponent(new GhostAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
+
 
     croc.getComponent(AnimationRenderComponent.class).scaleEntity();
 
@@ -138,13 +141,9 @@ public class NPCFactory {
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createGorilla(Entity target) {
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(3f, 3f), 4f, 0.5f))
-                    .addTask(new ChaseTask(target, 10, 3f, 5f, 1f));
+  public static Entity createGhostKing(Entity target) {
 
-    Entity gorilla = createBaseNPC(aiComponent);
+    Entity ghostKing = createBaseNPC(target);
     BaseEntityConfig config = configs.ghost;
 
     AnimationRenderComponent animator =
@@ -154,14 +153,18 @@ public class NPCFactory {
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
-    gorilla
+    ghostKing
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
-            .addComponent(new GhostAnimationController());
+            .addComponent(new GhostAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
 
-    gorilla.getComponent(AnimationRenderComponent.class).scaleEntity();
 
-    return gorilla;
+    ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
+
+    return ghostKing;
   }
 
   /**
@@ -169,15 +172,22 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC(AITaskComponent aiComponent) {
-
-    Entity npc = new Entity()
-            .addComponent(new PhysicsComponent())
-            .addComponent(new PhysicsMovementComponent())
-            .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
-            .addComponent(aiComponent);
+  private static Entity createBaseNPC(Entity target) {
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+                    .addTask(new ChaseTask(target, 10, 3f, 4f));
+    Entity npc =
+            new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent())
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+                    .addComponent(aiComponent)
+                    .addComponent(new NPCHealthBarComponent())
+                    .addComponent(new NPCDamageHandlerComponent())
+                    .addComponent(new NPCDeathHandler());
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;

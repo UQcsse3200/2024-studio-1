@@ -8,32 +8,32 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
  * of the events is triggered.
  */
 public class RatAnimationController extends Component {
-  AnimationRenderComponent animator;
+    AnimationRenderComponent animator;
 
-  @Override
-  public void create() {
-    super.create();
-    animator = this.entity.getComponent(AnimationRenderComponent.class);
-    entity.getEvents().addListener("idle", this::animateIdle);
-    entity.getEvents().addListener("gesture", this::animateGesture);
-    entity.getEvents().addListener("walk", this::animateWalk);
-    entity.getEvents().addListener("attack", this::animateAttack);
-    entity.getEvents().addListener("death", this::animateDeath);
-  }
+    @Override
+    public void create() {
+        super.create();
+        animator = this.entity.getComponent(AnimationRenderComponent.class);
+        entity.getEvents().addListener("idle", this::animateIdle);
+        entity.getEvents().addListener("gesture", this::animateGesture);
+        entity.getEvents().addListener("walk", this::animateWalk);
+        entity.getEvents().addListener("attack", this::animateAttack);
+        entity.getEvents().addListener("death", this::animateDeath);
+    }
 
-  void animateIdle() {
-    animator.startAnimation("idle");
-  }
-  void animateGesture() {
-    animator.startAnimation("gesture");
-  }
-  void animateWalk() {
-    animator.startAnimation("walk");
-  }
-  void animateAttack() {
-    animator.startAnimation("attack");
-  }
-  void animateDeath() {
-    animator.startAnimation("death");
-  }
+    void animateIdle() {
+        animator.startAnimation("idle");
+    }
+    void animateGesture() {
+        animator.startAnimation("gesture");
+    }
+    void animateWalk() {
+        animator.startAnimation("walk");
+    }
+    void animateAttack() {
+        animator.startAnimation("attack");
+    }
+    void animateDeath() {
+        animator.startAnimation("death");
+    }
 }

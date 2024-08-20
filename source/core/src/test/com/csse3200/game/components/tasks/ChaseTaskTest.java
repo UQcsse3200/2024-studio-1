@@ -38,7 +38,7 @@ class ChaseTaskTest {
     Entity target = new Entity();
     target.setPosition(2f, 2f);
 
-    AITaskComponent ai = new AITaskComponent().addTask(new ChaseTask(target, 10, 5, 10, 1));
+    AITaskComponent ai = new AITaskComponent().addTask(new ChaseTask(target, 10, 5, 10));
     Entity entity = makePhysicsEntity().addComponent(ai);
     entity.create();
     entity.setPosition(0f, 0f);
@@ -63,7 +63,7 @@ class ChaseTaskTest {
     entity.create();
     entity.setPosition(0f, 0f);
 
-    ChaseTask chaseTask = new ChaseTask(target, 10, 5, 10, 1);
+    ChaseTask chaseTask = new ChaseTask(target, 10, 5, 10);
     chaseTask.create(() -> entity);
 
     // Not currently active, target is too far, should have negative priority
@@ -85,7 +85,7 @@ class ChaseTaskTest {
 
   private Entity makePhysicsEntity() {
     return new Entity()
-        .addComponent(new PhysicsComponent())
-        .addComponent(new PhysicsMovementComponent());
+            .addComponent(new PhysicsComponent())
+            .addComponent(new PhysicsMovementComponent());
   }
 }

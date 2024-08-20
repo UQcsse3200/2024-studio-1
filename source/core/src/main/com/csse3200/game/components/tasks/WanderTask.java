@@ -17,6 +17,7 @@ public class WanderTask extends DefaultTask implements PriorityTask {
 
   private final Vector2 wanderRange;
   private final float waitTime;
+  private final float wonderSpeed;
   private Vector2 startPos;
   private MovementTask movementTask;
   private WaitTask waitTask;
@@ -26,10 +27,12 @@ public class WanderTask extends DefaultTask implements PriorityTask {
    * @param wanderRange Distance in X and Y the entity can move from its position when start() is
    *     called.
    * @param waitTime How long in seconds to wait between wandering.
+   * @param wonderSpeed The speed an entity wanders at.
    */
-  public WanderTask(Vector2 wanderRange, float waitTime) {
+  public WanderTask(Vector2 wanderRange, float waitTime, float wonderSpeed) {
     this.wanderRange = wanderRange;
     this.waitTime = waitTime;
+    this.wonderSpeed = wonderSpeed;
   }
 
   @Override
@@ -46,8 +49,8 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     waitTask.create(owner);
     movementTask = new MovementTask(getRandomPosInRange());
     movementTask.create(owner);
-
     movementTask.start();
+    movementTask.setVelocity(wonderSpeed);
     currentTask = movementTask;
 
     this.owner.getEntity().getEvents().trigger("wanderStart");

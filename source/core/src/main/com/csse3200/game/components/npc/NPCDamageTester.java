@@ -12,6 +12,7 @@ public class NPCDamageTester {
      * This method can be called periodically to simulate damage to NPCs.
      */
     public static void testNPCDamage() {
+        // Test method to apply damage to NPCs every 5 seconds
         Entity[] entities = ServiceLocator.getEntityService().getEntities();
         for (Entity entity : entities) {
             NPCDamageHandlerComponent damageHandler = entity.getComponent(NPCDamageHandlerComponent.class);

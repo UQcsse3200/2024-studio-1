@@ -8,6 +8,10 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.rendering.RenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
+/**
+ * This component renders a health bar for NPCs.
+ * It displays the current health as a percentage of maximum health above the NPC.
+ */
 public class NPCHealthBarComponent extends RenderComponent {
     private static final float WIDTH = 1f;
     private static final float HEIGHT = 0.1f;
@@ -19,6 +23,7 @@ public class NPCHealthBarComponent extends RenderComponent {
     @Override
     public void create() {
         super.create();
+        // Get the CombatStatsComponent and initialize the ShapeRenderer
         combatStats = entity.getComponent(CombatStatsComponent.class);
         shapeRenderer = new ShapeRenderer();
     }
@@ -27,19 +32,21 @@ public class NPCHealthBarComponent extends RenderComponent {
     public void draw(SpriteBatch batch) {
         batch.end();
 
+        // Set up the projection matrix for rendering
         Matrix4 projectionMatrix = batch.getProjectionMatrix().cpy();
         shapeRenderer.setProjectionMatrix(projectionMatrix);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
+        // Calculate health percentage and position
         float healthPercentage = (float) combatStats.getHealth() / combatStats.getMaxHealth();
         float x = entity.getPosition().x;
         float y = entity.getPosition().y + OFFSET_Y;
 
-        // Draw background
+        // Draw background (red)
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.rect(x, y, WIDTH, HEIGHT);
 
-        // Draw health
+        // Draw health (green)
         shapeRenderer.setColor(Color.GREEN);
         shapeRenderer.rect(x, y, WIDTH * healthPercentage, HEIGHT);
 

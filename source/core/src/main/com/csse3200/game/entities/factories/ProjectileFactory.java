@@ -1,11 +1,7 @@
 package com.csse3200.game.entities.factories;
-import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.ai.tasks.AITaskComponent;
+
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
-import com.csse3200.game.components.tasks.ChaseTask;
-import com.csse3200.game.components.tasks.MovementTask;
-import com.csse3200.game.components.tasks.WanderTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.physics.PhysicsUtils;

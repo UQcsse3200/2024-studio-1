@@ -9,5 +9,6 @@ public class ProjectileConfig extends BaseEntityConfig{
     public float scaleY = 0.3f;
     public String projectileTexturePath = "images/ghost.atlas";
     public short Layer = PhysicsLayer.PLAYER;
+    public int weaponID = 0;
 
 }

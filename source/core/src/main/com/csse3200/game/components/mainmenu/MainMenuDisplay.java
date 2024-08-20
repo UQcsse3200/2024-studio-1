@@ -7,10 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.csse3200.game.components.mainmenu.MainMenuActions.Difficulty;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.EnumMap;
 
 /**
  * A ui component for displaying the Main menu.
@@ -36,6 +39,10 @@ public class MainMenuDisplay extends UIComponent {
         );
 
         TextButton startBtn = new TextButton("Start", skin);
+        EnumMap<Difficulty, TextButton> difficultyBtns = new EnumMap<>(Difficulty.class);
+        for (Difficulty diff : Difficulty.values()) {
+            difficultyBtns.put(diff, new TextButton(diff.toString(), skin));
+        }
         TextButton loadBtn = new TextButton("Load", skin);
         TextButton settingsBtn = new TextButton("Settings", skin);
         TextButton exitBtn = new TextButton("Exit", skin);
@@ -80,6 +87,12 @@ public class MainMenuDisplay extends UIComponent {
         table.add(title);
         table.row();
         table.add(startBtn).padTop(30f);
+        table.row();
+        Table diffBtnsTable = new Table();
+        for (TextButton btn : difficultyBtns.values()) {
+            diffBtnsTable.add(btn).spaceLeft(15f).spaceRight(15f);
+        }
+        table.add(diffBtnsTable).padTop(15f);
         table.row();
         table.add(loadBtn).padTop(15f);
         table.row();

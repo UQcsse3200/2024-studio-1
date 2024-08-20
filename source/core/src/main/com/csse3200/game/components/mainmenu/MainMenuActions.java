@@ -62,7 +62,22 @@ public class MainMenuActions extends Component {
      * other features in the future.
      */
     public enum Difficulty {
-        EASY, MEDIUM, HARD
+        EASY {
+            @Override
+            public String toString() {
+                return "Easy";
+            }
+        }, MEDIUM {
+            @Override
+            public String toString() {
+                return "Medium";
+            }
+        }, HARD {
+            @Override
+            public String toString() {
+                return "Hard";
+            }
+        }
     }
 
 }

@@ -42,12 +42,11 @@ public class ProjectileFactory {
 
         Entity projectile =
                 new Entity()
-                        .addComponent(new TextureRenderComponent(stats.projectileTexturePath))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(stats.Layer))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(owner, stats.Layer))
+                        .addComponent(new ProjectileAttackComponent(owner, stats.Layer, stats.projectileTexturePath))
                         .addComponent(new PhysicsMovementComponent());
 
 

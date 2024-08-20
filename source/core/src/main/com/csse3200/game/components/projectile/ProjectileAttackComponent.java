@@ -1,10 +1,11 @@
 package com.csse3200.game.components.projectile;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.csse3200.game.ai.tasks.TaskRunner;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.tasks.MovementTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -18,13 +19,15 @@ import com.csse3200.game.rendering.TextureRenderComponent;
  *  Projectile is disposed after colliding being triggered once.
  */
 
-public class ProjectileAttackComponent extends Component {
+public class ProjectileAttackComponent extends Component implements TaskRunner{
 
     private final short targetLayer;
     private final int owner;
     private boolean hasShot = false;
     private CombatStatsComponent combatStats;
     private HitboxComponent hitboxComponent;
+    private String renderPath;
+
 
 
     /**
@@ -33,45 +36,34 @@ public class ProjectileAttackComponent extends Component {
      * @param ownerId The owner entity id via entity.getId() only this entity can shoot this projectile.
      *
      */
-    public ProjectileAttackComponent(int ownerId, short layer) {
+    public ProjectileAttackComponent(int ownerId, short layer, String renderPath) {
+        this.renderPath = renderPath;
         owner = ownerId;
         targetLayer = layer;
+        combatStats = entity.getComponent(CombatStatsComponent.class);
+        hitboxComponent = entity.getComponent(HitboxComponent.class);
         entity.getEvents().addListener("shootProjectile", this::autoCreate);
 
     }
 
 
-
     private void autoCreate(int callerId, Vector2 position, Vector2 direction) {
 
-        if (hasShot) {
-            // projectile is currently in flight.
+        if (hasShot || owner != callerId) {
+            // I'm already in flight, or it wasn't my owner's event.
             return;
         }
 
-        if (owner != callerId) {
-           // is this not my owner.
-            return;
-        }
-
-        // don't shoot again
         hasShot = true;
 
-        // Move to the owner.
         entity.setPosition(position);
+        entity.addComponent(new TextureRenderComponent(renderPath));
 
-        // Render.
-        entity.getComponent(TextureRenderComponent.class).render(new SpriteBatch());
+        MovementTask move = new MovementTask(direction);
+        move.create(this);
+        move.start();
 
-        // Move in a line.
-        entity.getComponent(PhysicsMovementComponent.class).setEntity(entity);
-        entity.getComponent(PhysicsMovementComponent.class).setTarget(direction);
-        entity.getComponent(PhysicsMovementComponent.class).setMoving(true);
-
-        // Listen on collisions.
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
-        combatStats = entity.getComponent(CombatStatsComponent.class);
-        hitboxComponent = entity.getComponent(HitboxComponent.class);
     }
 
     /**
@@ -86,10 +78,9 @@ public class ProjectileAttackComponent extends Component {
         }
 
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
-            // Doesn't match our target layer, ignore
+            // Doesn't match our target layer, ignore.
             return;
         }
-
 
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
         CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
@@ -99,11 +90,9 @@ public class ProjectileAttackComponent extends Component {
             targetStats.hit(combatStats);
         }
 
-        // ########################## clean up the projectile.
-        // unsure about first two dispose() - think last might be enough.
 
         entity.getComponent(TextureRenderComponent.class).dispose();
-        entity.getComponent(PhysicsMovementComponent.class).dispose();
+
         entity.dispose();
     }
 

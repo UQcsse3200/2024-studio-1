@@ -1,9 +1,6 @@
 package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.Array;
-import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.Inventory;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.entities.Entity;
@@ -19,7 +16,7 @@ class InventoryComponentTest {
   @Test
   public void baseTest(){
     InventoryComponent inventoryComponent = new InventoryComponent();
-    Entity entity = new Entity().addComponent(inventoryComponent);
+    new Entity().addComponent(inventoryComponent);
     MeleeWeapon meleeWeapon = new MeleeWeapon() {
       @Override
       public void attack() {
@@ -38,10 +35,11 @@ class InventoryComponentTest {
     };
 
     inventoryComponent.pickup(meleeWeapon);
-    assertEquals(meleeWeapon, inventoryComponent.getInventory().getMelee());
+    assertTrue(inventoryComponent.getInventory().getMelee().isPresent());
+    assertEquals(meleeWeapon, inventoryComponent.getInventory().getMelee().get());
 
     inventoryComponent.getInventory().resetMelee();
-    assertNull(inventoryComponent.getInventory().getMelee());
+    assertTrue(inventoryComponent.getInventory().getMelee().isEmpty());
   }
 
 }

@@ -57,27 +57,4 @@ public class MainMenuActions extends Component {
         game.setScreen(GdxGame.ScreenType.SETTINGS);
     }
 
-    /**
-     * The difficulty of the game. Will likely affect map creation (number of rooms). May affect
-     * other features in the future.
-     */
-    public enum Difficulty {
-        EASY {
-            @Override
-            public String toString() {
-                return "Easy";
-            }
-        }, MEDIUM {
-            @Override
-            public String toString() {
-                return "Medium";
-            }
-        }, HARD {
-            @Override
-            public String toString() {
-                return "Hard";
-            }
-        }
-    }
-
 }

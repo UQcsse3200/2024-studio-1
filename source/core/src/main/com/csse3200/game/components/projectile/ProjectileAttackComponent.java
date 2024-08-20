@@ -1,14 +1,22 @@
-package com.csse3200.game.components;
+package com.csse3200.game.components.projectile;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.Component;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.rendering.TextureRenderComponent;
 
+/**
+ * NOTE - this component does not override create() this component is triggered by an owner event.
+ *        Event will "autoCreate".
+ *        This allows many projectiles to be triggered at once like a shotgun or a pack of animals.
+ */
 
-public class projectileAttackComponent extends Component {
+public class ProjectileAttackComponent extends Component {
 
     private final short targetLayer;
     private final int owner;
@@ -16,14 +24,13 @@ public class projectileAttackComponent extends Component {
     private HitboxComponent hitboxComponent;
 
 
-
     /**
-     * when this Entity is made it listens to be shot by its owner, when shot
+     * when this Entity is made it listens to be shot by its owner.
      * @param layer The physics layer of the target's collider.
      * @param ownerId The owner entity id via entity.getId() only this entity can shoot this projectile.
      *
      */
-    public projectileAttackComponent(int ownerId, short layer) {
+    public ProjectileAttackComponent(int ownerId, short layer) {
         owner = ownerId;
         targetLayer = layer;
         entity.getEvents().addListener("shootProjectile", this::autoCreate);
@@ -40,6 +47,10 @@ public class projectileAttackComponent extends Component {
         }
 
         // #################### render and shoot the projectile - here.
+
+        entity.getComponent(TextureRenderComponent.class).create();
+
+
 
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         combatStats = entity.getComponent(CombatStatsComponent.class);

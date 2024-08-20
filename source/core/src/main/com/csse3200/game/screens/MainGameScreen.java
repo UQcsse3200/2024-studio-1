@@ -3,10 +3,13 @@ package com.csse3200.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.ForestGameArea;
 import com.csse3200.game.areas.terrain.TerrainFactory;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.factories.RenderFactory;
@@ -75,6 +78,11 @@ public class MainGameScreen extends ScreenAdapter {
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
     renderer.render();
+
+    // Test NPC damage every 5 seconds
+    if (ServiceLocator.getTimeSource().getTime() % 5 < 0.1f) {
+      testNPCDamage();
+    }
   }
 
   @Override
@@ -119,6 +127,30 @@ public class MainGameScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
   }
+
+  private void testNPCDamage() {
+    Entity[] entities = ServiceLocator.getEntityService().getEntities();
+    for (Entity entity : entities) {
+      NPCDamageHandlerComponent damageHandler = entity.getComponent(NPCDamageHandlerComponent.class);
+      if (damageHandler != null) {
+        int damageAmount = 1; // Adjust as needed
+        entity.getEvents().trigger("takeDamage", damageAmount);
+      }
+    }
+  }
+
+// Remove any entities that have been marked for removal
+//  private void updateAndCleanupEntities() {
+//    ServiceLocator.getEntityService().update();
+//    Entity[] entities = ServiceLocator.getEntityService().getEntities();
+//    for (int i = entities.length - 1; i >= 0; i--) {
+//      Entity entity = entities[i];
+//      if (entity.getComponent(NPCDamageHandlerComponent.class) != null &&
+//              NPCDamageHandlerComponent.deadAnimals.contains(entity.getId())) {
+//        ServiceLocator.getEntityService().unregister(entity);
+//      }
+//    }
+//  }
 
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and

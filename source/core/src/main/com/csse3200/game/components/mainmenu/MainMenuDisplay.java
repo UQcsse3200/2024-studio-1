@@ -22,6 +22,8 @@ public class MainMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
+    /** A nested table that contains the buttons for difficulty selection */
+    private Table diffBtnsTable;
 
     @Override
     public void create() {
@@ -37,6 +39,7 @@ public class MainMenuDisplay extends UIComponent {
                         "images/box_boy_title.png", Texture.class
                 )
         );
+        diffBtnsTable = new Table();
 
         TextButton startBtn = new TextButton("Start", skin);
         EnumMap<Difficulty, TextButton> difficultyBtns = new EnumMap<>(Difficulty.class);
@@ -88,7 +91,6 @@ public class MainMenuDisplay extends UIComponent {
         table.row();
         table.add(startBtn).padTop(30f);
         table.row();
-        Table diffBtnsTable = new Table();
         for (TextButton btn : difficultyBtns.values()) {
             diffBtnsTable.add(btn).spaceLeft(15f).spaceRight(15f);
         }
@@ -116,6 +118,7 @@ public class MainMenuDisplay extends UIComponent {
     @Override
     public void dispose() {
         table.clear();
+        diffBtnsTable.clear();
         super.dispose();
     }
 

@@ -1,12 +1,9 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.*;
-import com.csse3200.game.entities.Entity;
 import com.csse3200.game.ui.UIComponent;
 
 
@@ -15,51 +12,21 @@ import com.csse3200.game.ui.UIComponent;
  */
 public class PlayerInventoryDisplay extends UIComponent {
     private Table inventoryTable;
-    private InventoryComponent inventoryComponent = new InventoryComponent();
+    private final InventoryComponent inventoryComponent;
     private Label heading;
 
-
+    public PlayerInventoryDisplay(InventoryComponent inventoryComponent) {
+        this.inventoryComponent = inventoryComponent;
+    }
 
     @Override
     public void create() {
         super.create();
         addActors();
         updateInventoryUI();
-        entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
-        inventoryComponent.getInventory().addItem(new MeleeWeapon() {
-            @Override
-            public void attack() {
-                //
-            }
-
-            @Override
-            public String getName() {
-                return "Melee";
-            }
-
-            @Override
-            public Texture getIcon() {
-                return null;
-            }
-        });
-        inventoryComponent.getInventory().addItem(new RangedWeapon() {
-            @Override
-            public void shoot(Vector2 direction) {
-                //
-            }
-
-            @Override
-            public String getName() {
-                return "ranged";
-            }
-
-            @Override
-            public Texture getIcon() {
-                return null;
-            }
-        });
-        updateInventoryUI();
-
+        if (entity.getEvents() != null) {
+            entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
+        }
     }
 
     /**
@@ -72,11 +39,7 @@ public class PlayerInventoryDisplay extends UIComponent {
         inventoryTable.setFillParent(true);
         inventoryTable.padTop(50f).padLeft(5f);
         setHeading();
-        //inventoryTable.row();
         addItems();
-
-
-        // Initial UI update
 
     }
 
@@ -91,7 +54,6 @@ public class PlayerInventoryDisplay extends UIComponent {
     void addItems() {
         for (Collectible item : inventoryComponent.getInventory().getItems()) {
 
-            System.out.println(item.getName());
             CharSequence itemText = item.getName();
             Label itemLabel = new Label(itemText, skin, "large");
             inventoryTable.add(itemLabel).pad(5f);
@@ -119,6 +81,15 @@ public class PlayerInventoryDisplay extends UIComponent {
     @Override
     public void dispose() {
         super.dispose();
-        heading.remove();
+        if (heading != null) {
+            heading.remove();
+        }
+        if (inventoryTable != null) {
+            inventoryTable.remove();
+        }
+    }
+
+    public Table getInventoryTable() {
+        return inventoryTable;
     }
 }

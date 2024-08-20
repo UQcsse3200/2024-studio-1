@@ -18,7 +18,7 @@ public class ItemFactory {
 
 
     /**
-     * Creates a medKit entity
+     * Creates a medKit entity that restores players health
      * @return medKit entity
      */
     public static Entity createMedKit() {
@@ -30,7 +30,7 @@ public class ItemFactory {
     }
 
     /**
-     * Creates a bandAid entity
+     * Creates a bandage entity that provides minimal health restoration to player
      * @return bandAid entity
      */
     public static Entity createBandage() {
@@ -42,7 +42,7 @@ public class ItemFactory {
     }
 
     /**
-     * Creates an energyDrink entity
+     * Creates an energyDrink entity that increases the players movement speed
      * @return energyDrink entity
      */
     public static Entity createEnergyDrink() {
@@ -54,7 +54,8 @@ public class ItemFactory {
     }
 
     /**
-     * Creates a shieldPotion entity
+     * Creates a shieldPotion entity that provides the player with immunity,
+     * negating the next two hits the player takes
      * @return shieldPotion entity
      */
     public static Entity createShieldPotion() {

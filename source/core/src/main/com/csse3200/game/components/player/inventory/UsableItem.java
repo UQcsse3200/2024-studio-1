@@ -16,6 +16,11 @@ public abstract class UsableItem implements Collectible {
         // Add anything needed to add to the user upon pickup.
     }
 
+    @Override
+    public String getSpecification() {
+        return "item:";
+    }
+
     /**
      * Apply any effects this item does upon use.
      */

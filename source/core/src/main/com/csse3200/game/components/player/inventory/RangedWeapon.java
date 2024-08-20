@@ -1,7 +1,6 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.entities.Entity;
 
 public abstract class RangedWeapon implements Collectible {
     @Override
@@ -22,8 +21,14 @@ public abstract class RangedWeapon implements Collectible {
         inventory.resetRanged();
     }
 
+    @Override
+    public String getSpecification() {
+        return "ranged:";
+    }
+
     /**
      * Fire this weapon.
+     *
      * @param direction The direction to fire it.
      */
     public abstract void shoot(Vector2 direction);

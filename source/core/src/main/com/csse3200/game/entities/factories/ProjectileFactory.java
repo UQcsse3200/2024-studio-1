@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.projectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.physics.PhysicsUtils;
@@ -24,10 +25,12 @@ public class ProjectileFactory {
     /**
      * makes a new Entity with projectile components.
      *
-     * @param stats - defines a projectile via a config object - can write from .json .
+     * @param stats - defines a projectile, will be reused often.
+     * @param owner - the entity.getId() that would like to trigger this projectile to shoot.
+     *
      * @return Entity projectile
      */
-    public Entity createProjectile(ProjectileConfig stats) {
+    public Entity createProjectile(ProjectileConfig stats, int owner) {
 
         Entity projectile =
                 new Entity()
@@ -35,8 +38,9 @@ public class ProjectileFactory {
                         .addComponent(new PhysicsComponent())
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(stats.Layer))
-                        .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack));
-        // needs a projectileAttackComponent to be made
+                        .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
+                        .addComponent(new projectileAttackComponent(owner, stats.Layer));
+
 
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
         projectile.getComponent(ColliderComponent.class).setDensity(1.5f);

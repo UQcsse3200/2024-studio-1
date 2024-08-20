@@ -1,12 +1,18 @@
 package com.csse3200.game.entities.factories;
+import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
+import com.csse3200.game.components.tasks.ChaseTask;
+import com.csse3200.game.components.tasks.MovementTask;
+import com.csse3200.game.components.tasks.WanderTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
+import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 /**
@@ -32,6 +38,8 @@ public class ProjectileFactory {
      */
     public Entity createProjectile(ProjectileConfig stats, int owner) {
 
+
+
         Entity projectile =
                 new Entity()
                         .addComponent(new TextureRenderComponent(stats.projectileTexturePath))
@@ -39,7 +47,9 @@ public class ProjectileFactory {
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(stats.Layer))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(owner, stats.Layer));
+                        .addComponent(new ProjectileAttackComponent(owner, stats.Layer))
+                        .addComponent(new PhysicsMovementComponent());
+
 
 
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);

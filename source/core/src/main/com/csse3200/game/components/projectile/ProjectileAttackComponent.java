@@ -8,6 +8,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 /**
@@ -46,12 +47,18 @@ public class ProjectileAttackComponent extends Component {
             return;
         }
 
-        // #################### render and shoot the projectile - here.
+        // Move to the owner.
+        entity.setPosition(position);
 
+        // Render.
         entity.getComponent(TextureRenderComponent.class).create();
 
+        // Move in a line.
+        entity.getComponent(PhysicsMovementComponent.class).setEntity(entity);
+        entity.getComponent(PhysicsMovementComponent.class).setTarget(direction);
+        entity.getComponent(PhysicsMovementComponent.class).setMoving(true);
 
-
+        // Listen on collisions.
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         combatStats = entity.getComponent(CombatStatsComponent.class);
         hitboxComponent = entity.getComponent(HitboxComponent.class);
@@ -60,7 +67,7 @@ public class ProjectileAttackComponent extends Component {
 
     private void onCollisionStart(Fixture me, Fixture other) {
         if (hitboxComponent.getFixture() != me) {
-            // Not triggered by not my hotbox, ignore
+            // Not triggered by not my hotbox, ignore.
             return;
         }
 
@@ -69,15 +76,19 @@ public class ProjectileAttackComponent extends Component {
             return;
         }
 
-        // Try to attack target.
+
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
         CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
+
+        // Try to attack target.
         if (targetStats != null) {
             targetStats.hit(combatStats);
         }
 
-        // ########################## clean up the entity.
+        // ########################## clean up the projectile. - unsure about first two dispose()
 
+        entity.getComponent(TextureRenderComponent.class).dispose();
+        entity.getComponent(PhysicsMovementComponent.class).dispose();
         entity.dispose();
     }
 

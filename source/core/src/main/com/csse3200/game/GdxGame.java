@@ -3,6 +3,7 @@ package com.csse3200.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.csse3200.game.components.mainmenu.GameOptions;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.screens.MainMenuScreen;
@@ -19,6 +20,7 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
+  public GameOptions gameOptions;
 
   @Override
   public void create() {

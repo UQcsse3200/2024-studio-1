@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 public class MainMenuActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
     private GdxGame game;
+    private GameOptions gameOptions;
 
     public MainMenuActions(GdxGame game) {
         this.game = game;
@@ -23,6 +24,8 @@ public class MainMenuActions extends Component {
         entity.getEvents().addListener("load", this::onLoad);
         entity.getEvents().addListener("exit", this::onExit);
         entity.getEvents().addListener("settings", this::onSettings);
+        gameOptions = entity.getComponent(GameOptions.class);
+        game.gameOptions = this.gameOptions;
     }
 
     /**

@@ -1,29 +1,19 @@
 {
-  "ghost": {
-    "health": 40,
-    "baseAttack": 10
-  },
   "rat": {
     "health": 200,
     "baseAttack": 15
   },
-  /*  "dog": {
-      "health": 30,
-      "baseAttack": 20
-    },
-    "croc": {
-      "health": 50,
-      "baseAttack": 30
-    },
-    "gorilla": {
-      "health": 60,
-      "baseAttack": 35
-    },
-  */
-  "ghostKing": {
+  "dog": {
     "health": 300,
-    "baseAttack": 25,
-    "spookyFactor": 7
+    "baseAttack": 20
+  },
+  "croc": {
+    "health": 500,
+    "baseAttack": 30
+  },
+  "gorilla": {
+    "health": 400,
+    "baseAttack": 35
   }
 }
 

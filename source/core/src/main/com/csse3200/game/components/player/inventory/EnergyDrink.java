@@ -1,16 +1,13 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.csse3200.game.entities.Entity;
 
-public class EnergyDrink implements Collectible {
-    @Override
-    public Type getType() {
-        return Type.ITEM;
-    }
+public class EnergyDrink extends UsableItem {
 
     @Override
     public String getName() {
-        return "Energy drink";
+        return "EnergyDrink";
     }
 
     @Override
@@ -19,12 +16,17 @@ public class EnergyDrink implements Collectible {
     }
 
     @Override
-    public void pickup(Inventory inventory) {
+    public void drop(Inventory inventory) {
 
     }
 
     @Override
-    public void drop(Inventory inventory) {
+    public void pickup(Inventory inventory) {
+        super.pickup(inventory);
+    }
+
+    @Override
+    public void apply(Entity entity) {
 
     }
 }

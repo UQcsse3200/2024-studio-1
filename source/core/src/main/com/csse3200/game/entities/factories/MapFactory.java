@@ -11,15 +11,19 @@ public class MapFactory {
     private static MapConfigs mapData;
 
 
-    public static void loadMap(String filePath) {
+    public static MapConfigs loadMap(String filePath) {
         mapData = FileLoader.readClass(MapConfigs.class, filePath);
         if (mapData == null){
             throw new IllegalStateException("Failed to load mapData from " + filePath);
         }
+        return mapData;
     }
 
     public static List<int[]> getRoomConnections(String room) {
         List<String> connections = mapData.room_connections.get(room);
+        if (connections == null) {
+            throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no connections");
+        }
         List<int[]> roomConnections = new ArrayList<>();
         for (String connection : connections) {
             //Splitting the room connection coordinates into a list of [x,y]
@@ -32,15 +36,26 @@ public class MapFactory {
     }
     public static int[] getRoomConnection(String room, int index) {
         List<int[]> roomConnections = getRoomConnections(room);
+        if (index < 0 || index > roomConnections.size()) {
+            throw new IndexOutOfBoundsException("The index" + index + "is out of bounds");
+        }
         return roomConnections.get(index);
     }
 
-    public static int getAnimalIndex(String room) {
-        return mapData.room_info.get(room).animal_index;
+    public static Integer getAnimalIndex(String room) {
+        Integer animalIndices = mapData.room_info.get(room).animal_index;
+        if (animalIndices == null) {
+            throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no animals");
+        }
+        return animalIndices;
     }
 
     public static int getItemIndex(String room) {
-        return mapData.room_info.get(room).item_index;
+        Integer itemIndices = mapData.room_info.get(room).item_index;
+        if(itemIndices == null) {
+            throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no Items");
+        }
+        return itemIndices;
     }
 
     public static int[] getPlayerLocation() {
@@ -52,7 +67,7 @@ public class MapFactory {
         return mapData.seed;
     }
 
-    public static int mapSize() {
+    public static int getmapSize() {
         return mapData.map_size;
     }
 }

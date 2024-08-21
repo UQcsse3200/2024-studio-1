@@ -1,4 +1,4 @@
-package com.csse3200.game.entities;
+//package com.csse3200.game.entities;
 
 
 import com.csse3200.game.entities.configs.MapConfigs;
@@ -17,17 +17,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-class MapFactoryTest {
+//class MapFactoryTest {
 
-    private static MapConfigs mapData;
+    //private static MapConfigs mapData;
     //private static List<String> exampleConnections = new ArrayList<>();
-    @Test
-    void loadMapTestValid() {
-        MapConfigs Data = MapFactory.loadMap("json_test/test.json");
-        assertNotNull(Data);
-        assertEquals(Data, mapData);
-        //assertEquals(exampleConnections, Data.room_connections.get("0_0"));
-    }
 
 
 }

@@ -53,8 +53,9 @@ public class NPCFactory {
     BaseEntityConfig config = configs.rat;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new StraightWanderTask(2f))
-                    .addTask(new ChargeTask(target, 10, 3f, 3f, 1.5f));
+                    .addTask(new StraightWanderTask(config.wanderSpeed))
+                    .addTask(new ChargeTask(target, 10, config.viewDistance, config.chaseDistance,
+                            config.chaseSpeed));
 
     Entity rat = createBaseNPC(aiComponent);
 
@@ -89,8 +90,9 @@ public class NPCFactory {
     BaseEntityConfig config = configs.dog;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(4f, 4f), 2f, 0.7f))
-                    .addTask(new ChargeTask(target, 10, 5f, 6f, 4f));
+                    .addTask(new WanderTask(new Vector2(4f, 4f), 2f, config.wanderSpeed))
+                    .addTask(new ChargeTask(target, 10, config.viewDistance, config.chaseDistance,
+                            config.chaseSpeed));
 
     Entity dog = createBaseNPC(aiComponent);
 
@@ -125,8 +127,9 @@ public class NPCFactory {
     BaseEntityConfig config = configs.croc;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(1.5f, 1.5f), 5f, 0.1f))
-                    .addTask(new ChaseTask(target, 10, 2f, 2f, 0.2f));
+                    .addTask(new WanderTask(new Vector2(1.5f, 1.5f), 5f, config.wanderSpeed))
+                    .addTask(new ChaseTask(target, 10, config.viewDistance, config.chaseDistance,
+                            config.chaseSpeed));
 
     Entity croc = createBaseNPC(aiComponent);
 
@@ -159,8 +162,9 @@ public class NPCFactory {
     BaseEntityConfig config = configs.gorilla;
     AITaskComponent aiComponent =
             new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(3f, 3f), 4f, 0.5f))
-                    .addTask(new ChaseTask(target, 10, 3f, 7f, 1f));
+                    .addTask(new WanderTask(new Vector2(3f, 3f), 4f, config.wanderSpeed))
+                    .addTask(new ChaseTask(target, 10, config.viewDistance, config.chaseDistance,
+                            config.chaseSpeed));
 
     Entity gorilla = createBaseNPC(aiComponent);
 

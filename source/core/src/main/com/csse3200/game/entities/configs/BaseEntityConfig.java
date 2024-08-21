@@ -8,4 +8,6 @@ public class BaseEntityConfig {
     public int baseAttack = 0;
     public float wanderSpeed = 1f;
     public float chaseSpeed = 1.5f;
+    public float viewDistance = 5f;
+    public float chaseDistance = 5f;
 }

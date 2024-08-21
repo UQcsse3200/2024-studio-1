@@ -26,7 +26,8 @@ public class PlayerInventoryDisplay extends UIComponent {
 
 
     /**
-     * Creates reusable ui styles and adds actors to the stage.
+     * Initialise UI component by creating necessary UI elements and setting up
+     * event listeners
      */
     @Override
     public void create() {
@@ -38,13 +39,13 @@ public class PlayerInventoryDisplay extends UIComponent {
             entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
         }
 
-        // updateInventoryUI();
-
     }
 
     /**
-     * Creates actors and positions them on the stage using a table.
+     * Displays Inventory heading and all the items and position them on UI
      * This will set up the initial layout of the inventory UI.
+     *
+     * The {@link Table} is used to manage the layout
      */
     private void addActors() {
         inventoryTable = new Table();
@@ -57,7 +58,9 @@ public class PlayerInventoryDisplay extends UIComponent {
     }
 
     /**
-     * Sets and Displays the heading text of inventory i.e. "Collected: "
+     * Sets and displays the heading text for the inventory list.
+     * The heading is displayed at the top of inventory and provides a title
+     * for the items listed below.
      */
     void setHeading() {
         CharSequence headingText = "Collected: ";
@@ -67,19 +70,24 @@ public class PlayerInventoryDisplay extends UIComponent {
         inventoryTable.row();
     }
 
+    /**
+     * Takes all items stored in player's inventory and displays it one by one
+     * on UI, displaying one on each line
+     */
     void addItems() {
         for (Collectible item : inventoryComponent.getInventory().getItems()) {
 
             CharSequence itemText = item.getName();
             Label itemLabel = new Label(itemText, skin, "large");
             inventoryTable.add(itemLabel).pad(5f);
+            // move to next line
             inventoryTable.row();
         }
     }
 
 
     /**
-     * Updates the inventory UI with the current items and weapons the player has.
+     * Updates the inventory UI with the current items that player has.
      * This method will clear the existing inventory and repopulate it.
      */
     public void updateInventoryUI() {
@@ -94,6 +102,11 @@ public class PlayerInventoryDisplay extends UIComponent {
         // draw is handled by the stage
     }
 
+
+    /**
+     * Disposes off UI component when they are no longer needed by removing
+     * the heading and inventory table to free up space
+     */
     @Override
     public void dispose() {
         super.dispose();
@@ -105,7 +118,4 @@ public class PlayerInventoryDisplay extends UIComponent {
         }
     }
 
-    public Table getInventoryTable() {
-        return inventoryTable;
-    }
 }

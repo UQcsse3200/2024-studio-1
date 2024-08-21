@@ -13,25 +13,17 @@ import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 /**
- * For weapon - Design a projectile config for your gun, held in stats arg.
- *              Every projectile has an owner entity - check out config.
- *              One projectile is shot once - shooting removes the projectile.
- *              Projectiles are made listening for a "shootProjectile" with args including owner id.
- *              Projectile is unregistered after collision.
- * For map - Consider physics layers if you want to contain a projectile.
- * For health players - damage is acted by projectileAttackComponent.
+ * For weapon            - stats param - Design a projectile config for a weapon - checkout configs/ProjectileConfig.
+ * For map               - All Layers if you want to contain a projectile.
+ * For health players    - Damage is acted by via hit() method on Entity.
  *
+ * NOTE - Entity is unregistered after collision. Add only to a single use entity - dive-bombing bird idk.
  */
 public class ProjectileFactory {
 
 
     /**
-     * makes a new Entity with projectile components.
-     *
-     * @param stats - defines a projectile, will be reused often.
-     * @param owner - the entity.getId() that would like to trigger this projectile to shoot.
-     *
-     * @return Entity projectile
+     * Makes a new Entity with projectile components.
      */
     public Entity createProjectile(ProjectileConfig stats, Vector2 position, Vector2 direction) {
 

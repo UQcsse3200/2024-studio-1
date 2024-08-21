@@ -43,11 +43,7 @@ public class PlayerFactory {
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(
                     stats.health,
-                    stats.baseAttack,
-                    stats.speed,
-                    stats.attackPerSecond,
-                    stats.burnAttack,
-                    stats.burnDuration))
+                    stats.baseAttack))
             .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay());

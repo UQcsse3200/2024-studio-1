@@ -70,11 +70,7 @@ public class NPCFactory {
     rat
         .addComponent(new CombatStatsComponent(
                 config.health,
-                config.baseAttack,
-                config.speed,
-                config.attackPerSecond,
-                config.burnAttack,
-                config.burnDuration))
+                config.baseAttack))
         .addComponent(animator)
         .addComponent(new RatAnimationController())
         .addComponent(new NPCHealthBarComponent())
@@ -111,11 +107,7 @@ public class NPCFactory {
     dog
         .addComponent(new CombatStatsComponent(
                 config.health,
-                config.baseAttack,
-                config.speed,
-                config.attackPerSecond,
-                config.burnAttack,
-                config.burnDuration))
+                config.baseAttack))
         .addComponent(animator)
         .addComponent(new GhostAnimationController())
         .addComponent(new NPCHealthBarComponent())
@@ -151,11 +143,7 @@ public class NPCFactory {
     croc
             .addComponent(new CombatStatsComponent(
                     config.health,
-                    config.baseAttack,
-                    config.speed,
-                    config.attackPerSecond,
-                    config.burnAttack,
-                    config.burnDuration))
+                    config.baseAttack))
             .addComponent(animator)
             .addComponent(new GhostAnimationController())
             .addComponent(new NPCHealthBarComponent())
@@ -192,11 +180,7 @@ public class NPCFactory {
     gorilla
             .addComponent(new CombatStatsComponent(
                     config.health,
-                    config.baseAttack,
-                    config.speed,
-                    config.attackPerSecond,
-                    config.burnAttack,
-                    config.burnDuration))
+                    config.baseAttack))
             .addComponent(animator)
             .addComponent(new GhostAnimationController())
             .addComponent(new NPCHealthBarComponent())

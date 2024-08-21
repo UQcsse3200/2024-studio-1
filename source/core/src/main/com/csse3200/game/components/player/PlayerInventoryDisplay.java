@@ -33,15 +33,7 @@ public class PlayerInventoryDisplay extends UIComponent {
         super.create();
         addActors();
         updateInventoryUI();
-<<<<<<< Updated upstream
-        if (entity.getEvents() != null) {
-            entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
-        }
-=======
-        entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
-        // updateInventoryUI();
 
->>>>>>> Stashed changes
     }
 
     /**
@@ -55,10 +47,7 @@ public class PlayerInventoryDisplay extends UIComponent {
         inventoryTable.padTop(50f).padLeft(5f);
         setHeading();
         addItems();
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
     }
 
     /**

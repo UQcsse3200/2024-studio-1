@@ -4,18 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.Inventory;
 import com.csse3200.game.components.player.inventory.ShieldPotion;
-import com.csse3200.game.components.player.inventory.SpeedBoost;
 import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.HealthItemConfig;
-import com.csse3200.game.entities.configs.ItemConfigs;
-import com.csse3200.game.entities.configs.ShieldItemConfig;
-import com.csse3200.game.entities.configs.SpeedBoostConfig;
-import com.csse3200.game.files.FileLoader;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
 import java.util.function.Consumer;

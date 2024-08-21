@@ -17,7 +17,6 @@ public class MapFactory {
         }
     }
 
-
     public static List<int[]> getRoomConnections(String room) {
         List<String> connections = mapData.room_connections.get(room);
         List<int[]> coordinatesList = new ArrayList<>();

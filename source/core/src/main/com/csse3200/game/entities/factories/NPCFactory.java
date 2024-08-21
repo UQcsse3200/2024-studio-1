@@ -11,10 +11,7 @@ import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.npc.RatAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
-import com.csse3200.game.components.tasks.ChargeTask;
-import com.csse3200.game.components.tasks.ChaseTask;
-import com.csse3200.game.components.tasks.StraightWanderTask;
-import com.csse3200.game.components.tasks.WanderTask;
+import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.BaseEntityConfig;
 import com.csse3200.game.entities.configs.GhostKingConfig;
@@ -53,7 +50,8 @@ public class NPCFactory {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new StraightWanderTask(2f))
-                    .addTask(new ChargeTask(target, 10, 2f, 3f, 1.5f));
+                    .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
+                    .addTask(new AttackTask(target, 10, 2f, 2.5f));
 
     Entity rat = createBaseNPC(aiComponent);
     BaseEntityConfig config = configs.rat;
@@ -68,7 +66,9 @@ public class NPCFactory {
     animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     rat
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(
+                config.health,
+                config.baseAttack))
         .addComponent(animator)
         .addComponent(new RatAnimationController())
         .addComponent(new NPCHealthBarComponent())
@@ -103,7 +103,9 @@ public class NPCFactory {
 //    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     dog
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(
+                config.health,
+                config.baseAttack))
         .addComponent(animator)
         .addComponent(new GhostAnimationController())
         .addComponent(new NPCHealthBarComponent())
@@ -137,7 +139,9 @@ public class NPCFactory {
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
 
     croc
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
             .addComponent(animator)
             .addComponent(new GhostAnimationController())
             .addComponent(new NPCHealthBarComponent())
@@ -172,7 +176,9 @@ public class NPCFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     gorilla
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
             .addComponent(animator)
             .addComponent(new GhostAnimationController())
             .addComponent(new NPCHealthBarComponent())

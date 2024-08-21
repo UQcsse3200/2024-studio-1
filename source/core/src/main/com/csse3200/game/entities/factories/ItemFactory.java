@@ -1,6 +1,9 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.Inventory;
+import com.csse3200.game.components.player.inventory.ShieldPotion;
 import com.csse3200.game.components.player.inventory.SpeedBoost;
 import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
@@ -13,6 +16,9 @@ import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
+import com.csse3200.game.services.ServiceLocator;
+
+import java.util.function.Consumer;
 
 public class ItemFactory {
 
@@ -61,7 +67,7 @@ public class ItemFactory {
      * @return medKit
      */
     private Collectible createMedKit() {
-        HealthItemConfig config = configs.medKit;
+//        HealthItemConfig config = configs.medKit;
 
         return create("images/items/med_kit.png", "MedKit", (entity) -> {});
     }
@@ -72,7 +78,7 @@ public class ItemFactory {
      */
     private Collectible createBandage() {
 //        Entity bandage = createBaseItem();
-        HealthItemConfig config = configs.bandage;
+//        HealthItemConfig config = configs.bandage;
 
         return create("images/items/bandage.png", "Bandage", (entity) -> {});
     }
@@ -83,7 +89,7 @@ public class ItemFactory {
      */
     private Collectible createEnergyDrink() {
 //        Entity energyDrink = createBaseItem();
-        SpeedBoostConfig config = configs.energyDrink;
+//        SpeedBoostConfig config = configs.energyDrink;
 
         return create("images/items/energy_drink.png", "Energy Drink", (entity) -> {});
     }
@@ -95,8 +101,8 @@ public class ItemFactory {
      */
     private Collectible createShieldPotion() {
 //        Entity shieldPotion = createBaseItem();
-        ShieldItemConfig config = configs.shieldPotion;
+//        ShieldItemConfig config = configs.shieldPotion;
 
-        return create("images/items/shield_potion.png", "Shield Potion", (entity) -> {});
+        return new ShieldPotion();
     }
 }

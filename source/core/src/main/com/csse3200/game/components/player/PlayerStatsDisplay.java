@@ -16,6 +16,7 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table;
   private Image heartImage;
   private Label healthLabel;
+  private Label weaponLabel;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -26,6 +27,7 @@ public class PlayerStatsDisplay extends UIComponent {
     addActors();
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
+    entity.getEvents().addListener("changeWeapon", this::updateWeapon);
   }
 
   /**
@@ -47,8 +49,16 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence healthText = String.format("Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
 
+    //Weapon text, like the name of weapon
+    String weapon = ""; //entity.getComponent(WeaponComponent.class).getWeaponType();
+    CharSequence weaponText = String.format("Weapon: %s", weapon);
+    weaponLabel = new Label(weaponText, skin, "large");
+
+
     table.add(heartImage).size(heartSideLength).pad(5);
-    table.add(healthLabel);
+    table.add(healthLabel).padLeft(10).left();
+    table.row().padTop(10);
+    table.add(weaponLabel).colspan(2).padLeft(10).left();
     stage.addActor(table);
   }
 
@@ -64,6 +74,14 @@ public class PlayerStatsDisplay extends UIComponent {
   public void updatePlayerHealthUI(int health) {
     CharSequence text = String.format("Health: %d", health);
     healthLabel.setText(text);
+  }
+  /**
+   * Updates the weapon equipped in the player HUD
+   *
+   * @param weapon the new weapon
+   */
+  public void updateWeapon() {
+    // Changes the weapon image in the ammo bar
   }
 
   @Override

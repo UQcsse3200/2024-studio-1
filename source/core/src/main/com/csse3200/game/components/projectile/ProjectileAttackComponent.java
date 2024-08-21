@@ -13,51 +13,32 @@ import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 /**
- *  This component is triggered by an owner event "shootProjectile".
- *  This allows many entities to trigger the same projectile.
- *  Projectile is disposed after colliding being triggered once.
+ * when this entity is made it moves in a flight till collision when the render is removed,
+ * attack is attempted and entity is removed.
+ * params - Flight path info. Start position and flight direction.
+ * requires entity to have a
+ *      - Hit-boxComponent - track collisions
+ *      - CombatStatsComponent - apply damage
+ *      - RenderComponent - remove rendering
+ * NOTE - this Entity is unregistered after the flight.
  */
 
 public class ProjectileAttackComponent extends Component implements TaskRunner{
 
     private final short targetLayer;
-    private final int owner;
-    private boolean hasShot = false;
     private CombatStatsComponent combatStats;
     private HitboxComponent hitboxComponent;
-    private String renderPath;
 
 
 
-    /**
-     * when this Entity is made it listens to be shot by its owner.
-     * @param layer The physics layer of the target's collider.
-     * @param ownerId The owner entity id via entity.getId() only this entity can shoot this projectile.
-     *
-     */
-    public ProjectileAttackComponent(int ownerId, short layer, String renderPath) {
-        this.renderPath = renderPath;
-        owner = ownerId;
-        targetLayer = layer;
+    public ProjectileAttackComponent(Vector2 speed, Vector2 direction) {
+
         combatStats = entity.getComponent(CombatStatsComponent.class);
         hitboxComponent = entity.getComponent(HitboxComponent.class);
-        entity.getEvents().addListener("shootProjectile", this::autoCreate);
+        targetLayer = hitboxComponent.getLayer();
 
-    }
-
-
-    private void autoCreate(int callerId, Vector2 position, Vector2 direction) {
-
-        if (hasShot || owner != callerId) {
-            // I'm already in flight, or it wasn't my owner's event.
-            return;
-        }
-
-        hasShot = true;
-
-        entity.setPosition(position);
-        entity.addComponent(new TextureRenderComponent(renderPath));
-
+        // hey Yash - This is the movement section.
+        // NOTE -  there is a speed var unused at the moment.
         MovementTask move = new MovementTask(direction);
         move.create(this);
         move.start();
@@ -66,9 +47,7 @@ public class ProjectileAttackComponent extends Component implements TaskRunner{
     }
 
     /**
-     * Event driven. Attacks then cleans up.
-     * @param me - The entity doing the hit.
-     * @param other - The entity being hit.
+     * Event driven - triggered by PhysicsContactListener in physics/components
      */
     private void onCollisionStart(Fixture me, Fixture other) {
         if (hitboxComponent.getFixture() != me) {
@@ -89,9 +68,10 @@ public class ProjectileAttackComponent extends Component implements TaskRunner{
             targetStats.hit(combatStats);
         }
 
-
+        //remove this and this component is not depending on textureComponent
         entity.getComponent(TextureRenderComponent.class).dispose();
 
+        //pretty sure this unregisters render also.
         entity.dispose();
     }
 

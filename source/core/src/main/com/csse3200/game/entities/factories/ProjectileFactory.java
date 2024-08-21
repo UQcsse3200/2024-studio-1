@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
@@ -32,7 +33,7 @@ public class ProjectileFactory {
      *
      * @return Entity projectile
      */
-    public Entity createProjectile(ProjectileConfig stats, int owner) {
+    public Entity createProjectile(ProjectileConfig stats, Vector2 position, Vector2 direction) {
 
 
 
@@ -42,11 +43,12 @@ public class ProjectileFactory {
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(stats.Layer))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(owner, stats.Layer, stats.projectileTexturePath))
-                        .addComponent(new PhysicsMovementComponent());
+                        .addComponent(new ProjectileAttackComponent(direction, stats.speed))
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new TextureRenderComponent(stats.projectileTexturePath));
 
 
-
+        projectile.setPosition(position);
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
         projectile.getComponent(ColliderComponent.class).setDensity(1.5f);
         projectile.getComponent(TextureRenderComponent.class).scaleEntity();

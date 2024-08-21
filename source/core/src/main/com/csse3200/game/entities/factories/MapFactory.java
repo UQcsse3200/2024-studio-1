@@ -8,16 +8,16 @@ import java.util.List;
 
 
 public class MapFactory {
-    private static MapConfigs mapData;
+    private static final MapConfigs mapData = FileLoader.readClass(MapConfigs.class, "configs/test.json");
 
 
-    public static MapConfigs loadMap(String filePath) {
-        mapData = FileLoader.readClass(MapConfigs.class, filePath);
-        if (mapData == null){
-            throw new IllegalStateException("Failed to load mapData from " + filePath);
-        }
-        return mapData;
-    }
+//    public static MapConfigs loadMap(String filePath) {
+//        mapData = FileLoader.readClass(MapConfigs.class, filePath);
+//        if (mapData == null){
+//            throw new IllegalStateException("Failed to load mapData from " + filePath);
+//        }
+//        return mapData;
+//    }
 
     public static List<int[]> getRoomConnections(String room) {
         List<String> connections = mapData.room_connections.get(room);

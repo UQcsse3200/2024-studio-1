@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 class MapFactoryTest {
 
-    private static MapConfigs mapData = FileLoader.readClass(MapConfigs.class,"json_test/test.json");
+    private static MapConfigs mapData;
     //private static List<String> exampleConnections = new ArrayList<>();
     @Test
     void loadMapTestValid() {

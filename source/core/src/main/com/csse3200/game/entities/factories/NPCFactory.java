@@ -50,7 +50,7 @@ public class NPCFactory {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new StraightWanderTask(2f))
-                    .addTask(new RatAttackTask(target, 10, 1.5f, 2.5f));
+                    .addTask(new RatAttackTask(target, 10, 2f, 2.5f));
 
     Entity rat = createBaseNPC(aiComponent);
     BaseEntityConfig config = configs.rat;

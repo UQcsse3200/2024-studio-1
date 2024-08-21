@@ -1,5 +1,9 @@
 package com.csse3200.game.entities.factories;
 
+import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.EnergyDrink;
+import com.csse3200.game.components.player.inventory.ShieldPotion;
+import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.HealthItemConfig;
 import com.csse3200.game.entities.configs.ItemConfigs;
@@ -13,86 +17,55 @@ import com.csse3200.game.rendering.TextureRenderComponent;
 
 public class ItemFactory {
 
-    private static final ItemConfigs configs =
-            FileLoader.readClass(ItemConfigs.class, "configs/items.json");
-
     /**
      * Creates a specified entity
      *
      * @param specification The specification of the item to create.
      * @return the specified entity
      */
-    public Entity create(String specification) {
+    public Collectible create(String specification) {
         return switch (specification){
             case "medkit" -> createMedKit();
-            case "bandaid" -> createBandage();
+            case "bandage" -> createBandage();
             case "energydrink" -> createEnergyDrink();
+            case "shieldpotion" -> createShieldPotion();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
 
     /**
-     * Creates a medKit entity that restores players health
-     * @return medKit entity
+     * Creates a MedKit that restores players health
+     * @return medKit
      */
-    public static Entity createMedKit() {
-        Entity medKit = createBaseItem();
-        HealthItemConfig config = configs.medKit;
-
-        medKit.addComponent(new TextureRenderComponent("images/items/med_kit.png"));
-        return medKit;
+    public UsableItem createMedKit() {
+        // return new MedKit();
+        return null;
     }
 
     /**
-     * Creates a bandage entity that provides minimal health restoration to player
-     * @return bandAid entity
+     * Creates a Bandage that provides minimal health restoration to player
+     * @return Bandage
      */
-    public static Entity createBandage() {
-        Entity bandage = createBaseItem();
-        HealthItemConfig config = configs.bandage;
-
-        bandage.addComponent(new TextureRenderComponent("images/items/bandage.png"));
-        return bandage;
+    public UsableItem createBandage() {
+        // return new Bandage();
+        return null;
     }
 
     /**
-     * Creates an energyDrink entity that increases the players movement speed
-     * @return energyDrink entity
+     * Creates an EnergyDrink that increases the players movement speed
+     * @return energyDrink
      */
-    public static Entity createEnergyDrink() {
-        Entity energyDrink = createBaseItem();
-        SpeedBoostConfig config = configs.energyDrink;
-
-        energyDrink.addComponent(new TextureRenderComponent("images/items/energy_drink.png"));
-        return energyDrink;
+    public Collectible createEnergyDrink() {
+        return new EnergyDrink();
     }
 
     /**
-     * Creates a shieldPotion entity that provides the player with immunity,
+     * Creates a ShieldPotion that provides the player with immunity,
      * negating the next two hits the player takes
-     * @return shieldPotion entity
+     * @return ShieldPotion
      */
-    public static Entity createShieldPotion() {
-        Entity shieldPotion = createBaseItem();
-        ShieldItemConfig config = configs.shieldPotion;
-
-        shieldPotion.addComponent(new TextureRenderComponent("images/items/shield_potion.png"));
-        return shieldPotion;
+    public UsableItem createShieldPotion() {
+        return new ShieldPotion();
     }
-
-
-    /**
-     * Creates a generic Item to be used as a base entity by more specific Item creation methods.
-     * NB: This is where we add more components
-     * @return item entity
-     */
-    private static Entity createBaseItem() {
-        Entity item = new Entity()
-                .addComponent(new PhysicsComponent())
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.DEFAULT));
-
-        return item;
-    }
-
 
 }

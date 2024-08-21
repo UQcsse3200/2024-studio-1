@@ -1,8 +1,7 @@
 package com.csse3200.game.entities.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.Inventory;
+import com.csse3200.game.components.player.inventory.SpeedBoost;
 import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.HealthItemConfig;
@@ -10,14 +9,12 @@ import com.csse3200.game.entities.configs.ItemConfigs;
 import com.csse3200.game.entities.configs.ShieldItemConfig;
 import com.csse3200.game.entities.configs.SpeedBoostConfig;
 import com.csse3200.game.files.FileLoader;
-import com.csse3200.game.services.ServiceLocator;
-
-import java.util.function.Consumer;
+import com.csse3200.game.physics.PhysicsLayer;
+import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.physics.components.PhysicsComponent;
+import com.csse3200.game.rendering.TextureRenderComponent;
 
 public class ItemFactory {
-
-    private static final ItemConfigs configs =
-            FileLoader.readClass(ItemConfigs.class, "configs/items.json");
 
     /**
      * Creates a specified entity
@@ -28,8 +25,9 @@ public class ItemFactory {
     public Collectible create(String specification) {
         return switch (specification){
             case "medkit" -> createMedKit();
-            case "bandaid" -> createBandage();
+            case "bandage" -> createBandage();
             case "energydrink" -> createEnergyDrink();
+            case "shieldpotion" -> createShieldPotion();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -59,8 +57,8 @@ public class ItemFactory {
     }
 
     /**
-     * Creates a medKit entity that restores players health
-     * @return medKit entity
+     * Creates a MedKit that restores players health
+     * @return medKit
      */
     private Collectible createMedKit() {
         HealthItemConfig config = configs.medKit;
@@ -69,8 +67,8 @@ public class ItemFactory {
     }
 
     /**
-     * Creates a bandage entity that provides minimal health restoration to player
-     * @return bandAid entity
+     * Creates a Bandage that provides minimal health restoration to player
+     * @return Bandage
      */
     private Collectible createBandage() {
 //        Entity bandage = createBaseItem();
@@ -80,8 +78,8 @@ public class ItemFactory {
     }
 
     /**
-     * Creates an energyDrink entity that increases the players movement speed
-     * @return energyDrink entity
+     * Creates an EnergyDrink that increases the players movement speed
+     * @return energyDrink
      */
     private Collectible createEnergyDrink() {
 //        Entity energyDrink = createBaseItem();
@@ -91,7 +89,7 @@ public class ItemFactory {
     }
 
     /**
-     * Creates a shieldPotion entity that provides the player with immunity,
+     * Creates a ShieldPotion that provides the player with immunity,
      * negating the next two hits the player takes
      * @return shieldPotion entity
      */

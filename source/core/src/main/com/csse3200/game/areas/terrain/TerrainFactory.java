@@ -7,24 +7,20 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+
 import com.badlogic.gdx.math.GridPoint2;
-import com.csse3200.game.areas.terrain.TerrainComponent.TerrainOrientation;
+
 import com.csse3200.game.components.CameraComponent;
+import com.csse3200.game.rendering.GridRenderer;
 import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
-  private static final GridPoint2 MAP_SIZE = new GridPoint2(30, 30);
-  private static final int TUFT_TILE_COUNT = 30;
-  private static final int ROCK_TILE_COUNT = 30;
-
+  private static final GridPoint2 MAP_SIZE = new GridPoint2(15, 11);
   private final OrthographicCamera camera;
-  private final TerrainOrientation orientation;
+
 
   /**
    * Create a terrain factory with Orthogonal orientation
@@ -32,7 +28,7 @@ public class TerrainFactory {
    * @param cameraComponent Camera to render terrains to. Must be ortographic.
    */
   public TerrainFactory(CameraComponent cameraComponent) {
-    this(cameraComponent, TerrainOrientation.ORTHOGONAL);
+    this.camera = (OrthographicCamera) cameraComponent.getCamera();
   }
 
   /**
@@ -41,10 +37,8 @@ public class TerrainFactory {
    * @param cameraComponent Camera to render terrains to. Must be orthographic.
    * @param orientation orientation to render terrain at
    */
-  public TerrainFactory(CameraComponent cameraComponent, TerrainOrientation orientation) {
-    this.camera = (OrthographicCamera) cameraComponent.getCamera();
-    this.orientation = orientation;
-  }
+
+
 
   /**
    * Create a terrain of the given type, using the orientation of the factory. This can be extended
@@ -56,77 +50,65 @@ public class TerrainFactory {
   public TerrainComponent createTerrain(TerrainType terrainType) {
     ResourceService resourceService = ServiceLocator.getResourceService();
     switch (terrainType) {
-      case FOREST_DEMO:
-        TextureRegion orthoGrass =
-            new TextureRegion(resourceService.getAsset("images/grass_1.png", Texture.class));
-        TextureRegion orthoTuft =
-            new TextureRegion(resourceService.getAsset("images/grass_2.png", Texture.class));
-        TextureRegion orthoRocks =
-            new TextureRegion(resourceService.getAsset("images/grass_3.png", Texture.class));
-        return createForestDemoTerrain(0.5f, orthoGrass, orthoTuft, orthoRocks);
-      case FOREST_DEMO_ISO:
-        TextureRegion isoGrass =
-            new TextureRegion(resourceService.getAsset("images/iso_grass_1.png", Texture.class));
-        TextureRegion isoTuft =
-            new TextureRegion(resourceService.getAsset("images/iso_grass_2.png", Texture.class));
-        TextureRegion isoRocks =
-            new TextureRegion(resourceService.getAsset("images/iso_grass_3.png", Texture.class));
-        return createForestDemoTerrain(1f, isoGrass, isoTuft, isoRocks);
-      case FOREST_DEMO_HEX:
-        TextureRegion hexGrass =
-            new TextureRegion(resourceService.getAsset("images/hex_grass_1.png", Texture.class));
-        TextureRegion hexTuft =
-            new TextureRegion(resourceService.getAsset("images/hex_grass_2.png", Texture.class));
-        TextureRegion hexRocks =
-            new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
-        return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
+      case ROOM1:
+        TextureRegion tileMain =
+                new TextureRegion(resourceService.getAsset("images/tile_middle.png", Texture.class));
+        TextureRegion tileLU =
+                new TextureRegion(resourceService.getAsset("images/tile_1.png", Texture.class));
+        TextureRegion tileLD =
+                new TextureRegion(resourceService.getAsset("images/tile_4.png", Texture.class));
+        TextureRegion tileRU =
+                new TextureRegion(resourceService.getAsset("images/tile_2.png", Texture.class));
+        TextureRegion tileRD =
+                new TextureRegion(resourceService.getAsset("images/tile_3.png", Texture.class));
+        TextureRegion tileL =
+                new TextureRegion(resourceService.getAsset("images/tile_8.png", Texture.class));
+        TextureRegion tileR =
+                new TextureRegion(resourceService.getAsset("images/tile_6.png", Texture.class));
+        TextureRegion tileU =
+                new TextureRegion(resourceService.getAsset("images/tile_5.png", Texture.class));
+        TextureRegion tileD =
+                new TextureRegion(resourceService.getAsset("images/tile_7.png", Texture.class));
+        return createRoomTerrain(1f, new TextureRegion[]{
+                tileMain, tileLU, tileLD, tileRU, tileRD, tileL, tileR, tileU, tileD});
       default:
         return null;
     }
   }
 
-  private TerrainComponent createForestDemoTerrain(
-      float tileWorldSize, TextureRegion grass, TextureRegion grassTuft, TextureRegion rocks) {
-    GridPoint2 tilePixelSize = new GridPoint2(grass.getRegionWidth(), grass.getRegionHeight());
-    TiledMap tiledMap = createForestDemoTiles(tilePixelSize, grass, grassTuft, rocks);
-    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
-    return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
+  private TerrainComponent createRoomTerrain(float tileWorldSize, TextureRegion[] tileSet) {
+    GridPoint2 tilePixelSize = new GridPoint2(tileSet[0].getRegionWidth(), tileSet[0].getRegionHeight());
+    TiledMap tiledMap = createRoomTiles(tilePixelSize, tileSet);
+    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize/tilePixelSize.x);
+    return new TerrainComponent(camera, tiledMap, renderer, tileWorldSize);
   }
 
-  private TiledMapRenderer createRenderer(TiledMap tiledMap, float tileScale) {
-    switch (orientation) {
-      case ORTHOGONAL:
-        return new OrthogonalTiledMapRenderer(tiledMap, tileScale);
-      case ISOMETRIC:
-        return new IsometricTiledMapRenderer(tiledMap, tileScale);
-      case HEXAGONAL:
-        return new HexagonalTiledMapRenderer(tiledMap, tileScale);
-      default:
-        return null;
-    }
-  }
-
-  private TiledMap createForestDemoTiles(
-      GridPoint2 tileSize, TextureRegion grass, TextureRegion grassTuft, TextureRegion rocks) {
+  private TiledMap createRoomTiles(GridPoint2 tileSize, TextureRegion[] tileSet) {
     TiledMap tiledMap = new TiledMap();
-    TerrainTile grassTile = new TerrainTile(grass);
-    TerrainTile grassTuftTile = new TerrainTile(grassTuft);
-    TerrainTile rockTile = new TerrainTile(rocks);
+
+    TerrainTile mainTile = new TerrainTile(tileSet[0]);
+    TerrainTile luTile = new TerrainTile(tileSet[1]);
+    TerrainTile ldTile = new TerrainTile(tileSet[2]);
+    TerrainTile ruTile = new TerrainTile(tileSet[3]);
+    TerrainTile rdTile = new TerrainTile(tileSet[4]);
+    TerrainTile lTile = new TerrainTile(tileSet[5]);
+    TerrainTile rTile = new TerrainTile(tileSet[6]);
+    TerrainTile uTile = new TerrainTile(tileSet[7]);
+    TerrainTile dTile = new TerrainTile(tileSet[8]);
+
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
-    // Create base grass
-    fillTiles(layer, MAP_SIZE, grassTile);
-
-    // Add some grass and rocks
-    fillTilesAtRandom(layer, MAP_SIZE, grassTuftTile, TUFT_TILE_COUNT);
-    fillTilesAtRandom(layer, MAP_SIZE, rockTile, ROCK_TILE_COUNT);
+    // fill room tile
+    fillTiles(layer, MAP_SIZE, new TerrainTile[]{
+            mainTile, luTile, ldTile, ruTile, rdTile, lTile, rTile, uTile, dTile
+    });
 
     tiledMap.getLayers().add(layer);
     return tiledMap;
   }
 
   private static void fillTilesAtRandom(
-      TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile, int amount) {
+          TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile, int amount) {
     GridPoint2 min = new GridPoint2(0, 0);
     GridPoint2 max = new GridPoint2(mapSize.x - 1, mapSize.y - 1);
 
@@ -137,7 +119,7 @@ public class TerrainFactory {
     }
   }
 
-  private static void fillTiles(TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile) {
+  private void fillTiles(TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile) {
     for (int x = 0; x < mapSize.x; x++) {
       for (int y = 0; y < mapSize.y; y++) {
         Cell cell = new Cell();
@@ -147,14 +129,58 @@ public class TerrainFactory {
     }
   }
 
+  private void fillTiles(
+          TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile[] tileList) {
+    for (int x = 0; x < mapSize.x; x++) {
+      for (int y = 0; y < mapSize.y; y++) {
+        if (!isBoundaryTile(x, y, mapSize)) {
+          Cell cell = new Cell();
+          cell.setTile(tileList[0]);
+          layer.setCell(x, y, cell);
+        } else {
+          Cell cell = new Cell();
+          if (x == 0 && y == 0) {
+            cell.setTile(tileList[2]);
+          } else if (x == 0 && y == (mapSize.y-1)) {
+            cell.setTile(tileList[1]);
+          } else if (x == (mapSize.x-1) && y == 0) {
+            cell.setTile(tileList[4]);
+          } else if (x == (mapSize.x-1) && y == (mapSize.y-1)) {
+            cell.setTile(tileList[3]);
+          } else if (y > 0 && y < (mapSize.y-1) && x == 0) {
+            cell.setTile(tileList[5]);
+          } else if (y > 0 && y < (mapSize.y-1) && x == (mapSize.x-1)) {
+            cell.setTile(tileList[6]);
+          } else if (x > 0 && x < (mapSize.x-1) && y == 0) {
+            cell.setTile(tileList[8]);
+          } else if (x > 0 && x < (mapSize.x-1) && y == (mapSize.y-1)) {
+            cell.setTile(tileList[7]);
+          }
+          layer.setCell(x, y, cell);
+        }
+      }
+    }
+  }
+
+  private boolean isBoundaryTile(int x, int y, GridPoint2 mapSize) {
+    return x == 0 || x == mapSize.x - 1 || y == 0 || y == mapSize.y - 1;
+  }
+
   /**
    * This enum should contain the different terrains in your game, e.g. forest, cave, home, all with
    * the same oerientation. But for demonstration purposes, the base code has the same level in 3
    * different orientations.
    */
   public enum TerrainType {
-    FOREST_DEMO,
-    FOREST_DEMO_ISO,
-    FOREST_DEMO_HEX
+    ROOM1
   }
+
+  private TiledMapRenderer createRenderer(TiledMap tiledMap, float tileScale) {
+    return new GridRenderer(tiledMap, tileScale, camera);
+  }
+
 }
+
+
+
+

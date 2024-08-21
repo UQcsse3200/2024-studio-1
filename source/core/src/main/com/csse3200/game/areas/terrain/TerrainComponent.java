@@ -19,18 +19,17 @@ public class TerrainComponent extends RenderComponent {
   private final TiledMap tiledMap;
   private final TiledMapRenderer tiledMapRenderer;
   private final OrthographicCamera camera;
-  private final TerrainOrientation orientation;
+
   private final float tileSize;
 
   public TerrainComponent(
       OrthographicCamera camera,
       TiledMap map,
       TiledMapRenderer renderer,
-      TerrainOrientation orientation,
+
       float tileSize) {
     this.camera = camera;
     this.tiledMap = map;
-    this.orientation = orientation;
     this.tileSize = tileSize;
     this.tiledMapRenderer = renderer;
   }
@@ -40,18 +39,7 @@ public class TerrainComponent extends RenderComponent {
   }
 
   public Vector2 tileToWorldPosition(int x, int y) {
-    switch (orientation) {
-      case HEXAGONAL:
-        float hexLength = tileSize / 2;
-        float yOffset = (x % 2 == 0) ? 0.5f * tileSize : 0f;
-        return new Vector2(x * (tileSize + hexLength) / 2, y + yOffset);
-      case ISOMETRIC:
-        return new Vector2((x + y) * tileSize / 2, (y - x) * tileSize / 2);
-      case ORTHOGONAL:
-        return new Vector2(x * tileSize, y * tileSize);
-      default:
-        return null;
-    }
+    return new Vector2(x * tileSize, y * tileSize);
   }
 
   public float getTileSize() {
@@ -89,9 +77,5 @@ public class TerrainComponent extends RenderComponent {
     return TERRAIN_LAYER;
   }
 
-  public enum TerrainOrientation {
-    ORTHOGONAL,
-    ISOMETRIC,
-    HEXAGONAL
-  }
+
 }

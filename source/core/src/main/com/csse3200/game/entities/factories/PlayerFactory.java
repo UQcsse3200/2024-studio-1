@@ -1,9 +1,13 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.InventoryComponent;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerStatsDisplay;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
+import com.csse3200.game.components.player.WeaponComponent;
+import com.csse3200.game.components.player.WeaponComponent.WeaponType;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
@@ -33,6 +37,11 @@ public class PlayerFactory {
   public static Entity createPlayer() {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
+    
+    // Weapon properties
+    TextureRenderComponent weaponTexture = new TextureRenderComponent("images/box_boy_leaf.png");
+    Sprite weaponSprite = new Sprite(weaponTexture.getTexture());
+    WeaponType weaponType = WeaponType.MELEE;
 
     Entity player =
         new Entity()
@@ -42,9 +51,11 @@ public class PlayerFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-            .addComponent(new InventoryComponent(stats.gold))
+            .addComponent(new InventoryComponent())
             .addComponent(inputComponent)
-            .addComponent(new PlayerStatsDisplay());
+            .addComponent(new PlayerStatsDisplay())
+                .addComponent(new PlayerInventoryDisplay(new InventoryComponent()))
+            .addComponent(new WeaponComponent(weaponSprite, weaponType, 10, 10, 10, 10, 10, 10));
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);

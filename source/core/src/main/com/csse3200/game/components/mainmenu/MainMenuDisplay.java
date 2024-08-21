@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -49,10 +50,10 @@ public class MainMenuDisplay extends UIComponent {
         );
         diffBtnsTable = new Table();
 
-        TextButton startBtn = new TextButton("Start", skin);
+        Label startBtn = new Label("Start", skin);
         EnumMap<Difficulty, TextButton> difficultyBtns = new EnumMap<>(Difficulty.class);
         for (Difficulty diff : Difficulty.values()) {
-            difficultyBtns.put(diff, new TextButton(diff.toString(), skin));
+            difficultyBtns.put(diff, new TextButton(diff.toString(), skin, "action"));
         }
         TextButton loadBtn = new TextButton("Load", skin);
         TextButton settingsBtn = new TextButton("Settings", skin);

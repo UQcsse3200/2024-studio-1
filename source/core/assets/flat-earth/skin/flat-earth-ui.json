@@ -65,8 +65,26 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0
 		a: 1
 	}
+	palette-purple: {
+		hex: 3c2c56
+	}
+	palette-light-purple: {
+		hex: 574d72
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	action-button-c: {
+		name: button
+		color: palette-purple
+	}
+	action-button-p: {
+		name: button,
+		color: palette-light-purple
+	}
+	action-button-h: {
+		name: button,
+		color: palette-light-purple
+	}
 	button-c: {
 		name: button
 		color: color
@@ -251,7 +269,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: radio-pressed
 		color: pressed
 	}
-}
+},
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
 		up: button-c
@@ -426,6 +444,15 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		up: button-c
 		down: button-p
 		over: button-h
+	}
+	action: {
+		font: button
+		fontColor: white
+		downFontColor: white
+		overFontColor: gray
+		up: action-button-c
+		down: action-button-p
+		over: action-button-h
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {

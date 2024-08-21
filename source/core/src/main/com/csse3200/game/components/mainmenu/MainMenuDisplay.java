@@ -21,15 +21,21 @@ import java.util.EnumMap;
 public class MainMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
     private static final float Z_INDEX = 2f;
-    private Table table;
-    /** A nested table that contains the buttons for difficulty selection */
-    private Table diffBtnsTable;
-    /** Spacing between UI buttons. */
+    /**
+     * Spacing between UI buttons.
+     */
     private static final float BTN_SPACING = 15f;
+    private Table table;
+    /**
+     * A nested table that contains the buttons for difficulty selection
+     */
+    private Table diffBtnsTable;
+    private GameOptions gameOptions;
 
     @Override
     public void create() {
         super.create();
+        gameOptions = entity.getComponent(GameOptions.class);
         addActors();
     }
 
@@ -61,6 +67,19 @@ public class MainMenuDisplay extends UIComponent {
                         entity.getEvents().trigger("start");
                     }
                 });
+
+        difficultyBtns.forEach((difficulty, btn) -> btn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        gameOptions.setDifficulty(difficulty);
+                        logger.info(
+                                "Difficulty set to %s".formatted(difficulty.toString())
+                        );
+                        entity.getEvents().trigger("start");
+                    }
+                }
+        ));
 
         loadBtn.addListener(
                 new ChangeListener() {

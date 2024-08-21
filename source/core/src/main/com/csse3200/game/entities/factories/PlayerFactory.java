@@ -1,12 +1,10 @@
 package com.csse3200.game.entities.factories;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerStatsDisplay;
-import com.csse3200.game.components.player.WeaponComponent;
-import com.csse3200.game.components.player.WeaponComponent.WeaponType;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
@@ -36,7 +34,7 @@ public class PlayerFactory {
   public static Entity createPlayer() {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
-    InventoryComponent ic = new InventoryComponent();
+    InventoryComponent inventoryComponent = new InventoryComponent();
     
     Entity player = new Entity()
             .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
@@ -45,10 +43,10 @@ public class PlayerFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-            .addComponent(ic)
+            .addComponent(inventoryComponent)
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new PlayerInventoryDisplay(ic))
+            .addComponent(new PlayerInventoryDisplay(inventoryComponent))
             ;
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);

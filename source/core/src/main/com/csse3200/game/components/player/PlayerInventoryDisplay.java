@@ -34,6 +34,12 @@ public class PlayerInventoryDisplay extends UIComponent {
         addActors();
         updateInventoryUI();
 
+        if (entity.getEvents() != null) {
+            entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
+        }
+
+        // updateInventoryUI();
+
     }
 
     /**

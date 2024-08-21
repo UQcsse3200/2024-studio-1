@@ -10,7 +10,8 @@ import java.util.List;
 public class MapFactory {
     private static MapConfigs mapData;
 
-    public static void loadMap (String filePath) {
+
+    public static void loadMap(String filePath) {
         mapData = FileLoader.readClass(MapConfigs.class, filePath);
         if (mapData == null){
             throw new IllegalStateException("Failed to load mapData from " + filePath);
@@ -19,15 +20,19 @@ public class MapFactory {
 
     public static List<int[]> getRoomConnections(String room) {
         List<String> connections = mapData.room_connections.get(room);
-        List<int[]> coordinatesList = new ArrayList<>();
+        List<int[]> roomConnections = new ArrayList<>();
         for (String connection : connections) {
             //Splitting the room connection coordinates into a list of [x,y]
             //coordinates
             String[] parts = connection.split("_");
             int[] coordinates = new int[]{Integer.parseInt(parts[0]), Integer.parseInt(parts[1])};
-            coordinatesList.add(coordinates);
+            roomConnections.add(coordinates);
         }
-        return coordinatesList;
+        return roomConnections;
+    }
+    public static int[] getRoomConnection(String room, int index) {
+        List<int[]> roomConnections = getRoomConnections(room);
+        return roomConnections.get(index);
     }
 
     public static int getAnimalIndex(String room) {

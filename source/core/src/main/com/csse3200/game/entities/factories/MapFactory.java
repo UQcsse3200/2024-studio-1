@@ -31,16 +31,17 @@ public class MapFactory {
         return coordinatesList;
     }
 
-    public static Integer getAnimalIndex(String room) {
+    public static int getAnimalIndex(String room) {
         return mapData.room_info.get(room).animal_index;
     }
 
-    public static Integer getItemIndex(String room) {
+    public static int getItemIndex(String room) {
         return mapData.room_info.get(room).item_index;
     }
 
-    public static String getPlayerLocation() {
-        return mapData.player_location;
+    public static int[] getPlayerLocation() {
+        String[] playerCoordinates = mapData.player_location.split("_");
+        return new int[]{Integer.parseInt(playerCoordinates[0]), Integer.parseInt(playerCoordinates[1])};
     }
 
     public static long getSeed() {

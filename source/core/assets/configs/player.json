@@ -2,8 +2,5 @@
   "health": 100,
   "baseAttack": 10,
   "gold": 50,
-  "attackPerSecond": 2,
-  "burnAttack": 0,
-  "burnDuration": 0,
   "favouriteColour": "peach"
 }

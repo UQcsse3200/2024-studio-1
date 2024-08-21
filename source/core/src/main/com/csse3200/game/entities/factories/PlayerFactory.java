@@ -1,6 +1,10 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.WeaponComponent;
+import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerStatsDisplay;
@@ -33,7 +37,11 @@ public class PlayerFactory {
   public static Entity createPlayer() {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
-    
+
+    // for weapon component - update in runtime
+    Sprite sprite = new Sprite(new Texture("images/box_boy.png")); // need to update this
+    Collectible.Type weaponType = Collectible.Type.NONE;
+
     Entity player = new Entity()
             .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
             .addComponent(new PhysicsComponent())
@@ -44,6 +52,7 @@ public class PlayerFactory {
             .addComponent(new InventoryComponent())
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
+            .addComponent(new WeaponComponent(sprite, weaponType, 10, 1, 1, 0, 0, 0))
             ;
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);

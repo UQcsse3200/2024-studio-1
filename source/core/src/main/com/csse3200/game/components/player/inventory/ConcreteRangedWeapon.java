@@ -59,16 +59,6 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
         Sprite weaponSprite = new Sprite(getIcon());
-        inventory.getEntity().addComponent(new WeaponComponent(
-                weaponSprite,
-                WeaponComponent.WeaponType.SHOTGUN,
-                this.damage,
-                this.range,
-                this.fireRate,
-                this.ammo,
-                this.maxAmmo,
-                this.reloadTime
-        ));
     }
 
 

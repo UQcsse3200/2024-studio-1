@@ -1,17 +1,13 @@
 package com.csse3200.game.components.tasks;
 
-import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.ai.tasks.Task;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.raycast.RaycastHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RatAttackTask extends ChargeTask {
-    private static final Logger logger = LoggerFactory.getLogger(RatAttackTask.class);
+public class AttackTask extends ChargeTask {
+    private static final Logger logger = LoggerFactory.getLogger(AttackTask.class);
 
-    public RatAttackTask(Entity target, int priority, float attackDistance, float maxAttackDistance) {
+    public AttackTask(Entity target, int priority, float attackDistance, float maxAttackDistance) {
         super(target, priority, attackDistance, maxAttackDistance, 5f);
     }
 

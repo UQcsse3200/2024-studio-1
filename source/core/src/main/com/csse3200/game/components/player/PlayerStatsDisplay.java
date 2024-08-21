@@ -27,7 +27,6 @@ public class PlayerStatsDisplay extends UIComponent {
     addActors();
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
-    entity.getEvents().addListener("changeWeapon", this::updateWeapon);
   }
 
   /**
@@ -75,15 +74,6 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence text = String.format("Health: %d", health);
     healthLabel.setText(text);
   }
-  /**
-   * Updates the weapon equipped in the player HUD
-   *
-   * @param weapon the new weapon
-   */
-  public void updateWeapon() {
-    // Changes the weapon image in the ammo bar
-  }
-
   @Override
   public void dispose() {
     super.dispose();

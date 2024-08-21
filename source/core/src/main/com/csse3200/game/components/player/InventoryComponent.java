@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 public class InventoryComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
   private int gold;
+  private String equipped = "melee";
+
 
   public InventoryComponent(int gold) {
     setGold(gold);

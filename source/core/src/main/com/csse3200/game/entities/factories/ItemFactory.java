@@ -1,6 +1,8 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.Inventory;
 import com.csse3200.game.components.player.inventory.SpeedBoost;
 import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
@@ -13,6 +15,9 @@ import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
+import com.csse3200.game.services.ServiceLocator;
+
+import java.util.function.Consumer;
 
 public class ItemFactory {
 
@@ -25,7 +30,7 @@ public class ItemFactory {
      * @param specification The specification of the item to create.
      * @return the specified entity
      */
-    public Entity create(String specification) {
+    public Collectible create(String specification) {
         return switch (specification){
             case "medkit" -> createMedKit();
             case "bandaid" -> createBandage();
@@ -34,40 +39,60 @@ public class ItemFactory {
         };
     }
 
+    private Collectible create(String texturePath, String name, Consumer<Entity> apply){
+        return new UsableItem() {
+            @Override
+            public void apply(Entity entity) {
+                apply.accept(entity);
+            }
+
+            @Override
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public Texture getIcon() {
+                return ServiceLocator.getResourceService().getAsset(texturePath, Texture.class);
+            }
+
+            @Override
+            public void drop(Inventory inventory) {
+                // do nothing
+            }
+        };
+    }
+
     /**
      * Creates a medKit entity that restores players health
      * @return medKit entity
      */
-    public static Entity createMedKit() {
-        Entity medKit = createBaseItem();
+    public Collectible createMedKit() {
         HealthItemConfig config = configs.medKit;
 
-        medKit.addComponent(new TextureRenderComponent("images/items/med_kit.png"));
-        return medKit;
+        return create("images/items/med_kit.png", "MedKit", (entity) -> {});
     }
 
     /**
      * Creates a bandage entity that provides minimal health restoration to player
      * @return bandAid entity
      */
-    public static Entity createBandage() {
-        Entity bandage = createBaseItem();
+    public Collectible createBandage() {
+//        Entity bandage = createBaseItem();
         HealthItemConfig config = configs.bandage;
 
-        bandage.addComponent(new TextureRenderComponent("images/items/bandage.png"));
-        return bandage;
+        return create("images/items/bandage.png", "Bandage", (entity) -> {});
     }
 
     /**
      * Creates an energyDrink entity that increases the players movement speed
      * @return energyDrink entity
      */
-    public static Entity createEnergyDrink() {
-        Entity energyDrink = createBaseItem();
+    public Collectible createEnergyDrink() {
+//        Entity energyDrink = createBaseItem();
         SpeedBoostConfig config = configs.energyDrink;
 
-        energyDrink.addComponent(new TextureRenderComponent("images/items/energy_drink.png"));
-        return energyDrink;
+        return create("images/items/energy_drink.png", "Energy Drink", (entity) -> {});
     }
 
     /**
@@ -75,27 +100,10 @@ public class ItemFactory {
      * negating the next two hits the player takes
      * @return shieldPotion entity
      */
-    public static Entity createShieldPotion() {
-        Entity shieldPotion = createBaseItem();
+    public Collectible createShieldPotion() {
+//        Entity shieldPotion = createBaseItem();
         ShieldItemConfig config = configs.shieldPotion;
 
-        shieldPotion.addComponent(new TextureRenderComponent("images/items/shield_potion.png"));
-        return shieldPotion;
+        return create("images/items/shield_potion.png", "Shield Potion", (entity) -> {});
     }
-
-
-    /**
-     * Creates a generic Item to be used as a base entity by more specific Item creation methods.
-     * NB: This is where we add more components
-     * @return item entity
-     */
-    private static Entity createBaseItem() {
-        Entity item = new Entity()
-                .addComponent(new PhysicsComponent())
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.DEFAULT));
-
-        return item;
-    }
-
-
 }

@@ -14,16 +14,16 @@ public class CollectibleFactory {
     private final ItemFactory itemFactory = new ItemFactory();
 
     /**
-     * Create a collectible Entity from a specification.
+     * Create a collectible from a specification.
      * @param specification the specification to follow.
-     * @return the created collectible entity.
+     * @return the created collectible.
      */
-    public Entity create(String specification) {
+    public Collectible create(String specification) {
         String[] split = specification.split(":", 2);
 
         return switch (split[0]) {
-            case "melee" -> createCollectible(weaponFactory.create(Collectible.Type.MELEE_WEAPON, split[1]));
-            case "ranged" -> createCollectible(weaponFactory.create(Collectible.Type.RANGED_WEAPON, split[1]));
+            case "melee" -> weaponFactory.create(Collectible.Type.MELEE_WEAPON, split[1]);
+            case "ranged" -> weaponFactory.create(Collectible.Type.RANGED_WEAPON, split[1]);
             case "item" -> itemFactory.create(split[1]);
             default -> throw new IllegalStateException("Unexpected value: " + split[0]);
         };
@@ -34,7 +34,7 @@ public class CollectibleFactory {
      * @param collectible the item to convert
      * @return the final entity containing the collectible.
      */
-    public Entity createCollectible(Collectible collectible) {
+    public Entity createCollectibleEntity(Collectible collectible) {
         return new Entity()
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent())

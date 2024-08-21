@@ -15,10 +15,19 @@ public class PlayerInventoryDisplay extends UIComponent {
     private final InventoryComponent inventoryComponent;
     private Label heading;
 
+    /**
+     * Constructor to initialise the inventory component of Player that needs to be displayed
+     *
+     * @param inventoryComponent containing all the items to display
+     */
     public PlayerInventoryDisplay(InventoryComponent inventoryComponent) {
         this.inventoryComponent = inventoryComponent;
     }
 
+
+    /**
+     * Creates reusable ui styles and adds actors to the stage.
+     */
     @Override
     public void create() {
         super.create();
@@ -43,6 +52,9 @@ public class PlayerInventoryDisplay extends UIComponent {
 
     }
 
+    /**
+     * Sets and Displays the heading text of inventory i.e. "Collected: "
+     */
     void setHeading() {
         CharSequence headingText = "Collected: ";
         heading = new Label(headingText, skin, "large");

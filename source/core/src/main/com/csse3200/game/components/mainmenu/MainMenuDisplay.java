@@ -24,6 +24,8 @@ public class MainMenuDisplay extends UIComponent {
     private Table table;
     /** A nested table that contains the buttons for difficulty selection */
     private Table diffBtnsTable;
+    /** Spacing between UI buttons. */
+    private static final float BTN_SPACING = 15f;
 
     @Override
     public void create() {
@@ -89,18 +91,18 @@ public class MainMenuDisplay extends UIComponent {
 
         table.add(title);
         table.row();
-        table.add(startBtn).padTop(30f);
+        table.add(startBtn).padTop(BTN_SPACING * 2);
         table.row();
         for (TextButton btn : difficultyBtns.values()) {
-            diffBtnsTable.add(btn).spaceLeft(15f).spaceRight(15f);
+            diffBtnsTable.add(btn).spaceLeft(BTN_SPACING).spaceRight(BTN_SPACING);
         }
-        table.add(diffBtnsTable).padTop(15f);
+        table.add(diffBtnsTable).padTop(BTN_SPACING);
         table.row();
-        table.add(loadBtn).padTop(15f);
+        table.add(loadBtn).padTop(BTN_SPACING);
         table.row();
-        table.add(settingsBtn).padTop(15f);
+        table.add(settingsBtn).padTop(BTN_SPACING);
         table.row();
-        table.add(exitBtn).padTop(15f);
+        table.add(exitBtn).padTop(BTN_SPACING);
 
         stage.addActor(table);
     }

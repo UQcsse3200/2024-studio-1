@@ -1,6 +1,5 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
 
@@ -27,6 +26,4 @@ public class CollectibleComponent extends Component {
     public Collectible getCollectible() {
         return collectible;
     }
-
-
 }

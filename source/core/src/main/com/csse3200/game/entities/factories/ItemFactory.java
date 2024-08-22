@@ -1,10 +1,7 @@
 package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.Inventory;
-import com.csse3200.game.components.player.inventory.ShieldPotion;
-import com.csse3200.game.components.player.inventory.UsableItem;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -22,7 +19,7 @@ public class ItemFactory {
         return switch (specification){
             case "medkit" -> createMedKit();
             case "bandage" -> createBandage();
-            case "energydrink" -> createEnergyDrink();
+            case "buffitem" -> createEnergyDrink();
             case "shieldpotion" -> createShieldPotion();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
@@ -58,8 +55,8 @@ public class ItemFactory {
      */
     private Collectible createMedKit() {
 //        HealthItemConfig config = configs.medKit;
-
         return create("images/items/med_kit.png", "MedKit", (entity) -> {});
+//        return new MedKit();
     }
 
     /**
@@ -69,8 +66,8 @@ public class ItemFactory {
     private Collectible createBandage() {
 //        Entity bandage = createBaseItem();
 //        HealthItemConfig config = configs.bandage;
-
         return create("images/items/bandage.png", "Bandage", (entity) -> {});
+//        return new Bandage();
     }
 
     /**
@@ -80,8 +77,9 @@ public class ItemFactory {
     private Collectible createEnergyDrink() {
 //        Entity energyDrink = createBaseItem();
 //        SpeedBoostConfig config = configs.energyDrink;
-
         return create("images/items/energy_drink.png", "Energy Drink", (entity) -> {});
+
+//        return new EnergyDrink();
     }
 
     /**

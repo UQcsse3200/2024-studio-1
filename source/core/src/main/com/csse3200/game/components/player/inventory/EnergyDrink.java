@@ -1,14 +1,20 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector;
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.rendering.TextureRenderComponent;
 
-public class EnergyDrink extends UsableItem {
+
+public class EnergyDrink extends BuffItem {
+
+    private static final Vector2 speed = new Vector2(6f, 6f);
 
     @Override
     public String getName() {
-        return "EnergyDrink";
+        return null;
     }
 
     @Override
@@ -22,16 +28,11 @@ public class EnergyDrink extends UsableItem {
     }
 
     @Override
-    public void pickup(Inventory inventory) {
-        super.pickup(inventory);
-
-        // do the real apply
-
+    public void effect(Entity entity) {
+        entity.getComponent(PlayerActions.class).setSpeed(this.getSpeed());
     }
 
-    @Override
-    public void apply(Entity entity) {
-        // do nothing
-
+    public Vector2 getSpeed() {
+        return speed;
     }
 }

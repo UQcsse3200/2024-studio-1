@@ -51,6 +51,7 @@ public interface Collectible {
     enum Type {
         ITEM,
         MELEE_WEAPON,
-        RANGED_WEAPON
+        RANGED_WEAPON,
+        BUFF_ITEM
     }
 }

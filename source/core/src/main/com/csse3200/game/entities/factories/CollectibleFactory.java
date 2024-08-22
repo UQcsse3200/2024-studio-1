@@ -29,6 +29,7 @@ public class CollectibleFactory {
             case "melee" -> weaponFactory.create(Collectible.Type.MELEE_WEAPON, split[1]);
             case "ranged" -> weaponFactory.create(Collectible.Type.RANGED_WEAPON, split[1]);
             case "item" -> itemFactory.create(split[1]);
+            case "buffitem" -> itemFactory.create(split[1]);
             default -> throw new IllegalStateException("Unexpected value: " + split[0]);
         };
     }

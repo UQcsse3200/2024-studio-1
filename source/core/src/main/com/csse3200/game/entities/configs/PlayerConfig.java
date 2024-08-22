@@ -12,7 +12,8 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String equipped;
   public int gold = 1;
   public String favouriteColour = "none";
-  public String[] items = new String[0];
+  public String[] items;
+
   public int health = 100;
 
 

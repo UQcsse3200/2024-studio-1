@@ -26,7 +26,7 @@ public class NPCDeathHandler extends Component {
         animator = entity.getComponent(AnimationRenderComponent.class);
     }
 
-    private void onDeath() {
+    void onDeath() {
         logger.info("NPC {} death animation started.", entity.getId());
 
         // Play death animation if available

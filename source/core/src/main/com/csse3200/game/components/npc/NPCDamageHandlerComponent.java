@@ -26,7 +26,7 @@ public class NPCDamageHandlerComponent extends Component {
         entity.getEvents().addListener("takeDamage", this::onTakeDamage);
     }
 
-    private void onTakeDamage(int damage) {
+    void onTakeDamage(int damage) {
         // Only process damage if the NPC is alive and has combat stats
         if (combatStats != null && !isDead) {
             combatStats.takeDamage(damage);

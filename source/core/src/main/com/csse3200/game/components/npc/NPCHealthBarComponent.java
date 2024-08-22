@@ -18,7 +18,7 @@ public class NPCHealthBarComponent extends RenderComponent {
     private static final float OFFSET_Y = 1.2f;
 
     private CombatStatsComponent combatStats;
-    private ShapeRenderer shapeRenderer;
+    ShapeRenderer shapeRenderer;
 
     @Override
     public void create() {

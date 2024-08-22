@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.rendering.RenderComponent;
+import com.csse3200.game.services.ServiceLocator;
 
 /**
  * Render a tiled terrain for a given tiled map and orientation. A terrain is a map of tiles that
@@ -63,8 +64,17 @@ public class TerrainComponent extends RenderComponent {
 
   @Override
   public void dispose() {
-    tiledMap.dispose();
-    super.dispose();
+    if (tiledMap != null) {
+      tiledMap.dispose();
+    }
+    try {
+      if (ServiceLocator.getRenderService() != null) {
+        ServiceLocator.getRenderService().unregister(this);
+      }
+    } catch (NullPointerException e) {
+      // Log or handle the case where RenderService is not available
+      System.out.println("RenderService not available during dispose");
+    }
   }
 
   @Override

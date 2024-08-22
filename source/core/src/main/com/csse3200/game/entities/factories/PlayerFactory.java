@@ -38,7 +38,7 @@ public class PlayerFactory {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
-    // for weapon component - update in runtime
+    // initial skin and type for weapon component (bare hand) - update in runtime
     Sprite sprite = new Sprite(new Texture("images/box_boy.png")); // need to update this
     Collectible.Type weaponType = Collectible.Type.NONE;
 

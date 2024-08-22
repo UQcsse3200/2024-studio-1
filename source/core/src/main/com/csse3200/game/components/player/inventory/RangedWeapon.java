@@ -23,7 +23,9 @@ public abstract class RangedWeapon implements Collectible {
         inventory.getEntity().getEvents().addListener("shoot", this::shoot);
 
         // Add a Weapon Component
-        inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this);
+        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
+            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this);
+        }
     }
 
     @Override

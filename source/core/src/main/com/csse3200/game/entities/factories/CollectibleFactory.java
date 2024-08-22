@@ -1,11 +1,7 @@
 package com.csse3200.game.entities.factories;
 
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.Knife;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.inventory.Knife;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.entities.Entity;
@@ -44,6 +45,7 @@ public class CollectibleFactory {
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent())
                 .addComponent(new PhysicsComponent())
+                .addComponent(new InventoryComponent()) //Not sure about this
                 .addComponent(new TextureRenderComponent(collectible.getIcon()));
 
         collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();

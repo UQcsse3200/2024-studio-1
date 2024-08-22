@@ -77,9 +77,9 @@ public class ItemFactory {
     private Collectible createEnergyDrink() {
 //        Entity energyDrink = createBaseItem();
 //        SpeedBoostConfig config = configs.energyDrink;
-        return create("images/items/energy_drink.png", "Energy Drink", (entity) -> {});
+//        return create("images/items/energy_drink.png", "Energy Drink", (entity) -> {});
 
-//        return new EnergyDrink();
+        return new EnergyDrink();
     }
 
     /**

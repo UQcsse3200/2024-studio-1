@@ -29,6 +29,7 @@ public class EnergyDrink extends BuffItem {
 
     @Override
     public void effect(Entity entity) {
+        System.out.println("YAY");
         entity.getComponent(PlayerActions.class).setSpeed(this.getSpeed());
     }
 

@@ -25,6 +25,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+  private static final GridPoint2 ITEM_SPAWN = new GridPoint2(10, 5);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
     "images/box_boy_leaf.png",
@@ -136,7 +137,7 @@ public class ForestGameArea extends GameArea {
   private Entity spawnCollectibleTest() {
     Collectible collectible = CollectibleFactory.create("item:buffitem");
     Entity collectibleEntity = CollectibleFactory.createCollectibleEntity(collectible);
-    spawnEntityAt(collectibleEntity, PLAYER_SPAWN, true, true);
+    spawnEntityAt(collectibleEntity, ITEM_SPAWN, true, true);
     return collectibleEntity;
   }
 

@@ -5,6 +5,7 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.files.FileLoader;
 
 
 public class SavePlayerManager {
@@ -18,6 +19,8 @@ public class SavePlayerManager {
         config.baseAttack = statsComponent.getBaseAttack();
         config.items = new String[inventoryComponent.getInventory().getItems().size];
         config.items = itemsToString(inventoryComponent.getInventory().getItems());
+
+        FileLoader.writeClass(config, "configs/player_save.json");
 
     }
 

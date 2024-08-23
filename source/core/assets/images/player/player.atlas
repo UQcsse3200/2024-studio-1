@@ -829,7 +829,7 @@ walk-right
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-right
+walk-right-x
   rotate: true
   xy: 1733, 888
   size: 112, 132

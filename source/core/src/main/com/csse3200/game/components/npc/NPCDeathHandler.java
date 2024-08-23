@@ -14,11 +14,14 @@ import org.slf4j.LoggerFactory;
  * It plays a death animation, disables physics and AI, and removes the entity from the game.
  */
 public class NPCDeathHandler extends Component {
-    private static final Logger logger = LoggerFactory.getLogger(NPCDeathHandler.class);
-    private static final float DEATH_ANIMATION_DURATION = 1.0f;
+    public static final Logger logger = LoggerFactory.getLogger(NPCDeathHandler.class);
+    public static final float DEATH_ANIMATION_DURATION = 1.0f;
 
-    private AnimationRenderComponent animator;
+    public AnimationRenderComponent animator;
 
+    /**
+     * Called when the entity is created and registered. Sets up the death event listener and gets the animator component.
+     */
     @Override
     public void create() {
         // Set up the death event listener and get the animator component
@@ -26,6 +29,10 @@ public class NPCDeathHandler extends Component {
         animator = entity.getComponent(AnimationRenderComponent.class);
     }
 
+    /**
+     * Handles the death of the NPC by playing the death animation,
+     * disabling physics and AI components, and scheduling the NPC's removal from the game.
+     */
     void onDeath() {
         logger.info("NPC {} death animation started.", entity.getId());
 

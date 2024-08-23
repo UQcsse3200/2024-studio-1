@@ -15,7 +15,7 @@ public class NPCDamageTester {
         for (Entity entity : entities) {
             NPCDamageHandlerComponent damageHandler = entity.getComponent(NPCDamageHandlerComponent.class);
             if (damageHandler != null) {
-                int damageAmount = 1; // Adjust as needed
+                int damageAmount = 0; // Adjust as needed
                 entity.getEvents().trigger("takeDamage", damageAmount);
             }
         }

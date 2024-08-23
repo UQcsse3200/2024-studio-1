@@ -30,6 +30,9 @@ class NPCDamageHandlerComponentTest {
         damageHandler.setEntity(entity);
     }
 
+    /**
+     * Tests if the NPCDamageHandlerComponent correctly applies damage to the entity.
+     */
     @Test
     void shouldHandleDamage() {
         when(combatStats.getHealth()).thenReturn(50);
@@ -39,6 +42,9 @@ class NPCDamageHandlerComponentTest {
         verify(combatStats).takeDamage(10);
     }
 
+    /**
+     * Tests if the NPCDamageHandlerComponent triggers the death event when the entity's health reaches 0.
+     */
     @Test
     void shouldTriggerDeathEvent() {
         when(combatStats.getHealth()).thenReturn(0);
@@ -49,6 +55,9 @@ class NPCDamageHandlerComponentTest {
         assertTrue(NPCDamageHandlerComponent.deadAnimals.contains(1));
     }
 
+    /**
+     * Tests if the NPCDamageHandlerComponent does not trigger the death event more than once for the same entity.
+     */
     @Test
     void shouldNotTriggerDeathEventTwice() {
         when(combatStats.getHealth()).thenReturn(0);

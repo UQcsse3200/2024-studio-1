@@ -787,224 +787,224 @@ run-31
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-0
+walk-right
   rotate: false
   xy: 938, 1
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-1
+walk-right
   rotate: false
   xy: 1682, 1
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-2
+walk-right
   rotate: false
   xy: 1816, 1
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-3
+walk-right
   rotate: false
   xy: 1127, 289
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-4
+walk-right
   rotate: false
   xy: 1221, 433
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-5
+walk-right
   rotate: false
   xy: 1619, 959
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-6
+walk-right
   rotate: true
   xy: 1733, 888
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-7
+walk-right
   rotate: false
   xy: 1197, 145
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-8
+walk-left
   rotate: false
   xy: 859, 433
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-9
+walk-left
   rotate: false
   xy: 1351, 979
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-10
+walk-left
   rotate: false
   xy: 1434, 835
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-11
+walk-left
   rotate: false
   xy: 1241, 289
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-12
+walk-left
   rotate: false
   xy: 1335, 433
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-13
+walk-left
   rotate: false
   xy: 1733, 1002
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-14
+walk-left
   rotate: false
   xy: 1847, 1002
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-15
+walk-left
   rotate: false
   xy: 1206, 1
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-16
+walk-down
   rotate: false
   xy: 1051, 701
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-17
+walk-down
   rotate: false
   xy: 1547, 691
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-18
+walk-down
   rotate: false
   xy: 1583, 421
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-19
+walk-down
   rotate: false
   xy: 1052, 845
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-20
+walk-down
   rotate: false
   xy: 1083, 989
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-21
+walk-down
   rotate: false
   xy: 1623, 278
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-22
+walk-down
   rotate: false
   xy: 1713, 135
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-23
+walk-down
   rotate: false
   xy: 1052, 845
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-24
+walk-up
   rotate: false
   xy: 918, 854
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-25
+walk-up
   rotate: false
   xy: 1485, 969
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-26
+walk-up
   rotate: false
   xy: 1568, 825
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-27
+walk-up
   rotate: false
   xy: 993, 289
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-28
+walk-up
   rotate: false
   xy: 1063, 145
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-29
+walk-up
   rotate: false
   xy: 1681, 679
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-30
+walk-up
   rotate: false
   xy: 1717, 412
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-walk-31
+walk-up
   rotate: false
   xy: 993, 289
   size: 132, 142

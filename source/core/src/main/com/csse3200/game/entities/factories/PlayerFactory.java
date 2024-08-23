@@ -67,6 +67,10 @@ public class PlayerFactory {
     TextureRegion defaultTexture = atlas.findRegion("idle");
 
     animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
 
     Entity player =
         new Entity()

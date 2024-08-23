@@ -8,7 +8,7 @@ import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
 
 
-public class SavePlayerManager {
+public class SavePlayerService {
     PlayerConfig config = new PlayerConfig();
 
     public void savePlayerState(Entity player) {

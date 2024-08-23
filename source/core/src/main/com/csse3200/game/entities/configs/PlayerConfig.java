@@ -1,5 +1,11 @@
 package com.csse3200.game.entities.configs;
 
+import com.badlogic.gdx.utils.Array;
+import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.entities.Entity;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,6 +22,29 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String[] items;
 
   public int health = 100;
+  public String melee;
+  public String ranged;
+
+
+  public PlayerConfig(Entity player) {
+    CombatStatsComponent statsComponent = player.getComponent(CombatStatsComponent.class);
+    InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class);
+
+    this.health = statsComponent.getHealth();
+    this.baseAttack = statsComponent.getBaseAttack();
+    this.items = new String[inventoryComponent.getInventory().getItems().size];
+    this.items = itemsToString(inventoryComponent.getInventory().getItems());
+    this.melee = "";
+
+  }
+
+  private String[] itemsToString(Array<Collectible> items) {
+    String[] itemNames = new String[items.size];
+    for (int i = 0; i < items.size; i++) {
+      itemNames[i] = items.get(i).getSpecification();
+    }
+    return itemNames;
+  }
 
 
   public PlayerConfig(){

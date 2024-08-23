@@ -7,14 +7,18 @@ import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
 
+public class PlayerConfigGenerator {
 
-public class SavePlayerService {
+    public PlayerConfig savePlayerState(Entity player) {
+        PlayerConfig config = new PlayerConfig();
+        CombatStatsComponent statsComponent = player.getComponent(CombatStatsComponent.class);
+        InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class);
 
-
-    public void savePlayerState(Entity player) {
-        PlayerConfigGenerator generator = new PlayerConfigGenerator();
-        FileLoader.writeClass(generator.savePlayerState(player), "configs/player_save.json");
-
+        config.health = statsComponent.getHealth();
+        config.baseAttack = statsComponent.getBaseAttack();
+        config.items = new String[inventoryComponent.getInventory().getItems().size];
+        config.items = itemsToString(inventoryComponent.getInventory().getItems());
+        return config;
     }
 
 

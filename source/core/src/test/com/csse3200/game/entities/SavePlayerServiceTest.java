@@ -41,36 +41,14 @@ public class SavePlayerServiceTest {
 
     @Test
     public void testSavePlayer() {
-        Entity player = PlayerFactory.createPlayer();
-/*
-        player.getComponent(CombatStatsComponent.class).setHealth(50);
-        player.getComponent(CombatStatsComponent.class).setBaseAttack(20);
-        player.getComponent(InventoryComponent.class).pickup(new UsableItem() {
-            @Override
-            public void apply(Entity entity) {
+        CombatStatsComponent statsComponent = new CombatStatsComponent(100, 30);
+        InventoryComponent inventoryComponent = new InventoryComponent();
+        Entity entity = new Entity().addComponent(statsComponent)
+                .addComponent(inventoryComponent);
 
-            }
-
-            @Override
-            public String getName() {
-                return "Potion";
-            }
-
-            @Override
-            public Texture getIcon() {
-                return null;
-            }
-
-            @Override
-            public void drop(Inventory inventory) {
-
-            }
-        });
-
- */
 
         SavePlayerService savePlayerService = new SavePlayerService();
-        savePlayerService.savePlayerState(player);
+        savePlayerService.savePlayerState(entity);
 
         // Load the player config from file
          PlayerConfig loadedConfig = FileLoader.readClass(PlayerConfig.class, "configs/player_save.json");

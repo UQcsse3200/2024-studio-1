@@ -14,70 +14,104 @@ import java.util.*;
  * Defines the properties stored in player config files to be loaded by the Player Factory.
  */
 public class PlayerConfig extends BaseEntityConfig  {
-  //public LinkedHashMap<String, WeaponType> slotTypeMap;
   public String equipped;
   public int gold = 1;
+  /** Player's base attack by default*/
   public int baseAttack = 10;
+  /** Player's favourite colour by default */
   public String favouriteColour = "none";
+  /** The items player has collected/picked up during the game */
   public String[] items;
 
+  /** Player's current health */
   public int health = 100;
+  /** The specification of player's equipped melee weapon */
   public String melee;
+  /** The specification of player's equiped ranged weapon */
   public String ranged;
 
-
+  /**
+   * Constructor to initialise and store player's stats and inventory
+   *
+   * @param player of type Entity, whose information is stored
+   */
   public PlayerConfig(Entity player) {
+    // obtain the stats and inventory components of the player
     CombatStatsComponent statsComponent = player.getComponent(CombatStatsComponent.class);
     InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class);
 
     this.health = statsComponent.getHealth();
     this.baseAttack = statsComponent.getBaseAttack();
-    this.items = new String[inventoryComponent.getInventory().getItems().size];
+
+    // store the string representation of items player has collected
     this.items = itemsToString(inventoryComponent.getInventory().getItems());
+
+    // obtain the specification of melee of player, if any
     this.melee = inventoryComponent.getInventory()
             .getMelee()
             .map(MeleeWeapon::getSpecification)
             .orElse("");
+
+    //obtain the specification of ranged weapon of player, if any
     this.ranged = inventoryComponent.getInventory()
             .getRanged()
             .map(RangedWeapon::getSpecification)
             .orElse("");
   }
 
+  /**
+   * A helper method to convert Array of Collectibles to their string format,
+   * storing their details
+   *
+   * @param items array of items to store
+   *
+   * @return an array of strings containing specification of all items
+   */
   private String[] itemsToString(Array<Collectible> items) {
-    String[] itemNames = new String[items.size];
+    String[] allItems = new String[items.size];
     for (int i = 0; i < items.size; i++) {
-      itemNames[i] = items.get(i).getSpecification();
+      allItems[i] = items.get(i).getSpecification();
     }
-    return itemNames;
+    return allItems;
   }
 
 
   public PlayerConfig(){
-    //slotTypeMap = new LinkedHashMap<>("melee", WeaponType.MELEE);
     this.equipped = "melee";
   }
 
+  /**
+   * Checks if two players are teh same based on their attributes
+   *
+   * @param object The object to compare with the player
+   *
+   * @return True if two objects are the same, otherwise false
+   */
   @Override
-  public final boolean equals(Object o) {
-    if (this == o) {
+  public final boolean equals(Object object) {
+    if (this == object) {
       return true;
     }
 
-    if (!(o instanceof PlayerConfig config)) {
+    if (!(object instanceof PlayerConfig config)) {
       return false;
     }
-
-      return gold == config.gold &&
-              baseAttack == config.baseAttack &&
-              health == config.health &&
-              Objects.equals(equipped, config.equipped) &&
-              Objects.equals(favouriteColour, config.favouriteColour) &&
-              Arrays.equals(items, config.items) &&
-              Objects.equals(melee, config.melee) &&
-              Objects.equals(ranged, config.ranged);
+    // check if all the attributes are the same
+    return gold == config.gold &&
+            baseAttack == config.baseAttack &&
+            health == config.health &&
+            Objects.equals(equipped, config.equipped) &&
+            Objects.equals(favouriteColour, config.favouriteColour) &&
+            Arrays.equals(items, config.items) &&
+            Objects.equals(melee, config.melee) &&
+            Objects.equals(ranged, config.ranged);
   }
 
+  /**
+   * Generates a hashcode based on player's attributes
+   *
+   * @return a hashcode for a player
+   */
   @Override
   public int hashCode() {
     int result = Objects.hashCode(equipped);

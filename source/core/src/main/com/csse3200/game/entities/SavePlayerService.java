@@ -27,7 +27,7 @@ public class SavePlayerService {
     private String[] itemsToString(Array<Collectible> items) {
         String[] itemNames = new String[items.size];
         for (int i = 0; i < items.size; i++) {
-            itemNames[i] = items.get(i).getName();
+            itemNames[i] = items.get(i).getSpecification();
         }
         return itemNames;
     }

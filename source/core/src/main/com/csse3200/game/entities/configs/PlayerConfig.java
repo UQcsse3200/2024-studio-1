@@ -11,6 +11,7 @@ public class PlayerConfig extends BaseEntityConfig  {
   //public LinkedHashMap<String, WeaponType> slotTypeMap;
   public String equipped;
   public int gold = 1;
+  public int baseAttack = 10;
   public String favouriteColour = "none";
   public String[] items;
 

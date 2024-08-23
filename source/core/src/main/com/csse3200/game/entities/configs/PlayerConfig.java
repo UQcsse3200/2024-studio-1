@@ -30,51 +30,6 @@ public class PlayerConfig extends BaseEntityConfig  {
   /** The specification of player's equiped ranged weapon */
   public String ranged;
 
-  /**
-   * Constructor to initialise and store player's stats and inventory
-   *
-   * @param player of type Entity, whose information is stored
-   */
-  public PlayerConfig(Entity player) {
-    // obtain the stats and inventory components of the player
-    CombatStatsComponent statsComponent = player.getComponent(CombatStatsComponent.class);
-    InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class);
-
-    this.health = statsComponent.getHealth();
-    this.baseAttack = statsComponent.getBaseAttack();
-
-    // store the string representation of items player has collected
-    this.items = itemsToString(inventoryComponent.getInventory().getItems());
-
-    // obtain the specification of melee of player, if any
-    this.melee = inventoryComponent.getInventory()
-            .getMelee()
-            .map(MeleeWeapon::getSpecification)
-            .orElse("");
-
-    //obtain the specification of ranged weapon of player, if any
-    this.ranged = inventoryComponent.getInventory()
-            .getRanged()
-            .map(RangedWeapon::getSpecification)
-            .orElse("");
-  }
-
-  /**
-   * A helper method to convert Array of Collectibles to their string format,
-   * storing their details
-   *
-   * @param items array of items to store
-   *
-   * @return an array of strings containing specification of all items
-   */
-  private String[] itemsToString(Array<Collectible> items) {
-    String[] allItems = new String[items.size];
-    for (int i = 0; i < items.size; i++) {
-      allItems[i] = items.get(i).getSpecification();
-    }
-    return allItems;
-  }
-
 
   public PlayerConfig(){
     this.equipped = "melee";
@@ -92,6 +47,7 @@ public class PlayerConfig extends BaseEntityConfig  {
     if (this == object) {
       return true;
     }
+
 
     if (!(object instanceof PlayerConfig config)) {
       return false;

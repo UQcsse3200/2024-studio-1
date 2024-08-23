@@ -11,12 +11,14 @@ public class SavePlayerService {
 
     /**
      * Calls file writer to save player's assets into a player_save.json file
-     * under Assets/configs
+     * under Assets/configs using a config generator
      *
      * @param player an entity whose assets need to be saved
      */
     public void savePlayerState(Entity player) {
-        FileLoader.writeClass(new PlayerConfig(player),
+        PlayerConfigGenerator generator = new PlayerConfigGenerator();
+        PlayerConfig config = generator.savePlayerState(player);
+        FileLoader.writeClass(config,
                 "configs/player_save.json");
     }
 

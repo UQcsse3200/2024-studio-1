@@ -1,41 +1,45 @@
 package com.csse3200.game.components.player;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.MeleeWeapon;
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(GameExtension.class)
 class InventoryComponentTest {
-  @Test
-  void shouldSetGetGold() {
-    InventoryComponent inventory = new InventoryComponent(100);
-    assertEquals(100, inventory.getGold());
-
-    inventory.setGold(150);
-    assertEquals(150, inventory.getGold());
-
-    inventory.setGold(-50);
-    assertEquals(0, inventory.getGold());
-  }
 
   @Test
-  void shouldCheckHasGold() {
-    InventoryComponent inventory = new InventoryComponent(150);
-    assertTrue(inventory.hasGold(100));
-    assertFalse(inventory.hasGold(200));
+  public void baseTest(){
+    InventoryComponent inventoryComponent = new InventoryComponent();
+    new Entity().addComponent(inventoryComponent);
+    MeleeWeapon meleeWeapon = new MeleeWeapon() {
+      @Override
+      public void attack() {
+        System.out.println("whack!");
+      }
+
+      @Override
+      public String getName() {
+        return "whacker";
+      }
+
+      @Override
+      public Texture getIcon() {
+        return new Texture("./light.png");
+      }
+    };
+
+    inventoryComponent.pickup(meleeWeapon);
+    assertTrue(inventoryComponent.getInventory().getMelee().isPresent());
+    assertEquals(meleeWeapon, inventoryComponent.getInventory().getMelee().get());
+
+    inventoryComponent.getInventory().resetMelee();
+    assertTrue(inventoryComponent.getInventory().getMelee().isEmpty());
   }
 
-  @Test
-  void shouldAddGold() {
-    InventoryComponent inventory = new InventoryComponent(100);
-    inventory.addGold(-500);
-    assertEquals(0, inventory.getGold());
-
-    inventory.addGold(100);
-    inventory.addGold(-20);
-    assertEquals(80, inventory.getGold());
-  }
 }

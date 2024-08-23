@@ -12,11 +12,12 @@ import com.csse3200.game.services.ServiceLocator;
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-  private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
+  private static final Vector2 DEFAULT_SPEED = new Vector2(3f, 3f); // Metres per second
 
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean moving = false;
+  private Vector2 speed = DEFAULT_SPEED;
 
   @Override
   public void create() {
@@ -33,10 +34,19 @@ public class PlayerActions extends Component {
     }
   }
 
+    /**
+     * Set the player speed
+     * @param speed the speed (in m/s)
+     */
+  public void setSpeed(Vector2 speed) {
+      this.speed = speed;
+      update();
+  }
+
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
+    Vector2 desiredVelocity = walkDirection.cpy().scl(speed);
     // impulse = (desiredVel - currentVel) * mass
     Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);

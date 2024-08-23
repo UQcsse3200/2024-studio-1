@@ -1,7 +1,8 @@
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.InventoryComponent;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerStatsDisplay;
 import com.csse3200.game.entities.Entity;
@@ -55,6 +56,9 @@ public class PlayerFactory {
   public static Entity createPlayer() {
 
     loadAssets();
+    
+    atlas = new TextureAtlas(playerTextureAtlas[0]);
+    TextureRegion defaultTexture = atlas.findRegion("idle");
 
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
@@ -63,32 +67,32 @@ public class PlayerFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/player/player.atlas", TextureAtlas.class));
 
-    atlas = new TextureAtlas(playerTextureAtlas[0]);
-    TextureRegion defaultTexture = atlas.findRegion("idle");
-
     animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
 
-    Entity player =
-        new Entity()
+    InventoryComponent inventoryComponent = new InventoryComponent();
+    
+    Entity player = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-            .addComponent(new InventoryComponent(stats.gold))
+            .addComponent(inventoryComponent)
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(animator)
             .addComponent(new PlayerAnimationController());
+            .addComponent(new PlayerInventoryDisplay(inventoryComponent))
+            ;
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
-    //player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+    player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
 
     return player;
   }

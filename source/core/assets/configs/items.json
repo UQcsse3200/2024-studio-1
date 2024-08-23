@@ -1,0 +1,12 @@
+{
+  "medKit": {
+    "healthBoost": 100
+  },
+  "bandAid": {
+    "healthBoost": 20
+  },
+  "energyDrink": {
+    "speedFactor": 1.1
+  }
+}
+

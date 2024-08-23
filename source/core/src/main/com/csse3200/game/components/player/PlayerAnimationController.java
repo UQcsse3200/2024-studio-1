@@ -20,24 +20,44 @@ public class PlayerAnimationController extends Component {
         super.create();
 
         animationController = this.entity.getComponent(AnimationRenderComponent.class);
-        //entity.getEvents().addListener("walk", this::walkingAnimation);
+        entity.getEvents().addListener("walkLeft", this::walkLeft);
+        entity.getEvents().addListener("walkRight", this::walkRight);
+        entity.getEvents().addListener("walkUp", this::walkUp);
+        entity.getEvents().addListener("walkDown", this::walkDown);
         entity.getEvents().addListener("walkStop", this::stationaryAnimation);
-
         animationController.startAnimation("idle");
     }
 
     /**
      * Starts the player stationary animation.
      */
-    void stationaryAnimation() {
-        animationController.startAnimation("idle");
+    void stationaryAnimation() { animationController.startAnimation("idle"); }
+
+    /**
+     * Starts the player walking left animation.
+     */
+    void walkLeft() {
+        animationController.startAnimation("walk-left");
     }
 
     /**
-     * Starts the player walking animation.
+     * Starts the player walking right animation.
      */
-    void walkingAnimation() {
-        animationController.startAnimation("idle");
+    void walkRight() {
+        animationController.startAnimation("walk-right");
     }
 
+    /**
+     * Starts the player walking down animation.
+     */
+    void walkDown() {
+        animationController.startAnimation("walk-down");
+    }
+
+    /**
+     * Starts the player walking up animation.
+     */
+    void walkUp() {
+        animationController.startAnimation("walk-up");
+    }
 }

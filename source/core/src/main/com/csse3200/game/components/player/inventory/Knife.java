@@ -1,9 +1,10 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.csse3200.game.components.player.WeaponComponent;
-import com.csse3200.game.entities.Entity;
 
+/**
+ * Example Weapon Collectible.
+ */
 public class Knife extends MeleeWeapon {
 
     @Override

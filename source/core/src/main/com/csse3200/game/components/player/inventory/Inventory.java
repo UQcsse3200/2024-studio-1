@@ -14,14 +14,25 @@ import java.util.Optional;
 public class Inventory {
     private final InventoryComponent component;
     private final Array<Collectible> items = new Array<>();
+
     private Optional<MeleeWeapon> meleeWeapon = Optional.empty();
     private Optional<RangedWeapon> rangedWeapon = Optional.empty();
 
+    /**
+     * Construct an inventory for an inventory component
+     *
+     * @param component the component this inventory is attached to.
+     */
     public Inventory(InventoryComponent component) {
         super();
         this.component = component;
     }
 
+    /**
+     * Get the entity this inventory is attached to.
+     *
+     * @return the entity this Inventory is attached to.
+     */
     public Entity getEntity() {
         return component.getEntity();
     }
@@ -31,8 +42,8 @@ public class Inventory {
      *
      * @return the melee weapon currently held.
      */
-    public MeleeWeapon getMelee() {
-        return meleeWeapon.orElse(null); // FIXME reset to default
+    public Optional<MeleeWeapon> getMelee() {
+        return meleeWeapon; // FIXME reset to default
     }
 
     /**
@@ -57,8 +68,8 @@ public class Inventory {
      *
      * @return the ranged weapon currently held.
      */
-    public RangedWeapon getRanged() {
-        return rangedWeapon.orElse(null); // FIXME reset to default
+    public Optional<RangedWeapon> getRanged() {
+        return rangedWeapon; // FIXME reset to default
     }
 
     /**

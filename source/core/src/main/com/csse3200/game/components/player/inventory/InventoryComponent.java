@@ -1,11 +1,8 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Optional;
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -17,6 +14,9 @@ public class InventoryComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
     private final Inventory inventory;
 
+    /**
+     * Construct a new empty inventory component
+     */
     public InventoryComponent() {
         super();
         this.inventory = new Inventory(this);
@@ -34,12 +34,17 @@ public class InventoryComponent extends Component {
     /**
      * Remove an item to your inventory.
      *
-     * @param item The item to remove from your inventory
+     * @param item The item to remove from your inventory.
      */
     public void drop(Collectible item) {
         item.drop(inventory);
     }
 
+    /**
+     * Get the underlying inventory model.
+     *
+     * @return the inventory
+     */
     public Inventory getInventory() {
         return inventory;
     }

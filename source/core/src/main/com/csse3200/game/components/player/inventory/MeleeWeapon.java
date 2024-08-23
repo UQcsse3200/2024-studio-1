@@ -1,7 +1,5 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.csse3200.game.components.player.WeaponComponent;
-
 public abstract class MeleeWeapon implements Collectible {
     @Override
     public Type getType() {
@@ -19,6 +17,11 @@ public abstract class MeleeWeapon implements Collectible {
     @Override
     public void drop(Inventory inventory) {
         inventory.resetMelee();
+    }
+
+    @Override
+    public String getSpecification() {
+        return "melee:";
     }
 
     /**

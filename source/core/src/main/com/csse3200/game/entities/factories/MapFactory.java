@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class MapFactory {
-    private static final MapConfigs mapData = FileLoader.readClass(MapConfigs.class, "configs/test.json");
+    public static final MapConfigs mapData = FileLoader.readClass(MapConfigs.class, "configs/test.json");
 
     public static List<int[]> getRoomConnections(String room) {
         List<String> connections = mapData.room_connections.get(room);

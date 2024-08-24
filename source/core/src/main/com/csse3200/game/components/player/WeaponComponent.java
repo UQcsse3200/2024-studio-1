@@ -1,10 +1,12 @@
 package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.RangedWeapon;
+import com.csse3200.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -214,5 +216,19 @@ public class WeaponComponent extends Component {
         this.damage = meleeWeapon.getDamage();
         this.range = meleeWeapon.getRange();
         this.fireRate = meleeWeapon.getFireRate();
+    }
+
+    public void attack() {
+        logger.info("WeaponComponent attack");
+        Entity entity = getEntity();
+        if (entity != null) {
+            if (weaponType == Collectible.Type.MELEE_WEAPON) {
+                // Melee weapon attack logic
+                logger.info("Melee weapon attack");
+            } else if (weaponType == Collectible.Type.RANGED_WEAPON) {
+                // Ranged weapon attack logic
+                logger.info("Ranged weapon attack");
+            }
+        }
     }
 }

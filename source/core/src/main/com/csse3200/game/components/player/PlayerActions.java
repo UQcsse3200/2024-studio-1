@@ -26,7 +26,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walk", this::walk);
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
-        entity.getEvents().addListener("shoot", this::shoot);
+        //entity.getEvents().addListener("shoot", this::shoot); it is better
     }
 
     @Override
@@ -71,11 +71,8 @@ public class PlayerActions extends Component {
         ServiceLocator.getResourceService()
                 .getAsset("sounds/Impact4.ogg", Sound.class)
                 .play();
-
-        entity.getComponent(InventoryComponent.class)
-                .getInventory()
-                .getMelee()
-                .ifPresent(MeleeWeapon::attack);
+        // Inventory component is not use for attack
+        entity.getComponent(WeaponComponent.class).attack();
     }
 
     /**

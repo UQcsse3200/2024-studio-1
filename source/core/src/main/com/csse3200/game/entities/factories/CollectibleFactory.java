@@ -3,7 +3,6 @@ package com.csse3200.game.entities.factories;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.HealthComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -44,7 +43,6 @@ public class CollectibleFactory {
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent())
                 .addComponent(new PhysicsComponent())
-                .addComponent(new HealthComponent(100))
                 .addComponent(new TextureRenderComponent(collectible.getIcon()));
 
         collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();

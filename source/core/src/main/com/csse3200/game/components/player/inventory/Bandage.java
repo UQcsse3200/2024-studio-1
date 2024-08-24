@@ -1,10 +1,11 @@
 package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 
 public class Bandage extends UsableItem{
 
-    private static final float Small_Health_Boost = 0.25f;
+    private static final int Small_Health_Boost = 25;
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
@@ -16,7 +17,7 @@ public class Bandage extends UsableItem{
 
     @Override
     public String getName() {
-        return "Band-aid";
+        return "Bandage";
     }
 
     @Override
@@ -26,6 +27,10 @@ public class Bandage extends UsableItem{
 
     @Override
     public void apply(Entity entity) {
-        entity.getEvents().trigger("SmallHealthBoost",Small_Health_Boost);
+        entity.getEvents().addListener("SmallHealthBoost", () -> increaseHealth(entity));
+    }
+
+    public void increaseHealth(Entity entity) {
+        entity.getComponent(CombatStatsComponent.class).addHealth(Small_Health_Boost);
     }
 }

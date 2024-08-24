@@ -245,41 +245,52 @@ public class WeaponComponent extends Component {
 
     }
     public void attack() {
-        logger.info("WeaponComponent attack");
+//        logger.info("WeaponComponent attack");
         Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
         if (entity != null && this.weaponType == Collectible.Type.MELEE_WEAPON) {
             if (currentTime - this.lastAttack <= this.attackInterval) {
                 // Weapon not ready
+                logger.info("Melee weapon not ready");
                 return;
             }
-            // Render attack here
+            // Render attack here using
             this.lastAttack = currentTime;
             logger.info("Melee weapon attack");
+        } else {
+            logger.info("No weapon");
         }
     }
 
     public void shoot(Vector2 direction) {
-        logger.info("WeaponComponent shoot");
+//        logger.info("WeaponComponent shoot");
         Entity entity = getEntity();
         long currentTime = System.currentTimeMillis();
         if (entity != null && this.weaponType == Collectible.Type.RANGED_WEAPON) {
-            if (this.getAmmo() == 0) {
-                // Reloading
-                this.setAmmo(-2);
-                // Offset time so that the weapon must wait extra long for reload time
-                currentTime -= this.getReloadTime()*1000L - this.attackInterval;
-                logger.info("Ranged weapon reloading");
+            if (currentTime - this.lastAttack <= this.attackInterval) {
+                // Weapon not ready
+                logger.info("Melee weapon not ready");
+                return;
             } else {
-                // Shooting
-                this.setAmmo(-1);
-                // Spawn projectile
-                ProjectileFactory.createProjectile(this.bulletConfig,
-                        this.getEntity().getPosition(), direction);
-                logger.info("Ranged weapon shoot");
+                if (this.getAmmo() == 0) {
+                    // Reloading
+                    this.setAmmo(-2);
+                    // Offset time so that the weapon must wait extra long for reload time
+                    currentTime -= this.getReloadTime() * 1000L - this.attackInterval;
+                    logger.info("Ranged weapon reloading");
+                } else {
+                    // Shooting
+                    this.setAmmo(-1);
+                    // Spawn projectile
+//                ProjectileFactory.createProjectile(this.bulletConfig,
+//                        this.getEntity().getPosition(), direction);
+                    logger.info("Ranged weapon shoot");
+                }
+                // Reset lastAtttack time
+                this.lastAttack = currentTime;
             }
-            // Reset lastAtttack time
-            this.lastAttack = currentTime;
+        } else {
+            logger.info("No weapon");
         }
     }
 }

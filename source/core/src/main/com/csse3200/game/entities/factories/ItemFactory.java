@@ -55,8 +55,8 @@ public class ItemFactory {
      */
     private Collectible createMedKit() {
 //        HealthItemConfig config = configs.medKit;
-        return create("images/items/med_kit.png", "MedKit", (entity) -> {});
-//        return new MedKit();
+//        return create("images/items/med_kit.png", "MedKit", (entity) -> {});
+        return new MedKit();
     }
 
     /**
@@ -66,8 +66,8 @@ public class ItemFactory {
     private Collectible createBandage() {
 //        Entity bandage = createBaseItem();
 //        HealthItemConfig config = configs.bandage;
-        return create("images/items/bandage.png", "Bandage", (entity) -> {});
-//        return new Bandage();
+//        return create("images/items/bandage.png", "Bandage", (entity) -> {});
+        return new Bandage();
     }
 
     /**

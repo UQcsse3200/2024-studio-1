@@ -78,7 +78,8 @@ public class PlayerActions extends Component {
     /**
      * Makes the player shoot in a direction.
      */
-    void shoot(Vector2 direction) {
+    void shoot() {
+        Vector2 direction = this.walkDirection;
         ServiceLocator.getResourceService()
                 .getAsset("sounds/Impact4.ogg", Sound.class)
                 .play();

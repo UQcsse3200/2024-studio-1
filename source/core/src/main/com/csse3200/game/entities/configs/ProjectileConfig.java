@@ -11,4 +11,8 @@ public class ProjectileConfig extends BaseEntityConfig{
     public short Layer = PhysicsLayer.PLAYER;
     public int weaponID = 0;
 
+    public Vector2 getSpeed() {return speed.cpy();}
+    public float getScaleX() {return scaleX;}
+    public float getScaleY() {return scaleY;}
+
 }

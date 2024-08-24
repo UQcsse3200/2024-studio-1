@@ -15,6 +15,7 @@ public class HealthComponent extends Component {
     public void create(){
         super.create();
         entity.getEvents().addListener("SmallHealthBoost",this::increaseHealth);
+        entity.getEvents().addListener("LargeHealthBoost",this::fullHealth);
     }
 
     public void setHealth(float current_health){
@@ -23,5 +24,9 @@ public class HealthComponent extends Component {
 
     public void increaseHealth(float amount){
         setHealth(current_health + amount);
+    }
+
+    public void fullHealth(float amount){
+        setHealth(amount);
     }
 }

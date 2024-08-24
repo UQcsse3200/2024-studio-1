@@ -18,13 +18,17 @@ public class WeaponComponent extends Component {
 
     private int damage; // weapon damage
     private int range; // range of weapon
-    private int fireRate; // fire rate of weapon
+    private int fireRate; // fire rate of weapon (round per second)
     private int ammo; // current ammo for shotgun only
     private int maxAmmo; // max ammo for shotgun only
     private int reloadTime; // reload time for shotgun only
     // variable for storing sprite of weapon
     // Note: this should have default sprite (not holding weapon) and sprite for each weapon type with hand holding it
     private Sprite weaponSprite;
+
+    // Tracking weapon state
+    private long lastAttack;
+    private long attackInterval;
 
     /**
      * Constructor for WeaponComponent
@@ -48,6 +52,9 @@ public class WeaponComponent extends Component {
         this.reloadTime = reloadTime;
         this.weaponSprite = weaponSprite;
         this.weaponType = weaponType;
+
+        this.lastAttack = 0L;
+        this.attackInterval = 1000L/this.fireRate; // Convert from round per second to ms per round
     }
 
     /**
@@ -231,23 +238,38 @@ public class WeaponComponent extends Component {
     }
     public void attack() {
         logger.info("WeaponComponent attack");
-        Entity entity = getEntity();
-        if (entity != null) {
-            if (weaponType == Collectible.Type.MELEE_WEAPON) {
-                // Melee weapon attack logic
-                logger.info("Melee weapon attack");
+        Entity entity = this.getEntity();
+        long currentTime = System.currentTimeMillis();
+        if (entity != null && this.weaponType == Collectible.Type.MELEE_WEAPON) {
+            if (currentTime - this.lastAttack <= this.attackInterval) {
+                // Weapon not ready
+                return;
             }
+            // Render attack here
+            this.lastAttack = currentTime;
+            logger.info("Melee weapon attack");
         }
     }
 
     public void shoot(Vector2 direction) {
         logger.info("WeaponComponent shoot");
         Entity entity = getEntity();
-        if (entity != null) {
-            if (weaponType == Collectible.Type.RANGED_WEAPON) {
-                // Ranged weapon shoot logic
-                logger.info("Ranged weapon shoot");
+        long currentTime = System.currentTimeMillis();
+        if (entity != null && this.weaponType == Collectible.Type.RANGED_WEAPON) {
+            if (this.getAmmo() == 0) {
+                // Reloading
+                this.setAmmo(-2);
+                // Offset time so that the weapon must wait extra long for reload time
+                currentTime -= this.getReloadTime()*1000L - this.attackInterval;
+            } else {
+                // Shooting
+                this.setAmmo(-1);
+                // Spawn projectile
             }
+            // Reset lastAtttack time
+            this.lastAttack = currentTime;
+            logger.info("Ranged weapon shoot");
         }
+
     }
 }

@@ -1,12 +1,35 @@
 {
-  "ghost": {
-    "health": 40,
-    "baseAttack": 10
+  "rat": {
+    "health": 200,
+    "baseAttack": 15,
+    "wanderSpeed": 2,
+    "chaseSpeed": 2,
+    "viewDistance": 3,
+    "chaseDistance": 3
   },
-  "ghostKing": {
-    "health": 100,
-    "baseAttack": 25,
-    "spookyFactor": 7
+  "dog": {
+    "health": 300,
+    "baseAttack": 20,
+    "wanderSpeed": 0.7,
+    "chaseSpeed": 4,
+    "viewDistance": 5,
+    "chaseDistance": 6
+  },
+  "croc": {
+    "health": 500,
+    "baseAttack": 300,
+    "wanderSpeed": 0.1,
+    "chaseSpeed": 0.3,
+    "viewDistance": 2,
+    "chaseDistance": 2
+  },
+  "gorilla": {
+    "health": 400,
+    "baseAttack": 35,
+    "wanderSpeed": 0.5,
+    "chaseSpeed": 1.5,
+    "viewDistance": 3,
+    "chaseDistance": 7
   }
 }
 

@@ -17,7 +17,7 @@ public class MovementTask extends DefaultTask {
 
   private final GameTime gameTime;
   private Vector2 target;
-  private float stopDistance = 0.01f;
+  private float stopDistance = 0.05f;
   private long lastTimeMoved;
   private Vector2 lastPos;
   private PhysicsMovementComponent movementComponent;
@@ -57,6 +57,12 @@ public class MovementTask extends DefaultTask {
   public void setTarget(Vector2 target) {
     this.target = target;
     movementComponent.setTarget(target);
+  }
+
+  public void setVelocity(float speed) {
+    Vector2 velocity = new Vector2(speed,speed);
+    logger.debug("Setting velocity to {}", velocity);
+    movementComponent.setVelocity(velocity);
   }
 
   @Override

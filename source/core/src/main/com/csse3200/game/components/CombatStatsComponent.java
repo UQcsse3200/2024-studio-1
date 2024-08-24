@@ -10,82 +10,109 @@ import org.slf4j.LoggerFactory;
  */
 public class CombatStatsComponent extends Component {
 
-  private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
-  private int health;
-  private int baseAttack;
+    private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
+    private final int maxHealth;
+    private int health;
+    private int baseAttack;
 
-  public CombatStatsComponent(int health, int baseAttack) {
-    setHealth(health);
-    setBaseAttack(baseAttack);
-  }
-
-  /**
-   * Returns true if the entity's has 0 health, otherwise false.
-   *
-   * @return is player dead
-   */
-  public Boolean isDead() {
-    return health == 0;
-  }
-
-  /**
-   * Returns the entity's health.
-   *
-   * @return entity's health
-   */
-  public int getHealth() {
-    return health;
-  }
-
-  /**
-   * Sets the entity's health. Health has a minimum bound of 0.
-   *
-   * @param health health
-   */
-  public void setHealth(int health) {
-    if (health >= 0) {
-      this.health = health;
-    } else {
-      this.health = 0;
+    public CombatStatsComponent(int health, int baseAttack) {
+        this.maxHealth = health;
+        this.health = health;
+        this.baseAttack = baseAttack;
+        setHealth(health);
+        setBaseAttack(baseAttack);
     }
-    if (entity != null) {
-      entity.getEvents().trigger("updateHealth", this.health);
+
+    /**
+     * Returns true if the entity's has 0 health, otherwise false.
+     *
+     * @return is player dead
+     */
+    public Boolean isDead() {
+        return health == 0;
     }
-  }
 
-  /**
-   * Adds to the player's health. The amount added can be negative.
-   *
-   * @param health health to add
-   */
-  public void addHealth(int health) {
-    setHealth(this.health + health);
-  }
-
-  /**
-   * Returns the entity's base attack damage.
-   *
-   * @return base attack damage
-   */
-  public int getBaseAttack() {
-    return baseAttack;
-  }
-
-  /**
-   * Sets the entity's attack damage. Attack damage has a minimum bound of 0.
-   *
-   * @param attack Attack damage
-   */
-  public void setBaseAttack(int attack) {
-    if (attack >= 0) {
-      this.baseAttack = attack;
-    } else {
-      logger.error("Can not set base attack to a negative attack value");
+    /**
+     * Returns the entity's health.
+     *
+     * @return entity's health
+     */
+    public int getHealth() {
+        return health;
     }
-  }
 
-  public void hit(CombatStatsComponent attacker) {
-    int newHealth = getHealth() - attacker.getBaseAttack();
-    setHealth(newHealth);
-  }
+    /**
+     * Sets the entity's health. Health has a minimum bound of 0.
+     *
+     * @param health health
+     */
+    public void setHealth(int health) {
+        this.health = Math.max(health, 0);
+        if (entity != null) {
+            entity.getEvents().trigger("updateHealth", this.health);
+        }
+    }
+
+    /**
+     * Adds to the player's health. The amount added can be negative.
+     *
+     * @param health health to add
+     */
+    public void addHealth(int health) {
+        setHealth(this.health + health);
+    }
+
+    /**
+     * Returns the entity's base attack damage.
+     *
+     * @return base attack damage
+     */
+    public int getBaseAttack() {
+        return baseAttack;
+    }
+
+    /**
+     * Sets the entity's attack damage. Attack damage has a minimum bound of 0.
+     *
+     * @param attack Attack damage
+     */
+    public void setBaseAttack(int attack) {
+        if (attack >= 0) {
+            this.baseAttack = attack;
+        } else {
+            logger.error("Can not set base attack to a negative attack value");
+        }
+    }
+
+    /**
+     * Applies damage to the entity by reducing its health. If health drops to 0, triggers a "died" event.
+     *
+     * @param damage The amount of damage to apply to the entity.
+     */
+    public void takeDamage(int damage) {
+        health = Math.max(0, health - damage);
+        entity.getEvents().trigger("healthChanged", health);
+        if (health == 0) {
+            entity.getEvents().trigger("died");
+        }
+    }
+
+    /**
+     * Returns the entity's maximum health.
+     *
+     * @return maximum health
+     */
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    /**
+     * Handles a hit from another entity by reducing the entity's health based on the attacker's base attack value.
+     *
+     * @param attacker The CombatStatsComponent of the entity attacking this entity.
+     */
+    public void hit(CombatStatsComponent attacker) {
+        int newHealth = getHealth() - attacker.getBaseAttack();
+        setHealth(newHealth);
+    }
 }

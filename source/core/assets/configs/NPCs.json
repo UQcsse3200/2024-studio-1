@@ -37,7 +37,7 @@
     "wanderSpeed": 0.5,
     "chaseSpeed": 1.5,
     "viewDistance": 3,
-    "chaseDistance": 7
+    "chaseDistance":7
   }
 
 }

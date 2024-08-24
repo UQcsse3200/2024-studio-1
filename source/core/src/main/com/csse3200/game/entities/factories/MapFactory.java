@@ -14,7 +14,7 @@ public class MapFactory {
     public static final MapConfigs mapData = FileLoader.readClass(MapConfigs.class, "configs/map.json");
 
     /**
-     * A getter method used to extract the room connection data from the json file for the map. returns a list of
+     * A getter method used to extract the room connection data from the json file for the map. Returns a list of
      * rooms that the input room is connected to.
      * @param room : The room whose connections are required to be extracted.
      * @return : A list of integer arrays which contain coordinates of the rooms that are connected to the room input.
@@ -36,13 +36,14 @@ public class MapFactory {
     }
 
     /**
-     *
-     * @param room
-     * @param index
-     * @return
+     * A method responsible for getting a specific room connection using an index input.
+     * @param room : The room for which the connection needs to be extracted.
+     * @param index : The index of the connection that is required to be extracted.
+     * @return : returns a specific room that is connected to the current one.
      */
     public static int[] getRoomConnection(String room, int index) {
         List<int[]> roomConnections = getRoomConnections(room);
+        //checks for out of bounds indices and returns an exception.
         if (index < 0 || index > roomConnections.size()) {
             throw new IndexOutOfBoundsException("The index" + index + "is out of bounds");
         }
@@ -50,9 +51,9 @@ public class MapFactory {
     }
 
     /**
-     *
-     * @param room
-     * @return
+     * A method responsible for extracting the index related to the type of animal to be spawned given the room number.
+     * @param room : The room for which the animal index is to be extracted.
+     * @return : Returns the index which specifies which animal is to be spawned in the room specified.
      */
     public static Integer getAnimalIndex(String room) {
         Integer animalIndices = mapData.room_info.get(room).animal_index;
@@ -63,9 +64,9 @@ public class MapFactory {
     }
 
     /**
-     *
-     * @param room
-     * @return
+     * Method responsible for extracting the index which indicates which items are to be spawned in the room specified.
+     * @param room : The room for which the item index information is needed.
+     * @return : the index for which item is to be spawned.
      */
     public static int getItemIndex(String room) {
         Integer itemIndices = mapData.room_info.get(room).item_index;
@@ -76,8 +77,8 @@ public class MapFactory {
     }
 
     /**
-     *
-     * @return
+     * A method to extract the players start location on the map.
+     * @return : returns the x and y coordinates of the player's start position on the map.
      */
     public static int[] getPlayerLocation() {
         String[] playerCoordinates = mapData.player_location.split("_");
@@ -85,16 +86,16 @@ public class MapFactory {
     }
 
     /**
-     *
-     * @return
+     * Method that extracts the map seed information for the randomly generated map from the json file.
+     * @return : The seed of the map.
      */
     public static long getSeed() {
         return mapData.seed;
     }
 
     /**
-     *
-     * @return
+     * A method to get the map size mentioned in the json file.
+     * @return : returns the size of the map.
      */
     public static int getmapSize() {
         return mapData.map_size;

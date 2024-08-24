@@ -38,14 +38,14 @@ public class WeaponComponent extends Component {
      * Constructor for WeaponComponent
      *
      * @param weaponSprite sprite of weapon (compulsory)
-     * @param weaponType type of weapon (compulsory)
-     * @param damage weapon damage
-     * @param range range of weapon
-     * @param fireRate fire rate of weapon
-     * @param ammo current ammo for shotgun only
-     * @param maxAmmo max ammo for shotgun only
-     * @param reloadTime reload time for shotgun only
-     * */
+     * @param weaponType   type of weapon (compulsory)
+     * @param damage       weapon damage
+     * @param range        range of weapon
+     * @param fireRate     fire rate of weapon
+     * @param ammo         current ammo for shotgun only
+     * @param maxAmmo      max ammo for shotgun only
+     * @param reloadTime   reload time for shotgun only
+     */
     public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime) {
         System.out.println("WeaponComponent created");
         this.damage = damage;
@@ -62,7 +62,7 @@ public class WeaponComponent extends Component {
 
         // Setup variables to track weapon state
         this.lastAttack = 0L;
-        this.attackInterval = 1000L/this.fireRate; // Convert from round per second to ms per round
+        this.attackInterval = 1000L / this.fireRate; // Convert from round per second to ms per round
     }
 
     /**
@@ -97,6 +97,7 @@ public class WeaponComponent extends Component {
 
     /**
      * Get the current weapon damage
+     *
      * @return weapon damage
      */
     public int getDamage() {
@@ -106,6 +107,7 @@ public class WeaponComponent extends Component {
 
     /**
      * Set the weapon damage to new value (upgradable, buff,...)
+     *
      * @param damage new weapon damage
      */
     public void setDamage(int damage) {
@@ -212,6 +214,7 @@ public class WeaponComponent extends Component {
 
     /**
      * Update the weapon with new values (ranged only)
+     *
      * @param rangedWeapon ranged weapon
      */
     public void updateWeapon(RangedWeapon rangedWeapon) {
@@ -225,6 +228,7 @@ public class WeaponComponent extends Component {
 
     /**
      * Update the weapon with new values (melee only)
+     *
      * @param meleeWeapon new melee weapon
      */
     public void updateWeapon(MeleeWeapon meleeWeapon) {
@@ -244,6 +248,7 @@ public class WeaponComponent extends Component {
         this.reloadTime = -1; // -1 means no reload time
 
     }
+
     public void attack() {
 //        logger.info("WeaponComponent attack");
         Entity entity = this.getEntity();
@@ -269,28 +274,28 @@ public class WeaponComponent extends Component {
         if (entity != null && this.weaponType == Collectible.Type.RANGED_WEAPON) {
             if (currentTime - this.lastAttack <= this.attackInterval) {
                 // Weapon not ready
-                logger.info("Melee weapon not ready");
+                logger.info("Ranged weapon not ready");
                 return;
+            }
+            if (this.getAmmo() == 0) {
+                // Reloading
+                this.setAmmo(-2);
+                // Offset time so that the weapon must wait extra long for reload time
+                currentTime -= this.getReloadTime() * 1000L - this.attackInterval;
+                logger.info("Ranged weapon reloading");
             } else {
-                if (this.getAmmo() == 0) {
-                    // Reloading
-                    this.setAmmo(-2);
-                    // Offset time so that the weapon must wait extra long for reload time
-                    currentTime -= this.getReloadTime() * 1000L - this.attackInterval;
-                    logger.info("Ranged weapon reloading");
-                } else {
-                    // Shooting
-                    this.setAmmo(-1);
-                    // Spawn projectile
+                // Shooting
+                this.setAmmo(-1);
+                // Spawn projectile
 //                ProjectileFactory.createProjectile(this.bulletConfig,
 //                        this.getEntity().getPosition(), direction);
-                    logger.info("Ranged weapon shoot");
-                }
-                // Reset lastAtttack time
-                this.lastAttack = currentTime;
+                logger.info("Ranged weapon shoot");
             }
+            // Reset lastAtttack time
+            this.lastAttack = currentTime;
         } else {
             logger.info("No weapon");
         }
     }
 }
+

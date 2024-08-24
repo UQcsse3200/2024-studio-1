@@ -84,26 +84,43 @@ public class PlayerFactory {
   private static Collectible createItemFromSpecification(String itemSpec) {
     switch(itemSpec) {
       case "ShieldPotion":
-        return new ShieldPotion(); // Return a new instance of ShieldPotion
+        return new ShieldPotion();
       case "EnergyDrink":
-        return new EnergyDrink(); // Assuming you have an EnergyDrink class
+        return new EnergyDrink();
       case "Knife":
-        return new Knife(); // Return a new instance of Knife (which might be a MeleeWeapon)
-      // Add other cases as needed for different item types
+        return new Knife();
       default:
         logger.warn("Unknown item specification: " + itemSpec);
         return null;
     }
   }
 
+  /**
+   * Creates and returns a MeleeWeapon based on the given melee weapon specification.
+   *
+   * The method uses the specification string to determine which type of melee weapon to create.
+   * If the specification does not match any known melee weapons, a warning is logged and null is returned.
+   *
+   * @param meleeSpec the specification string of the melee weapon
+   * @return the corresponding MeleeWeapon, or null if the specification is unknown
+   */
   private static MeleeWeapon createMeleeWeaponFromSpecification(String meleeSpec) {
     if (meleeSpec.equals("Knife")) {
-      return new Knife(); // Assuming Knife is a subclass of MeleeWeapon
+      return new Knife();
     }
     logger.warn("Unknown melee weapon specification: " + meleeSpec);
     return null;
   }
 
+  /**
+   * Creates and returns a RangedWeapon based on the given ranged weapon specification.
+   *
+   * The method uses the specification string to determine which type of ranged weapon to create.
+   * If the specification does not match any known ranged weapons, a warning is logged and null is returned.
+   *
+   * @param rangedSpec the specification string of the ranged weapon
+   * @return the corresponding RangedWeapon, or null if the specification is unknown
+   */
   private static RangedWeapon createRangedWeaponFromSpecification(String rangedSpec) {
     // Logic to create the appropriate RangedWeapon instance based on the rangedSpec string
     // Implement this based on your available RangedWeapon types

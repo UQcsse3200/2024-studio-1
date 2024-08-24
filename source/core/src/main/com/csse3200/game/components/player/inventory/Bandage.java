@@ -28,4 +28,5 @@ public class Bandage extends UsableItem{
     public void apply(Entity entity) {
         entity.getEvents().trigger("SmallHealthBoost",Small_Health_Boost);
     }
+
 }

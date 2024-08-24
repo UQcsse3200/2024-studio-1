@@ -50,8 +50,8 @@ public class NPCFactory {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new StraightWanderTask(2f))
-                    .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
-                    .addTask(new AttackTask(target, 10, 2f, 2.5f));
+                    .addTask(new ChaseTask(target, 9, 2f, 6f, 2f))
+                    .addTask(new AttackTask(target, 10, 3f, 3f));
     
     Entity rat = createBaseNPC(aiComponent);
 
@@ -89,10 +89,10 @@ public class NPCFactory {
     AITaskComponent aiComponent =
             new AITaskComponent()
                     .addTask(new StraightWanderTask(2f))
-                    .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
-                    .addTask(new AttackTask(target, 10, 2f, 2.5f));
+                    .addTask(new ChaseTask(target, 9, 2f, 6f, 2f))
+                    .addTask(new AttackTask(target, 10, 3f, 3f));
 
-    Entity rat = createBaseNPC(aiComponent);
+    Entity bat = createBaseNPC(aiComponent);
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -103,7 +103,7 @@ public class NPCFactory {
     animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
-    rat
+    bat
             .addComponent(new CombatStatsComponent(
                     config.health,
                     config.baseAttack))
@@ -113,8 +113,8 @@ public class NPCFactory {
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
 
-    rat.getComponent(AnimationRenderComponent.class).scaleEntity();
-    return rat;
+    bat.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return bat;
   }
 
   /**

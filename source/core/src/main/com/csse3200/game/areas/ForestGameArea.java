@@ -141,6 +141,8 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(ghost, randomPos, true, true);
     }
   }
+  //this is for the Minnotaur
+  
 
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);

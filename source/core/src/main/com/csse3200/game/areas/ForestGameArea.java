@@ -29,7 +29,10 @@ public class ForestGameArea extends GameArea {
     "images/tree.png",
     "images/ghost_king.png",
     "images/rat.png",
-    "images/ghost_1.png",
+          "images/minotaur.png",
+
+
+          "images/ghost_1.png",
     "images/grass_1.png",
     "images/grass_2.png",
     "images/grass_3.png",
@@ -140,9 +143,16 @@ public class ForestGameArea extends GameArea {
       Entity ghost = NPCFactory.createRat(player);
       spawnEntityAt(ghost, randomPos, true, true);
     }
+    //this is for the Minnotaur
+    for (int i = 0; i < NUM_GHOSTS; i++) {
+      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+      Entity ghost = NPCFactory.createMinotaur(player);
+      spawnEntityAt(ghost, randomPos, true, true);
+    }
   }
-  //this is for the Minnotaur
-  
+
+
+
 
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);

@@ -26,7 +26,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walk", this::walk);
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
-        //entity.getEvents().addListener("shoot", this::shoot); it is better
+        entity.getEvents().addListener("shoot", this::shoot);
     }
 
     @Override
@@ -83,9 +83,6 @@ public class PlayerActions extends Component {
                 .getAsset("sounds/Impact4.ogg", Sound.class)
                 .play();
 
-        entity.getComponent(InventoryComponent.class)
-                .getInventory()
-                .getRanged()
-                .ifPresent(w -> w.shoot(direction));
+        entity.getComponent(WeaponComponent.class).shoot(direction);
     }
 }

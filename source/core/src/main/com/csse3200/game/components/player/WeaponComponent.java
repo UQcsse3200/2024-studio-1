@@ -225,9 +225,17 @@ public class WeaponComponent extends Component {
             if (weaponType == Collectible.Type.MELEE_WEAPON) {
                 // Melee weapon attack logic
                 logger.info("Melee weapon attack");
-            } else if (weaponType == Collectible.Type.RANGED_WEAPON) {
-                // Ranged weapon attack logic
-                logger.info("Ranged weapon attack");
+            }
+        }
+    }
+
+    public void shoot(Vector2 direction) {
+        logger.info("WeaponComponent shoot");
+        Entity entity = getEntity();
+        if (entity != null) {
+            if (weaponType == Collectible.Type.RANGED_WEAPON) {
+                // Ranged weapon shoot logic
+                logger.info("Ranged weapon shoot");
             }
         }
     }

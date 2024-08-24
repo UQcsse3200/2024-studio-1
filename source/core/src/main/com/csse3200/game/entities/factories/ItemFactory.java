@@ -1,11 +1,6 @@
 package com.csse3200.game.entities.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.inventory.*;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.services.ServiceLocator;
-
-import java.util.function.Consumer;
 
 public class ItemFactory {
 
@@ -19,79 +14,43 @@ public class ItemFactory {
         return switch (specification){
             case "medkit" -> createMedKit();
             case "bandage" -> createBandage();
-            case "buffitem" -> createEnergyDrink();
+            case "energydrink" -> createEnergyDrink();
             case "shieldpotion" -> createShieldPotion();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
 
-    private Collectible create(String texturePath, String name, Consumer<Entity> apply){
-        return new UsableItem() {
-            @Override
-            public void apply(Entity entity) {
-                apply.accept(entity);
-            }
-
-            @Override
-            public String getName() {
-                return name;
-            }
-
-            @Override
-            public Texture getIcon() {
-                return ServiceLocator.getResourceService().getAsset(texturePath, Texture.class);
-            }
-
-            @Override
-            public void drop(Inventory inventory) {
-                // do nothing
-            }
-        };
-    }
-
     /**
-     * Creates a MedKit that restores players health
-     * @return medKit
+     * Creates a MedKit that restores players health.
+     * @return MedKit item
      */
     private Collectible createMedKit() {
-//        HealthItemConfig config = configs.medKit;
-        return create("images/items/med_kit.png", "MedKit", (entity) -> {});
-//        return new MedKit();
+        return new MedKit();
     }
 
     /**
-     * Creates a Bandage that provides minimal health restoration to player
-     * @return Bandage
+     * Creates a Bandage that provides minimal health restoration to player.
+     * @return Bandage item
      */
     private Collectible createBandage() {
-//        Entity bandage = createBaseItem();
-//        HealthItemConfig config = configs.bandage;
-        return create("images/items/bandage.png", "Bandage", (entity) -> {});
-//        return new Bandage();
+        return new Bandage();
     }
 
     /**
-     * Creates an EnergyDrink that increases the players movement speed
-     * @return energyDrink
+     * Creates an EnergyDrink that permanently increases the players movement speed.
+     * @return EnergyDrink item
      */
     private Collectible createEnergyDrink() {
-//        Entity energyDrink = createBaseItem();
-//        SpeedBoostConfig config = configs.energyDrink;
-//        return create("images/items/energy_drink.png", "Energy Drink", (entity) -> {});
-
         return new EnergyDrink();
     }
 
     /**
-     * Creates a ShieldPotion that provides the player with immunity,
-     * negating the next two hits the player takes
-     * @return shieldPotion entity
+     * Creates a Shield Potion that provides the player with temporary immunity against damage.
+     * @return ShieldPotion item
      */
-
     private Collectible createShieldPotion() {
-//        Entity shieldPotion = createBaseItem();
-//        ShieldItemConfig config = configs.shieldPotion;
-
         return new ShieldPotion();
     }
+
 }
+

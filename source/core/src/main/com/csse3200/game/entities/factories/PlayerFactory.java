@@ -2,10 +2,7 @@ package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerInventoryDisplay;
-import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerStatsDisplay;
 import com.csse3200.game.entities.Entity;
@@ -19,6 +16,8 @@ import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Factory to create a player entity.
@@ -27,68 +26,89 @@ import com.csse3200.game.services.ServiceLocator;
  * the properties stored in 'PlayerConfig'.
  */
 public class PlayerFactory {
-  private static final String SAVE_FILE_PATH = "configs/player_save.json";
-  private static final CollectibleFactory collectibleFactory = new CollectibleFactory(); // Instantiate the CollectibleFactory
+  private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
+  private static final PlayerConfig stats =
+          FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
   /**
-   * Create a player entity by loading saved state if available.
+   * Create a player entity.
    * @return entity
    */
   public static Entity createPlayer() {
-    PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class, SAVE_FILE_PATH);
-
-    // If save file doesn't exist, load the default config
-    if (playerConfig == null) {
-      playerConfig = FileLoader.readClass(PlayerConfig.class, "configs/player.json");
-    }
-
     InputComponent inputComponent =
             ServiceLocator.getInputService().getInputFactory().createForPlayer();
     InventoryComponent inventoryComponent = new InventoryComponent();
 
-    // Initialize the player's components based on the loaded configuration
+    // Process items only if the array is not null
+    if (stats.items != null) {
+      for (String itemSpec : stats.items) {
+        Collectible item = createItemFromSpecification(itemSpec);
+        if (item != null) {
+          inventoryComponent.pickup(item);
+        }
+      }
+    }
+
+    // Set melee weapon only if stats.melee is not null or empty
+    if (stats.melee != null && !stats.melee.isEmpty()) {
+      MeleeWeapon meleeWeapon = createMeleeWeaponFromSpecification(stats.melee);
+      inventoryComponent.getInventory().setMelee(meleeWeapon);
+    }
+
+    // Set ranged weapon only if stats.ranged is not null or empty
+    if (stats.ranged != null && !stats.ranged.isEmpty()) {
+      RangedWeapon rangedWeapon = createRangedWeaponFromSpecification(stats.ranged);
+      inventoryComponent.getInventory().setRanged(rangedWeapon);
+    }
+
     Entity player = new Entity()
             .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new PlayerActions())
-            .addComponent(new CombatStatsComponent(playerConfig.health, playerConfig.baseAttack))
+            .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(inventoryComponent)
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new PlayerInventoryDisplay(inventoryComponent));
 
-    // Load the inventory items, melee weapon, and ranged weapon
-    loadInventory(inventoryComponent, playerConfig);
-
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(TextureRenderComponent.class).scaleEntity();
+
     return player;
   }
 
-  /**
-   * Load inventory items, melee, and ranged weapons from the configuration into the player's inventory.
-   *
-   * @param inventoryComponent the inventory component to load items into
-   * @param config the player configuration containing item details
-   */
-  private static void loadInventory(InventoryComponent inventoryComponent, PlayerConfig config) {
-    for (String itemSpec : config.items) {
-      Collectible item = collectibleFactory.create(itemSpec); // Use CollectibleFactory to create items
-      inventoryComponent.getInventory().addItem(item);
-    }
 
-    if (!config.melee.isEmpty()) {
-      MeleeWeapon meleeWeapon = (MeleeWeapon) collectibleFactory.create("melee:" + config.melee); // Create melee weapon
-      inventoryComponent.getInventory().setMelee(meleeWeapon);
+  private static Collectible createItemFromSpecification(String itemSpec) {
+    switch(itemSpec) {
+      case "ShieldPotion":
+        return new ShieldPotion(); // Return a new instance of ShieldPotion
+      case "EnergyDrink":
+        return new EnergyDrink(); // Assuming you have an EnergyDrink class
+      case "Knife":
+        return new Knife(); // Return a new instance of Knife (which might be a MeleeWeapon)
+      // Add other cases as needed for different item types
+      default:
+        logger.warn("Unknown item specification: " + itemSpec);
+        return null;
     }
+  }
 
-    if (!config.ranged.isEmpty()) {
-      RangedWeapon rangedWeapon = (RangedWeapon) collectibleFactory.create("ranged:" + config.ranged); // Create ranged weapon
-      inventoryComponent.getInventory().setRanged(rangedWeapon);
+  private static MeleeWeapon createMeleeWeaponFromSpecification(String meleeSpec) {
+    if (meleeSpec.equals("Knife")) {
+      return new Knife(); // Assuming Knife is a subclass of MeleeWeapon
     }
+    logger.warn("Unknown melee weapon specification: " + meleeSpec);
+    return null;
+  }
+
+  private static RangedWeapon createRangedWeaponFromSpecification(String rangedSpec) {
+    // Logic to create the appropriate RangedWeapon instance based on the rangedSpec string
+    // Implement this based on your available RangedWeapon types
+    logger.warn("Unknown ranged weapon specification: " + rangedSpec);
+    return null;
   }
 
   private PlayerFactory() {

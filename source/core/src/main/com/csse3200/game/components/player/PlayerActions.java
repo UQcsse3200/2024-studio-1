@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
+import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -27,6 +28,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
+
     }
 
     @Override
@@ -54,6 +56,7 @@ public class PlayerActions extends Component {
         this.walkDirection = direction;
         moving = true;
     }
+
 
     /**
      * Stops the player from walking.
@@ -92,3 +95,4 @@ public class PlayerActions extends Component {
                 .ifPresent(w -> w.shoot(direction));
     }
 }
+

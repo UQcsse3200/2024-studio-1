@@ -10,6 +10,8 @@ public class Knife extends MeleeWeapon {
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
+        inventory.setMelee(this); // Equipped the knife as the current melee weapon
+        System.out.println("Knife picked up and equipped!");
 //        inventory.getEntity().addComponent(new );
     }
 

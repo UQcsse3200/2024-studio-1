@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 
@@ -29,7 +30,6 @@ public class EnergyDrink extends BuffItem {
 
     @Override
     public void effect(Entity entity) {
-        System.out.println("YAY");
         entity.getComponent(PlayerActions.class).setSpeed(this.getSpeed());
     }
 

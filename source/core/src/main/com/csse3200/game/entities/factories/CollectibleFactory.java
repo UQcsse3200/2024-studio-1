@@ -45,8 +45,8 @@ public class CollectibleFactory {
                 .addComponent(new HitboxComponent())
                 .addComponent(new PhysicsComponent())
                 .addComponent(new HealthComponent(100))
-                .addComponent(new ItemComponent(collectible))
-                .addComponent(new InventoryComponent()) //Not sure about this
+//                .addComponent(new ItemComponent(collectible))
+//                .addComponent(new InventoryComponent()) //Not sure about this
                 .addComponent(new TextureRenderComponent(collectible.getIcon()));
 
         collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();

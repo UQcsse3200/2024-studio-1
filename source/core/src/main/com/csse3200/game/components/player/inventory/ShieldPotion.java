@@ -47,6 +47,7 @@ public class ShieldPotion extends UsableItem {
      */
     @Override
     public void pickup(Inventory inventory) {
+
         super.pickup(inventory);
     }
 

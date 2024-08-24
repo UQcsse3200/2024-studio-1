@@ -8,7 +8,8 @@ public abstract class BuffItem implements Collectible {
 
     @Override
     public void pickup(Inventory inventory) {
-        inventory.getEntity().getEvents().addListener("buffitem", () -> this.effect(inventory.getEntity()));
+        effect(inventory.getEntity());
+        //inventory.getEntity().getEvents().addListener("buffitem", () -> effect(inventory.getEntity()));
 
     }
     @Override

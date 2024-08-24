@@ -4,8 +4,6 @@ import com.csse3200.game.components.player.inventory.*;
 
 public class WeaponFactory {
     private MeleeWeapon createMelee(String specification) {
-        // specification format: "melee:<Melee Weapon>,<pathtoicon>,<damage>,<range>,<fireRate>"
-
         return new Knife();
     }
 

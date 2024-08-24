@@ -218,6 +218,17 @@ public class WeaponComponent extends Component {
         this.fireRate = meleeWeapon.getFireRate();
     }
 
+    public void updateWeapon() {
+        // Update weapon to bare hand
+        this.weaponType = Collectible.Type.NONE;
+        this.damage = 1;
+        this.range = 1;
+        this.fireRate = 1;
+        this.ammo = -1; // -1 means no ammo
+        this.maxAmmo = -1; // -1 means no ammo
+        this.reloadTime = -1; // -1 means no reload time
+
+    }
     public void attack() {
         logger.info("WeaponComponent attack");
         Entity entity = getEntity();

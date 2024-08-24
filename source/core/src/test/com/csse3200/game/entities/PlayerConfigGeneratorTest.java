@@ -20,10 +20,10 @@ import static org.junit.Assert.*;
 @ExtendWith(GameExtension.class)
 public class PlayerConfigGeneratorTest {
     Entity player;
-    PlayerConfigGenerator generator;
+    PlayerConfigGenerator generator = new PlayerConfigGenerator();;
     InventoryComponent inventoryComponent;
     CombatStatsComponent statsComponent;
-    PlayerConfig playerConfig;
+
 
     @Before
     public void setUp() {
@@ -31,19 +31,93 @@ public class PlayerConfigGeneratorTest {
         inventoryComponent = new InventoryComponent();
         statsComponent = new CombatStatsComponent(100, 30);
         player.addComponent(inventoryComponent).addComponent(statsComponent);
-        generator = new PlayerConfigGenerator();
-        playerConfig = generator.savePlayerState(player);
+
+
     }
 
+    /**
+     * Test with default player attributes
+     */
     @Test
     public void testInit() {
-
-        // test with default inventory and stats
+        PlayerConfig playerConfig = generator.savePlayerState(player);
         assertEquals(30, playerConfig.baseAttack);
         assertEquals(100,playerConfig.health);
         assertEquals(0, playerConfig.items.length);
     }
 
+    /**
+     * Test with customised Combat stats component
+     */
+    @Test
+    public void testCustomCombatStat() {
+        statsComponent.setHealth(50);
+        statsComponent.setBaseAttack(20);
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(50, playerConfig.health);
+        assertEquals(20, playerConfig.baseAttack);
+    }
+
+    /**
+     * Test saved player's melee weapon
+     */
+    @Test
+    public void testMeleeWeapon() {
+        inventoryComponent.getInventory().setMelee(new MeleeWeapon() {
+            @Override
+            public void attack() {
+
+            }
+
+            @Override
+            public String getName() {
+                return "Knife";
+            }
+
+            @Override
+            public Texture getIcon() {
+                return null;
+            }
+        });
+
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals("melee:", playerConfig.melee);
+    }
+
+
+    /** Test player's saved Ranged weapon */
+    @Test
+    public void testRangedWeapon() {
+        inventoryComponent.getInventory().setRanged(new RangedWeapon() {
+            @Override
+            public void shoot(Vector2 direction) {
+
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public Texture getIcon() {
+                return null;
+            }
+        });
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals("ranged:", playerConfig.ranged);
+    }
+
+    /** Test player with no weapon */
+    @Test
+    public void testNoWeapon() {
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals("", playerConfig.ranged);
+        assertEquals("", playerConfig.melee);
+    }
+    /**
+     * Test player with only one item collected
+     */
     @Test
     public void testOneItemInventory() {
         inventoryComponent.getInventory().addItem(new Collectible() {
@@ -77,8 +151,84 @@ public class PlayerConfigGeneratorTest {
 
             }
         });
-        playerConfig = generator.savePlayerState(player);
+        PlayerConfig playerConfig = generator.savePlayerState(player);
         assertEquals("Health Potion", playerConfig.items[0]);
         assertEquals(1, playerConfig.items.length);
     }
+
+    /**
+     * Test player with multiple items collected
+     */
+    @Test
+    public void testMultipleItemsInventory() {
+        // add a new item to player's inventory
+        inventoryComponent.getInventory().addItem(new Collectible() {
+            @Override
+            public Type getType() {
+                return null;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public Texture getIcon() {
+                return null;
+            }
+
+            @Override
+            public String getSpecification() {
+                return "Energy bar";
+            }
+
+            @Override
+            public void pickup(Inventory inventory) {
+
+            }
+
+            @Override
+            public void drop(Inventory inventory) {
+
+            }
+        });
+        inventoryComponent.getInventory().addItem(new Collectible() {
+            @Override
+            public Type getType() {
+                return null;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public Texture getIcon() {
+                return null;
+            }
+
+            @Override
+            public String getSpecification() {
+                return "Food";
+            }
+
+            @Override
+            public void pickup(Inventory inventory) {
+
+            }
+
+            @Override
+            public void drop(Inventory inventory) {
+
+            }
+        });
+
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        String[] expected = {"Energy bar", "Food"};
+        assertArrayEquals(expected, playerConfig.items);
+    }
+
+
 }

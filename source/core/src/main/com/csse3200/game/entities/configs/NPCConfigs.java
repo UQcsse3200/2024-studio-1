@@ -10,4 +10,5 @@ public class NPCConfigs {
   public BaseEntityConfig dog = new BaseEntityConfig();
   public BaseEntityConfig croc = new BaseEntityConfig();
   public BaseEntityConfig gorilla = new BaseEntityConfig();
+  public BaseEntityConfig bat = new BaseEntityConfig();
 }

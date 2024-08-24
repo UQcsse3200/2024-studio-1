@@ -79,6 +79,45 @@ public class NPCFactory {
   }
 
   /**
+   * Creates a bat entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createBat(Entity target) {
+    BaseEntityConfig config = configs.bat;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new StraightWanderTask(2f))
+                    .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
+                    .addTask(new AttackTask(target, 10, 2f, 2.5f));
+
+    Entity rat = createBaseNPC(aiComponent);
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/bat.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
+
+    rat
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new RatAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
+
+    rat.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return rat;
+  }
+
+  /**
    * Creates a dog entity.
    *
    * @param target entity to chase

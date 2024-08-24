@@ -4,11 +4,15 @@ import com.csse3200.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Task that used to simulate the attack movement of an entity.
+ *
+ */
 public class AttackTask extends ChargeTask {
     private static final Logger logger = LoggerFactory.getLogger(AttackTask.class);
 
     public AttackTask(Entity target, int priority, float attackDistance, float maxAttackDistance) {
-        super(target, priority, attackDistance, maxAttackDistance, 5f);
+        super(target, priority, attackDistance, maxAttackDistance, 4f);
     }
 
     @Override

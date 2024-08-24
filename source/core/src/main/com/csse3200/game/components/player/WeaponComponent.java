@@ -7,6 +7,8 @@ import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.ProjectileConfig;
+import com.csse3200.game.entities.factories.ProjectileFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +21,8 @@ public class WeaponComponent extends Component {
     private int damage; // weapon damage
     private int range; // range of weapon
     private int fireRate; // fire rate of weapon (round per second)
+
+    private ProjectileConfig bulletConfig; // Config file for this weapon's projectile
     private int ammo; // current ammo for shotgun only
     private int maxAmmo; // max ammo for shotgun only
     private int reloadTime; // reload time for shotgun only
@@ -53,6 +57,10 @@ public class WeaponComponent extends Component {
         this.weaponSprite = weaponSprite;
         this.weaponType = weaponType;
 
+        // Currently has only 1 projectile config
+        this.bulletConfig = new ProjectileConfig();
+
+        // Setup variables to track weapon state
         this.lastAttack = 0L;
         this.attackInterval = 1000L/this.fireRate; // Convert from round per second to ms per round
     }
@@ -261,15 +269,17 @@ public class WeaponComponent extends Component {
                 this.setAmmo(-2);
                 // Offset time so that the weapon must wait extra long for reload time
                 currentTime -= this.getReloadTime()*1000L - this.attackInterval;
+                logger.info("Ranged weapon reloading");
             } else {
                 // Shooting
                 this.setAmmo(-1);
                 // Spawn projectile
+                ProjectileFactory.createProjectile(this.bulletConfig,
+                        this.getEntity().getPosition(), direction);
+                logger.info("Ranged weapon shoot");
             }
             // Reset lastAtttack time
             this.lastAttack = currentTime;
-            logger.info("Ranged weapon shoot");
         }
-
     }
 }

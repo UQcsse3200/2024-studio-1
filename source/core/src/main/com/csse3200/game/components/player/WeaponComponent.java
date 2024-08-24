@@ -263,7 +263,7 @@ public class WeaponComponent extends Component {
             this.lastAttack = currentTime;
             logger.info("Melee weapon attack");
         } else {
-            logger.info("No weapon");
+            logger.info("No melee weapon");
         }
     }
 
@@ -294,7 +294,7 @@ public class WeaponComponent extends Component {
             // Reset lastAtttack time
             this.lastAttack = currentTime;
         } else {
-            logger.info("No weapon");
+            logger.info("No ranged weapon");
         }
     }
 }

@@ -15,26 +15,26 @@ public abstract class MeleeWeapon implements Collectible {
     @Override
     public void pickup(Inventory inventory) {
         inventory.setMelee(this);
-        inventory.getEntity().getEvents().addListener("melee", this::attack);
 
         // Add a Weapon Component
-        inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this);
+        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
+            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this); // update existing weapon
+        }
     }
 
     @Override
     public void drop(Inventory inventory) {
         inventory.resetMelee();
+
+        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
+            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(); // remove weapon
+        }
     }
 
     @Override
     public String getSpecification() {
         return "melee:";
     }
-
-    /**
-     * Swing this weapon
-     */
-    public abstract void attack();
 
     public int getDamage() {
         return damage;

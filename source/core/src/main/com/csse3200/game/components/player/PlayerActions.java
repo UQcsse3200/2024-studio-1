@@ -74,25 +74,20 @@ public class PlayerActions extends Component {
         ServiceLocator.getResourceService()
                 .getAsset("sounds/Impact4.ogg", Sound.class)
                 .play();
-
-        entity.getComponent(InventoryComponent.class)
-                .getInventory()
-                .getMelee()
-                .ifPresent(MeleeWeapon::attack);
+        // Inventory component is not use for attack
+        entity.getComponent(WeaponComponent.class).attack();
     }
 
     /**
      * Makes the player shoot in a direction.
      */
-    void shoot(Vector2 direction) {
+    void shoot() {
+        Vector2 direction = this.walkDirection;
         ServiceLocator.getResourceService()
                 .getAsset("sounds/Impact4.ogg", Sound.class)
                 .play();
 
-        entity.getComponent(InventoryComponent.class)
-                .getInventory()
-                .getRanged()
-                .ifPresent(w -> w.shoot(direction));
+        entity.getComponent(WeaponComponent.class).shoot(direction);
     }
 }
 

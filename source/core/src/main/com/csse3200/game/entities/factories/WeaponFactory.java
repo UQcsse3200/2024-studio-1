@@ -12,7 +12,10 @@ public class WeaponFactory {
         return new Knife();
     }
 
-    private RangedWeapon createRanged(String specification) {
+
+    private RangedWeapon createRanged(String specification){
+        // specification format: "ranged:<Ranged Weapon>,<pathtoicon>,<damage>,<range>,<fireRate>,<ammo>,<maxAmmo>,<reloadTime>"
+
         return new ConcreteRangedWeapon(specification);
     }
 

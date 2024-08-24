@@ -1,0 +1,34 @@
+{
+  "knife":{
+    "damage": 10,
+    "range": 1,
+    "attackSpeed": 1,
+    "attackType": "melee",
+    "attackSound": "knife",
+    "attackSoundVolume": 0.5
+  },
+  "pistol":{
+      "damage": 20,
+      "range": 10,
+      "attackSpeed": 1,
+      "attackType": "ranged",
+      "attackSound": "pistol",
+      "attackSoundVolume": 0.5
+  },
+  "shotgun":{
+    "damage": 30,
+    "range": 5,
+    "attackSpeed": 1,
+    "attackType": "ranged",
+    "attackSound": "shotgun",
+    "attackSoundVolume": 0.5
+  },
+  "bareHands":{
+    "damage": 5,
+    "range": 1,
+    "attackSpeed": 1,
+    "attackType": "melee",
+    "attackSound": "bareHands",
+    "attackSoundVolume": 0.5
+  }
+}

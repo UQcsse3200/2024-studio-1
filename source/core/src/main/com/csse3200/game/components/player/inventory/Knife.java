@@ -1,6 +1,8 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.player.PlayerActions;
 
 /**
  * Example Weapon Collectible.
@@ -10,14 +12,11 @@ public class Knife extends MeleeWeapon {
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
-        inventory.setMelee(this); // Equipped the knife as the current melee weapon
-        System.out.println("Knife picked up and equipped!");
-//        inventory.getEntity().addComponent(new );
     }
 
     @Override
-    public void attack() {
-        System.out.println("stab!");
+    public void drop(Inventory inventory) {
+        super.drop(inventory);
     }
 
     @Override

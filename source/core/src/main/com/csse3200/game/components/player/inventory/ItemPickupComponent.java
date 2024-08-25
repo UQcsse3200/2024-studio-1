@@ -12,19 +12,30 @@ import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.screens.SettingsScreen;
 import com.csse3200.game.services.ServiceLocator;
 
+/**
+ * A component that allows a player to interact with items
+ */
 public class ItemPickupComponent extends Component {
 
+    /**
+     * Construct a new empty item pickup component
+     */
     public ItemPickupComponent() {
         super();
     }
 
+    /**
+     * The create method that is called when the entity is created
+     */
     @Override
     public void create() {
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
     }
 
-    /*
-    This method was mainly based off of the TouchPlayerInputComponent.java class
+    /**
+     * A method that is called whenever the player collides with another entity. To ensure that the 'pickup'
+     * functionality only occurs when the other entity is a collectible, checks are made to ensure that the
+     * other entity has a CollectibleComponent
      */
     private void onCollisionStart(Fixture me, Fixture other) {
         //Get the entity attached to thing ('other') that the player collided with

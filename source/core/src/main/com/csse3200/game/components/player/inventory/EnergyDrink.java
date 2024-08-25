@@ -8,35 +8,69 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
-
+/**
+ * An energy drink item that immediately affects the player's speed upon pickup
+ */
 public class EnergyDrink extends BuffItem {
 
+    /**
+     * A variable that represents the speed boost value
+     */
     private static final Vector2 speed = new Vector2(6f, 6f);
 
+    /**
+     * Get the name of this item
+     *
+     * @return the String representation of the name of this item
+     */
     @Override
     public String getName() {
         return "Energy drink";
     }
 
+    /**
+     * Get the texture for this item's icon.
+     *
+     * @return this item's icon.
+     */
     @Override
     public Texture getIcon() {
         return new Texture("images/items/energy_drink.png");
     }
 
+    /**
+     * Remove this collectible from the entity
+     *
+     * @param inventory The inventory to be dropped out of.
+     */
     @Override
     public void drop(Inventory inventory) {
 
     }
 
+    /**
+     * A method that applies the effect of the energy drink to the player. Specifically, updates the player's
+     * speed
+     * @param entity the player entity
+     */
     @Override
     public void effect(Entity entity) {
         entity.getComponent(PlayerActions.class).setSpeed(this.getSpeed());
     }
 
+    /**
+     * Get the speed value of this item
+     * @return the speed value
+     */
     public Vector2 getSpeed() {
         return speed;
     }
 
+    /**
+     * Return a string representation of this collectible that can be parsed by CollectibleFactory
+     *
+     * @return the string representation of this collectible.
+     */
     @Override
     public String getSpecification() { return "energydrink";}
 }

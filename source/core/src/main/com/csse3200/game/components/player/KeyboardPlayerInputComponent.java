@@ -84,11 +84,46 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
     }
 
-    private void triggerWalkEvent() {
-        if (walkDirection.epsilonEquals(Vector2.Zero)) {
-            entity.getEvents().trigger("walkStop");
-        } else {
-            entity.getEvents().trigger("walk", walkDirection);
-        }
+  /**
+   * Triggers specific player walk events
+   * based on the current direction.
+   */
+  private void triggerWalkEvent() {
+    if (walkDirection.epsilonEquals(Vector2.Zero)) {
+      entity.getEvents().trigger("walkStop");
+    } else {
+      entity.getEvents().trigger("walk", walkDirection);
+      String direction = getDirection(walkDirection);
+      switch (direction) {
+        case "LEFT":
+          entity.getEvents().trigger("walkLeft");
+          break;
+        case "UP":
+          entity.getEvents().trigger("walkUp");
+          break;
+        case "RIGHT":
+          entity.getEvents().trigger("walkRight");
+          break;
+        case "DOWN":
+          entity.getEvents().trigger("walkDown");
+          break;
+        case "NONE":
+          // Handle no movement or default case
+          break;
+      }
     }
+  }
+
+  /**
+   * Takes in a Vector2 direction and processes the string eqivalent.
+   *
+   * @return The direction as a simplified string.
+   */
+  private static String getDirection(Vector2 vector) {
+      if (vector.epsilonEquals(Vector2Utils.LEFT)) return "LEFT";
+      if (vector.epsilonEquals(Vector2Utils.RIGHT)) return "RIGHT";
+      if (vector.epsilonEquals(Vector2Utils.UP)) return "UP";
+      if (vector.epsilonEquals(Vector2Utils.DOWN)) return "DOWN";
+      return "NONE";
+  }
 }

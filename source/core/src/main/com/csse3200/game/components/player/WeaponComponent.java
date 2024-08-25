@@ -62,7 +62,11 @@ public class WeaponComponent extends Component {
 
         // Setup variables to track weapon state
         this.lastAttack = 0L;
-        this.attackInterval = 1000L / this.fireRate; // Convert from round per second to ms per round
+        if (this.fireRate == 0) {
+            this.attackInterval = 0L;
+        } else {
+        this.attackInterval = (1000L / this.fireRate);
+        }
     }
 
     /**
@@ -73,7 +77,12 @@ public class WeaponComponent extends Component {
      * @param weaponType   type of weapon (compulsory)
      */
     public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType) {
-        new WeaponComponent(weaponSprite, weaponType, 0, 0, 0, 0, 0, 0);
+        if (weaponType == Collectible.Type.MELEE_WEAPON) {
+            new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 0, 0, 0);
+        } else {
+            new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 1, 1, 1);
+        }
+
     }
 
     /**
@@ -209,7 +218,11 @@ public class WeaponComponent extends Component {
      * @param reloadTime new reload time of weapon
      */
     public void setReloadTime(int reloadTime) {
-        this.reloadTime = reloadTime;
+        if (reloadTime < 0) {
+            throw new IllegalArgumentException("Reload time must be greater than 0");
+        } else {
+            this.reloadTime = reloadTime;
+        }
     }
 
     /**
@@ -297,5 +310,12 @@ public class WeaponComponent extends Component {
             logger.info("No ranged weapon");
         }
     }
-}
 
+    public Sprite getWeaponSprite() {
+        return weaponSprite;
+    }
+
+    public void setWeaponSprite(Sprite sprite) {
+        this.weaponSprite = sprite;
+    }
+}

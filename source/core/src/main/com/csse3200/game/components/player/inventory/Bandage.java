@@ -4,17 +4,7 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 
 public class Bandage extends UsableItem {
-    //private static final int Small_Health_Boost = 20;
-
-//    public void increaseSmallBoost(Entity entity) {
-//        entity.getComponent(CombatStatsComponent.class).setHealth(100);
-//        entity.getComponent(CombatStatsComponent.class).addHealth(Small_Health_Boost);
-//    }
-//
-//    @Override
-//    public void apply(Entity entity) {
-//        increaseSmallBoost(entity);
-//    }
+    private static final int Small_Health_Boost = 20;
 
     @Override
     public void pickup(Inventory inventory) {
@@ -42,11 +32,6 @@ public class Bandage extends UsableItem {
 
     public void increaseSmallBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-
-        if (combatStats != null) {
-            combatStats.addHealth(20);
-        }
-//        entity.getComponent(CombatStatsComponent.class).setHealth(100);
-//        entity.getComponent(CombatStatsComponent.class).addHealth(Small_Health_Boost);
+        combatStats.addHealth(Small_Health_Boost);
     }
 }

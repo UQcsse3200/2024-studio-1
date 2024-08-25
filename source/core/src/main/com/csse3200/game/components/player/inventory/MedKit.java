@@ -6,7 +6,7 @@ import com.csse3200.game.entities.Entity;
 
 public class MedKit extends UsableItem{
 
-    //private static final int Large_Health_Boost = 100;
+    private static final int Large_Health_Boost = 100;
 
     @Override
     public void pickup(Inventory inventory) {
@@ -34,9 +34,6 @@ public class MedKit extends UsableItem{
 
     public void increaseLargeBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-
-        if (combatStats != null) {
-            combatStats.addHealth(100);
-        }
+        combatStats.addHealth(Large_Health_Boost);
     }
 }

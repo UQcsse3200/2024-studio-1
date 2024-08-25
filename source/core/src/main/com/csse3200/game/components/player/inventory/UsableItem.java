@@ -10,7 +10,12 @@ public abstract class UsableItem implements Collectible {
 
     @Override
     public void pickup(Inventory inventory) {
+
         inventory.addItem(this);
+
+        //Apply method just for testing purpose of Health items(Sprint 1)
+        apply(inventory.getEntity());
+
         //FIXME This currently "uses" every item in the inventory at once.
         inventory.getEntity().getEvents().addListener("use", () -> this.apply(inventory.getEntity()));
         // Add anything needed to add to the user upon pickup.

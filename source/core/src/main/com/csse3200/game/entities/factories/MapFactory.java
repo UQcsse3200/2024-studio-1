@@ -5,6 +5,7 @@ import com.csse3200.game.files.FileLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A Factory responsible for loading and managing json file data for the game's Map

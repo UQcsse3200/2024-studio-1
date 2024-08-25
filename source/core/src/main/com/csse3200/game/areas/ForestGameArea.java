@@ -34,17 +34,24 @@ public class ForestGameArea extends GameArea {
           "images/tile_6.png",
           "images/tile_7.png",
           "images/tile_8.png",
-          "images/tile_middle.png"
+          "images/tile_middle.png",
+          "images/tile_general.png",
+          "images/tile_broken1.png",
+          "images/tile_broken2.png",
+          "images/tile_broken3.png",
+          "images/tile_staircase.png",
+          "images/tile_staircase_down.png",
+          "images/tile_blood.png"
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
-
   private final TerrainFactory terrainFactory;
 
   private Entity player;
   private List<Room> roomList;
+  private static final float WALL_WIDTH = 0.1f;
 
 
   /**
@@ -80,7 +87,31 @@ public class ForestGameArea extends GameArea {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.ROOM1);
     spawnEntity(new Entity().addComponent(terrain));
+    // Terrain walls
+    float tileSize = terrain.getTileSize();
+    GridPoint2 tileBounds = terrain.getMapBounds(0);
+    Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
+
+    // Left
+    spawnEntityAt(
+            ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+    // Right
+    spawnEntityAt(
+            ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
+            new GridPoint2(tileBounds.x, 0),
+            false,
+            false);
+    // Top
+    spawnEntityAt(
+            ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+            new GridPoint2(0, tileBounds.y),
+            false,
+            false);
+    // Bottom
+    spawnEntityAt(
+            ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
   }
+
 
   /**
    * TODO: testing with rooms in all directions, inside the main room

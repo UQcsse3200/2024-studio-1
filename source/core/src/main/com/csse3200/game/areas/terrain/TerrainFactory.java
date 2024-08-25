@@ -20,6 +20,8 @@ import com.csse3200.game.services.ServiceLocator;
 public class TerrainFactory {
   private static final GridPoint2 MAP_SIZE = new GridPoint2(15, 11);
   private final OrthographicCamera camera;
+  private static GridPoint2 STAIRCASE_UP_POS = new GridPoint2(0, MAP_SIZE.y-3);
+  private static GridPoint2 STAIRCASE_DOWN_POS = new GridPoint2(MAP_SIZE.x-1, 3);
 
 
   /**
@@ -69,8 +71,20 @@ public class TerrainFactory {
                 new TextureRegion(resourceService.getAsset("images/tile_5.png", Texture.class));
         TextureRegion tileD =
                 new TextureRegion(resourceService.getAsset("images/tile_7.png", Texture.class));
+        TextureRegion tileB1 =
+                new TextureRegion(resourceService.getAsset("images/tile_broken1.png", Texture.class));
+        TextureRegion tileB2 =
+                new TextureRegion(resourceService.getAsset("images/tile_broken2.png", Texture.class));
+        TextureRegion tileB3 =
+                new TextureRegion(resourceService.getAsset("images/tile_broken3.png", Texture.class));
+        TextureRegion tileStaircase =
+                new TextureRegion(resourceService.getAsset("images/tile_staircase.png", Texture.class));
+        TextureRegion tileStaircaseDown =
+                new TextureRegion(resourceService.getAsset("images/tile_staircase_down.png", Texture.class));
+        TextureRegion tileStained =
+                new TextureRegion(resourceService.getAsset("images/tile_blood.png", Texture.class));
         return createRoomTerrain(1f, new TextureRegion[]{
-                tileMain, tileLU, tileLD, tileRU, tileRD, tileL, tileR, tileU, tileD});
+                tileMain, tileLU, tileLD, tileRU, tileRD, tileL, tileR, tileU, tileD ,tileB1, tileB2, tileB3, tileStaircase, tileStaircaseDown, tileStained});
       default:
         return null;
     }
@@ -95,12 +109,19 @@ public class TerrainFactory {
     TerrainTile rTile = new TerrainTile(tileSet[6]);
     TerrainTile uTile = new TerrainTile(tileSet[7]);
     TerrainTile dTile = new TerrainTile(tileSet[8]);
+    TerrainTile b1Tile = new TerrainTile(tileSet[9]);
+    TerrainTile b2Tile = new TerrainTile(tileSet[10]);
+    TerrainTile b3Tile = new TerrainTile(tileSet[11]);
+    TerrainTile stairTile = new TerrainTile(tileSet[12]);
+    TerrainTile stairDownTile = new TerrainTile(tileSet[13]);
+    TerrainTile stairStained = new TerrainTile(tileSet[14]);
 
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
     // fill room tile
     fillTiles(layer, MAP_SIZE, new TerrainTile[]{
-            mainTile, luTile, ldTile, ruTile, rdTile, lTile, rTile, uTile, dTile
+            mainTile, luTile, ldTile, ruTile, rdTile, lTile, rTile, uTile, dTile,
+            b1Tile, b2Tile, b3Tile, stairTile, stairDownTile, stairStained
     });
 
     tiledMap.getLayers().add(layer);
@@ -134,9 +155,21 @@ public class TerrainFactory {
     for (int x = 0; x < mapSize.x; x++) {
       for (int y = 0; y < mapSize.y; y++) {
         if (!isBoundaryTile(x, y, mapSize)) {
-          Cell cell = new Cell();
-          cell.setTile(tileList[0]);
-          layer.setCell(x, y, cell);
+          // adding broken tiles
+          if (isBrokenTile()) {
+            Cell cell = new Cell();
+            cell.setTile(tileList[getBrokenTile()]);
+            layer.setCell(x, y, cell);
+          } else if (isStainedTile()) {
+            Cell cell = new Cell();
+            cell.setTile(tileList[14]);
+            layer.setCell(x, y, cell);
+          } else {
+            // general tiles
+            Cell cell = new Cell();
+            cell.setTile(tileList[0]);
+            layer.setCell(x, y, cell);
+          }
         } else {
           Cell cell = new Cell();
           if (x == 0 && y == 0) {
@@ -156,6 +189,14 @@ public class TerrainFactory {
           } else if (x > 0 && x < (mapSize.x-1) && y == (mapSize.y-1)) {
             cell.setTile(tileList[7]);
           }
+
+          // staircase position
+          if (x == STAIRCASE_UP_POS.x && y == (STAIRCASE_UP_POS.y))
+            cell.setTile(tileList[12]);
+
+          if (x == (STAIRCASE_DOWN_POS.x) && y == STAIRCASE_DOWN_POS.y)
+            cell.setTile(tileList[13]);
+
           layer.setCell(x, y, cell);
         }
       }
@@ -164,6 +205,25 @@ public class TerrainFactory {
 
   private boolean isBoundaryTile(int x, int y, GridPoint2 mapSize) {
     return x == 0 || x == mapSize.x - 1 || y == 0 || y == mapSize.y - 1;
+  }
+
+  // Return true for broken tile (30% chance), false for general tile (70% chance)
+  public boolean isBrokenTile() {
+    // Generate a random number between 0 and 2
+    int randomValue = RandomUtils.randomInt(0, 99);
+    return randomValue < 30;
+  }
+
+  // Return random broken tile
+  public int getBrokenTile() {
+    return RandomUtils.randomInt(9, 11);
+  }
+
+  // Return true for broken tile (5% chance), false for general tile (95% chance)
+  public boolean isStainedTile() {
+    // Generate a random number between 0 and 2
+    int randomValue = RandomUtils.randomInt(0, 99);
+    return randomValue < 5;
   }
 
   /**

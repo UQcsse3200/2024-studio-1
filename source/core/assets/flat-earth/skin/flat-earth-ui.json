@@ -449,7 +449,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		font: button
 		fontColor: white
 		downFontColor: white
-		overFontColor: gray
+		overFontColor: white
 		up: action-button-c
 		down: action-button-p
 		over: action-button-h

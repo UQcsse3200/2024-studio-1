@@ -6,6 +6,7 @@ package com.csse3200.game.options;
  */
 public class GameOptions {
 
+    /** The difficulty of the game. */
     public Difficulty difficulty;
 
     /**

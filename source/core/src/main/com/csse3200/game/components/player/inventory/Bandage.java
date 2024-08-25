@@ -27,7 +27,7 @@ public class Bandage extends UsableItem{
 
     @Override
     public void apply(Entity entity) {
-        entity.getEvents().addListener("SmallHealthBoost", () -> increaseHealth(entity));
+        increaseHealth(entity);
     }
 
     public void increaseHealth(Entity entity) {

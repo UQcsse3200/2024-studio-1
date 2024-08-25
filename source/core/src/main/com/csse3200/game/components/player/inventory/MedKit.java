@@ -1,6 +1,7 @@
 package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerStatsDisplay;
 import com.csse3200.game.entities.Entity;
 
 public class MedKit extends UsableItem{
@@ -28,7 +29,7 @@ public class MedKit extends UsableItem{
 
     @Override
     public void apply(Entity entity) {
-        entity.getEvents().addListener("LargeHealthBoost", () -> increaseHealth(entity));
+        increaseHealth(entity);
     }
 
     public void increaseHealth(Entity entity) {

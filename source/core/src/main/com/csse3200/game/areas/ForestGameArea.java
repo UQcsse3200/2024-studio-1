@@ -75,6 +75,7 @@ public class ForestGameArea extends GameArea {
     spawnTrees();
     player = spawnPlayer();
     collectible = spawnCollectibleTest();
+    spawnShieldPotion();
     spawnGhosts();
     spawnGhostKing();
 
@@ -139,6 +140,12 @@ public class ForestGameArea extends GameArea {
     Entity collectibleEntity = CollectibleFactory.createCollectibleEntity(collectible);
     spawnEntityAt(collectibleEntity, ITEM_SPAWN, true, true);
     return collectibleEntity;
+  }
+
+  private void spawnShieldPotion() {
+    Collectible collectible = CollectibleFactory.create("item:shieldpotion");
+    Entity collectibleEntity = CollectibleFactory.createCollectibleEntity(collectible);
+    spawnEntityAt(collectibleEntity, new GridPoint2(5, 5), true, true);
   }
 
   private void spawnGhosts() {

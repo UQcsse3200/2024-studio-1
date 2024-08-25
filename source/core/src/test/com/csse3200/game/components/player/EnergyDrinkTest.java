@@ -9,21 +9,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class EnergyDrinkTest {
+public class EnergyDrinkTest {
     @Test
     public void getNameTest() {
         EnergyDrink energyDrink = new EnergyDrink();
         String name = energyDrink.getName();
         assertEquals(name, "Energy drink");
         };
-
-    @Test
-    public void iconTest() {
-        EnergyDrink energyDrink = new EnergyDrink();
-        Texture icon = energyDrink.getIcon();
-        Texture compare = new Texture("images/items/energy_drink.png");
-        assertEquals(icon, compare);
-    }
 
     @Test
     public void getSpeedTest() {

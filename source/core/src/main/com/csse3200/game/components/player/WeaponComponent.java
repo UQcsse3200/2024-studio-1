@@ -192,7 +192,11 @@ public class WeaponComponent extends Component {
      * @param reloadTime new reload time of weapon
      */
     public void setReloadTime(int reloadTime) {
-        this.reloadTime = reloadTime;
+        if (reloadTime < 0) {
+            throw new IllegalArgumentException("Reload time must be greater than 0");
+        } else {
+            this.reloadTime = reloadTime;
+        }
     }
 
     /**
@@ -249,5 +253,13 @@ public class WeaponComponent extends Component {
                 logger.info("Ranged weapon shoot");
             }
         }
+    }
+
+    public Sprite getWeaponSprite() {
+        return weaponSprite;
+    }
+
+    public void setWeaponSprite(Sprite sprite) {
+        this.weaponSprite = sprite;
     }
 }

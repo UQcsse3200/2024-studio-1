@@ -2,6 +2,7 @@ package com.csse3200.game.components.mainmenu;
 
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.options.GameOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +13,6 @@ import org.slf4j.LoggerFactory;
 public class MainMenuActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
     private GdxGame game;
-    private GameOptions gameOptions;
 
     public MainMenuActions(GdxGame game) {
         this.game = game;
@@ -24,15 +24,14 @@ public class MainMenuActions extends Component {
         entity.getEvents().addListener("load", this::onLoad);
         entity.getEvents().addListener("exit", this::onExit);
         entity.getEvents().addListener("settings", this::onSettings);
-        gameOptions = entity.getComponent(GameOptions.class);
-        game.gameOptions = this.gameOptions;
     }
 
     /**
      * Swaps to the Main Game screen.
      */
-    private void onStart() {
+    private void onStart(GameOptions options) {
         logger.info("Start game");
+        game.gameOptions = options;
         game.setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 

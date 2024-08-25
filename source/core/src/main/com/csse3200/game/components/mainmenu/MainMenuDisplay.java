@@ -8,7 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.csse3200.game.components.mainmenu.GameOptions.Difficulty;
+import com.csse3200.game.options.GameOptions;
+import com.csse3200.game.options.GameOptions.Difficulty;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -31,12 +32,10 @@ public class MainMenuDisplay extends UIComponent {
      * A nested table that contains the buttons for difficulty selection
      */
     private Table diffBtnsTable;
-    private GameOptions gameOptions;
 
     @Override
     public void create() {
         super.create();
-        gameOptions = entity.getComponent(GameOptions.class);
         addActors();
     }
 
@@ -73,11 +72,9 @@ public class MainMenuDisplay extends UIComponent {
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        gameOptions.setDifficulty(difficulty);
-                        logger.info(
-                                "Difficulty set to %s".formatted(difficulty.toString())
-                        );
-                        entity.getEvents().trigger("start");
+                        GameOptions options = new GameOptions(difficulty);
+                        logger.debug("{} difficulty button clicked", difficulty.toString());
+                        entity.getEvents().trigger("start", options);
                     }
                 }
         ));

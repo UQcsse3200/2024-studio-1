@@ -1,36 +1,19 @@
-package com.csse3200.game.components.mainmenu;
-
-import com.csse3200.game.components.Component;
+package com.csse3200.game.options;
 
 /**
  * Stores options chosen by the user for a new game. Includes difficulty selection, may include
  * more options later.
  */
-public class GameOptions extends Component {
+public class GameOptions {
 
-    private Difficulty difficulty;
-
-    /**
-     * Create a new GameOptions component.
-     */
-    public GameOptions() {
-        this.difficulty = Difficulty.MEDIUM;
-    }
+    public Difficulty difficulty;
 
     /**
-     * Get the chosen difficulty.
-     * @return the chosen difficulty.
+     * Create new GameOptions.
+     * @param difficulty what to set the difficulty to.
      */
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    /**
-     * Set the chosen difficulty.
-     * @param newDifficulty the new difficulty.
-     */
-    public void setDifficulty(Difficulty newDifficulty) {
-        this.difficulty = newDifficulty;
+    public GameOptions(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 
     /**

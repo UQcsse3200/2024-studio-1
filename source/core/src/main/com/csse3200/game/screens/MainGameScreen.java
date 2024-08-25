@@ -7,7 +7,7 @@ import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.ForestGameArea;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
-import com.csse3200.game.components.mainmenu.GameOptions;
+import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.factories.RenderFactory;
@@ -47,9 +47,7 @@ public class MainGameScreen extends ScreenAdapter {
     this.game = game;
 
     gameOptions = game.gameOptions;
-    logger.info(
-            "Starting game with difficulty: %s".formatted(gameOptions.getDifficulty().toString())
-    );
+    logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
 
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());

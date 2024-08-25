@@ -15,7 +15,7 @@ public class EnergyDrink extends BuffItem {
 
     @Override
     public String getName() {
-        return null;
+        return "Energy drink";
     }
 
     @Override
@@ -36,4 +36,7 @@ public class EnergyDrink extends BuffItem {
     public Vector2 getSpeed() {
         return speed;
     }
+
+    @Override
+    public String getSpecification() { return "energydrink";}
 }

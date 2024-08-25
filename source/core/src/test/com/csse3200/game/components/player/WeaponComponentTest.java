@@ -18,7 +18,7 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentDefault() {
         // create a weapon component with default values
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON);
+        WeaponComponent weaponComponent = new WeaponComponent(null, null, 0, 0, 0, 0, 0, 0);
         // check if weapon component is created
         assertNotNull(weaponComponent);
     }

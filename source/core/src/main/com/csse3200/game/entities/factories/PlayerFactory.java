@@ -40,7 +40,7 @@ public class PlayerFactory {
 
     // initial skin and type for weapon component (bare hand) - update in runtime
     Sprite sprite = new Sprite(new Texture("images/box_boy.png")); // need to update this
-    Collectible.Type weaponType = Collectible.Type.NONE;
+    Collectible.Type weaponType = Collectible.Type.RANGED_WEAPON;
 
     Entity player = new Entity()
             .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
@@ -53,7 +53,7 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new WeaponComponent(sprite, weaponType,
-                    10, 1, 1, 0, 0, 0));
+                    10, 1, 1, 10, 10, 0));
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);

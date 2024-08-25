@@ -36,7 +36,6 @@ import com.csse3200.game.services.ServiceLocator;
 public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
-
   /**
    * Creates a ghost entity.
    *
@@ -46,7 +45,6 @@ public class NPCFactory {
   public static Entity createGhost(Entity target) {
     Entity ghost = createBaseNPC(target);
     BaseEntityConfig config = configs.ghost;
-
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));

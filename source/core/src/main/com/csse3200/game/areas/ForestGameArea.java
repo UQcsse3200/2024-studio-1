@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.areas.terrain.TerrainFactory.TerrainType;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.factories.MapFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.ObstacleFactory;
 import com.csse3200.game.entities.factories.PlayerFactory;
@@ -59,6 +60,7 @@ public class ForestGameArea extends GameArea {
     super();
     this.terrainFactory = terrainFactory;
   }
+
 
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override

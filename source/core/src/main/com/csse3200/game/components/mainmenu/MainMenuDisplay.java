@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
+import com.csse3200.game.files.UserSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,17 +28,26 @@ public class MainMenuDisplay extends UIComponent {
   }
 
   private void addActors() {
+    UserSettings.Settings settings = UserSettings.get();
+
     table = new Table();
     table.setFillParent(true);
     Image title =
         new Image(
             ServiceLocator.getResourceService()
                 .getAsset("images/box_boy_title.png", Texture.class));
+    Image bg_logo =
+        new Image(
+            ServiceLocator.getResourceService()
+                .getAsset("images/bg_logo.png", Texture.class));
 
     TextButton startBtn = new TextButton("Start", skin);
     TextButton loadBtn = new TextButton("Load", skin);
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
+
+    bg_logo.setSize(settings.displayMode.width, settings.displayMode.height);
+    bg_logo.setPosition(0, 0);
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -77,8 +87,8 @@ public class MainMenuDisplay extends UIComponent {
           }
         });
 
-    table.add(title);
-    table.row();
+    /*table.add(title);
+    table.row();*/
     table.add(startBtn).padTop(30f);
     table.row();
     table.add(loadBtn).padTop(15f);
@@ -87,6 +97,7 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(exitBtn).padTop(15f);
 
+    stage.addActor(bg_logo);
     stage.addActor(table);
   }
 

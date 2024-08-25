@@ -28,22 +28,19 @@ import com.csse3200.game.services.ServiceLocator;
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
  *
- * <p>Each NPC entity type should have a creation method that returns a corresponding entity.
- * Predefined entity properties can be loaded from configs stored as json files which are defined in
+ * <p>Each NPC entity type has a creation method that returns a corresponding entity.
+ * Predefined entity properties are be loaded from configs stored as json files which are defined in
  * "NPCConfigs".
- *
- * <p>If needed, this factory can be separated into more specific factories for entities with
- * similar characteristics.
  */
 public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
-   * Creates a rat entity.
+   * Creates a rat entity with predefined components and behaviour.
    *
    * @param target entity to chase
-   * @return entity
+   * @return the created rat entity
    */
   public static Entity createRat(Entity target) {
     BaseEntityConfig config = configs.rat;
@@ -79,10 +76,10 @@ public class NPCFactory {
   }
 
   /**
-   * Creates a dog entity.
+   * Creates a dog entity with predefined components and behaviour.
    *
    * @param target entity to chase
-   * @return entity
+   * @return the created dog entity
    */
   public static Entity createDog(Entity target) {
     BaseEntityConfig config = configs.dog;
@@ -118,10 +115,10 @@ public class NPCFactory {
   }
 
   /**
-   * Creates a crocodile entity.
+   * Creates a crocodile entity with predefined components and behaviour.
    *
    * @param target entity to chase
-   * @return entity
+   * @return the created crocodile entity
    */
   public static Entity createCroc(Entity target) {
     BaseEntityConfig config = configs.croc;
@@ -155,10 +152,10 @@ public class NPCFactory {
   }
 
   /**
-   * Creates a gorilla entity.
+   * Creates a gorilla entity with predefined components and behaviour.
    *
    * @param target entity to chase
-   * @return entity
+   * @return the created gorilla entity
    */
   public static Entity createGorilla(Entity target) {
     BaseEntityConfig config = configs.gorilla;
@@ -196,6 +193,7 @@ public class NPCFactory {
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
+   * @param aiComponent the AI component to be added to the NPC
    * @return entity
    */
   private static Entity createBaseNPC(AITaskComponent aiComponent) {

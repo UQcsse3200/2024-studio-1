@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
  */
 public class MovementTask extends DefaultTask {
   private static final Logger logger = LoggerFactory.getLogger(MovementTask.class);
-
   private final GameTime gameTime;
   private Vector2 target;
   private float stopDistance = 0.05f;
@@ -22,11 +21,22 @@ public class MovementTask extends DefaultTask {
   private Vector2 lastPos;
   private PhysicsMovementComponent movementComponent;
 
+  /**
+   * Creates a MovementTask with a target position.
+   *
+   * @param target the target position to move to
+   */
   public MovementTask(Vector2 target) {
     this.target = target;
     this.gameTime = ServiceLocator.getTimeSource();
   }
 
+  /**
+   * Creates a MovementTask with a target position and a custom stop distance.
+   *
+   * @param target the target position to move to
+   * @param stopDistance the distance from the target at which to stop
+   */
   public MovementTask(Vector2 target, float stopDistance) {
     this(target);
     this.stopDistance = stopDistance;
@@ -54,11 +64,21 @@ public class MovementTask extends DefaultTask {
     }
   }
 
+  /**
+   * Sets the target position to move to.
+   *
+   * @param target the new target position
+   */
   public void setTarget(Vector2 target) {
     this.target = target;
     movementComponent.setTarget(target);
   }
 
+  /**
+   * Sets the movement velocity.
+   *
+   * @param speed the speed to set
+   */
   public void setVelocity(float speed) {
     Vector2 velocity = new Vector2(speed,speed);
     logger.debug("Setting velocity to {}", velocity);

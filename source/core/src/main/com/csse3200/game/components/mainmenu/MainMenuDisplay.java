@@ -84,8 +84,8 @@ public class MainMenuDisplay extends UIComponent {
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Settings button clicked");
-                        entity.getEvents().trigger("settings");
+                        logger.debug("How To Play button clicked");
+                        entity.getEvents().trigger("how-to-play");
                     }
                 });
 

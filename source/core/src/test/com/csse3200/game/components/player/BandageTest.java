@@ -44,6 +44,12 @@ public class BandageTest {
     public void testGetItemSpecification() {
         assertEquals("bandage", bandage.getItemSpecification());
     }
+
+    @Test
+    public void testGetSpecification() {
+        assertEquals("item:bandage", bandage.getSpecification());
+    }
+
 //    @Test
 //    public void testGetIcon() {
 //        // Test getIcon method

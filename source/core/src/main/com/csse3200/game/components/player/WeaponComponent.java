@@ -27,7 +27,8 @@ public class WeaponComponent extends Component {
     private int maxAmmo; // max ammo for shotgun only
     private int reloadTime; // reload time for shotgun only
     // variable for storing sprite of weapon
-    // Note: this should have default sprite (not holding weapon) and sprite for each weapon type with hand holding it
+    // Note: this should have default sprite (not holding weapon) and sprite for each
+    // weapon type with hand holding it
     private Sprite weaponSprite;
 
     // Tracking weapon state
@@ -46,7 +47,8 @@ public class WeaponComponent extends Component {
      * @param maxAmmo      max ammo for shotgun only
      * @param reloadTime   reload time for shotgun only
      */
-    public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime) {
+    public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, int range,
+                           int fireRate, int ammo, int maxAmmo, int reloadTime) {
         System.out.println("WeaponComponent created");
         this.damage = damage;
         this.range = range;
@@ -237,6 +239,12 @@ public class WeaponComponent extends Component {
         this.ammo = rangedWeapon.getAmmo();
         this.maxAmmo = rangedWeapon.getMaxAmmo();
         this.reloadTime = rangedWeapon.getReloadTime();
+        this.lastAttack = 0L;
+        if (this.fireRate == 0) {
+            this.attackInterval = 0L;
+        } else {
+            this.attackInterval = (1000L / this.fireRate);
+        }
     }
 
     /**
@@ -248,6 +256,12 @@ public class WeaponComponent extends Component {
         this.damage = meleeWeapon.getDamage();
         this.range = meleeWeapon.getRange();
         this.fireRate = meleeWeapon.getFireRate();
+        this.lastAttack = 0L;
+        if (this.fireRate == 0) {
+            this.attackInterval = 0L;
+        } else {
+            this.attackInterval = (1000L / this.fireRate);
+        }
     }
 
     public void updateWeapon() {
@@ -281,8 +295,7 @@ public class WeaponComponent extends Component {
     }
 
     public void shoot(Vector2 direction) {
-//        logger.info("WeaponComponent shoot");
-        Entity entity = getEntity();
+        Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
         if (entity != null && this.weaponType == Collectible.Type.RANGED_WEAPON) {
             if (currentTime - this.lastAttack <= this.attackInterval) {
@@ -294,14 +307,14 @@ public class WeaponComponent extends Component {
                 // Reloading
                 this.setAmmo(-2);
                 // Offset time so that the weapon must wait extra long for reload time
-                currentTime -= this.getReloadTime() * 1000L - this.attackInterval;
+                currentTime += this.getReloadTime() * 1000L - this.attackInterval;
                 logger.info("Ranged weapon reloading");
             } else {
                 // Shooting
                 this.setAmmo(-1);
                 // Spawn projectile
-//                ProjectileFactory.createProjectile(this.bulletConfig,
-//                        this.getEntity().getPosition(), direction);
+                ProjectileFactory.createProjectile(this.bulletConfig,
+                        this.getEntity().getPosition(), direction);
                 logger.info("Ranged weapon shoot");
             }
             // Reset lastAtttack time

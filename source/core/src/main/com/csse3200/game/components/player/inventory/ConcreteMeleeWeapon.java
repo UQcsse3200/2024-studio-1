@@ -52,6 +52,6 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
 
     @Override
     public Texture getIcon() {
-        return new Texture("knife.png");
+        return new Texture("pickaxe.png");
     }
 }

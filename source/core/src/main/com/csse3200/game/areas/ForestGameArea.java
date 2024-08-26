@@ -26,6 +26,8 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final int NUM_KNIVES = 5;
+
+  private static final int NUM_SHOTGUNS = 3;
   private static final String[] forestTextures = {
     "images/box_boy_leaf.png",
     "images/tree.png",
@@ -40,7 +42,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-          "images/Weapons/knife.png"
+          "images/Weapons/pickaxe.png",
+          "images/Weapons/Shotgun.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -77,6 +80,7 @@ public class ForestGameArea extends GameArea {
     spawnGhostKing();
     spawnKnives();
     playMusic();
+    spawnShotgun();
   }
 
   private void displayUI() {
@@ -160,6 +164,17 @@ public class ForestGameArea extends GameArea {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       Entity knife = WeaponFactory.createKnifeEntity();
       spawnEntityAt(knife, randomPos, true, false); // Spawning the knife at a random position
+    }
+  }
+
+  private void spawnShotgun() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    for (int i = 0; i < NUM_SHOTGUNS; i++) {
+      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+      Entity shotgun = WeaponFactory.createShotgunEntity();
+      spawnEntityAt(shotgun, randomPos, true, false); // Spawning the Shotgun at a random position
     }
   }
 

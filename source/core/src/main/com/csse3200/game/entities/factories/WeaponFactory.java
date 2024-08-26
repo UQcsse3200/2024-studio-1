@@ -30,7 +30,7 @@ public class WeaponFactory {
     public static Entity createKnifeEntity() {
         Knife knife = new Knife();
         Entity knifeEntity = new Entity()
-                .addComponent(new TextureRenderComponent("images/Weapons/knife.png"))
+                .addComponent(new TextureRenderComponent("images/Weapons/pickaxe.png"))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent().setSensor(true))
                 .addComponent(new CollectibleComponent(knife));
@@ -39,5 +39,19 @@ public class WeaponFactory {
         knifeEntity.scaleHeight(0.9f);
         PhysicsUtils.setScaledCollider(knifeEntity, 0.5f, 0.2f);
         return knifeEntity;
+    }
+
+    public static Entity createShotgunEntity() {
+        Shotgun shotgun = new Shotgun();
+        Entity shotgunEntity = new Entity()
+                .addComponent(new TextureRenderComponent("images/Weapons/Shotgun.png"))
+                .addComponent(new PhysicsComponent())
+                .addComponent(new ColliderComponent().setSensor(true))
+                .addComponent(new CollectibleComponent(shotgun));
+
+        shotgunEntity.getComponent(TextureRenderComponent.class).scaleEntity();
+        shotgunEntity.scaleHeight(0.9f);
+        PhysicsUtils.setScaledCollider(shotgunEntity, 0.5f, 0.2f);
+        return shotgunEntity;
     }
 }

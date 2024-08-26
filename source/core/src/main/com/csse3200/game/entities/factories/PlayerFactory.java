@@ -173,6 +173,9 @@ public class PlayerFactory {
   private static RangedWeapon createRangedWeaponFromSpecification(String rangedSpec) {
     // Logic to create the appropriate RangedWeapon instance based on the rangedSpec string
     // Implement this based on your available RangedWeapon types
+    if (rangedSpec.equals("Shotgun")) {
+      return new Shotgun();
+    }
     logger.warn("Unknown ranged weapon specification: " + rangedSpec);
     return null;
   }

@@ -30,6 +30,13 @@ public class EnergyDrinkTest {
     }
 
     @Test
+    public void getItemSpecificationTest() {
+        EnergyDrink energyDrink = new EnergyDrink();
+        String specification = energyDrink.getBuffSpecification();
+        assertEquals(specification, "energydrink");
+    }
+
+    @Test
     public void getTypeTest() {
         EnergyDrink energyDrink = new EnergyDrink();
         Collectible.Type type = energyDrink.getType();

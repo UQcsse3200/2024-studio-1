@@ -117,6 +117,44 @@ public class NPCFactory {
     return snake;
   }
 
+  /**
+   * Creates a Snake entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createDino(Entity target) {
+    BaseEntityConfig config = configs.snake;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new StraightWanderTask(1.5f))
+                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
+                    .addTask(new AttackTask(target, 15, 3f, 3.5f));
+
+    Entity dino = createBaseNPC(aiComponent);
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/dino.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.2f, Animation.PlayMode.NORMAL);
+
+    dino
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
+
+    dino.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return dino;
+  }
 
   /**
    * Creates a Minotaur entity.

@@ -54,6 +54,7 @@ public class MainMenuDisplay extends UIComponent {
         for (Difficulty diff : Difficulty.values()) {
             difficultyBtns.put(diff, new TextButton(diff.toString(), skin, "action"));
         }
+        TextButton howToPlayBtn = new TextButton("How To Play", skin);
         TextButton loadBtn = new TextButton("Load", skin);
         TextButton settingsBtn = new TextButton("Settings", skin);
         TextButton exitBtn = new TextButton("Exit", skin);
@@ -78,6 +79,15 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 }
         ));
+
+        howToPlayBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Settings button clicked");
+                        entity.getEvents().trigger("settings");
+                    }
+                });
 
         loadBtn.addListener(
                 new ChangeListener() {
@@ -114,6 +124,8 @@ public class MainMenuDisplay extends UIComponent {
             diffBtnsTable.add(btn).spaceLeft(BTN_SPACING).spaceRight(BTN_SPACING);
         }
         table.add(diffBtnsTable).padTop(BTN_SPACING);
+        table.row();
+        table.add(howToPlayBtn).padTop(BTN_SPACING);
         table.row();
         table.add(loadBtn).padTop(BTN_SPACING);
         table.row();

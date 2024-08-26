@@ -37,6 +37,10 @@ public class MedkitTest {
         assertEquals("Medkit", medkit.getName());
     }
 
+    @Test
+    public void testGetItemSpecification() {
+        assertEquals("medkit", medkit.getItemSpecification());
+    }
 //    @Test
 //    public void testGetIcon() {
 //        // Test getIcon method

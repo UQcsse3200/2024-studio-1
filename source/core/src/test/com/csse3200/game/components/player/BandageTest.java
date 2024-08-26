@@ -40,6 +40,10 @@ public class BandageTest {
         assertEquals("Bandage", bandage.getName());
     }
 
+    @Test
+    public void testGetItemSpecification() {
+        assertEquals("bandage", bandage.getItemSpecification());
+    }
 //    @Test
 //    public void testGetIcon() {
 //        // Test getIcon method

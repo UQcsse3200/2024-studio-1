@@ -21,6 +21,7 @@ public abstract class BuffItem implements Collectible {
      */
     @Override
     public void pickup(Inventory inventory) {
+        inventory.addItem(this); // FIXME
         effect(inventory.getEntity());
     }
 

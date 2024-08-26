@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 
 public class Shotgun extends RangedWeapon {
 
-    private Texture texture;
+    private final Texture texture;
 
     public Shotgun() {
         int damage = 30;
@@ -64,5 +64,10 @@ public class Shotgun extends RangedWeapon {
     @Override
     public void drop(Inventory inventory) {
         super.drop(inventory);
+    }
+
+    @Override
+    public String getRangedSpecification() {
+        return "shotgun";
     }
 }

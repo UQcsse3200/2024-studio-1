@@ -65,6 +65,7 @@ public class ForestGameArea extends GameArea {
     this.roomList = new ArrayList<>();
   }
 
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {

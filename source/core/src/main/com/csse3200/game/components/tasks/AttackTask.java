@@ -96,7 +96,7 @@ public class AttackTask extends DefaultTask implements PriorityTask {
      * Calculate the distance between the target and current entity
      * @return distance in float
      */
-    float getDistanceToTarget() {
+    private float getDistanceToTarget() {
         return owner.getEntity().getPosition().dst(target.getPosition());
     }
 
@@ -105,7 +105,7 @@ public class AttackTask extends DefaultTask implements PriorityTask {
      * is blocked.
      * @return True of nothing is in-between, otherwise False
      */
-    boolean isTargetVisible() {
+    private boolean isTargetVisible() {
         Vector2 from = owner.getEntity().getCenterPosition();
         Vector2 to = target.getCenterPosition();
 

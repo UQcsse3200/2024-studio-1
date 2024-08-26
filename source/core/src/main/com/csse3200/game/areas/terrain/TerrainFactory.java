@@ -207,11 +207,11 @@ public class TerrainFactory {
     return x == 0 || x == mapSize.x - 1 || y == 0 || y == mapSize.y - 1;
   }
 
-  // Return true for broken tile (30% chance), false for general tile (70% chance)
+  // Return true for broken tile (3% chance), false for general tile (70% chance)
   public boolean isBrokenTile() {
     // Generate a random number between 0 and 2
     int randomValue = RandomUtils.randomInt(0, 99);
-    return randomValue < 5;
+    return randomValue < 4;
   }
 
   // Return random broken tile
@@ -219,11 +219,11 @@ public class TerrainFactory {
     return RandomUtils.randomInt(9, 11);
   }
 
-  // Return true for broken tile (5% chance), false for general tile (95% chance)
+  // Return true for broken tile (1% chance), false for general tile (95% chance)
   public boolean isStainedTile() {
     // Generate a random number between 0 and 2
     int randomValue = RandomUtils.randomInt(0, 99);
-    return randomValue < 3;
+    return randomValue < 2;
   }
 
   /**

@@ -5,11 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.npc.GhostAnimationController;
-import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
-import com.csse3200.game.components.npc.NPCDeathHandler;
-import com.csse3200.game.components.npc.NPCHealthBarComponent;
-import com.csse3200.game.components.npc.RatAnimationController;
+import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -94,17 +90,20 @@ public class NPCFactory {
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService()
-                .getAsset("images/ghostKing.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-//    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
+                .getAsset("images/dog.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("run", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("stop", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     dog
         .addComponent(new CombatStatsComponent(
                 config.health,
                 config.baseAttack))
         .addComponent(animator)
-        .addComponent(new GhostAnimationController())
+        .addComponent(new DogAnimationController())
         .addComponent(new NPCHealthBarComponent())
         .addComponent(new NPCDamageHandlerComponent())
         .addComponent(new NPCDeathHandler());

@@ -132,8 +132,7 @@ public class NPCFactory {
                 .getAsset("images/dog.atlas", TextureAtlas.class));
     animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("run", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("stop", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
@@ -146,7 +145,6 @@ public class NPCFactory {
         .addComponent(new NPCHealthBarComponent())
         .addComponent(new NPCDamageHandlerComponent())
         .addComponent(new NPCDeathHandler());
-
 
     dog.getComponent(AnimationRenderComponent.class).scaleEntity();
     return dog;

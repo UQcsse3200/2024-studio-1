@@ -14,7 +14,7 @@ public class DogAnimationController extends Component {
     public void create() {
         super.create();
         animator = this.entity.getComponent(AnimationRenderComponent.class);
-        entity.getEvents().addListener("idle", this::animateIdle);
+        entity.getEvents().addListener("wanderStop", this::animateIdle);
         entity.getEvents().addListener("wanderStart", this::animateWalk);
         entity.getEvents().addListener("chaseStart", this::animateRun);
         entity.getEvents().addListener("chaseEnd", this::animateStop);
@@ -29,10 +29,10 @@ public class DogAnimationController extends Component {
         animator.startAnimation("walk");
     }
     void animateRun() {
-        animator.startAnimation("run");
+        animator.startAnimation("walk");
     }
     void animateStop() {
-        animator.startAnimation("stop");
+        animator.startAnimation("gesture");
     }
     void animateAttack() {
         animator.startAnimation("attack");

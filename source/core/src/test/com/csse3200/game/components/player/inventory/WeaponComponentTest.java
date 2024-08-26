@@ -1,7 +1,7 @@
-package com.csse3200.game.components.player;
+package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.WeaponComponent;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -1,6 +1,5 @@
-package com.csse3200.game.components.player;
+package com.csse3200.game.components.player.inventory;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.inventory.MedKit;
 import com.csse3200.game.entities.Entity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,10 +8,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class MedkitTest {
+public class BandageTest {
     @Mock
     private Entity entity;
 
@@ -20,56 +20,56 @@ public class MedkitTest {
     private CombatStatsComponent combatStatsComponent;
 
     @InjectMocks
-    private MedKit medkit;
+    private Bandage bandage;
 
     @BeforeEach
     public void setUp() {
         // Initialize mocks
         MockitoAnnotations.openMocks(this);
 
-        // Mock the entity to return the CombatStatsComponent
+        // Mock the entity to return the CombatStatsComponent when requested
         when(entity.getComponent(CombatStatsComponent.class)).thenReturn(combatStatsComponent);
     }
 
     @Test
     public void testGetName() {
-        // Check if getName returns "Medkit"
-        assertEquals("Medkit", medkit.getName());
+        // Check if getName returns "Bandage"
+        assertEquals("Bandage", bandage.getName());
     }
 
     @Test
     public void testGetItemSpecification() {
-        assertEquals("medkit", medkit.getItemSpecification());
+        assertEquals("bandage", bandage.getItemSpecification());
     }
 
     @Test
     public void testGetSpecification() {
-        assertEquals("item:medkit", medkit.getSpecification());
+        assertEquals("item:bandage", bandage.getSpecification());
     }
 
 //    @Test
 //    public void testGetIcon() {
 //        // Test getIcon method
-//        Texture icon = medkit.getIcon();
+//        Texture icon = bandage.getIcon();
 //        assertNotNull(icon,"icon should not be null");
 //
 //        // Ensure the correct path is used
-//        assertEquals("images/items/med_kit.png", icon.toString());
+//        assertEquals("images/items/bandage.png", icon.toString());
 //    }
 
     @Test
     public void testApplyIncreasesHealth() {
         // Initialize initial health and expected health
-        int initialHealth = 0;
-        int expectedHealth = initialHealth + 100;
+        int initialHealth = 50;
+        int expectedHealth = initialHealth + 20;
 
         // Setup the getHealth method to return initial health
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
 
-        // Apply the Medkit
-        medkit.apply(entity);
+        // Apply the bandage
+        bandage.apply(entity);
 
         // Verify that addHealth was called with the correct amount
-        verify(combatStatsComponent).addHealth(100);
+        verify(combatStatsComponent).addHealth(20);
     }
 }

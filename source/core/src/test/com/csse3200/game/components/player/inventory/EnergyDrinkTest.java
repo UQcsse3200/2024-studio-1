@@ -1,7 +1,6 @@
-package com.csse3200.game.components.player;
+package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.components.player.inventory.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

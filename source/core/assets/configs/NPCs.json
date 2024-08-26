@@ -15,6 +15,14 @@
     "viewDistance": 4,
     "chaseDistance": 4
   },
+  "bat": {
+    "health": 50,
+    "baseAttack": 3,
+    "wanderSpeed": 4,
+    "chaseSpeed": 4,
+    "viewDistance": 4,
+    "chaseDistance": 4
+  },
   "dog": {
     "health": 300,
     "baseAttack": 20,
@@ -38,6 +46,15 @@
     "chaseSpeed": 1.5,
     "viewDistance": 3,
     "chaseDistance": 7
+  },
+  "minotaur": {
+    "health": 400,
+    "baseAttack": 35,
+    "wanderSpeed": 0.5,
+    "chaseSpeed": 1.5,
+    "viewDistance": 3,
+    "chaseDistance":7
   }
+
 }
 

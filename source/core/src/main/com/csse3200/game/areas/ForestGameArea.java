@@ -74,7 +74,9 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     spawnTrees();
     player = spawnPlayer();
-    spawnGhosts();
+    spawnSnake();
+    //spawnRat();
+    //spawnMinotaur();
     spawnGhostKing();
 
     playMusic();
@@ -133,7 +135,23 @@ public class ForestGameArea extends GameArea {
     return newPlayer;
   }
 
-  private void spawnGhosts() {
+  private void spawnMinotaur() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity mino= NPCFactory.createMinotaur(player);
+    spawnEntityAt(mino, randomPos, true, true);
+  }
+
+  private void spawnSnake() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity snake = NPCFactory.createSnake(player);
+    spawnEntityAt(snake, randomPos, true, true);
+  }
+
+  private void spawnRat() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
@@ -142,21 +160,6 @@ public class ForestGameArea extends GameArea {
       Entity ghost = NPCFactory.createRat(player);
       spawnEntityAt(ghost, randomPos, true, true);
     }
-
-    // Spawn a Snake
-    for(int i = 0; i < NUM_GHOSTS; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity snake = NPCFactory.createSnake(player);
-      spawnEntityAt(snake, randomPos, true, true);
-    }
-
-    //this is for the Minotaur
-    for (int i = 0; i < NUM_GHOSTS; i++) {
-        GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-        Entity ghost = NPCFactory.createMinotaur(player);
-        spawnEntityAt(ghost, randomPos, true, true);
-    }
-
   }
 
   private void spawnGhostKing() {

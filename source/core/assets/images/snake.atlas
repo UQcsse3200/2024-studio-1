@@ -1,153 +1,65 @@
-
 snake.png
-size: 2048, 1024
-format: RGBA8888
-filter: Linear, Linear
-repeat: none
+size:512,32
+repeat:none
 attack
-  rotate: false
-  xy: 2, 632
-  size: 312, 312
-  orig: 312, 312
-  offset: 0, 0
-  index: 4
+index:4
+bounds:2,2,24,24
 attack
-  rotate: false
-  xy: 2, 318
-  size: 312, 312
-  orig: 312, 312
-  offset: 0, 0
-  index: 1
+index:1
+bounds:28,2,24,24
 attack
-  rotate: false
-  xy: 316, 632
-  size: 312, 312
-  orig: 312, 312
-  offset: 0, 0
-  index: 3
+index:3
+bounds:54,2,24,24
 attack
-  rotate: false
-  xy: 2, 4
-  size: 312, 312
-  orig: 312, 312
-  offset: 0, 0
-  index: 2
+index:2
+bounds:80,2,24,24
 death
-  rotate: false
-  xy: 316, 212
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 3
+index:3
+bounds:142,10,16,16
 death
-  rotate: false
-  xy: 1680, 736
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 2
+index:2
+bounds:232,10,16,16
 death
-  rotate: false
-  xy: 526, 2
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 4
+index:4
+bounds:304,10,16,16
 death
-  rotate: false
-  xy: 736, 106
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 1
+index:1
+bounds:376,10,16,16
 gesture
-  rotate: false
-  xy: 840, 736
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 2
+index:2
+bounds:160,10,16,16
 gesture
-  rotate: false
-  xy: 1470, 736
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 4
+index:4
+bounds:214,10,16,16
 gesture
-  rotate: false
-  xy: 316, 2
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 1
+index:1
+bounds:250,10,16,16
 gesture
-  rotate: false
-  xy: 736, 526
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 3
+index:3
+bounds:322,10,16,16
 idle
-  rotate: false
-  xy: 630, 736
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 1
+index:1
+bounds:124,10,16,16
 default
-  rotate: false
-  xy: 630, 736
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: -1
+bounds:124,10,16,16
 idle
-  rotate: false
-  xy: 1260, 736
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 3
+index:3
+bounds:196,10,16,16
 idle
-  rotate: false
-  xy: 526, 212
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 2
+index:2
+bounds:286,10,16,16
 idle
-  rotate: false
-  xy: 946, 526
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 4
+index:4
+bounds:358,10,16,16
 walk
-  rotate: false
-  xy: 316, 422
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 1
+index:1
+bounds:106,10,16,16
 walk
-  rotate: false
-  xy: 1050, 736
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 3
+index:3
+bounds:178,10,16,16
 walk
-  rotate: false
-  xy: 526, 422
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 2
+index:2
+bounds:268,10,16,16
 walk
-  rotate: false
-  xy: 736, 316
-  size: 208, 208
-  orig: 208, 208
-  offset: 0, 0
-  index: 4
+index:4
+bounds:340,10,16,16

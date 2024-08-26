@@ -19,8 +19,6 @@ public class SnakeAnimationController extends Component {
         entity.getEvents().addListener("walk", this::animateWalk);
         entity.getEvents().addListener("attack", this::animateAttack);
         entity.getEvents().addListener("death", this::animateDeath);
-
-        animateIdle();
     }
 
     void animateIdle() {

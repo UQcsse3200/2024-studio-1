@@ -92,7 +92,9 @@ public class NPCFactory {
                 new AITaskComponent()
                         .addTask(new WanderTask(new Vector2(3f, 3f), 4f, config.wanderSpeed))
                         .addTask(new ChaseTask(target, 10, config.viewDistance, config.chaseDistance,
-                                config.chaseSpeed));
+                                config.chaseSpeed))
+                        .addTask(new AttackTask(target, 10, 2f, 2.5f));
+
 
         Entity snake = createBaseNPC(aiComponent);
 

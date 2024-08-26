@@ -5,6 +5,7 @@ import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerStatsDisplay;
+import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
@@ -106,7 +107,8 @@ public class PlayerFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-            .addComponent(inventoryComponent)
+            .addComponent(new InventoryComponent())
+            .addComponent(new ItemPickupComponent())
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(animator)

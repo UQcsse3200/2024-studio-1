@@ -1,24 +1,28 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
 import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 /**
  * A factory that creates a collectible from a specification.
  */
 public class CollectibleFactory {
-    private final WeaponFactory weaponFactory = new WeaponFactory();
-    private final ItemFactory itemFactory = new ItemFactory();
+    private static final WeaponFactory weaponFactory = new WeaponFactory();
+    private static final ItemFactory itemFactory = new ItemFactory();
 
     /**
      * Create a collectible from a specification.
      * @param specification the specification to follow.
      * @return the created collectible.
      */
-    public Collectible create(String specification) {
+    public static Collectible create(String specification) {
         String[] split = specification.split(":", 2);
 
         return switch (split[0]) {
@@ -34,10 +38,15 @@ public class CollectibleFactory {
      * @param collectible the item to convert
      * @return the final entity containing the collectible.
      */
-    public Entity createCollectibleEntity(Collectible collectible) {
-        return new Entity()
+    public static Entity createCollectibleEntity(Collectible collectible) {
+        Entity collectibleEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent())
+                .addComponent(new PhysicsComponent())
                 .addComponent(new TextureRenderComponent(collectible.getIcon()));
+
+        collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();
+        return collectibleEntity;
     }
 }
+

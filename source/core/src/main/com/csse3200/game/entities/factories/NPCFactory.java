@@ -1,6 +1,4 @@
 package com.csse3200.game.entities.factories;
-  private void spawnGhosts() {
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -14,7 +12,6 @@ import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
->>>>>>> 627f85a5113bb35388f9fbd29180a8d7dceb4db6
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -112,7 +109,7 @@ public class NPCFactory {
                 config.health,
                 config.baseAttack)) 
         .addComponent(animator)
-        .addComponent(new BearAnimationController())
+        .addComponent(new NPCAnimationController())
         .addComponent(new NPCHealthBarComponent())
         .addComponent(new NPCDamageHandlerComponent())
         .addComponent(new NPCDeathHandler());

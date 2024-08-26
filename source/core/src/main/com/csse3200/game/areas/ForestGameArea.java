@@ -47,15 +47,9 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_3.png"
   };
   private static final String[] forestTextureAtlases = {
-<<<<<<< HEAD
-    "images/bear.atlas","images/terrain_iso_grass.atlas", "images/ghost.atlas", 
-    "images/ghostKing.atlas","images/rat.atlas", "images/bat.atlas", "images/minotaur.atlas"
-  };
-=======
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas","images/rat.atlas", 
-    "images/snake.atlas", "images/minotaur.atlas", 
+    "images/snake.atlas", "images/minotaur.atlas","images/bear.atlas", 
     "images/dino.atlas","images/bat.atlas"};
->>>>>>> 627f85a5113bb35388f9fbd29180a8d7dceb4db6
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
@@ -87,6 +81,7 @@ public class ForestGameArea extends GameArea {
     spawnSnake();
     spawnRat();
     spawnBat();
+    spawnBear();
     spawnDino();
     spawnMinotaur();
     spawnGhostKing();

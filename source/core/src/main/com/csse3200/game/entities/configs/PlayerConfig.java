@@ -48,10 +48,10 @@ public class PlayerConfig extends BaseEntityConfig  {
       return true;
     }
 
-
     if (!(object instanceof PlayerConfig config)) {
       return false;
     }
+
     // check if all the attributes are the same
     return gold == config.gold &&
             baseAttack == config.baseAttack &&

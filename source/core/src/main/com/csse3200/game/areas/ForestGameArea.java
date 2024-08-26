@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.areas.terrain.TerrainFactory.TerrainType;
 import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.Knife;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
@@ -191,7 +192,7 @@ public class ForestGameArea extends GameArea {
 
     for (int i = 0; i < NUM_KNIVES; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity knife = WeaponFactory.createKnifeEntity();
+      Entity knife = CollectibleFactory.createCollectibleEntity(new Knife());
       spawnEntityAt(knife, randomPos, true, false); // Spawning the knife at a random position
     }
   }

@@ -26,7 +26,7 @@ public class Knife extends MeleeWeapon {
 
     @Override
     public Texture getIcon() {
-        return new Texture("knife.png");
+        return new Texture("images/Weapons/knife.png");
     }
 }
 

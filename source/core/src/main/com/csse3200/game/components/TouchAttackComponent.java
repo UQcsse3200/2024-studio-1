@@ -3,6 +3,7 @@ package com.csse3200.game.components;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.csse3200.game.components.player.PlayerCombatComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -61,7 +62,7 @@ public class TouchAttackComponent extends Component {
 
     // Try to attack target.
     Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
-    CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
+    CombatStatsComponent targetStats = target.getComponent(PlayerCombatComponent.class);
     if (targetStats != null) {
       targetStats.hit(combatStats);
     }

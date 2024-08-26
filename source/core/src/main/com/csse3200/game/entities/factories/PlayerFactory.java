@@ -1,10 +1,8 @@
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.PlayerInventoryDisplay;
+import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.PlayerActions;
-import com.csse3200.game.components.player.PlayerStatsDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
@@ -16,7 +14,6 @@ import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.components.player.PlayerAnimationController;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -80,7 +77,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new PlayerActions())
-            .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
+            .addComponent(new PlayerCombatComponent(stats.health, stats.baseAttack))
             .addComponent(inventoryComponent)
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())

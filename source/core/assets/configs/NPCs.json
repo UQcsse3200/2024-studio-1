@@ -7,6 +7,14 @@
     "viewDistance": 3,
     "chaseDistance": 3
   },
+  "bear": {
+    "health": 600,
+    "baseAttack": 35,
+    "wanderSpeed": 3,
+    "chaseSpeed": 5,
+    "viewDistance": 4,
+    "chaseDistance": 4
+  },
   "dog": {
     "health": 300,
     "baseAttack": 20,

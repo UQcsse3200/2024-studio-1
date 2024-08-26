@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.compression.lzma.Base;
  */
 public class NPCConfigs {
   public BaseEntityConfig rat = new BaseEntityConfig();
+  public BaseEntityConfig bear = new BaseEntityConfig();
   public BaseEntityConfig dog = new BaseEntityConfig();
   public BaseEntityConfig croc = new BaseEntityConfig();
   public BaseEntityConfig gorilla = new BaseEntityConfig();

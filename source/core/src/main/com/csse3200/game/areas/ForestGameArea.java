@@ -39,10 +39,11 @@ public class ForestGameArea extends GameArea {
     "images/hex_grass_3.png",
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
+    "images/bear.png",
     "images/iso_grass_3.png"
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas","images/rat.atlas"
+    "images/bear.atlas","images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas","images/rat.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -73,7 +74,8 @@ public class ForestGameArea extends GameArea {
     spawnTrees();
     player = spawnPlayer();
     spawnGhosts();
-    spawnGhostKing();
+    spawnBear();
+    //spawnGhostKing();
 
     playMusic();
   }
@@ -129,6 +131,17 @@ public class ForestGameArea extends GameArea {
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
+  }
+
+  private void spawnBear() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    for (int i = 0; i < 1; i++) {
+      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+      Entity bear= NPCFactory.createBear(player);
+      spawnEntityAt(bear, randomPos, true, true);
+    }
   }
 
   private void spawnGhosts() {

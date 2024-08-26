@@ -5,11 +5,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.BearCombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
 import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.npc.RatAnimationController;
+import com.csse3200.game.components.npc.BearAnimationController;
+import com.csse3200.game.components.Direction;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -78,6 +81,44 @@ public class NPCFactory {
     return rat;
   }
 
+  /**
+   * Creates a bear entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createBear(Entity target) {
+    BaseEntityConfig config = configs.bear;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new StraightWanderTask(2f))
+                    .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
+                    .addTask(new AttackTask(target, 10, 2f, 2.5f));
+    
+    Entity bear = createBaseNPC(aiComponent);
+
+    AnimationRenderComponent animator =
+        new AnimationRenderComponent(
+            ServiceLocator.getResourceService().getAsset("images/bear.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
+
+    bear
+        .addComponent(new CombatStatsComponent(
+                config.health,
+                config.baseAttack)) 
+        .addComponent(animator)
+        .addComponent(new BearAnimationController())
+        .addComponent(new NPCHealthBarComponent())
+        .addComponent(new NPCDamageHandlerComponent())
+        .addComponent(new NPCDeathHandler());
+
+    bear.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return bear;
+  }
   /**
    * Creates a dog entity.
    *

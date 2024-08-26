@@ -2,6 +2,7 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.WeaponComponent;
+import com.csse3200.game.events.listeners.EventListener1;
 
 public abstract class RangedWeapon implements Collectible {
 
@@ -20,7 +21,6 @@ public abstract class RangedWeapon implements Collectible {
     @Override
     public void pickup(Inventory inventory) {
         inventory.setRanged(this);
-        inventory.getEntity().getEvents().addListener("shoot", this::shoot);
 
         // Add a Weapon Component
         if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {

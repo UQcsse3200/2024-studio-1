@@ -129,7 +129,7 @@ public class NPCFactory {
             new AITaskComponent()
                     .addTask(new StraightWanderTask(1.5f))
                     .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
-                    .addTask(new AttackTask(`, 15, 3f, 3.5f));
+                    .addTask(new AttackTask(target, 15, 3f, 3.5f));
 
     Entity dino = createBaseNPC(aiComponent);
 
@@ -155,6 +155,7 @@ public class NPCFactory {
       
    dino.getComponent(AnimationRenderComponent.class).scaleEntity();
     return dino;
+  }
 
   /**
    * Creates a bat entity with predefined components and behaviour.

@@ -44,7 +44,7 @@ public class HowToPlayMenuDisplay extends UIComponent{
 
     private void addActors() {
         Label title = new Label("How To Play", skin, "title");
-        Table settingsTable = makeSettingsTable();
+        Table howToPlayTable = makeHowToPlayTable();
         Table menuBtns = makeMenuBtns();
 
         rootTable = new Table();
@@ -53,7 +53,7 @@ public class HowToPlayMenuDisplay extends UIComponent{
         rootTable.add(title).expandX().top().padTop(20f);
 
         rootTable.row().padTop(30f);
-        rootTable.add(settingsTable).expandX().expandY();
+        rootTable.add(howToPlayTable).expandX().expandY();
 
         rootTable.row();
         rootTable.add(menuBtns).fillX();
@@ -61,66 +61,70 @@ public class HowToPlayMenuDisplay extends UIComponent{
         stage.addActor(rootTable);
     }
 
-    private Table makeSettingsTable() {
-        // Get current values
-        UserSettings.Settings settings = UserSettings.get();
+    private Table makeHowToPlayTable() {
+        Label instruction = new Label("Instructions: ", skin);
+        Label gameDescription1 = new Label(
+                "Beast Breakout is a top-down dungeon crawler game, presented using two-dimensional sprites, in which the player controls",
+                skin
+        );
+        Label gameDescription2 = new Label(
+                "an unnamed character in a non-specific facility.",
+                skin
+        );
+        Label gameDescription3 = new Label(
+                "On each floor of the facility, the player must fight enraged animals in a room before continuing onto the next room. This is",
+                skin
+        );
+        Label gameDescription4 = new Label(
+                "most commonly done by the character's melee or ranged weapon in the style of a twin-stick shooter.",
+                skin
+        );
+        Label gameDescription5 = new Label(
+                "Other methods of defeating enemies become possible as the character gains power-ups, items that are automatically worn",
+                skin
+        );
+        Label gameDescription6 = new Label(
+                "by the player-character when picked up that can alter the character's core attributes, such as increasing health or the",
+                skin
+        );
+        Label gameDescription7 = new Label(
+                "strength of their weapons, or cause additional side effects.",
+                skin
+        );
+        Label gameDescription8 = new Label(
+                "When the player loses all of their health the game ends in permadeath and the player must start over from a freshly-",
+                skin
+        );
+        Label gameDescription9 = new Label(
+                "generated dungeon. Each floor of the dungeon includes a boss which the player must defeat before continuing to the next level.",
+                skin
+        );
 
-        // Create components
-        Label fpsLabel = new Label("FPS Cap:", skin);
-        fpsText = new TextField(Integer.toString(settings.fps), skin);
-
-        Label fullScreenLabel = new Label("Fullscreen:", skin);
-        fullScreenCheck = new CheckBox("", skin);
-        fullScreenCheck.setChecked(settings.fullscreen);
-
-        Label vsyncLabel = new Label("VSync:", skin);
-        vsyncCheck = new CheckBox("", skin);
-        vsyncCheck.setChecked(settings.vsync);
-
-        Label uiScaleLabel = new Label("ui Scale (Unused):", skin);
-        uiScaleSlider = new Slider(0.2f, 2f, 0.1f, false, skin);
-        uiScaleSlider.setValue(settings.uiScale);
-        Label uiScaleValue = new Label(String.format("%.2fx", settings.uiScale), skin);
-
-        Label displayModeLabel = new Label("Resolution:", skin);
-        displayModeSelect = new SelectBox<>(skin);
-        Graphics.Monitor selectedMonitor = Gdx.graphics.getMonitor();
-        displayModeSelect.setItems(getDisplayModes(selectedMonitor));
-        displayModeSelect.setSelected(getActiveMode(displayModeSelect.getItems()));
-
-        // Position Components on table
+        // Position components on the table
         Table table = new Table();
+        table.add(instruction).left().padRight(10f);
+        table.row().padTop(40f);
+        table.add(gameDescription1).left().expandX();
+        table.row().padTop(10f);
+        table.add(gameDescription2).left().expandX();
+        table.row().padTop(40f);
+        table.add(gameDescription3).left().expandX();
+        table.row().padTop(10f);
+        table.add(gameDescription4).left().expandX();
+        table.row().padTop(40f);
+        table.add(gameDescription5).left().expandX();
+        table.row().padTop(10f);
+        table.add(gameDescription6).left().expandX();
+        table.row().padTop(10f);
+        table.add(gameDescription7).left().expandX();
+        table.row().padTop(40f);
+        table.add(gameDescription8).left().expandX();
+        table.row().padTop(10f);
+        table.add(gameDescription9).left().expandX();
+        table.row().padTop(10f);
 
-        table.add(fpsLabel).right().padRight(15f);
-        table.add(fpsText).width(100).left();
 
         table.row().padTop(10f);
-        table.add(fullScreenLabel).right().padRight(15f);
-        table.add(fullScreenCheck).left();
-
-        table.row().padTop(10f);
-        table.add(vsyncLabel).right().padRight(15f);
-        table.add(vsyncCheck).left();
-
-        table.row().padTop(10f);
-        Table uiScaleTable = new Table();
-        uiScaleTable.add(uiScaleSlider).width(100).left();
-        uiScaleTable.add(uiScaleValue).left().padLeft(5f).expandX();
-
-        table.add(uiScaleLabel).right().padRight(15f);
-        table.add(uiScaleTable).left();
-
-        table.row().padTop(10f);
-        table.add(displayModeLabel).right().padRight(15f);
-        table.add(displayModeSelect).left();
-
-        // Events on inputs
-        uiScaleSlider.addListener(
-                (Event event) -> {
-                    float value = uiScaleSlider.getValue();
-                    uiScaleValue.setText(String.format("%.2fx", value));
-                    return true;
-                });
 
         return table;
     }
@@ -156,7 +160,6 @@ public class HowToPlayMenuDisplay extends UIComponent{
 
     private Table makeMenuBtns() {
         TextButton exitBtn = new TextButton("Exit", skin);
-        TextButton applyBtn = new TextButton("Apply", skin);
 
         exitBtn.addListener(
                 new ChangeListener() {
@@ -167,18 +170,8 @@ public class HowToPlayMenuDisplay extends UIComponent{
                     }
                 });
 
-        applyBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Apply button clicked");
-                        applyChanges();
-                    }
-                });
-
         Table table = new Table();
         table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
-        table.add(applyBtn).expandX().right().pad(0f, 0f, 15f, 15f);
         return table;
     }
 

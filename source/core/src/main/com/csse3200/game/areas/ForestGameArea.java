@@ -29,7 +29,8 @@ public class ForestGameArea extends GameArea {
     "images/tree.png",
     "images/ghost_king.png",
     "images/rat.png",
-    "images/ghost_1.png",
+          "images/minotaur.png",
+          "images/ghost_1.png",
     "images/grass_1.png",
     "images/grass_2.png",
     "images/grass_3.png",
@@ -43,7 +44,7 @@ public class ForestGameArea extends GameArea {
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas","images/rat.atlas",
-          "images/bat.atlas"
+          "images/bat.atlas", "images/minotaur.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -140,10 +141,19 @@ public class ForestGameArea extends GameArea {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       Entity ghost = NPCFactory.createRat(player);
       spawnEntityAt(ghost, randomPos, true, true);
-      randomPos = RandomUtils.random(minPos, maxPos);
-      Entity bat = NPCFactory.createBat(player);
-      spawnEntityAt(bat, randomPos, true, true);
     }
+    //this is for the Minnotaur
+    for (int i = 0; i < NUM_GHOSTS; i++) {
+      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+      Entity ghost = NPCFactory.createMinotaur(player);
+      spawnEntityAt(ghost, randomPos, true, true);
+    }
+      //this is for the Bat
+      for (int i = 0; i < NUM_GHOSTS; i++) {
+          GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+          Entity bat = NPCFactory.createBat(player);
+          spawnEntityAt(bat, randomPos, true, true);
+      }
   }
 
   private void spawnGhostKing() {

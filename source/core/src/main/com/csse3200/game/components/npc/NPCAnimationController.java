@@ -4,11 +4,11 @@ import com.csse3200.game.components.Component;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
 /**
- * This class listens to events relevant to a Minotaur entity's state and plays the animation when one
+ * This class listens to events relevant to a entity's state and plays the animation when one
  * of the events is triggered.
  */
-public class MinotaurAnimationController extends Component {
-    private AnimationRenderComponent animator;
+public class NPCAnimationController extends Component {
+    AnimationRenderComponent animator;
 
     @Override
     public void create() {
@@ -21,23 +21,19 @@ public class MinotaurAnimationController extends Component {
         entity.getEvents().addListener("death", this::animateDeath);
     }
 
-    private void animateIdle() {
+    void animateIdle() {
         animator.startAnimation("idle");
     }
-
-    private void animateGesture() {
+    void animateGesture() {
         animator.startAnimation("gesture");
     }
-
-    private void animateWalk() {
+    void animateWalk() {
         animator.startAnimation("walk");
     }
-
-    private void animateAttack() {
+    void animateAttack() {
         animator.startAnimation("attack");
     }
-
-    private void animateDeath() {
+    void animateDeath() {
         animator.startAnimation("death");
     }
 }

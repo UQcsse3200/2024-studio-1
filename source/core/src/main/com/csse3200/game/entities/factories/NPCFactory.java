@@ -5,7 +5,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.npc.*;
+import com.csse3200.game.components.npc.GhostAnimationController;
+import com.csse3200.game.components.npc.NPCAnimationController;
+import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
+import com.csse3200.game.components.npc.NPCDeathHandler;
+import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -24,13 +28,16 @@ import com.csse3200.game.services.ServiceLocator;
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
  *
- * <p>Each NPC entity type has a creation method that returns a corresponding entity.
- * Predefined entity properties are be loaded from configs stored as json files which are defined in
+ * <p>Each NPC entity type should have a creation method that returns a corresponding entity.
+ * Predefined entity properties can be loaded from configs stored as json files which are defined in
  * "NPCConfigs".
+ *
+ * <p>If needed, this factory can be separated into more specific factories for entities with
+ * similar characteristics.
  */
 public class NPCFactory {
   private static final NPCConfigs configs =
-      FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+          FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
    * Creates a rat entity with predefined components and behaviour.
@@ -45,12 +52,12 @@ public class NPCFactory {
                     .addTask(new StraightWanderTask(2f))
                     .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
                     .addTask(new AttackTask(target, 10, 2f, 2.5f));
-    
+
     Entity rat = createBaseNPC(aiComponent);
 
     AnimationRenderComponent animator =
-        new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/rat.atlas", TextureAtlas.class));
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/rat.atlas", TextureAtlas.class));
     animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
@@ -58,17 +65,96 @@ public class NPCFactory {
     animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     rat
-        .addComponent(new CombatStatsComponent(
-                config.health,
-                config.baseAttack))
-        .addComponent(animator)
-        .addComponent(new RatAnimationController())
-        .addComponent(new NPCHealthBarComponent())
-        .addComponent(new NPCDamageHandlerComponent())
-        .addComponent(new NPCDeathHandler());
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
 
     rat.getComponent(AnimationRenderComponent.class).scaleEntity();
     return rat;
+  }
+
+  /**
+   * Creates a Snake entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createSnake(Entity target) {
+    BaseEntityConfig config = configs.snake;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new StraightWanderTask(1.5f))
+                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
+                    .addTask(new AttackTask(target, 15, 3f, 3.5f));
+
+    Entity snake = createBaseNPC(aiComponent);
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/snake.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.2f, Animation.PlayMode.NORMAL);
+
+    snake
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
+
+    snake.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return snake;
+  }
+
+  /**
+   * Creates a Dino entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createDino(Entity target) {
+    BaseEntityConfig config = configs.snake;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new StraightWanderTask(1.5f))
+                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
+                    .addTask(new AttackTask(target, 15, 3f, 3.5f));
+
+    Entity dino = createBaseNPC(aiComponent);
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/dino.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.2f, Animation.PlayMode.NORMAL);
+
+    dino
+      .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
+      
+      
+   dino.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return dino;
   }
 
   /**
@@ -101,7 +187,7 @@ public class NPCFactory {
                     config.health,
                     config.baseAttack))
             .addComponent(animator)
-            .addComponent(new RatAnimationController())
+            .addComponent(new NPCAnimationController())
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
@@ -140,7 +226,7 @@ public class NPCFactory {
                     config.health,
                     config.baseAttack))
             .addComponent(animator)
-            .addComponent(new MinotaurAnimationController())
+            .addComponent(new NPCAnimationController())
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
@@ -167,22 +253,22 @@ public class NPCFactory {
     Entity dog = createBaseNPC(aiComponent);
 
     AnimationRenderComponent animator =
-        new AnimationRenderComponent(
-            ServiceLocator.getResourceService()
-                .getAsset("images/ghostKing.atlas", TextureAtlas.class));
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/ghostKing.atlas", TextureAtlas.class));
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 //    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     dog
-        .addComponent(new CombatStatsComponent(
-                config.health,
-                config.baseAttack))
-        .addComponent(animator)
-        .addComponent(new GhostAnimationController())
-        .addComponent(new NPCHealthBarComponent())
-        .addComponent(new NPCDamageHandlerComponent())
-        .addComponent(new NPCDeathHandler());
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new GhostAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
 
 
     dog.getComponent(AnimationRenderComponent.class).scaleEntity();
@@ -278,10 +364,7 @@ public class NPCFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
             .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
-            .addComponent(aiComponent)
-            .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDamageHandlerComponent())
-            .addComponent(new NPCDeathHandler());
+            .addComponent(aiComponent);
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;
   }

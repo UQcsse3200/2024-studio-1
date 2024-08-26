@@ -2,6 +2,9 @@ package com.csse3200.game.components.player;
 
 import com.csse3200.game.components.CombatStatsComponent;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Component used to store information relating to
  * player-specific combat elements, such as
@@ -11,20 +14,20 @@ public class PlayerCombatComponent extends CombatStatsComponent {
     private boolean isInvincible;
     private static final int timeInvincible = 2000;
     private long lastTimeHit;
-//    private Timer timer;
+    private Timer timer;
 
-//    TimerTask removeInvincible = new TimerTask() {
-//        @Override
-//        public void run() {
-//            setInvincible(false);
-//            timer.purge();
-//        }
-//    };
+    private class removeInvincible extends TimerTask {
+        @Override
+        public void run() {
+            setInvincible(false);
+        }
+    };
 
     public PlayerCombatComponent(int health, int baseAttack){
         super(health, baseAttack);
         isInvincible = false;
         setLastTimeHit(System.currentTimeMillis());
+        timer = new Timer();
     }
 
     public void setInvincible(boolean invincible){
@@ -45,14 +48,24 @@ public class PlayerCombatComponent extends CombatStatsComponent {
     @Override
     public void hit(CombatStatsComponent attacker){
         System.out.println("I was hit");
-        if (getLastTimeHit() < System.currentTimeMillis() - timeInvincible) {
+        if (getIsInvincible() == false) {
             System.out.println("I was hurt");
             int newHealth = getHealth() - attacker.getBaseAttack();
             setHealth(newHealth);
             setInvincible(true);
-            setLastTimeHit(System.currentTimeMillis());
+            removeInvincible task = new removeInvincible();
+            timer.schedule(task, 2000);
         } else {
             System.out.println("I am invincible");
         }
+//        if (getLastTimeHit() < System.currentTimeMillis() - timeInvincible) {
+//            System.out.println("I was hurt");
+//            int newHealth = getHealth() - attacker.getBaseAttack();
+//            setHealth(newHealth);
+//            setInvincible(true);
+//            setLastTimeHit(System.currentTimeMillis());
+//        } else {
+//            System.out.println("I am invincible");
+//        }
     }
 }

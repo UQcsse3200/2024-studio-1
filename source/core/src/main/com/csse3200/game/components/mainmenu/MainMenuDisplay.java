@@ -1,5 +1,6 @@
 package com.csse3200.game.components.mainmenu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,6 +13,7 @@ import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.options.GameOptions.Difficulty;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
+import com.csse3200.game.files.UserSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +42,8 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     private void addActors() {
+        UserSettings.Settings settings = UserSettings.get();
+
         table = new Table();
         table.setFillParent(true);
         Image title = new Image(
@@ -47,6 +51,11 @@ public class MainMenuDisplay extends UIComponent {
                         "images/box_boy_title.png", Texture.class
                 )
         );
+        Image bg_logo =
+            new Image(
+                ServiceLocator.getResourceService()
+                    .getAsset("images/bg_logo.png", Texture.class));
+
         diffBtnsTable = new Table();
 
         Label startBtn = new Label("Start", skin);
@@ -58,6 +67,12 @@ public class MainMenuDisplay extends UIComponent {
         TextButton loadBtn = new TextButton("Load", skin);
         TextButton settingsBtn = new TextButton("Settings", skin);
         TextButton exitBtn = new TextButton("Exit", skin);
+        
+        if (settings.displayMode == null) {
+            settings.displayMode = new UserSettings.DisplaySettings(Gdx.graphics.getDisplayMode());
+        }
+        bg_logo.setSize(settings.displayMode.width, settings.displayMode.height);
+        bg_logo.setPosition(0, 0);
 
         // Triggers an event when the button is pressed
         startBtn.addListener(
@@ -116,8 +131,8 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
-        table.add(title);
-        table.row();
+        /*table.add(title);
+        table.row();*/
         table.add(startBtn).padTop(BTN_SPACING * 2);
         table.row();
         for (TextButton btn : difficultyBtns.values()) {
@@ -133,6 +148,7 @@ public class MainMenuDisplay extends UIComponent {
         table.row();
         table.add(exitBtn).padTop(BTN_SPACING);
 
+        stage.addActor(bg_logo);
         stage.addActor(table);
     }
 

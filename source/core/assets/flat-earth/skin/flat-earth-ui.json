@@ -1,19 +1,28 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	button: {
-		file: fonts/pixel_18.fnt
+		file: fonts/fnt_32.fnt
 	}
 	font: {
-		file: fonts/pixel_18.fnt
+		file: fonts/fnt_24.fnt
 	}
 	title: {
-		file: fonts/pixel_32.fnt
+		file: fonts/fnt_32.fnt
+	}
+	font_very_small: {
+		file: fonts/fnt_16.fnt
 	}
 	font_small: {
-		file: fonts/pixel_16.fnt
+		file: fonts/fnt_32.fnt
+	}
+	font_medium: {
+		file: fonts/fnt_48.fnt
 	}
 	font_large: {
-		file: fonts/pixel_26.fnt
+		file: fonts/fnt_64.fnt
+	}
+	font_very_large: {
+		file: fonts/fnt_96.fnt
 	}
 }
 com.badlogic.gdx.graphics.Color: {
@@ -24,9 +33,9 @@ com.badlogic.gdx.graphics.Color: {
 		a: 1
 	}
 	color: {
-		r: 0.3372549
-		g: 0.8
-		b: 0.44705883
+		r: 0.3411764705882353
+		g: 0.30196078431372547
+		b: 0.4470588235294118
 		a: 1
 	}
 	gray: {
@@ -36,9 +45,9 @@ com.badlogic.gdx.graphics.Color: {
 		a: 1
 	}
 	highlight: {
-		r: 0.42156863
-		g: 1
-		b: 0.5552286
+		r: 0.2901960784313726
+		g: 0.3607843137254902
+		b: 0.4196078431372549
 		a: 1
 	}
 	pressed: {
@@ -70,6 +79,12 @@ com.badlogic.gdx.graphics.Color: {
 	}
 	palette-light-purple: {
 		hex: 574d72
+	}
+	color_dark: {
+		r: 0.23529411764705882
+		g: 0.17254901960784313
+		b: 0.33725490196078434
+		a: 1
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
@@ -438,8 +453,8 @@ com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		font: button
-		fontColor: white
-		downFontColor: white
+		fontColor: color_dark
+		downFontColor: black
 		overFontColor: gray
 		up: button-c
 		down: button-p
@@ -447,9 +462,9 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	}
 	action: {
 		font: button
-		fontColor: white
+		fontColor: color
 		downFontColor: white
-		overFontColor: white
+		overFontColor: gray
 		up: action-button-c
 		down: action-button-p
 		over: action-button-h

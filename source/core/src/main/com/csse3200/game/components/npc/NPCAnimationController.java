@@ -4,10 +4,10 @@ import com.csse3200.game.components.Component;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
 /**
- * This class listens to events relevant to a Snake entity's state and plays the animation when one
+ * This class listens to events relevant to a entity's state and plays the animation when one
  * of the events is triggered.
  */
-public class SnakeAnimationController extends Component {
+public class NPCAnimationController extends Component {
     AnimationRenderComponent animator;
 
     @Override

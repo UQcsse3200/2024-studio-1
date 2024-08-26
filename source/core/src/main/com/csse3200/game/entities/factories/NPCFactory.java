@@ -6,12 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
+import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
-import com.csse3200.game.components.npc.RatAnimationController;
-import com.csse3200.game.components.npc.SnakeAnimationController;
-import com.csse3200.game.components.npc.MinotaurAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -71,7 +69,7 @@ public class NPCFactory {
                     config.health,
                     config.baseAttack))
             .addComponent(animator)
-            .addComponent(new RatAnimationController())
+            .addComponent(new NPCAnimationController())
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
@@ -110,7 +108,7 @@ public class NPCFactory {
                     config.health,
                     config.baseAttack))
             .addComponent(animator)
-            .addComponent(new MinotaurAnimationController())
+            .addComponent(new NPCAnimationController())
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
@@ -150,7 +148,7 @@ public class NPCFactory {
                     config.health,
                     config.baseAttack))
             .addComponent(animator)
-            .addComponent(new MinotaurAnimationController())
+            .addComponent(new NPCAnimationController())
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());

@@ -98,8 +98,9 @@ public class MapFactory {
      * A method to get the map size mentioned in the json file.
      * @return : returns the size of the map.
      */
-    public static int getmapSize() {
+    public static int getMapSize() {
         return mapData.map_size;
     }
+
 }
 

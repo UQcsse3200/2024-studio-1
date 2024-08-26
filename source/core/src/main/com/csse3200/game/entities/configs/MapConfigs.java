@@ -1,5 +1,7 @@
 package com.csse3200.game.entities.configs;
 
+import com.csse3200.game.entities.factories.MapFactory;
+
 import java.util.List;
 import java.util.Map;
 

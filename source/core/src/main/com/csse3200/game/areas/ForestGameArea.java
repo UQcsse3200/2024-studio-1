@@ -36,6 +36,7 @@ public class ForestGameArea extends GameArea {
     "images/hex_grass_1.png",
     "images/rat_basic.png",
     "images/dino.png",
+    "images/minotaur.png",
     "images/hex_grass_2.png",
     "images/hex_grass_3.png",
     "images/iso_grass_1.png",
@@ -43,7 +44,7 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_3.png"
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas","images/rat.atlas", "images/dino.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas","images/rat.atlas", "images/dino.atlas", "images/minotaur.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -148,6 +149,13 @@ public class ForestGameArea extends GameArea {
       Entity dino = NPCFactory.createDino(player);
       spawnEntityAt(dino, randomPos, true, true);
     }
+
+      //this is for the Minnotaur
+      for (int i = 0; i < NUM_GHOSTS; i++) {
+          GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+          Entity ghost = NPCFactory.createMinotaur(player);
+          spawnEntityAt(ghost, randomPos, true, true);
+      }
   }
 
   private void spawnGhostKing() {

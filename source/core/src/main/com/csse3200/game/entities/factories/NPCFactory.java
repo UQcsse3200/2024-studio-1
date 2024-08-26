@@ -11,6 +11,7 @@ import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.npc.RatAnimationController;
 import com.csse3200.game.components.npc.DinoAnimationController;
+import com.csse3200.game.components.npc.MinotaurAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -41,10 +42,10 @@ public class NPCFactory {
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
-   * Creates a rat entity.
+   * Creates a rat entity with predefined components and behaviour.
    *
    * @param target entity to chase
-   * @return entity
+   * @return the created rat entity
    */
   public static Entity createRat(Entity target) {
     BaseEntityConfig config = configs.rat;
@@ -120,10 +121,50 @@ public class NPCFactory {
 
 
   /**
-   * Creates a dog entity.
+   * Creates a Minotaur entity.
    *
    * @param target entity to chase
    * @return entity
+   */
+  public static Entity createMinotaur(Entity target) {
+    BaseEntityConfig config = configs.minotaur;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new StraightWanderTask(1.5f))
+                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
+                    .addTask(new AttackTask(target, 15, 3f, 3.5f));
+
+    Entity minotaur = createBaseNPC(aiComponent);
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/minotaur.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.2f, Animation.PlayMode.NORMAL);
+
+    minotaur
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new MinotaurAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
+
+    minotaur.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return minotaur;
+  }
+
+
+  /**
+   * Creates a dog entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the created dog entity
    */
   public static Entity createDog(Entity target) {
     BaseEntityConfig config = configs.dog;
@@ -159,10 +200,10 @@ public class NPCFactory {
   }
 
   /**
-   * Creates a crocodile entity.
+   * Creates a crocodile entity with predefined components and behaviour.
    *
    * @param target entity to chase
-   * @return entity
+   * @return the created crocodile entity
    */
   public static Entity createCroc(Entity target) {
     BaseEntityConfig config = configs.croc;
@@ -196,10 +237,10 @@ public class NPCFactory {
   }
 
   /**
-   * Creates a gorilla entity.
+   * Creates a gorilla entity with predefined components and behaviour.
    *
    * @param target entity to chase
-   * @return entity
+   * @return the created gorilla entity
    */
   public static Entity createGorilla(Entity target) {
     BaseEntityConfig config = configs.gorilla;
@@ -237,6 +278,7 @@ public class NPCFactory {
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
+   * @param aiComponent the AI component to be added to the NPC
    * @return entity
    */
   private static Entity createBaseNPC(AITaskComponent aiComponent) {

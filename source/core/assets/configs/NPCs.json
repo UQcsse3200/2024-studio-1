@@ -38,6 +38,14 @@
     "chaseSpeed": 2,
     "viewDistance": 3,
     "chaseDistance": 3
+  },
+  "minotaur": {
+    "health": 400,
+    "baseAttack": 35,
+    "wanderSpeed": 0.5,
+    "chaseSpeed": 1.5,
+    "viewDistance": 3,
+    "chaseDistance":7
   }
 }
 

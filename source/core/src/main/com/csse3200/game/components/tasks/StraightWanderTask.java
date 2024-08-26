@@ -7,6 +7,10 @@ import com.csse3200.game.ai.tasks.PriorityTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Wander around by moving in a random direction. On collision, the entity changes direction randomly.
+ * Requires an entity with a PhysicsMovementComponent.
+ */
 public class StraightWanderTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(StraightWanderTask.class);
     private static final float MAX_WANDER_LIMIT = 50;

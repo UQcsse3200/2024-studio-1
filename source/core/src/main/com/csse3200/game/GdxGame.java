@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.files.UserSettings;
-//import com.csse3200.game.screens.HowToPlayScreen;
+import com.csse3200.game.screens.HowToPlayScreen;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.screens.MainMenuScreen;
 import com.csse3200.game.screens.SettingsScreen;
@@ -76,7 +76,7 @@ public class GdxGame extends Game {
       case SETTINGS:
         return new SettingsScreen(this);
       case HOW_TO_PLAY:
-        return new SettingsScreen(this);
+        return new HowToPlayScreen(this);
       default:
         return null;
     }

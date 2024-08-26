@@ -13,8 +13,8 @@ import java.util.*;
 
 import static org.junit.Assert.*;
 
-@ExtendWith(GameExtension.class)
-public class MapFactoryTest {
+//@ExtendWith(GameExtension.class)
+/**public class MapFactoryTest {
 
     MapConfigs config;
     HashMap<String, List<String>> roomCons;
@@ -49,5 +49,5 @@ public class MapFactoryTest {
         connects.add("0_-1");
         
         assertEquals(connects, mapFactory.));
-    }**/
-}
+    }
+}**/

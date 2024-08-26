@@ -70,6 +70,45 @@ public class NPCFactory {
     rat.getComponent(AnimationRenderComponent.class).scaleEntity();
     return rat;
   }
+  /**
+   * Creates a Minotaur entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createMinotaur(Entity target) {
+    BaseEntityConfig config = configs.minotaur;
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new StraightWanderTask(1.5f))
+                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
+                    .addTask(new AttackTask(target, 15, 3f, 3.5f));
+
+    Entity minotaur = createBaseNPC(aiComponent);
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/minotaur.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.15f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.2f, Animation.PlayMode.NORMAL);
+
+    minotaur
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new MinotaurAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
+
+    minotaur.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return minotaur;
+  }
+
 
   /**
    * Creates a dog entity with predefined components and behaviour.

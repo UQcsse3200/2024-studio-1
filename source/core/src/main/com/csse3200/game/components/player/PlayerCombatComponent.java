@@ -2,6 +2,11 @@ package com.csse3200.game.components.player;
 
 import com.csse3200.game.components.CombatStatsComponent;
 
+/**
+ * Component used to store information relating to
+ * player-specific combat elements, such as
+ * invincibility frames and (eventually) potentially different weapons
+ */
 public class PlayerCombatComponent extends CombatStatsComponent {
     private boolean isInvincible;
     private static final int timeInvincible = 2000;

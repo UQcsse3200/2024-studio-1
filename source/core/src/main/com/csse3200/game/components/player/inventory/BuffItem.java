@@ -31,7 +31,9 @@ public abstract class BuffItem implements Collectible {
      * @return the string representation of this collectible.
      */
     @Override
-    public String getSpecification() { return "buffitem";}
+    public String getSpecification() { return "buffitem" + getBuffSpecification();}
+
+    public abstract String getBuffSpecification();
 
     /**
      * A method that applies the unique effect of this item, upon pickup

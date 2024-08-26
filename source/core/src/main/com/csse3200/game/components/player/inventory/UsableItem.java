@@ -23,8 +23,10 @@ public abstract class UsableItem implements Collectible {
 
     @Override
     public String getSpecification() {
-        return "item:";
+        return "item:" + getItemSpecification();
     }
+
+    public abstract String getItemSpecification();
 
     /**
      * Apply any effects this item does upon use.

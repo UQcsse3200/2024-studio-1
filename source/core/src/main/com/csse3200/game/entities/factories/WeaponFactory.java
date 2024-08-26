@@ -3,19 +3,19 @@ import com.csse3200.game.components.player.inventory.*;
 
 public class WeaponFactory {
     private MeleeWeapon createMelee(String specification) {
-        return switch (specification) {
-            case "knife" -> new Knife();
-            default -> new ConcreteMeleeWeapon(specification);
-        };
+        if (specification.equals("knife")) {
+            return new Knife();
+        }
+        return new ConcreteMeleeWeapon(specification);
     }
 
 
     private RangedWeapon createRanged(String specification){
         // specification format: "ranged:<Ranged Weapon>,<pathtoicon>,<damage>,<range>,<fireRate>,<ammo>,<maxAmmo>,<reloadTime>"
-        return switch (specification){
-            case "shotgun" -> new Shotgun();
-            default -> new ConcreteRangedWeapon(specification);
-        };
+        if (specification.equals("shotgun")) {
+            return new Shotgun();
+        }
+        return new ConcreteRangedWeapon(specification);
     }
 
     public Collectible create(Collectible.Type type, String specification) {

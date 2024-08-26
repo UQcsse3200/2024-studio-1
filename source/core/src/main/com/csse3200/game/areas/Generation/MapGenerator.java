@@ -97,6 +97,15 @@ public class MapGenerator {
         this.relativePosition.put(new_room, new_connection);
     }
 
+    public HashMap<String, String[]> getPositions() {
+        return this.relativePosition;
+    }
+
+    public HashMap<String, HashMap<String, Integer>> getRoomDetails() {
+        return this.roomDetails;
+    }
+    
+    // currently using a function that should work as rudementary difficulty 
     private int calculateCeiling(double x) {
         double a = 45.3;
         double c = 1.0;
@@ -136,5 +145,8 @@ public class MapGenerator {
             roomCount--;
         }
     }
+
+
+
 
 } 

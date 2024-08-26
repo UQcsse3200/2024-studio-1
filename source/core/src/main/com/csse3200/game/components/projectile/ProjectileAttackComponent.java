@@ -16,20 +16,18 @@ public class ProjectileAttackComponent extends Component {
     private final short targetLayer;
     private CombatStatsComponent combatStats;
     private HitboxComponent hitboxComponent;
+    private ProjectileMovementTask movementComponent;
 
     public ProjectileAttackComponent(Vector2 direction, Vector2 speed) {
         this.targetLayer = PhysicsLayer.NPC; // Default target layer, update as needed
-
-        // Initialize the projectile movement component
-        ProjectileMovementTask movementComponent = new ProjectileMovementTask(direction, speed);
-        this.entity.addComponent(movementComponent);
+        movementComponent = new ProjectileMovementTask(direction, speed);
     }
 
     @Override
     public void create() {
         combatStats = entity.getComponent(CombatStatsComponent.class);
         hitboxComponent = entity.getComponent(HitboxComponent.class);
-
+        entity.addComponent(movementComponent);
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
     }
 

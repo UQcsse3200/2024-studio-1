@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
@@ -10,7 +11,9 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
+import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
+import com.csse3200.game.services.ServiceLocator;
 
 /**
  * For weapon            - stats param - Design a projectile config for a weapon - checkout configs/ProjectileConfig.
@@ -25,21 +28,19 @@ public class ProjectileFactory {
     /**
      * Makes a new Entity with projectile components.
      */
-    public Entity createProjectile(ProjectileConfig stats, Vector2 position, Vector2 direction) {
-
-
+    public static Entity createProjectile(ProjectileConfig stats, Vector2 position, Vector2 direction) {
 
         Entity projectile =
                 new Entity()
+                        .addComponent(new TextureRenderComponent(stats.projectileTexturePath))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(stats.Layer))
-                        .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(direction, stats.speed))
-                        .addComponent(new PhysicsMovementComponent())
-                        .addComponent(new TextureRenderComponent(stats.projectileTexturePath));
+                        .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack));
 
 
+
+        projectile.addComponent(new ProjectileAttackComponent(direction, stats.speed));
         projectile.setPosition(position);
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
         projectile.getComponent(ColliderComponent.class).setDensity(1.5f);

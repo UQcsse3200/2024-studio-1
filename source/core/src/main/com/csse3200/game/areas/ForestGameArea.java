@@ -138,7 +138,7 @@ public class ForestGameArea extends GameArea {
   }
 
   private Entity spawnCollectibleTest() {
-    Collectible collectible = CollectibleFactory.create("item:energydrink");
+    Collectible collectible = CollectibleFactory.create("buff:energydrink");
     Entity collectibleEntity = CollectibleFactory.createCollectibleEntity(collectible);
     spawnEntityAt(collectibleEntity, ITEM_SPAWN, true, true);
     return collectibleEntity;

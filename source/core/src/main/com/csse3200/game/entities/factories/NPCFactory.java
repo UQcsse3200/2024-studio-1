@@ -10,7 +10,7 @@ import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.npc.RatAnimationController;
-import com.csse3200.game.components.npc.DinoAnimationController;
+import com.csse3200.game.components.npc.SnakeAnimationController;
 import com.csse3200.game.components.npc.MinotaurAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.*;
@@ -81,42 +81,42 @@ public class NPCFactory {
   }
 
   /**
-   * Creates a dino entity.
+   * Creates a Snake entity.
    *
    * @param target entity to chase
    * @return entity
    */
-    public static Entity createDino(Entity target) {
-        BaseEntityConfig config = configs.dino;
+    public static Entity createSnake(Entity target) {
+        BaseEntityConfig config = configs.snake;
         AITaskComponent aiComponent =
                 new AITaskComponent()
                         .addTask(new WanderTask(new Vector2(3f, 3f), 4f, config.wanderSpeed))
                         .addTask(new ChaseTask(target, 10, config.viewDistance, config.chaseDistance,
                                 config.chaseSpeed));
 
-        Entity dino = createBaseNPC(aiComponent);
+        Entity snake = createBaseNPC(aiComponent);
 
         AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                ServiceLocator.getResourceService().getAsset("images/dino.atlas", TextureAtlas.class));
+                ServiceLocator.getResourceService().getAsset("images/snake.atlas", TextureAtlas.class));
         animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
         animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
         animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
         animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
-        dino
+        snake
             .addComponent(new CombatStatsComponent(
                     config.health,
                     config.baseAttack))
             .addComponent(animator)
-            .addComponent(new DinoAnimationController())
+            .addComponent(new SnakeAnimationController())
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
 
-        dino.getComponent(AnimationRenderComponent.class).scaleEntity();
-        return dino;
+        snake.getComponent(AnimationRenderComponent.class).scaleEntity();
+        return snake;
     }
 
 

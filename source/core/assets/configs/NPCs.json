@@ -31,7 +31,7 @@
     "viewDistance": 3,
     "chaseDistance": 7
   },
-  "dino": {
+  "snake": {
     "health": 300,
     "baseAttack": 10,
     "wanderSpeed": 2,

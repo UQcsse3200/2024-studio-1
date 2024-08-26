@@ -1,6 +1,7 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.csse3200.game.entities.Entity;
 
 /**
  * An item that can be collected.
@@ -48,10 +49,11 @@ public interface Collectible {
      */
     void drop(Inventory inventory);
 
-    enum Type {
+    public enum Type {
         ITEM,
         MELEE_WEAPON,
         RANGED_WEAPON,
-        BUFF_ITEM
+        BUFF_ITEM,
+        NONE
     }
 }

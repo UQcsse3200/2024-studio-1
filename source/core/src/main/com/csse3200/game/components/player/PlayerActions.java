@@ -25,6 +25,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
+    entity.getEvents().addListener("shoot", this::shoot);
   }
 
   @Override
@@ -42,6 +43,39 @@ public class PlayerActions extends Component {
       this.speed = speed;
       update();
   }
+
+
+    /**
+     * Stops the player from walking.
+     */
+    void stopWalking() {
+        this.walkDirection = Vector2.Zero.cpy();
+        updateSpeed();
+        moving = false;
+    }
+
+    /**
+     * Makes the player attack.
+     */
+    void attack() {
+        ServiceLocator.getResourceService()
+                .getAsset("sounds/Impact4.ogg", Sound.class)
+                .play();
+        // Inventory component is not use for attack
+        entity.getComponent(WeaponComponent.class).attack();
+    }
+
+    /**
+     * Makes the player shoot in a direction.
+     */
+    void shoot() {
+        Vector2 direction = this.walkDirection;
+        ServiceLocator.getResourceService()
+                .getAsset("sounds/Impact4.ogg", Sound.class)
+                .play();
+
+        entity.getComponent(WeaponComponent.class).shoot(direction);
+    }
 
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
@@ -61,21 +95,5 @@ public class PlayerActions extends Component {
     this.walkDirection = direction;
     moving = true;
   }
-
-  /**
-   * Stops the player from walking.
-   */
-  void stopWalking() {
-    this.walkDirection = Vector2.Zero.cpy();
-    updateSpeed();
-    moving = false;
-  }
-
-  /**
-   * Makes the player attack.
-   */
-  void attack() {
-    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-    attackSound.play();
-  }
 }
+

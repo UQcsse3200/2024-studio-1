@@ -64,10 +64,6 @@ public class PlayerConfigGeneratorTest {
     @Test
     public void testMeleeWeapon() {
         inventoryComponent.getInventory().setMelee(new MeleeWeapon() {
-            @Override
-            public void attack() {
-
-            }
 
             @Override
             public String getName() {

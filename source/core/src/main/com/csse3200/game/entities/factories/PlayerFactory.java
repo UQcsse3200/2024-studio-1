@@ -1,6 +1,9 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.components.player.PlayerActions;
@@ -22,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import com.csse3200.game.components.player.PlayerAnimationController;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.csse3200.game.services.ResourceService;
@@ -100,6 +102,10 @@ public class PlayerFactory {
       inventoryComponent.getInventory().setRanged(rangedWeapon);
     }
 
+      // initial skin and type for weapon component (bare hand) - update in runtime
+      Sprite sprite = new Sprite(new Texture("images/box_boy.png")); // need to update this
+      Collectible.Type weaponType = Collectible.Type.RANGED_WEAPON;
+
     Entity player = new Entity()
             .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))  // Ensure this is added
             .addComponent(new PhysicsComponent())
@@ -111,6 +117,8 @@ public class PlayerFactory {
             .addComponent(new ItemPickupComponent())
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
+            .addComponent(new WeaponComponent(sprite, weaponType,
+                    10, 1, 1, 10, 10, 0))
             .addComponent(animator)
             .addComponent(new PlayerAnimationController())
             .addComponent(new PlayerInventoryDisplay(inventoryComponent));

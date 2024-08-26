@@ -1,44 +1,113 @@
 package com.csse3200.game.areas.terrain;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.rendering.RenderService;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(GameExtension.class)
 class TerrainComponentTest {
-  @Test
-  void shouldConvertPositionOrthogonal() {
-    TerrainComponent component = makeComponent(TerrainOrientation.ORTHOGONAL, 3f);
-    assertEquals(new Vector2(0f, 0f), component.tileToWorldPosition(0, 0));
-    assertEquals(new Vector2(6f, 12f), component.tileToWorldPosition(2, 4));
-    assertEquals(new Vector2(-15f, -9f), component.tileToWorldPosition(-5, -3));
+
+  private TerrainComponent terrainComponent;
+  private OrthographicCamera mockCamera;
+  private TiledMap mockMap;
+  private TiledMapRenderer mockRenderer;
+  private RenderService mockRenderService;
+  private float tileSize = 32f;
+
+  @BeforeEach
+  void setUp() {
+    mockCamera = mock(OrthographicCamera.class);
+    mockMap = spy(TiledMap.class);
+    mockRenderer = mock(TiledMapRenderer.class);
+    mockRenderService = mock(RenderService.class);
+
+    // Mock ServiceLocator
+    ServiceLocator.clear();
+    ServiceLocator.registerRenderService(mockRenderService);
+
+    terrainComponent = new TerrainComponent(mockCamera, mockMap, mockRenderer, tileSize);
+  }
+
+  @AfterEach
+  void tearDown() {
+    ServiceLocator.clear();
   }
 
   @Test
-  void shouldConvertPositionIsometric() {
-    TerrainComponent component = makeComponent(TerrainOrientation.ISOMETRIC, 3f);
-    assertEquals(new Vector2(0f, 0f), component.tileToWorldPosition(0, 0));
-    assertEquals(new Vector2(9f, 3f), component.tileToWorldPosition(2, 4));
-    assertEquals(new Vector2(-12f, 3f), component.tileToWorldPosition(-5, -3));
+  void testTileToWorldPosition() {
+    assertEquals(new Vector2(0f, 0f), terrainComponent.tileToWorldPosition(0, 0));
+    assertEquals(new Vector2(64f, 96f), terrainComponent.tileToWorldPosition(2, 3));
+    assertEquals(new Vector2(-32f, -32f), terrainComponent.tileToWorldPosition(-1, -1));
   }
 
   @Test
-  void shouldConvertPositionHexagonal() {
-    TerrainComponent component = makeComponent(TerrainOrientation.HEXAGONAL, 3f);
+  void testTileToWorldPositionWithGridPoint2() {
+    assertEquals(new Vector2(0f, 0f), terrainComponent.tileToWorldPosition(new GridPoint2(0, 0)));
+    assertEquals(new Vector2(64f, 96f), terrainComponent.tileToWorldPosition(new GridPoint2(2, 3)));
+    assertEquals(new Vector2(-32f, -32f), terrainComponent.tileToWorldPosition(new GridPoint2(-1, -1)));
   }
 
-  private static TerrainComponent makeComponent(TerrainOrientation orientation, float tileSize) {
-    OrthographicCamera camera = mock(OrthographicCamera.class);
-    TiledMap map = mock(TiledMap.class);
-    TiledMapRenderer mapRenderer = mock(TiledMapRenderer.class);
-    return new TerrainComponent(camera, map, mapRenderer, orientation, tileSize);
+  @Test
+  void testGetTileSize() {
+    assertEquals(tileSize, terrainComponent.getTileSize());
+  }
+
+  @Test
+  void testGetMapBounds() {
+    TiledMapTileLayer mockLayer = mock(TiledMapTileLayer.class);
+    when(mockLayer.getWidth()).thenReturn(10);
+    when(mockLayer.getHeight()).thenReturn(15);
+
+    MapLayers mockLayers = mock(MapLayers.class);
+    when(mockLayers.get(0)).thenReturn(mockLayer);
+    when(mockMap.getLayers()).thenReturn(mockLayers);
+
+    assertEquals(new GridPoint2(10, 15), terrainComponent.getMapBounds(0));
+  }
+
+  @Test
+  void testGetMap() {
+    assertEquals(mockMap, terrainComponent.getMap());
+  }
+
+  @Test
+  void testDraw() {
+    SpriteBatch mockBatch = mock(SpriteBatch.class);
+    terrainComponent.draw(mockBatch);
+
+    verify(mockRenderer).setView(mockCamera);
+    verify(mockRenderer).render();
+  }
+
+  @Test
+  void testDispose() {
+    terrainComponent.dispose();
+    verify(mockMap, times(1)).dispose();
+    verify(mockRenderService, times(1)).unregister(terrainComponent);
+  }
+
+  @Test
+  void testGetZIndex() {
+    assertEquals(0f, terrainComponent.getZIndex());
+  }
+
+  @Test
+  void testGetLayer() {
+    assertEquals(0, terrainComponent.getLayer());
   }
 }

@@ -42,12 +42,19 @@ public class ShieldPotion extends UsableItem {
     }
 
     /**
+     * Gets the number of charges that the shield currently has
+     * @return the charges
+     */
+    public int getCharges() {
+        return charges;
+    }
+
+    /**
      * Handles the pickup of the shield potion by adding it to the player's inventory.
      * @param inventory The inventory to be put in.
      */
     @Override
     public void pickup(Inventory inventory) {
-
         super.pickup(inventory);
     }
 
@@ -56,9 +63,7 @@ public class ShieldPotion extends UsableItem {
      * @param inventory The inventory to be dropped out of.
      */
     @Override
-    public void drop(Inventory inventory) {
-
-    }
+    public void drop(Inventory inventory) {}
 
     /**
      * Returns the texture associated with the shield potion item.
@@ -78,6 +83,11 @@ public class ShieldPotion extends UsableItem {
         return "Shield Potion";
     }
 
+    @Override
+    public String getItemSpecification() {
+        return "shieldpotion";
+    }
+
     /**
      * Removes the shield from the entity.
      * @param entity the entity from which the shield is removed.
@@ -85,5 +95,4 @@ public class ShieldPotion extends UsableItem {
     public void removeShield(Entity entity) {
         //entity.getEvents().removeListener();
     }
-
 }

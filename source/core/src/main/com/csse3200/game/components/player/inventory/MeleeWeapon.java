@@ -33,8 +33,10 @@ public abstract class MeleeWeapon implements Collectible {
 
     @Override
     public String getSpecification() {
-        return "melee:";
+        return "melee:" + getMeleeSpecification();
     }
+
+    public abstract String getMeleeSpecification();
 
     public int getDamage() {
         return damage;

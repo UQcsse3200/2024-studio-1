@@ -8,7 +8,7 @@ import com.csse3200.game.entities.Entity;
  * by a small health boost of 20.
  */
 public class Bandage extends UsableItem {
-    private static final int Small_Health_Boost = 20;
+    public static final int Small_Health_Boost = 20;
 
     /**
      * The pickup function handles the pickup of Bandage item into player's inventory.
@@ -17,6 +17,11 @@ public class Bandage extends UsableItem {
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
+    }
+
+    @Override
+    public String getItemSpecification() {
+        return "bandage";
     }
 
     /**

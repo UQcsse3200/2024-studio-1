@@ -40,8 +40,10 @@ public abstract class RangedWeapon implements Collectible {
 
     @Override
     public String getSpecification() {
-        return "ranged:";
+        return "ranged:" + getRangedSpecification();
     }
+
+    public abstract String getRangedSpecification();
 
     /**
      * Fire this weapon.

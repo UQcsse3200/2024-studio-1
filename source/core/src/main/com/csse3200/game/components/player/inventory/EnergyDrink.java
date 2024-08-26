@@ -72,5 +72,5 @@ public class EnergyDrink extends BuffItem {
      * @return the string representation of this collectible.
      */
     @Override
-    public String getSpecification() { return "energydrink";}
+    public String getBuffSpecification() { return "energydrink";}
 }

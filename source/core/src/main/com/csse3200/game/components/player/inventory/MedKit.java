@@ -21,6 +21,12 @@ public class MedKit extends UsableItem{
         super.pickup(inventory);
     }
 
+
+    @Override
+    public String getItemSpecification() {
+        return "medkit";
+    }
+
     /**
      * Handles the dropping of item from player's inventory after being used
      * @param inventory The inventory to be dropped out of.
@@ -35,7 +41,7 @@ public class MedKit extends UsableItem{
      */
     @Override
     public String getName() {
-        return "Medical Kit";
+        return "Medkit";
     }
 
     /**

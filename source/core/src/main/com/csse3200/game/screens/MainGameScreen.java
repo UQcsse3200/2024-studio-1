@@ -7,6 +7,7 @@ import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.ForestGameArea;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.factories.RenderFactory;
@@ -38,11 +39,15 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 6f);
 
   private final GdxGame game;
+  private final GameOptions gameOptions;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
 
   public MainGameScreen(GdxGame game) {
     this.game = game;
+
+    gameOptions = game.gameOptions;
+    logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
 
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());

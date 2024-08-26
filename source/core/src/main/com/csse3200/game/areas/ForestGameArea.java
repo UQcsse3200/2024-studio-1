@@ -11,7 +11,11 @@ import com.csse3200.game.entities.RoomDirection;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.ObstacleFactory;
 import com.csse3200.game.entities.factories.PlayerFactory;
+
 import com.csse3200.game.entities.factories.RoomFactory;
+
+import com.csse3200.game.files.UserSettings;
+
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
@@ -25,6 +29,7 @@ import java.util.List;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
+
   private static final String[] tileTextures = {
           "images/tile_1.png",
           "images/tile_2.png",
@@ -42,6 +47,29 @@ public class ForestGameArea extends GameArea {
           "images/tile_staircase.png",
           "images/tile_staircase_down.png",
           "images/tile_blood.png"
+
+  private static final int NUM_TREES = 7;
+  private static final int NUM_GHOSTS = 2;
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+  private static final float WALL_WIDTH = 0.1f;
+  private static final String[] forestTextures = {
+          "images/box_boy_leaf.png",
+          "images/tree.png",
+          "images/ghost_king.png",
+          "images/ghost_1.png",
+          "images/grass_1.png",
+          "images/grass_2.png",
+          "images/grass_3.png",
+          "images/hex_grass_1.png",
+          "images/hex_grass_2.png",
+          "images/hex_grass_3.png",
+          "images/iso_grass_1.png",
+          "images/iso_grass_2.png",
+          "images/iso_grass_3.png"
+  };
+  private static final String[] forestTextureAtlases = {
+          "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
+
   };
 
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
@@ -157,7 +185,13 @@ public class ForestGameArea extends GameArea {
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    if(!UserSettings.get().mute)
+    {
+      music.setVolume(UserSettings.get().musicVolume);
+    }
+    else {
+      music.setVolume(0);
+    }
     music.play();
   }
 

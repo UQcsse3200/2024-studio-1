@@ -32,6 +32,9 @@ public class SettingsMenuDisplay extends UIComponent {
   private CheckBox fullScreenCheck;
   private CheckBox vsyncCheck;
   private Slider uiScaleSlider;
+  private Slider musicVolumeSlider;
+  private Slider soundVolumeSlider;
+  private CheckBox muteCheck;
   private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
 
   public SettingsMenuDisplay(GdxGame game) {
@@ -80,10 +83,25 @@ public class SettingsMenuDisplay extends UIComponent {
     vsyncCheck = new CheckBox("", skin);
     vsyncCheck.setChecked(settings.vsync);
 
-    Label uiScaleLabel = new Label("ui Scale (Unused):", skin);
+    Label uiScaleLabel = new Label("UI Scale (Unused):", skin);
     uiScaleSlider = new Slider(0.2f, 2f, 0.1f, false, skin);
     uiScaleSlider.setValue(settings.uiScale);
     Label uiScaleValue = new Label(String.format("%.2fx", settings.uiScale), skin);
+
+    Label musicVolumeLabel = new Label("Music Volume:", skin);
+    musicVolumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
+    musicVolumeSlider.setValue(settings.musicVolume);
+    Label musicVolumeValue = new Label(String.format("%.0f%%", settings.musicVolume * 100), skin);
+
+    Label soundVolumeLabel = new Label("Sound Volume:", skin);
+    soundVolumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
+    soundVolumeSlider.setValue(settings.soundVolume);
+    Label soundVolumeValue = new Label(String.format("%.0f%%", settings.soundVolume * 100), skin);
+
+
+    Label muteLabel = new Label("Mute:", skin);
+    muteCheck = new CheckBox("", skin);
+    muteCheck.setChecked(settings.mute);
 
     Label displayModeLabel = new Label("Resolution:", skin);
     displayModeSelect = new SelectBox<>(skin);
@@ -106,6 +124,10 @@ public class SettingsMenuDisplay extends UIComponent {
     table.add(vsyncCheck).left();
 
     table.row().padTop(10f);
+    table.add(muteLabel).right().padRight(15f);
+    table.add(muteCheck).left();
+
+    table.row().padTop(10f);
     Table uiScaleTable = new Table();
     uiScaleTable.add(uiScaleSlider).width(100).left();
     uiScaleTable.add(uiScaleValue).left().padLeft(5f).expandX();
@@ -117,16 +139,47 @@ public class SettingsMenuDisplay extends UIComponent {
     table.add(displayModeLabel).right().padRight(15f);
     table.add(displayModeSelect).left();
 
-    // Events on inputs
-    uiScaleSlider.addListener(
-        (Event event) -> {
-          float value = uiScaleSlider.getValue();
-          uiScaleValue.setText(String.format("%.2fx", value));
-          return true;
-        });
+    table.row().padTop(10f);
+    Table musicVolumeTable = new Table();
+    musicVolumeTable.add(musicVolumeSlider).width(100).left();
+    musicVolumeTable.add(musicVolumeValue).left().padLeft(5f).expandX();
 
+    table.add(musicVolumeLabel).right().padRight(15f);
+    table.add(musicVolumeTable).left();
+
+    table.row().padTop(10f);
+    Table soundVolumeTable = new Table();
+    soundVolumeTable.add(soundVolumeSlider).width(100).left();
+    soundVolumeTable.add(soundVolumeValue).left().padLeft(5f).expandX();
+
+    table.add(soundVolumeLabel).right().padRight(15f);
+    table.add(soundVolumeTable).left();
+
+
+    // Listener for uiScaleSlider
+    uiScaleSlider.addListener(
+            (Event event) -> {
+              float value = uiScaleSlider.getValue();
+              uiScaleValue.setText(String.format("%.2fx", value));
+              return true;
+            });
+    musicVolumeSlider.addListener(
+            (Event event) -> {
+              float value = musicVolumeSlider.getValue();
+              musicVolumeValue.setText(String.format("%.0f%%", value * 100));
+              return true;
+            });
+
+    soundVolumeSlider.addListener(
+            (Event event) -> {
+              float value = soundVolumeSlider.getValue();
+              soundVolumeValue.setText(String.format("%.0f%%", value * 100));
+              return true;
+            });
     return table;
   }
+
+
 
   private StringDecorator<DisplayMode> getActiveMode(Array<StringDecorator<DisplayMode>> modes) {
     DisplayMode active = Gdx.graphics.getDisplayMode();
@@ -134,8 +187,8 @@ public class SettingsMenuDisplay extends UIComponent {
     for (StringDecorator<DisplayMode> stringMode : modes) {
       DisplayMode mode = stringMode.object;
       if (active.width == mode.width
-          && active.height == mode.height
-          && active.refreshRate == mode.refreshRate) {
+              && active.height == mode.height
+              && active.refreshRate == mode.refreshRate) {
         return stringMode;
       }
     }
@@ -162,22 +215,22 @@ public class SettingsMenuDisplay extends UIComponent {
     TextButton applyBtn = new TextButton("Apply", skin);
 
     exitBtn.addListener(
-        new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-            logger.debug("Exit button clicked");
-            exitMenu();
-          }
-        });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Exit button clicked");
+                exitMenu();
+              }
+            });
 
     applyBtn.addListener(
-        new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-            logger.debug("Apply button clicked");
-            applyChanges();
-          }
-        });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Apply button clicked");
+                applyChanges();
+              }
+            });
 
     Table table = new Table();
     table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
@@ -193,9 +246,12 @@ public class SettingsMenuDisplay extends UIComponent {
       settings.fps = fpsVal;
     }
     settings.fullscreen = fullScreenCheck.isChecked();
+    settings.mute=muteCheck.isChecked();
     settings.uiScale = uiScaleSlider.getValue();
     settings.displayMode = new DisplaySettings(displayModeSelect.getSelected().object);
     settings.vsync = vsyncCheck.isChecked();
+    settings.musicVolume = musicVolumeSlider.getValue();
+    settings.soundVolume = soundVolumeSlider.getValue();
 
     UserSettings.set(settings, true);
   }

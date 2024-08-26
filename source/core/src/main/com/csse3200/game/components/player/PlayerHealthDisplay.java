@@ -14,6 +14,7 @@ public class PlayerHealthDisplay extends UIComponent{
        /** Dimensions of health bar */
         private static final float WIDTH = 1.5f;
         private static final float HEIGHT = 0.1f;
+        /** Constant used to calculate the position of health bar on UI*/
         private final static float X_BAR = 0.3f;
         private final static float Y_BAR = 1.2f;
         /** Shape rendered for drawing the health bar */

@@ -10,6 +10,7 @@ import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.npc.RatAnimationController;
+import com.csse3200.game.components.npc.DinoAnimationController;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -77,6 +78,46 @@ public class NPCFactory {
     rat.getComponent(AnimationRenderComponent.class).scaleEntity();
     return rat;
   }
+
+  /**
+   * Creates a dino entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+    public static Entity createDino(Entity target) {
+        BaseEntityConfig config = configs.dino;
+        AITaskComponent aiComponent =
+                new AITaskComponent()
+                        .addTask(new WanderTask(new Vector2(3f, 3f), 4f, config.wanderSpeed))
+                        .addTask(new ChaseTask(target, 10, config.viewDistance, config.chaseDistance,
+                                config.chaseSpeed));
+
+        Entity dino = createBaseNPC(aiComponent);
+
+        AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                ServiceLocator.getResourceService().getAsset("images/dino.atlas", TextureAtlas.class));
+        animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
+
+        dino
+            .addComponent(new CombatStatsComponent(
+                    config.health,
+                    config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new DinoAnimationController())
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDamageHandlerComponent())
+            .addComponent(new NPCDeathHandler());
+
+        dino.getComponent(AnimationRenderComponent.class).scaleEntity();
+        return dino;
+    }
+
 
   /**
    * Creates a dog entity.

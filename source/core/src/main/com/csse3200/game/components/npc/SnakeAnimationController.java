@@ -8,7 +8,7 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
  * of the events is triggered.
  */
 public class SnakeAnimationController extends Component {
-    private AnimationRenderComponent animator;
+    AnimationRenderComponent animator;
 
     @Override
     public void create() {
@@ -19,25 +19,23 @@ public class SnakeAnimationController extends Component {
         entity.getEvents().addListener("walk", this::animateWalk);
         entity.getEvents().addListener("attack", this::animateAttack);
         entity.getEvents().addListener("death", this::animateDeath);
+
+        animateIdle();
     }
 
-    private void animateIdle() {
+    void animateIdle() {
         animator.startAnimation("idle");
     }
-
-    private void animateGesture() {
+    void animateGesture() {
         animator.startAnimation("gesture");
     }
-
-    private void animateWalk() {
+    void animateWalk() {
         animator.startAnimation("walk");
     }
-
-    private void animateAttack() {
+    void animateAttack() {
         animator.startAnimation("attack");
     }
-
-    private void animateDeath() {
+    void animateDeath() {
         animator.startAnimation("death");
     }
 }

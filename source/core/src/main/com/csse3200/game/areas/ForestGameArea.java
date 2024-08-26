@@ -150,12 +150,13 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(snake, randomPos, true, true);
     }
 
-      //this is for the Minotaur
-      for (int i = 0; i < NUM_GHOSTS; i++) {
-          GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-          Entity ghost = NPCFactory.createMinotaur(player);
-          spawnEntityAt(ghost, randomPos, true, true);
-      }
+    //this is for the Minotaur
+    for (int i = 0; i < NUM_GHOSTS; i++) {
+        GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+        Entity ghost = NPCFactory.createMinotaur(player);
+        spawnEntityAt(ghost, randomPos, true, true);
+    }
+
   }
 
   private void spawnGhostKing() {

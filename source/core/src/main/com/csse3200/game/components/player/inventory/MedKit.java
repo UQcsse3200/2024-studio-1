@@ -35,7 +35,7 @@ public class MedKit extends UsableItem{
      */
     @Override
     public String getName() {
-        return "Medical Kit";
+        return "Medkit";
     }
 
     /**

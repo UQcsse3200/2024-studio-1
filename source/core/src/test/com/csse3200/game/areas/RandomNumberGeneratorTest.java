@@ -1,5 +1,4 @@
-package com.example;
-
+package com.csse3200.game.areas;
 
 import com.csse3200.game.areas.RandomNumberGenerator;
 import org.junit.jupiter.api.BeforeEach;

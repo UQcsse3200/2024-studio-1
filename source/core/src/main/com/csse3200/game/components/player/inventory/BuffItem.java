@@ -1,5 +1,4 @@
 package com.csse3200.game.components.player.inventory;
-import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -31,7 +30,7 @@ public abstract class BuffItem implements Collectible {
      * @return the string representation of this collectible.
      */
     @Override
-    public String getSpecification() { return "buffitem" + getBuffSpecification();}
+    public String getSpecification() { return "buff:" + getBuffSpecification();}
 
     public abstract String getBuffSpecification();
 

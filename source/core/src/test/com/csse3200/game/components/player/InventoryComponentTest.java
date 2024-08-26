@@ -19,6 +19,11 @@ class InventoryComponentTest {
     new Entity().addComponent(inventoryComponent);
     MeleeWeapon meleeWeapon = new MeleeWeapon() {
       @Override
+      public String getMeleeSpecification() {
+        return "melee";
+      }
+
+      @Override
       public void attack() {
         System.out.println("whack!");
       }

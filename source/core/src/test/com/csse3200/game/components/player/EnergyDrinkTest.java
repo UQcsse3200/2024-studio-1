@@ -1,13 +1,10 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.inventory.*;
-import com.csse3200.game.entities.Entity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EnergyDrinkTest {
     @Test
@@ -15,7 +12,7 @@ public class EnergyDrinkTest {
         EnergyDrink energyDrink = new EnergyDrink();
         String name = energyDrink.getName();
         assertEquals(name, "Energy drink");
-        };
+        }
 
     @Test
     public void getSpeedTest() {
@@ -29,7 +26,7 @@ public class EnergyDrinkTest {
     public void getSpecificationTest() {
         EnergyDrink energyDrink = new EnergyDrink();
         String specification = energyDrink.getSpecification();
-        assertEquals(specification, "energydrink");
+        assertEquals(specification, "buff:energydrink");
     }
 
     @Test

@@ -38,6 +38,11 @@ public abstract class BuffItem implements Collectible {
         return "buff:" + getBuffSpecification();
     }
 
+    /**
+     * Get the specification of this buff.
+     *
+     * @return the string representation of this buff.
+     */
     public abstract String getBuffSpecification();
 
     /**

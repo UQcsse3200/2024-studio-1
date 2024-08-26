@@ -1,6 +1,9 @@
 package com.csse3200.game.entities.factories;
 import com.csse3200.game.components.player.inventory.*;
 
+/**
+ * A factory that creates weapons.
+ */
 public class WeaponFactory {
     private MeleeWeapon createMelee(String specification) {
         if (specification.equals("knife")) {
@@ -8,7 +11,6 @@ public class WeaponFactory {
         }
         return new ConcreteMeleeWeapon(specification);
     }
-
 
     private RangedWeapon createRanged(String specification){
         // specification format: "ranged:<Ranged Weapon>,<pathtoicon>,<damage>,<range>,<fireRate>,<ammo>,<maxAmmo>,<reloadTime>"
@@ -18,6 +20,12 @@ public class WeaponFactory {
         return new ConcreteRangedWeapon(specification);
     }
 
+    /**
+     * Create a new weapon from a specification.
+     * @param type the type of the weapon (melee or ranged)
+     * @param specification the specification of the weapon.
+     * @return The newly constructed collectible.
+     */
     public Collectible create(Collectible.Type type, String specification) {
         return switch (type) {
             case MELEE_WEAPON -> createMelee(specification);

@@ -26,6 +26,11 @@ public abstract class UsableItem implements Collectible {
         return "item:" + getItemSpecification();
     }
 
+    /**
+     * Get the specification of this item.
+     *
+     * @return the string representation of this item.
+     */
     public abstract String getItemSpecification();
 
     /**

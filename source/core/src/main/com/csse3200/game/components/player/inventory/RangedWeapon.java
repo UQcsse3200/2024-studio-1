@@ -42,6 +42,11 @@ public abstract class RangedWeapon implements Collectible {
         return "ranged:" + getRangedSpecification();
     }
 
+    /**
+     * Get the specification of this ranged weapon.
+     *
+     * @return the string representation of this ranged weapon.
+     */
     public abstract String getRangedSpecification();
 
     /**

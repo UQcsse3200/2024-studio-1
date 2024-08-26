@@ -22,16 +22,26 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private final Map<Integer, Action> downBindings;
     private final Map<Integer, Action> upBindings;
 
+    /**
+     * Something the player does.
+     */
     private interface Action {
         boolean act(int key);
     }
 
+    /**
+     * Create a new KeyboardPlayerInputComponent with specified keyBindings
+     * @param keyMapping a mapping of the keys to their actions.
+     */
     public KeyboardPlayerInputComponent(KeyMapping keyMapping) {
         super(5);
         this.upBindings = bindKeys(keyMapping, getUpActions());
         this.downBindings = bindKeys(keyMapping, getDownActions());
     }
 
+    /**
+     * Create a new KeyboardPlayerInputComponent with default keybindings.
+     */
     public KeyboardPlayerInputComponent() {
         this(new KeyMapping());
     }
@@ -58,29 +68,43 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    /*
+     * All the player actions that need to respond to key down
+     */
     private Map<KeyMapping.KeyBinding, Action> getDownActions(){
         Map<KeyMapping.KeyBinding, Action> actionMap = new HashMap<>();
+
         actionMap.put(WALK_UP,  (i) -> walk(Vector2Utils.UP));
         actionMap.put(WALK_LEFT,  (i) -> walk(Vector2Utils.LEFT));
         actionMap.put(WALK_DOWN,  (i) -> walk(Vector2Utils.DOWN));
         actionMap.put(WALK_RIGHT,  (i) -> walk(Vector2Utils.RIGHT));
+
         actionMap.put(SHOOT_UP,  (i) -> shoot(Vector2Utils.UP));
         actionMap.put(SHOOT_LEFT,  (i) -> shoot(Vector2Utils.LEFT));
         actionMap.put(SHOOT_RIGHT,  (i) -> shoot(Vector2Utils.RIGHT));
         actionMap.put(SHOOT_DOWN,  (i) -> shoot(Vector2Utils.DOWN));
+
         actionMap.put(MELEE,  (i) -> melee());
         return actionMap;
     }
 
+    /*
+     * All the player actions that need to respond to key up
+     */
     private Map<KeyMapping.KeyBinding, Action> getUpActions(){
         Map<KeyMapping.KeyBinding, Action> actionMap = new HashMap<>();
+
         actionMap.put(WALK_UP,  (i) -> unWalk(Vector2Utils.UP));
         actionMap.put(WALK_LEFT,  (i) -> unWalk(Vector2Utils.LEFT));
         actionMap.put(WALK_DOWN,  (i) -> unWalk(Vector2Utils.DOWN));
         actionMap.put(WALK_RIGHT,  (i) -> unWalk(Vector2Utils.RIGHT));
+
         return actionMap;
     }
 
+    /*
+     * Merge the keyMapping with the list of actions to produce a final key binding.
+     */
     private static Map<Integer, Action> bindKeys(
             KeyMapping keyMapping,
             Map<KeyMapping.KeyBinding, Action> actions) {

@@ -16,6 +16,7 @@ public class CollectibleFactory {
 
     /**
      * Create a collectible from a specification.
+     *
      * @param specification the specification to follow.
      * @return the created collectible.
      */
@@ -32,6 +33,7 @@ public class CollectibleFactory {
 
     /**
      * Convert a collectible item into a collectible entity.
+     *
      * @param collectible the item to convert
      * @return the final entity containing the collectible.
      */
@@ -48,6 +50,7 @@ public class CollectibleFactory {
 
     /**
      * Create a collectible item as a collectible entity.
+     *
      * @param specification the item to create
      * @return the final entity containing the collectible.
      */

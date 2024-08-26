@@ -48,6 +48,9 @@ public interface Collectible {
      */
     void drop(Inventory inventory);
 
+    /**
+     * Each of the different types of collectible.
+     */
     enum Type {
         ITEM,
         MELEE_WEAPON,

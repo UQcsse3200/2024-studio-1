@@ -37,6 +37,11 @@ public abstract class MeleeWeapon implements Collectible {
         return "melee:" + getMeleeSpecification();
     }
 
+    /**
+     * Get the specification of this melee weapon.
+     *
+     * @return the string representation of this melee weapon.
+     */
     public abstract String getMeleeSpecification();
 
     public int getDamage() {

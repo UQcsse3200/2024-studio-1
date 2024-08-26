@@ -2,7 +2,9 @@ package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.player.inventory.*;
 
-//Testing testing woohoo!!
+/**
+ * A factory that creates usable items and buffs.
+ */
 public class ItemFactory {
 
     /**

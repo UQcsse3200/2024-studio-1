@@ -19,6 +19,11 @@ public class Bandage extends UsableItem {
         super.pickup(inventory);
     }
 
+    @Override
+    public String getItemSpecification() {
+        return "bandage";
+    }
+
     /**
      * Handles the dropping of item from player's inventory after being used
      * @param inventory The inventory to be dropped out of.

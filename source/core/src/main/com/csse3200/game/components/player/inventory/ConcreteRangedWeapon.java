@@ -46,8 +46,8 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     }
 
     @Override
-    public String getSpecification() {
-        return super.getSpecification() + this.specification;
+    public String getRangedSpecification() {
+        return this.specification;
     }
 
     @Override

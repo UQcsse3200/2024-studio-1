@@ -14,6 +14,11 @@ public class Knife extends MeleeWeapon {
     }
 
     @Override
+    public String getMeleeSpecification() {
+        return "knife";
+    }
+
+    @Override
     public void attack() {
         System.out.println("stab!");
     }

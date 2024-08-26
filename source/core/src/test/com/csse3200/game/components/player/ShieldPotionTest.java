@@ -15,6 +15,8 @@ public class ShieldPotionTest {
         assertEquals("Shield Potion", potion.getName());
     }
 
+    // public void testGetSpecification() {}
+
 
     @Test
     public void testApply() {

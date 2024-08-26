@@ -83,6 +83,11 @@ public class ShieldPotion extends UsableItem {
         return "Shield Potion";
     }
 
+    @Override
+    public String getItemSpecification() {
+        return "shieldpotion";
+    }
+
     /**
      * Removes the shield from the entity.
      * @param entity the entity from which the shield is removed.

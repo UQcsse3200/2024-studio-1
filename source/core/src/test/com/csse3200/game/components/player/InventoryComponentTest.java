@@ -23,10 +23,6 @@ class InventoryComponentTest {
         return "melee";
       }
 
-      @Override
-      public void attack() {
-        System.out.println("whack!");
-      }
 
       @Override
       public String getName() {

@@ -46,6 +46,11 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
     }
 
     @Override
+    public String getMeleeSpecification() {
+        return this.specification;
+    }
+
+    @Override
     public String getName() {
         return "knife";
     }

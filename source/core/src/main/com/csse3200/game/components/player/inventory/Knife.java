@@ -18,11 +18,6 @@ public class Knife extends MeleeWeapon {
     }
 
     @Override
-    public void attack() {
-        System.out.println("stab!");
-    }
-
-    @Override
     public void drop(Inventory inventory) {
         super.drop(inventory);
     }

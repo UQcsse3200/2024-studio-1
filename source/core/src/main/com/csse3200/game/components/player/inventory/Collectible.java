@@ -49,7 +49,7 @@ public interface Collectible {
      */
     void drop(Inventory inventory);
 
-    public enum Type {
+    enum Type {
         ITEM,
         MELEE_WEAPON,
         RANGED_WEAPON,

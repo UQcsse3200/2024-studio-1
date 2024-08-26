@@ -12,8 +12,8 @@ public class MapGenerator {
     private int mapSize;
     private RandomNumberGenerator rng;
     public String startingRoom;
-    public HashMap<String, String[]> relativePosition;
-    public HashMap<String, HashMap<String, Integer>> roomDetails;
+    private HashMap<String, String[]> relativePosition;
+    private HashMap<String, HashMap<String, Integer>> roomDetails;
     protected final int[][] detlas;
 
     public MapGenerator(int mapSize, String seed) {
@@ -136,4 +136,5 @@ public class MapGenerator {
             roomCount--;
         }
     }
-}
+
+} 

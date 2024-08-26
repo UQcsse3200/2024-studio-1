@@ -115,6 +115,12 @@ public class PlayerConfigGeneratorTest {
         assertEquals("", playerConfig.ranged);
         assertEquals("", playerConfig.melee);
     }
+
+    @Test
+    public void testNoInventory() {
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(0, playerConfig.items.length);
+    }
     /**
      * Test player with only one item collected
      */

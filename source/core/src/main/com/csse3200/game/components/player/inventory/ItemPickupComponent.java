@@ -1,15 +1,10 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.physics.BodyUserData;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.screens.SettingsScreen;
 import com.csse3200.game.services.ServiceLocator;
 
 /**
@@ -58,6 +53,7 @@ public class ItemPickupComponent extends Component {
      * Marks the entity for removal from the game. This method unregisters the entity from the entity service,
      * scheduling it for later disposal at the end of the games update cycle. This ensures that the entity is
      * not prematurely removed from the game state.
+     *
      * @param itemEntity the item to be disposed
      */
     private void markEntityForRemoval(Entity itemEntity) {

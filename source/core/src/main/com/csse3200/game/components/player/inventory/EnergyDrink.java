@@ -1,12 +1,9 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.rendering.TextureRenderComponent;
 
 /**
  * An energy drink item that immediately affects the player's speed upon pickup
@@ -51,6 +48,7 @@ public class EnergyDrink extends BuffItem {
     /**
      * A method that applies the effect of the energy drink to the player. Specifically, updates the player's
      * speed
+     *
      * @param entity the player entity
      */
     @Override
@@ -60,6 +58,7 @@ public class EnergyDrink extends BuffItem {
 
     /**
      * Get the speed value of this item
+     *
      * @return the speed value
      */
     public Vector2 getSpeed() {
@@ -72,5 +71,7 @@ public class EnergyDrink extends BuffItem {
      * @return the string representation of this collectible.
      */
     @Override
-    public String getBuffSpecification() { return "energydrink";}
+    public String getBuffSpecification() {
+        return "energydrink";
+    }
 }

@@ -1,4 +1,5 @@
 package com.csse3200.game.components.player.inventory;
+
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -12,7 +13,9 @@ public abstract class BuffItem implements Collectible {
      * @return the Type of this item
      */
     @Override
-    public Type getType() { return Type.BUFF_ITEM; }
+    public Type getType() {
+        return Type.BUFF_ITEM;
+    }
 
     /**
      * Make the entity pick the item up, and apply effects immediately instead of being added to the inventory
@@ -31,12 +34,15 @@ public abstract class BuffItem implements Collectible {
      * @return the string representation of this collectible.
      */
     @Override
-    public String getSpecification() { return "buff:" + getBuffSpecification();}
+    public String getSpecification() {
+        return "buff:" + getBuffSpecification();
+    }
 
     public abstract String getBuffSpecification();
 
     /**
      * A method that applies the unique effect of this item, upon pickup
+     *
      * @param entity The player entity
      */
     public abstract void effect(Entity entity);

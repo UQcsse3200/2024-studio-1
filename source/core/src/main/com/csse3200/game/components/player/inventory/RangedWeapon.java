@@ -2,7 +2,6 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.WeaponComponent;
-import com.csse3200.game.events.listeners.EventListener1;
 
 public abstract class RangedWeapon implements Collectible {
 
@@ -56,44 +55,44 @@ public abstract class RangedWeapon implements Collectible {
         return damage;
     }
 
-    public int getRange() {
-        return range;
-    }
-
-    public int getFireRate() {
-        return fireRate;
-    }
-
-    public int getAmmo() {
-        return ammo;
-    }
-
-    public int getMaxAmmo() {
-        return maxAmmo;
-    }
-
-    public int getReloadTime() {
-        return reloadTime;
-    }
-
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getRange() {
+        return range;
     }
 
     public void setRange(int range) {
         this.range = range;
     }
 
+    public int getFireRate() {
+        return fireRate;
+    }
+
     public void setFireRate(int fireRate) {
         this.fireRate = fireRate;
+    }
+
+    public int getAmmo() {
+        return ammo;
     }
 
     public void setAmmo(int ammo) {
         this.ammo = ammo;
     }
 
+    public int getMaxAmmo() {
+        return maxAmmo;
+    }
+
     public void setMaxAmmo(int maxAmmo) {
         this.maxAmmo = maxAmmo;
+    }
+
+    public int getReloadTime() {
+        return reloadTime;
     }
 
     public void setReloadTime(int reloadTime) {

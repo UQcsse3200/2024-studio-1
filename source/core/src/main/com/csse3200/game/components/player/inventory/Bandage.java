@@ -1,4 +1,5 @@
 package com.csse3200.game.components.player.inventory;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
@@ -12,6 +13,7 @@ public class Bandage extends UsableItem {
 
     /**
      * The pickup function handles the pickup of Bandage item into player's inventory.
+     *
      * @param inventory The inventory to be put in.
      */
     @Override
@@ -26,6 +28,7 @@ public class Bandage extends UsableItem {
 
     /**
      * Handles the dropping of item from player's inventory after being used
+     *
      * @param inventory The inventory to be dropped out of.
      */
     @Override
@@ -34,6 +37,7 @@ public class Bandage extends UsableItem {
 
     /**
      * Returns name of item
+     *
      * @return the item name
      */
     @Override
@@ -43,6 +47,7 @@ public class Bandage extends UsableItem {
 
     /**
      * Return texture related with Bandage item
+     *
      * @return texture representing icon of Bandage item
      */
     @Override
@@ -53,6 +58,7 @@ public class Bandage extends UsableItem {
     /**
      * Applies the bandage to an entity, increasing its health by a small amount,
      * calls the increaseSmallBoost(entity) method
+     *
      * @param entity to which Bandage item effect is applied to.
      */
     @Override
@@ -62,6 +68,7 @@ public class Bandage extends UsableItem {
 
     /**
      * Increases health by using entity's CombatStatsComponent to add Health
+     *
      * @param entity whose health is increased.
      */
     public void increaseSmallBoost(Entity entity) {

@@ -35,6 +35,7 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
             //texture1 = new Texture("knife.png");
         }
     }
+
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);

@@ -47,6 +47,7 @@ public class ForestGameArea extends GameArea {
           "images/tile_staircase.png",
           "images/tile_staircase_down.png",
           "images/tile_blood.png"
+  };
 
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
@@ -79,7 +80,7 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private List<Room> roomList;
-  private static final float WALL_WIDTH = 0.1f;
+
 
 
   /**

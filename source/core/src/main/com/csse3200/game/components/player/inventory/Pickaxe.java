@@ -7,7 +7,7 @@ import com.csse3200.game.components.player.PlayerActions;
 /**
  * Example Weapon Collectible.
  */
-public class Knife extends MeleeWeapon {
+public class Pickaxe extends MeleeWeapon {
 
     @Override
     public void pickup(Inventory inventory) {
@@ -26,7 +26,7 @@ public class Knife extends MeleeWeapon {
 
     @Override
     public Texture getIcon() {
-        return new Texture("images/Weapons/knife.png");
+        return new Texture("pickaxe.png");
     }
 }
 

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 public class InventoryComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
     private final Inventory inventory;
+    private int totalWeaponCount = 0;
 
     /**
      * Construct a new empty inventory component
@@ -28,6 +29,13 @@ public class InventoryComponent extends Component {
      * @param item The item to add to your inventory
      */
     public void pickup(Collectible item) {
+        if(item instanceof RangedWeapon || item instanceof MeleeWeapon){
+            totalWeaponCount = totalWeaponCount + 1;
+            System.out.println("Weapon picked up! Total weapons: " + totalWeaponCount);
+
+            // Notify listeners about the updated weapon count
+            entity.getEvents().trigger("updateWeaponCount", totalWeaponCount);
+        }
         item.pickup(inventory);
     }
 
@@ -48,4 +56,5 @@ public class InventoryComponent extends Component {
     public Inventory getInventory() {
         return inventory;
     }
+
 }

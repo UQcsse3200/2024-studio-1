@@ -27,6 +27,7 @@ public class PlayerStatsDisplay extends UIComponent {
     addActors();
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
+    entity.getEvents().addListener("updateWeaponCount", this::updateWeaponCountUI);
   }
 
   /**
@@ -74,6 +75,12 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence text = String.format("Health: %d", health);
     healthLabel.setText(text);
   }
+
+  public void updateWeaponCountUI(int weaponCount) {
+    CharSequence text = String.format("Weapons: %d", weaponCount);
+    weaponLabel.setText(text);
+  }
+
   @Override
   public void dispose() {
     super.dispose();

@@ -1,8 +1,10 @@
 package com.csse3200.game.entities.factories;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
+import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.components.player.inventory.*;
@@ -27,18 +29,19 @@ public class WeaponFactory {
         };
     }
 
-    public static Entity createKnifeEntity() {
-        Knife knife = new Knife();
-        Entity knifeEntity = new Entity()
+    public static Entity createPickaxeEntity() {
+        Pickaxe pickaxe = new Pickaxe();
+        Entity pickaxeEntity = new Entity()
                 .addComponent(new TextureRenderComponent("images/Weapons/pickaxe.png"))
                 .addComponent(new PhysicsComponent())
-                .addComponent(new ColliderComponent().setSensor(true))
-                .addComponent(new CollectibleComponent(knife));
+                .addComponent(new ColliderComponent())
+                .addComponent(new HitboxComponent())
+                .addComponent(new CollectibleComponent(pickaxe));
 
-        knifeEntity.getComponent(TextureRenderComponent.class).scaleEntity();
-        knifeEntity.scaleHeight(0.9f);
-        PhysicsUtils.setScaledCollider(knifeEntity, 0.5f, 0.2f);
-        return knifeEntity;
+        pickaxeEntity.getComponent(TextureRenderComponent.class).scaleEntity();
+        pickaxeEntity.scaleHeight(0.9f);
+        PhysicsUtils.setScaledCollider(pickaxeEntity, 0.5f, 0.2f);
+        return pickaxeEntity;
     }
 
     public static Entity createShotgunEntity() {
@@ -46,7 +49,8 @@ public class WeaponFactory {
         Entity shotgunEntity = new Entity()
                 .addComponent(new TextureRenderComponent("images/Weapons/Shotgun.png"))
                 .addComponent(new PhysicsComponent())
-                .addComponent(new ColliderComponent().setSensor(true))
+                .addComponent(new ColliderComponent())
+                .addComponent(new HitboxComponent())
                 .addComponent(new CollectibleComponent(shotgun));
 
         shotgunEntity.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -55,3 +59,4 @@ public class WeaponFactory {
         return shotgunEntity;
     }
 }
+

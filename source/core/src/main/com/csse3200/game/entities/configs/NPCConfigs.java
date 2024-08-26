@@ -13,5 +13,5 @@ public class NPCConfigs {
   public BaseEntityConfig snake = new BaseEntityConfig();
   public BaseEntityConfig minotaur = new BaseEntityConfig();
   public BaseEntityConfig dino = new BaseEntityConfig();
-
+  public BaseEntityConfig bat = new BaseEntityConfig();
 }

@@ -48,5 +48,15 @@ public class CollectibleFactory {
         collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();
         return collectibleEntity;
     }
+
+    /**
+     * Create a collectible item as a collectible entity.
+     * @param specification the item to create
+     * @return the final entity containing the collectible.
+     */
+    public static Entity createCollectibleEntity(String specification) {
+        Collectible collectible = create(specification);
+        return createCollectibleEntity(collectible);
+    }
 }
 

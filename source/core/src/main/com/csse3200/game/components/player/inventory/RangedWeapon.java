@@ -96,7 +96,7 @@ public abstract class RangedWeapon implements Collectible {
         this.maxAmmo = maxAmmo;
     }
 
-public void setReloadTime(int reloadTime) {
+    public void setReloadTime(int reloadTime) {
         this.reloadTime = reloadTime;
     }
 }

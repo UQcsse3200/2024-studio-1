@@ -146,27 +146,23 @@ public class ForestGameArea extends GameArea {
   }
 
   private Entity spawnCollectibleTest() {
-    Collectible collectible = CollectibleFactory.create("buff:energydrink");
-    Entity collectibleEntity = CollectibleFactory.createCollectibleEntity(collectible);
+    Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("buff:energydrink");
     spawnEntityAt(collectibleEntity, ITEM_SPAWN, true, true);
     return collectibleEntity;
   }
 
   private void spawnBandage() {
-    Collectible collectible = CollectibleFactory.create("item:bandage");
-    Entity collectibleEntity = CollectibleFactory.createCollectibleEntity(collectible);
+    Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:bandage");
     spawnEntityAt(collectibleEntity, new GridPoint2(19,15), true, true);
   }
 
   private void spawnMedkit() {
-    Collectible collectible = CollectibleFactory.create("item:medkit");
-    Entity collectibleEntity = CollectibleFactory.createCollectibleEntity(collectible);
+    Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:medkit");
     spawnEntityAt(collectibleEntity, new GridPoint2(15,15), true, true);
   }
 
   private void spawnShieldPotion() {
-    Collectible collectible = CollectibleFactory.create("item:shieldpotion");
-    Entity collectibleEntity = CollectibleFactory.createCollectibleEntity(collectible);
+    Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:shieldpotion");
     spawnEntityAt(collectibleEntity, new GridPoint2(5, 5), true, true);
   }
 
@@ -196,7 +192,7 @@ public class ForestGameArea extends GameArea {
 
     for (int i = 0; i < NUM_KNIVES; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity knife = CollectibleFactory.createCollectibleEntity(new Knife());
+      Entity knife = CollectibleFactory.createCollectibleEntity("melee:knife");
       spawnEntityAt(knife, randomPos, true, false); // Spawning the knife at a random position
     }
   }
@@ -207,7 +203,7 @@ public class ForestGameArea extends GameArea {
 
     for (int i = 0; i < NUM_SHOTGUNS; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity shotgun = WeaponFactory.createShotgunEntity();
+      Entity shotgun = CollectibleFactory.createCollectibleEntity("ranged:shotgun");
       spawnEntityAt(shotgun, randomPos, true, false); // Spawning the Shotgun at a random position
     }
   }

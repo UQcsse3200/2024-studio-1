@@ -29,24 +29,29 @@ public class ForestGameArea extends GameArea {
     "images/tree.png",
     "images/ghost_king.png",
     "images/rat.png",
-          "images/minotaur.png",
-          "images/ghost_1.png",
-          "images/dog.png",
+    "images/minotaur.png",
+    "images/dog.png",
+    "images/ghost_1.png",
     "images/grass_1.png",
     "images/grass_2.png",
     "images/grass_3.png",
     "images/hex_grass_1.png",
     "images/rat_basic.png",
+    "images/snake.png",
+    "images/dino.png",
+    "images/minotaur.png",
     "images/hex_grass_2.png",
     "images/hex_grass_3.png",
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
+    "images/bear.png",
     "images/iso_grass_3.png"
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas","images/rat.atlas" ,
-          "images/minotaur.atlas", "images/dog.atlas"
-  };
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas","images/rat.atlas", 
+    "images/snake.atlas", "images/minotaur.atlas","images/bear.atlas", 
+    "images/dino.atlas","images/bat.atlas", "images/dog.atlas"};
+
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
@@ -75,7 +80,12 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     spawnTrees();
     player = spawnPlayer();
-    spawnGhosts();
+    spawnSnake();
+    spawnRat();
+    spawnBat();
+    spawnBear();
+    spawnDino();
+    spawnMinotaur();
     spawnGhostKing();
 
     playMusic();
@@ -134,7 +144,46 @@ public class ForestGameArea extends GameArea {
     return newPlayer;
   }
 
-  private void spawnGhosts() {
+  private void spawnBear() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity bear= NPCFactory.createBear(player);
+    spawnEntityAt(bear, randomPos, true, true);
+  }
+
+
+  private void spawnDino() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity dino = NPCFactory.createDino(player);
+    spawnEntityAt(dino, randomPos, true, true);
+  }
+
+  private void spawnMinotaur() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity mino= NPCFactory.createMinotaur(player);
+    spawnEntityAt(mino, randomPos, true, true);
+  }
+
+  private void spawnSnake() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity snake = NPCFactory.createSnake(player);
+    spawnEntityAt(snake, randomPos, true, true);
+  }
+  private void spawnBat() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity bat = NPCFactory.createBat(player);
+    spawnEntityAt(bat, randomPos, true, true);
+  }
+  private void spawnRat() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
@@ -143,23 +192,20 @@ public class ForestGameArea extends GameArea {
       Entity ghost = NPCFactory.createRat(player);
       spawnEntityAt(ghost, randomPos, true, true);
     }
-    //this is for the Minnotaur
-    for (int i = 0; i < NUM_GHOSTS; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity ghost = NPCFactory.createMinotaur(player);
-      spawnEntityAt(ghost, randomPos, true, true);
-    }
   }
-
-
-
-
+  private void spawnDog() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity dog = NPCFactory.createDog(player);
+    spawnEntityAt(dog, randomPos, true, true);
+  }
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity ghostKing = NPCFactory.createDog(player);
+    Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
   }
 

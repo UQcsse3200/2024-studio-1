@@ -7,6 +7,22 @@
     "viewDistance": 3,
     "chaseDistance": 3
   },
+  "bear": {
+    "health": 600,
+    "baseAttack": 35,
+    "wanderSpeed": 3,
+    "chaseSpeed": 5,
+    "viewDistance": 4,
+    "chaseDistance": 4
+  },
+  "bat": {
+    "health": 50,
+    "baseAttack": 3,
+    "wanderSpeed": 4,
+    "chaseSpeed": 4,
+    "viewDistance": 4,
+    "chaseDistance": 4
+  },
   "dog": {
     "health": 300,
     "baseAttack": 20,
@@ -17,7 +33,7 @@
   },
   "croc": {
     "health": 500,
-    "baseAttack": 300,
+    "baseAttack": 30,
     "wanderSpeed": 0.1,
     "chaseSpeed": 0.3,
     "viewDistance": 2,
@@ -31,6 +47,14 @@
     "viewDistance": 3,
     "chaseDistance": 7
   },
+  "snake": {
+    "health": 300,
+    "baseAttack": 10,
+    "wanderSpeed": 2,
+    "chaseSpeed": 2,
+    "viewDistance": 3,
+    "chaseDistance": 3
+  },
   "minotaur": {
     "health": 400,
     "baseAttack": 35,
@@ -39,6 +63,5 @@
     "viewDistance": 3,
     "chaseDistance":7
   }
-
 }
 

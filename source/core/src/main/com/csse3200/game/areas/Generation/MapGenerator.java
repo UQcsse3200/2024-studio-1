@@ -127,26 +127,50 @@ public class MapGenerator {
 
     public void createMap() {
         int roomCount = (int) calculateCeiling(mapSize);
-
         while (0 < roomCount) {
-            int size = this.relativePosition.size();
-            if (size == 0) break;
-
+            // 0_0 : [0_1, "", "", ""]
             List<String> rooms = new ArrayList<>(relativePosition.keySet());
 
             String randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-
-            int detlas_direction = rng.getRandomInt(0, 3);
-            int[] positions = parseIntRelativeLocation(relativePosition.get(randomRoomKey)[detlas_direction]);
-
-            for (int i = 0; i < positions.length; i++) {
-                positions[i] = positions[i] + this.detlas[detlas_direction][i];
+            int detlas_index = rng.getRandomInt(0, 4);
+            String new_Room_key = addKeyDetlas(randomRoomKey, detlas[detlas_index]);
+            if (relativePosition.containsKey(new_Room_key) || !relativePosition.containsKey(randomRoomKey)) {
+                continue;
             }
+            int animal_index = rng.getRandomInt(0, 7);
+            int item_index = rng.getRandomInt(0, 15);
+            addBlankRoom(new_Room_key, animal_index, item_index);
+            connectRooms(randomRoomKey, new_Room_key, detlas_index);
             roomCount--;
         }
     }
 
+    public void printRelativePosition() {
+        System.out.println("Relative Position:");
+        for (Map.Entry<String, String[]> entry : relativePosition.entrySet()) {
+            String key = entry.getKey();
+            String[] connections = entry.getValue();
+            System.out.println("Room: " + key);
+            System.out.print("Connections: ");
+            for (String connection : connections) {
+                System.out.print(connection + " ");
+            }
+            System.out.println(); 
+        }
+    }
 
 
+    public void printRoomDetails() {
+        System.out.println("Room Details:");
+        for (Map.Entry<String, HashMap<String, Integer>> entry : roomDetails.entrySet()) {
+            String key = entry.getKey();
+            HashMap<String, Integer> details = entry.getValue();
+            System.out.println("Room: " + key);
+            for (Map.Entry<String, Integer> detail : details.entrySet()) {
+                System.out.println("  " + detail.getKey() + ": " + detail.getValue());
+            }
+        }
+    }
+    }
 
-} 
+

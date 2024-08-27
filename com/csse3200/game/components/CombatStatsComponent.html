@@ -119,6 +119,10 @@ loadScripts(document, 'script');</script>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int)" class="member-name-link">CombatStatsComponent</a><wbr>(int&nbsp;health,
  int&nbsp;baseAttack)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int,boolean)" class="member-name-link">CombatStatsComponent</a><wbr>(int&nbsp;health,
+ int&nbsp;baseAttack,
+ boolean&nbsp;canBeInvincible)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -148,9 +152,21 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the entity's health.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getIsInvincible()" class="member-name-link">getIsInvincible</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">returns the state of the entity's invincibility</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMaxHealth()" class="member-name-link">getMaxHealth</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the entity's maximum health.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hit(com.csse3200.game.components.CombatStatsComponent)" class="member-name-link">hit</a><wbr>(<a href="CombatStatsComponent.html" title="class in com.csse3200.game.components">CombatStatsComponent</a>&nbsp;attacker)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Handles a hit from another entity by reducing the entity's health based on the attacker's base attack value.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isDead()" class="member-name-link">isDead</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -165,6 +181,16 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setHealth(int)" class="member-name-link">setHealth</a><wbr>(int&nbsp;health)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the entity's health.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setInvincible(boolean)" class="member-name-link">setInvincible</a><wbr>(boolean&nbsp;invincible)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the state of the entity's invincibility</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#takeDamage(int)" class="member-name-link">takeDamage</a><wbr>(int&nbsp;damage)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Applies damage to the entity by reducing its health.</div>
 </div>
 </div>
 </div>
@@ -186,6 +212,14 @@ loadScripts(document, 'script');</script>
 <section class="constructor-details" id="constructor-detail">
 <h2>Constructor Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="&lt;init&gt;(int,int,boolean)">
+<h3>CombatStatsComponent</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CombatStatsComponent</span><wbr><span class="parameters">(int&nbsp;health,
+ int&nbsp;baseAttack,
+ boolean&nbsp;canBeInvincible)</span></div>
+</section>
+</li>
 <li>
 <section class="detail" id="&lt;init&gt;(int,int)">
 <h3>CombatStatsComponent</h3>
@@ -268,9 +302,58 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="takeDamage(int)">
+<h3>takeDamage</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">takeDamage</span><wbr><span class="parameters">(int&nbsp;damage)</span></div>
+<div class="block">Applies damage to the entity by reducing its health. If health drops to 0, triggers a "died" event.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>damage</code> - The amount of damage to apply to the entity.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getMaxHealth()">
+<h3>getMaxHealth</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getMaxHealth</span>()</div>
+<div class="block">Returns the entity's maximum health.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>maximum health</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="hit(com.csse3200.game.components.CombatStatsComponent)">
 <h3>hit</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">hit</span><wbr><span class="parameters">(<a href="CombatStatsComponent.html" title="class in com.csse3200.game.components">CombatStatsComponent</a>&nbsp;attacker)</span></div>
+<div class="block">Handles a hit from another entity by reducing the entity's health based on the attacker's base attack value.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>attacker</code> - The CombatStatsComponent of the entity attacking this entity.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setInvincible(boolean)">
+<h3>setInvincible</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setInvincible</span><wbr><span class="parameters">(boolean&nbsp;invincible)</span></div>
+<div class="block">Sets the state of the entity's invincibility</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>invincible</code> - invincibility state</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getIsInvincible()">
+<h3>getIsInvincible</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">getIsInvincible</span>()</div>
+<div class="block">returns the state of the entity's invincibility</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>invincibility state</dd>
+</dl>
 </section>
 </li>
 </ul>

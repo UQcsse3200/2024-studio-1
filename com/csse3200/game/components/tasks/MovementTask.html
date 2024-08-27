@@ -129,10 +129,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.badlogic.gdx.math.Vector2)" class="member-name-link">MovementTask</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;target)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a MovementTask with a target position.</div>
+</div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.badlogic.gdx.math.Vector2,float)" class="member-name-link">MovementTask</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;target,
  float&nbsp;stopDistance)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Creates a MovementTask with a target position and a custom stop distance.</div>
+</div>
 </div>
 </section>
 </li>
@@ -149,20 +153,27 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTarget(com.badlogic.gdx.math.Vector2)" class="member-name-link">setTarget</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;target)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the target position to move to.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setVelocity(float)" class="member-name-link">setVelocity</a><wbr>(float&nbsp;speed)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Start running this task.</div>
+<div class="block">Sets the movement velocity.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stop()" class="member-name-link">stop</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Stop the task immediately.</div>
+<div class="block">Start running this task.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stop()" class="member-name-link">stop</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Stop the task immediately.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Run one frame of the task.</div>
 </div>
 </div>
@@ -189,6 +200,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(com.badlogic.gdx.math.Vector2)">
 <h3>MovementTask</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">MovementTask</span><wbr><span class="parameters">(com.badlogic.gdx.math.Vector2&nbsp;target)</span></div>
+<div class="block">Creates a MovementTask with a target position.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>target</code> - the target position to move to</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -196,6 +212,12 @@ loadScripts(document, 'script');</script>
 <h3>MovementTask</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">MovementTask</span><wbr><span class="parameters">(com.badlogic.gdx.math.Vector2&nbsp;target,
  float&nbsp;stopDistance)</span></div>
+<div class="block">Creates a MovementTask with a target position and a custom stop distance.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>target</code> - the target position to move to</dd>
+<dd><code>stopDistance</code> - the distance from the target at which to stop</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -238,6 +260,22 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="setTarget(com.badlogic.gdx.math.Vector2)">
 <h3>setTarget</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setTarget</span><wbr><span class="parameters">(com.badlogic.gdx.math.Vector2&nbsp;target)</span></div>
+<div class="block">Sets the target position to move to.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>target</code> - the new target position</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setVelocity(float)">
+<h3>setVelocity</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setVelocity</span><wbr><span class="parameters">(float&nbsp;speed)</span></div>
+<div class="block">Sets the movement velocity.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>speed</code> - the speed to set</dd>
+</dl>
 </section>
 </li>
 <li>

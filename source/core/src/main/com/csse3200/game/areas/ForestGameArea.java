@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.areas.terrain.TerrainFactory.TerrainType;
+import com.csse3200.game.areas.AnimalSpawner;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.RoomDirection;
@@ -46,6 +47,9 @@ public class ForestGameArea extends GameArea {
           "images/tile_blood.png"
   };
 
+  private static final String[] forestTextureAtlases = {
+          "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
+  };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
@@ -58,7 +62,7 @@ public class ForestGameArea extends GameArea {
   private static final float WALL_WIDTH = 0.15f;
   private int num;
 
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10,10);
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(8,8);
 
   /**
    * Initialise this ForestGameArea to use the provided TerrainFactory.
@@ -74,6 +78,7 @@ public class ForestGameArea extends GameArea {
     this.roomList = new ArrayList<>();
     this.mapGenerator = new MapGenerator(difficulty*12, seed);
     this.mapGenerator.createMap();
+    AnimalSpawner.setGameArea(this);
     logger.info(this.mapGenerator.printRelativePosition());
   }
 
@@ -84,6 +89,8 @@ public class ForestGameArea extends GameArea {
     displayUI();
     spawnTerrain();
     player = spawnPlayer();
+    spawnAnimals();
+
     //playMusic();
   }
 
@@ -104,6 +111,15 @@ public class ForestGameArea extends GameArea {
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
     createWalls(tileBounds, worldBounds);
     createDoors();
+  }
+
+  private void spawnAnimals() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    //HashMap<String,Integer> rd = mapGenerator.getRoomDetails().get("animal_index");
+    //Integer index = rd.get("animal_index").ge;
+    //AnimalSpawner.spawnAnimalGroup(player,index,minPos,maxPos);
+    AnimalSpawner.spawnAnimalGroup(player,1,minPos,maxPos);
   }
 
   private void createWalls(GridPoint2 tileBounds, Vector2 worldBounds){
@@ -240,7 +256,7 @@ public class ForestGameArea extends GameArea {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(tileTextures);
-
+    resourceService.loadTextureAtlases(forestTextureAtlases);
     resourceService.loadSounds(forestSounds);
     resourceService.loadMusic(forestMusic);
 
@@ -254,7 +270,7 @@ public class ForestGameArea extends GameArea {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(tileTextures);
-
+    resourceService.unloadAssets(forestTextureAtlases);
     resourceService.unloadAssets(forestSounds);
     resourceService.unloadAssets(forestMusic);
   }

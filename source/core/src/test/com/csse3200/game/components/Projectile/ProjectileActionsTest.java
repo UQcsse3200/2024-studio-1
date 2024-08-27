@@ -5,20 +5,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.ai.tasks.AITaskComponent;
-import com.csse3200.game.ai.tasks.Task.Status;
-import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.tasks.ChaseTask;
-import com.csse3200.game.components.tasks.MovementTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.extensions.GameExtension;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.DebugRenderer;
 import com.csse3200.game.rendering.RenderService;
@@ -26,10 +17,8 @@ import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.Vector2Utils;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -172,8 +161,8 @@ class ProjectileActionsTest {
             projectileUp.update();
             ServiceLocator.getPhysicsService().getPhysics().update();
         }
-        float upChange = projectileUp.getPosition().dst(1f,0f);;
-        float downChange = projectileDown.getPosition().dst(0f,0f);;
+        float upChange = projectileUp.getPosition().dst(1f,0f);
+        float downChange = projectileDown.getPosition().dst(0f,0f);
         assertTrue(upChange > 0);
         assertTrue(downChange > 0);
     }

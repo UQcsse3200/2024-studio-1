@@ -1,9 +1,9 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player;
 
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.components.player.WeaponComponent;
+import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;

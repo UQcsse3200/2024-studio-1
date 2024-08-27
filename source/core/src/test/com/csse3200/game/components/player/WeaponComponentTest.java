@@ -1,25 +1,10 @@
 package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.configs.ProjectileConfig;
-import com.csse3200.game.entities.factories.ProjectileFactory;
-import com.csse3200.game.physics.PhysicsService;
-import com.csse3200.game.rendering.DebugRenderer;
-import com.csse3200.game.rendering.RenderService;
-import com.csse3200.game.services.GameTime;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.utils.math.Vector2Utils;
 import org.junit.Test;
-import com.csse3200.game.entities.Entity;
-import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class WeaponComponentTest {
 

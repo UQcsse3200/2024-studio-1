@@ -19,21 +19,12 @@ public class MapFactory {
      * @param room : The room whose connections are required to be extracted.
      * @return : A list of integer arrays which contain coordinates of the rooms that are connected to the room input.
      */
-    public static List<int[]> getRoomConnections(String room) {
+    public static List<String> getRoomConnections(String room) {
         List<String> connections = mapData.roomConnections.get(room);
         if (connections == null) {
-            throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no connections");
+            throw new IllegalArgumentException("Room" + room + "doesn't exist or has no connections");
         }
-        List<int[]> roomConnections = new ArrayList<>();
-        for (String connection : connections) {
-            //Splitting the room connection coordinates into a list of [x,y]
-            //coordinates
-            String[] parts = connection.split("_");
-            int[] coordinates = new int[]{Integer.parseInt(parts[0]), Integer.parseInt(parts[1])};
-            roomConnections.add(coordinates);
-        }
-        System.out.println(mapData);
-        return roomConnections;
+        return connections;
     }
 
     /**
@@ -42,8 +33,8 @@ public class MapFactory {
      * @param index : The index of the connection that is required to be extracted.
      * @return : returns a specific room that is connected to the current one.
      */
-    public static int[] getRoomConnection(String room, int index) {
-        List<int[]> roomConnections = getRoomConnections(room);
+    public static String getRoomConnection(String room, int index) {
+        List<String> roomConnections = getRoomConnections(room);
         //checks for out of bounds indices and returns an exception.
         if (index < 0 || index > roomConnections.size()) {
             throw new IndexOutOfBoundsException("The index" + index + "is out of bounds");
@@ -81,9 +72,12 @@ public class MapFactory {
      * A method to extract the players start location on the map.
      * @return : returns the x and y coordinates of the player's start position on the map.
      */
-    public static int[] getPlayerLocation() {
-        String[] playerCoordinates = mapData.playerLocation.split("_");
-        return new int[]{Integer.parseInt(playerCoordinates[0]), Integer.parseInt(playerCoordinates[1])};
+    public static String getPlayerLocation() {
+        String playerCoordinates = mapData.playerLocation;
+        if (playerCoordinates == null) {
+            throw new IllegalArgumentException("Player coordinates doesn't exist");
+        }
+        return playerCoordinates;
     }
 
     /**

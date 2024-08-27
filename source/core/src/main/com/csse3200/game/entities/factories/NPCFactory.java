@@ -363,8 +363,6 @@ public class NPCFactory {
                             config.chaseSpeed));
 
     Entity gorilla = createBaseNPC(aiComponent);
-
-
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()

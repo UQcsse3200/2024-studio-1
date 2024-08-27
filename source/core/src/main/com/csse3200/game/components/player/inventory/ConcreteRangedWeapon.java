@@ -3,7 +3,6 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.components.player.WeaponComponent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +22,7 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     public ConcreteRangedWeapon(String specification) {
         Texture texture1;
         this.specification = specification;
-        try{
+        try {
             List<String> parts = Arrays.stream(specification.split(",")).toList();
             System.out.println(parts);
             // read the img path and create a texture
@@ -55,8 +54,8 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     }
 
     @Override
-    public String getSpecification() {
-        return super.getSpecification() + this.specification;
+    public String getRangedSpecification() {
+        return this.specification;
     }
 
     @Override

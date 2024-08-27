@@ -1,19 +1,24 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 
+/**
+ * Display's Player's health on UI as a health bar above player's head
+ */
 public class PlayerHealthDisplay extends UIComponent{
-        Table table;
-        private Image heartImage;
-        private Label healthLabel;
-        private Label weaponLabel;
+       /** Dimensions of health bar */
+        private static final float WIDTH = 1.5f;
+        private static final float HEIGHT = 0.1f;
+        /** Constant used to calculate the position of health bar on UI*/
+        private final static float X_BAR = 0.3f;
+        private final static float Y_BAR = 1.2f;
+        /** Shape rendered for drawing the health bar */
+        private ShapeRenderer shapeRenderer;
 
         /**
          * Creates reusable ui styles and adds actors to the stage.
@@ -21,60 +26,50 @@ public class PlayerHealthDisplay extends UIComponent{
         @Override
         public void create() {
             super.create();
-            addActors();
-            entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
+            shapeRenderer = new ShapeRenderer();
         }
 
         /**
-         * Creates actors and positions them on the stage using a table.
-         * @see Table for positioning options
+         * Draws the health bar over player's head
+         * The bar is red in colour and the green filling over the red bar
+         * @param batch  the sprite batch used for rendering
          */
-        private void addActors() {
-            table = new Table();
-            table.top().left();
-            table.setFillParent(true);
-            table.padTop(45f).padLeft(5f);
-
-            // Heart image
-            float heartSideLength = 30f;
-            heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
-
-            // Health text
-            int health = entity.getComponent(CombatStatsComponent.class).getHealth();
-            CharSequence healthText = String.format("Health: %d", health);
-            healthLabel = new Label(healthText, skin, "large");
-
-            //Weapon text, like the name of weapon
-            String weapon = ""; //entity.getComponent(WeaponComponent.class).getWeaponType();
-            CharSequence weaponText = String.format("Weapon: %s", weapon);
-            weaponLabel = new Label(weaponText, skin, "large");
-
-
-            table.add(heartImage).size(heartSideLength).pad(5);
-            table.add(healthLabel).padLeft(10).left();
-            table.row().padTop(10);
-            table.add(weaponLabel).colspan(2).padLeft(10).left();
-            stage.addActor(table);
-        }
-
         @Override
         public void draw(SpriteBatch batch)  {
-            // draw is handled by the stage
+            // end the current batch to prepare for cutsom shape renderer drawing
+            batch.end();
+            // copy the current projection matrix for use
+            Matrix4 projectionMatrix = batch.getProjectionMatrix().cpy();
+            shapeRenderer.setProjectionMatrix(projectionMatrix);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+            // get player's current health percentage
+            CombatStatsComponent stats = entity.getComponent(CombatStatsComponent.class);
+            float healthPercent = (float) stats.getHealth() / 100;
+
+            // Draw full health bar in red with defined position and size
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.rect(entity.getPosition().x - X_BAR,
+                    entity.getPosition().y + Y_BAR, WIDTH, HEIGHT);
+
+            // Draw green bar on top of red bar with the width of health percentage
+            float greenFill = WIDTH * healthPercent;
+            shapeRenderer.setColor(Color.GREEN);
+            shapeRenderer.rect(entity.getPosition().x - X_BAR,
+                    entity.getPosition().y + Y_BAR, greenFill, HEIGHT );
+
+
+            shapeRenderer.end();
+            batch.begin();
+
         }
 
-        /**
-         * Updates the player's health on the ui.
-         * @param health player health
-         */
-        public void updatePlayerHealthUI(int health) {
-            CharSequence text = String.format("Health: %d", health);
-            healthLabel.setText(text);
-        }
-        @Override
-        public void dispose() {
+    /**
+     * Dispose the resources used by shape rendered that are no longer needed
+     */
+    public void dispose() {
             super.dispose();
-            heartImage.remove();
-            healthLabel.remove();
+            shapeRenderer.dispose();
         }
 
 }

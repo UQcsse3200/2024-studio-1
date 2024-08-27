@@ -39,8 +39,15 @@ public abstract class RangedWeapon implements Collectible {
 
     @Override
     public String getSpecification() {
-        return "ranged:";
+        return "ranged:" + getRangedSpecification();
     }
+
+    /**
+     * Get the specification of this ranged weapon.
+     *
+     * @return the string representation of this ranged weapon.
+     */
+    public abstract String getRangedSpecification();
 
     /**
      * Fire this weapon.
@@ -53,47 +60,47 @@ public abstract class RangedWeapon implements Collectible {
         return damage;
     }
 
-    public int getRange() {
-        return range;
-    }
-
-    public int getFireRate() {
-        return fireRate;
-    }
-
-    public int getAmmo() {
-        return ammo;
-    }
-
-    public int getMaxAmmo() {
-        return maxAmmo;
-    }
-
-    public int getReloadTime() {
-        return reloadTime;
-    }
-
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getRange() {
+        return range;
     }
 
     public void setRange(int range) {
         this.range = range;
     }
 
+    public int getFireRate() {
+        return fireRate;
+    }
+
     public void setFireRate(int fireRate) {
         this.fireRate = fireRate;
+    }
+
+    public int getAmmo() {
+        return ammo;
     }
 
     public void setAmmo(int ammo) {
         this.ammo = ammo;
     }
 
+    public int getMaxAmmo() {
+        return maxAmmo;
+    }
+
     public void setMaxAmmo(int maxAmmo) {
         this.maxAmmo = maxAmmo;
     }
 
-public void setReloadTime(int reloadTime) {
+    public int getReloadTime() {
+        return reloadTime;
+    }
+
+    public void setReloadTime(int reloadTime) {
         this.reloadTime = reloadTime;
     }
 }

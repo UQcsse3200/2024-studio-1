@@ -1,10 +1,15 @@
 package com.csse3200.game.components.player;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.ui.UIComponent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -71,16 +76,37 @@ public class PlayerInventoryDisplay extends UIComponent {
     }
 
     /**
-     * Takes all items stored in player's inventory and displays it one by one
-     * on UI, displaying one on each line
+     * Takes all items stored in player's inventory and displays them with
+     * their amount and icon on UI, displaying one on each line
      */
     void addItems() {
-        for (Collectible item : inventoryComponent.getInventory().getItems()) {
+        // store the amount of each item
+        Map<String, Integer> itemQuantities = new HashMap<>();
+        // store the icon of each item
+        Map<String, Texture> itemIcons = new HashMap<>();
 
-            CharSequence itemText = item.getName();
+        for (Collectible item : inventoryComponent.getInventory().getItems()) {
+            String itemName = item.getName();
+            // add all the items and its amount
+            itemQuantities.put(itemName, itemQuantities.getOrDefault(itemName, 0) + 1);
+            // Store the icon for this item if not already stored
+            if (!itemIcons.containsKey(itemName)) {
+                itemIcons.put(itemName, item.getIcon());
+            }
+        }
+
+        // Display each unique item with its quantity
+        for (Map.Entry<String, Integer> entry : itemQuantities.entrySet()) {
+            Texture itemIcon = itemIcons.get(entry.getKey());
+            // Create an image using the item's icon
+            Image itemImage = new Image(itemIcon);
+            // define teh text to add
+            CharSequence itemText = entry.getKey() + " x" + entry.getValue();
             Label itemLabel = new Label(itemText, skin, "large");
-            inventoryTable.add(itemLabel).pad(5f);
-            // move to next line
+
+            // Add the icon and the text to the table
+            inventoryTable.add(itemImage).bottom().left().padRight(0.1f);
+            inventoryTable.add(itemLabel).left();
             inventoryTable.row();
         }
     }

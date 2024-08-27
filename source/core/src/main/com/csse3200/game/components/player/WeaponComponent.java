@@ -13,9 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WeaponComponent extends Component {
-
-
-    private static final Logger logger = LoggerFactory.getLogger(Component.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
     private Collectible.Type weaponType; // type of weapon
 
     // Ranged
@@ -129,7 +127,6 @@ public class WeaponComponent extends Component {
      * Set the type of weapon to new value
      *
      * @param weaponType new type of weapon
-     * @return type of weapon
      */
     public void setWeaponType(Collectible.Type weaponType) {
         this.weaponType = weaponType;
@@ -166,7 +163,7 @@ public class WeaponComponent extends Component {
     /**
      * Set the range of weapon to new value (shotgun only)
      *
-     * @param range
+     * @param range the new ranged to set the weapon to.
      */
     public void setRange(int range) {
         this.range = range;

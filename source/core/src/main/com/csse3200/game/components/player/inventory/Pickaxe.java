@@ -20,6 +20,11 @@ public class Pickaxe extends MeleeWeapon {
     }
 
     @Override
+    public String getMeleeSpecification() {
+        return "pickaxe";
+    }
+
+    @Override
     public String getName() {
         return "pickaxe";
     }

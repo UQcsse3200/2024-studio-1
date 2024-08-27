@@ -8,14 +8,11 @@ import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
-import com.csse3200.game.entities.factories.ProjectileFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WeaponComponent extends Component {
-
-
-    private static final Logger logger = LoggerFactory.getLogger(Component.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
     private Collectible.Type weaponType; // type of weapon
 
     private int damage; // weapon damage

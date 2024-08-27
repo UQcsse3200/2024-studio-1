@@ -1,26 +1,32 @@
 package com.csse3200.game.entities.factories;
-import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.PhysicsUtils;
-import com.csse3200.game.physics.components.ColliderComponent;
-import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.components.player.inventory.*;
 
+/**
+ * A factory that creates weapons.
+ */
 public class WeaponFactory {
     private MeleeWeapon createMelee(String specification) {
-        return new ConcreteMeleeWeapon(specification);
+        return switch (specification) {
+            case "knife" -> new Knife();
+            case "pickaxe" -> new Pickaxe();
+            default -> new ConcreteMeleeWeapon(specification);
+        };
     }
-
 
     private RangedWeapon createRanged(String specification){
         // specification format: "ranged:<Ranged Weapon>,<pathtoicon>,<damage>,<range>,<fireRate>,<ammo>,<maxAmmo>,<reloadTime>"
-
+        if (specification.equals("shotgun")) {
+            return new Shotgun();
+        }
         return new ConcreteRangedWeapon(specification);
     }
 
+    /**
+     * Create a new weapon from a specification.
+     * @param type the type of the weapon (melee or ranged)
+     * @param specification the specification of the weapon.
+     * @return The newly constructed collectible.
+     */
     public Collectible create(Collectible.Type type, String specification) {
         return switch (type) {
             case MELEE_WEAPON -> createMelee(specification);
@@ -28,35 +34,4 @@ public class WeaponFactory {
             default -> throw new IllegalArgumentException("invalid weapon type: " + type);
         };
     }
-
-    public static Entity createPickaxeEntity() {
-        Pickaxe pickaxe = new Pickaxe();
-        Entity pickaxeEntity = new Entity()
-                .addComponent(new TextureRenderComponent("images/Weapons/pickaxe.png"))
-                .addComponent(new PhysicsComponent())
-                .addComponent(new ColliderComponent())
-                .addComponent(new HitboxComponent())
-                .addComponent(new CollectibleComponent(pickaxe));
-
-        pickaxeEntity.getComponent(TextureRenderComponent.class).scaleEntity();
-        pickaxeEntity.scaleHeight(0.9f);
-        PhysicsUtils.setScaledCollider(pickaxeEntity, 0.5f, 0.2f);
-        return pickaxeEntity;
-    }
-
-    public static Entity createShotgunEntity() {
-        Shotgun shotgun = new Shotgun();
-        Entity shotgunEntity = new Entity()
-                .addComponent(new TextureRenderComponent("images/Weapons/Shotgun.png"))
-                .addComponent(new PhysicsComponent())
-                .addComponent(new ColliderComponent())
-                .addComponent(new HitboxComponent())
-                .addComponent(new CollectibleComponent(shotgun));
-
-        shotgunEntity.getComponent(TextureRenderComponent.class).scaleEntity();
-        shotgunEntity.scaleHeight(0.9f);
-        PhysicsUtils.setScaledCollider(shotgunEntity, 0.5f, 0.2f);
-        return shotgunEntity;
-    }
 }
-

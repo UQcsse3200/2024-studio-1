@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * Provides a global access point for entities to register themselves. This allows for iterating
  * over entities to perform updates each loop. All game entities should be registered here.
@@ -80,5 +82,21 @@ public class EntityService {
     for (Entity entity : entities) {
       entity.dispose();
     }
+  }
+
+    public void dispose(List<Integer> deadAnimals) {
+        for (int i = 0; i < deadAnimals.size(); i++) {
+            for (Entity entity : entities) {
+                if (entity.getId() == deadAnimals.get(i)) {
+                    entity.dispose();
+                    deadAnimals.remove(i);
+                    break;
+                }
+            }
+        }
+    }
+
+  public Entity[] getEntities() {
+    return entities.toArray(Entity.class);
   }
 }

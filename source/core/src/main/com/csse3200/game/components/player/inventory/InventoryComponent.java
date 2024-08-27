@@ -41,6 +41,7 @@ public class InventoryComponent extends Component {
             entity.getEvents().trigger("updateRangedWeaponCount", rangedWeaponCount);
         }
         item.pickup(inventory);
+        getEntity().getEvents().trigger("updateInventory");
     }
 
     /**
@@ -50,6 +51,7 @@ public class InventoryComponent extends Component {
      */
     public void drop(Collectible item) {
         item.drop(inventory);
+        getEntity().getEvents().trigger("updateInventory");
     }
 
     /**

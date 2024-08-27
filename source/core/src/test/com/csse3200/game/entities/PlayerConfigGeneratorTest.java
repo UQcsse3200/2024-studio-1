@@ -24,15 +24,12 @@ public class PlayerConfigGeneratorTest {
     InventoryComponent inventoryComponent;
     CombatStatsComponent statsComponent;
 
-
     @Before
     public void setUp() {
         player = new Entity();
         inventoryComponent = new InventoryComponent();
-        statsComponent = new CombatStatsComponent(100, 30);
+        statsComponent = new CombatStatsComponent(100, 30, true);
         player.addComponent(inventoryComponent).addComponent(statsComponent);
-
-
     }
 
     /**
@@ -66,6 +63,11 @@ public class PlayerConfigGeneratorTest {
         inventoryComponent.getInventory().setMelee(new MeleeWeapon() {
 
             @Override
+            public String getMeleeSpecification() {
+                return "test";
+            }
+
+            @Override
             public String getName() {
                 return "Knife";
             }
@@ -77,7 +79,7 @@ public class PlayerConfigGeneratorTest {
         });
 
         PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals("melee:", playerConfig.melee);
+        assertEquals("melee:test", playerConfig.melee);
     }
 
 
@@ -85,6 +87,11 @@ public class PlayerConfigGeneratorTest {
     @Test
     public void testRangedWeapon() {
         inventoryComponent.getInventory().setRanged(new RangedWeapon() {
+            @Override
+            public String getRangedSpecification() {
+                return "test";
+            }
+
             @Override
             public void shoot(Vector2 direction) {
 
@@ -101,7 +108,7 @@ public class PlayerConfigGeneratorTest {
             }
         });
         PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals("ranged:", playerConfig.ranged);
+        assertEquals("ranged:test", playerConfig.ranged);
     }
 
     /** Test player with no weapon */
@@ -110,6 +117,12 @@ public class PlayerConfigGeneratorTest {
         PlayerConfig playerConfig = generator.savePlayerState(player);
         assertEquals("", playerConfig.ranged);
         assertEquals("", playerConfig.melee);
+    }
+
+    @Test
+    public void testNoInventory() {
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(0, playerConfig.items.length);
     }
     /**
      * Test player with only one item collected

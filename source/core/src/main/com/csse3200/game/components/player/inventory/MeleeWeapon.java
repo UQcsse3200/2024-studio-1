@@ -7,6 +7,7 @@ public abstract class MeleeWeapon implements Collectible {
     private int damage;
     private int range;
     private int fireRate;
+
     @Override
     public Type getType() {
         return Type.MELEE_WEAPON;
@@ -33,8 +34,15 @@ public abstract class MeleeWeapon implements Collectible {
 
     @Override
     public String getSpecification() {
-        return "melee:";
+        return "melee:" + getMeleeSpecification();
     }
+
+    /**
+     * Get the specification of this melee weapon.
+     *
+     * @return the string representation of this melee weapon.
+     */
+    public abstract String getMeleeSpecification();
 
     public int getDamage() {
         return damage;

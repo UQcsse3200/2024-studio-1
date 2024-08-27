@@ -35,6 +35,7 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
             //texture1 = new Texture("knife.png");
         }
     }
+
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
@@ -43,6 +44,11 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
     @Override
     public void drop(Inventory inventory) {
         super.drop(inventory);
+    }
+
+    @Override
+    public String getMeleeSpecification() {
+        return this.specification;
     }
 
     @Override

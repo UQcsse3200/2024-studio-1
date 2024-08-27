@@ -26,6 +26,9 @@ import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.csse3200.game.services.ResourceService;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -38,16 +41,38 @@ import com.csse3200.game.services.ServiceLocator;
  * similar characteristics.
  */
 public class NPCFactory {
+  private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
   private static final NPCConfigs configs =
           FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
-
+  private static final String[] npcAtlas ={
+    "images/ghost.atlas", 
+    "images/ghostKing.atlas",
+    "images/rat.atlas", 
+    "images/snake.atlas", 
+    "images/minotaur.atlas",
+    "images/bear.atlas", 
+    "images/dino.atlas",
+    "images/bat.atlas", 
+    "images/dog.atlas"
+  };
+  private static final String[] npcTextures ={
+    "images/ghost_1.png",
+    "images/ghost_king.png",
+    "images/rat.png",
+    "images/minotaur.png",
+    "images/dog.png",
+    "images/snake.png",
+    "images/dino.png",
+    "images/minotaur.png",
+    "images/bear.png" 
+  };
   /**
    * Creates a rat entity with predefined components and behaviour.
    *
    * @param target entity to chase
    * @return the created rat entity
    */
-  public static Entity createRat(Entity target) {
+  public Entity createRat(Entity target) {
     BaseEntityConfig config = configs.rat;
     AITaskComponent aiComponent =
             new AITaskComponent()
@@ -86,7 +111,7 @@ public class NPCFactory {
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createBear(Entity target) {
+  public Entity createBear(Entity target) {
     BaseEntityConfig config = configs.bear;
     AITaskComponent aiComponent =
             new AITaskComponent()
@@ -124,7 +149,7 @@ public class NPCFactory {
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createSnake(Entity target) {
+  public Entity createSnake(Entity target) {
     BaseEntityConfig config = configs.snake;
     AITaskComponent aiComponent =
             new AITaskComponent()
@@ -163,7 +188,7 @@ public class NPCFactory {
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createDino(Entity target) {
+  public Entity createDino(Entity target) {
     BaseEntityConfig config = configs.snake;
     AITaskComponent aiComponent =
             new AITaskComponent()
@@ -203,7 +228,7 @@ public class NPCFactory {
    * @param target entity to chase
    * @return the created rat entity
    */
-  public static Entity createBat(Entity target) {
+  public Entity createBat(Entity target) {
     BaseEntityConfig config = configs.bat;
     AITaskComponent aiComponent =
             new AITaskComponent()
@@ -242,7 +267,7 @@ public class NPCFactory {
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createMinotaur(Entity target) {
+  public Entity createMinotaur(Entity target) {
     BaseEntityConfig config = configs.minotaur;
     AITaskComponent aiComponent =
             new AITaskComponent()
@@ -282,7 +307,7 @@ public class NPCFactory {
    * @param target entity to chase
    * @return the created dog entity
    */
-  public static Entity createDog(Entity target) {
+  public Entity createDog(Entity target) {
     BaseEntityConfig config = configs.dog;
     AITaskComponent aiComponent =
             new AITaskComponent()
@@ -322,7 +347,7 @@ public class NPCFactory {
    * @param target entity to chase
    * @return the created crocodile entity
    */
-  public static Entity createCroc(Entity target) {
+  public Entity createCroc(Entity target) {
     BaseEntityConfig config = configs.croc;
     AITaskComponent aiComponent =
             new AITaskComponent()
@@ -359,7 +384,7 @@ public class NPCFactory {
    * @param target entity to chase
    * @return the created gorilla entity
    */
-  public static Entity createGorilla(Entity target) {
+  public Entity createGorilla(Entity target) {
     BaseEntityConfig config = configs.gorilla;
     AITaskComponent aiComponent =
             new AITaskComponent()
@@ -407,8 +432,18 @@ public class NPCFactory {
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;
   }
+  private void loadAssets() {
+    logger.debug("Loading assets");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    resourceService.loadTextures(npcTextures);
+    resourceService.loadTextureAtlases(npcAtlas);
 
-  private NPCFactory() {
-    throw new IllegalStateException("Instantiating static util class");
+    while (!resourceService.loadForMillis(10)) {
+      // This could be upgraded to a loading screen
+      logger.info("Loading... {}%", resourceService.getProgress());
+    }
+  }
+  public NPCFactory(){
+    loadAssets();
   }
 }

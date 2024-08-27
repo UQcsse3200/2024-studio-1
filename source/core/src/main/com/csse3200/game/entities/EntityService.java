@@ -73,7 +73,6 @@ public class EntityService {
     }
     entitiesToRemove.clear();
   }
-
   /**
    * Dispose all entities.
    */

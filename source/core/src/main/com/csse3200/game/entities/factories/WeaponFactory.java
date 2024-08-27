@@ -6,10 +6,11 @@ import com.csse3200.game.components.player.inventory.*;
  */
 public class WeaponFactory {
     private MeleeWeapon createMelee(String specification) {
-        if (specification.equals("knife")) {
-            return new Knife();
-        }
-        return new ConcreteMeleeWeapon(specification);
+        return switch (specification) {
+            case "knife" -> new Knife();
+            case "pickaxe" -> new Pickaxe();
+            default -> new ConcreteMeleeWeapon(specification);
+        };
     }
 
     private RangedWeapon createRanged(String specification){

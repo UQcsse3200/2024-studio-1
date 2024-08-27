@@ -50,7 +50,7 @@ public class ConcreteRangedWeapon extends RangedWeapon {
 
     @Override
     public Texture getIcon() {
-        return new Texture("Shotgun.png");
+        return new Texture("images/Weapons/Shotgun.png");
     }
 
     @Override

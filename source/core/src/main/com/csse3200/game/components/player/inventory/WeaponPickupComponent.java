@@ -7,10 +7,15 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * A component that allows a player to interact with items
  */
 public class WeaponPickupComponent extends Component {
+    // Create logger
+    private static final Logger logger = LoggerFactory.getLogger(Component.class);
     private Entity lastPickedUpEntity = null;
 
     /**
@@ -61,7 +66,8 @@ public class WeaponPickupComponent extends Component {
             // Store the last picked-up entity to avoid duplicate pickups
             lastPickedUpEntity = itemEntity;
 
-            System.out.println("It works!"); // Debug message to confirm functionality
+            logger.info("Weapon picked up"); // Debug message to confirm functionality
+
         }
     }
 
@@ -76,6 +82,6 @@ public class WeaponPickupComponent extends Component {
         // Perform any last checks or cleanup before actual disposal
         ServiceLocator.getEntityService().unregister(itemEntity);
         ServiceLocator.getEntityService().markEntityForRemoval(itemEntity);
-        System.out.println("Marking entity for removal: " + itemEntity);
+        logger.info("Marking entity for removal: " + itemEntity);
     }
 }

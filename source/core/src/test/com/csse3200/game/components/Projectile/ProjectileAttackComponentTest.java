@@ -1,8 +1,12 @@
 package com.csse3200.game.components.Projectile;
 
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.WeaponComponent;
+import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
@@ -16,11 +20,14 @@ import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.Vector2Utils;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -58,6 +65,34 @@ class ProjectileAttackComponentTest {
         projectile.getEvents().trigger("collisionStart", entityFixture, targetFixture);
 
         assertEquals(0, target.getComponent(CombatStatsComponent.class).getHealth());
+    }
+
+    @Test
+    public void testRangeWeaponFireRate () {
+
+
+        int maxAmmo = 10;
+        // create a weapon component
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
+                Collectible.Type.RANGED_WEAPON, 10, 5, 1, maxAmmo, maxAmmo, 2);
+        // Create test entity to attach weaponcomponent
+        Entity testEntity = new Entity();
+        testEntity.addComponent(weaponComponent);
+        // Shot in default direction with ammo at 0
+        weaponComponent.shoot(new Vector2());
+        try {
+            Thread.sleep(800);
+            weaponComponent.shoot(new Vector2());
+            // Attempt to shoot weapon faster than fire rate, weapon should not shoot.
+            assertEquals(maxAmmo - 1, weaponComponent.getAmmo());
+            Thread.sleep(200);
+            weaponComponent.shoot(new Vector2());
+            // Attempt to shoot weapon equal to fire rate, weapon should shoot.
+            assertEquals(maxAmmo - 2, weaponComponent.getAmmo());
+        } catch (InterruptedException ex) {
+            // sleep() failed
+            Assertions.fail();
+        }
     }
 
     @Test

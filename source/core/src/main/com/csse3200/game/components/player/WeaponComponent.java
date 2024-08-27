@@ -63,25 +63,42 @@ public class WeaponComponent extends Component {
     public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, int range,
                            int fireRate, int ammo, int maxAmmo, int reloadTime) {
         System.out.println("WeaponComponent created");
-        this.damage = damage;
-        this.range = range;
-        this.fireRate = fireRate;
+        if (weaponType == Collectible.Type.MELEE_WEAPON) {
+            this.swingDamge = damage;
+            this.swingRate = fireRate;
+            this.swingRange = range;
+            this.meleeSprite = weaponSprite;
+
+            // Setup variables to track weapon state
+            this.lastAttack = 0L;
+            if (this.swingRate == 0) {
+                this.swingInterval = 0L;
+            } else {
+                this.swingInterval = (1000L / this.swingRate);
+            }
+        }
+        else if (weaponType == Collectible.Type.RANGED_WEAPON) {
+            this.damage = damage;
+            this.range = range;
+            this.fireRate = fireRate;
+
+            this.weaponSprite = weaponSprite;
+
+            // Setup variables to track weapon state
+            this.lastAttack = 0L;
+            if (this.fireRate == 0) {
+                this.attackInterval = 0L;
+            } else {
+                this.attackInterval = (1000L / this.fireRate);
+            }
+        }
         this.ammo = ammo;
         this.maxAmmo = maxAmmo;
         this.reloadTime = reloadTime;
-        this.weaponSprite = weaponSprite;
-        this.weaponType = weaponType;
 
         // Currently has only 1 projectile config
         this.bulletConfig = new ProjectileConfig();
 
-        // Setup variables to track weapon state
-        this.lastAttack = 0L;
-        if (this.fireRate == 0) {
-            this.attackInterval = 0L;
-        } else {
-        this.attackInterval = (1000L / this.fireRate);
-        }
     }
 
     /**
@@ -276,23 +293,27 @@ public class WeaponComponent extends Component {
         }
     }
 
-    public void updateWeapon() {
-        // Update weapon to bare hand
-        this.weaponType = Collectible.Type.NONE;
+    public void dropRangeWeapon() {
+        // Update range weapon to bare hand
         this.damage = 1;
         this.range = 1;
         this.fireRate = 1;
         this.ammo = -1; // -1 means no ammo
         this.maxAmmo = -1; // -1 means no ammo
         this.reloadTime = -1; // -1 means no reload time
-
+    }
+    public void dropMeleeWeapon() {
+        // Update melee weapon to bare hand
+        this.swingDamge = 1;
+        this.swingRange = 1;
+        this.swingRate = 1;
     }
 
     public void attack() {
 //        logger.info("WeaponComponent attack");
         Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
-        if (entity != null && this.weaponType == Collectible.Type.MELEE_WEAPON) {
+        if (entity != null) {
             if (currentTime - this.lastSwing <= this.swingInterval) {
                 // Weapon not ready
                 logger.info("Melee weapon not ready");
@@ -309,7 +330,7 @@ public class WeaponComponent extends Component {
     public void shoot(Vector2 direction) {
         Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
-        if (entity != null && this.weaponType == Collectible.Type.RANGED_WEAPON) {
+        if (entity != null) {
             if (currentTime - this.lastAttack <= this.attackInterval) {
                 // Weapon not ready
                 logger.info("Ranged weapon not ready");

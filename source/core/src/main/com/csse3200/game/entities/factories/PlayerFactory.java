@@ -3,6 +3,7 @@ package com.csse3200.game.entities.factories;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
@@ -79,6 +80,7 @@ public class PlayerFactory {
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(inventoryComponent)
+            .addComponent(new ItemPickupComponent())
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(animator)

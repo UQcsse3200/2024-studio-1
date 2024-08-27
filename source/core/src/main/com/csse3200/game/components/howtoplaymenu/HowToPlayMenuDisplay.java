@@ -20,7 +20,7 @@ import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HowToPlayMenuDisplay extends UIComponent{
+public class HowToPlayMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(HowToPlayMenuDisplay.class);
     private final GdxGame game;
 
@@ -63,68 +63,48 @@ public class HowToPlayMenuDisplay extends UIComponent{
 
     private Table makeHowToPlayTable() {
         Label instruction = new Label("Instructions: ", skin);
-        Label gameDescription1 = new Label(
-                "Beast Breakout is a top-down dungeon crawler game, presented using two-dimensional sprites, in which the player controls",
-                skin
-        );
-        Label gameDescription2 = new Label(
-                "an unnamed character in a non-specific facility.",
-                skin
-        );
-        Label gameDescription3 = new Label(
-                "On each floor of the facility, the player must fight enraged animals in a room before continuing onto the next room. This is",
-                skin
-        );
-        Label gameDescription4 = new Label(
-                "most commonly done by the character's melee or ranged weapon in the style of a twin-stick shooter.",
-                skin
-        );
-        Label gameDescription5 = new Label(
-                "Other methods of defeating enemies become possible as the character gains power-ups, items that are automatically worn",
-                skin
-        );
-        Label gameDescription6 = new Label(
-                "by the player-character when picked up that can alter the character's core attributes, such as increasing health or the",
-                skin
-        );
-        Label gameDescription7 = new Label(
-                "strength of their weapons, or cause additional side effects.",
-                skin
-        );
-        Label gameDescription8 = new Label(
-                "When the player loses all of their health the game ends in permadeath and the player must start over from a freshly-",
-                skin
-        );
-        Label gameDescription9 = new Label(
-                "generated dungeon. Each floor of the dungeon includes a boss which the player must defeat before continuing to the next level.",
-                skin
-        );
+
+        String[][] paragraphs = {{
+                "Beast Breakout is a top-down dungeon crawler game, presented using "
+                        + "two-dimensional sprites, in which the player controls",
+                "an unnamed character in a non-specific facility."
+            }, {
+                "On each floor of the facility, the player must fight enraged animals in a room "
+                        + "before continuing onto the next room. This is",
+                "most commonly done by the character's melee or ranged weapon in the style of a "
+                        + "twin-stick shooter."
+            }, {
+                "Other methods of defeating enemies become possible as the character gains "
+                        + "power-ups, items that are automatically worn",
+                "by the player-character when picked up that can alter the character's core "
+                        + "attributes, such as increasing health or the",
+                "strength of their weapons, or cause additional side effects."
+            }, {
+                "When the player loses all of their health the game ends in permadeath and the "
+                        + "player must start over from a freshly-",
+                "generated dungeon. Each floor of the dungeon includes a boss which the player "
+                        + "must defeat before continuing to the next level."
+            }
+        };
 
         // Position components on the table
         Table table = new Table();
         table.add(instruction).left().padRight(10f);
         table.row().padTop(40f);
-        table.add(gameDescription1).left().expandX();
-        table.row().padTop(10f);
-        table.add(gameDescription2).left().expandX();
-        table.row().padTop(40f);
-        table.add(gameDescription3).left().expandX();
-        table.row().padTop(10f);
-        table.add(gameDescription4).left().expandX();
-        table.row().padTop(40f);
-        table.add(gameDescription5).left().expandX();
-        table.row().padTop(10f);
-        table.add(gameDescription6).left().expandX();
-        table.row().padTop(10f);
-        table.add(gameDescription7).left().expandX();
-        table.row().padTop(40f);
-        table.add(gameDescription8).left().expandX();
-        table.row().padTop(10f);
-        table.add(gameDescription9).left().expandX();
-        table.row().padTop(10f);
 
+        for (String[] paragraph : paragraphs) {
+            for (int i = 0; i < paragraph.length; i++) {
+                String line = paragraph[i];
+                Label label = new Label(line, skin);
+                table.add(label).left().expandX();
 
-        table.row().padTop(10f);
+                // Different padding for end of paragraph
+                boolean lastLine = (i + 1 == paragraph.length);
+                table.row().padTop(lastLine ? 40f : 10f);
+            }
+        }
+
+        // todo look into word wrap so we don't need this many labels
 
         return table;
     }

@@ -10,12 +10,16 @@ public class Knife extends MeleeWeapon {
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
-//        inventory.getEntity().addComponent(new );
     }
 
     @Override
-    public void attack() {
-        System.out.println("stab!");
+    public String getMeleeSpecification() {
+        return "knife";
+    }
+
+    @Override
+    public void drop(Inventory inventory) {
+        super.drop(inventory);
     }
 
     @Override
@@ -25,6 +29,8 @@ public class Knife extends MeleeWeapon {
 
     @Override
     public Texture getIcon() {
-        return new Texture("knife.png");
+        return new Texture("images/Weapons/knife.png");
     }
 }
+
+

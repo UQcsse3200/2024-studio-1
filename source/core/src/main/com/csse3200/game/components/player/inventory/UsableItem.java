@@ -10,7 +10,12 @@ public abstract class UsableItem implements Collectible {
 
     @Override
     public void pickup(Inventory inventory) {
+
         inventory.addItem(this);
+
+        //Apply method just for testing purpose of Health items(Sprint 1)
+        apply(inventory.getEntity());
+
         //FIXME This currently "uses" every item in the inventory at once.
         inventory.getEntity().getEvents().addListener("use", () -> this.apply(inventory.getEntity()));
         // Add anything needed to add to the user upon pickup.
@@ -18,8 +23,15 @@ public abstract class UsableItem implements Collectible {
 
     @Override
     public String getSpecification() {
-        return "item:";
+        return "item:" + getItemSpecification();
     }
+
+    /**
+     * Get the specification of this item.
+     *
+     * @return the string representation of this item.
+     */
+    public abstract String getItemSpecification();
 
     /**
      * Apply any effects this item does upon use.

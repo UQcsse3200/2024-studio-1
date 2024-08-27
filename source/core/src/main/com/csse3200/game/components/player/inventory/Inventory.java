@@ -60,7 +60,13 @@ public class Inventory {
      * Reset the player's currently held melee weapon to the default.
      */
     public void resetMelee() {
+        if (this.meleeWeapon.isEmpty()){
+            return;
+        }
+
+        MeleeWeapon mw = this.meleeWeapon.get();
         this.meleeWeapon = Optional.empty();
+        this.component.drop(mw);
     }
 
     /**
@@ -86,7 +92,13 @@ public class Inventory {
      * Reset the player's currently held ranged weapon to the default.
      */
     public void resetRanged() {
+        if (this.rangedWeapon.isEmpty()){
+            return;
+        }
+
+        RangedWeapon rw = this.rangedWeapon.get();
         this.rangedWeapon = Optional.empty();
+        this.component.drop(rw);
     }
 
     /**
@@ -105,6 +117,5 @@ public class Inventory {
      */
     public void addItem(Collectible item) {
         this.items.add(item);
-        getEntity().getEvents().trigger("updateInventory");
     }
 }

@@ -1,25 +1,22 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class ConcreteRangedWeapon extends RangedWeapon {
+/**
+ * Example Weapon Collectible.
+ */
+public class ConcreteMeleeWeapon extends MeleeWeapon {
     private final String specification;
     private final String name;
     private final Texture texture;
     private final int damage;
     private final int range;
     private final int fireRate;
-    private final int ammo;
-    private final int maxAmmo;
-    private final int reloadTime;
 
-
-    public ConcreteRangedWeapon(String specification) {
+    public ConcreteMeleeWeapon(String specification) {
         Texture texture1;
         this.specification = specification;
         try {
@@ -32,42 +29,35 @@ public class ConcreteRangedWeapon extends RangedWeapon {
             this.damage = Integer.parseInt(parts.get(2));
             this.range = Integer.parseInt(parts.get(3));
             this.fireRate = Integer.parseInt(parts.get(4));
-            this.ammo = Integer.parseInt(parts.get(5));
-            this.maxAmmo = Integer.parseInt(parts.get(6));
-            this.reloadTime = Integer.parseInt(parts.get(7));
         } catch (Exception e) {
-            // defaulting to shotgun
-            throw new IllegalArgumentException("Invalid weapon spec: " + e);
-            //texture1 = new Texture("images/Shotgun.png");
+            // defaulting to knife
+            throw new IllegalArgumentException("Invalid weapon specification: " + e);
+            //texture1 = new Texture("knife.png");
         }
-
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public Texture getIcon() {
-        return new Texture("Shotgun.png");
-    }
-
-    @Override
-    public String getRangedSpecification() {
-        return this.specification;
-    }
-
-    @Override
-    public void shoot(Vector2 direction) {
-        // Do nothing
     }
 
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
-        Sprite weaponSprite = new Sprite(getIcon());
     }
 
+    @Override
+    public void drop(Inventory inventory) {
+        super.drop(inventory);
+    }
 
+    @Override
+    public String getMeleeSpecification() {
+        return this.specification;
+    }
+
+    @Override
+    public String getName() {
+        return "knife";
+    }
+
+    @Override
+    public Texture getIcon() {
+        return new Texture("pickaxe.png");
+    }
 }

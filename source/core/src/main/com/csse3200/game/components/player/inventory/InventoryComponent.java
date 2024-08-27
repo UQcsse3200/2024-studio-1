@@ -29,6 +29,7 @@ public class InventoryComponent extends Component {
      */
     public void pickup(Collectible item) {
         item.pickup(inventory);
+        getEntity().getEvents().trigger("updateInventory");
     }
 
     /**
@@ -38,6 +39,7 @@ public class InventoryComponent extends Component {
      */
     public void drop(Collectible item) {
         item.drop(inventory);
+        getEntity().getEvents().trigger("updateInventory");
     }
 
     /**

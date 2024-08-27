@@ -18,7 +18,7 @@ public class CombatStatsComponent extends Component {
   private int baseAttack;
   private boolean isInvincible;
   private static final int timeInvincible = 2000;
-  private Timer timer;
+  private final Timer timer;
 
   /**
    * A TimerTask class used to remove the entity's invincibility
@@ -29,7 +29,7 @@ public class CombatStatsComponent extends Component {
     public void run() {
       setInvincible(false);
     }
-  };
+  }
 
   public CombatStatsComponent(int health, int baseAttack) {
     setHealth(health);
@@ -104,7 +104,7 @@ public class CombatStatsComponent extends Component {
   }
 
   public void hit(CombatStatsComponent attacker) {
-    if (getIsInvincible() == false) {
+    if (!getIsInvincible()) {
       int newHealth = getHealth() - attacker.getBaseAttack();
       setHealth(newHealth);
       setInvincible(true);

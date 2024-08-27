@@ -103,4 +103,8 @@ public class PlayerStatsDisplay extends UIComponent {
     return Integer.parseInt(pickaxeLabel.getText().toString().split(": ")[1]);
   }
 
+  public int getShotgunWeaponCount() {
+    return Integer.parseInt(shotgunLabel.getText().toString().split(": ")[1]);
+  }
+
 }

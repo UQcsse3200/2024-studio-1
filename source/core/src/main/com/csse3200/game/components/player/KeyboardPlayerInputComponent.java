@@ -54,6 +54,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                     changePlayerSprite("images/Weapons/pickaxe_boy.png");
                 }
                 return true;
+            case Keys.NUM_2:
+                if (getShotgunWeaponCount() > 0) {
+                    changePlayerSprite("images/Weapons/shotgun_boy.png");
+                }
+                return true;
 
             default:
                 return false;
@@ -147,6 +152,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         PlayerStatsDisplay statsDisplay = entity.getComponent(PlayerStatsDisplay.class);
         if (statsDisplay != null) {
             return statsDisplay.getPickaxeWeaponCount();
+        }
+        return 0;
+    }
+
+    private int getShotgunWeaponCount() {
+        PlayerStatsDisplay statsDisplay = entity.getComponent(PlayerStatsDisplay.class);
+        if (statsDisplay != null) {
+            return statsDisplay.getShotgunWeaponCount();
         }
         return 0;
     }

@@ -33,7 +33,7 @@ public abstract class RangedWeapon implements Collectible {
 
         // Switch to default weapon (bare hands)
         if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon();
+            inventory.getEntity().getComponent(WeaponComponent.class).dropRangeWeapon();
         }
     }
 

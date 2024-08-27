@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 
 import com.csse3200.game.components.CameraComponent;
@@ -236,7 +236,7 @@ public class TerrainFactory {
   }
 
   private TiledMapRenderer createRenderer(TiledMap tiledMap, float tileScale) {
-    return new GridRenderer(tiledMap, tileScale, camera);
+    return new OrthogonalTiledMapRenderer(tiledMap, tileScale);
   }
 
 }

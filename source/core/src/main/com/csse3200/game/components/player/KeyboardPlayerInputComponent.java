@@ -130,6 +130,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return "NONE";
     }
 
+    private boolean keyChange(Map<Integer, Action> bindings, int keycode){
+        if (!bindings.containsKey(keycode)) {
+            return false;
+        }
+        return bindings.get(keycode).act(keycode);
+    }
+
     /**
      * Triggers player events on specific keycodes.
      *
@@ -138,10 +145,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      */
     @Override
     public boolean keyDown(int keycode) {
-        if (!downBindings.containsKey(keycode)) {
-            return false;
-        }
-        return downBindings.get(keycode).act(keycode);
+        return keyChange(downBindings, keycode);
     }
 
     /**
@@ -152,10 +156,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      */
     @Override
     public boolean keyUp(int keycode) {
-        if (!upBindings.containsKey(keycode)) {
-            return false;
-        }
-        return upBindings.get(keycode).act(keycode);
+        return keyChange(upBindings, keycode);
     }
 
     /**

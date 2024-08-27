@@ -13,14 +13,14 @@ import com.csse3200.game.rendering.TextureRenderComponent;
 
 public class ProjectileAttackComponent extends Component {
 
-    private final short targetLayer;
+    private short targetLayer;
     private CombatStatsComponent combatStats;
     private HitboxComponent hitboxComponent;
     private Vector2 speed;
     private Vector2 direction;
 
-    public ProjectileAttackComponent(Vector2 direction, Vector2 speed) {
-        this.targetLayer = PhysicsLayer.NPC; // Default target layer, update as needed
+    public ProjectileAttackComponent(short layer, Vector2 direction, Vector2 speed) {
+        this.targetLayer = layer;
         this.speed = speed;
         this.direction = direction;
     }

@@ -22,7 +22,6 @@ public class ProjectileActions extends Component {
     @Override
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
-
     }
 
     @Override

@@ -38,7 +38,7 @@ public class ProjectileFactory {
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(stats.Layer))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(direction, stats.speed))
+                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed))
                         .addComponent(new ProjectileActions());
 
 

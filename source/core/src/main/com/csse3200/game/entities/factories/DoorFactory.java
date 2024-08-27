@@ -15,9 +15,9 @@ import static java.lang.String.format;
 
 public class DoorFactory {
     static Entity door;
-    public static Entity createDoor(char orientation) {
+    public static Entity createDoor(char orientation, DoorCallBack callback) {
         // Room variables will be stored once map rooms instantiated
-        Entity door = createBaseDoor(orientation);
+        door = createBaseDoor(orientation);
         // door config can be implemented later if deigned necessary
         door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
         door.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -29,10 +29,17 @@ public class DoorFactory {
             PhysicsUtils.setScaledCollider(door, 0.8f, 0.18f);
         }
         PhysicsUtils.setScaledCollider(door, 0.18f, 0.8f); // 0.5f, 0.2f
-        door.getEvents().addListener("collisionStart", (Fixture other, Fixture other1) -> {
-            System.out.println("I just hit something!");
-        });
+        createCollision(callback);
+
         return door;
+    }
+
+    private static void createCollision(DoorCallBack callback) {
+        door.getEvents().addListener("collisionStart", (Fixture other, Fixture other1) -> {
+            if (callback != null) {
+                callback.onDoorCollided();
+            }
+        });
     }
 
     public static Entity createBaseDoor(char orientation) {

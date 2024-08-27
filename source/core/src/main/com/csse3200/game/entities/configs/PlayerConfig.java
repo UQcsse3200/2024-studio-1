@@ -36,7 +36,7 @@ public class PlayerConfig extends BaseEntityConfig  {
   }
 
   /**
-   * Checks if two players are teh same based on their attributes
+   * Checks if two players are the same based on their attributes
    *
    * @param object The object to compare with the player
    *

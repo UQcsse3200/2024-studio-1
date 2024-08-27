@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A Factory responsible for loading and managing json file data for the game's Ma
+ * A Factory responsible for loading and managing json file data for the game's Map
  */
 public class MapFactory {
     //Assuming that the map is a static json file for the mvp loads the data from a json file called map.json
-    public static final MapConfigs mapData = FileLoader.readClass(MapConfigs.class, "configs/map.json");
+    public static MapConfigs mapData = FileLoader.readClass(MapConfigs.class, "configs/map.json");
 
     /**
      * A getter method used to extract the room connection data from the json file for the map. Returns a list of
@@ -32,6 +32,7 @@ public class MapFactory {
             int[] coordinates = new int[]{Integer.parseInt(parts[0]), Integer.parseInt(parts[1])};
             roomConnections.add(coordinates);
         }
+        System.out.println(mapData);
         return roomConnections;
     }
 

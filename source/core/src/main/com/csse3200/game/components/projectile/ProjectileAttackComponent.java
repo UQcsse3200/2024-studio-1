@@ -21,16 +21,16 @@ import com.csse3200.game.rendering.TextureRenderComponent;
  */
 public class ProjectileAttackComponent extends Component {
 
-    private short targetLayer;
+    private final short targetLayer;
     private CombatStatsComponent combatStats;
     private HitboxComponent hitboxComponent;
-    private Vector2 speed;
-    private Vector2 direction;
+    private final Vector2 speed;
+    private final Vector2 direction;
 
     /**
      *  Sets up vars for a projectile attack.
      *  @param layer physics layer that the projectile shot on. Provided by ProjectileConfig.
-     *  @param direction Direction being shot. Example - Vector2Utils.LEFT shoots left.
+     *  @param direction Direction being shot. Example - Vector2Utils. LEFT shoots left.
      *  @param speed Set in the projectileConfig. Example - Vector2(3,3) is 3m\s etc.
     */
     public ProjectileAttackComponent(short layer, Vector2 direction, Vector2 speed) {

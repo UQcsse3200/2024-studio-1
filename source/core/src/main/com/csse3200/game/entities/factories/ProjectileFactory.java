@@ -1,7 +1,6 @@
 package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.components.projectile.ProjectileActions;

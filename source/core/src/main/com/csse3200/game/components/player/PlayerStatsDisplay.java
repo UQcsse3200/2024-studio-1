@@ -16,7 +16,8 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table;
   private Image heartImage;
   private Label healthLabel;
-  private Label weaponLabel;
+  private Label pickaxeLabel;
+  private Label shotgunLabel;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -27,7 +28,8 @@ public class PlayerStatsDisplay extends UIComponent {
     addActors();
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
-    entity.getEvents().addListener("updateWeaponCount", this::updateWeaponCountUI);
+    entity.getEvents().addListener("updateMeleeWeaponCount", this::updateMeleeWeaponCountUI);
+    entity.getEvents().addListener("updateRangedWeaponCount", this::updateRangedWeaponCountUI);
   }
 
   /**
@@ -52,13 +54,16 @@ public class PlayerStatsDisplay extends UIComponent {
     //Weapon text, like the name of weapon
     String weapon = ""; //entity.getComponent(WeaponComponent.class).getWeaponType();
     CharSequence weaponText = String.format("Weapon: %s", weapon);
-    weaponLabel = new Label(weaponText, skin, "large");
+    pickaxeLabel = new Label("Pickaxe: 0", skin, "large");
+    shotgunLabel = new Label("Shotgun: 0", skin, "large");
 
 
     table.add(heartImage).size(heartSideLength).pad(5);
     table.add(healthLabel).padLeft(10).left();
     table.row().padTop(10);
-    table.add(weaponLabel).colspan(2).padLeft(10).left();
+    table.add(pickaxeLabel).colspan(2).padLeft(10).left();
+    table.row().padTop(10);
+    table.add(shotgunLabel).colspan(2).padLeft(10).left();
     stage.addActor(table);
   }
 
@@ -76,9 +81,14 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel.setText(text);
   }
 
-  public void updateWeaponCountUI(int weaponCount) {
-    CharSequence text = String.format("Weapons: %d", weaponCount);
-    weaponLabel.setText(text);
+  public void updateMeleeWeaponCountUI(int weaponCount) {
+    CharSequence text = String.format("Pickaxe: %d", weaponCount);
+    pickaxeLabel.setText(text);
+  }
+
+  public void updateRangedWeaponCountUI(int weaponCount) {
+    CharSequence text = String.format("Shotgun: %d", weaponCount);
+    shotgunLabel.setText(text);
   }
 
   @Override

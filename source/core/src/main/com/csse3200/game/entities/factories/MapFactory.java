@@ -5,7 +5,6 @@ import com.csse3200.game.files.FileLoader;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A Factory responsible for loading and managing json file data for the game's Map
@@ -21,7 +20,7 @@ public class MapFactory {
      * @return : A list of integer arrays which contain coordinates of the rooms that are connected to the room input.
      */
     public static List<int[]> getRoomConnections(String room) {
-        List<String> connections = mapData.room_connections.get(room);
+        List<String> connections = mapData.roomConnections.get(room);
         if (connections == null) {
             throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no connections");
         }
@@ -57,7 +56,7 @@ public class MapFactory {
      * @return : Returns the index which specifies which animal is to be spawned in the room specified.
      */
     public static Integer getAnimalIndex(String room) {
-        Integer animalIndices = mapData.room_info.get(room).animal_index;
+        Integer animalIndices = mapData.roomInfo.get(room).animalIndex;
         if (animalIndices == null) {
             throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no animals");
         }
@@ -70,7 +69,7 @@ public class MapFactory {
      * @return : the index for which item is to be spawned.
      */
     public static int getItemIndex(String room) {
-        Integer itemIndices = mapData.room_info.get(room).item_index;
+        Integer itemIndices = mapData.roomInfo.get(room).itemIndex;
         if(itemIndices == null) {
             throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no Items");
         }
@@ -82,7 +81,7 @@ public class MapFactory {
      * @return : returns the x and y coordinates of the player's start position on the map.
      */
     public static int[] getPlayerLocation() {
-        String[] playerCoordinates = mapData.player_location.split("_");
+        String[] playerCoordinates = mapData.playerLocation.split("_");
         return new int[]{Integer.parseInt(playerCoordinates[0]), Integer.parseInt(playerCoordinates[1])};
     }
 
@@ -99,7 +98,7 @@ public class MapFactory {
      * @return : returns the size of the map.
      */
     public static int getMapSize() {
-        return mapData.map_size;
+        return mapData.mapSize;
     }
 
 }

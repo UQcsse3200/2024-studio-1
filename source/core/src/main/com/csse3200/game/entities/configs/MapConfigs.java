@@ -1,19 +1,17 @@
 package com.csse3200.game.entities.configs;
 
-import com.csse3200.game.entities.factories.MapFactory;
-
 import java.util.List;
 import java.util.Map;
 
-public class MapConfigs {
-    public Map<String, List<String>> room_connections;
-    public Map<String, RoomInfo> room_info;
-    public String player_location;
+public class MapConfigs extends BaseEntityConfig{
+    public Map<String, List<String>> roomConnections;
+    public Map<String, RoomInfo> roomInfo;
+    public String playerLocation;
     public long seed;
-    public int map_size;
+    public int mapSize;
 
     public static class RoomInfo {
-        public Integer animal_index;
-        public Integer item_index;
+        public Integer animalIndex;
+        public Integer itemIndex;
     }
 }

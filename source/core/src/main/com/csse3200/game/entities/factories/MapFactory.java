@@ -1,8 +1,10 @@
 package com.csse3200.game.entities.factories;
 
+import com.csse3200.game.areas.Generation.MapGenerator;
 import com.csse3200.game.entities.configs.MapConfigs;
 import com.csse3200.game.files.FileLoader;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,30 @@ import java.util.List;
  */
 public class MapFactory {
     //Assuming that the map is a static json file for the mvp loads the data from a json file called map.json
-    public static MapConfigs mapData = FileLoader.readClass(MapConfigs.class, "configs/map.json");
+
+    public static MapConfigs mapData;
+
+    /** A loader method which loads the map from either a json file or from the Map Generator class. **/
+    public static MapConfigs loadMap(String fileDirectory){
+        if (fileDirectory != null) {
+            mapData = FileLoader.readClass(MapConfigs.class, fileDirectory);
+        } else {
+            MapGenerator mapGenerator = new MapGenerator(10, "224590ginger5ut");
+            mapGenerator.createMap();
+
+            mapData = new MapConfigs();
+            mapData.roomConnections = mapGenerator.getPositions();
+            List<String> rooms = new ArrayList<>(mapGenerator.getRoomDetails().keySet());
+            for (String room : rooms) {
+               mapData.roomInfo.get(room).animalIndex = mapGenerator.getRoomDetails().get(room).get("animal_index");
+               mapData.roomInfo.get(room).itemIndex = mapGenerator.getRoomDetails().get(room).get("item_index");
+            }
+            mapData.playerLocation = mapGenerator.startingRoom;
+            mapData.mapSize = mapGenerator.getMapSize();
+            mapData.seed = mapGenerator.getMapSeed();
+        }
+        return mapData;
+    }
 
     /**
      * A getter method used to extract the room connection data from the json file for the map. Returns a list of
@@ -70,7 +95,7 @@ public class MapFactory {
 
     /**
      * A method to extract the players start location on the map.
-     * @return : returns the x and y coordinates of the player's start position on the map.
+     * @return : returns string coordinates of the player's start position on the map.
      */
     public static String getPlayerLocation() {
         String playerCoordinates = mapData.playerLocation;
@@ -84,7 +109,7 @@ public class MapFactory {
      * Method that extracts the map seed information for the randomly generated map from the json file.
      * @return : The seed of the map.
      */
-    public static long getSeed() {
+    public static String getSeed() {
         return mapData.seed;
     }
 

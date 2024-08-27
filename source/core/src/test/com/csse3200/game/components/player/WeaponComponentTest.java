@@ -28,7 +28,8 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentDamage() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON,
+                10, 5, 1, 0, 0, 0);
         // check if weapon component damage is correct
         assertEquals(10, weaponComponent.getDamage());
     }
@@ -36,7 +37,8 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentRange() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON,
+                10, 5, 1, 0, 0, 0);
         // check if weapon component range is correct
         assertEquals(5, weaponComponent.getRange());
     }
@@ -44,7 +46,7 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentFireRate() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component fire rate is correct
         assertEquals(1, weaponComponent.getFireRate());
     }
@@ -52,7 +54,7 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentAmmo() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component ammo is correct
         assertEquals(0, weaponComponent.getAmmo());
     }
@@ -60,7 +62,7 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentMaxAmmo() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component max ammo is correct
         assertEquals(0, weaponComponent.getMaxAmmo());
     }
@@ -71,14 +73,6 @@ public class WeaponComponentTest {
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component reload time is correct
         assertEquals(0, weaponComponent.getReloadTime());
-    }
-
-    @Test
-    public void testWeaponComponentWeaponType() {
-        // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
-        // check if weapon component weapon type is correct
-        assertEquals(Collectible.Type.MELEE_WEAPON, weaponComponent.getWeaponType());
     }
 
     @Test
@@ -105,7 +99,8 @@ public class WeaponComponentTest {
     public void testWeaponComponentWeaponSprite() {
         // create a weapon component
         Sprite sprite = new Sprite();
-        WeaponComponent weaponComponent = new WeaponComponent(sprite, Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(sprite, Collectible.Type.RANGED_WEAPON, 10, 5,
+                1, 0, 0, 0);
         // check if weapon component weapon sprite is correct
         assertEquals(sprite, weaponComponent.getWeaponSprite());
     }
@@ -113,7 +108,7 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentWeaponSpriteNull() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(null, Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(null, Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component weapon sprite is correct
         assertNull(weaponComponent.getWeaponSprite());
     }

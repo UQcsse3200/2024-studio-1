@@ -20,7 +20,6 @@ public abstract class RangedWeapon implements Collectible {
     @Override
     public void pickup(Inventory inventory) {
         inventory.setRanged(this);
-        inventory.getEntity().getEvents().addListener("shoot", this::shoot);
 
         // Add a Weapon Component
         if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
@@ -34,7 +33,7 @@ public abstract class RangedWeapon implements Collectible {
 
         // Switch to default weapon (bare hands)
         if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon();
+            inventory.getEntity().getComponent(WeaponComponent.class).dropRangeWeapon();
         }
     }
 

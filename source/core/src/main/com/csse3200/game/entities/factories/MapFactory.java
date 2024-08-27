@@ -16,6 +16,7 @@ public class MapFactory {
 
     public static MapConfigs mapData;
 
+    /** A loader method which loads the map from either a json file or from the Map Generator class. **/
     public static MapConfigs loadMap(String fileDirectory){
         if (fileDirectory != null) {
             mapData = FileLoader.readClass(MapConfigs.class, fileDirectory);

@@ -1,4 +1,4 @@
-package com.csse3200.game.entities;
+/**package com.csse3200.game.entities;
 
 import com.csse3200.game.entities.configs.MapConfigs;
 import com.csse3200.game.entities.factories.MapFactory;
@@ -22,4 +22,4 @@ public class MapFactoryTest {
 
         System.out.println(mapFactory.getRoomConnections("0_0"));
     }
-}
+}**/

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.csse3200.game.areas.RandomNumberGenerator;
+import com.csse3200.game.utils.RandomNumberGenerator;
 
 
 public class MapGenerator {

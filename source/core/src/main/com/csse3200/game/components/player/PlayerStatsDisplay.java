@@ -97,4 +97,10 @@ public class PlayerStatsDisplay extends UIComponent {
     heartImage.remove();
     healthLabel.remove();
   }
+  public int getPickaxeWeaponCount() {
+    // Return the current pickaxe weapon count.
+    // You may need to implement this based on how you manage weapon counts.
+    return Integer.parseInt(pickaxeLabel.getText().toString().split(": ")[1]);
+  }
+
 }

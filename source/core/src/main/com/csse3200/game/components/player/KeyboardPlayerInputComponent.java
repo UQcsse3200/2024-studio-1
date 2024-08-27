@@ -50,7 +50,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("shoot");
                 return true;
             case Keys.NUM_1:
-                changePlayerSprite("images/Weapons/pickaxe_boy.png");
+                if (getPickaxeWeaponCount() > 0) {
+                    changePlayerSprite("images/Weapons/pickaxe_boy.png");
+                }
                 return true;
 
             default:
@@ -135,6 +137,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
    *
    * @return The direction as a simplified string.
    */
+
+    /**
+     * Gets the current pickaxe weapon count from the PlayerStatsDisplay.
+     *
+     * @return the pickaxe weapon count
+     */
+    private int getPickaxeWeaponCount() {
+        PlayerStatsDisplay statsDisplay = entity.getComponent(PlayerStatsDisplay.class);
+        if (statsDisplay != null) {
+            return statsDisplay.getPickaxeWeaponCount();
+        }
+        return 0;
+    }
   private static String getDirection(Vector2 vector) {
       if (vector.epsilonEquals(Vector2Utils.LEFT)) return "LEFT";
       if (vector.epsilonEquals(Vector2Utils.RIGHT)) return "RIGHT";

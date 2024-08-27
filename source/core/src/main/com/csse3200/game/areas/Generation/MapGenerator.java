@@ -1,4 +1,4 @@
-package com.csse3200.game.areas.generation;
+package com.csse3200.game.areas.Generation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,11 +31,7 @@ public class MapGenerator {
 
         // Add the starting room to the relative position map
 
-        addBlankRoom("0_0", 0, 0);
-
-        addBlankRoom("0_1", 0, 0);
-
-        connectRooms("0_0", "0_1", 0);
+        addBlankRoom(this.startingRoom, 0, 0);
     
     }
 

@@ -21,6 +21,7 @@ import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import com.csse3200.game.areas.Generation.MapGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -29,14 +30,14 @@ import java.util.HashMap;
  * Forest area for the demo game with trees, a player, and some enemies.
  */
 public class ForestGameArea extends GameArea {
-  private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-  private static final int NUM_GHOSTS = 2;
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
-  private static final GridPoint2 ITEM_SPAWN = new GridPoint2(10, 5);
-  private static final float WALL_WIDTH = 0.1f;
-  private static final int NUM_PICKAXES = 4;
-  private static final int NUM_SHOTGUNS = 4;
-  private static final String[] tileTextures = {
+    private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
+    private static final int NUM_GHOSTS = 2;
+    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+    private static final GridPoint2 ITEM_SPAWN = new GridPoint2(10, 5);
+    private static final float WALL_WIDTH = 0.1f;
+    private static final int NUM_PICKAXES = 4;
+    private static final int NUM_SHOTGUNS = 4;
+    private static final String[] tileTextures = {
             "images/box_boy_leaf.png",
             "images/rounded_door_v.png",
             "images/rounded_door_h.png",
@@ -60,24 +61,21 @@ public class ForestGameArea extends GameArea {
             "images/Weapons/pickaxe.png",
     };
 
-  private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
-  };
-  private static final String[] forestSounds = {"sounds/Impact4.ogg"};
-  private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
-  private static final String[] forestMusic = {backgroundMusic};
+    private static final String[] forestTextureAtlases = {
+            "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
+    };
+    private static final String[] forestSounds = {"sounds/Impact4.ogg"};
+    private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
+    private static final String[] forestMusic = {backgroundMusic};
 
-  private final TerrainFactory terrainFactory;
+    private final TerrainFactory terrainFactory;
 
-  private final MapGenerator mapGenerator;
+    private final MapGenerator mapGenerator;
 
-  private Entity player;
-  private List<Room> roomList;
-  private int num;
-
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(8,8);
-    private NPCFactory npcFactory;
     private Entity player;
+    private List<Room> roomList;
+
+
 
     /**
      * Initialise this ForestGameArea to use the provided TerrainFactory.
@@ -89,190 +87,194 @@ public class ForestGameArea extends GameArea {
         this(terrainFactory, 1, "1234");
 
     }
-    public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed){
+
+    public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed) {
         this.terrainFactory = terrainFactory;
         this.roomList = new ArrayList<>();
-        this.mapGenerator = new MapGenerator(difficulty*12, seed);
+        this.mapGenerator = new MapGenerator(difficulty * 12, seed);
         this.mapGenerator.createMap();
-        this.npcFactory = new NPCFactory();
         AnimalSpawner.setGameArea(this);
         logger.info(this.mapGenerator.printRelativePosition());
     }
-  /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
-  @Override
-  public void create() {
-    loadAssets();
-    displayUI();
-    spawnTerrain();
-    player = spawnPlayer();
-    spawnAnimals();
 
-    //playMusic();
-      spawnCollectibleTest();
-      spawnBandage();
-      spawnMedkit();
-      spawnShieldPotion();
-      spawnPickaxes();
-      spawnShotgun();
+    /**
+     * Create the game area, including terrain, static entities (trees), dynamic entities (player)
+     */
+    @Override
+    public void create() {
+        loadAssets();
+        displayUI();
+        spawnTerrain();
+        player = spawnPlayer();
+        spawnAnimals();
+
+        //playMusic();
+        spawnCollectibleTest();
+        spawnBandage();
+        spawnMedkit();
+        spawnShieldPotion();
+        spawnPickaxes();
+        spawnShotgun();
     }
 
-  private void displayUI() {
-    Entity ui = new Entity();
-    ui.addComponent(new GameAreaDisplay("BEAST BREAKOUT FACILITY"));
-    spawnEntity(ui);
-  }
-
-
-  private void spawnTerrain() {
-    // Background terrain
-    terrain = terrainFactory.createTerrain(TerrainType.ROOM1);
-    spawnEntity(new Entity().addComponent(terrain));
-    // Terrain walls
-    float tileSize = terrain.getTileSize();
-    GridPoint2 tileBounds = terrain.getMapBounds(0);
-    Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
-    createWalls(tileBounds, worldBounds);
-    createDoors();
-  }
-
-  private void spawnAnimals() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-    //HashMap<String,Integer> rd = mapGenerator.getRoomDetails().get("animal_index");
-    //Integer index = rd.get("animal_index").ge;
-    //AnimalSpawner.spawnAnimalGroup(player,index,minPos,maxPos);
-    AnimalSpawner.spawnAnimalGroup(player,1,minPos,maxPos);
-  }
-
-  private void createWalls(GridPoint2 tileBounds, Vector2 worldBounds){
-    // Left
-    Entity leftWall = ObstacleFactory.createWall(WALL_WIDTH, tileBounds.y);
-    spawnEntityAt(
-            leftWall,
-            GridPoint2Utils.ZERO,
-            false,
-            false);
-    // Right
-    Entity rightWall = ObstacleFactory.createWall((WALL_WIDTH), worldBounds.y);
-    spawnEntityAt(
-            rightWall,
-            new GridPoint2(tileBounds.x, 0),
-            false,
-            false);
-    Vector2 rightWallPos = rightWall.getPosition();
-    rightWall.setPosition(rightWallPos.x - WALL_WIDTH, rightWallPos.y);
-    // Top
-    Entity topWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH);
-    spawnEntityAt(
-            topWall,
-            new GridPoint2(0, tileBounds.y),
-            false,
-            false);
-    Vector2 topWallPos = topWall.getPosition();
-    topWall.setPosition(topWallPos.x,topWallPos.y - WALL_WIDTH);
-    // Bottom
-    Entity bottomWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH);
-    spawnEntityAt(
-            bottomWall,
-            GridPoint2Utils.ZERO,
-            false, false);
-  }
-
-  private void createDoors() {
-    DoorCallBack callback = () -> {
-      System.out.println("The door was opened! This is the lambda function being executed.");
-    };
-    // Left Door
-    Entity door = DoorFactory.createDoor('v', callback);
-    spawnEntityAt(
-            door,
-            new GridPoint2(0, 5),
-            true,
-            true);
-    Vector2 doorPos = door.getPosition();
-    Vector2 doorvScale = door.getScale();
-    door.setPosition(doorPos.x - doorvScale.x,doorPos.y);
-
-    // Right Door
-    Entity door2 = DoorFactory.createDoor('v', callback);
-    spawnEntityAt(door2,
-            new GridPoint2(15,5),
-            true,
-            true);
-    Vector2 door2Pos = door2.getPosition();
-    door2.setPosition(door2Pos.x - 2*doorvScale.x,door2Pos.y);
-
-    // Bottom Door
-    Entity door3 = DoorFactory.createDoor('h', callback);
-    spawnEntityAt(door3,
-            new GridPoint2(7,0),
-            true,
-            true);
-    Vector2 door3Pos = door3.getPosition();
-    Vector2 doorhScale = door3.getScale();
-    door3.setPosition(door3Pos.x,door3Pos.y-doorhScale.y);
-
-
-    Entity door4 = DoorFactory.createDoor('h', callback);
-    spawnEntityAt(door4,
-            new GridPoint2(7,11),
-            true,
-            true);
-    Vector2 door4Pos = door4.getPosition();
-    door4.setPosition(door4Pos.x,door4Pos.y-2*doorhScale.y);
-  }
-
-  /**
-   * TODO: testing with rooms in all directions, inside the main room
-   * TODO: adding entry and exit at main door and also inside
-   * TODO: adding items inside, which are collectable
-   */
-  private void spawnRooms() {
-    // Room with inner rooms in all cardinal directions
-    Room mainRoom = RoomFactory.createRoom(true);
-
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    mainRoom.setRoomPosition(randomPos);
-
-    // inner rooms don't need positions, they will be drawn relative to the main room
-    Room north = RoomFactory.createRoom(false);
-    Room south = RoomFactory.createRoom(false);
-    Room east = RoomFactory.createRoom(false);
-    Room west = RoomFactory.createRoom(false);
-
-    mainRoom = RoomFactory.createConnections(mainRoom, north, south, east, west);
-
-    // adding rooms to the list for reference
-    roomList.add(mainRoom);
-    roomList.add(north);
-    roomList.add(south);
-    roomList.add(east);
-    roomList.add(west);
-
-    // TODO: Add rooms to the game area
-    for (Room room : roomList) {
-      if (room.isInside()) {
-        // TODO: spawn related to position of the room
-        spawnEntityAt(room, room.getRoomPos(), true, true);
-      }
+    private void displayUI() {
+        Entity ui = new Entity();
+        ui.addComponent(new GameAreaDisplay("BEAST BREAKOUT FACILITY"));
+        spawnEntity(ui);
     }
-  }
 
 
+    private void spawnTerrain() {
+        // Background terrain
+        terrain = terrainFactory.createTerrain(TerrainType.ROOM1);
+        spawnEntity(new Entity().addComponent(terrain));
+        // Terrain walls
+        float tileSize = terrain.getTileSize();
+        GridPoint2 tileBounds = terrain.getMapBounds(0);
+        Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
+        createWalls(tileBounds, worldBounds);
+        createDoors();
+    }
 
-  private Entity spawnPlayer() {
-    Entity newPlayer = PlayerFactory.createPlayer();
-    spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
-    return newPlayer;
-  }
-  private void playMusic() {
-    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
-    music.setLooping(true);
-    music.setVolume(0.3f);
-    music.play();
-  }
+    private void spawnAnimals() {
+        GridPoint2 minPos = new GridPoint2(0, 0);
+        GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+        //HashMap<String,Integer> rd = mapGenerator.getRoomDetails().get("animal_index");
+        //Integer index = rd.get("animal_index").ge;
+        //AnimalSpawner.spawnAnimalGroup(player,index,minPos,maxPos);
+        AnimalSpawner.spawnAnimalGroup(player, 1, minPos, maxPos);
+    }
+
+    private void createWalls(GridPoint2 tileBounds, Vector2 worldBounds) {
+        // Left
+        Entity leftWall = ObstacleFactory.createWall(WALL_WIDTH, tileBounds.y);
+        spawnEntityAt(
+                leftWall,
+                GridPoint2Utils.ZERO,
+                false,
+                false);
+        // Right
+        Entity rightWall = ObstacleFactory.createWall((WALL_WIDTH), worldBounds.y);
+        spawnEntityAt(
+                rightWall,
+                new GridPoint2(tileBounds.x, 0),
+                false,
+                false);
+        Vector2 rightWallPos = rightWall.getPosition();
+        rightWall.setPosition(rightWallPos.x - WALL_WIDTH, rightWallPos.y);
+        // Top
+        Entity topWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH);
+        spawnEntityAt(
+                topWall,
+                new GridPoint2(0, tileBounds.y),
+                false,
+                false);
+        Vector2 topWallPos = topWall.getPosition();
+        topWall.setPosition(topWallPos.x, topWallPos.y - WALL_WIDTH);
+        // Bottom
+        Entity bottomWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH);
+        spawnEntityAt(
+                bottomWall,
+                GridPoint2Utils.ZERO,
+                false, false);
+    }
+
+    private void createDoors() {
+        DoorCallBack callback = () -> {
+            System.out.println("The door was opened! This is the lambda function being executed.");
+        };
+        // Left Door
+        Entity door = DoorFactory.createDoor('v', callback);
+        spawnEntityAt(
+                door,
+                new GridPoint2(0, 5),
+                true,
+                true);
+        Vector2 doorPos = door.getPosition();
+        Vector2 doorvScale = door.getScale();
+        door.setPosition(doorPos.x - doorvScale.x, doorPos.y);
+
+        // Right Door
+        Entity door2 = DoorFactory.createDoor('v', callback);
+        spawnEntityAt(door2,
+                new GridPoint2(15, 5),
+                true,
+                true);
+        Vector2 door2Pos = door2.getPosition();
+        door2.setPosition(door2Pos.x - 2 * doorvScale.x, door2Pos.y);
+
+        // Bottom Door
+        Entity door3 = DoorFactory.createDoor('h', callback);
+        spawnEntityAt(door3,
+                new GridPoint2(7, 0),
+                true,
+                true);
+        Vector2 door3Pos = door3.getPosition();
+        Vector2 doorhScale = door3.getScale();
+        door3.setPosition(door3Pos.x, door3Pos.y - doorhScale.y);
+
+
+        Entity door4 = DoorFactory.createDoor('h', callback);
+        spawnEntityAt(door4,
+                new GridPoint2(7, 11),
+                true,
+                true);
+        Vector2 door4Pos = door4.getPosition();
+        door4.setPosition(door4Pos.x, door4Pos.y - 2 * doorhScale.y);
+    }
+
+    /**
+     * TODO: testing with rooms in all directions, inside the main room
+     * TODO: adding entry and exit at main door and also inside
+     * TODO: adding items inside, which are collectable
+     */
+    private void spawnRooms() {
+        // Room with inner rooms in all cardinal directions
+        Room mainRoom = RoomFactory.createRoom(true);
+
+        GridPoint2 minPos = new GridPoint2(0, 0);
+        GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+        GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+        mainRoom.setRoomPosition(randomPos);
+
+        // inner rooms don't need positions, they will be drawn relative to the main room
+        Room north = RoomFactory.createRoom(false);
+        Room south = RoomFactory.createRoom(false);
+        Room east = RoomFactory.createRoom(false);
+        Room west = RoomFactory.createRoom(false);
+
+        mainRoom = RoomFactory.createConnections(mainRoom, north, south, east, west);
+
+        // adding rooms to the list for reference
+        roomList.add(mainRoom);
+        roomList.add(north);
+        roomList.add(south);
+        roomList.add(east);
+        roomList.add(west);
+
+        // TODO: Add rooms to the game area
+        for (Room room : roomList) {
+            if (room.isInside()) {
+                // TODO: spawn related to position of the room
+                spawnEntityAt(room, room.getRoomPos(), true, true);
+            }
+        }
+    }
+
+
+    private Entity spawnPlayer() {
+        Entity newPlayer = PlayerFactory.createPlayer();
+        spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+        return newPlayer;
+    }
+
+    private void playMusic() {
+        Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+        music.setLooping(true);
+        music.setVolume(0.3f);
+        music.play();
+    }
+
     private Entity spawnCollectibleTest() {
         Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("buff:energydrink");
         spawnEntityAt(collectibleEntity, ITEM_SPAWN, true, true);
@@ -281,12 +283,12 @@ public class ForestGameArea extends GameArea {
 
     private void spawnBandage() {
         Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:bandage");
-        spawnEntityAt(collectibleEntity, new GridPoint2(19,15), true, true);
+        spawnEntityAt(collectibleEntity, new GridPoint2(19, 15), true, true);
     }
 
     private void spawnMedkit() {
         Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:medkit");
-        spawnEntityAt(collectibleEntity, new GridPoint2(15,15), true, true);
+        spawnEntityAt(collectibleEntity, new GridPoint2(15, 15), true, true);
     }
 
     private void spawnShieldPotion() {
@@ -316,13 +318,13 @@ public class ForestGameArea extends GameArea {
         }
     }
 
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(tileTextures);
-    resourceService.loadTextureAtlases(forestTextureAtlases);
-    resourceService.loadSounds(forestSounds);
-    resourceService.loadMusic(forestMusic);
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(tileTextures);
+        resourceService.loadTextureAtlases(forestTextureAtlases);
+        resourceService.loadSounds(forestSounds);
+        resourceService.loadMusic(forestMusic);
 
         while (!resourceService.loadForMillis(10)) {
             // This could be upgraded to a loading screen
@@ -330,14 +332,14 @@ public class ForestGameArea extends GameArea {
         }
     }
 
-  private void unloadAssets() {
-    logger.debug("Unloading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.unloadAssets(tileTextures);
-    resourceService.unloadAssets(forestTextureAtlases);
-    resourceService.unloadAssets(forestSounds);
-    resourceService.unloadAssets(forestMusic);
-  }
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(tileTextures);
+        resourceService.unloadAssets(forestTextureAtlases);
+        resourceService.unloadAssets(forestSounds);
+        resourceService.unloadAssets(forestMusic);
+    }
 
     @Override
     public void dispose() {

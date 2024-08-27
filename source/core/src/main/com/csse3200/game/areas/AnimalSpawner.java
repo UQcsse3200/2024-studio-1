@@ -13,8 +13,9 @@ import com.csse3200.game.utils.math.RandomUtils;
 
 public class AnimalSpawner {
     //private static List<String> animals = Arrays.asList("Ghost","GhostKing");
-    private static List<List<String>> animals = Arrays.asList(Arrays.asList("Ghost","Ghost","Ghost"),Arrays.asList("Ghost","GhostKing","GhostKing"));
+    private static List<List<String>> animals = Arrays.asList(Arrays.asList("Rat","Bear","Dino"),Arrays.asList("Dino","Bat","Bear"));
     private static GameArea gameArea;
+    private static final NPCFactory npcFactory = new NPCFactory();
 
     public static void setGameArea(GameArea ga) { gameArea = ga;}
 
@@ -40,46 +41,15 @@ public class AnimalSpawner {
 
     private static void spawnAnimal(Entity player,String animal, GridPoint2 pos) {
 
-        Entity spawn = new Entity();
-        //spawn the specific animal
-        switch (animal) {
-            case "Ghost":
-                spawn = NPCFactory.createGhost(player);
-                break;
-            case "GhostKing":
-                spawn = NPCFactory.createGhostKing(player);
-                break;
-            //animals that won't work until merge
-            /*
-            case "Rat":
-                spawn = NPCFactory.createRat(player);
-                break;
-            case "Bear":
-                spawn = NPCFactory.createBear(player);
-                break;
-            case "Snake":
-                spawn = NPCFactory.createSnake(player);
-                break;
-            case "Dino":
-                spawn = NPCFactory.createDino(player);
-                break;
-            case "Bat":
-                spawn = NPCFactory.createBat(player);
-                break;
-            case "Dog":
-                spawn = NPCFactory.createDog(player);
-                break;
-            case "Croc":
-                spawn = NPCFactory.createCroc(player);
-                break;
-            case "Gorilla":
-                spawn = NPCFactory.createGorilla(player);
-                break;
-             */
-            default:
-                System.out.println("Unknown animal: " + animal);
-                break;
-        }
+        Entity spawn = switch (animal) {
+            case "Rat" -> npcFactory.createRat(player);
+            case "Bear" -> npcFactory.createBear(player);
+            case "Snake" -> npcFactory.createSnake(player);
+            case "Dino" -> npcFactory.createDino(player);
+            case "Bat" -> npcFactory.createBat(player);
+            case "Dog" -> npcFactory.createDog(player);
+            default -> throw new IllegalArgumentException("Unknown animal: " + animal);
+        };
         gameArea.spawnEntityAt(spawn, pos, true, true);
     }
 }

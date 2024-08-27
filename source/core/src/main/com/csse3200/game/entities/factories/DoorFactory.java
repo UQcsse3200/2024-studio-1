@@ -16,10 +16,7 @@ public class DoorFactory {
     public static Entity createDoor() {
         // Room variables will be stored once map rooms instantiated
         Entity door = createBaseDoor();
-
-
         // door config can be implemented later if deigned necessary
-
         door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
         door.getComponent(TextureRenderComponent.class).scaleEntity();
         door.scaleHeight(1f); //2.5f

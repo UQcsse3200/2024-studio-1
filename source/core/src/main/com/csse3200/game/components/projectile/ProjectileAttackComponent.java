@@ -11,6 +11,21 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
+
+/**
+ * ProjectileAttackComponent acts out the lifecycle of a projectile.
+ * params
+ *  layer - physics layer that the projectile shot on. Provided by ProjectileConfig.
+ *  direction - Direction being shot ie; Vector2Utils.LEFT.
+ *  speed -  Set in the projectileConfig. Vector2(3,3) is 3m\s etc.
+ * requires
+ *  ProjectileActions - Allows the projectile to be shot.
+ *  CombatStatsComponent - Used to hit() on collision.
+ *  HitboxComponent - triggers event on collisions.
+ *
+ *
+ *
+ */
 public class ProjectileAttackComponent extends Component {
 
     private short targetLayer;

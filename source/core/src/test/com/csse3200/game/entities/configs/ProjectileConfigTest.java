@@ -10,7 +10,7 @@ class ProjectileConfigTest {
     void getSpeed()
     {
         ProjectileConfig projectileConfig = new ProjectileConfig();
-        assertEquals(new Vector2(3f, 3f), projectileConfig.getSpeed());
+        assertEquals(new Vector2(6f, 6f), projectileConfig.getSpeed());
 
     }
 

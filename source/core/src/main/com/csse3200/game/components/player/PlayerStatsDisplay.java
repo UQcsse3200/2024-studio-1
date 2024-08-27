@@ -15,8 +15,6 @@ import com.csse3200.game.ui.UIComponent;
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
   private Image heartImage;
-  private Image pickaxeImage;
-  private Image shotgunImage;
   private Label healthLabel;
   private Label pickaxeLabel;
   private Label shotgunLabel;
@@ -56,21 +54,16 @@ public class PlayerStatsDisplay extends UIComponent {
     //Weapon text, like the name of weapon
     String weapon = ""; //entity.getComponent(WeaponComponent.class).getWeaponType();
     CharSequence weaponText = String.format("Weapon: %s", weapon);
-    pickaxeLabel = new Label("Pickaxe x 0", skin, "large");
-    shotgunLabel = new Label("Shotgun x 0", skin, "large");
-    float pickaxeSideLength = 30f;
-    float shotgunSideLength = 25f;
-    pickaxeImage = new Image(ServiceLocator.getResourceService().getAsset("images/Weapons/pickaxe.png", Texture.class));
-    shotgunImage = new Image(ServiceLocator.getResourceService().getAsset("images/Weapons/Shotgun.png", Texture.class));
+    pickaxeLabel = new Label("Pickaxe: 0", skin, "large");
+    shotgunLabel = new Label("Shotgun: 0", skin, "large");
+
 
     table.add(heartImage).size(heartSideLength).pad(5);
     table.add(healthLabel).padLeft(10).left();
-    table.row().padBottom(1);
-    table.add(pickaxeImage).size(pickaxeSideLength*3).pad(1);
-    table.add(pickaxeLabel).colspan(2).padBottom(10).bottom();
-    table.row().padTop(5);
-    table.add(shotgunImage).size(shotgunSideLength*3).pad(1);
-    table.add(shotgunLabel).colspan(2).padTop(10).top();
+    table.row().padTop(10);
+    table.add(pickaxeLabel).colspan(2).padLeft(10).left();
+    table.row().padTop(10);
+    table.add(shotgunLabel).colspan(2).padLeft(10).left();
     stage.addActor(table);
   }
 
@@ -89,12 +82,12 @@ public class PlayerStatsDisplay extends UIComponent {
   }
 
   public void updateMeleeWeaponCountUI(int weaponCount) {
-    CharSequence text = String.format("Pickaxe x %d", weaponCount);
+    CharSequence text = String.format("Pickaxe: %d", weaponCount);
     pickaxeLabel.setText(text);
   }
 
   public void updateRangedWeaponCountUI(int weaponCount) {
-    CharSequence text = String.format("Shotgun x %d", weaponCount);
+    CharSequence text = String.format("Shotgun: %d", weaponCount);
     shotgunLabel.setText(text);
   }
 

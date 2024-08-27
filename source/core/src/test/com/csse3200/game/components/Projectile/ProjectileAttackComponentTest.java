@@ -1,7 +1,6 @@
 package com.csse3200.game.components.Projectile;
 
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
@@ -13,7 +12,6 @@ import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.RenderService;
-import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.Vector2Utils;
@@ -21,18 +19,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 @ExtendWith(GameExtension.class)
 class ProjectileAttackComponentTest {
 
     /**
-     * Before each test the environment must be established.
-     * This also acts as a basic test for spawning a projectile.
-     * Including loading the default asset.
+     * Services are made.
+     * Texture is loaded dynamic to the current ProjectileConfig texture asset.
+     * Acts to test asset and services load.
      */
     @BeforeEach
     void beforeEach() {
@@ -40,13 +38,13 @@ class ProjectileAttackComponentTest {
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
 
-
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
         while (!resourceService.loadForMillis(10)) {
             // wait for assets to load.
         }
+        //should not cause exception
     }
 
     @Test

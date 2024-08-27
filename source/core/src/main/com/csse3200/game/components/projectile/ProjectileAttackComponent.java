@@ -7,24 +7,17 @@ import com.csse3200.game.components.Component;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 
 /**
- * ProjectileAttackComponent acts out the lifecycle of a projectile.
- * params
- *  layer - physics layer that the projectile shot on. Provided by ProjectileConfig.
- *  direction - Direction being shot ie; Vector2Utils.LEFT.
- *  speed -  Set in the projectileConfig. Vector2(3,3) is 3m\s etc.
+ * This component acts out a projectile life cycle.
+ * It's built, shot, waits for collision, attempts to attack, then it is removed.
  * requires
  *  ProjectileActions - Allows the projectile to be shot.
  *  CombatStatsComponent - Used to hit() on collision.
  *  HitboxComponent - triggers event on collisions.
- *
- *
- *
  */
 public class ProjectileAttackComponent extends Component {
 
@@ -34,12 +27,22 @@ public class ProjectileAttackComponent extends Component {
     private Vector2 speed;
     private Vector2 direction;
 
+    /**
+     *  Sets up vars for a projectile attack.
+     *  @param layer physics layer that the projectile shot on. Provided by ProjectileConfig.
+     *  @param direction Direction being shot. Example - Vector2Utils.LEFT shoots left.
+     *  @param speed Set in the projectileConfig. Example - Vector2(3,3) is 3m\s etc.
+    */
     public ProjectileAttackComponent(short layer, Vector2 direction, Vector2 speed) {
         this.targetLayer = layer;
         this.speed = speed;
         this.direction = direction;
     }
 
+    /**
+     * On create a collision listener is started and the ProjectileAction shoot is started.
+     * The collisionStart event is triggered by PhysicsContactListener, based on HitboxComponent.
+     */
     @Override
     public void create() {
         combatStats = entity.getComponent(CombatStatsComponent.class);
@@ -48,15 +51,21 @@ public class ProjectileAttackComponent extends Component {
         entity.getComponent(ProjectileActions.class).shoot(direction, speed);
     }
 
+    /**
+     * Method is called by the Event listener in Create(), args are provided by PhysicsContactListener.
+     * @param me Fixture to test if belongs to this entity.
+     * @param other Fixture belonging to the hit entity.
+     */
     private void onCollisionStart(Fixture me, Fixture other) {
         if (hitboxComponent.getFixture() != me) {
-            return; // Not our hitbox
+            return; // Not our hit-box.
         }
 
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
-            return; // Not our target
+            return; // Not our target layer.
         }
 
+        //Attempt to damage.
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
         CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
 

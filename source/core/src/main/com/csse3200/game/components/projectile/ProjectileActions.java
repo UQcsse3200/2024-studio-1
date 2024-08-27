@@ -9,8 +9,9 @@ import com.csse3200.game.components.tasks.MovementTask;
 import com.csse3200.game.physics.components.PhysicsComponent;
 
 /**
- * Task that handles the movement of a projectile.
- * It moves the projectile in a given direction with a specific speed.
+ * Handles projectile actions currently including shoot(), and stopShoot().
+ * These methods are called directly in ProjectileAttackComponent.
+ * Further movement actions, including event driven actions on projectiles should be developed here.
  */
 public class ProjectileActions extends Component {
 
@@ -41,9 +42,11 @@ public class ProjectileActions extends Component {
     }
 
     /**
-     * Moves the player towards a given direction.
+     * Moves the projectile towards a given direction.
      *
-     * @param direction direction to move in
+     * @param direction direction to move in.
+     * @param speed speed to move at.
+     *
      */
     void shoot(Vector2 direction, Vector2 speed) {
         this.walkDirection = direction;
@@ -52,7 +55,7 @@ public class ProjectileActions extends Component {
     }
 
     /**
-     * Stops the player from walking.
+     * Stops the projectile moving.
      */
     void stopShoot() {
         this.walkDirection = Vector2.Zero.cpy();

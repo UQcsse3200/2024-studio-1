@@ -15,17 +15,15 @@ import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
 /**
- * For weapon            - stats param - Design a projectile config for a weapon - checkout configs/ProjectileConfig.
- * For map               - All Layers if you want to contain a projectile.
- * For health players    - Damage is acted by via hit() method on Entity.
- *
- * NOTE - Entity is unregistered after collision. Add only to a single use entity - dive-bombing bird idk.
+ * Factory for producing entities with a projectile themed component configuration.
  */
 public class ProjectileFactory {
 
 
     /**
      * Makes a new Entity with projectile components.
+     * @param stats Contains all the re-usable projectile configurations. See ProjectileConfig.
+     * @param direction Direction of shot projectile.
      */
     public static Entity createProjectile(ProjectileConfig stats, Vector2 direction) {
 
@@ -51,6 +49,9 @@ public class ProjectileFactory {
         return projectile;
     }
 
+    /**
+     * not to be initialised.
+     */
     private ProjectileFactory() {throw new IllegalStateException("Instantiating static util class");}
 
 }

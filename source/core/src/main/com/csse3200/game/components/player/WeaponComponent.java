@@ -10,13 +10,15 @@ import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
+import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WeaponComponent extends Component {
 
-
+    private static final String[] forestSounds = {"sounds/Impact4.ogg"};
+//    ResourceService resourceService;
     private static final Logger logger = LoggerFactory.getLogger(Component.class);
     private Collectible.Type weaponType; // type of weapon
 
@@ -64,7 +66,8 @@ public class WeaponComponent extends Component {
      */
     public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, int range,
                            int fireRate, int ammo, int maxAmmo, int reloadTime) {
-        System.out.println("WeaponComponent created");
+        loadAsset();
+//        System.out.println("WeaponComponent created");
         if (weaponType == Collectible.Type.MELEE_WEAPON) {
             this.swingDamge = damage;
             this.swingRate = fireRate;
@@ -111,12 +114,22 @@ public class WeaponComponent extends Component {
      * @param weaponType   type of weapon (compulsory)
      */
     public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType) {
+        loadAsset();
         if (weaponType == Collectible.Type.MELEE_WEAPON) {
             new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 0, 0, 0);
         } else {
             new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 1, 1, 1);
         }
     }
+
+//    /**
+//     * Load sound effects
+//     */
+//    private void loadAsset() {
+//        this.resourceService = new ResourceService();
+//        ServiceLocator.registerResourceService(this.resourceService);
+//        this.resourceService.loadSounds(forestSounds);
+//    }
 
     /**
      * Get the type of weapon
@@ -322,9 +335,10 @@ public class WeaponComponent extends Component {
                 return;
             }
             // Render attack here using
-            ServiceLocator.getResourceService()
-                    .getAsset("sounds/Impact4.ogg", Sound.class)
-                    .play();
+//            ServiceLocator.getResourceService()
+//                    .getAsset("sounds/Impact4.ogg", Sound.class)
+//                    .play();
+//            resourceService.getAsset(forestSounds[0], Sound.class).play();
             this.lastSwing = currentTime;
             logger.info("Melee weapon attack");
         } else {
@@ -353,9 +367,7 @@ public class WeaponComponent extends Component {
                 // Spawn projectile
                 ProjectileFactory.createProjectile(this.bulletConfig,
                         this.getEntity().getPosition(), direction);
-                ServiceLocator.getResourceService()
-                        .getAsset("sounds/Impact4.ogg", Sound.class)
-                        .play();
+//                resourceService.getAsset(forestSounds[0], Sound.class).play();
                 logger.info("Ranged weapon shoot");
             }
             // Reset lastAtttack time

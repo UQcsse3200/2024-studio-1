@@ -40,7 +40,7 @@ public class MapGenerator {
         roomDetails.put("animal_index", animal_index);
         roomDetails.put("item_index", item_index);
 
-        List<String> connections = List.of("", "", "", "");
+        List<String> connections = new ArrayList<>(List.of("", "", "", ""));
 
         this.relativePosition.put(key, connections);
         this.roomDetails.put(key, roomDetails);
@@ -48,14 +48,14 @@ public class MapGenerator {
 
     public void addRoomAtPosition(int x, int y, int animal_index, int item_index, int detlas_index) {
         String key = x + "_" + y;
-        // generting new room
+        // generating new room
 
         // generating new room key
         String room_key = getStringRelativeLocation(x + detlas[detlas_index][0], y + detlas[detlas_index][1]);
         // get room connections 
         List<String> connections = this.relativePosition.get(room_key);
 
-        connections.add(detlas_index, getStringRelativeLocation(x, y));
+        connections.set(detlas_index, getStringRelativeLocation(x, y));
         connectRooms(key, room_key, detlas_index);
     }
 
@@ -84,8 +84,8 @@ public class MapGenerator {
         String host_key = addKeyDetlas(host_room, detlas_coordinates);
         String new_Room_key = addKeyDetlas(new_room, inv_detlas_coordinates);
 
-        host_connection.add(detlas_index, host_key);
-        new_connection.add(3 - detlas_index, new_Room_key);
+        host_connection.set(detlas_index, host_key);
+        new_connection.set(3 - detlas_index, new_Room_key);
 
         this.relativePosition.put(host_room, host_connection);
         this.relativePosition.put(new_room, new_connection);

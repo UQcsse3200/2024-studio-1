@@ -1,48 +1,25 @@
-/*
- * package com.csse3200.game.entities;
+/**package com.csse3200.game.entities;
 
+import com.csse3200.game.entities.configs.MapConfigs;
 import com.csse3200.game.entities.factories.MapFactory;
+import com.csse3200.game.extensions.GameExtension;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-//@ExtendWith(GameExtension.class)
+@ExtendWith(GameExtension.class)
 public class MapFactoryTest {
-    Map<String, List<String>> roomConns = new HashMap<>();
+   // Map<String, List<String>> roomConns = new HashMap<>();
     MapFactory mapFactory = new MapFactory();
-    @Before
-    public void Setup()
-    {
-        List<String> Conns = new ArrayList<>();
-        Conns.add("0_1");
-        Conns.add("1_0");
-        Conns.add("-1_0");
-        Conns.add("0_-1");
-
-        List<String> Conns2 = new ArrayList<>();
-        Conns2.add("2_0");
-        Conns2.add("1_1");
-        Conns2.add("0_0");
-        Conns2.add("1_-1");
-        roomConns.put("0_1", Conns2);
-        roomConns.put("0_2", Conns);
-
-    }
    
     @Test
     public void getRoomConnectionsTest() {
-        List<String> connects = new ArrayList<>();
-        connects.add("0_1");
-        connects.add("1_0");
-        connects.add("-1_0");
-        connects.add("0_-1");
 
+        System.out.println(mapFactory.getRoomConnections("0_0"));
     }
-}
- * 
- * 
- * 
- */
+}**/

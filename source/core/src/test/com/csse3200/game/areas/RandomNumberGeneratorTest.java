@@ -1,6 +1,6 @@
 package com.csse3200.game.areas;
 
-import com.csse3200.game.areas.RandomNumberGenerator;
+import com.csse3200.game.utils.RandomNumberGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

@@ -9,10 +9,7 @@ import com.csse3200.game.areas.AnimalSpawner;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.RoomDirection;
-import com.csse3200.game.entities.factories.NPCFactory;
-import com.csse3200.game.entities.factories.ObstacleFactory;
-import com.csse3200.game.entities.factories.PlayerFactory;
-import com.csse3200.game.entities.factories.RoomFactory;
+import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
@@ -30,6 +27,8 @@ public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   private static final String[] tileTextures = {
           "images/box_boy_leaf.png",
+          "images/rounded_door_v.png",
+          "images/rounded_door_h.png",
           "images/tile_1.png",
           "images/tile_2.png",
           "images/tile_3.png",
@@ -60,7 +59,8 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private List<Room> roomList;
-  private static final float WALL_WIDTH = 0.2f;
+  private static final float WALL_WIDTH = 0.15f;
+  private int num;
 
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(8,8);
 
@@ -90,6 +90,7 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     player = spawnPlayer();
     spawnAnimals();
+
     //playMusic();
   }
 
@@ -109,6 +110,7 @@ public class ForestGameArea extends GameArea {
     GridPoint2 tileBounds = terrain.getMapBounds(0);
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
     createWalls(tileBounds, worldBounds);
+    createDoors();
   }
 
   private void spawnAnimals() {
@@ -153,6 +155,51 @@ public class ForestGameArea extends GameArea {
             GridPoint2Utils.ZERO,
             false, false);
   }
+
+  private void createDoors() {
+    DoorCallBack callback = () -> {
+      System.out.println("The door was opened! This is the lambda function being executed.");
+    };
+    // Left Door
+    Entity door = DoorFactory.createDoor('v', callback);
+    spawnEntityAt(
+            door,
+            new GridPoint2(0, 5),
+            true,
+            true);
+    Vector2 doorPos = door.getPosition();
+    Vector2 doorvScale = door.getScale();
+    door.setPosition(doorPos.x - doorvScale.x,doorPos.y);
+
+    // Right Door
+    Entity door2 = DoorFactory.createDoor('v', callback);
+    spawnEntityAt(door2,
+            new GridPoint2(15,5),
+            true,
+            true);
+    Vector2 door2Pos = door2.getPosition();
+    door2.setPosition(door2Pos.x - 2*doorvScale.x,door2Pos.y);
+
+    // Bottom Door
+    Entity door3 = DoorFactory.createDoor('h', callback);
+    spawnEntityAt(door3,
+            new GridPoint2(7,0),
+            true,
+            true);
+    Vector2 door3Pos = door3.getPosition();
+    Vector2 doorhScale = door3.getScale();
+    door3.setPosition(door3Pos.x,door3Pos.y-doorhScale.y);
+
+
+    Entity door4 = DoorFactory.createDoor('h', callback);
+    spawnEntityAt(door4,
+            new GridPoint2(7,11),
+            true,
+            true);
+    Vector2 door4Pos = door4.getPosition();
+    door4.setPosition(door4Pos.x,door4Pos.y-2*doorhScale.y);
+  }
+
   /**
    * TODO: testing with rooms in all directions, inside the main room
    * TODO: adding entry and exit at main door and also inside

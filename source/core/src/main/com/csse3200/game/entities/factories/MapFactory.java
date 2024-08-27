@@ -1,17 +1,42 @@
 package com.csse3200.game.entities.factories;
 
+import com.csse3200.game.areas.Generation.MapGenerator;
 import com.csse3200.game.entities.configs.MapConfigs;
 import com.csse3200.game.files.FileLoader;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A Factory responsible for loading and managing json file data for the game's Ma
+ * A Factory responsible for loading and managing json file data for the game's Map
  */
 public class MapFactory {
     //Assuming that the map is a static json file for the mvp loads the data from a json file called map.json
-    public static final MapConfigs mapData = FileLoader.readClass(MapConfigs.class, "configs/map.json");
+
+    public static MapConfigs mapData;
+
+    /** A loader method which loads the map from either a json file or from the Map Generator class. **/
+    public static MapConfigs loadMap(String fileDirectory){
+        if (fileDirectory != null) {
+            mapData = FileLoader.readClass(MapConfigs.class, fileDirectory);
+        } else {
+            MapGenerator mapGenerator = new MapGenerator(10, "224590ginger5ut");
+            mapGenerator.createMap();
+
+            mapData = new MapConfigs();
+            mapData.roomConnections = mapGenerator.getPositions();
+            List<String> rooms = new ArrayList<>(mapGenerator.getRoomDetails().keySet());
+            for (String room : rooms) {
+               mapData.roomInfo.get(room).animalIndex = mapGenerator.getRoomDetails().get(room).get("animal_index");
+               mapData.roomInfo.get(room).itemIndex = mapGenerator.getRoomDetails().get(room).get("item_index");
+            }
+            mapData.playerLocation = mapGenerator.startingRoom;
+            mapData.mapSize = mapGenerator.getMapSize();
+            mapData.seed = mapGenerator.getMapSeed();
+        }
+        return mapData;
+    }
 
     /**
      * A getter method used to extract the room connection data from the json file for the map. Returns a list of
@@ -19,20 +44,12 @@ public class MapFactory {
      * @param room : The room whose connections are required to be extracted.
      * @return : A list of integer arrays which contain coordinates of the rooms that are connected to the room input.
      */
-    public static List<int[]> getRoomConnections(String room) {
+    public static List<String> getRoomConnections(String room) {
         List<String> connections = mapData.roomConnections.get(room);
         if (connections == null) {
-            throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no connections");
+            throw new IllegalArgumentException("Room" + room + "doesn't exist or has no connections");
         }
-        List<int[]> roomConnections = new ArrayList<>();
-        for (String connection : connections) {
-            //Splitting the room connection coordinates into a list of [x,y]
-            //coordinates
-            String[] parts = connection.split("_");
-            int[] coordinates = new int[]{Integer.parseInt(parts[0]), Integer.parseInt(parts[1])};
-            roomConnections.add(coordinates);
-        }
-        return roomConnections;
+        return connections;
     }
 
     /**
@@ -41,8 +58,8 @@ public class MapFactory {
      * @param index : The index of the connection that is required to be extracted.
      * @return : returns a specific room that is connected to the current one.
      */
-    public static int[] getRoomConnection(String room, int index) {
-        List<int[]> roomConnections = getRoomConnections(room);
+    public static String getRoomConnection(String room, int index) {
+        List<String> roomConnections = getRoomConnections(room);
         //checks for out of bounds indices and returns an exception.
         if (index < 0 || index > roomConnections.size()) {
             throw new IndexOutOfBoundsException("The index" + index + "is out of bounds");
@@ -78,18 +95,21 @@ public class MapFactory {
 
     /**
      * A method to extract the players start location on the map.
-     * @return : returns the x and y coordinates of the player's start position on the map.
+     * @return : returns string coordinates of the player's start position on the map.
      */
-    public static int[] getPlayerLocation() {
-        String[] playerCoordinates = mapData.playerLocation.split("_");
-        return new int[]{Integer.parseInt(playerCoordinates[0]), Integer.parseInt(playerCoordinates[1])};
+    public static String getPlayerLocation() {
+        String playerCoordinates = mapData.playerLocation;
+        if (playerCoordinates == null) {
+            throw new IllegalArgumentException("Player coordinates doesn't exist");
+        }
+        return playerCoordinates;
     }
 
     /**
      * Method that extracts the map seed information for the randomly generated map from the json file.
      * @return : The seed of the map.
      */
-    public static long getSeed() {
+    public static String getSeed() {
         return mapData.seed;
     }
 

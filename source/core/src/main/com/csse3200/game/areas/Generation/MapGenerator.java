@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.csse3200.game.areas.RandomNumberGenerator;
+import com.csse3200.game.utils.RandomNumberGenerator;
 
 
 public class MapGenerator {
     private int mapSize;
     private RandomNumberGenerator rng;
     public String startingRoom;
-    private HashMap<String, String[]> relativePosition;
+    private HashMap<String, List<String>> relativePosition;
     private HashMap<String, HashMap<String, Integer>> roomDetails;
     protected final int[][] detlas;
 
@@ -21,18 +21,18 @@ public class MapGenerator {
         this.rng = new RandomNumberGenerator(seed);
         this.relativePosition = new HashMap<>();
         this.roomDetails = new HashMap<>();
-        this.detlas = new int[][] {
-            {1, 0},    // Up
-            {0, -1},   // Right  
-            {0, 1},    // Left 
-            {-1, 0}    // Down
+        this.detlas = new int[][]{
+                {1, 0},    // Up
+                {0, -1},   // Right
+                {0, 1},    // Left
+                {-1, 0}    // Down
         };
         this.startingRoom = "0_0"; // Placeholder
 
         // Add the starting room to the relative position map
 
         addBlankRoom(this.startingRoom, 0, 0);
-    
+
     }
 
     private void addBlankRoom(String key, int animal_index, int item_index) {
@@ -40,7 +40,7 @@ public class MapGenerator {
         roomDetails.put("animal_index", animal_index);
         roomDetails.put("item_index", item_index);
 
-        String[] connections = {"", "", "", ""};
+        List<String> connections = List.of("", "", "", "");
 
         this.relativePosition.put(key, connections);
         this.roomDetails.put(key, roomDetails);
@@ -53,10 +53,9 @@ public class MapGenerator {
         // generating new room key
         String room_key = getStringRelativeLocation(x + detlas[detlas_index][0], y + detlas[detlas_index][1]);
         // get room connections 
-        String[] connections = this.relativePosition.get(room_key);
-        
-        connections[detlas_index] = getStringRelativeLocation(x, y);
-        
+        List<String> connections = this.relativePosition.get(room_key);
+
+        connections.add(detlas_index, getStringRelativeLocation(x, y));
         connectRooms(key, room_key, detlas_index);
     }
 
@@ -68,39 +67,38 @@ public class MapGenerator {
             positions[i] = positions[i] + detlas[i];
         }
 
-        return getStringRelativeLocation(positions[0], positions[1]);   
+        return getStringRelativeLocation(positions[0], positions[1]);
     }
 
     private void connectRooms(String host_room, String new_room, int detlas_index) {
-        // detlas is made so that 3 - dedetlas_indextlas = connecting room 
-
+        // detlas is made so that 3 - dedetlas_indextlas = connecting room
 
         // get the detlas index for both rooms
         int[] detlas_coordinates = this.detlas[detlas_index];
         int[] inv_detlas_coordinates = this.detlas[3 - detlas_index];
 
         // get the current rooms
-        String[] host_connection = this.relativePosition.get(host_room);
-        String[] new_connection = this.relativePosition.get(new_room);
+        List<String> host_connection = this.relativePosition.get(host_room);
+        List<String> new_connection = this.relativePosition.get(new_room);
 
         String host_key = addKeyDetlas(host_room, detlas_coordinates);
         String new_Room_key = addKeyDetlas(new_room, inv_detlas_coordinates);
 
-        host_connection[detlas_index] = host_key;
-        new_connection[3 - detlas_index] = new_Room_key;
+        host_connection.add(detlas_index, host_key);
+        new_connection.add(3 - detlas_index, new_Room_key);
 
         this.relativePosition.put(host_room, host_connection);
         this.relativePosition.put(new_room, new_connection);
     }
 
-    public HashMap<String, String[]> getPositions() {
+    public HashMap<String, List<String>> getPositions() {
         return this.relativePosition;
     }
 
     public HashMap<String, HashMap<String, Integer>> getRoomDetails() {
         return this.roomDetails;
     }
-    
+
     // currently using a function that should work as rudementary difficulty 
     private int calculateCeiling(double x) {
         double a = 45.3;
@@ -114,7 +112,7 @@ public class MapGenerator {
         String[] parts = string.split("_");
         int y = Integer.parseInt(parts[0]);
         int x = Integer.parseInt(parts[1]);
-        return new int[] { x, y };
+        return new int[]{x, y};
     }
 
     public String getStringRelativeLocation(int x, int y) {
@@ -144,9 +142,9 @@ public class MapGenerator {
     public String printRelativePosition() {
         System.out.println("Relative Position:");
         StringBuilder logString = new StringBuilder("Relative Position:");
-        for (Map.Entry<String, String[]> entry : relativePosition.entrySet()) {
+        for (Map.Entry<String, List<String>> entry : relativePosition.entrySet()) {
             String key = entry.getKey();
-            String[] connections = entry.getValue();
+            List<String> connections = entry.getValue();
             logString.append("Room: ").append(key).append("\n");
             System.out.println("Room: " + key);
             System.out.print("Connections: ");
@@ -156,7 +154,7 @@ public class MapGenerator {
                 System.out.print(connection + " ");
             }
             logString.append("\n");
-            System.out.println(); 
+            System.out.println();
         }
         return logString.toString();
     }
@@ -174,6 +172,13 @@ public class MapGenerator {
         }
     }
 
+    public int getMapSize() {
+        return mapSize;
     }
+
+    public String getMapSeed() {
+        return rng.getSeed();
+    }
+}
 
 

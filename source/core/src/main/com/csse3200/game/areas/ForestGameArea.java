@@ -73,6 +73,8 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
     this.roomList = new ArrayList<>();
     this.mapGenerator = new MapGenerator(difficulty*12, seed);
+    this.mapGenerator.createMap();
+    logger.info(this.mapGenerator.printRelativePosition());
   }
 
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */

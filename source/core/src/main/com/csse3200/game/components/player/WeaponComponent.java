@@ -97,7 +97,6 @@ public class WeaponComponent extends Component {
         } else {
             new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 1, 1, 1);
         }
-
     }
 
     /**

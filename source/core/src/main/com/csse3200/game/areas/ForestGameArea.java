@@ -17,10 +17,12 @@ import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
+import com.csse3200.game.areas.Generation.MapGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
@@ -50,6 +52,8 @@ public class ForestGameArea extends GameArea {
   private static final String[] forestMusic = {backgroundMusic};
   private final TerrainFactory terrainFactory;
 
+  private final MapGenerator mapGenerator;
+
   private Entity player;
   private List<Room> roomList;
   private static final float WALL_WIDTH = 0.2f;
@@ -62,11 +66,14 @@ public class ForestGameArea extends GameArea {
    * @requires terrainFactory != null
    */
   public ForestGameArea(TerrainFactory terrainFactory) {
-    super();
-    this.terrainFactory = terrainFactory;
-    this.roomList = new ArrayList<>();
+    this(terrainFactory, 1, "1234");
   }
 
+  public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed){
+    this.terrainFactory = terrainFactory;
+    this.roomList = new ArrayList<>();
+    this.mapGenerator = new MapGenerator(difficulty*12, seed);
+  }
 
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
@@ -85,6 +92,7 @@ public class ForestGameArea extends GameArea {
     spawnEntity(ui);
   }
 
+
   private void spawnTerrain() {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.ROOM1);
@@ -93,7 +101,10 @@ public class ForestGameArea extends GameArea {
     float tileSize = terrain.getTileSize();
     GridPoint2 tileBounds = terrain.getMapBounds(0);
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
+    createWalls(tileBounds, worldBounds);
+  }
 
+  private void createWalls(GridPoint2 tileBounds, Vector2 worldBounds){
     // Left
     Entity leftWall = ObstacleFactory.createWall(WALL_WIDTH, tileBounds.y);
     spawnEntityAt(
@@ -126,8 +137,6 @@ public class ForestGameArea extends GameArea {
             GridPoint2Utils.ZERO,
             false, false);
   }
-
-
   /**
    * TODO: testing with rooms in all directions, inside the main room
    * TODO: adding entry and exit at main door and also inside

@@ -141,18 +141,24 @@ public class MapGenerator {
         }
     }
 
-    public void printRelativePosition() {
+    public String printRelativePosition() {
         System.out.println("Relative Position:");
+        StringBuilder logString = new StringBuilder("Relative Position:");
         for (Map.Entry<String, String[]> entry : relativePosition.entrySet()) {
             String key = entry.getKey();
             String[] connections = entry.getValue();
+            logString.append("Room: ").append(key).append("\n");
             System.out.println("Room: " + key);
             System.out.print("Connections: ");
+            logString.append("Connections: ");
             for (String connection : connections) {
+                logString.append(connection).append(" ");
                 System.out.print(connection + " ");
             }
+            logString.append("\n");
             System.out.println(); 
         }
+        return logString.toString();
     }
 
 
@@ -167,6 +173,7 @@ public class MapGenerator {
             }
         }
     }
+
     }
 
 

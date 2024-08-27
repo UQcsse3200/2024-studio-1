@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A Factory responsible for loading and managing json file data for the game's Map
+ * A Factory responsible for loading and managing json file data for the game's Ma
  */
 public class MapFactory {
     //Assuming that the map is a static json file for the mvp loads the data from a json file called map.json

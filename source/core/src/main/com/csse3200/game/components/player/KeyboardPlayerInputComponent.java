@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.input.InputComponent;
+import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.utils.math.Vector2Utils;
 
 /**
@@ -47,6 +48,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.Q:
                 entity.getEvents().trigger("shoot");
+                return true;
+            case Keys.NUM_1:
+                changePlayerSprite("images/Weapons/pickaxe_boy.png");
                 return true;
 
             default:
@@ -113,8 +117,20 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       }
     }
   }
+    /**
+     * Changes the player's sprite to a new texture.
+     *
+     * @param texturePath The file path of the new texture.
+     */
+    private void changePlayerSprite(String texturePath) {
+        TextureRenderComponent textureComponent = entity.getComponent(TextureRenderComponent.class);
+        if (textureComponent != null) {
+            textureComponent.setTexture(texturePath);
+        }
+    }
 
-  /**
+
+    /**
    * Takes in a Vector2 direction and processes the string eqivalent.
    *
    * @return The direction as a simplified string.

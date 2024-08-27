@@ -9,6 +9,7 @@ import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
+import com.csse3200.game.services.ServiceLocator;
 
 
 /**
@@ -77,6 +78,7 @@ public class ProjectileAttackComponent extends Component {
 
         //soft dispose - It's still there and it will still collide
         entity.getComponent(TextureRenderComponent.class).dispose();
+        ServiceLocator.getEntityService().unregister(entity);
 
     }
 }

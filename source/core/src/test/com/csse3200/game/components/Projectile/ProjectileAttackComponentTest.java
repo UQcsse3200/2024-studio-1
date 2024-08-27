@@ -4,6 +4,7 @@ package com.csse3200.game.components.Projectile;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.extensions.GameExtension;
@@ -37,6 +38,7 @@ class ProjectileAttackComponentTest {
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
+        ServiceLocator.registerEntityService(new EntityService());
 
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();

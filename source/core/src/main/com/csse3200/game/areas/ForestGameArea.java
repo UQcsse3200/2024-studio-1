@@ -177,9 +177,11 @@ public class ForestGameArea extends GameArea {
   private void spawnBat() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity bat = NPCFactory.createBat(player);
-    spawnEntityAt(bat, randomPos, true, true);
+    for (int i = 0; i < NUM_GHOSTS; i++) {
+      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+      Entity bat = NPCFactory.createBat(player);
+      spawnEntityAt(bat, randomPos, true, true);
+    }
   }
   private void spawnRat() {
     GridPoint2 minPos = new GridPoint2(0, 0);

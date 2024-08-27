@@ -216,6 +216,11 @@ public class NPCFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/bat.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
     bat
             .addComponent(new CombatStatsComponent(
                     config.health,

@@ -211,7 +211,7 @@ public class TerrainFactory {
   public boolean isBrokenTile() {
     // Generate a random number between 0 and 2
     int randomValue = RandomUtils.randomInt(0, 99);
-    return randomValue < 30;
+    return randomValue < 15;
   }
 
   // Return random broken tile

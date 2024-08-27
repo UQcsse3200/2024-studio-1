@@ -293,23 +293,24 @@ public class NPCFactory {
     Entity dog = createBaseNPC(aiComponent);
 
     AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/ghostKing.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-//    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
+        new AnimationRenderComponent(
+            ServiceLocator.getResourceService()
+                .getAsset("images/dog.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("gesture", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("death", 0.1f, Animation.PlayMode.NORMAL);
 
     dog
-            .addComponent(new CombatStatsComponent(
-                    config.health,
-                    config.baseAttack))
-            .addComponent(animator)
-            .addComponent(new GhostAnimationController())
-            .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDamageHandlerComponent())
-            .addComponent(new NPCDeathHandler());
-
+        .addComponent(new CombatStatsComponent(
+                config.health,
+                config.baseAttack))
+        .addComponent(animator)
+        .addComponent(new NPCAnimationController())
+        .addComponent(new NPCHealthBarComponent())
+        .addComponent(new NPCDamageHandlerComponent())
+        .addComponent(new NPCDeathHandler());
 
     dog.getComponent(AnimationRenderComponent.class).scaleEntity();
     return dog;
@@ -367,8 +368,6 @@ public class NPCFactory {
                             config.chaseSpeed));
 
     Entity gorilla = createBaseNPC(aiComponent);
-
-
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()

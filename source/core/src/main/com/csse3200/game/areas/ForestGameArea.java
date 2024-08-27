@@ -10,6 +10,9 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.RoomDirection;
 import com.csse3200.game.entities.factories.*;
+import com.csse3200.game.entities.factories.NPCFactory;
+import com.csse3200.game.entities.factories.ObstacleFactory;
+import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
@@ -22,66 +25,79 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 
-/** Forest area for the demo game with trees, a player, and some enemies. */
+/**
+ * Forest area for the demo game with trees, a player, and some enemies.
+ */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
+  private static final int NUM_GHOSTS = 2;
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+  private static final GridPoint2 ITEM_SPAWN = new GridPoint2(10, 5);
+  private static final float WALL_WIDTH = 0.1f;
+  private static final int NUM_PICKAXES = 4;
+  private static final int NUM_SHOTGUNS = 4;
   private static final String[] tileTextures = {
-          "images/box_boy_leaf.png",
-          "images/rounded_door_v.png",
-          "images/rounded_door_h.png",
-          "images/tile_1.png",
-          "images/tile_2.png",
-          "images/tile_3.png",
-          "images/tile_4.png",
-          "images/tile_5.png",
-          "images/tile_6.png",
-          "images/tile_7.png",
-          "images/tile_8.png",
-          "images/tile_middle.png",
-          "images/tile_general.png",
-          "images/tile_broken1.png",
-          "images/tile_broken2.png",
-          "images/tile_broken3.png",
-          "images/tile_staircase.png",
-          "images/tile_staircase_down.png",
-          "images/tile_blood.png"
-  };
+            "images/box_boy_leaf.png",
+            "images/rounded_door_v.png",
+            "images/rounded_door_h.png",
+            "images/tile_1.png",
+            "images/tile_2.png",
+            "images/tile_3.png",
+            "images/tile_4.png",
+            "images/tile_5.png",
+            "images/tile_6.png",
+            "images/tile_7.png",
+            "images/tile_8.png",
+            "images/tile_middle.png",
+            "images/tile_general.png",
+            "images/tile_broken1.png",
+            "images/tile_broken2.png",
+            "images/tile_broken3.png",
+            "images/tile_staircase.png",
+            "images/tile_staircase_down.png",
+            "images/tile_blood.png",
+            "images/Weapons/Shotgun.png",
+            "images/Weapons/pickaxe.png",
+    };
 
   private static final String[] forestTextureAtlases = {
-          "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
+
   private final TerrainFactory terrainFactory;
 
   private final MapGenerator mapGenerator;
 
   private Entity player;
   private List<Room> roomList;
-  private static final float WALL_WIDTH = 0.15f;
   private int num;
 
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(8,8);
+    private NPCFactory npcFactory;
+    private Entity player;
 
-  /**
-   * Initialise this ForestGameArea to use the provided TerrainFactory.
-   * @param terrainFactory TerrainFactory used to create the terrain for the GameArea.
-   * @requires terrainFactory != null
-   */
-  public ForestGameArea(TerrainFactory terrainFactory) {
-    this(terrainFactory, 1, "1234");
-  }
+    /**
+     * Initialise this ForestGameArea to use the provided TerrainFactory.
+     *
+     * @param terrainFactory TerrainFactory used to create the terrain for the GameArea.
+     * @requires terrainFactory != null
+     */
+    public ForestGameArea(TerrainFactory terrainFactory) {
+        this(terrainFactory, 1, "1234");
 
-  public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed){
-    this.terrainFactory = terrainFactory;
-    this.roomList = new ArrayList<>();
-    this.mapGenerator = new MapGenerator(difficulty*12, seed);
-    this.mapGenerator.createMap();
-    AnimalSpawner.setGameArea(this);
-    logger.info(this.mapGenerator.printRelativePosition());
-  }
-
+    }
+    public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed){
+        this.terrainFactory = terrainFactory;
+        this.roomList = new ArrayList<>();
+        this.mapGenerator = new MapGenerator(difficulty*12, seed);
+        this.mapGenerator.createMap();
+        this.npcFactory = new NPCFactory();
+        AnimalSpawner.setGameArea(this);
+        logger.info(this.mapGenerator.printRelativePosition());
+    }
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
@@ -92,7 +108,13 @@ public class ForestGameArea extends GameArea {
     spawnAnimals();
 
     //playMusic();
-  }
+      spawnCollectibleTest();
+      spawnBandage();
+      spawnMedkit();
+      spawnShieldPotion();
+      spawnPickaxes();
+      spawnShotgun();
+    }
 
   private void displayUI() {
     Entity ui = new Entity();
@@ -251,6 +273,48 @@ public class ForestGameArea extends GameArea {
     music.setVolume(0.3f);
     music.play();
   }
+    private Entity spawnCollectibleTest() {
+        Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("buff:energydrink");
+        spawnEntityAt(collectibleEntity, ITEM_SPAWN, true, true);
+        return collectibleEntity;
+    }
+
+    private void spawnBandage() {
+        Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:bandage");
+        spawnEntityAt(collectibleEntity, new GridPoint2(19,15), true, true);
+    }
+
+    private void spawnMedkit() {
+        Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:medkit");
+        spawnEntityAt(collectibleEntity, new GridPoint2(15,15), true, true);
+    }
+
+    private void spawnShieldPotion() {
+        Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:shieldpotion");
+        spawnEntityAt(collectibleEntity, new GridPoint2(5, 5), true, true);
+    }
+
+    private void spawnPickaxes() {
+        GridPoint2 minPos = new GridPoint2(0, 0);
+        GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+        for (int i = 0; i < NUM_PICKAXES; i++) {
+            GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+            Entity pickaxe = CollectibleFactory.createCollectibleEntity("melee:knife");
+            spawnEntityAt(pickaxe, randomPos, true, false); // Spawning the knife at a random position
+        }
+    }
+
+    private void spawnShotgun() {
+        GridPoint2 minPos = new GridPoint2(0, 0);
+        GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+        for (int i = 0; i < NUM_SHOTGUNS; i++) {
+            GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+            Entity shotgun = CollectibleFactory.createCollectibleEntity("ranged:shotgun");
+            spawnEntityAt(shotgun, randomPos, true, false); // Spawning the Shotgun at a random position
+        }
+    }
 
   private void loadAssets() {
     logger.debug("Loading assets");
@@ -260,11 +324,11 @@ public class ForestGameArea extends GameArea {
     resourceService.loadSounds(forestSounds);
     resourceService.loadMusic(forestMusic);
 
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading... {}%", resourceService.getProgress());
+        while (!resourceService.loadForMillis(10)) {
+            // This could be upgraded to a loading screen
+            logger.info("Loading... {}%", resourceService.getProgress());
+        }
     }
-  }
 
   private void unloadAssets() {
     logger.debug("Unloading assets");
@@ -275,10 +339,10 @@ public class ForestGameArea extends GameArea {
     resourceService.unloadAssets(forestMusic);
   }
 
-  @Override
-  public void dispose() {
-    super.dispose();
-    ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
-    this.unloadAssets();
-  }
+    @Override
+    public void dispose() {
+        super.dispose();
+        ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
+        this.unloadAssets();
+    }
 }

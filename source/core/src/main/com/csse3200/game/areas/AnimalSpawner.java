@@ -2,6 +2,7 @@ package com.csse3200.game.areas;
 
 import java.util.List;
 import java.util.Arrays;
+import java.lang.Math;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -14,9 +15,10 @@ public class AnimalSpawner {
     //private static List<String> animals = Arrays.asList("Ghost","GhostKing");
     private static List<List<String>> animals = Arrays.asList(Arrays.asList("Ghost","Ghost","Ghost"),Arrays.asList("Ghost","GhostKing","GhostKing"));
     private static GameArea gameArea;
-    public static void setGameArea(GameArea ga) {
-        gameArea = ga;
-    }
+
+    public static void setGameArea(GameArea ga) { gameArea = ga;}
+
+    public static void addAnimalGroups(List<String> newGroup) { animals.add(newGroup); }
 
     public static void spawnAnimalGroup(Entity player, int index,GridPoint2 minPos,GridPoint2 maxPos)
     {
@@ -28,6 +30,10 @@ public class AnimalSpawner {
         for (String animal : animals.get(index)) {
             //get a random position
             GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+            Vector2 playerPosition = player.getPosition();
+            while(Math.abs(playerPosition.x - randomPos.x) <= 1 && Math.abs(playerPosition.y - randomPos.y) <= 1 ) {
+                randomPos = RandomUtils.random(minPos, maxPos);
+            }
             spawnAnimal(player, animal,randomPos);
         }
     }

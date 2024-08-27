@@ -18,9 +18,11 @@ public class WeaponComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(Component.class);
     private Collectible.Type weaponType; // type of weapon
 
+    // Ranged
     private int damage; // weapon damage
     private int range; // range of weapon
     private int fireRate; // fire rate of weapon (round per second)
+
 
     private ProjectileConfig bulletConfig; // Config file for this weapon's projectile
     private int ammo; // current ammo for shotgun only
@@ -34,6 +36,17 @@ public class WeaponComponent extends Component {
     // Tracking weapon state
     private long lastAttack;
     private long attackInterval;
+
+    // Melee
+    private int swingDamge; // Damage of each swing for melee weapon
+    private int swingRange; // Range of melee weapon
+    private int swingRate; // swing rate for melee weapon (swing per second
+
+    private Sprite meleeSprite;
+
+    // Tracking weapon state
+    private long lastSwing;
+    private long swingInterval;
 
     /**
      * Constructor for WeaponComponent
@@ -253,14 +266,14 @@ public class WeaponComponent extends Component {
      * @param meleeWeapon new melee weapon
      */
     public void updateWeapon(MeleeWeapon meleeWeapon) {
-        this.damage = meleeWeapon.getDamage();
-        this.range = meleeWeapon.getRange();
-        this.fireRate = meleeWeapon.getFireRate();
-        this.lastAttack = 0L;
-        if (this.fireRate == 0) {
-            this.attackInterval = 0L;
+        this.swingDamge = meleeWeapon.getDamage();
+        this.swingRange = meleeWeapon.getRange();
+        this.swingRate = meleeWeapon.getFireRate();
+        this.lastSwing = 0L;
+        if (this.swingRate == 0) {
+            this.swingInterval = 0L;
         } else {
-            this.attackInterval = (1000L / this.fireRate);
+            this.swingInterval = (1000L / this.swingRate);
         }
     }
 
@@ -281,13 +294,13 @@ public class WeaponComponent extends Component {
         Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
         if (entity != null && this.weaponType == Collectible.Type.MELEE_WEAPON) {
-            if (currentTime - this.lastAttack <= this.attackInterval) {
+            if (currentTime - this.lastSwing <= this.swingInterval) {
                 // Weapon not ready
                 logger.info("Melee weapon not ready");
                 return;
             }
             // Render attack here using
-            this.lastAttack = currentTime;
+            this.lastSwing = currentTime;
             logger.info("Melee weapon attack");
         } else {
             logger.info("No melee weapon");

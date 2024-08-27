@@ -1,0 +1,152 @@
+snake.png
+size: 2048, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+attack
+  rotate: false
+  xy: 2, 632
+  size: 312, 312
+  orig: 312, 312
+  offset: 0, 0
+  index: 3
+attack
+  rotate: false
+  xy: 2, 318
+  size: 312, 312
+  orig: 312, 312
+  offset: 0, 0
+  index: 0
+attack
+  rotate: false
+  xy: 316, 632
+  size: 312, 312
+  orig: 312, 312
+  offset: 0, 0
+  index: 2
+attack
+  rotate: false
+  xy: 2, 4
+  size: 312, 312
+  orig: 312, 312
+  offset: 0, 0
+  index: 1
+death
+  rotate: false
+  xy: 316, 212
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 2
+death
+  rotate: false
+  xy: 0680, 736
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 1
+death
+  rotate: false
+  xy: 526, 2
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 3
+death
+  rotate: false
+  xy: 736, 106
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 0
+gesture
+  rotate: false
+  xy: 840, 736
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 1
+gesture
+  rotate: false
+  xy: 0470, 736
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 3
+gesture
+  rotate: false
+  xy: 316, 2
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 0
+gesture
+  rotate: false
+  xy: 736, 526
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 2
+idle
+  rotate: false
+  xy: 630, 736
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 0
+default
+  rotate: false
+  xy: 630, 736
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 0
+idle
+  rotate: false
+  xy: 0260, 736
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 2
+idle
+  rotate: false
+  xy: 526, 212
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 1
+idle
+  rotate: false
+  xy: 946, 526
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 3
+walk
+  rotate: false
+  xy: 316, 422
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 0
+walk
+  rotate: false
+  xy: 0050, 736
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 2
+walk
+  rotate: false
+  xy: 526, 422
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 1
+walk
+  rotate: false
+  xy: 736, 316
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: 3

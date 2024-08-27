@@ -8,25 +8,28 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.NPCFactory;
+import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.areas.ForestGameArea;
 import com.csse3200.game.utils.math.RandomUtils;
 
-public class AnimalSpawner {
-    //private static List<String> animals = Arrays.asList("Ghost","GhostKing");
+public class EntitySpawner {
     private static List<List<String>> animals = Arrays.asList(Arrays.asList("Rat","Dog","Minotaur"),Arrays.asList("Dino","Bat","Bear"));
+
+    private static List<List<String>> items = Arrays.asList(Arrays.asList("buff:energydrink","item:bandage","item:medkit","item:shieldpotion","melee:knife","ranged:shotgun"));
+
     private static GameArea gameArea;
     private static final NPCFactory npcFactory = new NPCFactory();
 
     public static void setGameArea(GameArea ga) { gameArea = ga;}
 
     public static void addAnimalGroups(List<String> newGroup) { animals.add(newGroup); }
+    public static void addItemGroups(List<String> newGroup) { items.add(newGroup); }
 
     public static void spawnAnimalGroup(Entity player, int index,GridPoint2 minPos,GridPoint2 maxPos)
     {
         //check if index is valid
         if (index < 0 || index >= animals.size()) {
-            System.out.println("Invalid index for animal group");
-            return;
+            throw new IllegalArgumentException("Invalid index for animal group");
         }
         for (String animal : animals.get(index)) {
             //get a random position
@@ -39,6 +42,22 @@ public class AnimalSpawner {
         }
     }
 
+    public static void spawnItemGroup(int index,GridPoint2 minPos,GridPoint2 maxPos){
+        //check if index is valid
+        if (index < 0 || index >= items.size()) {
+            throw new IllegalArgumentException("Invalid index for item group");
+        }
+        for (String item : items.get(index)) {
+            //get a random position
+            GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+            spawnItem(item,randomPos);
+        }
+    }
+
+    private static void spawnItem(String itemName,GridPoint2 pos){
+        Entity item = CollectibleFactory.createCollectibleEntity(itemName);
+        gameArea.spawnEntityAt(item,pos,true,true);
+    }
     private static void spawnAnimal(Entity player,String animal, GridPoint2 pos) {
 
         Entity spawn = switch (animal) {

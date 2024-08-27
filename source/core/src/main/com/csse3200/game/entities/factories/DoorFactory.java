@@ -11,15 +11,23 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
+import static java.lang.String.format;
+
 public class DoorFactory {
     static Entity door;
-    public static Entity createDoor() {
+    public static Entity createDoor(char orientation) {
         // Room variables will be stored once map rooms instantiated
-        Entity door = createBaseDoor();
+        Entity door = createBaseDoor(orientation);
         // door config can be implemented later if deigned necessary
         door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
         door.getComponent(TextureRenderComponent.class).scaleEntity();
-        door.scaleHeight(1f); //2.5f
+        if(orientation == 'v'){
+            door.scaleHeight(1f); //2.5f
+            PhysicsUtils.setScaledCollider(door, 0.18f, 0.8f);
+        }else {
+            door.scaleWidth(1f);
+            PhysicsUtils.setScaledCollider(door, 0.8f, 0.18f);
+        }
         PhysicsUtils.setScaledCollider(door, 0.18f, 0.8f); // 0.5f, 0.2f
         door.getEvents().addListener("collisionStart", (Fixture other, Fixture other1) -> {
             System.out.println("I just hit something!");
@@ -27,13 +35,12 @@ public class DoorFactory {
         return door;
     }
 
-    public static Entity createBaseDoor() {
+    public static Entity createBaseDoor(char orientation) {
         Entity door =
                 new Entity()
-                        .addComponent(new TextureRenderComponent("images/rounded_door.png"))
+                        .addComponent(new TextureRenderComponent(format("images/rounded_door_%c.png",orientation)))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-
         return door;
     }
 }

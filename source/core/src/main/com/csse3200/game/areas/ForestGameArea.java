@@ -12,6 +12,7 @@ import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.ObstacleFactory;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
+import com.csse3200.game.entities.factories.DoorFactory;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
@@ -29,6 +30,8 @@ public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   private static final String[] tileTextures = {
           "images/box_boy_leaf.png",
+          "images/rounded_door_v.png",
+          "images/rounded_door_h.png",
           "images/tile_1.png",
           "images/tile_2.png",
           "images/tile_3.png",
@@ -56,7 +59,7 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private List<Room> roomList;
-  private static final float WALL_WIDTH = 0.2f;
+  private static final float WALL_WIDTH = 0.15f;
 
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10,10);
 
@@ -104,6 +107,7 @@ public class ForestGameArea extends GameArea {
     GridPoint2 tileBounds = terrain.getMapBounds(0);
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
     createWalls(tileBounds, worldBounds);
+    createDoors();
   }
 
   private void createWalls(GridPoint2 tileBounds, Vector2 worldBounds){
@@ -139,6 +143,35 @@ public class ForestGameArea extends GameArea {
             GridPoint2Utils.ZERO,
             false, false);
   }
+
+  private void createDoors() {
+    Entity door = DoorFactory.createDoor('v');
+    spawnEntityAt(
+            door,
+            new GridPoint2(0, 5),
+            true,
+            true);
+    Vector2 doorPos = door.getPosition();
+    Vector2 doorScale = door.getScale();
+    door.setPosition(doorPos.x - doorScale.x,doorPos.y);
+
+    Entity door2 = DoorFactory.createDoor('v');
+    spawnEntityAt(door2,
+            new GridPoint2(15,5),
+            true,
+            true);
+    Vector2 door2Pos = door2.getPosition();
+    door2.setPosition(door2Pos.x - 2*doorScale.x,doorPos.y);
+
+    Entity door3 = DoorFactory.createDoor('h');
+    spawnEntityAt(door3,
+            new GridPoint2(8,0),
+            true,
+            true);
+    Vector2 door2Pos = door2.getPosition();
+    door2.setPosition(door2Pos.x - 2*doorScale.x,doorPos.y);
+  }
+
   /**
    * TODO: testing with rooms in all directions, inside the main room
    * TODO: adding entry and exit at main door and also inside

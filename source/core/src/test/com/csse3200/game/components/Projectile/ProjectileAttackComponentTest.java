@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -60,18 +59,6 @@ class ProjectileAttackComponentTest {
 
         assertEquals(0, target.getComponent(CombatStatsComponent.class).getHealth());
     }
-
-//    @Test
-//    void shouldDispose() {
-//        Entity projectile = createProjectile();
-//        Entity target = createTarget();
-//
-//        Fixture entityFixture = projectile.getComponent(HitboxComponent.class).getFixture();
-//        Fixture targetFixture = target.getComponent(HitboxComponent.class).getFixture();
-//        projectile.getEvents().trigger("collisionStart", entityFixture, targetFixture);
-//
-//        assertNull(projectile.getComponent(TextureRenderComponent.class));
-//    }
 
     @Test
     void shouldNotAttackOtherLayer() {

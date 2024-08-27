@@ -76,9 +76,10 @@ public class ProjectileAttackComponent extends Component {
 
         entity.getComponent(ProjectileActions.class).stopShoot();
 
-        //soft dispose - It's still there and it will still collide
+        //soft dispose - unsure of the completeness of this disposal
         entity.getComponent(TextureRenderComponent.class).dispose();
         ServiceLocator.getEntityService().unregister(entity);
+
 
     }
 }

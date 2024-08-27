@@ -26,6 +26,7 @@ import java.util.List;
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   private static final String[] tileTextures = {
+          "images/box_boy_leaf.png",
           "images/tile_1.png",
           "images/tile_2.png",
           "images/tile_3.png",
@@ -51,8 +52,9 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private List<Room> roomList;
-  private static final float WALL_WIDTH = 0.1f;
+  private static final float WALL_WIDTH = 0.2f;
 
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10,10);
 
   /**
    * Initialise this ForestGameArea to use the provided TerrainFactory.
@@ -70,17 +72,16 @@ public class ForestGameArea extends GameArea {
   @Override
   public void create() {
     loadAssets();
-
     displayUI();
+    spawnTerrain();
+    player = spawnPlayer();
 
-
-    playMusic();
+    //playMusic();
   }
 
   private void displayUI() {
     Entity ui = new Entity();
     ui.addComponent(new GameAreaDisplay("BEAST BREAKOUT FACILITY"));
-    spawnTerrain();
     spawnEntity(ui);
   }
 
@@ -94,23 +95,36 @@ public class ForestGameArea extends GameArea {
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
 
     // Left
+    Entity leftWall = ObstacleFactory.createWall(WALL_WIDTH, tileBounds.y);
     spawnEntityAt(
-            ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+            leftWall,
+            GridPoint2Utils.ZERO,
+            false,
+            false);
     // Right
+    Entity rightWall = ObstacleFactory.createWall((WALL_WIDTH), worldBounds.y);
     spawnEntityAt(
-            ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
+            rightWall,
             new GridPoint2(tileBounds.x, 0),
             false,
             false);
+    Vector2 rightWallPos = rightWall.getPosition();
+    rightWall.setPosition(rightWallPos.x - WALL_WIDTH, rightWallPos.y);
     // Top
+    Entity topWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH);
     spawnEntityAt(
-            ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+            topWall,
             new GridPoint2(0, tileBounds.y),
             false,
             false);
+    Vector2 topWallPos = topWall.getPosition();
+    topWall.setPosition(topWallPos.x,topWallPos.y - WALL_WIDTH);
     // Bottom
+    Entity bottomWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH);
     spawnEntityAt(
-            ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+            bottomWall,
+            GridPoint2Utils.ZERO,
+            false, false);
   }
 
 
@@ -154,7 +168,11 @@ public class ForestGameArea extends GameArea {
 
 
 
-
+  private Entity spawnPlayer() {
+    Entity newPlayer = PlayerFactory.createPlayer();
+    spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    return newPlayer;
+  }
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     music.setLooping(true);

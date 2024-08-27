@@ -24,15 +24,12 @@ public class PlayerConfigGeneratorTest {
     InventoryComponent inventoryComponent;
     CombatStatsComponent statsComponent;
 
-
     @Before
     public void setUp() {
         player = new Entity();
         inventoryComponent = new InventoryComponent();
-        statsComponent = new CombatStatsComponent(100, 30);
+        statsComponent = new CombatStatsComponent(100, 30, true);
         player.addComponent(inventoryComponent).addComponent(statsComponent);
-
-
     }
 
     /**

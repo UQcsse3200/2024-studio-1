@@ -58,9 +58,6 @@ public class PlayerActions extends Component {
      * Makes the player attack.
      */
     void attack() {
-        ServiceLocator.getResourceService()
-                .getAsset("sounds/Impact4.ogg", Sound.class)
-                .play();
         // Inventory component is not use for attack
         entity.getComponent(WeaponComponent.class).attack();
     }
@@ -70,9 +67,6 @@ public class PlayerActions extends Component {
      */
     void shoot() {
         Vector2 direction = this.walkDirection;
-        ServiceLocator.getResourceService()
-                .getAsset("sounds/Impact4.ogg", Sound.class)
-                .play();
 
         entity.getComponent(WeaponComponent.class).shoot(direction);
     }

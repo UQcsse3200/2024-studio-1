@@ -77,7 +77,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new PlayerActions())
-            .addComponent(new PlayerCombatComponent(stats.health, stats.baseAttack))
+            .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
             .addComponent(inventoryComponent)
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())

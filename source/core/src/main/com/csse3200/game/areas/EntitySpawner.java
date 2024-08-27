@@ -13,7 +13,7 @@ import com.csse3200.game.utils.math.RandomUtils;
 
 public class AnimalSpawner {
     //private static List<String> animals = Arrays.asList("Ghost","GhostKing");
-    private static List<List<String>> animals = Arrays.asList(Arrays.asList("Rat","Bear","Dino"),Arrays.asList("Dino","Bat","Bear"));
+    private static List<List<String>> animals = Arrays.asList(Arrays.asList("Rat","Dog","Minotaur"),Arrays.asList("Dino","Bat","Bear"));
     private static GameArea gameArea;
     private static final NPCFactory npcFactory = new NPCFactory();
 
@@ -48,6 +48,7 @@ public class AnimalSpawner {
             case "Dino" -> npcFactory.createDino(player);
             case "Bat" -> npcFactory.createBat(player);
             case "Dog" -> npcFactory.createDog(player);
+            case "Minotaur" -> npcFactory.createMinotaur(player);
             default -> throw new IllegalArgumentException("Unknown animal: " + animal);
         };
         gameArea.spawnEntityAt(spawn, pos, true, true);

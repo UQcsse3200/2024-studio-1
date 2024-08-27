@@ -3,9 +3,11 @@ import java.util.Random;
 
 public class RandomNumberGenerator {
     private Random random;
+    private String seed;
 
     public RandomNumberGenerator(String seed) {
         // Convert string seed to a long value
+        this.seed = seed;
         long seedLong = stringToSeed(seed);
         this.random = new Random(seedLong);
     }
@@ -19,6 +21,10 @@ public class RandomNumberGenerator {
     private long stringToSeed(String seed) {
         // Converts string to a long value
         return seed.hashCode();
+    }
+
+    public String getSeed() {
+        return this.seed;
     }
 
     public int getRandomInt(int minVal, int maxVal) {

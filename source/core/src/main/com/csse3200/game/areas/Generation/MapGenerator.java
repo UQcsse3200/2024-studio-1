@@ -127,8 +127,6 @@ public class MapGenerator {
 
     public void createMap() {
         int roomCount = (int) calculateCeiling(mapSize);
-        System.out.println(roomCount);
-
         while (0 < roomCount) {
             // 0_0 : [0_1, "", "", ""]
             List<String> rooms = new ArrayList<>(relativePosition.keySet());

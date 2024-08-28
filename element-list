@@ -5,6 +5,7 @@ com.csse3200.game.areas
 com.csse3200.game.areas.terrain
 com.csse3200.game.components
 com.csse3200.game.components.gamearea
+com.csse3200.game.components.howtoplaymenu
 com.csse3200.game.components.maingame
 com.csse3200.game.components.mainmenu
 com.csse3200.game.components.npc
@@ -21,6 +22,7 @@ com.csse3200.game.events
 com.csse3200.game.events.listeners
 com.csse3200.game.files
 com.csse3200.game.input
+com.csse3200.game.options
 com.csse3200.game.physics
 com.csse3200.game.physics.components
 com.csse3200.game.physics.raycast

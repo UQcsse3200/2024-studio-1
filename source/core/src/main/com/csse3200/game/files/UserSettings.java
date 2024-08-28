@@ -2,7 +2,12 @@ package com.csse3200.game.files;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
+import com.badlogic.gdx.audio.Music;
 import com.csse3200.game.files.FileLoader.Location;
+import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -10,11 +15,12 @@ import java.io.File;
  * Reading, Writing, and applying user settings in the game.
  */
 public class UserSettings {
-  private static final String ROOT_DIR = "CSSE3200Game";
+  private static final String ROOT_DIR = "source/core/assets/configs/settings.json";
   private static final String SETTINGS_FILE = "settings.json";
 
   private static final int WINDOW_WIDTH = 1280;
   private static final int WINDOW_HEIGHT = 800;
+  private static final Logger log = LoggerFactory.getLogger(UserSettings.class);
 
   /**
    * Get the stored user settings
@@ -48,6 +54,13 @@ public class UserSettings {
   public static void applySettings(Settings settings) {
     Gdx.graphics.setForegroundFPS(settings.fps);
     Gdx.graphics.setVSync(settings.vsync);
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    System.out.println(settings.mute);
+    System.out.println(settings.musicVolume);
+    System.out.println();
+    //System.out.println(resourceService.getAsset("sounds/BGM_03_mp3.mp3", Music.class));
+
+    //applyAudioSettings(settings);
 
     if (settings.fullscreen) {
       DisplayMode displayMode = findMatching(settings.displayMode);
@@ -66,14 +79,15 @@ public class UserSettings {
     }
     for (DisplayMode displayMode : Gdx.graphics.getDisplayModes()) {
       if (displayMode.refreshRate == desiredSettings.refreshRate
-          && displayMode.height == desiredSettings.height
-          && displayMode.width == desiredSettings.width) {
+              && displayMode.height == desiredSettings.height
+              && displayMode.width == desiredSettings.width) {
         return displayMode;
       }
     }
 
     return null;
   }
+
 
   /**
    * Stores game settings, can be serialised/deserialised.
@@ -85,11 +99,14 @@ public class UserSettings {
     public int fps = 60;
     public boolean fullscreen = true;
     public boolean vsync = true;
+    public boolean mute=false;
     /**
      * ui Scale. Currently unused, but can be implemented.
      */
     public float uiScale = 1f;
     public DisplaySettings displayMode = null;
+    public float musicVolume = 0.3f;
+    public float soundVolume = 0.5f;
   }
 
   /**
@@ -99,6 +116,7 @@ public class UserSettings {
     public int width;
     public int height;
     public int refreshRate;
+    public int zoomScale;
 
     public DisplaySettings() {}
 

@@ -344,8 +344,7 @@ public class WeaponComponent extends Component {
                 // Shooting
                 this.setAmmo(-1);
                 // Spawn projectile
-                ProjectileFactory.createProjectile(this.bulletConfig,
-                        this.getEntity().getPosition(), direction);
+                ProjectileFactory.createProjectile(this.bulletConfig, direction);
                 logger.info("Ranged weapon shoot");
             }
             // Reset lastAtttack time

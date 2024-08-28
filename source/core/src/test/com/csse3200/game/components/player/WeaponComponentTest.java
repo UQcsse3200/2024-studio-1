@@ -290,7 +290,6 @@ public class WeaponComponentTest {
             // sleep() failed
             fail();
         }
-    }
-
+    };
 
 }

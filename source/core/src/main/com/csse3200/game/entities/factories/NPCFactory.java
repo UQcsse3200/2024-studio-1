@@ -312,7 +312,7 @@ public class NPCFactory {
             new AITaskComponent()
                     .addTask(new WanderTask(new Vector2(4f, 4f), 2f, config.wanderSpeed))
                     .addTask(new ChargeTask(target, 10, config.viewDistance, config.chaseDistance,
-                            config.chaseSpeed));
+                            config.chaseSpeed, 2f));
 
     Entity dog = createBaseNPC(aiComponent);
 

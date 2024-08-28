@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -141,6 +142,21 @@ public class ForestGameArea extends GameArea {
         GridPoint2 maxPos = new GridPoint2(14,10);
         //should use animal index in MapGenerator
         //AnimalSpawner.spawnAnimalGroup(player,index,minPos,maxPos);
+        EntitySpawner.addAnimalGroups(Arrays.asList("Rat","Dog","Minotaur"));
+        EntitySpawner.addAnimalGroups(Arrays.asList("Bear","Snake","Dino"));
+        EntitySpawner.addAnimalGroups(Arrays.asList("Bear","Bear","Minotaur"));
+        EntitySpawner.addAnimalGroups(Arrays.asList("Snake","Bat","Minotaur"));
+        EntitySpawner.addAnimalGroups(Arrays.asList("Bat","Bat","Bat"));
+        EntitySpawner.addAnimalGroups(Arrays.asList("Minotaur","Minotaur","Minotaur"));
+        EntitySpawner.addAnimalGroups(Arrays.asList("Rat","Bat","Bear"));
+        EntitySpawner.addItemGroups(Arrays.asList("buff:energydrink", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"));
+        EntitySpawner.addItemGroups(Arrays.asList("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink", "item:shieldpotion"));
+        EntitySpawner.addItemGroups(Arrays.asList("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink"));
+        EntitySpawner.addItemGroups(Arrays.asList("item:shieldpotion", "ranged:shotgun", "melee:knife", "item:medkit", "buff:energydrink"));
+        EntitySpawner.addItemGroups(Arrays.asList("melee:knife", "item:bandage", "ranged:shotgun", "item:shieldpotion", "item:medkit"));
+        EntitySpawner.addItemGroups(Arrays.asList("buff:energydrink", "item:shieldpotion", "ranged:shotgun", "melee:knife", "item:bandage"));
+        EntitySpawner.addItemGroups(Arrays.asList("item:medkit", "melee:knife", "buff:energydrink", "ranged:shotgun", "item:shieldpotion"));
+
         EntitySpawner.spawnAnimalGroup(player, 0, minPos, maxPos);
         EntitySpawner.spawnItemGroup(0,minPos, maxPos);
     }

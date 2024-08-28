@@ -1,13 +1,20 @@
 package com.csse3200.game.areas.Generation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
-
+/**
+ * The MapGenerator class is responsible for generating and managing a game map.
+ * It creates rooms, connects them, and provides methods to manipulate and export the map.
+ */
 public class MapGenerator {
     private int mapSize;
     private RandomNumberGenerator rng;
@@ -16,6 +23,12 @@ public class MapGenerator {
     private HashMap<String, HashMap<String, Integer>> roomDetails;
     protected final int[][] detlas;
 
+    /**
+     * Constructs a new MapGenerator with the specified map size and seed.
+     *
+     * @param mapSize The size of the map to generate.
+     * @param seed The seed for the random number generator.
+     */
     public MapGenerator(int mapSize, String seed) {
         this.mapSize = mapSize;
         this.rng = new RandomNumberGenerator(seed);
@@ -30,11 +43,16 @@ public class MapGenerator {
         this.startingRoom = "0_0"; // Placeholder
 
         // Add the starting room to the relative position map
-
         addBlankRoom(this.startingRoom, 0, 0);
-
     }
 
+    /**
+     * Adds a blank room to the map.
+     *
+     * @param key The key representing the room's position.
+     * @param animal_index The index of the animal in the room.
+     * @param item_index The index of the item in the room.
+     */
     private void addBlankRoom(String key, int animal_index, int item_index) {
         HashMap<String, Integer> roomDetails = new HashMap<>();
         roomDetails.put("animal_index", animal_index);
@@ -46,6 +64,15 @@ public class MapGenerator {
         this.roomDetails.put(key, roomDetails);
     }
 
+    /**
+     * Adds a room at the specified position and connects it to an existing room.
+     *
+     * @param x The x-coordinate of the new room.
+     * @param y The y-coordinate of the new room.
+     * @param animal_index The index of the animal in the new room.
+     * @param item_index The index of the item in the new room.
+     * @param detlas_index The index of the direction to connect the new room.
+     */
     public void addRoomAtPosition(int x, int y, int animal_index, int item_index, int detlas_index) {
         String key = x + "_" + y;
         // generating new room
@@ -59,7 +86,13 @@ public class MapGenerator {
         connectRooms(key, room_key, detlas_index);
     }
 
-
+    /**
+     * Adds a delta to a room key to get a new room key.
+     *
+     * @param room_key The original room key.
+     * @param detlas The delta to add to the room key.
+     * @return The new room key after adding the delta.
+     */
     private String addKeyDetlas(String room_key, int[] detlas) {
         int[] positions = parseIntRelativeLocation(room_key);
 
@@ -70,6 +103,13 @@ public class MapGenerator {
         return getStringRelativeLocation(positions[0], positions[1]);
     }
 
+    /**
+     * Connects two rooms in the map.
+     *
+     * @param host_room The key of the host room.
+     * @param new_room The key of the new room to connect.
+     * @param detlas_index The index of the direction to connect the rooms.
+     */
     private void connectRooms(String host_room, String new_room, int detlas_index) {
         // detlas is made so that 3 - dedetlas_indextlas = connecting room
 
@@ -91,15 +131,30 @@ public class MapGenerator {
         this.relativePosition.put(new_room, new_connection);
     }
 
+    /**
+     * Gets the relative positions of all rooms in the map.
+     *
+     * @return A HashMap containing the relative positions of all rooms.
+     */
     public HashMap<String, List<String>> getPositions() {
         return this.relativePosition;
     }
 
+    /**
+     * Gets the details of all rooms in the map.
+     *
+     * @return A HashMap containing the details of all rooms.
+     */
     public HashMap<String, HashMap<String, Integer>> getRoomDetails() {
         return this.roomDetails;
     }
 
-    // currently using a function that should work as rudementary difficulty 
+    /**
+     * Calculates a ceiling value based on a logarithmic function.
+     *
+     * @param x The input value.
+     * @return The calculated ceiling value.
+     */
     private int calculateCeiling(double x) {
         double a = 45.3;
         double c = 1.0;
@@ -108,6 +163,12 @@ public class MapGenerator {
         return (int) Math.ceil(result);
     }
 
+    /**
+     * Parses a string representation of a relative location into integer coordinates.
+     *
+     * @param string The string representation of the location.
+     * @return An array of two integers representing the x and y coordinates.
+     */
     public int[] parseIntRelativeLocation(String string) {
         String[] parts = string.split("_");
         int y = Integer.parseInt(parts[0]);
@@ -115,14 +176,23 @@ public class MapGenerator {
         return new int[]{x, y};
     }
 
+    /**
+     * Converts integer coordinates to a string representation of a relative location.
+     *
+     * @param x The x-coordinate.
+     * @param y The y-coordinate.
+     * @return A string representation of the relative location.
+     */
     public String getStringRelativeLocation(int x, int y) {
         return Integer.toString(x) + "_" + Integer.toString(y);
     }
 
+    /**
+     * Creates the map by generating and connecting rooms.
+     */
     public void createMap() {
         int roomCount = (int) calculateCeiling(mapSize);
         while (0 < roomCount) {
-            // 0_0 : [0_1, "", "", ""]
             List<String> rooms = new ArrayList<>(relativePosition.keySet());
 
             String randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
@@ -139,6 +209,11 @@ public class MapGenerator {
         }
     }
 
+    /**
+     * Prints the relative positions of all rooms in the map.
+     *
+     * @return A string representation of the relative positions.
+     */
     public String printRelativePosition() {
         System.out.println("Relative Position:");
         StringBuilder logString = new StringBuilder("Relative Position:");
@@ -159,7 +234,9 @@ public class MapGenerator {
         return logString.toString();
     }
 
-
+    /**
+     * Prints the details of all rooms in the map.
+     */
     public void printRoomDetails() {
         System.out.println("Room Details:");
         for (Map.Entry<String, HashMap<String, Integer>> entry : roomDetails.entrySet()) {
@@ -172,13 +249,69 @@ public class MapGenerator {
         }
     }
 
+    /**
+     * Exports the map data to a JSON file.
+     *
+     * @param filePath The path of the file to write the JSON data to.
+     * @return A string indicating the success or failure of the export operation.
+     */
+    public String exportToJson(String filePath) {
+        Json json = new Json();
+        json.setOutputType(JsonWriter.OutputType.json);
+
+        // Create the main object
+        Map<String, Object> jsonObject = new HashMap<>();
+
+        // Export room connections
+        Map<String, List<String>> roomConnections = new HashMap<>();
+        for (Map.Entry<String, List<String>> entry : getPositions().entrySet()) {
+            roomConnections.put(entry.getKey(), entry.getValue());
+        }
+        jsonObject.put("room_connections", roomConnections);
+
+        // Export room details
+        Map<String, Map<String, List<Integer>>> roomsInfo = new HashMap<>();
+        for (Map.Entry<String, HashMap<String, Integer>> entry : getRoomDetails().entrySet()) {
+            Map<String, List<Integer>> details = new HashMap<>();
+            details.put("animal_index", Collections.singletonList(entry.getValue().get("animal_index")));
+            details.put("item_index", Collections.singletonList(entry.getValue().get("item_index")));
+            roomsInfo.put(entry.getKey(), details);
+        }
+        jsonObject.put("rooms_info", roomsInfo);
+
+        // Add player location, seed, and map size
+        jsonObject.put("player_location", startingRoom);
+        jsonObject.put("seed", rng.getSeed());
+        jsonObject.put("map_size", mapSize);
+
+        // Write JSON to file
+        try {
+            FileHandle file = Gdx.files.local(filePath);
+            String jsonString = json.prettyPrint(jsonObject);
+            System.out.println("Generated JSON:\n" + jsonString); // Print for debugging
+            file.writeString(jsonString, false);
+            return "Successfully written to JSON file.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "An error occurred while writing to the file: " + e.getMessage();
+        }
+    }
+
+    /**
+     * Gets the size of the map.
+     *
+     * @return The size of the map.
+     */
     public int getMapSize() {
         return mapSize;
     }
 
+    /**
+     * Gets the seed used for random number generation.
+     *
+     * @return The seed as a string.
+     */
     public String getMapSeed() {
         return rng.getSeed();
     }
 }
-
-

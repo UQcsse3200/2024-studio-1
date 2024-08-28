@@ -63,7 +63,6 @@ public class WeaponComponent extends Component {
      */
     public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, int range,
                            int fireRate, int ammo, int maxAmmo, int reloadTime) {
-        loadAsset();
 //        System.out.println("WeaponComponent created");
         if (weaponType == Collectible.Type.MELEE_WEAPON) {
             this.swingDamge = damage;
@@ -111,22 +110,12 @@ public class WeaponComponent extends Component {
      * @param weaponType   type of weapon (compulsory)
      */
     public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType) {
-        loadAsset();
         if (weaponType == Collectible.Type.MELEE_WEAPON) {
             new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 0, 0, 0);
         } else {
             new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 1, 1, 1);
         }
     }
-
-//    /**
-//     * Load sound effects
-//     */
-//    private void loadAsset() {
-//        this.resourceService = new ResourceService();
-//        ServiceLocator.registerResourceService(this.resourceService);
-//        this.resourceService.loadSounds(forestSounds);
-//    }
 
     /**
      * Get the type of weapon

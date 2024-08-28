@@ -82,12 +82,12 @@ public class PlayerStatsDisplay extends UIComponent {
   }
 
   public void updateMeleeWeaponCountUI(int weaponCount) {
-    CharSequence text = String.format("Pickaxe: %d", weaponCount);
+    CharSequence text = String.format("Pickaxe x %d", weaponCount);
     pickaxeLabel.setText(text);
   }
 
   public void updateRangedWeaponCountUI(int weaponCount) {
-    CharSequence text = String.format("Shotgun: %d", weaponCount);
+    CharSequence text = String.format("Shotgun x %d", weaponCount);
     shotgunLabel.setText(text);
   }
 
@@ -97,14 +97,4 @@ public class PlayerStatsDisplay extends UIComponent {
     heartImage.remove();
     healthLabel.remove();
   }
-  public int getPickaxeWeaponCount() {
-    // Return the current pickaxe weapon count.
-    // You may need to implement this based on how you manage weapon counts.
-    return Integer.parseInt(pickaxeLabel.getText().toString().split(": ")[1]);
-  }
-
-  public int getShotgunWeaponCount() {
-    return Integer.parseInt(shotgunLabel.getText().toString().split(": ")[1]);
-  }
-
 }

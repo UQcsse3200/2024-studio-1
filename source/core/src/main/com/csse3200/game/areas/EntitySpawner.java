@@ -11,13 +11,17 @@ import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.areas.ForestGameArea;
 import com.csse3200.game.utils.math.RandomUtils;
+import com.csse3200.game.utils.RandomNumberGenerator;
+
 
 public class EntitySpawner {
+    private static RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator("HiCameron");
+    private static GameArea gameArea;
+
     private static List<List<String>> animals = Arrays.asList(Arrays.asList("Rat","Dog","Minotaur"),Arrays.asList("Dino","Bat","Bear"));
 
     private static List<List<String>> items = Arrays.asList(Arrays.asList("buff:energydrink","item:bandage","item:medkit","item:shieldpotion","melee:knife","ranged:shotgun"));
 
-    private static GameArea gameArea;
     private static final NPCFactory npcFactory = new NPCFactory();
 
     public static void setGameArea(GameArea ga) { gameArea = ga;}
@@ -32,13 +36,16 @@ public class EntitySpawner {
             throw new IllegalArgumentException("Invalid index for animal group");
         }
         for (String animal : animals.get(index)) {
-            //get a random position
-            GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-            Vector2 playerPosition = player.getPosition();
-            while(Math.abs(playerPosition.x - randomPos.x) <= 1 && Math.abs(playerPosition.y - randomPos.y) <= 1 ) {
-                randomPos = RandomUtils.random(minPos, maxPos);
+            boolean willSpawn = (randomNumberGenerator.getRandomInt(0,1000) % 2 == 1);
+            if(willSpawn) {
+                //get a random position
+                GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+                Vector2 playerPosition = player.getPosition();
+                while (Math.abs(playerPosition.x - randomPos.x) <= 1 && Math.abs(playerPosition.y - randomPos.y) <= 1) {
+                    randomPos = RandomUtils.random(minPos, maxPos);
+                }
+                spawnAnimal(player, animal, randomPos);
             }
-            spawnAnimal(player, animal,randomPos);
         }
     }
 
@@ -49,8 +56,11 @@ public class EntitySpawner {
         }
         for (String item : items.get(index)) {
             //get a random position
-            GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-            spawnItem(item,randomPos);
+            boolean willSpawn = (randomNumberGenerator.getRandomInt(0,1000) % 2 == 1);
+            if(willSpawn) {
+                GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+                spawnItem(item, randomPos);
+            }a
         }
     }
 

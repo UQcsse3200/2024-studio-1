@@ -40,7 +40,7 @@ class WeaponProjectileTest {
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
-        while (!resourceService.loadForMillis(10)) {
+        while (!resourceService.loadForMillis(1000)) {
             // wait for assets to load.
         }
         //should not cause exception

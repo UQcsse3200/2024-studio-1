@@ -124,11 +124,6 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">Create a terrain factory with Orthogonal orientation</div>
 </div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.components.CameraComponent,com.csse3200.game.areas.terrain.TerrainComponent.TerrainOrientation)" class="member-name-link">TerrainFactory</a><wbr>(<a href="../../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;cameraComponent,
- <a href="TerrainComponent.TerrainOrientation.html" title="enum class in com.csse3200.game.areas.terrain">TerrainComponent.TerrainOrientation</a>&nbsp;orientation)</code></div>
-<div class="col-last odd-row-color">
-<div class="block">Create a terrain factory</div>
-</div>
 </div>
 </section>
 </li>
@@ -148,6 +143,15 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Create a terrain of the given type, using the orientation of the factory.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBrokenTile()" class="member-name-link">getBrokenTile</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isBrokenTile()" class="member-name-link">isBrokenTile</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isStainedTile()" class="member-name-link">isStainedTile</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -176,19 +180,6 @@ loadScripts(document, 'script');</script>
 </dl>
 </section>
 </li>
-<li>
-<section class="detail" id="&lt;init&gt;(com.csse3200.game.components.CameraComponent,com.csse3200.game.areas.terrain.TerrainComponent.TerrainOrientation)">
-<h3>TerrainFactory</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">TerrainFactory</span><wbr><span class="parameters">(<a href="../../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;cameraComponent,
- <a href="TerrainComponent.TerrainOrientation.html" title="enum class in com.csse3200.game.areas.terrain">TerrainComponent.TerrainOrientation</a>&nbsp;orientation)</span></div>
-<div class="block">Create a terrain factory</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>cameraComponent</code> - Camera to render terrains to. Must be orthographic.</dd>
-<dd><code>orientation</code> - orientation to render terrain at</dd>
-</dl>
-</section>
-</li>
 </ul>
 </section>
 </li>
@@ -209,6 +200,24 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>Terrain component which renders the terrain</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="isBrokenTile()">
+<h3>isBrokenTile</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isBrokenTile</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getBrokenTile()">
+<h3>getBrokenTile</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getBrokenTile</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="isStainedTile()">
+<h3>isStainedTile</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isStainedTile</span>()</div>
 </section>
 </li>
 </ul>

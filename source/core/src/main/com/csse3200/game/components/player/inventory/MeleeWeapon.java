@@ -28,7 +28,7 @@ public abstract class MeleeWeapon implements Collectible {
         inventory.resetMelee();
 
         if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(); // remove weapon
+            inventory.getEntity().getComponent(WeaponComponent.class).dropMeleeWeapon(); // remove weapon
         }
     }
 

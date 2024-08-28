@@ -23,28 +23,31 @@ import org.slf4j.LoggerFactory;
  * Forest area for the demo game with trees, a player, and some enemies.
  */
 public class ForestGameArea extends GameArea {
-    private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-    private static final int NUM_TREES = 7;
-    private static final int NUM_GHOSTS = 2;
-    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
-    private static final GridPoint2 ITEM_SPAWN = new GridPoint2(10, 5);
-    private static final float WALL_WIDTH = 0.1f;
-    private static final int NUM_PICKAXES = 4;
-    private static final int NUM_SHOTGUNS = 4;
-    private static final String[] forestTextures = {
-            "images/box_boy_leaf.png",
-            "images/tree.png",
-            "images/grass_1.png",
-            "images/grass_2.png",
-            "images/grass_3.png",
-            "images/hex_grass_1.png",
-            "images/hex_grass_2.png",
-            "images/hex_grass_3.png",
-            "images/iso_grass_1.png",
-            "images/iso_grass_2.png",
-            "images/iso_grass_3.png",
-            "images/Weapons/Shotgun.png",
-            "images/Weapons/pickaxe.png",
+  private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
+  private static final int NUM_TREES = 7;
+  private static final int NUM_GHOSTS = 2;
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+  private static final float WALL_WIDTH = 0.1f;
+  private static final int NUM_PICKAXES = 4;
+  private static final int NUM_SHOTGUNS = 4;
+  private static final String[] forestTextures = {
+    "images/box_boy_leaf.png",
+    "images/tree.png",
+    "images/ghost_king.png",
+    "images/ghost_1.png",
+    "images/grass_1.png",
+    "images/grass_2.png",
+    "images/grass_3.png",
+    "images/hex_grass_1.png",
+    "images/hex_grass_2.png",
+    "images/hex_grass_3.png",
+    "images/iso_grass_1.png",
+    "images/iso_grass_2.png",
+    "images/iso_grass_3.png",
+          "images/Weapons/Shotgun.png",
+          "images/Weapons/pickaxe.png",
+          "images/Weapons/pickaxe_boy.png",
+          "images/Weapons/shotgun_boy.png"
 
     };
     private static final String[] forestTextureAtlases = {
@@ -94,7 +97,7 @@ public class ForestGameArea extends GameArea {
 
         playMusic();
 
-        spawnCollectibleTest();
+        //spawnCollectibleTest(); Test must not be in the source code
         spawnBandage();
         spawnMedkit();
         spawnShieldPotion();
@@ -222,11 +225,12 @@ public class ForestGameArea extends GameArea {
         spawnEntityAt(ghostKing, randomPos, true, true);
     }
 
-    private Entity spawnCollectibleTest() {
-        Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("buff:energydrink");
-        spawnEntityAt(collectibleEntity, ITEM_SPAWN, true, true);
-        return collectibleEntity;
-    }
+    // test should not be here
+//    private Entity spawnCollectibleTest() {
+//        Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("buff:energydrink");
+//        spawnEntityAt(collectibleEntity, ITEM_SPAWN, true, true);
+//        return collectibleEntity;
+//    }
 
     private void spawnBandage() {
         Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:bandage");

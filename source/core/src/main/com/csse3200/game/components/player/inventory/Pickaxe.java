@@ -26,12 +26,12 @@ public class Pickaxe extends MeleeWeapon {
 
     @Override
     public String getName() {
-        return "knife";
+        return "pickaxe";
     }
 
     @Override
     public Texture getIcon() {
-        return new Texture("pickaxe.png");
+        return new Texture("/images/Weapons/pickaxe.png");
     }
 }
 

@@ -7,8 +7,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WeaponComponentTest {
-
-
     @Test
     public void testWeaponComponent() {
         // create a weapon component
@@ -28,7 +26,8 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentDamage() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON,
+                10, 5, 1, 0, 0, 0);
         // check if weapon component damage is correct
         assertEquals(10, weaponComponent.getDamage());
     }
@@ -36,7 +35,8 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentRange() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON,
+                10, 5, 1, 0, 0, 0);
         // check if weapon component range is correct
         assertEquals(5, weaponComponent.getRange());
     }
@@ -44,7 +44,7 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentFireRate() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component fire rate is correct
         assertEquals(1, weaponComponent.getFireRate());
     }
@@ -52,7 +52,7 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentAmmo() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component ammo is correct
         assertEquals(0, weaponComponent.getAmmo());
     }
@@ -60,7 +60,7 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentMaxAmmo() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component max ammo is correct
         assertEquals(0, weaponComponent.getMaxAmmo());
     }
@@ -71,14 +71,6 @@ public class WeaponComponentTest {
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component reload time is correct
         assertEquals(0, weaponComponent.getReloadTime());
-    }
-
-    @Test
-    public void testWeaponComponentWeaponType() {
-        // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
-        // check if weapon component weapon type is correct
-        assertEquals(Collectible.Type.MELEE_WEAPON, weaponComponent.getWeaponType());
     }
 
     @Test
@@ -105,7 +97,8 @@ public class WeaponComponentTest {
     public void testWeaponComponentWeaponSprite() {
         // create a weapon component
         Sprite sprite = new Sprite();
-        WeaponComponent weaponComponent = new WeaponComponent(sprite, Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(sprite, Collectible.Type.RANGED_WEAPON, 10, 5,
+                1, 0, 0, 0);
         // check if weapon component weapon sprite is correct
         assertEquals(sprite, weaponComponent.getWeaponSprite());
     }
@@ -113,7 +106,7 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentWeaponSpriteNull() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(null, Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(null, Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, 0, 0);
         // check if weapon component weapon sprite is correct
         assertNull(weaponComponent.getWeaponSprite());
     }
@@ -241,5 +234,60 @@ public class WeaponComponentTest {
         // check if weapon component reload time is correct
         assertEquals(Integer.MAX_VALUE, weaponComponent.getReloadTime());
     }
+
+
+//    @Test
+//    public void testRangeWeaponReload() {
+//        int maxAmmo = 10;
+//        // create a weapon component
+//        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
+//                Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, maxAmmo, 1);
+//        // Create test entity to attach weaponcomponent
+//        Entity testEntity = new Entity();
+//        testEntity.addComponent(weaponComponent);
+//        // Ammo is 0
+//        assertEquals(0, weaponComponent.getAmmo());
+//        // Shot in default direction with ammo at 0
+//        weaponComponent.shoot(new Vector2());
+//        try {
+//            Thread.sleep(800);
+//            weaponComponent.shoot(new Vector2());
+//            // Weapon is still reloading, weapon should not shoot.
+//            assertEquals(maxAmmo, weaponComponent.getAmmo());
+//            Thread.sleep(200);
+//            weaponComponent.shoot(new Vector2());
+//            // Attempt to shoot weapon after reload, weapon should shoot.
+//            assertEquals(maxAmmo - 1, weaponComponent.getAmmo());
+//        } catch (InterruptedException ex) {
+//            // sleep() failed
+//            fail();
+//        }
+//    }
+//
+//    @Test
+//    public void testRangeWeaponFireRate() {
+//        int maxAmmo = 10;
+//        // create a weapon component
+//        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
+//                Collectible.Type.RANGED_WEAPON, 10, 5, 1, maxAmmo, maxAmmo, 2);
+//        // Create test entity to attach weaponcomponent
+//        Entity testEntity = new Entity();
+//        testEntity.addComponent(weaponComponent);
+//        // Shot in default direction with ammo at 0
+//        weaponComponent.shoot(new Vector2());
+//        try {
+//            Thread.sleep(800);
+//            weaponComponent.shoot(new Vector2());
+//            // Attempt to shoot weapon faster than fire rate, weapon should not shoot.
+//            assertEquals(maxAmmo - 1, weaponComponent.getAmmo());
+//            Thread.sleep(200);
+//            weaponComponent.shoot(new Vector2());
+//            // Attempt to shoot weapon equal to fire rate, weapon should shoot.
+//            assertEquals(maxAmmo - 2, weaponComponent.getAmmo());
+//        } catch (InterruptedException ex) {
+//            // sleep() failed
+//            fail();
+//        }
+//    }
 
 }

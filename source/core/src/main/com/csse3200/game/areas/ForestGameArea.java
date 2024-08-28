@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.areas.terrain.TerrainFactory.TerrainType;
-import com.csse3200.game.areas.AnimalSpawner;
+import com.csse3200.game.areas.EntitySpawner;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.RoomDirection;
@@ -93,7 +93,7 @@ public class ForestGameArea extends GameArea {
         this.roomList = new ArrayList<>();
         this.mapGenerator = new MapGenerator(difficulty * 12, seed);
         this.mapGenerator.createMap();
-        AnimalSpawner.setGameArea(this);
+        EntitySpawner.setGameArea(this);
         logger.info(this.mapGenerator.printRelativePosition());
     }
 
@@ -106,15 +106,15 @@ public class ForestGameArea extends GameArea {
         displayUI();
         spawnTerrain();
         player = spawnPlayer();
-        spawnAnimals();
+        spawnEntities();
 
         //playMusic();
-        spawnCollectibleTest();
-        spawnBandage();
-        spawnMedkit();
-        spawnShieldPotion();
-        spawnPickaxes();
-        spawnShotgun();
+        //spawnCollectibleTest();
+        //spawnBandage();
+        //spawnMedkit();
+        //spawnShieldPotion();
+        //spawnPickaxes();
+        //spawnShotgun();
     }
 
     private void displayUI() {
@@ -136,13 +136,13 @@ public class ForestGameArea extends GameArea {
         createDoors();
     }
 
-    private void spawnAnimals() {
+    private void spawnEntities() {
         GridPoint2 minPos = new GridPoint2(0, 0);
-        GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-        //HashMap<String,Integer> rd = mapGenerator.getRoomDetails().get("animal_index");
-        //Integer index = rd.get("animal_index").ge;
+        GridPoint2 maxPos = new GridPoint2(14,10);
+        //should use animal index in MapGenerator
         //AnimalSpawner.spawnAnimalGroup(player,index,minPos,maxPos);
-        AnimalSpawner.spawnAnimalGroup(player, 1, minPos, maxPos);
+        EntitySpawner.spawnAnimalGroup(player, 0, minPos, maxPos);
+        EntitySpawner.spawnItemGroup(0,minPos, maxPos);
     }
 
     private void createWalls(GridPoint2 tileBounds, Vector2 worldBounds) {
@@ -283,12 +283,12 @@ public class ForestGameArea extends GameArea {
 
     private void spawnBandage() {
         Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:bandage");
-        spawnEntityAt(collectibleEntity, new GridPoint2(19, 15), true, true);
+        spawnEntityAt(collectibleEntity, new GridPoint2(9, 9), true, true);
     }
 
     private void spawnMedkit() {
         Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:medkit");
-        spawnEntityAt(collectibleEntity, new GridPoint2(15, 15), true, true);
+        spawnEntityAt(collectibleEntity, new GridPoint2(8, 8), true, true);
     }
 
     private void spawnShieldPotion() {

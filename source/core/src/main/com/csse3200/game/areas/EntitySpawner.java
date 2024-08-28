@@ -60,7 +60,7 @@ public class EntitySpawner {
             if(willSpawn) {
                 GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
                 spawnItem(item, randomPos);
-            }a
+            }
         }
     }
 

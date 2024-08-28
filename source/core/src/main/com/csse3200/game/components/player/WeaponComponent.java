@@ -10,8 +10,6 @@ import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -320,10 +318,6 @@ public class WeaponComponent extends Component {
                 return;
             }
             // Render attack here using
-//            ServiceLocator.getResourceService()
-//                    .getAsset("sounds/Impact4.ogg", Sound.class)
-//                    .play();
-//            resourceService.getAsset(forestSounds[0], Sound.class).play();
             this.lastSwing = currentTime;
             logger.info("Melee weapon attack");
         } else {
@@ -352,7 +346,6 @@ public class WeaponComponent extends Component {
                 // Spawn projectile
                 ProjectileFactory.createProjectile(this.bulletConfig,
                         this.getEntity().getPosition(), direction);
-//                resourceService.getAsset(forestSounds[0], Sound.class).play();
                 logger.info("Ranged weapon shoot");
             }
             // Reset lastAtttack time

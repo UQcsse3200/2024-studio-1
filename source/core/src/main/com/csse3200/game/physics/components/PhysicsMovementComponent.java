@@ -92,4 +92,16 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     // Move towards targetPosition based on our current position
     return targetPosition.cpy().sub(entity.getPosition()).nor();
   }
+
+  /**
+   * Directly sets the linear velocity of the physics body.
+   *
+   * @param velocity the desired linear velocity
+   */
+
+  public void setLinearVelocity(Vector2 velocity) {
+    Body body = physicsComponent.getBody();
+    body.setLinearVelocity(velocity);
+  }
+
 }

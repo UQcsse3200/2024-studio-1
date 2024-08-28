@@ -2,6 +2,7 @@ package com.csse3200.game.components.mainmenu;
 
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.options.GameOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,50 +11,59 @@ import org.slf4j.LoggerFactory;
  * events is triggered.
  */
 public class MainMenuActions extends Component {
-  private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
-  private GdxGame game;
+    private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
+    private GdxGame game;
 
-  public MainMenuActions(GdxGame game) {
-    this.game = game;
-  }
+    public MainMenuActions(GdxGame game) {
+        this.game = game;
+    }
 
-  @Override
-  public void create() {
-    entity.getEvents().addListener("start", this::onStart);
-    entity.getEvents().addListener("load", this::onLoad);
-    entity.getEvents().addListener("exit", this::onExit);
-    entity.getEvents().addListener("settings", this::onSettings);
-  }
+    @Override
+    public void create() {
+        entity.getEvents().addListener("start", this::onStart);
+        entity.getEvents().addListener("load", this::onLoad);
+        entity.getEvents().addListener("exit", this::onExit);
+        entity.getEvents().addListener("settings", this::onSettings);
+        entity.getEvents().addListener("how-to-play", this::onHowToPlay);
 
-  /**
-   * Swaps to the Main Game screen.
-   */
-  private void onStart() {
-    logger.info("Start game");
-    game.setScreen(GdxGame.ScreenType.MAIN_GAME);
-  }
+    }
 
-  /**
-   * Intended for loading a saved game state.
-   * Load functionality is not actually implemented.
-   */
-  private void onLoad() {
-    logger.info("Load game");
-  }
+    /**
+     * Swaps to the Main Game screen.
+     */
+    private void onStart(GameOptions options) {
+        logger.info("Start game");
+        game.gameOptions = options;
+        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+    }
 
-  /**
-   * Exits the game.
-   */
-  private void onExit() {
-    logger.info("Exit game");
-    game.exit();
-  }
+    /**
+     * Intended for loading a saved game state.
+     * Load functionality is not actually implemented.
+     */
+    private void onLoad() {
+        logger.info("Load game");
+    }
 
-  /**
-   * Swaps to the Settings screen.
-   */
-  private void onSettings() {
-    logger.info("Launching settings screen");
-    game.setScreen(GdxGame.ScreenType.SETTINGS);
-  }
+    /**
+     * Exits the game.
+     */
+    private void onExit() {
+        logger.info("Exit game");
+        game.exit();
+    }
+
+    /**
+     * Swaps to the Settings screen.
+     */
+    private void onSettings() {
+        logger.info("Launching settings screen");
+        game.setScreen(GdxGame.ScreenType.SETTINGS);
+    }
+
+    private void onHowToPlay() {
+        logger.info("Launching how to play screen");
+        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
+    }
+
 }

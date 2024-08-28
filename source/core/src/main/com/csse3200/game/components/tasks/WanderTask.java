@@ -53,7 +53,7 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     movementTask.setVelocity(wonderSpeed);
     currentTask = movementTask;
 
-    this.owner.getEntity().getEvents().trigger("wanderStart");
+    this.owner.getEntity().getEvents().trigger("walk");
   }
 
   @Override
@@ -70,14 +70,14 @@ public class WanderTask extends DefaultTask implements PriorityTask {
 
   private void startWaiting() {
     logger.debug("Starting waiting");
-    this.owner.getEntity().getEvents().trigger("wanderStop");
+    this.owner.getEntity().getEvents().trigger("idle");
     swapTask(waitTask);
   }
 
   private void startMoving() {
     logger.debug("Starting moving");
     movementTask.setTarget(getRandomPosInRange());
-    this.owner.getEntity().getEvents().trigger("wanderStart");
+    this.owner.getEntity().getEvents().trigger("walk");
     swapTask(movementTask);
   }
 

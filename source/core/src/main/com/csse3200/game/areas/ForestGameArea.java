@@ -14,6 +14,7 @@ import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.MapFactory;
 import com.csse3200.game.entities.factories.ObstacleFactory;
 import com.csse3200.game.entities.factories.PlayerFactory;
+import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
@@ -116,6 +117,7 @@ public class ForestGameArea extends GameArea {
         displayUI();
         spawnTerrain();
         player = spawnPlayer();
+
         createDoors();
         spawnEntities();
 
@@ -126,6 +128,24 @@ public class ForestGameArea extends GameArea {
         //spawnShieldPotion();
         //spawnPickaxes();
         //spawnShotgun();
+
+        spawnSnake();
+        spawnRat();
+        spawnBat();
+        spawnBear();
+        spawnDino();
+        spawnMinotaur();
+        spawnGhostKing();
+        spawnDog();
+
+        playMusic();
+
+        spawnCollectibleTest();
+        spawnBandage();
+        spawnMedkit();
+        spawnShieldPotion();
+        spawnPickaxes();
+        spawnShotgun();
     }
 
     private void displayUI() {
@@ -371,6 +391,25 @@ public class ForestGameArea extends GameArea {
     private void spawnPickaxes() {
         GridPoint2 minPos = new GridPoint2(0, 0);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+<<<<<<< team-6-maps
+
+        for (int i = 0; i < NUM_PICKAXES; i++) {
+            GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+            Entity pickaxe = CollectibleFactory.createCollectibleEntity("melee:knife");
+            spawnEntityAt(pickaxe, randomPos, true, false); // Spawning the knife at a random position
+        }
+    }
+
+    private void spawnShotgun() {
+        GridPoint2 minPos = new GridPoint2(0, 0);
+        GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+        for (int i = 0; i < NUM_SHOTGUNS; i++) {
+            GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+            Entity shotgun = CollectibleFactory.createCollectibleEntity("ranged:shotgun");
+            spawnEntityAt(shotgun, randomPos, true, false); // Spawning the Shotgun at a random position
+        }
+=======
 
         for (int i = 0; i < NUM_PICKAXES; i++) {
             GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
@@ -389,6 +428,20 @@ public class ForestGameArea extends GameArea {
             spawnEntityAt(shotgun, randomPos, true, false); // Spawning the Shotgun at a random position
         }
     }
+
+  private void playMusic() {
+    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+    music.setLooping(true);
+    if(!UserSettings.get().mute)
+    {
+      music.setVolume(UserSettings.get().musicVolume);
+>>>>>>> main
+    }
+    else {
+      music.setVolume(0);
+    }
+    music.play();
+  }
 
     private void loadAssets() {
         logger.debug("Loading assets");

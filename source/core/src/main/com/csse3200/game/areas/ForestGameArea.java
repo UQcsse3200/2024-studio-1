@@ -116,6 +116,7 @@ public class ForestGameArea extends GameArea {
         displayUI();
         spawnTerrain();
         player = spawnPlayer();
+        createDoors();
         spawnEntities();
 
         //playMusic();
@@ -143,7 +144,6 @@ public class ForestGameArea extends GameArea {
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
         createWalls(tileBounds, worldBounds);
-        createDoors();
     }
 
     private void spawnEntities() {
@@ -243,14 +243,13 @@ public class ForestGameArea extends GameArea {
             logger.info(connectS);
             this.currentRoom = connectS;
         };
-        Entity door = DoorFactory.createDoor('v', callBackEast); // left
-        Entity door2 = DoorFactory.createDoor('v', callBackWest); // right
-        Entity door3 = DoorFactory.createDoor('h', callBackSouth); // bottom
-        Entity door4 = DoorFactory.createDoor('h', callBackNorth); // top
+        Entity door = DoorFactory.createDoor('v', callBackEast, player.getId()); // left
+        Entity door2 = DoorFactory.createDoor('v', callBackWest, player.getId()); // right
+        Entity door3 = DoorFactory.createDoor('h', callBackSouth,player.getId()); // bottom
+        Entity door4 = DoorFactory.createDoor('h', callBackNorth, player.getId()); // top
 
         Vector2 doorvScale = door.getScale();
         Vector2 doorhScale = door3.getScale();
-
         // Left Door
         if(!connectE.isEmpty()) {
             spawnEntityAt(
@@ -292,6 +291,8 @@ public class ForestGameArea extends GameArea {
             door4.setPosition(door4Pos.x, door4Pos.y - 2 * doorhScale.y);
             doors.add(door4);
         }
+
+
     }
 
     /**

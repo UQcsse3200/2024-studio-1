@@ -51,7 +51,7 @@ public class PlayerStatsDisplay extends UIComponent {
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
     CharSequence healthText = String.format("Health: %d", health);
-    healthLabel = new Label(healthText, skin, "large");
+    healthLabel = new Label(healthText, skin, "small");
 
     //Weapon text, like the name of weapon
     String weapon = ""; //entity.getComponent(WeaponComponent.class).getWeaponType();

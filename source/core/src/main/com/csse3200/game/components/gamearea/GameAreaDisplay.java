@@ -23,7 +23,7 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   private void addActors() {
-    title = new Label(this.gameAreaName, skin, "large");
+    title = new Label(this.gameAreaName, skin, "small");
     stage.addActor(title);
   }
 

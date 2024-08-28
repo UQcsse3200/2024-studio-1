@@ -47,7 +47,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
 
-    this.owner.getEntity().getEvents().trigger("chaseStart");
+    this.owner.getEntity().getEvents().trigger("walk");
   }
 
   @Override

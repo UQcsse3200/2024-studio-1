@@ -70,7 +70,7 @@ public class ForestGameArea extends GameArea {
     private static final String[] forestSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private static final String[] forestMusic = {backgroundMusic};
-
+    private List<Entity> doors;
     private final TerrainFactory terrainFactory;
 
     private final MapGenerator mapGenerator;
@@ -116,7 +116,7 @@ public class ForestGameArea extends GameArea {
         displayUI();
         spawnTerrain();
         player = spawnPlayer();
-        //spawnEntities();
+        spawnEntities();
 
         //playMusic();
         //spawnCollectibleTest();
@@ -204,8 +204,17 @@ public class ForestGameArea extends GameArea {
                 GridPoint2Utils.ZERO,
                 false, false);
     }
+    private void nextRoom() {
+        /*for(Entity door:doors){
+            door.dispose();
+        /*}
 
+         */
+        //logger.info("hello!!!!!!!!!!!!!!!!!!!!!");
+        spawnMedkit();
+    }
     private void createDoors() {
+        this.doors = new ArrayList<>();
         List<String> connections = this.mapGenerator.getPositions().get("0_0"); // N E W S
         String connectN = connections.get(0);
         String connectE = connections.get(1);
@@ -217,18 +226,22 @@ public class ForestGameArea extends GameArea {
         };
         DoorCallBack callBackEast = () -> {
             logger.info(connectE);
+            this.currentRoom = connectE;
         };
 
         DoorCallBack callBackNorth = () -> {
             logger.info(connectN);
+            this.currentRoom = connectN;
         };
 
         DoorCallBack callBackWest = () -> {
             logger.info(connectW);
+            this.currentRoom = connectW;
         };
 
         DoorCallBack callBackSouth = () -> {
             logger.info(connectS);
+            this.currentRoom = connectS;
         };
         Entity door = DoorFactory.createDoor('v', callBackEast); // left
         Entity door2 = DoorFactory.createDoor('v', callBackWest); // right
@@ -247,6 +260,7 @@ public class ForestGameArea extends GameArea {
                     true);
             Vector2 doorPos = door.getPosition();
             door.setPosition(doorPos.x - doorvScale.x, doorPos.y);
+            doors.add(door);
         }
         // Right Door
         if(!connectW.isEmpty()) {
@@ -256,6 +270,7 @@ public class ForestGameArea extends GameArea {
                     true);
             Vector2 door2Pos = door2.getPosition();
             door2.setPosition(door2Pos.x - 2 * doorvScale.x, door2Pos.y);
+            doors.add(door2);
         }
         // Bottom Door
         if(!connectS.isEmpty()) {
@@ -265,6 +280,7 @@ public class ForestGameArea extends GameArea {
                     true);
             Vector2 door3Pos = door3.getPosition();
             door3.setPosition(door3Pos.x, door3Pos.y - doorhScale.y);
+            doors.add(door3);
         }
         // Top Door
         if(!connectN.isEmpty()) {
@@ -274,6 +290,7 @@ public class ForestGameArea extends GameArea {
                     true);
             Vector2 door4Pos = door4.getPosition();
             door4.setPosition(door4Pos.x, door4Pos.y - 2 * doorhScale.y);
+            doors.add(door4);
         }
     }
 

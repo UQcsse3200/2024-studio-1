@@ -147,6 +147,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#attack()" class="member-name-link">attack</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#dropMeleeWeapon()" class="member-name-link">dropMeleeWeapon</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#dropRangeWeapon()" class="member-name-link">dropRangeWeapon</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAmmo()" class="member-name-link">getAmmo</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -229,16 +235,13 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#shoot(com.badlogic.gdx.math.Vector2)" class="member-name-link">shoot</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;direction)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon()" class="member-name-link">updateWeapon</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.MeleeWeapon)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&nbsp;meleeWeapon)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.MeleeWeapon)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&nbsp;meleeWeapon)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Update the weapon with new values (melee only)</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.RangedWeapon)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&nbsp;rangedWeapon)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.RangedWeapon)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&nbsp;rangedWeapon)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Update the weapon with new values (ranged only)</div>
 </div>
 </div>
@@ -487,9 +490,15 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="updateWeapon()">
-<h3>updateWeapon</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateWeapon</span>()</div>
+<section class="detail" id="dropRangeWeapon()">
+<h3>dropRangeWeapon</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">dropRangeWeapon</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="dropMeleeWeapon()">
+<h3>dropMeleeWeapon</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">dropMeleeWeapon</span>()</div>
 </section>
 </li>
 <li>

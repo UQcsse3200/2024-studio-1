@@ -3,6 +3,7 @@ package com.csse3200.game.areas;
 import java.util.List;
 import java.util.Arrays;
 import java.lang.Math;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -18,9 +19,9 @@ public class EntitySpawner {
     private static RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator("HiCameron");
     private static GameArea gameArea;
 
-    private static List<List<String>> animals = Arrays.asList(Arrays.asList("Rat","Dog","Minotaur"),Arrays.asList("Dino","Bat","Bear"));
+    private static List<List<String>> animals = new ArrayList<>();
 
-    private static List<List<String>> items = Arrays.asList(Arrays.asList("buff:energydrink","item:bandage","item:medkit","item:shieldpotion","melee:knife","ranged:shotgun"));
+    private static List<List<String>> items = new ArrayList<>();
 
     private static final NPCFactory npcFactory = new NPCFactory();
 
@@ -36,7 +37,8 @@ public class EntitySpawner {
             throw new IllegalArgumentException("Invalid index for animal group");
         }
         for (String animal : animals.get(index)) {
-            boolean willSpawn = (randomNumberGenerator.getRandomInt(0,1000) % 2 == 1);
+            boolean willSpawn = true;//*dont want to spawn nothing in worst case scenario -> to do next sprint
+            // (randomNumberGenerator.getRandomInt(0,1000) % 2 == 1);
             if(willSpawn) {
                 //get a random position
                 GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);

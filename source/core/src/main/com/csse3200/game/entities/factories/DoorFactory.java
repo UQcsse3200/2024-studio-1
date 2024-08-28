@@ -21,6 +21,7 @@ public class DoorFactory {
      * Door entity to track updates to entity over different function calls
      */
     static Entity door;
+    static int playerId;
 
     /**
      * Create door with specific orientation and callback function implementation
@@ -29,8 +30,9 @@ public class DoorFactory {
      * @param callback: DoorCallBack - call callback onDoorCollided function when event collision is triggered
      * @return door: Entity
      */
-    public static Entity createDoor(char orientation, DoorCallBack callback) {
+    public static Entity createDoor(char orientation, DoorCallBack callback, int idOfPlayer) {
         door = createBaseDoor(orientation);
+        playerId = idOfPlayer;
         // door config can be implemented later if deigned necessary
         door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
         door.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -55,8 +57,10 @@ public class DoorFactory {
      * @param callback: DoorCallBack - callback onDoorCollide to be set within door when door collided with
      */
     private static void createCollision(DoorCallBack callback) {
-        door.getEvents().addListener("collisionStart", (Fixture other, Fixture other1) -> {
-            if (callback != null) {
+        door.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
+            Entity entity2 = (Entity) fixture2.getUserData();
+            if (callback != null && entity2.getId() == playerId) {
+                System.out.println("This worked!");
                 callback.onDoorCollided();
             }
         });

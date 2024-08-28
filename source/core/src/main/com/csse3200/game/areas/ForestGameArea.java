@@ -107,6 +107,7 @@ public class ForestGameArea extends GameArea {
         displayUI();
         spawnTerrain();
         player = spawnPlayer();
+        createDoors();
         spawnEntities();
 
         //playMusic();
@@ -134,7 +135,6 @@ public class ForestGameArea extends GameArea {
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
         createWalls(tileBounds, worldBounds);
-        createDoors();
     }
 
     private void spawnEntities() {
@@ -200,7 +200,7 @@ public class ForestGameArea extends GameArea {
             System.out.println("The door was opened! This is the lambda function being executed.");
         };
         // Left Door
-        Entity door = DoorFactory.createDoor('v', callback);
+        Entity door = DoorFactory.createDoor('v', callback, player.getId());
         spawnEntityAt(
                 door,
                 new GridPoint2(0, 5),
@@ -211,7 +211,7 @@ public class ForestGameArea extends GameArea {
         door.setPosition(doorPos.x - doorvScale.x, doorPos.y);
 
         // Right Door
-        Entity door2 = DoorFactory.createDoor('v', callback);
+        Entity door2 = DoorFactory.createDoor('v', callback, player.getId());
         spawnEntityAt(door2,
                 new GridPoint2(15, 5),
                 true,
@@ -220,7 +220,7 @@ public class ForestGameArea extends GameArea {
         door2.setPosition(door2Pos.x - 2 * doorvScale.x, door2Pos.y);
 
         // Bottom Door
-        Entity door3 = DoorFactory.createDoor('h', callback);
+        Entity door3 = DoorFactory.createDoor('h', callback, player.getId());
         spawnEntityAt(door3,
                 new GridPoint2(7, 0),
                 true,
@@ -230,7 +230,7 @@ public class ForestGameArea extends GameArea {
         door3.setPosition(door3Pos.x, door3Pos.y - doorhScale.y);
 
 
-        Entity door4 = DoorFactory.createDoor('h', callback);
+        Entity door4 = DoorFactory.createDoor('h', callback, player.getId());
         spawnEntityAt(door4,
                 new GridPoint2(7, 11),
                 true,

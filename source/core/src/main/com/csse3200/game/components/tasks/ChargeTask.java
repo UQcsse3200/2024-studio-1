@@ -25,7 +25,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private final float viewDistance;
   private final float maxChaseDistance;
   private final float chaseSpeed;
-  private final float stunTime = 2f;
+  private final float waitTime;
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
@@ -42,12 +42,14 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
    * @param maxChaseDistance Maximum distance from the entity while chasing before giving up.
    * @param chaseSpeed The speed at which an entity chases at.
    */
-  public ChargeTask(Entity target, int priority, float viewDistance, float maxChaseDistance, float chaseSpeed) {
+  public ChargeTask(Entity target, int priority, float viewDistance, float maxChaseDistance, float chaseSpeed,
+                    float waitTime) {
     this.target = target;
     this.priority = priority;
     this.viewDistance = viewDistance;
     this.maxChaseDistance = maxChaseDistance;
     this.chaseSpeed = chaseSpeed;
+    this.waitTime = waitTime;
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
@@ -57,17 +59,17 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     super.start();
     initialiseTasks();
     startMoving();
-    this.owner.getEntity().getEvents().trigger("chaseStart");
+    this.owner.getEntity().getEvents().trigger("walk");
   }
 
   @Override
   public void update() {
     if (currentTask.getStatus() != Status.ACTIVE) {
       if (currentTask == movementTask) {
-        this.owner.getEntity().getEvents().trigger("chaseEnd");
+        this.owner.getEntity().getEvents().trigger("gesture");
         startWaiting();
       } else {
-        this.owner.getEntity().getEvents().trigger("chaseStart");
+        this.owner.getEntity().getEvents().trigger("walk");
         startMoving();
       }
     }
@@ -91,7 +93,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   }
 
   protected void initialiseTasks() {
-    waitTask = new WaitTask(stunTime);
+    waitTask = new WaitTask(waitTime);
     waitTask.create(owner);
     movementTask = new MovementTask(target.getPosition());
     movementTask.create(owner);

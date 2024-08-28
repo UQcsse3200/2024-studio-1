@@ -91,11 +91,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ProjectileFactory</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">For weapon            - stats param - Design a projectile config for a weapon - checkout configs/ProjectileConfig.
- For map               - All Layers if you want to contain a projectile.
- For health players    - Damage is acted by via hit() method on Entity.
-
- NOTE - Entity is unregistered after collision. Add only to a single use entity - dive-bombing bird IDK.</div>
+<div class="block">Factory for producing entities with a projectile themed component configuration.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -111,8 +107,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createProjectile(com.csse3200.game.entities.configs.ProjectileConfig,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)" class="member-name-link">createProjectile</a><wbr>(<a href="../configs/ProjectileConfig.html" title="class in com.csse3200.game.entities.configs">ProjectileConfig</a>&nbsp;stats,
- com.badlogic.gdx.math.Vector2&nbsp;position,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createProjectile(com.csse3200.game.entities.configs.ProjectileConfig,com.badlogic.gdx.math.Vector2)" class="member-name-link">createProjectile</a><wbr>(<a href="../configs/ProjectileConfig.html" title="class in com.csse3200.game.entities.configs">ProjectileConfig</a>&nbsp;stats,
  com.badlogic.gdx.math.Vector2&nbsp;direction)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Makes a new Entity with projectile components.</div>
@@ -135,12 +130,16 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="createProjectile(com.csse3200.game.entities.configs.ProjectileConfig,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)">
+<section class="detail" id="createProjectile(com.csse3200.game.entities.configs.ProjectileConfig,com.badlogic.gdx.math.Vector2)">
 <h3>createProjectile</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createProjectile</span><wbr><span class="parameters">(<a href="../configs/ProjectileConfig.html" title="class in com.csse3200.game.entities.configs">ProjectileConfig</a>&nbsp;stats,
- com.badlogic.gdx.math.Vector2&nbsp;position,
  com.badlogic.gdx.math.Vector2&nbsp;direction)</span></div>
 <div class="block">Makes a new Entity with projectile components.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>stats</code> - Contains all the re-usable projectile configurations. See ProjectileConfig.</dd>
+<dd><code>direction</code> - Direction of shot projectile.</dd>
+</dl>
 </section>
 </li>
 </ul>

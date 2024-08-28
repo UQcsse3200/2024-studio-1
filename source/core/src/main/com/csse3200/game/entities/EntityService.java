@@ -19,6 +19,8 @@ public class EntityService {
 
   private final Array<Entity> entities = new Array<>(false, INITIAL_CAPACITY);
 
+  private Array<Entity> entitiesToRemove = new Array<>();
+
   /**
    * Register a new entity with the entity service. The entity will be created and start updating.
    * @param entity new entity.
@@ -36,6 +38,18 @@ public class EntityService {
   public void unregister(Entity entity) {
     logger.debug("Unregistering {} in entity service", entity);
     entities.removeValue(entity, true);
+
+  }
+
+  /**
+   * Marks the specified entity to be removed on next update. If entity is already marked,
+   * then it will not be marked for removal again
+   * @param entity the entity to be marked for removal
+   */
+  public void markEntityForRemoval(Entity entity) {
+    if (!entitiesToRemove.contains(entity, true)) {
+      entitiesToRemove.add(entity);
+    }
   }
 
   /**
@@ -43,11 +57,24 @@ public class EntityService {
    */
   public void update() {
     for (Entity entity : entities) {
-      entity.earlyUpdate();
-      entity.update();
+      // If entity is in the entitiesToRemove list then don't update the entity
+      if (!entitiesToRemove.contains(entity, true)) {
+        entity.earlyUpdate();
+        entity.update();
+      }
     }
+    disposeMarkedEntities();
   }
 
+  /**
+   * Dispose all entities marked for removal
+   */
+  public void disposeMarkedEntities() {
+    for (Entity entity : entitiesToRemove) {
+      entity.dispose();
+    }
+    entitiesToRemove.clear();
+  }
   /**
    * Dispose all entities.
    */

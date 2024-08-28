@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.BearCombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
 import com.csse3200.game.components.Direction;
 import com.csse3200.game.components.npc.NPCAnimationController;
@@ -65,6 +64,7 @@ public class NPCFactory {
     "images/minotaur.png",
     "images/bear.png" 
   };
+
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
@@ -226,7 +226,7 @@ public class NPCFactory {
             new AITaskComponent()
                     .addTask(new WanderTask(new Vector2(4f, 4f), 2f, config.wanderSpeed))
                     .addTask(new ChargeTask(target, 10, config.viewDistance, config.chaseDistance,
-                            config.chaseSpeed));
+                            config.chaseSpeed, 2f));
     AnimationRenderComponent animator = createAnimator("images/dog.atlas", config.animations);
     Entity dog = createBaseNPC(aiComponent, config, animator);
 

@@ -10,6 +10,16 @@ test {
     workingDir = new File("../core/assets")
     finalizedBy jacocoTestReport
 
+
+    // Increase max heap size for tests
+    maxHeapSize = "2g"
+
+    // Add test logging
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+
     jacoco {
         destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
     }

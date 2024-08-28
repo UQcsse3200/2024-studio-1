@@ -9,6 +9,7 @@ import com.csse3200.game.areas.ForestGameArea;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDamageTester;
 import com.csse3200.game.entities.Entity;
@@ -38,15 +39,24 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/heart.png"};
+
+  private static final String[] mainGameTextures = {
+          "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
+          "images/ui_white_icons_down.png"
+  };
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
+
   private final GdxGame game;
+  private final GameOptions gameOptions;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
 
   public MainGameScreen(GdxGame game) {
     this.game = game;
+
+    gameOptions = game.gameOptions;
+    logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
 
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());

@@ -3,6 +3,12 @@ package com.csse3200.game.components;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
  * which engage it combat should have an instance of this class registered. This class can be
@@ -11,16 +17,38 @@ import org.slf4j.LoggerFactory;
 public class CombatStatsComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
+    private final boolean canBeInvincible;
     private final int maxHealth;
     private int health;
     private int baseAttack;
+    private boolean isInvincible;
+    private static final int timeInvincible = 2000;
+    private final Timer timer;
 
-    public CombatStatsComponent(int health, int baseAttack) {
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible) {
+        this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
         this.baseAttack = baseAttack;
         setHealth(health);
         setBaseAttack(baseAttack);
+        setInvincible(false);
+        timer = new Timer();
+    }
+
+    public CombatStatsComponent(int health, int baseAttack) {
+        this(health, baseAttack, false);
+    }
+
+    /**
+     * A TimerTask class used to remove the entity's invincibility
+     * 'timeInvincibile' milliseconds after being hit
+     */
+    private class removeInvincible extends TimerTask {
+        @Override
+        public void run() {
+            setInvincible(false);
+        }
     }
 
     /**
@@ -112,7 +140,33 @@ public class CombatStatsComponent extends Component {
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */
     public void hit(CombatStatsComponent attacker) {
-        int newHealth = getHealth() - attacker.getBaseAttack();
-        setHealth(newHealth);
+        if (!getIsInvincible()) {
+            int newHealth = getHealth() - attacker.getBaseAttack();
+            setHealth(newHealth);
+            if (canBeInvincible){
+                setInvincible(true);
+                CombatStatsComponent.removeInvincible task = new CombatStatsComponent.removeInvincible();
+                timer.schedule(task, timeInvincible);
+            }
+        }
+    }
+
+
+    /**
+     * Sets the state of the entity's invincibility
+     *
+     * @param invincible invincibility state
+     */
+    public void setInvincible(boolean invincible) {
+        isInvincible = invincible;
+    }
+
+    /**
+     * returns the state of the entity's invincibility
+     *
+     * @return invincibility state
+     */
+    public boolean getIsInvincible() {
+        return isInvincible;
     }
 }

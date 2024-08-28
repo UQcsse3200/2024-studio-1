@@ -13,6 +13,10 @@ public class RandomUtils {
     return new GridPoint2(MathUtils.random(start.x, end.x), MathUtils.random(start.y, end.y));
   }
 
+  public static int randomInt(int start, int end) {
+    return MathUtils.random(start, end);
+  }
+
   private RandomUtils() {
     throw new IllegalStateException("Instantiating static util class");
   }

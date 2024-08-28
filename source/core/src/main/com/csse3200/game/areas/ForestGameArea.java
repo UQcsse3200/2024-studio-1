@@ -3,10 +3,11 @@ package com.csse3200.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.areas.Generation.MapGenerator;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.areas.terrain.TerrainFactory.TerrainType;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.factories.NPCFactory;
+import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.ObstacleFactory;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.entities.factories.*;
@@ -22,18 +23,16 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
  */
 public class ForestGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-    private static final int NUM_GHOSTS = 2;
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
     private static final GridPoint2 ITEM_SPAWN = new GridPoint2(10, 5);
 
-    private static final float WALL_WIDTH = 0.15f;
+    private static final float WALL_THICKNESS = 0.15f;
     private static final int NUM_PICKAXES = 4;
     private static final int NUM_SHOTGUNS = 4;
     private static final String[] tileTextures = {
@@ -90,7 +89,7 @@ public class ForestGameArea extends GameArea {
 
     public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed, String startingRoom) {
         this.terrainFactory = terrainFactory;
-        this.roomList = new ArrayList<Room>();
+        this.roomList = new ArrayList<>();
         this.mapGenerator = new MapGenerator(difficulty * 12, seed);
         this.mapGenerator.createMap();
         this.currentRoom = startingRoom;
@@ -177,46 +176,38 @@ public class ForestGameArea extends GameArea {
     private void createWalls(GridPoint2 tileBounds, Vector2 worldBounds) {
 
         // Left
-        Entity leftWall = ObstacleFactory.createWall(WALL_WIDTH, tileBounds.y);
+        Entity leftWall = ObstacleFactory.createWall(WALL_THICKNESS, tileBounds.y);
         spawnEntityAt(
                 leftWall,
                 GridPoint2Utils.ZERO,
                 false,
                 false);
         // Right
-        Entity rightWall = ObstacleFactory.createWall((WALL_WIDTH), worldBounds.y);
+        Entity rightWall = ObstacleFactory.createWall((WALL_THICKNESS), worldBounds.y);
         spawnEntityAt(
                 rightWall,
                 new GridPoint2(tileBounds.x, 0),
                 false,
                 false);
         Vector2 rightWallPos = rightWall.getPosition();
-        rightWall.setPosition(rightWallPos.x - WALL_WIDTH, rightWallPos.y);
+        rightWall.setPosition(rightWallPos.x - WALL_THICKNESS, rightWallPos.y);
         // Top
-        Entity topWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH);
+        Entity topWall = ObstacleFactory.createWall(worldBounds.x, WALL_THICKNESS);
         spawnEntityAt(
                 topWall,
                 new GridPoint2(0, tileBounds.y),
                 false,
                 false);
         Vector2 topWallPos = topWall.getPosition();
-        topWall.setPosition(topWallPos.x, topWallPos.y - WALL_WIDTH);
+        topWall.setPosition(topWallPos.x, topWallPos.y - WALL_THICKNESS);
         // Bottom
-        Entity bottomWall = ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH);
+        Entity bottomWall = ObstacleFactory.createWall(worldBounds.x, WALL_THICKNESS);
         spawnEntityAt(
                 bottomWall,
                 GridPoint2Utils.ZERO,
                 false, false);
     }
-    private void nextRoom() {
-        /*for(Entity door:doors){
-            door.dispose();
-        /*}
 
-         */
-        //logger.info("hello!!!!!!!!!!!!!!!!!!!!!");
-        spawnMedkit();
-    }
     private void createDoors() {
         List<Entity> doors = new ArrayList<>();
         List<String> connections = this.mapGenerator.getPositions().get("0_0"); // N E W S
@@ -224,10 +215,6 @@ public class ForestGameArea extends GameArea {
         String connectE = connections.get(1);
         String connectW = connections.get(2);
         String connectS = connections.get(3);
-        DoorCallBack callback = () -> {
-            System.out.println("The door was opened! This is the lambda function being executed.");
-            logger.info(String.join(",",connections));
-        };
         DoorCallBack callBackEast = () -> {
             logger.info(connectE);
             this.currentRoom = connectE;
@@ -428,5 +415,13 @@ public class ForestGameArea extends GameArea {
         super.dispose();
         ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
         this.unloadAssets();
+    }
+
+    public String getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(String currentRoom) {
+        this.currentRoom = currentRoom;
     }
 }

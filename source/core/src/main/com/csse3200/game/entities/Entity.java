@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.ComponentType;
+import com.csse3200.game.entities.factories.MapFactory;
 import com.csse3200.game.events.EventHandler;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -170,6 +171,7 @@ public class Entity {
   public <T extends Component> T getComponent(Class<T> type) {
     ComponentType componentType = ComponentType.getFrom(type);
     return (T) components.get(componentType.getId());
+
   }
 
   /**

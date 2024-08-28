@@ -89,7 +89,7 @@ public class ForestGameArea extends GameArea {
      * @requires terrainFactory != null
      */
     public ForestGameArea(TerrainFactory terrainFactory) {
-        this(terrainFactory, 1, "12345", "0_0");
+        this(terrainFactory, 1, "1234", "0_0");
 
     }
 
@@ -230,44 +230,51 @@ public class ForestGameArea extends GameArea {
         DoorCallBack callBackSouth = () -> {
             logger.info(connectS);
         };
-        // Left Door
-        Entity door = DoorFactory.createDoor('v', callBackEast);
+        Entity door = DoorFactory.createDoor('v', callBackEast); // left
+        Entity door2 = DoorFactory.createDoor('v', callBackWest); // right
+        Entity door3 = DoorFactory.createDoor('h', callBackSouth); // bottom
+        Entity door4 = DoorFactory.createDoor('h', callBackNorth); // top
+
         Vector2 doorvScale = door.getScale();
-        spawnEntityAt(
-                door,
-                new GridPoint2(0, 5),
-                true,
-                true);
-        Vector2 doorPos = door.getPosition();
-        door.setPosition(doorPos.x - doorvScale.x, doorPos.y);
-
-        // Right Door
-        Entity door2 = DoorFactory.createDoor('v', callBackWest);
-        spawnEntityAt(door2,
-                new GridPoint2(15, 5),
-                true,
-                true);
-        Vector2 door2Pos = door2.getPosition();
-        door2.setPosition(door2Pos.x - 2 * doorvScale.x, door2Pos.y);
-
-        // Bottom Door
-        Entity door3 = DoorFactory.createDoor('h', callBackSouth);
         Vector2 doorhScale = door3.getScale();
-        spawnEntityAt(door3,
-                new GridPoint2(7, 0),
-                true,
-                true);
-        Vector2 door3Pos = door3.getPosition();
-        door3.setPosition(door3Pos.x, door3Pos.y - doorhScale.y);
 
-
-        Entity door4 = DoorFactory.createDoor('h', callBackNorth);
-        spawnEntityAt(door4,
-                new GridPoint2(7, 11),
-                true,
-                true);
-        Vector2 door4Pos = door4.getPosition();
-        door4.setPosition(door4Pos.x, door4Pos.y - 2 * doorhScale.y);
+        // Left Door
+        if(!connectE.isEmpty()) {
+            spawnEntityAt(
+                    door,
+                    new GridPoint2(0, 5),
+                    true,
+                    true);
+            Vector2 doorPos = door.getPosition();
+            door.setPosition(doorPos.x - doorvScale.x, doorPos.y);
+        }
+        // Right Door
+        if(!connectW.isEmpty()) {
+            spawnEntityAt(door2,
+                    new GridPoint2(15, 5),
+                    true,
+                    true);
+            Vector2 door2Pos = door2.getPosition();
+            door2.setPosition(door2Pos.x - 2 * doorvScale.x, door2Pos.y);
+        }
+        // Bottom Door
+        if(!connectS.isEmpty()) {
+            spawnEntityAt(door3,
+                    new GridPoint2(7, 0),
+                    true,
+                    true);
+            Vector2 door3Pos = door3.getPosition();
+            door3.setPosition(door3Pos.x, door3Pos.y - doorhScale.y);
+        }
+        // Top Door
+        if(!connectN.isEmpty()) {
+            spawnEntityAt(door4,
+                    new GridPoint2(7, 11),
+                    true,
+                    true);
+            Vector2 door4Pos = door4.getPosition();
+            door4.setPosition(door4Pos.x, door4Pos.y - 2 * doorhScale.y);
+        }
     }
 
     /**

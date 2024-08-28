@@ -5,22 +5,17 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.areas.terrain.TerrainFactory.TerrainType;
-import com.csse3200.game.areas.EntitySpawner;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.Room;
-import com.csse3200.game.entities.RoomDirection;
-import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.entities.factories.NPCFactory;
-import com.csse3200.game.entities.factories.MapFactory;
 import com.csse3200.game.entities.factories.ObstacleFactory;
 import com.csse3200.game.entities.factories.PlayerFactory;
+import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
-import com.csse3200.game.areas.Generation.MapGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,13 +66,12 @@ public class ForestGameArea extends GameArea {
     private static final String[] forestSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private static final String[] forestMusic = {backgroundMusic};
-    private List<Entity> doors;
     private final TerrainFactory terrainFactory;
 
     private final MapGenerator mapGenerator;
 
     private Entity player;
-    private List<Room> roomList;
+    private final List<Room> roomList;
 
     private String currentRoom;
 
@@ -96,7 +90,7 @@ public class ForestGameArea extends GameArea {
 
     public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed, String startingRoom) {
         this.terrainFactory = terrainFactory;
-        this.roomList = new ArrayList<>();
+        this.roomList = new ArrayList<Room>();
         this.mapGenerator = new MapGenerator(difficulty * 12, seed);
         this.mapGenerator.createMap();
         this.currentRoom = startingRoom;
@@ -131,7 +125,7 @@ public class ForestGameArea extends GameArea {
 
         playMusic();
 
-        spawnCollectibleTest();
+        //spawnCollectibleTest(); Test must not be in the source code
         spawnBandage();
         spawnMedkit();
         spawnShieldPotion();
@@ -144,7 +138,6 @@ public class ForestGameArea extends GameArea {
         ui.addComponent(new GameAreaDisplay("BEAST BREAKOUT FACILITY"));
         spawnEntity(ui);
     }
-
 
     private void spawnTerrain() {
         // Background terrain
@@ -225,7 +218,7 @@ public class ForestGameArea extends GameArea {
         spawnMedkit();
     }
     private void createDoors() {
-        this.doors = new ArrayList<>();
+        List<Entity> doors = new ArrayList<>();
         List<String> connections = this.mapGenerator.getPositions().get("0_0"); // N E W S
         String connectN = connections.get(0);
         String connectE = connections.get(1);
@@ -375,7 +368,6 @@ public class ForestGameArea extends GameArea {
     private void spawnPickaxes() {
         GridPoint2 minPos = new GridPoint2(0, 0);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
 
         for (int i = 0; i < NUM_PICKAXES; i++) {
             GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);

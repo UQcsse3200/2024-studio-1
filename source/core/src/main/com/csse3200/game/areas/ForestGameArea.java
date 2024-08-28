@@ -11,6 +11,7 @@ import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.RoomDirection;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.entities.factories.NPCFactory;
+import com.csse3200.game.entities.factories.MapFactory;
 import com.csse3200.game.entities.factories.ObstacleFactory;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.utils.math.GridPoint2Utils;
@@ -34,7 +35,8 @@ public class ForestGameArea extends GameArea {
     private static final int NUM_GHOSTS = 2;
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
     private static final GridPoint2 ITEM_SPAWN = new GridPoint2(10, 5);
-    private static final float WALL_WIDTH = 0.1f;
+
+    private static final float WALL_WIDTH = 0.15f;
     private static final int NUM_PICKAXES = 4;
     private static final int NUM_SHOTGUNS = 4;
     private static final String[] tileTextures = {
@@ -75,6 +77,8 @@ public class ForestGameArea extends GameArea {
     private Entity player;
     private List<Room> roomList;
 
+    private String currentRoom;
+
 
 
     /**
@@ -84,16 +88,21 @@ public class ForestGameArea extends GameArea {
      * @requires terrainFactory != null
      */
     public ForestGameArea(TerrainFactory terrainFactory) {
-        this(terrainFactory, 1, "1234");
+        this(terrainFactory, 1, "12345", "0_0");
 
     }
 
-    public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed) {
+    public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed, String startingRoom) {
         this.terrainFactory = terrainFactory;
         this.roomList = new ArrayList<>();
         this.mapGenerator = new MapGenerator(difficulty * 12, seed);
         this.mapGenerator.createMap();
+        this.currentRoom = startingRoom;
+        //this.mapGenerator.getRoomDetails().get("0_0");
         EntitySpawner.setGameArea(this);
+        //IDK NOTHING IS RETURNED!!
+        //logger.info(String.join(",",MapFactory.loadMap(null).roomConnections.get("0_0")));
+
         logger.info(this.mapGenerator.printRelativePosition());
     }
 
@@ -106,7 +115,7 @@ public class ForestGameArea extends GameArea {
         displayUI();
         spawnTerrain();
         player = spawnPlayer();
-        spawnEntities();
+        //spawnEntities();
 
         //playMusic();
         //spawnCollectibleTest();
@@ -146,6 +155,7 @@ public class ForestGameArea extends GameArea {
     }
 
     private void createWalls(GridPoint2 tileBounds, Vector2 worldBounds) {
+
         // Left
         Entity leftWall = ObstacleFactory.createWall(WALL_WIDTH, tileBounds.y);
         spawnEntityAt(
@@ -180,22 +190,43 @@ public class ForestGameArea extends GameArea {
     }
 
     private void createDoors() {
+        List<String> connections = this.mapGenerator.getPositions().get("0_0"); // N E W S
+        String connectN = connections.get(0);
+        String connectE = connections.get(1);
+        String connectW = connections.get(2);
+        String connectS = connections.get(3);
         DoorCallBack callback = () -> {
             System.out.println("The door was opened! This is the lambda function being executed.");
+            logger.info(String.join(",",connections));
+        };
+        DoorCallBack callBackEast = () -> {
+            logger.info(connectE);
+        };
+
+        DoorCallBack callBackNorth = () -> {
+            logger.info(connectN);
+        };
+
+        DoorCallBack callBackWest = () -> {
+            logger.info(connectW);
+        };
+
+        DoorCallBack callBackSouth = () -> {
+            logger.info(connectS);
         };
         // Left Door
-        Entity door = DoorFactory.createDoor('v', callback);
+        Entity door = DoorFactory.createDoor('v', callBackEast);
+        Vector2 doorvScale = door.getScale();
         spawnEntityAt(
                 door,
                 new GridPoint2(0, 5),
                 true,
                 true);
         Vector2 doorPos = door.getPosition();
-        Vector2 doorvScale = door.getScale();
         door.setPosition(doorPos.x - doorvScale.x, doorPos.y);
 
         // Right Door
-        Entity door2 = DoorFactory.createDoor('v', callback);
+        Entity door2 = DoorFactory.createDoor('v', callBackWest);
         spawnEntityAt(door2,
                 new GridPoint2(15, 5),
                 true,
@@ -204,17 +235,17 @@ public class ForestGameArea extends GameArea {
         door2.setPosition(door2Pos.x - 2 * doorvScale.x, door2Pos.y);
 
         // Bottom Door
-        Entity door3 = DoorFactory.createDoor('h', callback);
+        Entity door3 = DoorFactory.createDoor('h', callBackSouth);
+        Vector2 doorhScale = door3.getScale();
         spawnEntityAt(door3,
                 new GridPoint2(7, 0),
                 true,
                 true);
         Vector2 door3Pos = door3.getPosition();
-        Vector2 doorhScale = door3.getScale();
         door3.setPosition(door3Pos.x, door3Pos.y - doorhScale.y);
 
 
-        Entity door4 = DoorFactory.createDoor('h', callback);
+        Entity door4 = DoorFactory.createDoor('h', callBackNorth);
         spawnEntityAt(door4,
                 new GridPoint2(7, 11),
                 true,

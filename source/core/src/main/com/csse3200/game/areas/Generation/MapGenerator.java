@@ -44,6 +44,8 @@ public class MapGenerator {
 
         // Add the starting room to the relative position map
         addBlankRoom(this.startingRoom, 0, 0);
+
+        
     }
 
     /**

@@ -33,4 +33,12 @@ public class TextureRenderComponent extends RenderComponent {
     Vector2 scale = entity.getScale();
     batch.draw(texture, position.x, position.y, scale.x, scale.y);
   }
+
+  /**
+   * Get the texture being rendered.
+   * @return texture
+   */
+  public Texture getTexture() {
+    return texture;
+  }
 }

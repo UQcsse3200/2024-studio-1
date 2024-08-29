@@ -105,6 +105,21 @@ class MapGeneratorTest {
     }
 
     @Test
+    void testQuickMapExport() {
+        // Create a MapGenerator instance with a small map size
+        int mapSize = 50;
+        String seed = "testSeed";
+        MapGenerator mapGenerator = new MapGenerator(mapSize, seed);
+
+        // Generate a quick map
+        mapGenerator.createMap();
+
+        // Export the map to JSON
+        String jsonExport = mapGenerator.exportToJson("dummy_path.json");
+
+    }
+
+    @Test
     void testRoomDetailsConsistency() {
         mapGenerator.createMap();
         HashMap<String, HashMap<String, Integer>> roomDetails = mapGenerator.getRoomDetails();

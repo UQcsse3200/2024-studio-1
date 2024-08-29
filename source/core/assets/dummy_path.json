@@ -1,0 +1,2488 @@
+{
+"room_connections": {
+	"-2_1": [
+		{
+			"class": "java.lang.String",
+			"value": "2_-2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_-3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"0_-3": [
+		{
+			"class": "java.lang.String",
+			"value": "-2_0"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-4_0"
+		}
+	],
+	"0_-2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-3_0"
+		}
+	],
+	"-2_0": [
+		{
+			"class": "java.lang.String",
+			"value": "1_-2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"0_-1": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_0"
+		}
+	],
+	"-2_3": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "3_-3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-2_2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_-3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-4_0": [
+		{
+			"class": "java.lang.String",
+			"value": "1_-4"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-1_-1": [
+		{
+			"class": "java.lang.String",
+			"value": "0_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_-2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-4_2": [
+		{
+			"class": "java.lang.String",
+			"value": "3_-4"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_-5"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-2_4": [
+		{
+			"class": "java.lang.String",
+			"value": "5_-2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-2_-3": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-3_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-4_-2"
+		}
+	],
+	"4_-1": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_5"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_4"
+		}
+	],
+	"1_0": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_0"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"1_1": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"3_0": [
+		{
+			"class": "java.lang.String",
+			"value": "1_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_4"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_3"
+		}
+	],
+	"1_2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_0"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"1_3": [
+		{
+			"class": "java.lang.String",
+			"value": "4_1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "3_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_1"
+		}
+	],
+	"3_1": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_4"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"5_0": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_6"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_5"
+		}
+	],
+	"3_2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"1_4": [
+		{
+			"class": "java.lang.String",
+			"value": "5_1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"3_3": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "3_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"3_-1": [
+		{
+			"class": "java.lang.String",
+			"value": "0_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_4"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_3"
+		}
+	],
+	"5_2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_5"
+		}
+	],
+	"-4_-4": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-4_-3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-4_-2": [
+		{
+			"class": "java.lang.String",
+			"value": "-1_-4"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-3_-4"
+		}
+	],
+	"-1_-3": [
+		{
+			"class": "java.lang.String",
+			"value": "-2_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-1_-2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_0"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-1_0": [
+		{
+			"class": "java.lang.String",
+			"value": "1_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_-2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_-1"
+		}
+	],
+	"-3_0": [
+		{
+			"class": "java.lang.String",
+			"value": "1_-3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_-3"
+		}
+	],
+	"-1_2": [
+		{
+			"class": "java.lang.String",
+			"value": "3_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_-2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-1_1": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_-2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_0"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"2_-1": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"2_-2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-3_2"
+		}
+	],
+	"2_-3": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-4_2"
+		}
+	],
+	"-3_2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_-4"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-1_4": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "4_-2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"2_-4": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-4_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-5_2"
+		}
+	],
+	"-3_1": [
+		{
+			"class": "java.lang.String",
+			"value": "2_-3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_-3"
+		}
+	],
+	"2_-5": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-5_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-5_2": [
+		{
+			"class": "java.lang.String",
+			"value": "3_-5"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_-6"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"2_-6": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-6_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-5_1": [
+		{
+			"class": "java.lang.String",
+			"value": "2_-5"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-1_5": [
+		{
+			"class": "java.lang.String",
+			"value": "6_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"0_0": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_0"
+		}
+	],
+	"0_1": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"1_-4": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-5_1"
+		}
+	],
+	"0_2": [
+		{
+			"class": "java.lang.String",
+			"value": "3_0"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"1_-3": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-3_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"2_0": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"1_-2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-3_1"
+		}
+	],
+	"2_1": [
+		{
+			"class": "java.lang.String",
+			"value": "2_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"0_3": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_0"
+		}
+	],
+	"1_-1": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"0_4": [
+		{
+			"class": "java.lang.String",
+			"value": "5_0"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "4_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"2_2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "2_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_2"
+		}
+	],
+	"2_3": [
+		{
+			"class": "java.lang.String",
+			"value": "4_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "3_1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "3_3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"4_1": [
+		{
+			"class": "java.lang.String",
+			"value": "2_4"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "0_4"
+		}
+	],
+	"4_2": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "1_4"
+		}
+	],
+	"0_6": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "6_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"2_4": [
+		{
+			"class": "java.lang.String",
+			"value": "5_2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "3_2"
+		}
+	],
+	"-2_-1": [
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-1_-1"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_-2"
+		}
+	],
+	"-2_-2": [
+		{
+			"class": "java.lang.String",
+			"value": "-1_-2"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-2_-3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	],
+	"-3_-4": [
+		{
+			"class": "java.lang.String",
+			"value": "-3_-3"
+		},
+		{
+			"class": "java.lang.String",
+			"value": "-4_-4"
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		},
+		{
+			"class": "java.lang.String",
+			"value": ""
+		}
+	]
+},
+"seed": {
+	"class": "java.lang.String",
+	"value": "testSeed"
+},
+"rooms_info": {
+	"-2_1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"0_-3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 11
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	},
+	"0_-2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		}
+	},
+	"-2_0": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	},
+	"0_-1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 14
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		}
+	},
+	"-2_3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 10
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	},
+	"-2_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 14
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		}
+	},
+	"-4_0": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 13
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		}
+	},
+	"-1_-1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 10
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"-4_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 10
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"-2_4": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"-2_-3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"4_-1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 7
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"1_0": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 9
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		}
+	},
+	"1_1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"3_0": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"1_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		}
+	},
+	"1_3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 7
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"3_1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"5_0": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"3_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"1_4": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 14
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	},
+	"3_3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"3_-1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		}
+	},
+	"5_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		}
+	},
+	"-4_-4": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"-4_-2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 7
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"-1_-3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 11
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"-1_-2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 8
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	},
+	"-1_0": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"-3_0": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 10
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"-1_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 10
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"-1_1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 13
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"2_-1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"2_-2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	},
+	"2_-3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 12
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		}
+	},
+	"-3_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		}
+	},
+	"-1_4": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 8
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"2_-4": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		}
+	},
+	"-3_1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 10
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		}
+	},
+	"2_-5": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 7
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	},
+	"-5_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 13
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	},
+	"2_-6": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 14
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 1
+				}
+			]
+		}
+	},
+	"-5_1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 14
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"-1_5": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 10
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		}
+	},
+	"0_0": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		}
+	},
+	"0_1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"1_-4": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 9
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"0_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 11
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		}
+	},
+	"1_-3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 14
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"2_0": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 7
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"1_-2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"2_1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 9
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"0_3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		}
+	},
+	"1_-1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 14
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"0_4": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		}
+	},
+	"2_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"2_3": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 11
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"4_1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 13
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 6
+				}
+			]
+		}
+	},
+	"4_2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 8
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	},
+	"0_6": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 7
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		}
+	},
+	"2_4": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 0
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"-2_-1": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 2
+				}
+			]
+		}
+	},
+	"-2_-2": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 4
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 5
+				}
+			]
+		}
+	},
+	"-3_-4": {
+		"item_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 14
+				}
+			]
+		},
+		"animal_index": {
+			"class": "java.util.Collections$SingletonList",
+			"items": [
+				{
+					"class": "java.lang.Integer",
+					"value": 3
+				}
+			]
+		}
+	}
+},
+"player_location": {
+	"class": "java.lang.String",
+	"value": "0_0"
+},
+"map_size": {
+	"class": "java.lang.Integer",
+	"value": 50
+}
+}

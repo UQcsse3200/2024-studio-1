@@ -23,6 +23,8 @@ public class ShootTask extends DefaultTask implements PriorityTask {
     private final float attackRange;
     private final int priority;
     private final float waitTime;
+    private final float spreadAngle = 0.08f;
+    private final ShootType type = ShootType.SPREAD;
 
     private final GameTime timeSource;
     private long endTime;
@@ -125,10 +127,52 @@ public class ShootTask extends DefaultTask implements PriorityTask {
      * (currently won't shoot if obstacle is in-between)
      */
     private boolean shoot(Vector2 direction) {
+        if (this.type == ShootType.SPREAD) {
+            return spreadShoot(direction, 5);
+        }
+        return singleShoot(direction);
+    }
+
+    /**
+     * Shoot at the specific direction from NPC
+     * @param direction The direction to shoot at
+     * @return whether the action is executable or not
+     * (currently won't shoot if obstacle is in-between)
+     */
+    private boolean singleShoot(Vector2 direction) {
         if (isTargetVisible() && getDistanceToTarget() < attackRange) {
             ProjectileFactory.createProjectile(new ProjectileConfig(), direction);
             return true;
         }
         return false;
     }
+
+    private boolean spreadShoot(Vector2 direction, int numShot) {
+        if (numShot == 1) {
+            return shoot(direction);
+        }
+        if (isTargetVisible() && getDistanceToTarget() < attackRange) {
+            for (int i = 0; i < numShot; i++) {
+                ProjectileFactory.createProjectile(new ProjectileConfig(),
+                        rotate(direction, spreadAngle * ((numShot - 1) - 2 * i)));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private Vector2 rotate(Vector2 mainRay, float angle) {
+        float cos = (float) Math.cos(angle);
+        float sin = (float) Math.sin(angle);
+
+        float newX = mainRay.x * cos - mainRay.y * sin;
+        float newY = mainRay.x * sin + mainRay.y * cos;
+
+        return new Vector2(newX, newY);
+    }
+}
+
+enum ShootType {
+    SINGLE, // The task has completed succesfully
+    SPREAD, // The task has failed
 }

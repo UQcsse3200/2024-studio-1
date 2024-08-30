@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.areas.Generation.MapGenerator;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
@@ -31,20 +30,18 @@ public class MainGameArea extends GameArea {
      * @requires terrainFactory != null
      */
     public MainGameArea(TerrainFactory terrainFactory,
-                        PlayerFactory playerFactory,
                         NPCFactory npcFactory,
                         CollectibleFactory collectibleFactory) {
-        this(terrainFactory, playerFactory, npcFactory, collectibleFactory, 1, "1234");
+        this(terrainFactory, npcFactory, collectibleFactory, 1, "1234");
     }
 
     public MainGameArea(
             TerrainFactory terrainFactory,
-            PlayerFactory playerFactory,
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
             int difficulty,
             String seed) {
-        this.entitySpawner = new MainRoomSpawner(this, npcFactory, collectibleFactory, playerFactory, terrainFactory);
+        this.entitySpawner = new MainRoomSpawner(this, npcFactory, collectibleFactory, terrainFactory);
         MapGenerator mapGenerator = new MapGenerator(difficulty * 12, seed);
         mapGenerator.createMap();
 
@@ -55,12 +52,12 @@ public class MainGameArea extends GameArea {
      * Create the game area, including terrain, static entities (trees), dynamic entities (player)
      */
     @Override
-    public void create() {
+    public void create(Entity player) {
         load(logger);
         logger.error("loaded all assets");
         displayUI();
-        Entity player = this.entitySpawner.spawnPlayer(PLAYER_SPAWN);
         this.entitySpawner.spawnRoom(player, "0,0,14,10,0,0");
+        this.entitySpawner.spawnPlayer(player, PLAYER_SPAWN);
 
         playMusic();
     }

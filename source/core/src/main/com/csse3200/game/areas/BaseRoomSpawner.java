@@ -1,8 +1,5 @@
 package com.csse3200.game.areas;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
@@ -10,88 +7,73 @@ import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.utils.math.GridPoint2Utils;
-import com.csse3200.game.utils.RandomNumberGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public abstract class BaseRoomSpawner implements RoomSpawner{
-    private static final Logger logger = LoggerFactory.getLogger(BaseRoomSpawner.class);
-    private final RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator("HiCameron");
     private final GameArea gameArea;
-
-    private final List<List<String>> animals = new ArrayList<>();
-
-    private final List<List<String>> items = new ArrayList<>();
-    private static final float WALL_THICKNESS = 0.15f;
-
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
-    private final PlayerFactory playerFactory;
     private final TerrainFactory terrainFactory;
 
     public BaseRoomSpawner(
             GameArea gameArea,
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
-            PlayerFactory playerFactory,
             TerrainFactory terrainFactory) {
         this.gameArea = gameArea;
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
-        this.playerFactory = playerFactory;
         this.terrainFactory = terrainFactory;
     }
 
-    private void createWalls(GridPoint2 tileBounds, Vector2 worldBounds) {
+    private void createWalls(float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
         // Left
-        Entity leftWall = ObstacleFactory.createWall(WALL_THICKNESS, tileBounds.y);
+        Entity leftWall = ObstacleFactory.createWall(thickness, tileBounds.y);
         gameArea.spawnEntityAt(
                 leftWall,
                 GridPoint2Utils.ZERO,
                 false,
                 false);
         // Right
-        Entity rightWall = ObstacleFactory.createWall((WALL_THICKNESS), worldBounds.y);
+        Entity rightWall = ObstacleFactory.createWall((thickness), worldBounds.y);
         gameArea.spawnEntityAt(
                 rightWall,
                 new GridPoint2(tileBounds.x, 0),
                 false,
                 false);
         Vector2 rightWallPos = rightWall.getPosition();
-        rightWall.setPosition(rightWallPos.x - WALL_THICKNESS, rightWallPos.y);
+        rightWall.setPosition(rightWallPos.x - thickness, rightWallPos.y);
         // Top
-        Entity topWall = ObstacleFactory.createWall(worldBounds.x, WALL_THICKNESS);
+        Entity topWall = ObstacleFactory.createWall(worldBounds.x, thickness);
         gameArea.spawnEntityAt(
                 topWall,
                 new GridPoint2(0, tileBounds.y),
                 false,
                 false);
         Vector2 topWallPos = topWall.getPosition();
-        topWall.setPosition(topWallPos.x, topWallPos.y - WALL_THICKNESS);
+        topWall.setPosition(topWallPos.x, topWallPos.y - thickness);
         // Bottom
-        Entity bottomWall = ObstacleFactory.createWall(worldBounds.x, WALL_THICKNESS);
+        Entity bottomWall = ObstacleFactory.createWall(worldBounds.x, thickness);
         gameArea.spawnEntityAt(
                 bottomWall,
                 GridPoint2Utils.ZERO,
                 false, false);
     }
 
-    protected void spawnTerrain() {
+    protected void spawnTerrain(float wallThickness) {
         // Background terrain
         TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1);
+        gameArea.setTerrain(terrain);
         gameArea.spawnEntity(new Entity().addComponent(terrain));
         // Terrain walls
         float tileSize = terrain.getTileSize();
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
-        createWalls(tileBounds, worldBounds);
+        createWalls(wallThickness, tileBounds, worldBounds);
     }
 
-    protected Entity spawnPlayer(GridPoint2 position) {
-        Entity newPlayer = playerFactory.createPlayer();
+    protected void spawnPlayer(Entity newPlayer, GridPoint2 position) {
         gameArea.spawnEntityAt(newPlayer, position, true, true);
-        return newPlayer;
     }
 
     protected void spawnItem(String specification, GridPoint2 pos) {

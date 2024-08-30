@@ -79,11 +79,11 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen entities");
         GameArea mainGameArea = new MainGameArea(
                 new TerrainFactory(renderer.getCamera()),
-                new PlayerFactory(),
                 new NPCFactory(),
                 new CollectibleFactory()
         );
-        mainGameArea.create();
+        Entity player = new PlayerFactory().createPlayer();
+        mainGameArea.create(player);
     }
 
     @Override

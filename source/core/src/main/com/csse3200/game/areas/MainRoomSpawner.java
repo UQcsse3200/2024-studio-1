@@ -5,7 +5,6 @@ import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
-import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.utils.math.RandomUtils;
 
 import java.util.Arrays;
@@ -31,13 +30,15 @@ public class MainRoomSpawner extends BaseRoomSpawner {
             List.of("item:medkit", "melee:knife", "buff:energydrink", "ranged:shotgun", "item:shieldpotion")
     );
 
-    public MainRoomSpawner(GameArea gameArea, NPCFactory npcFactory, CollectibleFactory collectibleFactory, PlayerFactory playerFactory, TerrainFactory terrainFactory) {
-        super(gameArea, npcFactory, collectibleFactory, playerFactory, terrainFactory);
+    private static final float WALL_THICKNESS = 0.15f;
+
+    public MainRoomSpawner(GameArea gameArea, NPCFactory npcFactory, CollectibleFactory collectibleFactory,  TerrainFactory terrainFactory) {
+        super(gameArea, npcFactory, collectibleFactory, terrainFactory);
     }
 
     @Override
     public void spawnRoom(Entity player, String specification) {
-        this.spawnTerrain();
+        this.spawnTerrain(WALL_THICKNESS);
         List<String> split = Arrays.stream(specification.split(",")).toList();
         GridPoint2 min = new GridPoint2(
                 Integer.parseInt(split.get(0)),

@@ -1,12 +1,9 @@
 package com.csse3200.game.components.tasks;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
-import com.csse3200.game.ai.tasks.TaskRunner;
-import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
@@ -24,6 +21,7 @@ public class ShootTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(ShootTask.class);
     protected final Entity target;
     private final float attackRange;
+    private final int priority;
     private final float waitTime;
 
     private final GameTime timeSource;
@@ -37,10 +35,35 @@ public class ShootTask extends DefaultTask implements PriorityTask {
         this.target = target;
         this.attackRange = attackRange;
         this.waitTime = waitTime;
+        this.priority = 3;
 
         timeSource = ServiceLocator.getTimeSource();
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();
+    }
+
+    @Override
+    public int getPriority() {
+        if (status == Task.Status.ACTIVE) {
+            return getActivePriority();
+        }
+        return getInactivePriority();
+    }
+
+    private int getActivePriority() {
+        float dst = getDistanceToTarget();
+        if (dst > attackRange || !isTargetVisible()) {
+            return -1; // Too far, stop chasing
+        }
+        return priority;
+    }
+
+    private int getInactivePriority() {
+        float dst = getDistanceToTarget();
+        if (dst < attackRange && isTargetVisible()) {
+            return priority;
+        }
+        return -1;
     }
 
     @Override
@@ -67,7 +90,7 @@ public class ShootTask extends DefaultTask implements PriorityTask {
         }
         Vector2 from = this.owner.getEntity().getCenterPosition();
         Vector2 to = target.getCenterPosition();
-        return new Vector2(to.x - from.x, to.y - from.y);
+        return to.cpy().sub(from).nor();
     }
 
     /**
@@ -107,10 +130,5 @@ public class ShootTask extends DefaultTask implements PriorityTask {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public int getPriority() {
-        return 5;
     }
 }

@@ -20,7 +20,27 @@ class GameAreaTest {
 
     GameArea gameArea =
         new GameArea() {
-          @Override
+            @Override
+            protected String[] getSoundFilepaths() {
+                return new String[0];
+            }
+
+            @Override
+            protected String[] getTextureAtlasFilepaths() {
+                return new String[0];
+            }
+
+            @Override
+            protected String[] getTextureFilepaths() {
+                return new String[0];
+            }
+
+            @Override
+            protected String[] getMusicFilepaths() {
+                return new String[0];
+            }
+
+            @Override
           public void create() {}
         };
 

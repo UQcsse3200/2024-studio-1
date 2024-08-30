@@ -1,0 +1,116 @@
+package com.csse3200.game.components.tasks;
+
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.ai.tasks.DefaultTask;
+import com.csse3200.game.ai.tasks.PriorityTask;
+import com.csse3200.game.ai.tasks.Task;
+import com.csse3200.game.ai.tasks.TaskRunner;
+import com.csse3200.game.components.player.WeaponComponent;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.ProjectileConfig;
+import com.csse3200.game.entities.factories.ProjectileFactory;
+import com.csse3200.game.physics.PhysicsEngine;
+import com.csse3200.game.physics.PhysicsLayer;
+import com.csse3200.game.physics.raycast.RaycastHit;
+import com.csse3200.game.rendering.DebugRenderer;
+import com.csse3200.game.services.GameTime;
+import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class ShootTask extends DefaultTask implements PriorityTask {
+
+    private static final Logger logger = LoggerFactory.getLogger(ShootTask.class);
+    protected final Entity target;
+    private final float attackRange;
+    private final float waitTime;
+
+    private final GameTime timeSource;
+    private long endTime;
+
+    private final PhysicsEngine physics;
+    private final DebugRenderer debugRenderer;
+    private final RaycastHit hit = new RaycastHit();
+
+    public ShootTask(Entity target, float attackRange, float waitTime) {
+        this.target = target;
+        this.attackRange = attackRange;
+        this.waitTime = waitTime;
+
+        timeSource = ServiceLocator.getTimeSource();
+        physics = ServiceLocator.getPhysicsService().getPhysics();
+        debugRenderer = ServiceLocator.getRenderService().getDebug();
+    }
+
+    @Override
+    public void update() {
+        if (status == Status.ACTIVE) {
+            // Shoot when status is active
+            Vector2 shootDirection = getDirection(target);
+            if (shoot(shootDirection)) {
+                status = Status.INACTIVE;
+                System.out.println(timeSource.getTime());
+                logger.info("NPC {} shoot target.", owner.getEntity().getId());
+                endTime = timeSource.getTime() + (int)(waitTime * 300);
+            }
+        } else {
+            if (timeSource.getTime() >= endTime) {
+                status = Status.ACTIVE;
+            }
+        }
+    }
+
+    private Vector2 getDirection(Entity target) {
+        if (target == null) {
+            return new Vector2(0, 0);
+        }
+        Vector2 from = this.owner.getEntity().getCenterPosition();
+        Vector2 to = target.getCenterPosition();
+        return new Vector2(to.x - from.x, to.y - from.y);
+    }
+
+    /**
+     * Check whether the target is visible
+     * @return True if visible (no obstacle in-between), otherwise False
+     */
+    private boolean isTargetVisible() {
+        Vector2 from = owner.getEntity().getCenterPosition();
+        Vector2 to = target.getCenterPosition();
+
+        // If there is an obstacle in the path to the player, not visible.
+        if (physics.raycast(from, to, PhysicsLayer.OBSTACLE, hit)) {
+            debugRenderer.drawLine(from, hit.point);
+            return false;
+        }
+        debugRenderer.drawLine(from, to);
+        return true;
+    }
+
+    /**
+     * Return distance from NPC to target
+     * @return distance in float
+     */
+    private float getDistanceToTarget() {
+        return owner.getEntity().getPosition().dst(target.getPosition());
+    }
+
+    /**
+     * Shoot at the specific direction from NPC
+     * @param direction The direction to shoot at
+     * @return whether the action is executable or not
+     * (currently won't shoot if obstacle is in-between)
+     */
+    private boolean shoot(Vector2 direction) {
+        if (isTargetVisible() && getDistanceToTarget() < attackRange) {
+            ProjectileFactory.createProjectile(new ProjectileConfig(), direction);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int getPriority() {
+        return 5;
+    }
+}

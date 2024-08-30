@@ -112,7 +112,8 @@ public class NPCFactory {
             new AITaskComponent()
                     .addTask(new StraightWanderTask(2f))
                     .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
-                    .addTask(new AttackTask(target, 10, 2f, 2.5f));
+                    .addTask(new AttackTask(target, 10, 2f, 2.5f))
+                    .addTask(new ShootTask(target, 10f, 2f));
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity rat = createBaseNPC(aiComponent, config, animator);
 

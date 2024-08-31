@@ -320,6 +320,9 @@ public class WeaponComponent extends Component {
             }
             // Render attack here using
             this.lastSwing = currentTime;
+            ServiceLocator.getResourceService()
+                    .getAsset("sounds/Impact4.ogg", Sound.class)
+                    .play();
             logger.info("Melee weapon attack");
         } else {
             logger.info("No melee weapon");
@@ -345,7 +348,9 @@ public class WeaponComponent extends Component {
                 // Shooting
                 this.setAmmo(-1);
                 // Spawn projectile
-                System.out.println(ServiceLocator.getResourceService().toString());
+                ServiceLocator.getResourceService()
+                        .getAsset("sounds/Impact4.ogg", Sound.class)
+                        .play();
                 ProjectileFactory.createProjectile(this.bulletConfig, direction);
                 logger.info("Ranged weapon shoot");
             }

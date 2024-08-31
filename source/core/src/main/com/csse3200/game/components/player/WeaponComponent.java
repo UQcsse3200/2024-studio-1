@@ -10,6 +10,7 @@ import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
+import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -344,6 +345,7 @@ public class WeaponComponent extends Component {
                 // Shooting
                 this.setAmmo(-1);
                 // Spawn projectile
+                System.out.println(ServiceLocator.getResourceService().toString());
                 ProjectileFactory.createProjectile(this.bulletConfig, direction);
                 logger.info("Ranged weapon shoot");
             }

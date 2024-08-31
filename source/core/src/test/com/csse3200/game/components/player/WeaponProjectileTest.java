@@ -40,6 +40,8 @@ class WeaponProjectileTest {
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
+        // load in sound asset
+        resourceService.loadSounds(new String []{"sounds/Impact4.ogg"});
         while (!resourceService.loadForMillis(1000)) {
             // wait for assets to load.
         }

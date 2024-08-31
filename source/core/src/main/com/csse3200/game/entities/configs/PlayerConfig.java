@@ -27,7 +27,7 @@ public class PlayerConfig extends BaseEntityConfig  {
   public int health = 100;
   /** The specification of player's equipped melee weapon */
   public String melee;
-  /** The specification of player's equiped ranged weapon */
+  /** The specification of player's equipped ranged weapon */
   public String ranged;
 
 

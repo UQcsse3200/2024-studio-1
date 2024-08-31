@@ -265,10 +265,7 @@ public class MapGenerator {
         Map<String, Object> jsonObject = new HashMap<>();
 
         // Export room connections
-        Map<String, List<String>> roomConnections = new HashMap<>();
-        for (Map.Entry<String, List<String>> entry : getPositions().entrySet()) {
-            roomConnections.put(entry.getKey(), entry.getValue());
-        }
+        Map<String, List<String>> roomConnections = new HashMap<>(getPositions());
         jsonObject.put("room_connections", roomConnections);
 
         // Export room details

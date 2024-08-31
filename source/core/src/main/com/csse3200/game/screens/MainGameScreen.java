@@ -32,6 +32,8 @@ import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
+
 /**
  * The game screen containing the main game.
  *
@@ -39,6 +41,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
+    private final PlayerFactory playerFactory;
 
     private static final String[] mainGameTextures = {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
@@ -76,13 +79,19 @@ public class MainGameScreen extends ScreenAdapter {
         loadAssets();
         createUI();
 
+        this.playerFactory = new PlayerFactory();
+        Entity player = playerFactory.createPlayer();
         logger.debug("Initialising main game screen entities");
-        GameArea mainGameArea = new MainGameArea(
+        if (gameOptions.difficulty == TEST){
+
+        }
+        GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
+                new TestGameArea() :
+                new MainGameArea(
                 new TerrainFactory(renderer.getCamera()),
                 new NPCFactory(),
                 new CollectibleFactory()
         );
-        Entity player = new PlayerFactory().createPlayer();
         mainGameArea.create(player);
     }
 
@@ -114,6 +123,7 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Disposing main game screen");
 
         renderer.dispose();
+        playerFactory.dispose();
         unloadAssets();
 
         ServiceLocator.getEntityService().dispose();

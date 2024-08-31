@@ -122,8 +122,6 @@ public class MainGameArea extends GameArea {
                 "images/tile_staircase.png",
                 "images/tile_staircase_down.png",
                 "images/tile_blood.png",
-                "images/Weapons/Shotgun.png",
-                "images/Weapons/pickaxe.png",
         };
     }
 

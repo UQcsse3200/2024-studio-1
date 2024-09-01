@@ -1,11 +1,7 @@
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.areas.Generation.MapGenerator;
-import com.csse3200.game.entities.configs.MapConfigs;
 import com.csse3200.game.files.FileLoader;
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,28 +10,22 @@ import java.util.List;
 public class MapFactory {
     //Assuming that the map is a static json file for the mvp loads the data from a json file called map.json
 
-    public static MapConfigs mapData;
+    public static MapGenerator mapData;
+
+    public MapFactory(String seed, int mapSize) {
+        mapData = new MapGenerator(mapSize, seed);
+        mapData.createMap();
+    }
 
     /** A loader method which loads the map from either a json file or from the Map Generator class. **/
-    public static MapConfigs loadMap(String fileDirectory){
+    public static void loadMap(String fileDirectory){
         if (fileDirectory != null) {
-            mapData = FileLoader.readClass(MapConfigs.class, fileDirectory);
-        } else {
-            MapGenerator mapGenerator = new MapGenerator(10, "224590ginger5ut");
-            mapGenerator.createMap();
+            mapData = FileLoader.readClass(MapGenerator.class, fileDirectory);
+        } 
+    }
 
-            mapData = new MapConfigs();
-            mapData.roomConnections = mapGenerator.getPositions();
-            List<String> rooms = new ArrayList<>(mapGenerator.getRoomDetails().keySet());
-            for (String room : rooms) {
-               mapData.roomInfo.get(room).animalIndex = mapGenerator.getRoomDetails().get(room).get("animal_index");
-               mapData.roomInfo.get(room).itemIndex = mapGenerator.getRoomDetails().get(room).get("item_index");
-            }
-            mapData.playerLocation = mapGenerator.startingRoom;
-            mapData.mapSize = mapGenerator.getMapSize();
-            mapData.seed = mapGenerator.getMapSeed();
-        }
-        return mapData;
+    public void exportMapGenerator(String path) {
+        FileLoader.writeClass(mapData.getClass(), path);
     }
 
     /**
@@ -45,7 +35,7 @@ public class MapFactory {
      * @return : A list of integer arrays which contain coordinates of the rooms that are connected to the room input.
      */
     public static List<String> getRoomConnections(String room) {
-        List<String> connections = mapData.roomConnections.get(room);
+        List<String> connections = mapData.getPositions().get(room);
         if (connections == null) {
             throw new IllegalArgumentException("Room" + room + "doesn't exist or has no connections");
         }
@@ -73,9 +63,9 @@ public class MapFactory {
      * @return : Returns the index which specifies which animal is to be spawned in the room specified.
      */
     public static Integer getAnimalIndex(String room) {
-        Integer animalIndices = mapData.roomInfo.get(room).animalIndex;
+        Integer animalIndices = mapData.getRoomDetails().get(room).get("animal_index");
         if (animalIndices == null) {
-            throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no animals");
+            throw new IllegalArgumentException("Room "+ room +" doesn't exist or has no animals");
         }
         return animalIndices;
     }
@@ -86,7 +76,7 @@ public class MapFactory {
      * @return : the index for which item is to be spawned.
      */
     public static int getItemIndex(String room) {
-        Integer itemIndices = mapData.roomInfo.get(room).itemIndex;
+        Integer itemIndices = mapData.getRoomDetails().get(room).get("item_index");
         if(itemIndices == null) {
             throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no Items");
         }
@@ -98,7 +88,7 @@ public class MapFactory {
      * @return : returns string coordinates of the player's start position on the map.
      */
     public static String getPlayerLocation() {
-        String playerCoordinates = mapData.playerLocation;
+        String playerCoordinates = mapData.get_player_position();
         if (playerCoordinates == null) {
             throw new IllegalArgumentException("Player coordinates doesn't exist");
         }
@@ -110,7 +100,7 @@ public class MapFactory {
      * @return : The seed of the map.
      */
     public static String getSeed() {
-        return mapData.seed;
+        return mapData.getMapSeed();
     }
 
     /**
@@ -118,7 +108,7 @@ public class MapFactory {
      * @return : returns the size of the map.
      */
     public static int getMapSize() {
-        return mapData.mapSize;
+        return mapData.getMapSize();
     }
 
 }

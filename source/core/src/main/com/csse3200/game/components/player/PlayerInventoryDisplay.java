@@ -68,8 +68,8 @@ public class PlayerInventoryDisplay extends UIComponent {
      * for the items listed below.
      */
     void setHeading() {
-        CharSequence headingText = "Collected: ";
-        heading = new Label(headingText, skin, "large");
+        CharSequence headingText = "Collected:";
+        heading = new Label(headingText, skin, "small");
         inventoryTable.add(heading);
         stage.addActor(inventoryTable);
         inventoryTable.row();
@@ -102,10 +102,10 @@ public class PlayerInventoryDisplay extends UIComponent {
             Image itemImage = new Image(itemIcon);
             // define teh text to add
             CharSequence itemText = entry.getKey() + " x" + entry.getValue();
-            Label itemLabel = new Label(itemText, skin, "large");
+            Label itemLabel = new Label(itemText, skin, "small");
 
             // Add the icon and the text to the table
-            inventoryTable.add(itemImage).bottom().left().padRight(0.1f);
+            inventoryTable.add(itemImage).bottom().left();
             inventoryTable.add(itemLabel).left();
             inventoryTable.row();
         }

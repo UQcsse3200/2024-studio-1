@@ -41,7 +41,8 @@ class WeaponProjectileTest {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
         // load in sound asset
-        resourceService.loadSounds(new String []{"sounds/Impact4.ogg"});
+        resourceService.loadSounds(new String []{"sounds/shotgun1_f.ogg"});
+        resourceService.loadSounds(new String []{"sounds/shotgun1_r.ogg"});
         while (!resourceService.loadForMillis(1000)) {
             // wait for assets to load.
         }

@@ -343,13 +343,17 @@ public class WeaponComponent extends Component {
                 this.setAmmo(-2);
                 // Offset time so that the weapon must wait extra long for reload time
                 currentTime += this.getReloadTime() * 1000L - this.attackInterval;
+                ServiceLocator.getResourceService()
+                        .getAsset("sounds/shotgun1_r.ogg", Sound.class)
+                        .play();
+
                 logger.info("Ranged weapon reloading");
             } else {
                 // Shooting
                 this.setAmmo(-1);
                 // Spawn projectile
                 ServiceLocator.getResourceService()
-                        .getAsset("sounds/Impact4.ogg", Sound.class)
+                        .getAsset("sounds/shotgun1_f.ogg", Sound.class)
                         .play();
                 ProjectileFactory.createProjectile(this.bulletConfig, direction);
                 logger.info("Ranged weapon shoot");

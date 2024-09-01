@@ -63,6 +63,7 @@ public class ForestGameArea extends GameArea {
             "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
     };
     private static final String[] forestSounds = {"sounds/Impact4.ogg"};
+    private static final String[] weaponSounds = {"sounds/shotgun1_f.ogg", "sounds/shotgun1_r.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private static final String[] forestMusic = {backgroundMusic};
     private final TerrainFactory terrainFactory;
@@ -393,6 +394,7 @@ public class ForestGameArea extends GameArea {
         resourceService.loadTextures(tileTextures);
         resourceService.loadTextureAtlases(forestTextureAtlases);
         resourceService.loadSounds(forestSounds);
+        resourceService.loadSounds(weaponSounds);
         resourceService.loadMusic(forestMusic);
 
         while (!resourceService.loadForMillis(10)) {

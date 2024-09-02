@@ -2,25 +2,46 @@
   "rat": {
     "health": 200,
     "baseAttack": 15,
-    "wanderSpeed": 2,
-    "chaseSpeed": 2,
-    "viewDistance": 3,
-    "chaseDistance": 3,
+    "tasks": {
+      "straightWander": {
+        "wanderSpeed": 2
+      },
+      "chase": {
+        "priority": 9,
+        "viewDistance": 5,
+        "chaseDistance": 6,
+        "chaseSpeed": 2
+      },
+      "charge": {
+        "priority": 10,
+        "viewDistance": 3,
+        "chaseDistance": 3,
+        "chaseSpeed": 3,
+        "waitTime": 0
+      }
+    },
     "animations": [
       {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "attack", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
-      ]
+    ]
   },
   "bear": {
     "health": 600,
     "baseAttack": 35,
-    "wanderSpeed": 3,
-    "chaseSpeed": 5,
-    "viewDistance": 4,
-    "chaseDistance": 4,
+    "tasks": {
+      "straightWander": {
+        "wanderSpeed": 3
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 5,
+        "viewDistance": 4,
+        "chaseDistance": 4
+      }
+    },
     "animations": [
       {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
@@ -32,10 +53,17 @@
   "bat": {
     "health": 50,
     "baseAttack": 3,
-    "wanderSpeed": 4,
-    "chaseSpeed": 4,
-    "viewDistance": 4,
-    "chaseDistance": 4,
+    "tasks": {
+      "straightWander": {
+        "wanderSpeed": 4
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 4,
+        "viewDistance": 4,
+        "chaseDistance": 4
+      }
+    },
     "animations": [
       {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
@@ -47,10 +75,20 @@
   "dog": {
     "health": 300,
     "baseAttack": 20,
-    "wanderSpeed": 0.7,
-    "chaseSpeed": 4,
-    "viewDistance": 5,
-    "chaseDistance": 6,
+    "tasks": {
+      "wander": {
+        "wanderRadius": 4,
+        "waitTime": 2,
+        "wanderSpeed": 0.7
+      },
+      "charge": {
+        "priority": 10,
+        "viewDistance": 5,
+        "chaseDistance": 6,
+        "chaseSpeed": 2.5,
+        "waitTime": 2
+      }
+    },
     "animations": [
       {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
@@ -62,26 +100,61 @@
   "croc": {
     "health": 500,
     "baseAttack": 30,
-    "wanderSpeed": 0.1,
-    "chaseSpeed": 0.3,
-    "viewDistance": 2,
-    "chaseDistance": 2
+    "tasks": {
+      "straightWander": {
+        "wanderSpeed": 0.1
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 0.3,
+        "viewDistance": 2,
+        "chaseDistance": 2
+      }
+    },
+    "animations": [
+      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "attack", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+    ]
   },
   "gorilla": {
     "health": 400,
     "baseAttack": 35,
-    "wanderSpeed": 0.5,
-    "chaseSpeed": 1.5,
-    "viewDistance": 3,
-    "chaseDistance": 7
+    "tasks": {
+      "straightWander": {
+        "wanderSpeed": 0.5
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 1.5,
+        "viewDistance": 3,
+        "chaseDistance": 7
+      }
+    },
+    "animations": [
+      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "attack", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+    ]
   },
   "snake": {
     "health": 300,
     "baseAttack": 10,
-    "wanderSpeed": 2,
-    "chaseSpeed": 2,
-    "viewDistance": 3,
-    "chaseDistance": 3,
+    "tasks": {
+      "straightWander": {
+        "wanderSpeed": 2
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 2,
+        "viewDistance": 3,
+        "chaseDistance": 3
+      }
+    },
     "animations": [
       {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
@@ -93,10 +166,17 @@
   "dino": {
     "health": 300,
     "baseAttack": 10,
-    "wanderSpeed": 2,
-    "chaseSpeed": 2,
-    "viewDistance": 3,
-    "chaseDistance": 3,
+    "tasks": {
+      "straightWander": {
+        "wanderSpeed": 2
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 2,
+        "viewDistance": 3,
+        "chaseDistance": 3
+      }
+    },
     "animations": [
       {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
@@ -108,10 +188,17 @@
   "minotaur": {
     "health": 400,
     "baseAttack": 35,
-    "wanderSpeed": 0.5,
-    "chaseSpeed": 1.5,
-    "viewDistance": 3,
-    "chaseDistance":7,
+    "tasks": {
+      "straightWander": {
+        "wanderSpeed": 0.5
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 1.5,
+        "viewDistance": 3,
+        "chaseDistance": 7
+      }
+    },
     "animations": [
       {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
@@ -121,4 +208,3 @@
     ]
   }
 }
-

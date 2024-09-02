@@ -1,11 +1,8 @@
 package com.csse3200.game.entities.factories;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.npc.GhostAnimationController;
-import com.csse3200.game.components.Direction;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDeathHandler;
@@ -27,8 +24,6 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.csse3200.game.services.ResourceService;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -42,26 +37,7 @@ import com.badlogic.gdx.files.FileHandle;
  */
 public class NPCFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static NPCConfigs configs;
-  static {
-    loadConfigs(); // Load configurations in a static block
-  }
-
-  private static void loadConfigs() {
-    try {
-      logger.debug("Attempting to load NPC configs from: configs/NPCs.json");
-      configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
-      logger.debug("Parsed NPC configs: " + configs);
-      if (configs == null) {
-        logger.error("Failed to load NPC configs from JSON file. Configs object is null.");
-        throw new RuntimeException("NPC configs could not be loaded. Check the JSON file format and path.");
-      }
-      logger.info("NPC configs loaded successfully.");
-    } catch (Exception e) {
-      logger.error("Error loading NPC configs: ", e);
-      throw new RuntimeException("Error initializing NPC configs.", e);
-    }
-  }
+  private static NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   private static final String[] npcAtlas ={
     "images/ghost.atlas", 

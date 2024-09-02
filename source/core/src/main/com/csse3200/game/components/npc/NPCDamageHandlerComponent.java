@@ -40,7 +40,7 @@ public class NPCDamageHandlerComponent extends Component {
         // Only process damage if the NPC is alive and has combat stats
         if (combatStats != null && !isDead) {
             combatStats.takeDamage(damage);
-            logger.info("NPC {} took {} damage. Current health: {}", entity.getId(), damage, combatStats.getHealth());
+            //logger.info("NPC {} took {} damage. Current health: {}", entity.getId(), damage, combatStats.getHealth());
 
             // Check if the NPC has died from this damage
             if (combatStats.getHealth() <= 0 && !isDead) {

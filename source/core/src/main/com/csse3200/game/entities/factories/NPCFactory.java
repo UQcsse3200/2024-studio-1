@@ -147,9 +147,8 @@ public class NPCFactory {
     }
     // Add charge task
     if (tasks.charge != null) {
-      aiComponent.addTask(new ChargeTask(target, tasks.charge.priority,
-              tasks.charge.viewDistance, tasks.charge.chaseDistance, tasks.charge.chaseSpeed,
-              tasks.charge.waitTime));
+      aiComponent.addTask(new ChargeTask(target, tasks.charge.priority, tasks.charge.viewDistance,
+              tasks.charge.chaseDistance, tasks.charge.chaseSpeed, tasks.charge.waitTime));
     }
 
     return aiComponent;
@@ -178,11 +177,7 @@ public class NPCFactory {
    */
   public Entity createBear(Entity target) {
     NPCConfigs.NPCConfig config = configs.bear;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(2f))
-                    .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
-                    .addTask(new AttackTask(target, 10, 2f, 2.5f));
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/bear.atlas", config.animations);
     Entity bear = createBaseNPC(aiComponent, config, animator);
 
@@ -197,11 +192,7 @@ public class NPCFactory {
    */
   public Entity createSnake(Entity target) {
     NPCConfigs.NPCConfig config = configs.snake;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(1.5f))
-                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
-                    .addTask(new AttackTask(target, 15, 3f, 3.5f));
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/snake.atlas", config.animations);
     Entity snake = createBaseNPC(aiComponent, config, animator);
 
@@ -215,12 +206,8 @@ public class NPCFactory {
    * @return entity
    */
   public Entity createDino(Entity target) {
-    NPCConfigs.NPCConfig config = configs.snake;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(1.5f))
-                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
-                    .addTask(new AttackTask(target, 15, 3f, 3.5f));
+    NPCConfigs.NPCConfig config = configs.dino;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/dino.atlas", config.animations);
     Entity dino = createBaseNPC(aiComponent, config, animator);
 
@@ -235,11 +222,7 @@ public class NPCFactory {
    */
   public Entity createBat(Entity target) {
     NPCConfigs.NPCConfig config = configs.bat;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(2f))
-                    .addTask(new ChaseTask(target, 9, 2f, 6f, 2f))
-                    .addTask(new AttackTask(target, 10, 3f, 3f));
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/bat.atlas", config.animations);
     Entity bat = createBaseNPC(aiComponent, config, animator);
 
@@ -254,11 +237,7 @@ public class NPCFactory {
    */
   public Entity createMinotaur(Entity target) {
     NPCConfigs.NPCConfig config = configs.minotaur;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(1.5f))
-                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
-                    .addTask(new AttackTask(target, 15, 3f, 3.5f));
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/minotaur.atlas", config.animations);
     Entity minotaur = createBaseNPC(aiComponent, config, animator);
 

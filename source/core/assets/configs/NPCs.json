@@ -7,16 +7,16 @@
         "wanderSpeed": 2
       },
       "chase": {
-        "priority": 9,
-        "viewDistance": 5,
-        "chaseDistance": 6,
+        "priority": 5,
+        "viewDistance": 4,
+        "chaseDistance": 5,
         "chaseSpeed": 2
       },
       "charge": {
         "priority": 10,
-        "viewDistance": 3,
-        "chaseDistance": 3,
-        "chaseSpeed": 3,
+        "viewDistance": 2,
+        "chaseDistance": 2,
+        "chaseSpeed": 4,
         "waitTime": 0
       }
     },
@@ -32,14 +32,23 @@
     "health": 600,
     "baseAttack": 35,
     "tasks": {
-      "straightWander": {
-        "wanderSpeed": 3
+      "wander": {
+        "wanderRadius": 3,
+        "waitTime": 2,
+        "wanderSpeed": 0.5
       },
       "chase": {
         "priority": 10,
-        "chaseSpeed": 5,
+        "chaseSpeed": 1.5,
+        "viewDistance": 2,
+        "chaseDistance": 3
+      },
+      "charge": {
+        "priority": 5,
         "viewDistance": 4,
-        "chaseDistance": 4
+        "chaseDistance": 5,
+        "chaseSpeed": 3,
+        "waitTime": 2
       }
     },
     "animations": [
@@ -55,13 +64,20 @@
     "baseAttack": 3,
     "tasks": {
       "straightWander": {
-        "wanderSpeed": 4
+        "wanderSpeed": 1.5
       },
       "chase": {
         "priority": 10,
-        "chaseSpeed": 4,
-        "viewDistance": 4,
+        "chaseSpeed": 1.5,
+        "viewDistance": 2,
         "chaseDistance": 4
+      },
+      "charge": {
+        "priority": 5,
+        "viewDistance": 5,
+        "chaseDistance": 6,
+        "chaseSpeed": 5,
+        "waitTime": 0
       }
     },
     "animations": [
@@ -101,7 +117,9 @@
     "health": 500,
     "baseAttack": 30,
     "tasks": {
-      "straightWander": {
+      "wander": {
+        "wanderRadius": 1,
+        "waitTime": 4,
         "wanderSpeed": 0.1
       },
       "chase": {
@@ -123,14 +141,16 @@
     "health": 400,
     "baseAttack": 35,
     "tasks": {
-      "straightWander": {
-        "wanderSpeed": 0.5
+      "wander": {
+        "wanderRadius": 3,
+        "waitTime": 2,
+        "wanderSpeed": 0.7
       },
       "chase": {
         "priority": 10,
         "chaseSpeed": 1.5,
         "viewDistance": 3,
-        "chaseDistance": 7
+        "chaseDistance": 6
       }
     },
     "animations": [
@@ -145,14 +165,23 @@
     "health": 300,
     "baseAttack": 10,
     "tasks": {
-      "straightWander": {
-        "wanderSpeed": 2
+      "wander": {
+        "wanderRadius": 2,
+        "waitTime": 6,
+        "wanderSpeed": 0.5
       },
       "chase": {
+        "priority": 5,
+        "chaseSpeed": 0.8,
+        "viewDistance": 4,
+        "chaseDistance": 4
+      },
+      "charge": {
         "priority": 10,
-        "chaseSpeed": 2,
-        "viewDistance": 3,
-        "chaseDistance": 3
+        "viewDistance": 1.8,
+        "chaseDistance": 2,
+        "chaseSpeed": 5,
+        "waitTime": 2
       }
     },
     "animations": [
@@ -168,13 +197,20 @@
     "baseAttack": 10,
     "tasks": {
       "straightWander": {
-        "wanderSpeed": 2
+        "wanderSpeed": 1.5
       },
       "chase": {
+        "priority": 5,
+        "chaseSpeed": 2.5,
+        "viewDistance": 4,
+        "chaseDistance": 5
+      },
+      "charge": {
         "priority": 10,
-        "chaseSpeed": 2,
-        "viewDistance": 3,
-        "chaseDistance": 3
+        "viewDistance": 2,
+        "chaseDistance": 2.5,
+        "chaseSpeed": 2.5,
+        "waitTime": 0
       }
     },
     "animations": [
@@ -189,14 +225,23 @@
     "health": 400,
     "baseAttack": 35,
     "tasks": {
-      "straightWander": {
-        "wanderSpeed": 0.5
+      "wander": {
+        "wanderRadius": 4,
+        "waitTime": 4,
+        "wanderSpeed": 0.4
       },
       "chase": {
         "priority": 10,
         "chaseSpeed": 1.5,
         "viewDistance": 3,
-        "chaseDistance": 7
+        "chaseDistance": 4
+      },
+      "charge": {
+        "priority": 5,
+        "viewDistance": 5,
+        "chaseDistance": 5,
+        "chaseSpeed": 3,
+        "waitTime": 2
       }
     },
     "animations": [

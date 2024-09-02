@@ -29,9 +29,9 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
-  protected MovementTask movementTask;
+  private MovementTask movementTask;
   private WaitTask waitTask;
-  protected Task currentTask;
+  private Task currentTask;
 
   /**
    * Creates a ChargeTask.
@@ -57,19 +57,18 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   @Override
   public void start() {
     super.start();
-    initialiseTasks();
+    if (movementTask == null) {
+      initialiseTasks();
+    }
     startMoving();
-    this.owner.getEntity().getEvents().trigger("walk");
   }
 
   @Override
   public void update() {
     if (currentTask.getStatus() != Status.ACTIVE) {
-      if (currentTask == movementTask) {
-        this.owner.getEntity().getEvents().trigger("gesture");
+      if (currentTask == movementTask && waitTime > 0) {
         startWaiting();
       } else {
-        this.owner.getEntity().getEvents().trigger("walk");
         startMoving();
       }
     }
@@ -92,7 +91,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     return getInactivePriority();
   }
 
-  protected void initialiseTasks() {
+  private void initialiseTasks() {
     waitTask = new WaitTask(waitTime);
     waitTask.create(owner);
     movementTask = new MovementTask(target.getPosition());
@@ -102,12 +101,15 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   }
 
   private void startMoving() {
+    this.owner.getEntity().getEvents().trigger("attack");
     logger.debug("Starting moving towards {}", target.getPosition());
     movementTask.setTarget(target.getPosition());
+    movementTask.setVelocity(chaseSpeed);
     swapTask(movementTask);
   }
 
-  protected void startWaiting() {
+  private void startWaiting() {
+    this.owner.getEntity().getEvents().trigger("gesture");
     logger.debug("Starting waiting");
     if (movementTask != null) {
         movementTask.stop();
@@ -115,7 +117,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     swapTask(waitTask);
   }
 
-  protected void swapTask(Task newTask) {
+  private void swapTask(Task newTask) {
     if (currentTask != null) {
       currentTask.stop();
     }

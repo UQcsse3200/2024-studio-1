@@ -51,6 +51,7 @@ public class MainMenuActions extends Component {
     private void onExit() {
         logger.info("Exit game");
         game.exit();
+        System.exit(-1);
     }
 
     /**

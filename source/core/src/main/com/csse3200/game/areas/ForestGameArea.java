@@ -48,7 +48,7 @@ public class ForestGameArea extends GameArea {
             "images/tile_7.png",
             "images/tile_8.png",
             "images/tile_middle.png",
-            "images/tile_general.png",
+            //"images/tile_general.png",
             "images/tile_broken1.png",
             "images/tile_broken2.png",
             "images/tile_broken3.png",

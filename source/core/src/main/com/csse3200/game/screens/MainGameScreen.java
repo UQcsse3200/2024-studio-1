@@ -54,7 +54,6 @@ public class MainGameScreen extends ScreenAdapter {
 
   public MainGameScreen(GdxGame game) {
     this.game = game;
-
     gameOptions = game.gameOptions;
     logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
 
@@ -74,10 +73,13 @@ public class MainGameScreen extends ScreenAdapter {
     renderer = RenderFactory.createRenderer();
     renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
-
     loadAssets();
     createUI();
+  }
 
+  @Override
+  public void show()
+  {
     logger.debug("Initialising main game screen entities");
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);

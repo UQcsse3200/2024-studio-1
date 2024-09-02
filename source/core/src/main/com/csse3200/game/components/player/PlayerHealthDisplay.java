@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.ShieldPotion;
 import com.csse3200.game.ui.UIComponent;
 
 /**
@@ -19,6 +21,7 @@ public class PlayerHealthDisplay extends UIComponent{
         private final static float Y_BAR = 1.2f;
         /** Shape rendered for drawing the health bar */
         private ShapeRenderer shapeRenderer;
+        private boolean sheildActivated = false;
 
         /**
          * Creates reusable ui styles and adds actors to the stage.
@@ -27,6 +30,16 @@ public class PlayerHealthDisplay extends UIComponent{
         public void create() {
             super.create();
             shapeRenderer = new ShapeRenderer();
+            entity.getEvents().addListener("updateHealth", this::updatePlayerHealth);
+            entity.getEvents().addListener("updateShield", this::updateShield);
+
+        }
+
+        private void updatePlayerHealth() {
+
+        }
+        private void updateShield() {
+           
         }
 
         /**

@@ -22,21 +22,13 @@ public class GameOptions {
      * other features in the future.
      */
     public enum Difficulty {
-        EASY {
-            @Override
-            public String toString() {
-                return "Easy";
-            }
-        }, MEDIUM {
-            @Override
-            public String toString() {
-                return "Medium";
-            }
-        }, HARD {
-            @Override
-            public String toString() {
-                return "Hard";
-            }
+        EASY, MEDIUM, HARD, TEST;
+
+        @Override
+        public String toString() {
+            // this/THIS/tHiS -> This
+            return this.name().substring(0, 1).toUpperCase()
+                    + this.name().substring(1).toLowerCase();
         }
     }
 }

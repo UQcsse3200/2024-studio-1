@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.GameArea;
 import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.TestGameArea;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.entities.factories.CollectibleFactory;
@@ -86,7 +87,7 @@ public class MainGameScreen extends ScreenAdapter {
 
         }
         GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-                new TestGameArea() :
+                new TestGameArea(renderer.getCamera()) :
                 new MainGameArea(
                 new TerrainFactory(renderer.getCamera()),
                 new NPCFactory(),

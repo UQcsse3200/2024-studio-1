@@ -37,7 +37,7 @@ import com.csse3200.game.services.ResourceService;
  */
 public class NPCFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+  private static final NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   private static final String[] npcAtlas ={
     "images/ghost.atlas", 
@@ -265,26 +265,15 @@ public class NPCFactory {
    * @param target entity to chase
    * @return the created crocodile entity
    */
-  /**
   public Entity createCroc(Entity target) {
-   NPCConfigs.NPCConfig config = configs.croc;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(1.5f, 1.5f), 5f, config.wanderSpeed))
-                    .addTask(new ChaseTask(target, 10, config.viewDistance, config.chaseDistance,
-                            config.chaseSpeed));
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-
+    NPCConfigs.NPCConfig config = configs.croc;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity croc = createBaseNPC(aiComponent, config, animator);
 
     return croc;
   }
-  */
+
 
   /**
    * Creates a gorilla entity with predefined components and behaviour.
@@ -292,25 +281,12 @@ public class NPCFactory {
    * @param target entity to chase
    * @return the created gorilla entity
    */
-  /**
   public Entity createGorilla(Entity target) {
-   NPCConfigs.NPCConfig config = configs.gorilla;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(3f, 3f), 4f, config.wanderSpeed))
-                    .addTask(new ChaseTask(target, 10, config.viewDistance, config.chaseDistance,
-                            config.chaseSpeed));
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/ghostKing.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-
+    NPCConfigs.NPCConfig config = configs.gorilla;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity gorilla = createBaseNPC(aiComponent, config, animator);
 
     return gorilla;
   }
-   */
 }

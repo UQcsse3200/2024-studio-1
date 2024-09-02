@@ -86,7 +86,7 @@ public class PlayerFactory {
                 .addComponent(animator)
                 .addComponent(new PlayerAnimationController())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay())
+                .addComponent(new PlayerHealthDisplay(inventoryComponent))
                 .addComponent(new WeaponComponent(
                         new Sprite(new Texture("images/Weapons/knife.png")),
                         Collectible.Type.RANGED_WEAPON,

@@ -22,20 +22,33 @@ public class PlayerHealthDisplay extends UIComponent{
         /** Shape rendered for drawing the health bar */
         private ShapeRenderer shapeRenderer;
         private boolean sheildActivated = false;
+        private InventoryComponent inventoryComponent;
 
+
+        public PlayerHealthDisplay(InventoryComponent inventoryComponent) {
+            this.inventoryComponent = inventoryComponent;
+        }
         /**
          * Creates reusable ui styles and adds actors to the stage.
          */
         @Override
         public void create() {
             super.create();
+
+            /*
+            if (entity.getEvents() != null) {
+
+                entity.getEvents().addListener("updateHealth", this::updateHealth);
+                // entity.getEvents().addListener("updateShield", this::updateShield);
+
+            }
+
+             */
             shapeRenderer = new ShapeRenderer();
-            entity.getEvents().addListener("updateHealth", this::updatePlayerHealth);
-            entity.getEvents().addListener("updateShield", this::updateShield);
 
         }
 
-        private void updatePlayerHealth() {
+        public void updateHealth() {
 
         }
         private void updateShield() {

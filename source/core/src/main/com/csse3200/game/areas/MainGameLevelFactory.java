@@ -1,10 +1,11 @@
 package com.csse3200.game.areas;
 
-import java.util.HashMap;
-
 public class MainGameLevelFactory implements LevelFactory {
+    private static final int DEFAULT_MAP_SIZE = 20;
+
     @Override
     public Level create(int levelNumber) {
-        return new Level(new LevelMap(new HashMap<>()));
+        LevelMap map = new LevelMap("seed", DEFAULT_MAP_SIZE);
+        return new Level(map);
     }
 }

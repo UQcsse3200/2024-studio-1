@@ -1,22 +1,114 @@
 package com.csse3200.game.areas;
 
-import com.csse3200.game.entities.Room;
+import com.csse3200.game.areas.Generation.MapGenerator;
+import com.csse3200.game.files.FileLoader;
+import java.util.List;
 
-import java.util.Map;
-import java.util.Set;
-
+/**
+ * A Factory responsible for loading and managing json file data for the game's Map
+ */
 public class LevelMap {
-    private final Map<String, Room> rooms;
+    //Assuming that the map is a static json file for the mvp loads the data from a json file called map.json
 
-    public LevelMap(Map<String, Room> rooms) {
-        this.rooms = rooms;
+    public static MapGenerator mapData;
+
+    public LevelMap(String seed, int mapSize) {
+        mapData = new MapGenerator(mapSize, seed);
+        mapData.createMap();
     }
 
-    public Room getRoom(String name) {
-        return rooms.get(name);
+    /** A loader method which loads the map from either a json file or from the Map Generator class. **/
+    public static void loadMap(String fileDirectory){
+        if (fileDirectory != null) {
+            mapData = FileLoader.readClass(MapGenerator.class, fileDirectory);
+        } 
     }
 
-    public Set<String> listRooms() {
-        return rooms.keySet();
+    public void exportMapGenerator(String path) {
+        FileLoader.writeClass(mapData.getClass(), path);
     }
+
+    /**
+     * A getter method used to extract the room connection data from the json file for the map. Returns a list of
+     * rooms that the input room is connected to.
+     * @param room : The room whose connections are required to be extracted.
+     * @return : A list of integer arrays which contain coordinates of the rooms that are connected to the room input.
+     */
+    public List<String> getRoomConnections(String room) {
+        List<String> connections = mapData.getPositions().get(room);
+        if (connections == null) {
+            throw new IllegalArgumentException("Room" + room + "doesn't exist or has no connections");
+        }
+        return connections;
+    }
+
+    /**
+     * A method responsible for getting a specific room connection using an index input.
+     * @param room : The room for which the connection needs to be extracted.
+     * @param index : The index of the connection that is required to be extracted.
+     * @return : returns a specific room that is connected to the current one.
+     */
+    public String getRoomConnection(String room, int index) {
+        List<String> roomConnections = getRoomConnections(room);
+        //checks for out of bounds indices and returns an exception.
+        if (index < 0 || index > roomConnections.size()) {
+            throw new IndexOutOfBoundsException("The index" + index + "is out of bounds");
+        }
+        return roomConnections.get(index);
+    }
+
+    /**
+     * A method responsible for extracting the index related to the type of animal to be spawned given the room number.
+     * @param room : The room for which the animal index is to be extracted.
+     * @return : Returns the index which specifies which animal is to be spawned in the room specified.
+     */
+    public Integer getAnimalIndex(String room) {
+        Integer animalIndices = mapData.getRoomDetails().get(room).get("animal_index");
+        if (animalIndices == null) {
+            throw new IllegalArgumentException("Room "+ room +" doesn't exist or has no animals");
+        }
+        return animalIndices;
+    }
+
+    /**
+     * Method responsible for extracting the index which indicates which items are to be spawned in the room specified.
+     * @param room : The room for which the item index information is needed.
+     * @return : the index for which item is to be spawned.
+     */
+    public int getItemIndex(String room) {
+        Integer itemIndices = mapData.getRoomDetails().get(room).get("item_index");
+        if(itemIndices == null) {
+            throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no Items");
+        }
+        return itemIndices;
+    }
+
+    /**
+     * A method to extract the players start location on the map.
+     * @return : returns string coordinates of the player's start position on the map.
+     */
+    public String getPlayerLocation() {
+        String playerCoordinates = mapData.get_player_position();
+        if (playerCoordinates == null) {
+            throw new IllegalArgumentException("Player coordinates doesn't exist");
+        }
+        return playerCoordinates;
+    }
+
+    /**
+     * Method that extracts the map seed information for the randomly generated map from the json file.
+     * @return : The seed of the map.
+     */
+    public String getSeed() {
+        return mapData.getMapSeed();
+    }
+
+    /**
+     * A method to get the map size mentioned in the json file.
+     * @return : returns the size of the map.
+     */
+    public int getMapSize() {
+        return mapData.getMapSize();
+    }
+
 }

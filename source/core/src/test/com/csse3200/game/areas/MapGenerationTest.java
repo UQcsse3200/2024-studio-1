@@ -2,7 +2,6 @@ package com.csse3200.game.areas;
 
 
 import com.csse3200.game.areas.Generation.MapGenerator;
-import com.csse3200.game.entities.factories.MapFactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

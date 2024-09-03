@@ -2,10 +2,8 @@ package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
-import com.csse3200.game.areas.Generation.MapGenerator;
-import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.factories.*;
+import com.csse3200.game.entities.Room;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
@@ -18,34 +16,21 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
-    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
-
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
-    private final MainRoomSpawner entitySpawner;
+
+    private Entity player;
+
+    private final LevelFactory levelFactory;
+    private Level currentLevel;
+    private Room currentRoom;
 
     /**
-     * Initialise this ForestGameArea to use the provided TerrainFactory.
+     * Initialise this Game Area to use the provided levelFactory.
      *
-     * @param terrainFactory TerrainFactory used to create the terrain for the GameArea.
-     * @requires terrainFactory != null
+     * @param levelFactory the provided levelFactory.
      */
-    public MainGameArea(TerrainFactory terrainFactory,
-                        NPCFactory npcFactory,
-                        CollectibleFactory collectibleFactory) {
-        this(terrainFactory, npcFactory, collectibleFactory, 1, "1234");
-    }
-
-    public MainGameArea(
-            TerrainFactory terrainFactory,
-            NPCFactory npcFactory,
-            CollectibleFactory collectibleFactory,
-            int difficulty,
-            String seed) {
-        this.entitySpawner = new MainRoomSpawner(this, npcFactory, collectibleFactory, terrainFactory);
-        MapGenerator mapGenerator = new MapGenerator(difficulty * 12, seed);
-        mapGenerator.createMap();
-
-        logger.info(mapGenerator.printRelativePosition());
+    public MainGameArea(LevelFactory levelFactory) {
+        this.levelFactory = levelFactory;
     }
 
     /**
@@ -53,13 +38,31 @@ public class MainGameArea extends GameArea {
      */
     @Override
     public void create(Entity player) {
+        this.player = player;
+
         load(logger);
         logger.error("loaded all assets");
+
         displayUI();
-        this.entitySpawner.spawnRoom(player, "0,0,14,10,0,0");
-        this.entitySpawner.spawnPlayer(player, PLAYER_SPAWN);
+
+        changeLevel(0);
 
         playMusic();
+    }
+
+    public void changeRooms(String roomKey){
+        // FIXME clear room
+
+        this.currentRoom = this.currentLevel.getRoom(roomKey);
+        this.currentRoom.spawn(player, this);
+
+        // FIXME actually spawn on the door into this room from last room.
+        spawnEntityAt(player, new GridPoint2(10, 10), true, true);
+    }
+
+    public void changeLevel(int levelNumber){
+        this.currentLevel = this.levelFactory.create(levelNumber);
+        changeRooms(this.currentLevel.getStartingRoomKey());
     }
 
     private void displayUI() {

@@ -5,38 +5,36 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 
 
-public abstract class BaseRoomSpawner implements RoomSpawner {
-    private final GameArea gameArea;
+public abstract class BaseRoom implements Room {
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
 
-    public BaseRoomSpawner(
-            GameArea gameArea,
+    public BaseRoom(
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory) {
-        this.gameArea = gameArea;
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;
     }
 
-    private void createWalls(float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
+    private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
         // Left
         Entity leftWall = ObstacleFactory.createWall(thickness, tileBounds.y);
-        gameArea.spawnEntityAt(
+        area.spawnEntityAt(
                 leftWall,
                 GridPoint2Utils.ZERO,
                 false,
                 false);
         // Right
         Entity rightWall = ObstacleFactory.createWall((thickness), worldBounds.y);
-        gameArea.spawnEntityAt(
+        area.spawnEntityAt(
                 rightWall,
                 new GridPoint2(tileBounds.x, 0),
                 false,
@@ -45,7 +43,7 @@ public abstract class BaseRoomSpawner implements RoomSpawner {
         rightWall.setPosition(rightWallPos.x - thickness, rightWallPos.y);
         // Top
         Entity topWall = ObstacleFactory.createWall(worldBounds.x, thickness);
-        gameArea.spawnEntityAt(
+        area.spawnEntityAt(
                 topWall,
                 new GridPoint2(0, tileBounds.y),
                 false,
@@ -54,36 +52,32 @@ public abstract class BaseRoomSpawner implements RoomSpawner {
         topWall.setPosition(topWallPos.x, topWallPos.y - thickness);
         // Bottom
         Entity bottomWall = ObstacleFactory.createWall(worldBounds.x, thickness);
-        gameArea.spawnEntityAt(
+        area.spawnEntityAt(
                 bottomWall,
                 GridPoint2Utils.ZERO,
                 false, false);
     }
 
-    protected void spawnTerrain(float wallThickness) {
+    protected void spawnTerrain(GameArea area, float wallThickness) {
         // Background terrain
         TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1);
-        gameArea.setTerrain(terrain);
-        gameArea.spawnEntity(new Entity().addComponent(terrain));
+        area.setTerrain(terrain);
+        area.spawnEntity(new Entity().addComponent(terrain));
         // Terrain walls
         float tileSize = terrain.getTileSize();
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
-        createWalls(wallThickness, tileBounds, worldBounds);
+        createWalls(area, wallThickness, tileBounds, worldBounds);
     }
 
-    protected void spawnPlayer(Entity newPlayer, GridPoint2 position) {
-        gameArea.spawnEntityAt(newPlayer, position, true, true);
-    }
-
-    protected void spawnItem(String specification, GridPoint2 pos) {
+    protected void spawnItem(GameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
-        gameArea.spawnEntityAt(item, pos, true, true);
+        area.spawnEntityAt(item, pos, true, true);
     }
 
-    protected void spawnAnimal(Entity player, String animal, GridPoint2 pos) {
+    protected void spawnAnimal(GameArea area, Entity player, String animal, GridPoint2 pos) {
         Entity spawn = npcFactory.create(animal, player);
-        gameArea.spawnEntityAt(spawn, pos, true, true);
+        area.spawnEntityAt(spawn, pos, true, true);
     }
 
     /*

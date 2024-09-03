@@ -10,7 +10,8 @@ import com.csse3200.game.utils.math.RandomUtils;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainRoomSpawner extends BaseRoomSpawner {
+public class MainRoom extends BaseRoom {
+    private final String specification;
     List<List<String>> animalSpecifications = List.of(
             List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat"),
             List.of("Bear", "Snake", "Dino"),
@@ -32,13 +33,17 @@ public class MainRoomSpawner extends BaseRoomSpawner {
 
     private static final float WALL_THICKNESS = 0.15f;
 
-    public MainRoomSpawner(GameArea gameArea, NPCFactory npcFactory, CollectibleFactory collectibleFactory,  TerrainFactory terrainFactory) {
-        super(gameArea, npcFactory, collectibleFactory, terrainFactory);
+    public MainRoom(NPCFactory npcFactory,
+                    CollectibleFactory collectibleFactory,
+                    TerrainFactory terrainFactory,
+                    String specification) {
+        super(npcFactory, collectibleFactory, terrainFactory);
+        this.specification = specification;
     }
 
     @Override
-    public void spawnRoom(Entity player, String specification) {
-        this.spawnTerrain(WALL_THICKNESS);
+    public void spawn(Entity player, MainGameArea area) {
+        this.spawnTerrain(area, WALL_THICKNESS);
         List<String> split = Arrays.stream(specification.split(",")).toList();
         GridPoint2 min = new GridPoint2(
                 Integer.parseInt(split.get(0)),
@@ -51,13 +56,13 @@ public class MainRoomSpawner extends BaseRoomSpawner {
         int animalGroup = Integer.parseInt(split.get(4));
         for (String s : animalSpecifications.get(animalGroup)){
             GridPoint2 randomPos = RandomUtils.random(min, max);
-            this.spawnAnimal(player, s, randomPos);
+            this.spawnAnimal(area, player, s, randomPos);
         }
 
         int itemGroup = Integer.parseInt(split.get(5));
         for (String s : itemSpecifications.get(itemGroup)){
             GridPoint2 randomPos = RandomUtils.random(min, max);
-            this.spawnItem(s, randomPos);
+            this.spawnItem(area, s, randomPos);
         }
     }
 }

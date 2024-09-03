@@ -5,10 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
-import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
-import com.csse3200.game.entities.factories.CollectibleFactory;
-import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.entities.Entity;
@@ -77,6 +74,8 @@ public class MainGameScreen extends ScreenAdapter {
         this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
         this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
+        ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());
+
         loadAssets();
         createUI();
 
@@ -87,12 +86,8 @@ public class MainGameScreen extends ScreenAdapter {
 
         LevelFactory levelFactory = new MainGameLevelFactory();
         GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-                new TestGameArea(renderer.getCamera()) :
-                new MainGameArea(
-                new TerrainFactory(renderer.getCamera()),
-                new NPCFactory(),
-                new CollectibleFactory()
-        );
+                new TestGameArea(levelFactory) :
+                new MainGameArea(levelFactory);
         mainGameArea.create(player);
     }
 

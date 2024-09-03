@@ -9,12 +9,22 @@ import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 
-
+/**
+ * This is the foundation of a room,
+ * it is able to use other factories to build the complex structures needed for a room in the game.
+ * e.g. walls, terrain, items, and enemies.
+ */
 public abstract class BaseRoom implements Room {
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
 
+    /**
+     * Inject factories to be used for spawning here room object.
+     * @param npcFactory the NPC factory to use
+     * @param collectibleFactory the Collectible factory to use.
+     * @param terrainFactory the terrain factory to use.
+     */
     public BaseRoom(
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
@@ -58,6 +68,12 @@ public abstract class BaseRoom implements Room {
                 false, false);
     }
 
+    /**
+     * Spawn the terrain of the room, including the walls and background of the map.
+     *
+     * @param area the game area to spawn the terrain onto.
+     * @param wallThickness the thickness of the walls around the room.
+     */
     protected void spawnTerrain(GameArea area, float wallThickness) {
         // Background terrain
         TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1);
@@ -70,11 +86,24 @@ public abstract class BaseRoom implements Room {
         createWalls(area, wallThickness, tileBounds, worldBounds);
     }
 
+    /**
+     * Spawn a collectible item into the room.
+     * @param area the game area to spawn the item into.
+     * @param specification the specification of the item to create.
+     * @param pos the location to spawn it to.
+     */
     protected void spawnItem(GameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
         area.spawnEntityAt(item, pos, true, true);
     }
 
+    /**
+     * Spawn an NPC into the room
+     * @param area the game area to spawn the NPC into.
+     * @param player the player character for this npc to target.
+     * @param animal the specification of the animal to create.
+     * @param pos the location to spawn it to.
+     */
     protected void spawnAnimal(GameArea area, Entity player, String animal, GridPoint2 pos) {
         Entity spawn = npcFactory.create(animal, player);
         area.spawnEntityAt(spawn, pos, true, true);

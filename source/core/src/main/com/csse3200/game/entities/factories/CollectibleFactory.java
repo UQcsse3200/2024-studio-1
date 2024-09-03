@@ -16,6 +16,13 @@ public class CollectibleFactory extends LoadedFactory {
 
     /**
      * Create a collectible from a specification.
+     * <p>
+     * The specification format is one of the following,
+     * "melee:"
+     * "ranged:"
+     * "item:"
+     * "buff:"
+     * followed by a specific specification for those item's respective factories.
      *
      * @param specification the specification to follow.
      * @return the created collectible.

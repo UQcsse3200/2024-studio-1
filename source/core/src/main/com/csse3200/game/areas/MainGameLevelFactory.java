@@ -9,6 +9,9 @@ import com.csse3200.game.entities.factories.RoomFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is the main game mode.
+ */
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 20;
 

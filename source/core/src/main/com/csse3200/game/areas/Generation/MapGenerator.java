@@ -256,7 +256,7 @@ public class MapGenerator {
      * Exports the map data to a JSON file.
      *
      * @param filePath The path of the file to write the JSON data to.
-     * @return A string indicating the success or failure of the export operation.
+//     * @return A string indicating the success or failure of the export operation.
      */
     public void exportToJson(String filePath) {
         FileLoader.writeClass(this, filePath);

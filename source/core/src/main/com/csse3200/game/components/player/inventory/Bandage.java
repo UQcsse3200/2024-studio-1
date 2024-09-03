@@ -18,7 +18,6 @@ public class Bandage extends UsableItem {
      */
     @Override
     public void pickup(Inventory inventory) {
-        inventory.getEntity().getEvents().addListener("useBandage", this::apply);
         super.pickup(inventory);
     }
 

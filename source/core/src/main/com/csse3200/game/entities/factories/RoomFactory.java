@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.MainRoom;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Room;
@@ -14,6 +15,12 @@ public class RoomFactory {
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
 
+    /**
+     * Construct a new  Room Factory
+     * @param npcFactory the npc factory to populate the room with.
+     * @param collectibleFactory the collectible factory to populate the room with.
+     * @param terrainFactory the terrain factory to re-skin the room with.
+     */
     public RoomFactory(NPCFactory npcFactory,
                        CollectibleFactory collectibleFactory,
                        TerrainFactory terrainFactory) {
@@ -28,6 +35,14 @@ public class RoomFactory {
      */
     public Room createRoom(String specification) {
         return new MainRoom(this.npcFactory, this.collectibleFactory, this.terrainFactory, specification);
+    }
+
+    /**
+     * Constructs boss room
+     * @return room
+     */
+    public Room createBossRoom(String specification) {
+        return new BossRoom(this.npcFactory, this.collectibleFactory, this.terrainFactory, specification);
     }
 
 //    /**

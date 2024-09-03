@@ -5,13 +5,14 @@ import com.csse3200.game.entities.Entity;
 
 import java.util.Arrays;
 import java.util.List;
+
 import com.csse3200.game.areas.terrain.TerrainFactory;
-import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.utils.math.RandomUtils;
 
-public class BossRoomSpawner extends BaseRoomSpawner{
+public class BossRoom extends BaseRoom {
+    private final String specification;
     List<List<String>> animalSpecifications = List.of(
             //Currently there are three random animals being spawned in base on the level the player is in. Bosses haven't been implemented thus using
             //currently available animals.
@@ -28,13 +29,18 @@ public class BossRoomSpawner extends BaseRoomSpawner{
     );
 
     private static final float WALL_THICKNESS = 0.15f;
-    public BossRoomSpawner (GameArea gameArea, NPCFactory npcFactory, CollectibleFactory collectibleFactory,  TerrainFactory terrainFactory){
-        super(gameArea, npcFactory, collectibleFactory, terrainFactory);
+
+    public BossRoom(NPCFactory npcFactory,
+                    CollectibleFactory collectibleFactory,
+                    TerrainFactory terrainFactory,
+                    String specification) {
+        super(npcFactory, collectibleFactory, terrainFactory);
+        this.specification = specification;
     }
 
     @Override
-    public void spawnRoom(Entity player, String specification) {
-        this.spawnTerrain(WALL_THICKNESS);
+    public void spawn(Entity player, MainGameArea mainGameArea) {
+        this.spawnTerrain(mainGameArea, WALL_THICKNESS);
         List<String> split = Arrays.stream(specification.split(",")).toList();
         GridPoint2 min = new GridPoint2(
                 Integer.parseInt(split.get(0)),
@@ -47,15 +53,15 @@ public class BossRoomSpawner extends BaseRoomSpawner{
         //if level == 1 then index 1
         // for boss room the specification should be different
         int animalGroup = Integer.parseInt(split.get(4));
-        for (String s : animalSpecifications.get(animalGroup)){
+        for (String s : animalSpecifications.get(animalGroup)) {
             GridPoint2 randomPos = RandomUtils.random(min, max);
-            this.spawnAnimal(player, s, randomPos);
+            this.spawnAnimal(mainGameArea, player, s, randomPos);
         }
 
         int itemGroup = Integer.parseInt(split.get(5));
-        for (String s : itemSpecifications.get(itemGroup)){
+        for (String s : itemSpecifications.get(itemGroup)) {
             GridPoint2 randomPos = RandomUtils.random(min, max);
-            this.spawnItem(s, randomPos);
+            this.spawnItem(mainGameArea, s, randomPos);
         }
     }
 }

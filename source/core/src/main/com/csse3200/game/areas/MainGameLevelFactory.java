@@ -26,6 +26,7 @@ public class MainGameLevelFactory implements LevelFactory {
         Map<String, Room> rooms = new HashMap<>();
         // FIXME make ALL the real Rooms
         rooms.put("0_0", roomFactory.createRoom("0,0,14,10,0,0"));
+        rooms.put("0_1", roomFactory.createBossRoom("0,0,14,10,0,0"));
         return new Level(map, levelNumber, rooms);
     }
 }

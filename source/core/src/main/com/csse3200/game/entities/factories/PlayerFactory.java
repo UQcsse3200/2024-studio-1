@@ -23,6 +23,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 
 /**
  * Factory to create a player entity.
@@ -32,17 +36,17 @@ import org.slf4j.LoggerFactory;
  */
 public class PlayerFactory extends LoadedFactory {
     private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
-
-    private static final PlayerConfig DEFAULT_STATS =
-            FileLoader.readClass(PlayerConfig.class, "configs/player.json");
-    private static final String PLAYER_TEXTURE = "images/player/player.png";
-    private static final String PLAYER_TEXTURE_ATLAS = "images/player/player.atlas";
+    Map<String, PlayerConfig> options;
 
     /**
      * Construct a new Player Factory (and load all of its assets)
      */
-    public PlayerFactory() {
+    public PlayerFactory(List<String> configFilenames) {
         super(logger);
+        this.options = configFilenames.stream()
+                .map(filename -> FileLoader.readClass(PlayerConfig.class, filename))
+                .collect(Collectors.toMap(value -> value.name, value -> value));
+        this.load(logger);
     }
 
     /**
@@ -51,31 +55,32 @@ public class PlayerFactory extends LoadedFactory {
      * @return entity
      */
     public Entity createPlayer(){
-        return createPlayer(DEFAULT_STATS);
+        return createPlayer(options.get("default"));
     }
 
     /**
      * Create a player entity
      *
-     * @param stats the config for the player.
+     * @param config the config for the player.
      * @return entity
      */
-    public Entity createPlayer(PlayerConfig stats) {
-        TextureAtlas atlas = new TextureAtlas(PLAYER_TEXTURE_ATLAS);
+    public Entity createPlayer(PlayerConfig config) {
+        TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         TextureRegion defaultTexture = atlas.findRegion("idle");
 
         InventoryComponent inventoryComponent = new InventoryComponent();
         Entity player = new Entity()
+                .addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new PlayerActions())
-                .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, true))
+                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true))
                 .addComponent(inventoryComponent)
                 .addComponent(new ItemPickupComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
-                .addComponent(createAnimationComponent())
+                .addComponent(createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
@@ -92,9 +97,9 @@ public class PlayerFactory extends LoadedFactory {
         return player;
     }
 
-    private AnimationRenderComponent createAnimationComponent() {
+    private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
         AnimationRenderComponent animator = new AnimationRenderComponent(
-                ServiceLocator.getResourceService().getAsset(PLAYER_TEXTURE_ATLAS,
+                ServiceLocator.getResourceService().getAsset(textureAtlasFilename,
                         TextureAtlas.class));
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
@@ -106,11 +111,17 @@ public class PlayerFactory extends LoadedFactory {
 
     @Override
     protected String[] getTextureAtlasFilepaths() {
-        return new String[]{PLAYER_TEXTURE_ATLAS};
+        if (this.options == null){
+            return new String[]{};
+        }
+        return options.values().stream().map(config -> config.textureAtlasFilename).toArray(String[]::new);
     }
 
     @Override
     protected String[] getTextureFilepaths() {
-        return new String[]{PLAYER_TEXTURE};
+        if (this.options == null){
+            return new String[]{};
+        }
+        return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
     }
 }

@@ -29,6 +29,8 @@ import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
 /**
@@ -79,10 +81,12 @@ public class MainGameScreen extends ScreenAdapter {
         loadAssets();
         createUI();
 
-        this.playerFactory = new PlayerFactory();
+        // TODO move this to a "Character Select Screen"
+        this.playerFactory = new PlayerFactory(List.of(
+                "configs/player.json"
+        ));
         Entity player = playerFactory.createPlayer();
         logger.debug("Initialising main game screen entities");
-
 
         LevelFactory levelFactory = new MainGameLevelFactory();
         GameArea mainGameArea = (gameOptions.difficulty == TEST) ?

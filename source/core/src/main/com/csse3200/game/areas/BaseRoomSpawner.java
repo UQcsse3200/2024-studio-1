@@ -9,7 +9,7 @@ import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 
 
-public abstract class BaseRoomSpawner implements RoomSpawner{
+public abstract class BaseRoomSpawner implements RoomSpawner {
     private final GameArea gameArea;
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;

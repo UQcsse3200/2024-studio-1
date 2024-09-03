@@ -81,6 +81,7 @@ public class PlayerFactory {
                 .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, true))
                 .addComponent(inventoryComponent)
                 .addComponent(new ItemPickupComponent())
+                .addComponent(new ShieldComponent())
                 .addComponent(inputComponent)
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(animator)

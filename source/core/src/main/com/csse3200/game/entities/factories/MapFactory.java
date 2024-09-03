@@ -34,7 +34,7 @@ public class MapFactory {
      * @param room : The room whose connections are required to be extracted.
      * @return : A list of integer arrays which contain coordinates of the rooms that are connected to the room input.
      */
-    public static List<String> getRoomConnections(String room) {
+    public List<String> getRoomConnections(String room) {
         List<String> connections = mapData.getPositions().get(room);
         if (connections == null) {
             throw new IllegalArgumentException("Room" + room + "doesn't exist or has no connections");
@@ -48,7 +48,7 @@ public class MapFactory {
      * @param index : The index of the connection that is required to be extracted.
      * @return : returns a specific room that is connected to the current one.
      */
-    public static String getRoomConnection(String room, int index) {
+    public String getRoomConnection(String room, int index) {
         List<String> roomConnections = getRoomConnections(room);
         //checks for out of bounds indices and returns an exception.
         if (index < 0 || index > roomConnections.size()) {
@@ -62,7 +62,7 @@ public class MapFactory {
      * @param room : The room for which the animal index is to be extracted.
      * @return : Returns the index which specifies which animal is to be spawned in the room specified.
      */
-    public static Integer getAnimalIndex(String room) {
+    public Integer getAnimalIndex(String room) {
         Integer animalIndices = mapData.getRoomDetails().get(room).get("animal_index");
         if (animalIndices == null) {
             throw new IllegalArgumentException("Room "+ room +" doesn't exist or has no animals");
@@ -75,7 +75,7 @@ public class MapFactory {
      * @param room : The room for which the item index information is needed.
      * @return : the index for which item is to be spawned.
      */
-    public static int getItemIndex(String room) {
+    public int getItemIndex(String room) {
         Integer itemIndices = mapData.getRoomDetails().get(room).get("item_index");
         if(itemIndices == null) {
             throw new IllegalArgumentException("Room"+ room +"doesn't exist or has no Items");
@@ -87,7 +87,7 @@ public class MapFactory {
      * A method to extract the players start location on the map.
      * @return : returns string coordinates of the player's start position on the map.
      */
-    public static String getPlayerLocation() {
+    public String getPlayerLocation() {
         String playerCoordinates = mapData.get_player_position();
         if (playerCoordinates == null) {
             throw new IllegalArgumentException("Player coordinates doesn't exist");
@@ -99,7 +99,7 @@ public class MapFactory {
      * Method that extracts the map seed information for the randomly generated map from the json file.
      * @return : The seed of the map.
      */
-    public static String getSeed() {
+    public String getSeed() {
         return mapData.getMapSeed();
     }
 
@@ -107,7 +107,7 @@ public class MapFactory {
      * A method to get the map size mentioned in the json file.
      * @return : returns the size of the map.
      */
-    public static int getMapSize() {
+    public int getMapSize() {
         return mapData.getMapSize();
     }
 

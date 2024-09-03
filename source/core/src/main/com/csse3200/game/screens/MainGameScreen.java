@@ -4,9 +4,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.areas.GameArea;
-import com.csse3200.game.areas.MainGameArea;
-import com.csse3200.game.areas.TestGameArea;
+import com.csse3200.game.areas.*;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.entities.factories.CollectibleFactory;
@@ -83,9 +81,9 @@ public class MainGameScreen extends ScreenAdapter {
         this.playerFactory = new PlayerFactory();
         Entity player = playerFactory.createPlayer();
         logger.debug("Initialising main game screen entities");
-        if (gameOptions.difficulty == TEST){
 
-        }
+
+        LevelFactory levelFactory = new MainGameLevelFactory();
         GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
                 new TestGameArea(renderer.getCamera()) :
                 new MainGameArea(

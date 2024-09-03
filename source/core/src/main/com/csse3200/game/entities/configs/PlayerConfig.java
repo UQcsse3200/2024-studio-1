@@ -1,13 +1,5 @@
 package com.csse3200.game.entities.configs;
 
-import com.badlogic.gdx.utils.Array;
-import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
-import com.csse3200.game.entities.Entity;
-
 import java.util.*;
 
 /**

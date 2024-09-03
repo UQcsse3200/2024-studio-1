@@ -1,6 +1,7 @@
 package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.Input;
+import com.csse3200.game.components.player.inventory.MedKit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +53,10 @@ public class KeyMapping {
         /**
          * The player action to make a melee attack.
          */
-        MELEE
+        MELEE,
+        USE_MEDKIT,
+        USE_SHIELD_POTION,
+        USE_BANDAGE
     }
 
     /**
@@ -68,20 +72,23 @@ public class KeyMapping {
      * Create a default key map.
      */
     public KeyMapping() {
-        this(Map.of(
-                        Input.Keys.W, WALK_UP,
-                        Input.Keys.A, WALK_LEFT,
-                        Input.Keys.D, WALK_RIGHT,
-                        Input.Keys.S, WALK_DOWN,
 
-                        Input.Keys.LEFT, SHOOT_LEFT,
-                        Input.Keys.UP, SHOOT_UP,
-                        Input.Keys.RIGHT, SHOOT_RIGHT,
-                        Input.Keys.DOWN, SHOOT_DOWN,
+            Map<Integer, KeyBinding> keyMap = new HashMap<>();
+            keyMap.put(Input.Keys.W, WALK_UP);
+            keyMap.put(Input.Keys.A, WALK_LEFT);
+            keyMap.put(Input.Keys.D, WALK_RIGHT);
+            keyMap.put(Input.Keys.S, WALK_DOWN);
+            keyMap.put(Input.Keys.LEFT, SHOOT_LEFT);
+            keyMap.put(Input.Keys.UP, SHOOT_UP);
+            keyMap.put(Input.Keys.RIGHT, SHOOT_RIGHT);
+            keyMap.put(Input.Keys.DOWN, SHOOT_DOWN);
+            keyMap.put(Input.Keys.SPACE, MELEE);
+            keyMap.put(Input.Keys.NUM_1, USE_MEDKIT);
+            keyMap.put(Input.Keys.NUM_2, USE_SHIELD_POTION);
+            keyMap.put(Input.Keys.NUM_3, USE_BANDAGE);
 
-                        Input.Keys.SPACE, MELEE
-                )
-        );
+            this.keyMap = keyMap;
+
     }
 
     /**

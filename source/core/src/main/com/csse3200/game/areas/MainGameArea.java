@@ -21,7 +21,7 @@ public class MainGameArea extends GameArea {
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
 
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
-    private final MainRoomSpawner entitySpawner;
+    private final BaseRoomSpawner entitySpawner;
 
     /**
      * Initialise this ForestGameArea to use the provided TerrainFactory.
@@ -41,7 +41,7 @@ public class MainGameArea extends GameArea {
             CollectibleFactory collectibleFactory,
             int difficulty,
             String seed) {
-        this.entitySpawner = new MainRoomSpawner(this, npcFactory, collectibleFactory, terrainFactory);
+        this.entitySpawner = new BossRoomSpawner(this, npcFactory, collectibleFactory, terrainFactory);
         MapGenerator mapGenerator = new MapGenerator(difficulty * 12, seed);
         mapGenerator.createMap();
 

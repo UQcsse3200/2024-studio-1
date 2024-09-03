@@ -11,7 +11,6 @@ import com.csse3200.game.ui.UIComponent;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * A UI component for displaying the player's inventory (items and weapons).
  */
@@ -19,6 +18,8 @@ public class PlayerInventoryDisplay extends UIComponent {
     private Table inventoryTable;
     private final InventoryComponent inventoryComponent;
     private Label heading;
+    private Map<String, Label> itemLabels;  // To store labels for each item for easy updating
+    private Map<String, Image> itemIcons;   // To store images for each item for easy updating
 
     /**
      * Constructor to initialise the inventory component of Player that needs to be displayed
@@ -27,8 +28,10 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     public PlayerInventoryDisplay(InventoryComponent inventoryComponent) {
         this.inventoryComponent = inventoryComponent;
+        for (Collectible inventoryComponent1 : inventoryComponent.getInventory().getItems()) {
+            System.out.println("CURRENTLY HAS THIS INVENTORY\n"+inventoryComponent1);
+        }
     }
-
 
     /**
      * Initialise UI component by creating necessary UI elements and setting up
@@ -37,13 +40,13 @@ public class PlayerInventoryDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
+        itemLabels = new HashMap<>();
+        itemIcons = new HashMap<>();
         addActors();
-        updateInventoryUI();
 
         if (entity.getEvents() != null) {
             entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
         }
-
     }
 
     /**
@@ -59,7 +62,6 @@ public class PlayerInventoryDisplay extends UIComponent {
         inventoryTable.padTop(50f).padLeft(5f);
         setHeading();
         addItems();
-
     }
 
     /**
@@ -77,57 +79,61 @@ public class PlayerInventoryDisplay extends UIComponent {
 
     /**
      * Takes all items stored in player's inventory and displays them with
-     * their amount and icon on UI, displaying one on each line
+     * their amount and icon on UI, displaying one on each line.
      */
     void addItems() {
-        // store the amount of each item
-        Map<String, Integer> itemQuantities = new HashMap<>();
-        // store the icon of each item
-        Map<String, Texture> itemIcons = new HashMap<>();
+        // Display all items with their initial quantities (0)
+        addItem("Medkit", new MedKit().getIcon());
+        addItem("Shield Potion", new ShieldPotion().getIcon());
+        addItem("Bandage", new Bandage().getIcon());
 
-        for (Collectible item : inventoryComponent.getInventory().getItems()) {
-            String itemName = item.getName();
-            // add all the items and its amount
-            itemQuantities.put(itemName, itemQuantities.getOrDefault(itemName, 0) + 1);
-            // Store the icon for this item if not already stored
-            if (!itemIcons.containsKey(itemName)) {
-                itemIcons.put(itemName, item.getIcon());
-            }
-        }
-
-        // Display each unique item with its quantity
-        for (Map.Entry<String, Integer> entry : itemQuantities.entrySet()) {
-            Texture itemIcon = itemIcons.get(entry.getKey());
-            // Create an image using the item's icon
-            Image itemImage = new Image(itemIcon);
-            // define teh text to add
-            CharSequence itemText = entry.getKey() + " x" + entry.getValue();
-            Label itemLabel = new Label(itemText, skin, "small");
-
-            // Add the icon and the text to the table
-            inventoryTable.add(itemImage).bottom().left();
-            inventoryTable.add(itemLabel).left();
-            inventoryTable.row();
-        }
     }
 
+    /**
+     * Adds an item to the inventory UI with an icon and initial quantity.
+     * @param itemName The name of the item.
+     * @param itemIcon The icon associated with the item.
+     */
+    private void addItem(String itemName, Texture itemIcon) {
+        Image icon = new Image(itemIcon);
+        Label quantityLabel = new Label(" x0", skin, "small");
+        Label nameLabel = new Label(itemName, skin, "small");
+
+        inventoryTable.add(icon).bottom().left();
+        inventoryTable.add(nameLabel).left();
+        inventoryTable.add(quantityLabel).left();
+        inventoryTable.row();
+
+        itemIcons.put(itemName, icon);
+        itemLabels.put(itemName, quantityLabel);
+    }
 
     /**
      * Updates the inventory UI with the current items that player has.
-     * This method will clear the existing inventory and repopulate it.
+     * This method will update the quantities of existing items.
      */
     public void updateInventoryUI() {
-        inventoryTable.clear();
-        setHeading();
-        addItems();
 
+        // Update with actual quantities from inventory
+        Map<String, Integer> itemQuantities = new HashMap<>();
+        for (Collectible item : inventoryComponent.getInventory().getItems()) {
+            String itemName = item.getName();
+            itemQuantities.put(itemName, itemQuantities.getOrDefault(itemName, 0) + 1);
+        }
+
+        // Update the displayed quantities
+        for (Map.Entry<String, Integer> entry : itemQuantities.entrySet()) {
+            Label quantityLabel = itemLabels.get(entry.getKey());
+            if (quantityLabel != null) {
+                quantityLabel.setText(" x" + entry.getValue());
+            }
+        }
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         // draw is handled by the stage
     }
-
 
     /**
      * Disposes off UI component when they are no longer needed by removing
@@ -143,5 +149,4 @@ public class PlayerInventoryDisplay extends UIComponent {
             inventoryTable.remove();
         }
     }
-
 }

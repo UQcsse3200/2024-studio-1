@@ -67,6 +67,21 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("attack");
         return true;
     }
+    private boolean useMedKit() {
+        entity.getEvents().trigger("useMedKit");
+        return true;
+    }
+
+    private boolean useShieldPotion() {
+        entity.getEvents().trigger("useShieldPotion");
+        return true;
+    }
+
+    private boolean useBandage() {
+        entity.getEvents().trigger("useBandage");
+        return true;
+    }
+
 
     /*
      * All the player actions that need to respond to key down
@@ -85,6 +100,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(SHOOT_DOWN,  (i) -> shoot(Vector2Utils.DOWN));
 
         actionMap.put(MELEE,  (i) -> melee());
+
+        actionMap.put(USE_MEDKIT, (i) -> useMedKit());
+        actionMap.put(USE_SHIELD_POTION, (i) -> useShieldPotion());
+        actionMap.put(USE_BANDAGE, (i) -> useBandage());
         return actionMap;
     }
 

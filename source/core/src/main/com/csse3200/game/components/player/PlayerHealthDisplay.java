@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.inventory.ShieldPotion;
 import com.csse3200.game.ui.UIComponent;
 
 /**
@@ -83,7 +82,6 @@ public class PlayerHealthDisplay extends UIComponent{
             shapeRenderer.setColor(Color.GREEN);
             shapeRenderer.rect(entity.getPosition().x - X_BAR,
                     entity.getPosition().y + Y_BAR, greenFill, HEIGHT );
-
 
             shapeRenderer.end();
             batch.begin();

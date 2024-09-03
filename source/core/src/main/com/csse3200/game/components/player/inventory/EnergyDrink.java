@@ -13,7 +13,7 @@ public class EnergyDrink extends BuffItem {
     /**
      * A variable that represents the speed boost value
      */
-    private static final Vector2 speed = new Vector2(6f, 6f);
+    private static final Vector2 speed = new Vector2(1f, 1f);
 
     /**
      * Get the name of this item
@@ -53,7 +53,9 @@ public class EnergyDrink extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        entity.getComponent(PlayerActions.class).setSpeed(this.getSpeed());
+        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getSpeed();
+        Vector2 updatedSpeed = currSpeed.add(this.getSpeed());
+        entity.getComponent(PlayerActions.class).setSpeed(updatedSpeed);
     }
 
     /**

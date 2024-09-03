@@ -35,6 +35,10 @@ public class PlayerActions extends Component {
         }
     }
 
+    public Vector2 getSpeed() {
+        return this.speed;
+    }
+
     /**
      * Set the player speed
      *

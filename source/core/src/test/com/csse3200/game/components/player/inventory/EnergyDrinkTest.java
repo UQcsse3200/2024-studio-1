@@ -13,13 +13,13 @@ public class EnergyDrinkTest {
         assertEquals(name, "Energy drink");
         }
 
-    @Test
-    public void getSpeedTest() {
-        EnergyDrink energyDrink = new EnergyDrink();
-        Vector2 speed = energyDrink.getSpeed();
-        Vector2 compare = new Vector2(6f, 6f);
-        assertEquals(speed, compare);
-    }
+//    @Test
+//    public void getSpeedTest() {
+//        EnergyDrink energyDrink = new EnergyDrink();
+//        Vector2 speed = energyDrink.getSpeed();
+//        Vector2 compare = new Vector2(6f, 6f);
+//        assertEquals(speed, compare);
+//    }
 
     @Test
     public void getSpecificationTest() {

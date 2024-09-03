@@ -74,6 +74,15 @@ public abstract class GameArea extends LoadedFactory {
         spawnEntity(entity);
     }
 
+    public void remove_room() {
+        if (areaEntities != null && !areaEntities.isEmpty()) {
+            for (Entity entity : areaEntities) {
+                ServiceLocator.getEntityService().unregister(entity);
+                ServiceLocator.getEntityService().markEntityForRemoval(entity);
+            }
+        }
+    }
+
     public void setTerrain(TerrainComponent terrain) {
         this.terrain = terrain;
     }

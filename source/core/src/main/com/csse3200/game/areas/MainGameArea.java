@@ -104,8 +104,6 @@ public class MainGameArea extends GameArea {
     protected String[] getTextureFilepaths() {
         return new String[]{
                 "images/box_boy_leaf.png",
-                "images/rounded_door_v.png",
-                "images/rounded_door_h.png",
                 "images/tile_1.png",
                 "images/tile_2.png",
                 "images/tile_3.png",

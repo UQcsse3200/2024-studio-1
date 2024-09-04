@@ -25,6 +25,7 @@ public class PlayerAnimationController extends Component {
         entity.getEvents().addListener("walkUp", this::walkUp);
         entity.getEvents().addListener("walkDown", this::walkDown);
         entity.getEvents().addListener("walkStop", this::stationaryAnimation);
+        entity.getEvents().addListener("death", this::deathAnimation);
         animationController.startAnimation("idle");
     }
 
@@ -59,5 +60,12 @@ public class PlayerAnimationController extends Component {
      */
     void walkUp() {
         animationController.startAnimation("walk-up");
+    }
+
+    /**
+     * Starts the player death animation.
+     */
+    void deathAnimation() {
+        animationController.startAnimation("death-down");
     }
 }

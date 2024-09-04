@@ -70,6 +70,7 @@ public class PlayerFactory {
         animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
 
         InventoryComponent inventoryComponent = new InventoryComponent();
 
@@ -95,7 +96,7 @@ public class PlayerFactory {
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
-        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+        //player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
 
         return player;
     }

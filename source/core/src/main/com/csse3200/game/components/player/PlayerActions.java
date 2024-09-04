@@ -104,9 +104,9 @@ public class PlayerActions extends Component {
     private void applyMedKit() {
         Inventory inventory = inventoryComponent.getInventory();
         for (Collectible item : inventory.getItems()) {
-            if (item instanceof MedKit) {
-                inventoryComponent.drop(item);
-                ((MedKit) item).apply(entity);
+            if (item instanceof MedKit medkit) {
+                inventoryComponent.drop(medkit);
+                medkit.apply(entity);
                 break;
             }
         }

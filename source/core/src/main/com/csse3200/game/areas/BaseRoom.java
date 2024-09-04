@@ -1,5 +1,8 @@
 package com.csse3200.game.areas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
@@ -18,6 +21,7 @@ public abstract class BaseRoom implements Room {
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
+    private List<String> roomConnections;
 
     /**
      * Inject factories to be used for spawning here room object.
@@ -28,10 +32,12 @@ public abstract class BaseRoom implements Room {
     public BaseRoom(
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
-            TerrainFactory terrainFactory) {
+            TerrainFactory terrainFactory,
+            List<String> roomConnections) {
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;
+        this.roomConnections = roomConnections;
     }
 
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
@@ -67,6 +73,8 @@ public abstract class BaseRoom implements Room {
                 GridPoint2Utils.ZERO,
                 false, false);
     }
+
+
 
     /**
      * Spawn the terrain of the room, including the walls and background of the map.
@@ -109,83 +117,55 @@ public abstract class BaseRoom implements Room {
         area.spawnEntityAt(spawn, pos, true, true);
     }
 
-    /*
-    private void spawnDoors() {
+    protected void spawnDoors(GameArea area, Entity player) {
         List<Entity> doors = new ArrayList<>();
-        List<String> connections = this.mapGenerator.getPositions().get("0_0"); // N E W S
+        List<String> connections = this.roomConnections; 
         String connectN = connections.get(0);
         String connectE = connections.get(1);
         String connectW = connections.get(2);
         String connectS = connections.get(3);
-        DoorCallBack callBackEast = () -> {
-            logger.info(connectE);
-            this.currentRoom = connectE;
-        };
 
-        DoorCallBack callBackNorth = () -> {
-            logger.info(connectN);
-            this.currentRoom = connectN;
-        };
 
-        DoorCallBack callBackWest = () -> {
-            logger.info(connectW);
-            this.currentRoom = connectW;
-        };
-
-        DoorCallBack callBackSouth = () -> {
-            logger.info(connectS);
-            this.currentRoom = connectS;
-        };
-        Entity door = DoorFactory.createDoor('v', callBackEast, player.getId()); // left
-        Entity door2 = DoorFactory.createDoor('v', callBackWest, player.getId()); // right
-        Entity door3 = DoorFactory.createDoor('h', callBackSouth, player.getId()); // bottom
-        Entity door4 = DoorFactory.createDoor('h', callBackNorth, player.getId()); // top
+        Entity door = DoorFactory.createDoor('v', player.getId(), connectW); // left
+        Entity door2 = DoorFactory.createDoor('v',  player.getId(), connectE ); // right
+        Entity door3 = DoorFactory.createDoor('h', player.getId(), connectS); // bottom
+        Entity door4 = DoorFactory.createDoor('h',  player.getId(), connectN); // top
 
         Vector2 doorvScale = door.getScale();
         Vector2 doorhScale = door3.getScale();
-        // Left Door
-        if (!connectE.isEmpty()) {
-            gameArea.spawnEntityAt(
-                    door,
-                    new GridPoint2(0, 5),
-                    true,
-                    true);
-            Vector2 doorPos = door.getPosition();
-            door.setPosition(doorPos.x - doorvScale.x, doorPos.y);
-            doors.add(door);
-        }
-        // Right Door
-        if (!connectW.isEmpty()) {
-            gameArea.spawnEntityAt(door2,
-                    new GridPoint2(15, 5),
-                    true,
-                    true);
-            Vector2 door2Pos = door2.getPosition();
-            door2.setPosition(door2Pos.x - 2 * doorvScale.x, door2Pos.y);
-            doors.add(door2);
-        }
-        // Bottom Door
-        if (!connectS.isEmpty()) {
-            gameArea.spawnEntityAt(door3,
-                    new GridPoint2(7, 0),
-                    true,
-                    true);
-            Vector2 door3Pos = door3.getPosition();
-            door3.setPosition(door3Pos.x, door3Pos.y - doorhScale.y);
-            doors.add(door3);
-        }
-        // Top Door
-        if (!connectN.isEmpty()) {
-            gameArea.spawnEntityAt(door4,
-                    new GridPoint2(7, 11),
-                    true,
-                    true);
-            Vector2 door4Pos = door4.getPosition();
-            door4.setPosition(door4Pos.x, door4Pos.y - 2 * doorhScale.y);
-            doors.add(door4);
-        }
 
+        
+        List<DoorData> doorData = List.of(
+        new DoorData(connectE, door, new GridPoint2(0, 5), new Vector2(-doorvScale.x, 0)),
+        new DoorData(connectW, door2, new GridPoint2(15, 5), new Vector2(-2 * doorvScale.x, 0)),
+        new DoorData(connectS, door3, new GridPoint2(7, 0), new Vector2(0, -doorhScale.y)),
+        new DoorData(connectN, door4, new GridPoint2(7, 11), new Vector2(0, -2 * doorhScale.y))
+        );
+            
+    
+
+        // Loop through the door data and handle each door
+        for (DoorData data : doorData) {
+            if (!data.connection.isEmpty()) {
+                area.spawnEntityAt(data.door, data.position, true, true);
+                Vector2 doorPos = data.door.getPosition();
+                data.door.setPosition(doorPos.x + data.offset.x, doorPos.y + data.offset.y);
+                doors.add(data.door);
+            }
+        }}
+
+        private static class DoorData {
+            String connection;
+            Entity door;
+            GridPoint2 position;
+            Vector2 offset;
+    
+            DoorData(String connection, Entity door, GridPoint2 position, Vector2 offset) {
+                this.connection = connection;
+                this.door = door;
+                this.position = position;
+                this.offset = offset;
+            }
+    }
 
     }
-     */
-}

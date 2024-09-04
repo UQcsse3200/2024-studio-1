@@ -1,21 +1,15 @@
 package com.csse3200.game.areas;
 
 public class GameAreaService {
-    private final GameArea gameArea;
+    private final MainGameArea gameArea;
 
-    public GameAreaService(GameArea gameArea) {
+    public GameAreaService(MainGameArea gameArea) {
         this.gameArea = gameArea;
     }
 
-    public GameArea getGameArea() {
+    public MainGameArea getGameArea() {
         return this.gameArea;
     }
-
-    
-
-
-
-
 
     
 }

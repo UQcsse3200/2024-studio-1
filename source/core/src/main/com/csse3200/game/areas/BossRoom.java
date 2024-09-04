@@ -33,8 +33,9 @@ public class BossRoom extends BaseRoom {
     public BossRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
+                    List<String> roomConnections,
                     String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory);
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections);
         this.specification = specification;
     }
 

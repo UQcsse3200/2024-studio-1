@@ -10,6 +10,7 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.csse3200.game.areas.GameAreaService;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
@@ -30,7 +31,10 @@ public class MainGameArea extends GameArea {
      * @param levelFactory the provided levelFactory.
      */
     public MainGameArea(LevelFactory levelFactory) {
+        super();
         this.levelFactory = levelFactory;
+        ServiceLocator.registerGameAreaService(new GameAreaService(this));
+        
     }
 
     /**
@@ -51,18 +55,18 @@ public class MainGameArea extends GameArea {
     }
 
     public void changeRooms(String roomKey){
-        // FIXME clear room
-
-        this.currentRoom = this.currentLevel.getRoom(roomKey);
+        this.remove_room();
+        //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
+        this.currentRoom = this.currentLevel.getRoom(roomKey);    
         this.currentRoom.spawn(player, this);
-
-        // FIXME actually spawn on the door into this room from last room.
         spawnEntityAt(player, new GridPoint2(10, 10), true, true);
     }
 
     public void changeLevel(int levelNumber){
         this.currentLevel = this.levelFactory.create(levelNumber);
-        changeRooms(this.currentLevel.getStartingRoomKey());
+        this.currentRoom = this.currentLevel.getRoom(this.currentLevel.getStartingRoomKey());    
+        this.currentRoom.spawn(player, this);
+        spawnEntityAt(player, new GridPoint2(10, 10), true, true);
     }
 
     private void displayUI() {
@@ -123,6 +127,8 @@ public class MainGameArea extends GameArea {
                 "images/tile_staircase.png",
                 "images/tile_staircase_down.png",
                 "images/tile_blood.png",
+                "images/rounded_door_v.png",
+                "images/rounded_door_h.png"
         };
     }
 

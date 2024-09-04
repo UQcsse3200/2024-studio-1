@@ -23,7 +23,11 @@ public abstract class GameArea extends LoadedFactory {
     protected GameArea() {
         super();
         areaEntities = new ArrayList<>();
-        ServiceLocator.registerGameAreaService(new GameAreaService(this));
+    }
+
+
+    protected void SwitchRooms(String Room) {
+        remove_room();    
     }
 
     /**

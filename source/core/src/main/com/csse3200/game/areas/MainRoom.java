@@ -36,14 +36,16 @@ public class MainRoom extends BaseRoom {
     public MainRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
+                    List<String> roomConnections,
                     String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory);
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections);
         this.specification = specification;
     }
 
     @Override
     public void spawn(Entity player, MainGameArea area) {
         this.spawnTerrain(area, WALL_THICKNESS);
+        this.spawnDoors(area, player);
         List<String> split = Arrays.stream(specification.split(",")).toList();
         GridPoint2 min = new GridPoint2(
                 Integer.parseInt(split.get(0)),

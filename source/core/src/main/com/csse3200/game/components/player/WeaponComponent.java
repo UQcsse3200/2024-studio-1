@@ -2,7 +2,10 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
@@ -10,6 +13,8 @@ import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
+import com.csse3200.game.physics.PhysicsLayer;
+import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -268,6 +273,7 @@ public class WeaponComponent extends Component {
         this.maxAmmo = rangedWeapon.getMaxAmmo();
         this.reloadTime = rangedWeapon.getReloadTime();
         this.lastAttack = 0L;
+        this.getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.damage);
         if (this.fireRate == 0) {
             this.attackInterval = 0L;
         } else {
@@ -324,6 +330,8 @@ public class WeaponComponent extends Component {
                     .getAsset("sounds/Impact4.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
+            // get list of entities in range
+            // for each entity in range, apply damage
         } else {
             logger.info("No melee weapon");
         }

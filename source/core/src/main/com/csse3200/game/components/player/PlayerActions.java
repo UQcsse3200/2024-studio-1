@@ -30,6 +30,8 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
         entity.getEvents().addListener("useMedKit", this::applyMedKit);
+        entity.getEvents().addListener("useShieldPotion", this::applyShieldPotion);
+        entity.getEvents().addListener("useBandage", this::applyBandage);
 
     }
 
@@ -105,6 +107,28 @@ public class PlayerActions extends Component {
             if (item instanceof MedKit) {
                 inventoryComponent.drop(item);
                 ((MedKit) item).apply(entity);
+                break;
+            }
+        }
+    }
+
+    private void applyShieldPotion() {
+        Inventory inventory = inventoryComponent.getInventory();
+        for (Collectible item : inventory.getItems()) {
+            if (item instanceof ShieldPotion) {
+                inventoryComponent.drop(item);
+                ((ShieldPotion) item).apply(entity);
+                break;
+            }
+        }
+    }
+
+    private void applyBandage() {
+        Inventory inventory = inventoryComponent.getInventory();
+        for (Collectible item : inventory.getItems()) {
+            if (item instanceof Bandage) {
+                inventoryComponent.drop(item);
+                ((Bandage) item).apply(entity);
                 break;
             }
         }

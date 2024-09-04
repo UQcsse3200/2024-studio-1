@@ -2,6 +2,7 @@ package com.csse3200.game.areas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceLoader;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -10,6 +11,7 @@ import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +26,7 @@ public abstract class BaseRoom implements Room {
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
     private List<String> roomConnections;
-
+    List<Entity> doors;
     /**
      * Inject factories to be used for spawning here room object.
      * @param npcFactory the NPC factory to use
@@ -40,6 +42,8 @@ public abstract class BaseRoom implements Room {
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;
         this.roomConnections = roomConnections;
+        this.doors = new ArrayList<>();
+    
     }
 
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
@@ -74,6 +78,12 @@ public abstract class BaseRoom implements Room {
                 bottomWall,
                 GridPoint2Utils.ZERO,
                 false, false);
+    }
+
+    public void remove_room() {
+        for (Entity data : doors) {
+            ServiceLocator.getEntityService().markEntityForRemoval(data);
+        } 
     }
 
 
@@ -120,7 +130,6 @@ public abstract class BaseRoom implements Room {
     }
 
     protected void spawnDoors(GameArea area, Entity player) {
-        List<Entity> doors = new ArrayList<>();
         List<String> connections = this.roomConnections; 
         String connectN = connections.get(0);
         String connectE = connections.get(1);

@@ -80,7 +80,6 @@ public abstract class GameArea extends LoadedFactory {
         log.info("Removing room");
         if (areaEntities != null && !areaEntities.isEmpty()) {
             for (Entity entity : areaEntities) {
-//                ServiceLocator.getEntityService().unregister(entity);
                 ServiceLocator.getEntityService().markEntityForRemoval(entity);
             }
             areaEntities.clear();

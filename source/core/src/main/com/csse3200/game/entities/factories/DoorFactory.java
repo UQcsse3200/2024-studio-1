@@ -61,7 +61,7 @@ public class DoorFactory {
         door.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
             Entity entity2 = (Entity) fixture2.getUserData();
             if (entity2.getId() == playerId) {
-                String[] coordinates = Room.split("_");
+                
                 System.out.println("this is the room " + Room);
                 
                 ServiceLocator.getGameAreaService().getGameArea().changeRooms(Room);

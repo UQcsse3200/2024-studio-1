@@ -59,28 +59,28 @@ damage-7
   orig: 160, 160
   offset: 29, 9
   index: -1
-damage-8
+damage-down
   rotate: false
   xy: 239, 1
   size: 151, 151
   orig: 160, 160
   offset: 9, 9
   index: -1
-damage-9
+damage-down
   rotate: false
   xy: 382, 880
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-damage-10
+damage-down
   rotate: false
   xy: 1217, 989
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-damage-11
+damage-down
   rotate: false
   xy: 1300, 845
   size: 132, 132

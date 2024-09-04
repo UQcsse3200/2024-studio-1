@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -15,6 +16,7 @@ public class PlayerActions extends Component {
     private static final Vector2 DEFAULT_SPEED = new Vector2(3f, 3f); // Metres per second
 
     private PhysicsComponent physicsComponent;
+    private InventoryComponent inventoryComponent;
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
@@ -22,10 +24,13 @@ public class PlayerActions extends Component {
     @Override
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
+        inventoryComponent = entity.getComponent(InventoryComponent.class);
         entity.getEvents().addListener("walk", this::walk);
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
+        entity.getEvents().addListener("useMedKit", this::applyMedKit);
+
     }
 
     @Override
@@ -93,5 +98,17 @@ public class PlayerActions extends Component {
         this.walkDirection = direction;
         moving = true;
     }
+
+    private void applyMedKit() {
+        Inventory inventory = inventoryComponent.getInventory();
+        for (Collectible item : inventory.getItems()) {
+            if (item instanceof MedKit) {
+                inventoryComponent.drop(item);
+                ((MedKit) item).apply(entity);
+                break;
+            }
+        }
+    }
 }
+
 

@@ -61,7 +61,7 @@ public class PlayerHealthDisplay extends UIComponent{
          */
         @Override
         public void draw(SpriteBatch batch)  {
-            // end the current batch to prepare for cutsom shape renderer drawing
+            // end the current batch to prepare for custom shape renderer drawing
             batch.end();
             // copy the current projection matrix for use
             Matrix4 projectionMatrix = batch.getProjectionMatrix().cpy();

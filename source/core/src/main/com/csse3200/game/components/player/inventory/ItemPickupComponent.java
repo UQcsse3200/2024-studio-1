@@ -44,8 +44,8 @@ public class ItemPickupComponent extends Component {
         //Use the 'pickup' method of the InventoryComponent, pass in the item
         //The 'pickup' method of the InventoryComponent class uses the unique 'pickup' method of the item that
         // is passed in
-        entity.getComponent(InventoryComponent.class).pickup(item);
-        markEntityForRemoval(itemEntity);
+        entity.getComponent(InventoryComponent.class).pickup(item, itemEntity);
+//        markEntityForRemoval(itemEntity);
         System.out.println("It works!"); //Test to see if on collision, it works
     }
 

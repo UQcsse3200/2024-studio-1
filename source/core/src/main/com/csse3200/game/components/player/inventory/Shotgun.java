@@ -3,6 +3,7 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.entities.Entity;
 
 public class Shotgun extends RangedWeapon {
 
@@ -59,6 +60,10 @@ public class Shotgun extends RangedWeapon {
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
+    }
+    @Override
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        super.pickup(inventory, itemEntity);
     }
 
     @Override

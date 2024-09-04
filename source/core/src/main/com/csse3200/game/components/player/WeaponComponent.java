@@ -48,6 +48,8 @@ public class WeaponComponent extends Component {
     private long lastSwing;
     private long swingInterval;
 
+    Entity itemEntity;
+
     /**
      * Constructor for WeaponComponent
      *
@@ -99,6 +101,7 @@ public class WeaponComponent extends Component {
         // Currently has only 1 projectile config
         this.bulletConfig = new ProjectileConfig();
 
+        this.itemEntity = null;
     }
 
     /**
@@ -272,6 +275,36 @@ public class WeaponComponent extends Component {
             this.attackInterval = 0L;
         } else {
             this.attackInterval = (1000L / this.fireRate);
+        }
+    }
+    /**
+     * Update the weapon with new values (ranged only)
+     *
+     * @param rangedWeapon ranged weapon
+     */
+    public void updateWeapon(RangedWeapon rangedWeapon, Entity itemEntity) {
+        this.damage = rangedWeapon.getDamage();
+        this.range = rangedWeapon.getRange();
+        this.fireRate = rangedWeapon.getFireRate();
+        this.ammo = rangedWeapon.getAmmo();
+        this.maxAmmo = rangedWeapon.getMaxAmmo();
+        this.reloadTime = rangedWeapon.getReloadTime();
+        this.lastAttack = 0L;
+        if (this.fireRate == 0) {
+            this.attackInterval = 0L;
+        } else {
+            this.attackInterval = (1000L / this.fireRate);
+        }
+        this.itemEntity = itemEntity;
+    }
+
+    @Override
+    public void update() {
+        if (this.itemEntity == null || this.entity == null) {
+            // do nothing
+        }
+        else {
+            this.itemEntity.setPosition(this.entity.getPosition());
         }
     }
 

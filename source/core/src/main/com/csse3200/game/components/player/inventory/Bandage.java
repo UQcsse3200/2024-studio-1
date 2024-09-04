@@ -20,6 +20,9 @@ public class Bandage extends UsableItem {
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
     }
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        super.pickup(inventory);
+    }
 
     @Override
     public String getItemSpecification() {

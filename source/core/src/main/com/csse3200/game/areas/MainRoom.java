@@ -6,11 +6,14 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.utils.math.RandomUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MainRoom extends BaseRoom {
+    private static final Logger logger = LoggerFactory.getLogger(MainRoom.class);
     private final String specification;
     List<List<String>> animalSpecifications = List.of(
             List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat"),
@@ -44,7 +47,11 @@ public class MainRoom extends BaseRoom {
 
     @Override
     public void spawn(Entity player, MainGameArea area) {
+        logger.info("Spawning: {}", specification);
+
+        logger.info("Spawning terrain:");
         this.spawnTerrain(area, WALL_THICKNESS);
+        logger.info("Spawning doors:");
         this.spawnDoors(area, player);
         List<String> split = Arrays.stream(specification.split(",")).toList();
         GridPoint2 min = new GridPoint2(
@@ -55,12 +62,14 @@ public class MainRoom extends BaseRoom {
                 Integer.parseInt(split.get(2)),
                 Integer.parseInt(split.get(3))
         );
+        logger.info("Spawning animals:");
         int animalGroup = Integer.parseInt(split.get(4));
         for (String s : animalSpecifications.get(animalGroup)){
             GridPoint2 randomPos = RandomUtils.random(min, max);
             this.spawnAnimal(area, player, s, randomPos);
         }
 
+        logger.info("Spawning items:");
         int itemGroup = Integer.parseInt(split.get(5));
         for (String s : itemSpecifications.get(itemGroup)){
             GridPoint2 randomPos = RandomUtils.random(min, max);

@@ -1,6 +1,5 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
@@ -59,9 +58,7 @@ public class PlayerActions extends Component {
      * Makes the player attack.
      */
     private void attack() {
-        ServiceLocator.getResourceService()
-                .getAsset("sounds/Impact4.ogg", Sound.class)
-                .play();
+        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
         entity.getComponent(WeaponComponent.class).attack();
     }
 
@@ -69,9 +66,7 @@ public class PlayerActions extends Component {
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        ServiceLocator.getResourceService()
-                .getAsset("sounds/Impact4.ogg", Sound.class)
-                .play();
+        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
         entity.getComponent(WeaponComponent.class).shoot(direction);
     }
 

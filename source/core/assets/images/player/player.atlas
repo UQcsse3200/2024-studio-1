@@ -3,56 +3,56 @@ size: 1960, 1158
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-damage-0
+damage-right
   rotate: false
   xy: 457, 307
   size: 132, 151
   orig: 160, 160
   offset: 9, 9
   index: -1
-damage-1
+damage-right
   rotate: true
   xy: 343, 613
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-damage-2
+damage-right
   rotate: true
   xy: 1415, 577
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-damage-3
+damage-right
   rotate: true
   xy: 1549, 565
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-damage-4
+damage-left
   rotate: false
   xy: 382, 727
   size: 131, 151
   orig: 160, 160
   offset: 29, 9
   index: -1
-damage-5
+damage-left
   rotate: true
   xy: 259, 1037
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-damage-6
+damage-left
   rotate: false
   xy: 1847, 135
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-damage-7
+damage-left
   rotate: true
   xy: 1683, 555
   size: 112, 132
@@ -87,35 +87,35 @@ damage-down
   orig: 160, 160
   offset: 19, 9
   index: -1
-damage-12
+damage-up
   rotate: true
   xy: 239, 154
   size: 151, 142
   orig: 160, 160
   offset: 9, 9
   index: -1
-damage-13
+damage-up
   rotate: false
   xy: 1413, 701
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-damage-14
+damage-up
   rotate: false
   xy: 1413, 701
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-damage-15
+damage-up
   rotate: false
   xy: 1449, 431
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-death-0
+death-right
   rotate: false
   xy: 527, 154
   size: 132, 151

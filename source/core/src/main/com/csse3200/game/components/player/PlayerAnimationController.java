@@ -11,6 +11,7 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
  */
 public class PlayerAnimationController extends Component {
     AnimationRenderComponent animationController;
+    private boolean death = false;
 
     /**
      * Adds the event listener to the character entity to trigger an animation change.
@@ -33,40 +34,53 @@ public class PlayerAnimationController extends Component {
     /**
      * Starts the player stationary animation.
      */
-    void stationaryAnimation() { animationController.startAnimation("idle"); }
+    void stationaryAnimation() {
+        if (!death) {
+            animationController.startAnimation("idle");
+        }
+    }
 
     /**
      * Starts the player walking left animation.
      */
     void walkLeft() {
-        animationController.startAnimation("walk-left");
+        if (!death) {
+            animationController.startAnimation("walk-left");
+        }
     }
 
     /**
      * Starts the player walking right animation.
      */
     void walkRight() {
-        animationController.startAnimation("walk-right");
+        if (!death) {
+            animationController.startAnimation("walk-right");
+        }
     }
 
     /**
      * Starts the player walking down animation.
      */
     void walkDown() {
-        animationController.startAnimation("walk-down");
+        if (!death) {
+            animationController.startAnimation("walk-down");
+        }
     }
 
     /**
      * Starts the player walking up animation.
      */
     void walkUp() {
-        animationController.startAnimation("walk-up");
+        if (!death) {
+            animationController.startAnimation("walk-up");
+        }
     }
 
     /**
      * Starts the player death animation.
      */
     void deathAnimation() {
+        death = true;
         animationController.startAnimation("death-down");
     }
 
@@ -74,6 +88,8 @@ public class PlayerAnimationController extends Component {
      * Starts the player damage animation.
      */
     void damageAnimation() {
-        animationController.startAnimation("damage-down");
+        if (!death) {
+            animationController.startAnimation("damage-down");
+        }
     }
 }

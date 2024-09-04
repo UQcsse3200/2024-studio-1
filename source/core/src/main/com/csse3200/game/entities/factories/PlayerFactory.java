@@ -71,6 +71,9 @@ public class PlayerFactory {
         animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-up", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-left", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
         animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
 
         InventoryComponent inventoryComponent = new InventoryComponent();

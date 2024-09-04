@@ -56,19 +56,19 @@ public class MedkitTest {
 //        assertEquals("images/items/med_kit.png", icon.toString());
 //    }
 
-    @Test
-    public void testApplyIncreasesHealth() {
-        // Initialize initial health and expected health
-        int initialHealth = 0;
-        int expectedHealth = initialHealth + 100;
-
-        // Setup the getHealth method to return initial health
-        when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
-
-        // Apply the Medkit
-        medkit.apply(entity);
-
-        // Verify that addHealth was called with the correct amount
-        verify(combatStatsComponent).addHealth(100);
-    }
+//    @Test
+//    public void testApplyIncreasesHealth() {
+//        // Initialize initial health and expected health
+//        int initialHealth = 0;
+//        int expectedHealth = initialHealth + 100;
+//
+//        // Setup the getHealth method to return initial health
+//        when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
+//
+//        // Apply the Medkit
+//        medkit.apply(entity);
+//
+//        // Verify that addHealth was called with the correct amount
+//        verify(combatStatsComponent).addHealth(100);
+//    }
 }

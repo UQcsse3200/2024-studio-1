@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 
+import java.util.Objects;
+
 /**
  * An energy drink item that immediately affects the player's speed upon pickup
  */
@@ -13,7 +15,11 @@ public class EnergyDrink extends BuffItem {
     /**
      * A variable that represents the speed boost value
      */
-    private static final Vector2 speed = new Vector2(1f, 1f);
+    String speedType;
+
+    public EnergyDrink(String speedType) {
+        this.speedType = speedType;
+    }
 
     /**
      * Get the name of this item
@@ -64,7 +70,19 @@ public class EnergyDrink extends BuffItem {
      * @return the speed value
      */
     public Vector2 getSpeed() {
+        String speedType = getSpeedType();
+        Vector2 speed = null;
+        if (speedType.equals("1")) {
+            speed = new Vector2(1f, 1f);
+        }
         return speed;
+    }
+
+    /**
+     *
+     */
+    public String getSpeedType() {
+        return speedType;
     }
 
     /**

@@ -14,10 +14,17 @@ public class ItemFactory {
      * @return the specified entity
      */
     public Collectible create(String specification) {
+        String speedType = null;
+        if (specification.contains(",")) {
+            String[] split = specification.split(",", 2);
+            specification = split[0];
+            speedType = split[1];
+            //check valid speedType
+        }
         return switch (specification){
             case "medkit" -> createMedKit();
             case "bandage" -> createBandage();
-            case "energydrink" -> createEnergyDrink();
+            case "energydrink" -> createEnergyDrink(speedType);
             case "shieldpotion" -> createShieldPotion();
             case "syringe" -> createSyringe();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
@@ -44,8 +51,8 @@ public class ItemFactory {
      * Creates an EnergyDrink that permanently increases the players movement speed.
      * @return EnergyDrink item
      */
-    private Collectible createEnergyDrink() {
-        return new EnergyDrink();
+    private Collectible createEnergyDrink(String speedType) {
+        return new EnergyDrink(speedType);
     }
 
     /**

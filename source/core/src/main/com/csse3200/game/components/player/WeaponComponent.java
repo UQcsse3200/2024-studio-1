@@ -10,6 +10,7 @@ import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
+import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -319,6 +320,7 @@ public class WeaponComponent extends Component {
             }
             // Render attack here using
             this.lastSwing = currentTime;
+            ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
             logger.info("Melee weapon attack");
         } else {
             logger.info("No melee weapon");
@@ -339,11 +341,13 @@ public class WeaponComponent extends Component {
                 this.setAmmo(-2);
                 // Offset time so that the weapon must wait extra long for reload time
                 currentTime += this.getReloadTime() * 1000L - this.attackInterval;
+                ServiceLocator.getResourceService().playSound("sounds/shotgun1_r.ogg");
                 logger.info("Ranged weapon reloading");
             } else {
                 // Shooting
                 this.setAmmo(-1);
                 // Spawn projectile
+                ServiceLocator.getResourceService().playSound("sounds/shotgun1_f.ogg");
                 ProjectileFactory.createProjectile(this.bulletConfig, direction);
                 logger.info("Ranged weapon shoot");
             }

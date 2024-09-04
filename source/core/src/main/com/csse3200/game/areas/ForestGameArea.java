@@ -8,6 +8,7 @@ import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.areas.terrain.TerrainFactory.TerrainType;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
+import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ObstacleFactory;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.entities.factories.*;
@@ -17,6 +18,7 @@ import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
+import com.csse3200.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -131,6 +133,12 @@ public class ForestGameArea extends GameArea {
         spawnShieldPotion();
         spawnPickaxes();
         spawnShotgun();
+        spawnProjectile();
+    }
+
+    private void spawnProjectile() {
+        Entity shotgun = ProjectileFactory.createProjectile(new ProjectileConfig(), Vector2Utils.RIGHT);
+        spawnEntityAt(shotgun, new GridPoint2(5,7), true, true);
     }
 
     private void displayUI() {

@@ -8,6 +8,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -77,7 +78,7 @@ public class ProjectileAttackComponent extends Component {
         entity.getComponent(ProjectileActions.class).stopShoot();
 
         //soft dispose - unsure of the completeness of this disposal
-        entity.getComponent(TextureRenderComponent.class).dispose();
+        entity.getComponent(AnimationRenderComponent.class).dispose();
         ServiceLocator.getEntityService().unregister(entity);
 
 

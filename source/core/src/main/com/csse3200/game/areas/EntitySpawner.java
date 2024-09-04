@@ -11,6 +11,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.areas.ForestGameArea;
+import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
@@ -24,6 +25,8 @@ public class EntitySpawner {
     private static List<List<String>> items = new ArrayList<>();
 
     private static final NPCFactory npcFactory = new NPCFactory();
+
+    private static final ProjectileFactory projectileFactory = new ProjectileFactory();
 
     public static void setGameArea(GameArea ga) { gameArea = ga;}
 

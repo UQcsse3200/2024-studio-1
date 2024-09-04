@@ -46,7 +46,7 @@ class ProjectileAttackComponentTest {
 
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
+        resourceService.loadTextureAtlases(new String []{new ProjectileConfig().projectileAtlasPath});
 
         // Load in sound effect
         resourceService.loadSounds(new String[]{"sounds/shotgun1_f.ogg"});

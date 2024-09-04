@@ -130,6 +130,8 @@ public class ForestGameArea extends GameArea {
         spawnShieldPotion();
         spawnPickaxes();
         spawnShotgun();
+        spawnSyringe();
+
     }
 
     private void displayUI() {
@@ -337,9 +339,14 @@ public class ForestGameArea extends GameArea {
         return collectibleEntity;
     }
 
+    private void spawnSyringe() {
+        Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("buff:syringe");
+        spawnEntityAt(collectibleEntity, new GridPoint2(2, 7), true, true);
+    }
+
     private void spawnBandage() {
         Entity collectibleEntity = CollectibleFactory.createCollectibleEntity("item:bandage");
-        spawnEntityAt(collectibleEntity, new GridPoint2(9, 9), true, true);
+        spawnEntityAt(collectibleEntity, new GridPoint2(6, 7), true, true);
     }
 
     private void spawnMedkit() {

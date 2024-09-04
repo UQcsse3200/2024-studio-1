@@ -19,6 +19,7 @@ public class ItemFactory {
             case "bandage" -> createBandage();
             case "energydrink" -> createEnergyDrink();
             case "shieldpotion" -> createShieldPotion();
+            case "syringe" -> createSyringe();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -53,6 +54,14 @@ public class ItemFactory {
      */
     private Collectible createShieldPotion() {
         return new ShieldPotion();
+    }
+
+    /**
+     * Creates a Syringe that provides player with an edge by exceeding their maximum health.
+     * @return Syringe item
+     */
+    private Collectible createSyringe() {
+        return new Syringe();
     }
 
 }

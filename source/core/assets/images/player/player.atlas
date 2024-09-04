@@ -122,161 +122,161 @@ death-0
   orig: 800, 160
   offset: 329, 9
   index: -1
-death-1
+death-right
   rotate: true
   xy: 631, 595
   size: 122, 142
   orig: 800, 160
   offset: 349, 9
   index: -1
-death-2
+death-right
   rotate: false
   xy: 403, 1024
   size: 142, 132
   orig: 800, 160
   offset: 369, 9
   index: -1
-death-3
+death-right
   rotate: true
   xy: 1, 389
   size: 192, 92
   orig: 800, 160
   offset: 369, 9
   index: -1
-death-4
+death-right
   rotate: true
   xy: 1, 1
   size: 192, 102
   orig: 800, 160
   offset: 369, 9
   index: -1
-death-5
+death-right
   rotate: true
   xy: 1, 389
   size: 192, 92
   orig: 800, 160
   offset: 369, 9
   index: -1
-death-6
+death-left
   rotate: false
   xy: 536, 1
   size: 132, 151
   orig: 800, 160
   offset: 349, 9
   index: -1
-death-7
+death-left
   rotate: true
   xy: 775, 586
   size: 122, 142
   orig: 800, 160
   offset: 339, 9
   index: -1
-death-8
+death-left
   rotate: true
   xy: 1072, 1
   size: 142, 132
   orig: 800, 160
   offset: 299, 9
   index: -1
-death-9
+death-left
   rotate: true
   xy: 1, 583
   size: 192, 92
   orig: 800, 160
   offset: 249, 9
   index: -1
-death-10
+death-left
   rotate: true
   xy: 1, 195
   size: 192, 102
   orig: 800, 160
   offset: 249, 9
   index: -1
-death-11
+death-left
   rotate: true
   xy: 1, 583
   size: 192, 92
   orig: 800, 160
   offset: 249, 9
   index: -1
-death-12
+death-down
   rotate: false
   xy: 457, 460
   size: 132, 151
   orig: 800, 160
   offset: 339, 9
   index: -1
-death-13
+death-down
   rotate: true
   xy: 105, 737
   size: 152, 132
   orig: 800, 160
   offset: 329, 9
   index: -1
-death-14
+death-down
   rotate: true
   xy: 189, 309
   size: 152, 122
   orig: 800, 160
   offset: 329, 9
   index: -1
-death-15
+death-down
   rotate: true
   xy: 95, 389
   size: 172, 92
   orig: 800, 160
   offset: 319, 9
   index: -1
-death-16
+death-down
   rotate: true
   xy: 1, 777
   size: 172, 102
   orig: 800, 160
   offset: 319, 9
   index: -1
-death-17
+death-down
   rotate: true
   xy: 95, 389
   size: 172, 92
   orig: 800, 160
   offset: 319, 9
   index: -1
-death-18
+death-up
   rotate: false
   xy: 515, 727
   size: 132, 142
   orig: 800, 160
   offset: 339, 9
   index: -1
-death-19
+death-up
   rotate: true
   xy: 105, 891
   size: 152, 132
   orig: 800, 160
   offset: 329, 9
   index: -1
-death-20
+death-up
   rotate: true
   xy: 189, 463
   size: 152, 122
   orig: 800, 160
   offset: 329, 9
   index: -1
-death-21
+death-up
   rotate: true
   xy: 95, 563
   size: 172, 92
   orig: 800, 160
   offset: 319, 9
   index: -1
-death-22
+death-up
   rotate: true
   xy: 1, 951
   size: 172, 102
   orig: 800, 160
   offset: 319, 9
   index: -1
-death-23
+death-up
   rotate: true
   xy: 95, 563
   size: 172, 92
@@ -829,7 +829,7 @@ walk-right
   orig: 160, 160
   offset: 29, 9
   index: -1
-walk-right-x
+walk-righ
   rotate: true
   xy: 1733, 888
   size: 112, 132

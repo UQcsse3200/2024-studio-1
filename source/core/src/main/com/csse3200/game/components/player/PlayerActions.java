@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.components.CombatStatsComponent;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -17,6 +18,7 @@ public class PlayerActions extends Component {
     private PhysicsComponent physicsComponent;
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
+    private boolean dead = false;
     private Vector2 speed = DEFAULT_SPEED;
 
     @Override
@@ -30,8 +32,14 @@ public class PlayerActions extends Component {
 
     @Override
     public void update() {
+
         if (moving) {
             updateSpeed();
+        }
+
+        if (entity.getComponent(CombatStatsComponent.class).isDead() && !dead) {
+            entity.getEvents().trigger("death");
+            dead = true;
         }
     }
 

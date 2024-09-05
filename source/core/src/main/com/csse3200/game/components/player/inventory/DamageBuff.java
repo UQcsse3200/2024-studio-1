@@ -21,7 +21,7 @@ public class DamageBuff extends BuffItem{
     @Override
     public void effect(Entity entity) {
         int baseAttack = entity.getComponent(CombatStatsComponent.class).getBaseAttack();
-        entity.getComponent(CombatStatsComponent.class).setBaseAttack();
+        entity.getComponent(CombatStatsComponent.class).setBaseAttack(35); //placeholder value
 
     }
 

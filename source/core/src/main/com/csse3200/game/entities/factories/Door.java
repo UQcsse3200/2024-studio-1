@@ -19,44 +19,48 @@ public class Door extends Entity {
     /**
      * Door entity to track updates to entity over different function calls
      */
-    Entity door;
     int playerId;
 
     /**
      * Create door with specific orientation and callback function implementation
      *
      * @param orientation: char - sets orientation for door when returned
-     * @param callback: DoorCallBack - call callback onDoorCollided function when event collision is triggered
+     * @param idOfPlayer: int - idOfPlayer to confirm interaction is with player
+     * @param next_Room: string - string of next room to jump to
      */
     public Door(char orientation, int idOfPlayer, String next_Room) {
         super();
-        door = createBaseDoor(orientation);
         playerId = idOfPlayer;
+
+        this.addComponent(new TextureRenderComponent(format("images/rounded_door_%c.png",orientation)))
+                .addComponent(new PhysicsComponent())
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
         // door config can be implemented later if deigned necessary
-        door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-        door.getComponent(TextureRenderComponent.class).scaleEntity();
+        this.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+        this.getComponent(TextureRenderComponent.class).scaleEntity();
         if(orientation == 'v'){
-            door.scaleHeight(1f); //2.5f
-            PhysicsUtils.setScaledCollider(door, 0.18f, 0.8f);
+            this.scaleHeight(1f); //2.5f
+            PhysicsUtils.setScaledCollider(this, 0.18f, 0.8f);
         }else {
-            door.scaleWidth(1f);
-            PhysicsUtils.setScaledCollider(door, 0.8f, 0.18f);
+            this.scaleWidth(1f);
+            PhysicsUtils.setScaledCollider(this, 0.8f, 0.18f);
         }
         // Change orientation of physics collider to fit door texture orientation
 
-        PhysicsUtils.setScaledCollider(door, 0.18f, 0.8f); // 0.5f, 0.2f
+        PhysicsUtils.setScaledCollider(this, 0.18f, 0.8f); // 0.5f, 0.2f
 
         createCollision(next_Room);
     }
 
     /**
-     * Add listener to door entity when collision starts for callback onDoorCollide function
+     * Create collision listener to change rooms
      *
-     * @param callback: DoorCallBack - callback onDoorCollide to be set within door when door collided with
+     * @param Room : string representation of the room jumping to
      */
     private void createCollision(String Room) {
         
-        door.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
+        this.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
             Entity entity2 = (Entity) fixture2.getUserData();
             if (entity2.getId() == playerId) {
                 
@@ -65,19 +69,5 @@ public class Door extends Entity {
                 ServiceLocator.getGameAreaService().getGameArea().changeRooms(Room);
             }
         });
-    }
-
-    /**
-     * Create base entity with necessary components
-     * @param orientation: char - orientation of texture rendered
-     * @return door: Entity - base door
-     */
-    private Entity createBaseDoor(char orientation) {
-        Entity door =
-                new Entity()
-                        .addComponent(new TextureRenderComponent(format("images/rounded_door_%c.png",orientation)))
-                        .addComponent(new PhysicsComponent())
-                        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-        return door;
     }
 }

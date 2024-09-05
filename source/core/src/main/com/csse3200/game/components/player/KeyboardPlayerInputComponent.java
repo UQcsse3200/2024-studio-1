@@ -100,10 +100,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(SHOOT_DOWN,  (i) -> shoot(Vector2Utils.DOWN));
 
         actionMap.put(MELEE,  (i) -> melee());
-
-        actionMap.put(USE_MEDKIT, (i) -> useMedKit());
-        actionMap.put(USE_SHIELD_POTION, (i) -> useShieldPotion());
-        actionMap.put(USE_BANDAGE, (i) -> useBandage());
+        // map use_1 action to use_item(1)
+        // and then use_item(i) will use ith item in inventory
+        // FOUR ITEMS IN TOTAL
+        // maybe i can create a method which extract the number of item from use_i
+        actionMap.put(USE_1, (i) -> useMedKit());
+        actionMap.put(USE_2, (i) -> useShieldPotion());
+        actionMap.put(USE_3, (i) -> useBandage());
         return actionMap;
     }
 

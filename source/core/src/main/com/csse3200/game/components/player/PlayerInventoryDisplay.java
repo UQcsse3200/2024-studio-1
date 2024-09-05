@@ -28,9 +28,6 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     public PlayerInventoryDisplay(InventoryComponent inventoryComponent) {
         this.inventoryComponent = inventoryComponent;
-        for (Collectible inventoryComponent1 : inventoryComponent.getInventory().getItems()) {
-            System.out.println("CURRENTLY HAS THIS INVENTORY\n"+inventoryComponent1);
-        }
     }
 
     /**

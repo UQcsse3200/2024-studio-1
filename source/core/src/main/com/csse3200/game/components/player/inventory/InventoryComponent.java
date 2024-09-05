@@ -4,6 +4,9 @@ import com.csse3200.game.components.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A component intended to be used by the player to track their inventory.
  * <p>
@@ -13,6 +16,11 @@ import org.slf4j.LoggerFactory;
 public class InventoryComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
     private final Inventory inventory;
+    private final Map<Integer, UsableItem> usableItems = Map.of(
+            1, new MedKit(),
+            2, new ShieldPotion(),
+            3, new Bandage()
+    );
     private int rangedWeaponCount = 0;
     private int meleeWeaponCount = 0;
 
@@ -63,4 +71,7 @@ public class InventoryComponent extends Component {
         return inventory;
     }
 
+    public Map<Integer, UsableItem> getUsableItems() {
+        return usableItems;
+    }
 }

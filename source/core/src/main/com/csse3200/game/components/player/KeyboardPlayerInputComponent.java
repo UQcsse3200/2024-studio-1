@@ -67,28 +67,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("attack");
         return true;
     }
-    private boolean useMedKit() {
-        entity.getEvents().trigger("useMedKit");
-        return true;
-    }
 
-    private boolean useShieldPotion() {
-        entity.getEvents().trigger("useShieldPotion");
-        return true;
-    }
-
-    private boolean useBandage() {
-        entity.getEvents().trigger("useBandage");
-        return true;
-    }
-
-    /*
-    public int getItemNum(KeyMapping.KeyBinding keyBinding) {
-        String key =  keyBinding.name();
-        String num = key.substring(4);
-        return Integer.parseInt(num);
-    }
-     */
     private boolean useItem(Integer num) {
         switch (num) {
             case 1 -> entity.getEvents().trigger("use1");
@@ -116,13 +95,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(SHOOT_DOWN,  (i) -> shoot(Vector2Utils.DOWN));
 
         actionMap.put(MELEE,  (i) -> melee());
-        // map use_1 action to use_item(1)
-        // and then use_item(i) will use ith item in inventory
-        // maybe i can create a method which extract the number of item from use_i
         actionMap.put(USE_1, (i) -> useItem(1));
         actionMap.put(USE_2, (i) -> useItem(2));
         actionMap.put(USE_3, (i) -> useItem(3));
-        actionMap.put(USE_4, (i) -> useItem(4));
         return actionMap;
     }
 

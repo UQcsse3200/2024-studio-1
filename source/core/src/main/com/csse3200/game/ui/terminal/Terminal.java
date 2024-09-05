@@ -3,6 +3,7 @@ package com.csse3200.game.ui.terminal;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.ui.terminal.commands.Command;
 import com.csse3200.game.ui.terminal.commands.DebugCommand;
+import com.csse3200.game.components.maingame.MainGameExitDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +50,15 @@ public class Terminal extends Component {
       this.setClosed();
     } else {
       this.setOpen();
+    }
+  }
+
+  /**
+   * Toggles between the terminal being open and closed.
+   */
+  public void pauseGame() {
+    if (isOpen) {
+      this.setClosed();
     }
   }
 

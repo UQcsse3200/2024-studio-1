@@ -42,8 +42,10 @@ public class MainGameScreen extends ScreenAdapter {
 
   private static final String[] mainGameTextures = {
           "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-          "images/ui_white_icons_down.png"
+          "images/ui_white_icons_down.png", "flat-earth/skin/flat-earth-ui.png",
+          "images/black_dot_transparent.png"
   };
+  private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
 
@@ -51,6 +53,8 @@ public class MainGameScreen extends ScreenAdapter {
   private final GameOptions gameOptions;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+
+  private Entity ui;
 
   public MainGameScreen(GdxGame game) {
     this.game = game;
@@ -101,6 +105,7 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void resize(int width, int height) {
     renderer.resize(width, height);
+    ui.getComponent(MainGameExitDisplay.class).resize(width, height);
     logger.trace("Resized renderer: ({} x {})", width, height);
   }
 
@@ -132,6 +137,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
+    resourceService.loadTextureAtlases(mainGameAtlases);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -151,7 +157,7 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
-    Entity ui = new Entity();
+    ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions(this.game))

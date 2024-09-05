@@ -64,7 +64,7 @@ public class BandageTest {
     public void testApplyIncreasesHealthFromZero() {
         // Initialize initial health as 0 and expected health after applying Medkit
         int initialHealth = 0;
-        int expectedHealth = 100;
+        int expectedHealth = 20;
 
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
 

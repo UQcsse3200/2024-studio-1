@@ -355,7 +355,9 @@ public class WeaponComponent extends Component {
                 ServiceLocator.getResourceService()
                         .getAsset("sounds/shotgun1_f.ogg", Sound.class)
                         .play();
-                ProjectileFactory.createProjectile(this.bulletConfig, direction);
+                Entity projectile = ProjectileFactory.createProjectile(this.bulletConfig, direction);
+                ServiceLocator.getEntityService().register(projectile);
+                projectile.setPosition(this.getEntity().getPosition());
                 logger.info("Ranged weapon shoot");
             }
             // Reset lastAtttack time

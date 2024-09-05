@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.physics.components.PhysicsComponent;
+import com.csse3200.game.rendering.AnimationRenderComponent;
 
 /**
  * Handles projectile actions currently including shoot(), and stopShoot().
@@ -46,6 +47,7 @@ public class ProjectileActions extends Component {
      *
      */
     void shoot(Vector2 direction, Vector2 speed) {
+        this.getEntity().getComponent(AnimationRenderComponent.class).startAnimation("GreenShoot");
         this.walkDirection = direction;
         this.speed = speed;
         moving = true;

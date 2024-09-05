@@ -63,7 +63,7 @@ public class ProjectileFactory {
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
         projectile.setScale(stats.scaleX, stats.scaleY);
         projectile.getComponent(ColliderComponent.class).setDensity(1.5f);
-        projectile.getComponent(AnimationRenderComponent.class).startAnimation("GreenShoot");
+
 
 
         return projectile;

@@ -63,9 +63,12 @@ public class PlayerStatsDisplay extends UIComponent {
         speedImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
 
         //Speed text
+
         float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
         CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
         speedLabel = new Label(speedText, skin, "small");
+
+
 
         //Weapon text, like the name of weapon
         //entity.getComponent(WeaponComponent.class).getWeaponType();

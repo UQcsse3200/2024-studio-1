@@ -20,6 +20,7 @@ public class PlayerActions extends Component {
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
+    private float speedPercentage;
 
     @Override
     public void create() {
@@ -32,6 +33,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("use1", () -> use(new MedKit()));
         entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
         entity.getEvents().addListener("use3", () -> use(new Bandage()));
+        setSpeedPercentage(1.0f);
         // entity.getEvents().addListener("use4", () -> use(4));
         /*
         entity.getEvents().addListener("useMedKit", this::applyMedKit);
@@ -47,6 +49,18 @@ public class PlayerActions extends Component {
         if (moving) {
             updateSpeed();
         }
+    }
+
+    public Vector2 getCurrSpeed() {
+        return this.speed;
+    }
+
+    public void setSpeedPercentage(float speedPercentage) {
+        this.speedPercentage = speedPercentage;
+    }
+
+    public float getCurrSpeedPercentage() {
+        return this.speedPercentage;
     }
 
     /**
@@ -140,7 +154,6 @@ public class PlayerActions extends Component {
             }
         }
     }
-
     private void applyBandage() {
         Inventory inventory = inventoryComponent.getInventory();
         for (Collectible item : inventory.getItems()) {
@@ -151,6 +164,8 @@ public class PlayerActions extends Component {
             }
         }
     }
+
+
 }
 
 

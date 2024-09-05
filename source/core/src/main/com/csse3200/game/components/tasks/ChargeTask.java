@@ -101,7 +101,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   }
 
   private void startMoving() {
-    this.owner.getEntity().getEvents().trigger("attack");
+    this.owner.getEntity().getEvents().trigger("walk");
     logger.debug("Starting moving towards {}", target.getPosition());
     movementTask.setTarget(target.getPosition());
     movementTask.setVelocity(chaseSpeed);

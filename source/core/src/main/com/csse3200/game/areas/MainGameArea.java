@@ -56,7 +56,7 @@ public class MainGameArea extends GameArea {
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
-        this.currentRoom.remove_room();
+        this.currentRoom.removeRoom();
         //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;

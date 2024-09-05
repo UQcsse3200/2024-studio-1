@@ -22,13 +22,16 @@ public abstract class BaseRoom implements Room {
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
-    private List<String> roomConnections;
+    private final List<String> roomConnections;
     List<Entity> doors;
+
     /**
      * Inject factories to be used for spawning here room object.
-     * @param npcFactory the NPC factory to use
+     *
+     * @param npcFactory         the NPC factory to use
      * @param collectibleFactory the Collectible factory to use.
-     * @param terrainFactory the terrain factory to use.
+     * @param terrainFactory     the terrain factory to use.
+     * @param roomConnections    the keys for all the adjacent rooms.
      */
     public BaseRoom(
             NPCFactory npcFactory,
@@ -40,7 +43,7 @@ public abstract class BaseRoom implements Room {
         this.terrainFactory = terrainFactory;
         this.roomConnections = roomConnections;
         this.doors = new ArrayList<>();
-    
+
     }
 
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
@@ -77,18 +80,19 @@ public abstract class BaseRoom implements Room {
                 false, false);
     }
 
-    public void remove_room() {
+    /**
+     * Mark all entities in the room for removal.
+     */
+    public void removeRoom() {
         for (Entity data : doors) {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
-        } 
+        }
     }
-
-
 
     /**
      * Spawn the terrain of the room, including the walls and background of the map.
      *
-     * @param area the game area to spawn the terrain onto.
+     * @param area          the game area to spawn the terrain onto.
      * @param wallThickness the thickness of the walls around the room.
      */
     protected void spawnTerrain(GameArea area, float wallThickness) {
@@ -105,9 +109,10 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawn a collectible item into the room.
-     * @param area the game area to spawn the item into.
+     *
+     * @param area          the game area to spawn the item into.
      * @param specification the specification of the item to create.
-     * @param pos the location to spawn it to.
+     * @param pos           the location to spawn it to.
      */
     protected void spawnItem(GameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
@@ -116,41 +121,45 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawn an NPC into the room
-     * @param area the game area to spawn the NPC into.
+     *
+     * @param area   the game area to spawn the NPC into.
      * @param player the player character for this npc to target.
      * @param animal the specification of the animal to create.
-     * @param pos the location to spawn it to.
+     * @param pos    the location to spawn it to.
      */
     protected void spawnAnimal(GameArea area, Entity player, String animal, GridPoint2 pos) {
         Entity spawn = npcFactory.create(animal, player);
         area.spawnEntityAt(spawn, pos, true, true);
     }
 
+    /**
+     * Spawn the doors for this room.
+     *
+     * @param area   the game area to spawn them into.
+     * @param player The main player of the room.
+     */
     protected void spawnDoors(GameArea area, Entity player) {
-        List<String> connections = this.roomConnections; 
+        List<String> connections = this.roomConnections;
         String connectN = connections.get(0);
         String connectE = connections.get(1);
         String connectW = connections.get(2);
         String connectS = connections.get(3);
 
+        Entity westDoor = new Door('v', player.getId(), connectW); // left
+        Entity eastDoor = new Door('v', player.getId(), connectE); // right
+        Entity southDoor = new Door('h', player.getId(), connectS); // bottom
+        Entity northDoor = new Door('h', player.getId(), connectN); // top
 
-        Entity door = new Door('v', player.getId(), connectW); // left
-        Entity door2 = new Door('v',  player.getId(), connectE ); // right
-        Entity door3 = new Door('h', player.getId(), connectS); // bottom
-        Entity door4 = new Door('h',  player.getId(), connectN); // top
+        Vector2 doorvScale = westDoor.getScale();
+        Vector2 doorhScale = southDoor.getScale();
 
-        Vector2 doorvScale = door.getScale();
-        Vector2 doorhScale = door3.getScale();
 
-        
         List<DoorData> doorData = List.of(
-        new DoorData(connectE, door, new GridPoint2(0, 5), new Vector2(-doorvScale.x, 0)),
-        new DoorData(connectW, door2, new GridPoint2(15, 5), new Vector2(-2 * doorvScale.x, 0)),
-        new DoorData(connectS, door3, new GridPoint2(7, 0), new Vector2(0, -doorhScale.y)),
-        new DoorData(connectN, door4, new GridPoint2(7, 11), new Vector2(0, -2 * doorhScale.y))
+                new DoorData(connectE, westDoor, new GridPoint2(0, 5), new Vector2(-doorvScale.x, 0)),
+                new DoorData(connectW, eastDoor, new GridPoint2(15, 5), new Vector2(-2 * doorvScale.x, 0)),
+                new DoorData(connectS, southDoor, new GridPoint2(7, 0), new Vector2(0, -doorhScale.y)),
+                new DoorData(connectN, northDoor, new GridPoint2(7, 11), new Vector2(0, -2 * doorhScale.y))
         );
-            
-    
 
         // Loop through the door data and handle each door
         for (DoorData data : doorData) {
@@ -160,20 +169,16 @@ public abstract class BaseRoom implements Room {
                 data.door.setPosition(doorPos.x + data.offset.x, doorPos.y + data.offset.y);
                 doors.add(data.door);
             }
-        }}
-
-        private static class DoorData {
-            String connection;
-            Entity door;
-            GridPoint2 position;
-            Vector2 offset;
-    
-            DoorData(String connection, Entity door, GridPoint2 position, Vector2 offset) {
-                this.connection = connection;
-                this.door = door;
-                this.position = position;
-                this.offset = offset;
-            }
+        }
     }
 
+    /**
+     * Details of a door.
+     */
+    private record DoorData(
+            String connection,
+            Entity door,
+            GridPoint2 position,
+            Vector2 offset) {
     }
+}

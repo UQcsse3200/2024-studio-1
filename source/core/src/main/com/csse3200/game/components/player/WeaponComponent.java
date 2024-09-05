@@ -2,14 +2,19 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.RangedWeapon;
+import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
+import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.entities.factories.Door;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -344,7 +349,9 @@ public class WeaponComponent extends Component {
                 // Shooting
                 this.setAmmo(-1);
                 // Spawn projectile
-                ProjectileFactory.createProjectile(this.bulletConfig, direction);
+                Entity projectile = ProjectileFactory.createProjectile(this.bulletConfig, direction);
+                projectile.getComponent(ProjectileAttackComponent.class).create();
+                ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
                 logger.info("Ranged weapon shoot");
             }
             // Reset lastAtttack time

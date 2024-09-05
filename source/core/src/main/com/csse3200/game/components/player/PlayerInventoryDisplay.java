@@ -93,8 +93,8 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     private void addItem(String itemName, Texture itemIcon) {
         Image icon = new Image(itemIcon);
-        Label quantityLabel = new Label(" x0", skin, "small");
         Label nameLabel = new Label(itemName, skin, "small");
+        Label quantityLabel = new Label(" x0", skin, "small");
 
         inventoryTable.add(icon).bottom().left();
         inventoryTable.add(nameLabel).left();
@@ -110,6 +110,10 @@ public class PlayerInventoryDisplay extends UIComponent {
      * This method will update the quantities of existing items.
      */
     public void updateInventoryUI() {
+        // possible bug:
+        // the inventory list doesnt have that item so it never updates the count
+        // so maybe create like an array that stores all the inventory and use .contains
+        // to check if teh inventory has or not and if not then set to zero
 
         // Update with actual quantities from inventory
         Map<String, Integer> itemQuantities = new HashMap<>();
@@ -121,8 +125,18 @@ public class PlayerInventoryDisplay extends UIComponent {
         // Update the displayed quantities
         for (Map.Entry<String, Integer> entry : itemQuantities.entrySet()) {
             Label quantityLabel = itemLabels.get(entry.getKey());
+
             if (quantityLabel != null) {
-                quantityLabel.setText(" x" + entry.getValue());
+                int quantity = entry.getValue();
+
+                // Update the quantity text, including when it's 0
+                quantityLabel.setText(" x" + quantity);
+
+                // Ensure visibility of the label and icon, regardless of quantity
+                Image itemIcon = itemIcons.get(entry.getKey());
+                if (itemIcon != null) {
+                    itemIcon.setVisible(true); // Always visible, even if count is 0
+                }
             }
         }
     }

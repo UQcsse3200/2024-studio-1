@@ -121,12 +121,13 @@ public class PlayerActions extends Component {
         this.walkDirection = direction;
         moving = true;
     }
+
     private void use(UsableItem item) {
         Inventory inventory = inventoryComponent.getInventory();
         for (Collectible collectedItem : inventory.getItems()) {
             if (collectedItem.getClass() == item.getClass()) {
-                inventoryComponent.drop(collectedItem);
                 item.apply(entity);
+                inventoryComponent.drop(collectedItem);
                 break;
             }
         }

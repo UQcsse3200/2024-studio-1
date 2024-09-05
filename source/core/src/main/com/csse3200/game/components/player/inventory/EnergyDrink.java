@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 
+import java.util.Objects;
+
 /**
  * An energy drink item that immediately affects the player's speed upon pickup
  */
@@ -13,7 +15,16 @@ public class EnergyDrink extends BuffItem {
     /**
      * A variable that represents the speed boost value
      */
-    private static final Vector2 speed = new Vector2(6f, 6f);
+    String speedType;
+
+    Vector2 speed;
+
+    float speedPercentage;
+
+    public EnergyDrink(String speedType) {
+        this.speedType = speedType;
+        setScalar(speedType);
+    }
 
     /**
      * Get the name of this item
@@ -53,7 +64,13 @@ public class EnergyDrink extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        entity.getComponent(PlayerActions.class).setSpeed(this.getSpeed());
+        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
+        Vector2 updatedSpeed = currSpeed.add(getSpeed());
+        float currSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+        float newSpeedPercentage = currSpeedPercentage + getSpeedPercentage();
+        entity.getComponent(PlayerActions.class).setSpeedPercentage(newSpeedPercentage);
+        entity.getComponent(PlayerActions.class).setSpeed(updatedSpeed);
+        entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage);
     }
 
     /**
@@ -62,7 +79,30 @@ public class EnergyDrink extends BuffItem {
      * @return the speed value
      */
     public Vector2 getSpeed() {
-        return speed;
+        return this.speed;
+        //3%, 5%, 8%
+    }
+
+    public float getSpeedPercentage() {
+        return this.speedPercentage;
+    }
+
+    public void setScalar(String speedType) {
+        Vector2 baseSpeed = new Vector2(3f, 3f); //Improvement: actually get the default speed somehow
+        if (speedType.equals("Low")) {
+            this.speed = baseSpeed.scl(0.3f);
+            this.speedPercentage = 0.3f;
+        }
+        else if (speedType.equals("Medium")) {
+            this.speed = baseSpeed.scl(0.5f);
+            this.speedPercentage = 0.5f;
+        }
+        else if (speedType.equals("High")) {
+            this.speed = baseSpeed.scl(0.6f);
+            this.speedPercentage = 0.6f;
+        }
+
+
     }
 
     /**
@@ -73,5 +113,10 @@ public class EnergyDrink extends BuffItem {
     @Override
     public String getBuffSpecification() {
         return "energydrink";
+    }
+
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_blue.png");
     }
 }

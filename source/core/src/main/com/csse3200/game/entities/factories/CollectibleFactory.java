@@ -48,6 +48,20 @@ public class CollectibleFactory {
         return collectibleEntity;
     }
 
+    public static Entity createMystery(Collectible collectible) {
+        Entity collectibleEntity = new Entity()
+                .addComponent(new CollectibleComponent(collectible))
+                .addComponent(new HitboxComponent())
+                .addComponent(new PhysicsComponent());
+        if (collectible.getType() == Collectible.Type.ITEM || collectible.getType() == Collectible.Type.BUFF_ITEM) {
+            collectibleEntity.addComponent(new TextureRenderComponent(collectible.getMysteryIcon()));
+        }
+        collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();
+        return collectibleEntity;
+    }
+
+
+
     /**
      * Create a collectible item as a collectible entity.
      *

@@ -82,6 +82,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    /*
+    public int getItemNum(KeyMapping.KeyBinding keyBinding) {
+        String key =  keyBinding.name();
+        String num = key.substring(4);
+        return Integer.parseInt(num);
+    }
+     */
+    private boolean useItem(Integer num) {
+        entity.getEvents().trigger("use" + num);
+        return true;
+    }
 
     /*
      * All the player actions that need to respond to key down
@@ -102,11 +113,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(MELEE,  (i) -> melee());
         // map use_1 action to use_item(1)
         // and then use_item(i) will use ith item in inventory
-        // FOUR ITEMS IN TOTAL
         // maybe i can create a method which extract the number of item from use_i
-        // actionMap.put(USE_1, (i) -> useMedKit());
-        // actionMap.put(USE_2, (i) -> useShieldPotion());
-        // actionMap.put(USE_3, (i) -> useBandage());
+        actionMap.put(USE_1, (i) -> useItem(1));
+        actionMap.put(USE_2, (i) -> useItem(2));
+        actionMap.put(USE_3, (i) -> useItem(3));
+        actionMap.put(USE_4, (i) -> useItem(4));
         return actionMap;
     }
 

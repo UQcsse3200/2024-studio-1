@@ -24,6 +24,7 @@ public class CombatStatsComponent extends Component {
     private boolean isInvincible;
     private static final int timeInvincible = 2000;
     private final Timer timer;
+    private static int buffedAttack;
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible) {
         this.canBeInvincible = canBeInvincible;
@@ -111,6 +112,14 @@ public class CombatStatsComponent extends Component {
             logger.error("Can not set base attack to a negative attack value");
         }
     }
+
+    /**
+     * Increases the entities base Attack damage
+     *
+     * @param buffedAttack increased Damage
+     */
+
+    public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
 
     /**
      * Applies damage to the entity by reducing its health. If health drops to 0, triggers a "died" event.

@@ -17,8 +17,11 @@ public class EnergyDrink extends BuffItem {
      */
     String speedType;
 
+    Vector2 speed;
+
     public EnergyDrink(String speedType) {
         this.speedType = speedType;
+        setScalar(speedType);
     }
 
     /**
@@ -59,8 +62,8 @@ public class EnergyDrink extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getSpeed();
-        Vector2 updatedSpeed = currSpeed.add(this.getSpeed());
+        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
+        Vector2 updatedSpeed = currSpeed.add(getSpeed());
         entity.getComponent(PlayerActions.class).setSpeed(updatedSpeed);
     }
 
@@ -70,19 +73,23 @@ public class EnergyDrink extends BuffItem {
      * @return the speed value
      */
     public Vector2 getSpeed() {
-        String speedType = getSpeedType();
-        Vector2 speed = null;
-        if (speedType.equals("1")) {
-            speed = new Vector2(1f, 1f);
-        }
-        return speed;
+        return this.speed;
+        //3%, 5%, 8%
     }
 
-    /**
-     *
-     */
-    public String getSpeedType() {
-        return speedType;
+    public void setScalar(String speedType) {
+        Vector2 baseSpeed = new Vector2(3f, 3f); //Improvement: actually get the default speed somehow
+        if (speedType.equals("Low")) {
+            this.speed = baseSpeed.scl(0.3f);
+        }
+        else if (speedType.equals("Medium")) {
+            this.speed = baseSpeed.scl(0.5f);
+        }
+        else if (speedType.equals("High")) {
+            this.speed = baseSpeed.scl(0.6f);
+        }
+
+
     }
 
     /**
@@ -93,5 +100,10 @@ public class EnergyDrink extends BuffItem {
     @Override
     public String getBuffSpecification() {
         return "energydrink";
+    }
+
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_blue.png");
     }
 }

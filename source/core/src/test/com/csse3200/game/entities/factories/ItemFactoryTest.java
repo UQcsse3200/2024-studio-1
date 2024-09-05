@@ -23,7 +23,7 @@ public class ItemFactoryTest {
 
     @Test
     public void testCreateEnergyDrink() {
-        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink"));
+        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink,Low"));
     }
 
     @Test

@@ -18,6 +18,7 @@ public class PlayerActions extends Component {
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
+    private Vector2 defaultSpeed = DEFAULT_SPEED;
 
     @Override
     public void create() {
@@ -35,8 +36,12 @@ public class PlayerActions extends Component {
         }
     }
 
-    public Vector2 getSpeed() {
+    public Vector2 getCurrSpeed() {
         return this.speed;
+    }
+
+    public Vector2 getDefaultSpeed() {
+        return this.defaultSpeed;
     }
 
     /**

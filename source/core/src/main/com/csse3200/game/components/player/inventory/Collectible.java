@@ -58,4 +58,9 @@ public interface Collectible {
         BUFF_ITEM,
         NONE
     }
+
+    default Texture getMysteryIcon() {
+        return null;
+    }
+
 }

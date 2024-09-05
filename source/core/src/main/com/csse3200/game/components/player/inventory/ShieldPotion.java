@@ -97,7 +97,7 @@ public class ShieldPotion extends UsableItem {
 
     @Override
     public String getItemSpecification() {
-        return "shield potion";
+        return "shieldpotion";
     }
 
     /**

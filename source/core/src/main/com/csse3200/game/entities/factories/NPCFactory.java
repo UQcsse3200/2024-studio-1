@@ -78,7 +78,11 @@ public class NPCFactory {
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
-   * @param aiComponent the AI component to be added to the NPC
+   * @param target The target entity for the NPC to chase.
+   * @param aiComponent The AI component to be added to the NPC.
+   * @param config The configuration for the NPC.
+   * @param animator The animator component for the NPC.
+   *
    * @return entity
    */
   private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
@@ -88,7 +92,8 @@ public class NPCFactory {
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new AttackComponent(target, config.attackRange, config.attackRate, config.baseAttack))
+            .addComponent(new AttackComponent(target, config.attackRange, config.attackRate, config.baseAttack,
+                    config.effects))
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
@@ -162,7 +167,6 @@ public class NPCFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity rat = createBaseNPC(target, aiComponent, config, animator);
-    rat.addComponent(new AttackComponent(target, 0.7f, 0.75f, 20));
 
     return rat;
   }

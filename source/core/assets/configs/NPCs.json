@@ -55,6 +55,12 @@
         "waitTime": 2
       }
     },
+    "effects": [
+      {
+        "type": "knockback",
+        "force": 3
+      }
+      ],
     "animations": [
       {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},

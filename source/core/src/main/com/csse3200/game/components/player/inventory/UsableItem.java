@@ -23,6 +23,11 @@ public abstract class UsableItem implements Collectible {
     }
 
     @Override
+    public void drop(Inventory inventory) {
+        inventory.removeItem(this);
+    }
+
+    @Override
     public String getSpecification() {
         return "item:" + getItemSpecification();
     }

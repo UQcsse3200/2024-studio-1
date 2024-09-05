@@ -118,4 +118,8 @@ public class Inventory {
     public void addItem(Collectible item) {
         this.items.add(item);
     }
+
+    public void removeItem(Collectible item) {
+        this.items.removeValue(item, true);
+    }
 }

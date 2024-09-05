@@ -3,10 +3,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.npc.NPCAnimationController;
-import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
-import com.csse3200.game.components.npc.NPCDeathHandler;
-import com.csse3200.game.components.npc.NPCHealthBarComponent;
+import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -84,14 +81,14 @@ public class NPCFactory {
    * @param aiComponent the AI component to be added to the NPC
    * @return entity
    */
-  private static Entity createBaseNPC(AITaskComponent aiComponent, BaseEntityConfig config,
+  private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+            .addComponent(new AttackComponent(target, config.attackRange, config.attackRate, config.baseAttack))
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
@@ -164,7 +161,8 @@ public class NPCFactory {
     NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity rat = createBaseNPC(aiComponent, config, animator);
+    Entity rat = createBaseNPC(target, aiComponent, config, animator);
+    rat.addComponent(new AttackComponent(target, 0.7f, 0.75f, 20));
 
     return rat;
   }
@@ -179,7 +177,7 @@ public class NPCFactory {
     NPCConfigs.NPCConfig config = configs.bear;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/bear.atlas", config.animations);
-    Entity bear = createBaseNPC(aiComponent, config, animator);
+    Entity bear = createBaseNPC(target, aiComponent, config, animator);
 
     return bear;
   }
@@ -194,7 +192,7 @@ public class NPCFactory {
     NPCConfigs.NPCConfig config = configs.snake;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/snake.atlas", config.animations);
-    Entity snake = createBaseNPC(aiComponent, config, animator);
+    Entity snake = createBaseNPC(target, aiComponent, config, animator);
 
     return snake;
   }
@@ -209,7 +207,7 @@ public class NPCFactory {
     NPCConfigs.NPCConfig config = configs.dino;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/dino.atlas", config.animations);
-    Entity dino = createBaseNPC(aiComponent, config, animator);
+    Entity dino = createBaseNPC(target, aiComponent, config, animator);
 
     return dino;
   }
@@ -224,7 +222,7 @@ public class NPCFactory {
     NPCConfigs.NPCConfig config = configs.bat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/bat.atlas", config.animations);
-    Entity bat = createBaseNPC(aiComponent, config, animator);
+    Entity bat = createBaseNPC(target, aiComponent, config, animator);
 
     return bat;
   }
@@ -239,7 +237,7 @@ public class NPCFactory {
     NPCConfigs.NPCConfig config = configs.minotaur;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/minotaur.atlas", config.animations);
-    Entity minotaur = createBaseNPC(aiComponent, config, animator);
+    Entity minotaur = createBaseNPC(target, aiComponent, config, animator);
 
     return minotaur;
   }
@@ -254,7 +252,7 @@ public class NPCFactory {
     NPCConfigs.NPCConfig config = configs.dog;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/dog.atlas", config.animations);
-    Entity dog = createBaseNPC(aiComponent, config, animator);
+    Entity dog = createBaseNPC(target, aiComponent, config, animator);
 
     return dog;
   }
@@ -269,7 +267,7 @@ public class NPCFactory {
     NPCConfigs.NPCConfig config = configs.croc;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity croc = createBaseNPC(aiComponent, config, animator);
+    Entity croc = createBaseNPC(target, aiComponent, config, animator);
 
     return croc;
   }
@@ -285,7 +283,7 @@ public class NPCFactory {
     NPCConfigs.NPCConfig config = configs.gorilla;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity gorilla = createBaseNPC(aiComponent, config, animator);
+    Entity gorilla = createBaseNPC(target, aiComponent, config, animator);
 
     return gorilla;
   }

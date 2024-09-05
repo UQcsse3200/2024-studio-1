@@ -19,9 +19,11 @@ import org.slf4j.LoggerFactory;
 public class AttackTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(AttackTask.class);
     private final Entity target;
-    private final int priority;
+    private final int priority = 15;
     private final float viewDistance;
     private final float chaseSpeed;
+    private final float attackRange;
+    private final float attackRate;
     private final PhysicsEngine physics;
     private final DebugRenderer debugRenderer;
     private final RaycastHit hit = new RaycastHit();
@@ -30,15 +32,15 @@ public class AttackTask extends DefaultTask implements PriorityTask {
     /**
      * Constructor for AttackTask
      * @param target enemy's entity
-     * @param priority priority value for the task
      * @param viewDistance the distance to allow the entity to attack
      * @param chaseSpeed approaching speed of attack movement
      */
-    public AttackTask(Entity target, int priority, float viewDistance, float chaseSpeed) {
+    public AttackTask(Entity target, float viewDistance, float chaseSpeed, float attackRange, float attackRate) {
         this.target = target;
-        this.priority = priority;
         this.viewDistance = viewDistance;
         this.chaseSpeed = chaseSpeed;
+        this.attackRange = attackRange;
+        this.attackRate = attackRate;
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();
     }

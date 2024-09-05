@@ -109,7 +109,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   }
 
   private void startWaiting() {
-    this.owner.getEntity().getEvents().trigger("gesture");
+    //this.owner.getEntity().getEvents().trigger("gesture");
     logger.debug("Starting waiting");
     if (movementTask != null) {
         movementTask.stop();

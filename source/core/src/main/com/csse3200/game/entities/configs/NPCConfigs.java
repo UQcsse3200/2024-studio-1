@@ -19,6 +19,8 @@ public class NPCConfigs {
   public static class NPCConfig extends BaseEntityConfig {
     public TaskConfig tasks = new TaskConfig();
     public AnimationData[] animations = new AnimationData[0];
+    public float attackRange;
+    public float attackRate;
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;

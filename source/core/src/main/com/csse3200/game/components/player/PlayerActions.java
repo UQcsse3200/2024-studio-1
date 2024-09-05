@@ -29,10 +29,16 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
-        entity.getEvents().addListener("use", this::applyBandage);
+        entity.getEvents().addListener("use1", () -> use(new MedKit()));
+        entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
+        entity.getEvents().addListener("use3", () -> use(new Bandage()));
+        // entity.getEvents().addListener("use4", () -> use(4));
+        /*
         entity.getEvents().addListener("useMedKit", this::applyMedKit);
         entity.getEvents().addListener("useShieldPotion", this::applyShieldPotion);
         entity.getEvents().addListener("useBandage", this::applyBandage);
+
+         */
 
     }
 
@@ -101,10 +107,17 @@ public class PlayerActions extends Component {
         this.walkDirection = direction;
         moving = true;
     }
-
-    private void use(Integer num) {
-        inventoryComponent.getUsableItems().get(num).apply(entity);
+    private void use(UsableItem item) {
+        Inventory inventory = inventoryComponent.getInventory();
+        for (Collectible collectedItem : inventory.getItems()) {
+            if (collectedItem.getClass() == item.getClass()) {
+                inventoryComponent.drop(collectedItem);
+                item.apply(entity);
+                break;
+            }
+        }
     }
+
 
     private void applyMedKit() {
         Inventory inventory = inventoryComponent.getInventory();

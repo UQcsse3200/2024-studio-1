@@ -90,7 +90,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
      */
     private boolean useItem(Integer num) {
-        entity.getEvents().trigger("use" + num);
+        switch (num) {
+            case 1 -> entity.getEvents().trigger("use1");
+            case 2 -> entity.getEvents().trigger("use2");
+            case 3 -> entity.getEvents().trigger("use3");
+            case 4 -> entity.getEvents().trigger("use4");
+        }
         return true;
     }
 

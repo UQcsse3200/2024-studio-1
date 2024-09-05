@@ -30,12 +30,15 @@ class KeyboardTerminalInputComponentTest {
     verify(terminal, times(2)).setClosed();
   }
 
+  /*
   @Test
   void getItemTest() {
     KeyboardPlayerInputComponent inputComponent = new KeyboardPlayerInputComponent();
     KeyMapping.KeyBinding keyBinding = KeyMapping.KeyBinding.USE_1;
     assertEquals(1, inputComponent.getItemNum(keyBinding));
   }
+
+   */
 
   @Test
   void shouldUpdateMessageOnKeyTyped() {

@@ -58,10 +58,10 @@ public class KeyMapping {
         USE_2,
         USE_3,
         USE_4,
-
         USE_MEDKIT,
         USE_SHIELD_POTION,
-        USE_BANDAGE
+        USE_BANDAGE,
+        USE_SYRINGE
 
         // maybe use use_1 and all
     }
@@ -94,6 +94,14 @@ public class KeyMapping {
             keyMap.put(Input.Keys.NUM_2, USE_2);
             keyMap.put(Input.Keys.NUM_3, USE_3);
             keyMap.put(Input.Keys.NUM_4, USE_4);
+
+             /*
+            keyMap.put(Input.Keys.NUM_1, USE_MEDKIT);
+            keyMap.put(Input.Keys.NUM_2, USE_SHIELD_POTION);
+            keyMap.put(Input.Keys.NUM_3, USE_BANDAGE);
+            keyMap.put(Input.Keys.NUM_4, USE_SYRINGE);
+
+             */
             // map Num_1 to use_1
 
             this.keyMap = keyMap;

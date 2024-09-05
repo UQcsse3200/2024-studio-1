@@ -2,7 +2,6 @@ package com.csse3200.game.areas;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -13,8 +12,6 @@ import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.GridPoint2Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This is the foundation of a room,
@@ -137,10 +134,10 @@ public abstract class BaseRoom implements Room {
         String connectS = connections.get(3);
 
 
-        Entity door = DoorFactory.createDoor('v', player.getId(), connectW); // left
-        Entity door2 = DoorFactory.createDoor('v',  player.getId(), connectE ); // right
-        Entity door3 = DoorFactory.createDoor('h', player.getId(), connectS); // bottom
-        Entity door4 = DoorFactory.createDoor('h',  player.getId(), connectN); // top
+        Entity door = new Door('v', player.getId(), connectW); // left
+        Entity door2 = new Door('v',  player.getId(), connectE ); // right
+        Entity door3 = new Door('h', player.getId(), connectS); // bottom
+        Entity door4 = new Door('h',  player.getId(), connectN); // top
 
         Vector2 doorvScale = door.getScale();
         Vector2 doorhScale = door3.getScale();

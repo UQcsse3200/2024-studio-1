@@ -58,13 +58,13 @@ public class ProjectileAttackComponent extends Component {
      * @param other Fixture belonging to the hit entity.
      */
     private void onCollisionStart(Fixture me, Fixture other) {
-        if (hitboxComponent.getFixture() != me) {
-            return; // Not our hit-box.
-        }
-
-        if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
-            return; // Not our target layer.
-        }
+//        if (hitboxComponent.getFixture() != me) {
+//            return; // Not our hit-box.
+//        }
+//
+//        if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
+//            return; // Not our target layer.
+//        }
 
         //Attempt to damage.
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
@@ -78,7 +78,8 @@ public class ProjectileAttackComponent extends Component {
 
         //soft dispose - unsure of the completeness of this disposal
         entity.getComponent(TextureRenderComponent.class).dispose();
-        ServiceLocator.getEntityService().unregister(entity);
+        ServiceLocator.getGameAreaService().getGameArea().disposeEntity(entity);
+        //ServiceLocator.getEntityService().unregister(entity);
 
 
     }

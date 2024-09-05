@@ -19,6 +19,8 @@ public class EnergyDrink extends BuffItem {
 
     Vector2 speed;
 
+    float speedPercentage;
+
     public EnergyDrink(String speedType) {
         this.speedType = speedType;
         setScalar(speedType);
@@ -64,7 +66,11 @@ public class EnergyDrink extends BuffItem {
     public void effect(Entity entity) {
         Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
         Vector2 updatedSpeed = currSpeed.add(getSpeed());
+        float currSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+        float newSpeedPercentage = currSpeedPercentage + getSpeedPercentage();
+        entity.getComponent(PlayerActions.class).setSpeedPercentage(newSpeedPercentage);
         entity.getComponent(PlayerActions.class).setSpeed(updatedSpeed);
+        entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage);
     }
 
     /**
@@ -77,16 +83,23 @@ public class EnergyDrink extends BuffItem {
         //3%, 5%, 8%
     }
 
+    public float getSpeedPercentage() {
+        return this.speedPercentage;
+    }
+
     public void setScalar(String speedType) {
         Vector2 baseSpeed = new Vector2(3f, 3f); //Improvement: actually get the default speed somehow
         if (speedType.equals("Low")) {
             this.speed = baseSpeed.scl(0.3f);
+            this.speedPercentage = 0.3f;
         }
         else if (speedType.equals("Medium")) {
             this.speed = baseSpeed.scl(0.5f);
+            this.speedPercentage = 0.5f;
         }
         else if (speedType.equals("High")) {
             this.speed = baseSpeed.scl(0.6f);
+            this.speedPercentage = 0.6f;
         }
 
 

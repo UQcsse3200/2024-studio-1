@@ -19,6 +19,11 @@ public class PlayerStatsDisplay extends UIComponent {
     private Label pickaxeLabel;
     private Label shotgunLabel;
 
+    private Image speedImage;
+    private Label speedLabel;
+
+
+
     /**
      * Creates reusable ui styles and adds actors to the stage.
      */
@@ -30,6 +35,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
         entity.getEvents().addListener("updateMeleeWeaponCount", this::updateMeleeWeaponCountUI);
         entity.getEvents().addListener("updateRangedWeaponCount", this::updateRangedWeaponCountUI);
+        entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
     }
 
     /**
@@ -52,6 +58,15 @@ public class PlayerStatsDisplay extends UIComponent {
         CharSequence healthText = String.format("Health: %d", health);
         healthLabel = new Label(healthText, skin, "small");
 
+        //Speed image
+        float speedSideLength = 30f;
+        speedImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+
+        //Speed text
+        float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+        CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
+        speedLabel = new Label(speedText, skin, "small");
+
         //Weapon text, like the name of weapon
         //entity.getComponent(WeaponComponent.class).getWeaponType();
         pickaxeLabel = new Label("Pickaxe: 0", skin, "large");
@@ -60,6 +75,11 @@ public class PlayerStatsDisplay extends UIComponent {
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
+
+        table.row().padTop(10);
+        table.add(speedImage).size(speedSideLength).pad(5);
+        table.add(speedLabel).padLeft(10).left();
+
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
         table.row().padTop(10);
@@ -90,6 +110,11 @@ public class PlayerStatsDisplay extends UIComponent {
     public void updateRangedWeaponCountUI(int weaponCount) {
         CharSequence text = String.format("Shotgun x %d", weaponCount);
         shotgunLabel.setText(text);
+    }
+
+    public void updateSpeedPercentageUI(float speedPercentage) {
+        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
+        speedLabel.setText(text);
     }
 
     @Override

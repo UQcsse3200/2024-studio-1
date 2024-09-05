@@ -27,7 +27,6 @@ public class Door extends Entity {
      *
      * @param orientation: char - sets orientation for door when returned
      * @param callback: DoorCallBack - call callback onDoorCollided function when event collision is triggered
-     * @return door: Entity
      */
     public Door(char orientation, int idOfPlayer, String next_Room) {
         super();
@@ -73,7 +72,7 @@ public class Door extends Entity {
      * @param orientation: char - orientation of texture rendered
      * @return door: Entity - base door
      */
-    public Entity createBaseDoor(char orientation) {
+    private Entity createBaseDoor(char orientation) {
         Entity door =
                 new Entity()
                         .addComponent(new TextureRenderComponent(format("images/rounded_door_%c.png",orientation)))

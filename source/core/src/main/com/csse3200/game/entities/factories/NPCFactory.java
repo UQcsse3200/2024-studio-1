@@ -1,11 +1,8 @@
 package com.csse3200.game.entities.factories;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.npc.GhostAnimationController;
-import com.csse3200.game.components.Direction;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDeathHandler;
@@ -40,8 +37,8 @@ import com.csse3200.game.services.ResourceService;
  */
 public class NPCFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static final NPCConfigs configs =
-          FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+  private static final NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+
   private static final String[] npcAtlas ={
     "images/ghost.atlas", 
     "images/ghostKing.atlas",
@@ -64,6 +61,22 @@ public class NPCFactory {
     "images/minotaur.png",
     "images/bear.png" 
   };
+
+  public NPCFactory() {
+    loadAssets();
+  }
+
+  private void loadAssets() {
+    logger.debug("Loading assets");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    resourceService.loadTextures(npcTextures);
+    resourceService.loadTextureAtlases(npcAtlas);
+
+    while (!resourceService.loadForMillis(10)) {
+      // This could be upgraded to a loading screen
+      logger.info("Loading... {}%", resourceService.getProgress());
+    }
+  }
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
@@ -91,7 +104,15 @@ public class NPCFactory {
     return npc;
   }
 
-  private static AnimationRenderComponent createAnimator(String atlasPath, BaseEntityConfig.AnimationData[] animations) {
+  /**
+   * Helper method to create an AnimationRenderComponent for an NPC.
+   *
+   * @param atlasPath The path to the texture atlas for the NPC
+   * @param animations An array of animations for the NPC
+   * @return The created AnimationRenderComponent
+   */
+  private static AnimationRenderComponent createAnimator(String atlasPath,
+                                                         NPCConfigs.NPCConfig.AnimationData[] animations) {
     AnimationRenderComponent animator = new AnimationRenderComponent(
             ServiceLocator.getResourceService().getAsset(atlasPath, TextureAtlas.class));
     for (BaseEntityConfig.AnimationData animation : animations) {
@@ -101,19 +122,47 @@ public class NPCFactory {
   }
 
   /**
+   * Helper method to create an AI component for the NPC based on its tasks.
+   *
+   * @param target The target entity (e.g., the player)
+   * @param tasks The task configuration for the NPC
+   * @return The created AITaskComponent
+   */
+  private AITaskComponent createAIComponent(Entity target, NPCConfigs.NPCConfig.TaskConfig tasks) {
+    AITaskComponent aiComponent = new AITaskComponent();
+
+    // Add wander task
+    if (tasks.wander != null) {
+      aiComponent.addTask(new WanderTask(new Vector2(tasks.wander.wanderRadius, tasks.wander.wanderRadius),
+              tasks.wander.waitTime, tasks.wander.wanderSpeed));
+    }
+    // Add straight wander task
+    if (tasks.straightWander != null) {
+      aiComponent.addTask(new StraightWanderTask(tasks.straightWander.wanderSpeed));
+    }
+    // Add chase task
+    if (tasks.chase != null) {
+      aiComponent.addTask(new ChaseTask(target, tasks.chase.priority, tasks.chase.viewDistance,
+              tasks.chase.chaseDistance, tasks.chase.chaseSpeed));
+    }
+    // Add charge task
+    if (tasks.charge != null) {
+      aiComponent.addTask(new ChargeTask(target, tasks.charge.priority, tasks.charge.viewDistance,
+              tasks.charge.chaseDistance, tasks.charge.chaseSpeed, tasks.charge.waitTime));
+    }
+
+    return aiComponent;
+  }
+
+  /**
    * Creates a rat entity with predefined components and behaviour.
    *
    * @param target entity to chase
    * @return the created rat entity
    */
   public Entity createRat(Entity target) {
-    BaseEntityConfig config = configs.rat;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(2f))
-                    .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
-                    .addTask(new AttackTask(target, 10, 2f, 2.5f))
-                    .addTask(new ShootTask(target, 10f, 2f));
+    NPCConfigs.NPCConfig config = configs.rat;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity rat = createBaseNPC(aiComponent, config, animator);
 
@@ -127,13 +176,8 @@ public class NPCFactory {
    * @return entity
    */
   public Entity createBear(Entity target) {
-    BaseEntityConfig config = configs.bear;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(2f))
-                    .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
-                    .addTask(new AttackTask(target, 10, 2f, 2.5f))
-                    .addTask(new ShootTask(target, 10f, 2f));
+    NPCConfigs.NPCConfig config = configs.bear;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/bear.atlas", config.animations);
     Entity bear = createBaseNPC(aiComponent, config, animator);
 
@@ -147,13 +191,8 @@ public class NPCFactory {
    * @return entity
    */
   public Entity createSnake(Entity target) {
-    BaseEntityConfig config = configs.snake;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(1.5f))
-                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
-                    .addTask(new AttackTask(target, 15, 3f, 3.5f))
-                    .addTask(new ShootTask(target, 10f, 2f));
+    NPCConfigs.NPCConfig config = configs.snake;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/snake.atlas", config.animations);
     Entity snake = createBaseNPC(aiComponent, config, animator);
 
@@ -167,13 +206,8 @@ public class NPCFactory {
    * @return entity
    */
   public Entity createDino(Entity target) {
-    BaseEntityConfig config = configs.snake;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(1.5f))
-                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
-                    .addTask(new AttackTask(target, 15, 3f, 3.5f))
-                    .addTask(new ShootTask(target, 10f, 2f));
+    NPCConfigs.NPCConfig config = configs.dino;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/dino.atlas", config.animations);
     Entity dino = createBaseNPC(aiComponent, config, animator);
 
@@ -187,13 +221,8 @@ public class NPCFactory {
    * @return the created rat entity
    */
   public Entity createBat(Entity target) {
-    BaseEntityConfig config = configs.bat;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(2f))
-                    .addTask(new ChaseTask(target, 9, 2f, 6f, 2f))
-                    .addTask(new AttackTask(target, 10, 3f, 3f))
-                    .addTask(new ShootTask(target, 10f, 2f));
+    NPCConfigs.NPCConfig config = configs.bat;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/bat.atlas", config.animations);
     Entity bat = createBaseNPC(aiComponent, config, animator);
 
@@ -207,13 +236,8 @@ public class NPCFactory {
    * @return entity
    */
   public Entity createMinotaur(Entity target) {
-    BaseEntityConfig config = configs.minotaur;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new StraightWanderTask(1.5f))
-                    .addTask(new ChaseTask(target, 12, 4f, 8f, 3f))
-                    .addTask(new AttackTask(target, 15, 3f, 3.5f))
-                    .addTask(new ShootTask(target, 10f, 2f));
+    NPCConfigs.NPCConfig config = configs.minotaur;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/minotaur.atlas", config.animations);
     Entity minotaur = createBaseNPC(aiComponent, config, animator);
 
@@ -227,13 +251,8 @@ public class NPCFactory {
    * @return the created dog entity
    */
   public Entity createDog(Entity target) {
-    BaseEntityConfig config = configs.dog;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(4f, 4f), 2f, config.wanderSpeed))
-                    .addTask(new ChargeTask(target, 10, config.viewDistance, config.chaseDistance,
-                            config.chaseSpeed, 2f))
-                    .addTask(new ShootTask(target, 10f, 2f));
+    NPCConfigs.NPCConfig config = configs.dog;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/dog.atlas", config.animations);
     Entity dog = createBaseNPC(aiComponent, config, animator);
 
@@ -247,23 +266,14 @@ public class NPCFactory {
    * @return the created crocodile entity
    */
   public Entity createCroc(Entity target) {
-    BaseEntityConfig config = configs.croc;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(1.5f, 1.5f), 5f, config.wanderSpeed))
-                    .addTask(new ChaseTask(target, 10, config.viewDistance, config.chaseDistance,
-                            config.chaseSpeed));
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-
+    NPCConfigs.NPCConfig config = configs.croc;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity croc = createBaseNPC(aiComponent, config, animator);
 
     return croc;
   }
+
 
   /**
    * Creates a gorilla entity with predefined components and behaviour.
@@ -272,37 +282,11 @@ public class NPCFactory {
    * @return the created gorilla entity
    */
   public Entity createGorilla(Entity target) {
-    BaseEntityConfig config = configs.gorilla;
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new WanderTask(new Vector2(3f, 3f), 4f, config.wanderSpeed))
-                    .addTask(new ChaseTask(target, 10, config.viewDistance, config.chaseDistance,
-                            config.chaseSpeed));
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/ghostKing.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-
+    NPCConfigs.NPCConfig config = configs.gorilla;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity gorilla = createBaseNPC(aiComponent, config, animator);
 
     return gorilla;
-  }
-
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(npcTextures);
-    resourceService.loadTextureAtlases(npcAtlas);
-
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading... {}%", resourceService.getProgress());
-    }
-  }
-  public NPCFactory() {
-    loadAssets();
   }
 }

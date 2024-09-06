@@ -2,9 +2,7 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
@@ -13,8 +11,6 @@ import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +48,8 @@ public class WeaponComponent extends Component {
     private long lastSwing;
     private long swingInterval;
 
-    Entity itemEntity;
+    Entity rangedItemEntity;
+    Entity meleeItemEntity;
 
     /**
      * Constructor for WeaponComponent
@@ -104,7 +101,7 @@ public class WeaponComponent extends Component {
         // Currently has only 1 projectile config
         this.bulletConfig = new ProjectileConfig();
 
-        this.itemEntity = null;
+        this.rangedItemEntity = null;
     }
 
     /**
@@ -304,17 +301,18 @@ public class WeaponComponent extends Component {
         } else {
             this.attackInterval = (1000L / this.fireRate);
         }
-        this.itemEntity = itemEntity;
+        this.rangedItemEntity = itemEntity;
     }
 
     @Override
     public void update() {
-        if (this.itemEntity == null || this.entity == null) {
+        if (this.rangedItemEntity == null || this.meleeItemEntity == null || this.entity == null) {
             // do nothing
             logger.debug("Item entity or player entity is null");
         }
         else {
-            this.itemEntity.setPosition(this.entity.getPosition());
+            this.rangedItemEntity.setPosition(this.entity.getPosition());
+            this.meleeItemEntity.setPosition(this.entity.getPosition());
         }
     }
 
@@ -333,6 +331,23 @@ public class WeaponComponent extends Component {
         } else {
             this.swingInterval = (1000L / this.swingRate);
         }
+    }
+    /**
+     * Update the weapon with new values (melee only)
+     *
+     * @param meleeWeapon new melee weapon
+     */
+    public void updateWeapon(MeleeWeapon meleeWeapon, Entity itemEntity) {
+        this.swingDamge = meleeWeapon.getDamage();
+        this.swingRange = meleeWeapon.getRange();
+        this.swingRate = meleeWeapon.getFireRate();
+        this.lastSwing = 0L;
+        if (this.swingRate == 0) {
+            this.swingInterval = 0L;
+        } else {
+            this.swingInterval = (1000L / this.swingRate);
+        }
+        this.meleeItemEntity = itemEntity;
     }
 
     public void dropRangeWeapon() {

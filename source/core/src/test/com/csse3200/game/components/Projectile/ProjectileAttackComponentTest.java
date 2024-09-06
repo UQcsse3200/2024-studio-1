@@ -46,11 +46,14 @@ class ProjectileAttackComponentTest {
 
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
+        resourceService.loadTextureAtlases(new String []{new ProjectileConfig().projectileAtlasPath});
+
+        // Load in sound effect
+        resourceService.loadSounds(new String[]{"sounds/shotgun1_f.ogg"});
+        resourceService.loadSounds(new String[]{"sounds/shotgun1_r.ogg"});
         while (!resourceService.loadForMillis(1000)) {
-            // wait for assets to load.
+            // wait for assets to load
         }
-        //should not cause exception
     }
 
     @Test
@@ -134,7 +137,7 @@ class ProjectileAttackComponentTest {
     }
 
     Entity createProjectile() {
-        Entity projectile = ProjectileFactory.createProjectile(new ProjectileConfig(), Vector2Utils.LEFT);
+        Entity projectile = new ProjectileFactory().createProjectile(new ProjectileConfig(), Vector2Utils.LEFT, new Vector2(0,0));
         projectile.create();
         return projectile;
     }

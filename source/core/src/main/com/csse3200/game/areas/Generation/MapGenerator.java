@@ -5,10 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonWriter;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
 /**
@@ -16,11 +13,11 @@ import com.csse3200.game.utils.RandomNumberGenerator;
  * It creates rooms, connects them, and provides methods to manipulate and export the map.
  */
 public class MapGenerator {
-    private int mapSize;
-    private RandomNumberGenerator rng;
-    public String startingRoom;
-    private HashMap<String, List<String>> relativePosition;
-    private HashMap<String, HashMap<String, Integer>> roomDetails;
+    public int mapSize;
+    public RandomNumberGenerator rng;
+    public String player_position;
+    public HashMap<String, List<String>> relativePosition;
+    public HashMap<String, HashMap<String, Integer>> roomDetails;
     protected final int[][] detlas;
 
     /**
@@ -40,10 +37,10 @@ public class MapGenerator {
                 {0, 1},    // Left
                 {-1, 0}    // Down
         };
-        this.startingRoom = "0_0"; // Placeholder
+        this.player_position = "0_0"; // Placeholder
 
         // Add the starting room to the relative position map
-        addBlankRoom(this.startingRoom, 0, 0);
+        addBlankRoom(this.player_position, 0, 0);
 
         
     }
@@ -64,6 +61,10 @@ public class MapGenerator {
 
         this.relativePosition.put(key, connections);
         this.roomDetails.put(key, roomDetails);
+    }
+
+    public String get_player_position() {
+        return this.player_position;
     }
 
     /**
@@ -255,48 +256,10 @@ public class MapGenerator {
      * Exports the map data to a JSON file.
      *
      * @param filePath The path of the file to write the JSON data to.
-     * @return A string indicating the success or failure of the export operation.
+//     * @return A string indicating the success or failure of the export operation.
      */
-    public String exportToJson(String filePath) {
-        Json json = new Json();
-        json.setOutputType(JsonWriter.OutputType.json);
-
-        // Create the main object
-        Map<String, Object> jsonObject = new HashMap<>();
-
-        // Export room connections
-        Map<String, List<String>> roomConnections = new HashMap<>();
-        for (Map.Entry<String, List<String>> entry : getPositions().entrySet()) {
-            roomConnections.put(entry.getKey(), entry.getValue());
-        }
-        jsonObject.put("room_connections", roomConnections);
-
-        // Export room details
-        Map<String, Map<String, List<Integer>>> roomsInfo = new HashMap<>();
-        for (Map.Entry<String, HashMap<String, Integer>> entry : getRoomDetails().entrySet()) {
-            Map<String, List<Integer>> details = new HashMap<>();
-            details.put("animal_index", Collections.singletonList(entry.getValue().get("animal_index")));
-            details.put("item_index", Collections.singletonList(entry.getValue().get("item_index")));
-            roomsInfo.put(entry.getKey(), details);
-        }
-        jsonObject.put("rooms_info", roomsInfo);
-
-        // Add player location, seed, and map size
-        jsonObject.put("player_location", startingRoom);
-        jsonObject.put("seed", rng.getSeed());
-        jsonObject.put("map_size", mapSize);
-
-        // Write JSON to file
-        try {
-            FileHandle file = Gdx.files.local(filePath);
-            String jsonString = json.prettyPrint(jsonObject);
-            System.out.println("Generated JSON:\n" + jsonString); // Print for debugging
-            file.writeString(jsonString, false);
-            return "Successfully written to JSON file.";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "An error occurred while writing to the file: " + e.getMessage();
-        }
+    public void exportToJson(String filePath) {
+        FileLoader.writeClass(this, filePath);
     }
 
     /**

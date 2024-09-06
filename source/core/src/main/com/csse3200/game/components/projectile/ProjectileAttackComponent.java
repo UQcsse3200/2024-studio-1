@@ -27,6 +27,7 @@ public class ProjectileAttackComponent extends Component {
     private HitboxComponent hitboxComponent;
     private final Vector2 speed;
     private final Vector2 direction;
+    private final Vector2 parentPosition;
 
     /**
      *  Sets up vars for a projectile attack.
@@ -34,10 +35,11 @@ public class ProjectileAttackComponent extends Component {
      *  @param direction Direction being shot. Example - Vector2Utils. LEFT shoots left.
      *  @param speed Set in the projectileConfig. Example - Vector2(3,3) is 3m\s etc.
     */
-    public ProjectileAttackComponent(short layer, Vector2 direction, Vector2 speed) {
+    public ProjectileAttackComponent(short layer, Vector2 direction, Vector2 speed, Vector2 parentPosition) {
         this.targetLayer = layer;
         this.speed = speed;
         this.direction = direction;
+        this.parentPosition = parentPosition;
     }
 
     /**
@@ -49,7 +51,7 @@ public class ProjectileAttackComponent extends Component {
         combatStats = entity.getComponent(CombatStatsComponent.class);
         hitboxComponent = entity.getComponent(HitboxComponent.class);
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
-        entity.getComponent(ProjectileActions.class).shoot(direction, speed);
+        entity.getComponent(ProjectileActions.class).shoot(direction, speed, parentPosition);
     }
 
     /**
@@ -63,10 +65,11 @@ public class ProjectileAttackComponent extends Component {
         }
 
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
-            return; // Not our target layer.
+            if (!PhysicsLayer.contains(PhysicsLayer.OBSTACLE, other.getFilterData().categoryBits)) {
+                return;
+            }
         }
 
-        //Attempt to damage.
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
         CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
 
@@ -75,11 +78,7 @@ public class ProjectileAttackComponent extends Component {
         }
 
         entity.getComponent(ProjectileActions.class).stopShoot();
-
-        //soft dispose - unsure of the completeness of this disposal
-        entity.getComponent(TextureRenderComponent.class).dispose();
-        ServiceLocator.getEntityService().unregister(entity);
-
+        ServiceLocator.getGameAreaService().getGameArea().disposeEntity(entity);
 
     }
 }

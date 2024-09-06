@@ -41,7 +41,7 @@ class ProjectileActionsTest {
 
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
+        resourceService.loadTextureAtlases(new String []{new ProjectileConfig().projectileAtlasPath});
         while (!resourceService.loadForMillis(1000)) {
             // wait for assets to load.
         }

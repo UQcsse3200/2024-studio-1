@@ -324,6 +324,9 @@ public class WeaponComponent extends Component {
             }
             // Render attack here using
             this.lastSwing = currentTime;
+            ServiceLocator.getResourceService()
+                    .getAsset("sounds/Impact4.ogg", Sound.class)
+                    .play();
             logger.info("Melee weapon attack");
         } else {
             logger.info("No melee weapon");
@@ -344,11 +347,18 @@ public class WeaponComponent extends Component {
                 this.setAmmo(-2);
                 // Offset time so that the weapon must wait extra long for reload time
                 currentTime += this.getReloadTime() * 1000L - this.attackInterval;
+                ServiceLocator.getResourceService()
+                        .getAsset("sounds/shotgun1_r.ogg", Sound.class)
+                        .play();
+
                 logger.info("Ranged weapon reloading");
             } else {
                 // Shooting
                 this.setAmmo(-1);
                 // Spawn projectile
+                ServiceLocator.getResourceService()
+                        .getAsset("sounds/shotgun1_f.ogg", Sound.class)
+                        .play();
                 Entity projectile = ProjectileFactory.createProjectile(this.bulletConfig, direction);
                 projectile.getComponent(ProjectileAttackComponent.class).create();
                 ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);

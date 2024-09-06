@@ -171,7 +171,6 @@ public class Entity {
   public <T extends Component> T getComponent(Class<T> type) {
     ComponentType componentType = ComponentType.getFrom(type);
     return (T) components.get(componentType.getId());
-
   }
 
   /**

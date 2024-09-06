@@ -1,9 +1,6 @@
 package com.csse3200.game.components.player;
 
 
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
@@ -11,14 +8,15 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.util.List;
 
 public class RangeDetectionComponent extends Component {
 
+    public static final Logger logger = LoggerFactory.getLogger(RangeDetectionComponent.class);
     /**
      * When this entity touches a valid enemy's hitbox, and attack key is pressed, deal damage to them.
      */
@@ -35,6 +33,8 @@ public class RangeDetectionComponent extends Component {
      */
     public RangeDetectionComponent(short targetLayer) {
         this.targetLayer = targetLayer;
+        this.range = 0f;
+        this.hitboxComponent = null;
     }
 
     /**
@@ -45,22 +45,41 @@ public class RangeDetectionComponent extends Component {
     public RangeDetectionComponent(short targetLayer, float range) {
         this.targetLayer = targetLayer;
         this.range = range;
+        this.hitboxComponent = null;
     }
 
     @Override
     public void create() {
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         combatStats = entity.getComponent(CombatStatsComponent.class);
-        hitboxComponent = entity.getComponent(HitboxComponent.class);
+        hitboxComponent = null;
+        if (entity.getComponent(WeaponComponent.class).itemEntity != null) {
+            hitboxComponent = entity.getComponent(WeaponComponent.class).itemEntity.getComponent(HitboxComponent.class);
+        }
     }
 
     private void onCollisionStart(Fixture me, Fixture other) {
+        if (hitboxComponent == null) {
+            // Not triggered by hitbox, ignore
+            if (entity != null) {
+                if (getEntity().getComponent(WeaponComponent.class).itemEntity != null) {
+                hitboxComponent = getEntity().getComponent(WeaponComponent.class).itemEntity.getComponent(HitboxComponent.class);
+                } else {
+                    logger.warn("itemEntity is null");
+                    return;
+                }
+            } else {
+                logger.warn("entity is null");
+                return;
+            }
+        }
+        logger.debug("hitboxComponent: {} is not null", hitboxComponent);
         if (hitboxComponent.getFixture() != me) {
             // Not triggered by hitbox, ignore
             return;
         }
 
-        if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
+        if (!PhysicsLayer.contains(targetLayer, PhysicsLayer.PLAYER)) {
             // Doesn't match our target layer, ignore
             return;
         }

@@ -4,7 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.entities.Entity;
 
+import java.util.logging.Logger;
+
 public abstract class RangedWeapon implements Collectible {
+
+    public static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
 
     private int damage;
     private int range;
@@ -20,6 +24,7 @@ public abstract class RangedWeapon implements Collectible {
 
     @Override
     public void pickup(Inventory inventory) {
+        logger.info("Picking up ranged weapon - no entity");
         inventory.setRanged(this);
 
         // Add a Weapon Component
@@ -30,6 +35,7 @@ public abstract class RangedWeapon implements Collectible {
 
     @Override
     public void pickup(Inventory inventory, Entity itemEntity) {
+        logger.info("Picking up ranged weapon - with entity");
         inventory.setRanged(this);
 
         // Add a Weapon Component

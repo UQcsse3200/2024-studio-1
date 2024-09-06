@@ -3,6 +3,7 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.entities.Entity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -53,6 +54,8 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         return new Texture("images/Weapons/Shotgun.png");
     }
 
+
+
     @Override
     public String getRangedSpecification() {
         return this.specification;
@@ -65,7 +68,15 @@ public class ConcreteRangedWeapon extends RangedWeapon {
 
     @Override
     public void pickup(Inventory inventory) {
+        logger.info("Picking up ranged weapon - no entity");
         super.pickup(inventory);
+        Sprite weaponSprite = new Sprite(getIcon());
+    }
+
+    @Override
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        logger.info("Picking up ranged weapon - with entity");
+        super.pickup(inventory, itemEntity);
         Sprite weaponSprite = new Sprite(getIcon());
     }
 

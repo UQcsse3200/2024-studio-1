@@ -25,7 +25,6 @@ public class CollectibleFactory {
 
         return switch (split[0]) {
             case "melee" -> weaponFactory.create(Collectible.Type.MELEE_WEAPON, split[1]);
-            case "ranged" -> weaponFactory.create(Collectible.Type.RANGED_WEAPON, split[1]);
             case "item", "buff" -> itemFactory.create(split[1]);
             default -> throw new IllegalStateException("Unexpected value: " + split[0]);
         };
@@ -55,8 +54,13 @@ public class CollectibleFactory {
      * @return the final entity containing the collectible.
      */
     public static Entity createCollectibleEntity(String specification) {
-        Collectible collectible = create(specification);
-        return createCollectibleEntity(collectible);
+        String[] split = specification.split(":", 2);
+        return switch (split[0]) {
+            case "melee", "item", "buff" -> createCollectibleEntity(create(specification));
+            //case "melee" -> weaponFactory.createCollectibleEntity(weaponFactory.create(Collectible.Type.MELEE_WEAPON, split[1]));
+            case "ranged" -> weaponFactory.createCollectibleEntity(weaponFactory.create(Collectible.Type.RANGED_WEAPON, split[1]));
+            default -> throw new IllegalStateException("Unexpected value: " + split[0]);
+        };
     }
 }
 

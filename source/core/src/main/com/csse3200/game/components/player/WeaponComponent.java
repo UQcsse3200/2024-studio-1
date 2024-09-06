@@ -47,7 +47,6 @@ public class WeaponComponent extends Component {
     private int swingRange; // Range of melee weapon
     private int swingRate; // swing rate for melee weapon (swing per second
 
-    private Sprite meleeSprite;
 
     // Tracking weapon state
     private long lastSwing;
@@ -74,7 +73,7 @@ public class WeaponComponent extends Component {
             this.swingDamge = damage;
             this.swingRate = fireRate;
             this.swingRange = range;
-            this.meleeSprite = weaponSprite;
+            this.weaponSprite = weaponSprite;
 
             // Setup variables to track weapon state
             this.lastAttack = 0L;
@@ -88,7 +87,6 @@ public class WeaponComponent extends Component {
             this.damage = damage;
             this.range = range;
             this.fireRate = fireRate;
-
             this.weaponSprite = weaponSprite;
 
             // Setup variables to track weapon state
@@ -264,11 +262,35 @@ public class WeaponComponent extends Component {
     }
 
     /**
+     * Update the weapon with new values
+     * @param rangedWeapon ranged weapon
+     */
+    public void updateWeapon(RangedWeapon rangedWeapon) {
+        logger.debug("Updating weapon - no item entity");
+        this.damage = rangedWeapon.getDamage();
+        this.range = rangedWeapon.getRange();
+        this.fireRate = rangedWeapon.getFireRate();
+        this.ammo = rangedWeapon.getAmmo();
+        this.maxAmmo = rangedWeapon.getMaxAmmo();
+        this.reloadTime = rangedWeapon.getReloadTime();
+        this.lastAttack = 0L;
+        this.getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(600);
+        //this.itemEntity = itemEntity;
+        //this.itemEntity.addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON));
+        //this.itemEntity.getComponent(HitboxComponent.class).setAsBox(new Vector2(3f, 3f));
+        if (this.fireRate == 0) {
+            this.attackInterval = 0L;
+        } else {
+            this.attackInterval = (1000L / this.fireRate);
+        }
+    }
+    /**
      * Update the weapon with new values (ranged only)
      *
      * @param rangedWeapon ranged weapon
      */
-    public void updateWeapon(RangedWeapon rangedWeapon) {
+    public void updateWeapon(RangedWeapon rangedWeapon, Entity itemEntity) {
+        logger.debug("Updating weapon - with item entity");
         this.damage = rangedWeapon.getDamage();
         this.range = rangedWeapon.getRange();
         this.fireRate = rangedWeapon.getFireRate();
@@ -282,25 +304,6 @@ public class WeaponComponent extends Component {
         } else {
             this.attackInterval = (1000L / this.fireRate);
         }
-    }
-    /**
-     * Update the weapon with new values (ranged only)
-     *
-     * @param rangedWeapon ranged weapon
-     */
-    public void updateWeapon(RangedWeapon rangedWeapon, Entity itemEntity) {
-        this.damage = rangedWeapon.getDamage();
-        this.range = rangedWeapon.getRange();
-        this.fireRate = rangedWeapon.getFireRate();
-        this.ammo = rangedWeapon.getAmmo();
-        this.maxAmmo = rangedWeapon.getMaxAmmo();
-        this.reloadTime = rangedWeapon.getReloadTime();
-        this.lastAttack = 0L;
-        if (this.fireRate == 0) {
-            this.attackInterval = 0L;
-        } else {
-            this.attackInterval = (1000L / this.fireRate);
-        }
         this.itemEntity = itemEntity;
     }
 
@@ -308,6 +311,7 @@ public class WeaponComponent extends Component {
     public void update() {
         if (this.itemEntity == null || this.entity == null) {
             // do nothing
+            logger.debug("Item entity or player entity is null");
         }
         else {
             this.itemEntity.setPosition(this.entity.getPosition());

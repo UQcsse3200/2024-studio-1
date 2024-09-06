@@ -88,7 +88,6 @@ public class PlayerFactory {
                 .addComponent(new PlayerAnimationController())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
-                //.addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER).setAsBox(new Vector2(3f, 3f)))
                 .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC, 3f))
                 .addComponent(new WeaponComponent(
                         new Sprite(new Texture("images/Weapons/knife.png")),

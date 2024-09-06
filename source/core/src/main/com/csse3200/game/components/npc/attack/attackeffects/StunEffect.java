@@ -1,4 +1,4 @@
-package com.csse3200.game.components.npc.attackeffects;
+package com.csse3200.game.components.npc.attack.attackeffects;
 
 import com.csse3200.game.entities.Entity;
 

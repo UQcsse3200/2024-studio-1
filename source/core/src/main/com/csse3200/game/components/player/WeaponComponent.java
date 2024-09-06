@@ -306,13 +306,13 @@ public class WeaponComponent extends Component {
 
     @Override
     public void update() {
-        if (this.rangedItemEntity == null || this.meleeItemEntity == null || this.entity == null) {
-            // do nothing
-            logger.debug("Item entity or player entity is null");
-        }
-        else {
-            this.rangedItemEntity.setPosition(this.entity.getPosition());
-            this.meleeItemEntity.setPosition(this.entity.getPosition());
+        if (this.entity != null) {
+            if (this.meleeItemEntity != null) {
+                this.meleeItemEntity.setPosition(this.entity.getPosition());
+            }
+            if (this.rangedItemEntity != null) {
+                this.rangedItemEntity.setPosition(this.entity.getPosition());
+            }
         }
     }
 
@@ -379,7 +379,7 @@ public class WeaponComponent extends Component {
             // Render attack here using
             this.lastSwing = currentTime;
             ServiceLocator.getResourceService()
-                    .getAsset("sounds/Impact4.ogg", Sound.class)
+                    .getAsset("sounds/sword1_s.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
             // get list of entities in range

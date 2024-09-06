@@ -158,6 +158,12 @@ public class NPCFactory {
               tasks.bossAttack.waitTime));
     }
 
+    // Add run away task
+    if (tasks.runAway != null) {
+      aiComponent.addTask(new RunAwayTask(target, tasks.runAway.priority, tasks.runAway.viewDistance,
+              tasks.runAway.maxRunDistance, tasks.runAway.runSpeed, tasks.runAway.waitTime));
+    }
+
     return aiComponent;
   }
 

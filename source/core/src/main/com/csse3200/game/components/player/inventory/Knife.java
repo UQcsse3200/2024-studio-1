@@ -14,7 +14,7 @@ public class Knife extends MeleeWeapon {
     }
     @Override
     public void pickup(Inventory inventory, Entity itemEntity) {
-        super.pickup(inventory);
+        super.pickup(inventory, itemEntity);
     }
 
     @Override

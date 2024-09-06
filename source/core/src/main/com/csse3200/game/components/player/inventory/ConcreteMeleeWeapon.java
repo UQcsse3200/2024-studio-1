@@ -42,7 +42,7 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
         super.pickup(inventory);
     }
     public void pickup(Inventory inventory, Entity itemEntity) {
-        super.pickup(inventory);
+        super.pickup(inventory, itemEntity);
     }
 
 

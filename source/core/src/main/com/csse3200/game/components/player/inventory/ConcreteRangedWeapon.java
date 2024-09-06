@@ -4,11 +4,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.entities.Entity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class ConcreteRangedWeapon extends RangedWeapon {
+
+    private static final Logger logger = LoggerFactory.getLogger(ConcreteRangedWeapon.class);
     private final String specification;
     private final String name;
     private final Texture texture;

@@ -15,32 +15,34 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class WeaponComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
     private Collectible.Type weaponType; // type of weapon
 
-    // Ranged
+    // Ranged --------------------------------------------
     private int damage; // weapon damage
-    private int range; // range of weapon
+    private float range; // range of weapon
     private int fireRate; // fire rate of weapon (round per second)
-
 
     private ProjectileConfig bulletConfig; // Config file for this weapon's projectile
     private int ammo; // current ammo for shotgun only
     private int maxAmmo; // max ammo for shotgun only
     private int reloadTime; // reload time for shotgun only
+
     // variable for storing sprite of weapon
     // Note: this should have default sprite (not holding weapon) and sprite for each
     // weapon type with hand holding it
     private Sprite weaponSprite;
-
     // Tracking weapon state
     private long lastAttack;
     private long attackInterval;
 
-    // Melee
-    private int swingDamge; // Damage of each swing for melee weapon
-    private int swingRange; // Range of melee weapon
+
+    // Melee ---------------------------------------------
+    private int swingDamage; // Damage of each swing for melee weapon
+    private float swingRange; // Range of melee weapon
     private int swingRate; // swing rate for melee weapon (swing per second
 
 
@@ -63,11 +65,11 @@ public class WeaponComponent extends Component {
      * @param maxAmmo      max ammo for shotgun only
      * @param reloadTime   reload time for shotgun only
      */
-    public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, int range,
+    public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, float range,
                            int fireRate, int ammo, int maxAmmo, int reloadTime) {
 //        System.out.println("WeaponComponent created");
         if (weaponType == Collectible.Type.MELEE_WEAPON) {
-            this.swingDamge = damage;
+            this.swingDamage = damage;
             this.swingRate = fireRate;
             this.swingRange = range;
             this.weaponSprite = weaponSprite;
@@ -113,9 +115,9 @@ public class WeaponComponent extends Component {
      */
     public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType) {
         if (weaponType == Collectible.Type.MELEE_WEAPON) {
-            new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 0, 0, 0);
+            new WeaponComponent(weaponSprite, weaponType, 600, 3f, 1, 0, 0, 0);
         } else {
-            new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 1, 1, 1);
+            new WeaponComponent(weaponSprite, weaponType, 600, 3f, 1, 1, 1, 1);
         }
     }
 
@@ -161,7 +163,7 @@ public class WeaponComponent extends Component {
      *
      * @return range of weapon
      */
-    public int getRange() {
+    public float getRange() {
         return range;
     }
 
@@ -170,7 +172,7 @@ public class WeaponComponent extends Component {
      *
      * @param range the new ranged to set the weapon to.
      */
-    public void setRange(int range) {
+    public void setRange(float range) {
         this.range = range;
     }
 
@@ -287,7 +289,7 @@ public class WeaponComponent extends Component {
      * @param rangedWeapon ranged weapon
      */
     public void updateWeapon(RangedWeapon rangedWeapon, Entity itemEntity) {
-        logger.debug("Updating weapon - with item entity");
+        logger.info("Updating weapon - with item entity");
         this.damage = rangedWeapon.getDamage();
         this.range = rangedWeapon.getRange();
         this.fireRate = rangedWeapon.getFireRate();
@@ -302,6 +304,7 @@ public class WeaponComponent extends Component {
             this.attackInterval = (1000L / this.fireRate);
         }
         this.rangedItemEntity = itemEntity;
+        getEntity().getComponent(RangeDetectionComponent.class).update(itemEntity);
     }
 
     @Override
@@ -322,7 +325,7 @@ public class WeaponComponent extends Component {
      * @param meleeWeapon new melee weapon
      */
     public void updateWeapon(MeleeWeapon meleeWeapon) {
-        this.swingDamge = meleeWeapon.getDamage();
+        this.swingDamage = meleeWeapon.getDamage();
         this.swingRange = meleeWeapon.getRange();
         this.swingRate = meleeWeapon.getFireRate();
         this.lastSwing = 0L;
@@ -338,7 +341,7 @@ public class WeaponComponent extends Component {
      * @param meleeWeapon new melee weapon
      */
     public void updateWeapon(MeleeWeapon meleeWeapon, Entity itemEntity) {
-        this.swingDamge = meleeWeapon.getDamage();
+        this.swingDamage = meleeWeapon.getDamage();
         this.swingRange = meleeWeapon.getRange();
         this.swingRate = meleeWeapon.getFireRate();
         this.lastSwing = 0L;
@@ -361,7 +364,7 @@ public class WeaponComponent extends Component {
     }
     public void dropMeleeWeapon() {
         // Update melee weapon to bare hand
-        this.swingDamge = 1;
+        this.swingDamage = 1;
         this.swingRange = 1;
         this.swingRate = 1;
     }
@@ -417,6 +420,13 @@ public class WeaponComponent extends Component {
                         .play();
                 ProjectileFactory.createProjectile(this.bulletConfig, direction);
                 logger.info("Ranged weapon shoot");
+                ArrayList<Entity> entities = this.getEntity().getComponent(RangeDetectionComponent.class).getEntities();
+                for (Entity e : entities) {
+                    CombatStatsComponent targetStats = e.getComponent(CombatStatsComponent.class);
+                    if (targetStats != null) {
+                        targetStats.hit(this.getEntity().getComponent(CombatStatsComponent.class));
+                    }
+                }
             }
             // Reset lastAtttack time
             this.lastAttack = currentTime;

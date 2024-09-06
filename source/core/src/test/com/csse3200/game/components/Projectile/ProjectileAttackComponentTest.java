@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.RangeDetectionComponent;
 import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
@@ -78,7 +79,8 @@ class ProjectileAttackComponentTest {
                 Collectible.Type.RANGED_WEAPON, 10, 5, 1, maxAmmo, maxAmmo, 2);
         // Create test entity to attach weaponcomponent
         Entity testEntity = new Entity();
-        testEntity.addComponent(weaponComponent);
+        testEntity.addComponent(weaponComponent)
+                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC));
         // Shot in default direction with ammo at 0
         weaponComponent.shoot(new Vector2());
         try {

@@ -92,7 +92,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   }
 
   private void initialiseTasks() {
-    waitTask = new WaitTask(waitTime);
+    waitTask = new WaitTask(waitTime, priority + 1);
     waitTask.create(owner);
     movementTask = new MovementTask(target.getPosition());
     movementTask.create(owner);

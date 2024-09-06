@@ -151,6 +151,13 @@ public class NPCFactory {
               tasks.charge.chaseDistance, tasks.charge.chaseSpeed, tasks.charge.waitTime));
     }
 
+    // Add boss attack task
+    if (tasks.bossAttack != null) {
+      aiComponent.addTask(new BossAttackTask(target, tasks.bossAttack.priority, tasks.bossAttack.viewDistance,
+              tasks.bossAttack.chaseDistance, tasks.bossAttack.chaseSpeed, tasks.bossAttack.chargeSpeed,
+              tasks.bossAttack.waitTime));
+    }
+
     return aiComponent;
   }
 

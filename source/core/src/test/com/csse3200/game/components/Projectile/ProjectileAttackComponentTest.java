@@ -137,7 +137,7 @@ class ProjectileAttackComponentTest {
     }
 
     Entity createProjectile() {
-        Entity projectile = ProjectileFactory.createProjectile(new ProjectileConfig(), Vector2Utils.LEFT);
+        Entity projectile = new ProjectileFactory().createProjectile(new ProjectileConfig(), Vector2Utils.LEFT, new Vector2(0,0));
         projectile.create();
         return projectile;
     }

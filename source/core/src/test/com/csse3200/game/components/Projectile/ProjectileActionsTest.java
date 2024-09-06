@@ -172,12 +172,12 @@ class ProjectileActionsTest {
 
         ProjectileConfig fastStats = new ProjectileConfig();
         fastStats.speed = new Vector2(10,10);
-        Entity projectileFast = ProjectileFactory.createProjectile(fastStats, Vector2Utils.LEFT);
+        Entity projectileFast = new ProjectileFactory().createProjectile(fastStats, Vector2Utils.LEFT, new Vector2(0,0));
         projectileFast.create();
 
         ProjectileConfig slowStats = new ProjectileConfig();
         slowStats.speed = new Vector2(3,3);
-        Entity projectileSlow = ProjectileFactory.createProjectile(slowStats, Vector2Utils.LEFT);
+        Entity projectileSlow = new ProjectileFactory().createProjectile(slowStats, Vector2Utils.LEFT, new Vector2(0,0));
         projectileSlow.create();
 
 
@@ -204,7 +204,7 @@ class ProjectileActionsTest {
 
     //Vector2Utils.LEFT
     Entity createProjectile(Vector2 direction) {
-        Entity projectile = ProjectileFactory.createProjectile(new ProjectileConfig(), direction);
+        Entity projectile = new ProjectileFactory().createProjectile(new ProjectileConfig(), direction, new Vector2(0,0));
         projectile.create();
         return projectile;
     }

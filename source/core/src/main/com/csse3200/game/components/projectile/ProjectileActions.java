@@ -17,6 +17,7 @@ public class ProjectileActions extends Component {
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = new Vector2(3f, 3f);
+    private Vector2 parentPosition;
 
     @Override
     public void create() {
@@ -27,6 +28,10 @@ public class ProjectileActions extends Component {
     public void update() {
         if (moving) {
             updateSpeed();
+        }
+        else {
+            this.getEntity().setPosition(parentPosition);
+            moving = true;
         }
     }
 
@@ -46,11 +51,12 @@ public class ProjectileActions extends Component {
      * @param speed speed to move at.
      *
      */
-    void shoot(Vector2 direction, Vector2 speed) {
+    void shoot(Vector2 direction, Vector2 speed, Vector2 parentPosition) {
         this.getEntity().getComponent(AnimationRenderComponent.class).startAnimation("GreenShoot");
         this.walkDirection = direction;
         this.speed = speed;
-        moving = true;
+        this.parentPosition = parentPosition;
+
     }
 
     /**

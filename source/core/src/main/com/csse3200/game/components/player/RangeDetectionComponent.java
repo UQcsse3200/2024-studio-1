@@ -53,8 +53,8 @@ public class RangeDetectionComponent extends Component {
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         combatStats = entity.getComponent(CombatStatsComponent.class);
         hitboxComponent = null;
-        if (entity.getComponent(WeaponComponent.class).itemEntity != null) {
-            hitboxComponent = entity.getComponent(WeaponComponent.class).itemEntity.getComponent(HitboxComponent.class);
+        if (entity.getComponent(WeaponComponent.class).rangedItemEntity != null) {
+            hitboxComponent = entity.getComponent(WeaponComponent.class).rangedItemEntity.getComponent(HitboxComponent.class);
         }
     }
 
@@ -62,8 +62,8 @@ public class RangeDetectionComponent extends Component {
         if (hitboxComponent == null) {
             // Not triggered by hitbox, ignore
             if (entity != null) {
-                if (getEntity().getComponent(WeaponComponent.class).itemEntity != null) {
-                hitboxComponent = getEntity().getComponent(WeaponComponent.class).itemEntity.getComponent(HitboxComponent.class);
+                if (getEntity().getComponent(WeaponComponent.class).rangedItemEntity != null) {
+                hitboxComponent = getEntity().getComponent(WeaponComponent.class).rangedItemEntity.getComponent(HitboxComponent.class);
                 } else {
                     logger.warn("itemEntity is null");
                     return;

@@ -79,18 +79,9 @@ public class PlayerInventoryDisplay extends UIComponent {
      * their amount and icon on UI, displaying one on each line.
      */
     void addItems() {
-        for (Map.Entry<UsableItem, Integer> entry : inventoryComponent.getUsableItems().entrySet()) {
-            UsableItem item = entry.getKey();
-            addItem(item.getName(), item.getIcon());
-        }
-        /*
-        // Display all items with their initial quantities (0)
         addItem("Medkit", new MedKit().getIcon());
         addItem("Shield Potion", new ShieldPotion().getIcon());
         addItem("Bandage", new Bandage().getIcon());
-
-         */
-
     }
 
     /**
@@ -123,18 +114,19 @@ public class PlayerInventoryDisplay extends UIComponent {
         // to check if teh inventory has or not and if not then set to zero
 
         // Update with actual quantities from inventory
-        // Map<UsableItem, Integer> usableItems = inventoryComponent.getUsableItems();
-        /*
-        for (Map<UsableItem, Integer> usableItems : inventoryComponent.getUsableItems()) {
-            String itemName = item.getName();
-            inventoryComponent.getUsableItems().put(itemName, itemQuantities.getOrDefault(itemName, 0) + 1);
+        Map<String, Integer> itemQuantities = new HashMap<>();
+        for (String itemName : itemLabels.keySet()) {
+            itemQuantities.put(itemName, 0);  // Start all counts at 0
         }
 
-         */
+        for (Collectible item : inventoryComponent.getInventory().getItems()) {
+            String itemName = item.getName();
+            itemQuantities.put(itemName, itemQuantities.getOrDefault(itemName, 0) + 1);
+        }
 
         // Update the displayed quantities
-        for (Map.Entry<UsableItem, Integer> entry : inventoryComponent.getUsableItems().entrySet()) {
-            Label quantityLabel = itemLabels.get(entry.getKey().getName());
+        for (Map.Entry<String, Integer> entry : itemQuantities.entrySet()) {
+            Label quantityLabel = itemLabels.get(entry.getKey());
 
             if (quantityLabel != null) {
                 int quantity = entry.getValue();
@@ -144,7 +136,7 @@ public class PlayerInventoryDisplay extends UIComponent {
 
                 /*
                 // Ensure visibility of the label and icon, regardless of quantity
-                Image itemIcon = itemIcons.get(entry.getKey().getName());
+                Image itemIcon = itemIcons.get(entry.getKey());
                 if (itemIcon != null) {
                     itemIcon.setVisible(true); // Always visible, even if count is 0
                 }

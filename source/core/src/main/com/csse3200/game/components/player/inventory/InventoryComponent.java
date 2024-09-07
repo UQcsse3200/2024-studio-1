@@ -16,11 +16,15 @@ import java.util.Map;
 public class InventoryComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
     private final Inventory inventory;
-    private final Map<Integer, UsableItem> usableItems = Map.of(
+    private final Map<Integer, UsableItem> usableItems = new HashMap<>();
+            /*
+            Map.of(
             1, new MedKit(),
             2, new ShieldPotion(),
             3, new Bandage()
     );
+
+             */
     private int rangedWeaponCount = 0;
     private int meleeWeaponCount = 0;
 

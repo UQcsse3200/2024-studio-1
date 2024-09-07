@@ -25,6 +25,7 @@ public class NPCConfigs {
       public StraightWanderTaskConfig straightWander = null;
       public ChaseTaskConfig chase = null;
       public ChargeTaskConfig charge = null;
+      public ShootTaskConfig shoot = null;
 
       public static class WanderTaskConfig {
         public float wanderRadius;
@@ -41,6 +42,12 @@ public class NPCConfigs {
         public float chaseSpeed;
         public float viewDistance;
         public float chaseDistance;
+      }
+
+      public static class ShootTaskConfig {
+        public int priority;
+        public float attackRange;
+        public float waitTime;
       }
 
       public static class ChargeTaskConfig {

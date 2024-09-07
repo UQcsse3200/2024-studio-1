@@ -79,6 +79,26 @@ public class NPCFactory {
   }
 
   /**
+   * Create a new NPC from specification
+   *
+   * @param specification the specification of the npc
+   * @param target entity to chase
+   * @return the created npc
+   */
+  public Entity create(String specification, Entity target) {
+    return switch (specification) {
+      case "Rat" -> this.createRat(target);
+      case "Bear" -> this.createBear(target);
+      case "Snake" -> this.createSnake(target);
+      case "Dino" -> this.createDino(target);
+      case "Bat" -> this.createBat(target);
+      case "Dog" -> this.createDog(target);
+      case "Minotaur" -> this.createMinotaur(target);
+      default -> throw new IllegalArgumentException("Unknown animal: " + specification);
+    };
+  }
+
+  /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
    * @param aiComponent the AI component to be added to the NPC
@@ -115,7 +135,7 @@ public class NPCFactory {
                                                          NPCConfigs.NPCConfig.AnimationData[] animations) {
     AnimationRenderComponent animator = new AnimationRenderComponent(
             ServiceLocator.getResourceService().getAsset(atlasPath, TextureAtlas.class));
-    for (BaseEntityConfig.AnimationData animation : animations) {
+    for (NPCConfigs.NPCConfig.AnimationData animation : animations) {
       animator.addAnimation(animation.name, animation.frameDuration, animation.playMode);
     }
     return animator;
@@ -149,6 +169,10 @@ public class NPCFactory {
     if (tasks.charge != null) {
       aiComponent.addTask(new ChargeTask(target, tasks.charge.priority, tasks.charge.viewDistance,
               tasks.charge.chaseDistance, tasks.charge.chaseSpeed, tasks.charge.waitTime));
+    }
+
+    if (tasks.shoot != null) {
+      aiComponent.addTask(new ShootTask(target, tasks.shoot.attackRange, tasks.shoot.waitTime, tasks.shoot.priority));
     }
 
     return aiComponent;

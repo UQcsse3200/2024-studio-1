@@ -1,9 +1,11 @@
 package com.csse3200.game.components.tasks;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
+import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
@@ -24,24 +26,27 @@ public class ShootTask extends DefaultTask implements PriorityTask {
     private final int priority;
     private final float waitTime;
     private final float spreadAngle = 0.08f;
-    private final ShootType type = ShootType.SPREAD;
+    private ProjectileConfig bulletConfig;
+    private final ShootType type = ShootType.SINGLE;
 
     private final GameTime timeSource;
     private long endTime;
 
+    private final ProjectileFactory projectileFactory = new ProjectileFactory();
     private final PhysicsEngine physics;
     private final DebugRenderer debugRenderer;
     private final RaycastHit hit = new RaycastHit();
 
-    public ShootTask(Entity target, float attackRange, float waitTime) {
+    public ShootTask(Entity target, float attackRange, float waitTime, int priority) {
         this.target = target;
         this.attackRange = attackRange;
         this.waitTime = waitTime;
-        this.priority = 3;
+        this.priority = priority;
 
         timeSource = ServiceLocator.getTimeSource();
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();
+        bulletConfig = new ProjectileConfig();
     }
 
     @Override
@@ -128,7 +133,7 @@ public class ShootTask extends DefaultTask implements PriorityTask {
      */
     private boolean shoot(Vector2 direction) {
         if (this.type == ShootType.SPREAD) {
-            return spreadShoot(direction, 5);
+            // return spreadShoot(direction, 5);
         }
         return singleShoot(direction);
     }
@@ -141,7 +146,11 @@ public class ShootTask extends DefaultTask implements PriorityTask {
      */
     private boolean singleShoot(Vector2 direction) {
         if (isTargetVisible() && getDistanceToTarget() < attackRange) {
-            ProjectileFactory.createProjectile(new ProjectileConfig(), direction);
+            //ProjectileFactory.createProjectile(new ProjectileConfig(), direction);
+            Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, owner.getEntity().getPosition());
+            projectile.getComponent(ProjectileAttackComponent.class).create();
+            ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
+            logger.info("Ranged weapon shoot");
             return true;
         }
         return false;
@@ -153,8 +162,7 @@ public class ShootTask extends DefaultTask implements PriorityTask {
         }
         if (isTargetVisible() && getDistanceToTarget() < attackRange) {
             for (int i = 0; i < numShot; i++) {
-                ProjectileFactory.createProjectile(new ProjectileConfig(),
-                        rotate(direction, spreadAngle * ((numShot - 1) - 2 * i)));
+                singleShoot(rotate(direction, spreadAngle * ((numShot - 1) - 2 * i)));
             }
             return true;
         }
@@ -173,6 +181,6 @@ public class ShootTask extends DefaultTask implements PriorityTask {
 }
 
 enum ShootType {
-    SINGLE, // The task has completed succesfully
-    SPREAD, // The task has failed
+    SINGLE, // Single shot
+    SPREAD, // Spread shot
 }

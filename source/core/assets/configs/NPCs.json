@@ -18,6 +18,11 @@
         "chaseDistance": 2,
         "chaseSpeed": 4,
         "waitTime": 0
+      },
+      "shoot": {
+        "priority": 5,
+        "attackRange": 10,
+        "waitTime": 2
       }
     },
     "animations": [
@@ -49,6 +54,11 @@
         "chaseDistance": 5,
         "chaseSpeed": 3,
         "waitTime": 2
+      },
+      "shoot": {
+        "priority": 5,
+        "attackRange": 10,
+        "waitTime": 2
       }
     },
     "animations": [
@@ -78,6 +88,11 @@
         "chaseDistance": 6,
         "chaseSpeed": 5,
         "waitTime": 0
+      },
+      "shoot": {
+        "priority": 5,
+        "attackRange": 10,
+        "waitTime": 2
       }
     },
     "animations": [
@@ -102,6 +117,11 @@
         "viewDistance": 5,
         "chaseDistance": 6,
         "chaseSpeed": 2.5,
+        "waitTime": 2
+      },
+      "shoot": {
+        "priority": 5,
+        "attackRange": 10,
         "waitTime": 2
       }
     },

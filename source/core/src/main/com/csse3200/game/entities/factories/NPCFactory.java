@@ -55,6 +55,7 @@ public class NPCFactory {
     "images/minotaur.png",
     "images/dog.png",
     "images/snake.png",
+    "images/bat.png",
     "images/dino.png",
     "images/minotaur.png",
     "images/bear.png" 

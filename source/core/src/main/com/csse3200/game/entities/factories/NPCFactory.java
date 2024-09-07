@@ -98,7 +98,6 @@ public class NPCFactory {
             .addComponent(animator)
             .addComponent(new NPCAnimationController())
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();

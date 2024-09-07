@@ -130,8 +130,7 @@ public class CombatStatsComponent extends Component {
         if (!getIsInvincible()) {
             int newHealth = getHealth() - attacker.getBaseAttack();
             setHealth(newHealth);
-            entity.getEvents().trigger("healthChanged", health);
-            if (health == 0) {
+            if (health <= 0) {
                 entity.getEvents().trigger("died");
             }
 

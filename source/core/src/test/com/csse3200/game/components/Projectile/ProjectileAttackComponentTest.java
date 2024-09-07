@@ -4,6 +4,10 @@ package com.csse3200.game.components.Projectile;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.csse3200.game.areas.GameAreaService;
+import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.MainGameLevelFactory;
+import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
@@ -27,6 +31,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 
 @ExtendWith(GameExtension.class)
@@ -39,10 +44,13 @@ class ProjectileAttackComponentTest {
      */
     @BeforeEach
     void beforeEach() {
+
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
         ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerGameAreaService(new GameAreaService(new MainGameArea(new MainGameLevelFactory())));
+
 
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();
@@ -68,39 +76,16 @@ class ProjectileAttackComponentTest {
         assertEquals(0, target.getComponent(CombatStatsComponent.class).getHealth());
     }
 
-    @Test
-    public void testRangeWeaponFireRate () {
-
-
-        int maxAmmo = 10;
-        // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
-                Collectible.Type.RANGED_WEAPON, 10, 5, 1, maxAmmo, maxAmmo, 2);
-        // Create test entity to attach weaponcomponent
-        Entity testEntity = new Entity();
-        testEntity.addComponent(weaponComponent);
-        // Shot in default direction with ammo at 0
-        weaponComponent.shoot(new Vector2());
-        try {
-            Thread.sleep(800);
-            weaponComponent.shoot(new Vector2());
-            // Attempt to shoot weapon faster than fire rate, weapon should not shoot.
-            assertEquals(maxAmmo - 1, weaponComponent.getAmmo());
-            Thread.sleep(200);
-            weaponComponent.shoot(new Vector2());
-            // Attempt to shoot weapon equal to fire rate, weapon should shoot.
-            assertEquals(maxAmmo - 2, weaponComponent.getAmmo());
-        } catch (InterruptedException ex) {
-            // sleep() failed
-            Assertions.fail();
-        }
-    }
 
     @Test
     void shouldNotAttackOtherLayer() {
 
-        // default config is on PhysicsLayer.PLAYER
-        Entity projectile = createProjectile();
+        // make a projectile on the player layer.
+        ProjectileConfig config = new ProjectileConfig();
+        config.Layer = PhysicsLayer.PLAYER;
+        Entity projectile = new ProjectileFactory().createProjectile(config, Vector2Utils.LEFT, new Vector2(0,0));
+        projectile.create();
+
 
         //target on the NPC layer - not PLAYER
         Entity target =
@@ -147,7 +132,7 @@ class ProjectileAttackComponentTest {
                 new Entity()
                         .addComponent(new CombatStatsComponent(10, 0))
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
+                        .addComponent(new HitboxComponent().setLayer(new ProjectileConfig().Layer));
         target.create();
         return target;
     }

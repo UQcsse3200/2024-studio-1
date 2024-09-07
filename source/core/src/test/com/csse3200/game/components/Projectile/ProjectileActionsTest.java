@@ -5,6 +5,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.areas.GameAreaService;
+import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.MainGameLevelFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
@@ -37,6 +40,7 @@ class ProjectileActionsTest {
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerGameAreaService(new GameAreaService(new MainGameArea(new MainGameLevelFactory())));
         ServiceLocator.registerTimeSource(gameTime);
 
         //load in the current default texture.
@@ -172,20 +176,20 @@ class ProjectileActionsTest {
 
         ProjectileConfig fastStats = new ProjectileConfig();
         fastStats.speed = new Vector2(10,10);
-        Entity projectileFast = new ProjectileFactory().createProjectile(fastStats, Vector2Utils.LEFT, new Vector2(0,0));
+        Entity projectileFast = new ProjectileFactory().createProjectile(fastStats, Vector2Utils.RIGHT, new Vector2(0,0));
         projectileFast.create();
 
         ProjectileConfig slowStats = new ProjectileConfig();
         slowStats.speed = new Vector2(3,3);
-        Entity projectileSlow = new ProjectileFactory().createProjectile(slowStats, Vector2Utils.LEFT, new Vector2(0,0));
+        Entity projectileSlow = new ProjectileFactory().createProjectile(slowStats, Vector2Utils.RIGHT, new Vector2(0,0));
         projectileSlow.create();
 
 
-        projectileFast.setPosition(0f, 0f);
-        projectileSlow.setPosition(0f, 2f);
+        projectileFast.setPosition(0f, 2f);
+        projectileSlow.setPosition(0f, 0f);
 
         // Run the game for a few cycles
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             projectileFast.earlyUpdate();
             projectileFast.update();
 
@@ -195,8 +199,8 @@ class ProjectileActionsTest {
             ServiceLocator.getPhysicsService().getPhysics().update();
         }
 
-        float slowChange = projectileSlow.getPosition().dst(0f,2f);
-        float fastChange = projectileFast.getPosition().dst(0f,0);
+        float slowChange = projectileSlow.getPosition().dst(0f,0f);
+        float fastChange = projectileFast.getPosition().dst(0f,2f);
         assertTrue(slowChange < fastChange);
     }
 

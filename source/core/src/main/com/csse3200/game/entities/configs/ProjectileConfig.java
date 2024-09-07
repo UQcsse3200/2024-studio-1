@@ -7,7 +7,7 @@ import com.csse3200.game.physics.PhysicsLayer;
 public class ProjectileConfig {
     public int health = 0;
     public int baseAttack = 50;
-    public Vector2 speed =  new Vector2(8f, 8f);
+    public Vector2 speed =  new Vector2(10f, 10f);
     public float scaleX = 0.5f;
     public float scaleY = 0.5f;
     public String projectileAtlasPath = "images/Projectiles/GreenShoot.atlas";

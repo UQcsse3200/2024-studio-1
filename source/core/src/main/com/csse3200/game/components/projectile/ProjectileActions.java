@@ -28,11 +28,11 @@ public class ProjectileActions extends Component {
     public void update() {
         if (moving) {
             updateSpeed();
-        }
-        else {
+        } else {
             this.getEntity().setPosition(parentPosition);
             moving = true;
         }
+
     }
 
     private void updateSpeed() {

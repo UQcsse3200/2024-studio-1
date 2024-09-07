@@ -77,7 +77,6 @@ public class ProjectileAttackComponent extends Component {
             targetStats.hit(combatStats);
         }
 
-        entity.getComponent(ProjectileActions.class).stopShoot();
         ServiceLocator.getGameAreaService().getGameArea().disposeEntity(entity);
 
     }

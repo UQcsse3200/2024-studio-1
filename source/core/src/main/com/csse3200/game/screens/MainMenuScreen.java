@@ -2,13 +2,15 @@ package com.csse3200.game.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
+// todo check if this is needed
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.components.mainmenu.MainMenuActions;
 import com.csse3200.game.components.mainmenu.MainMenuDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.services.ServiceLocator;
-import org.slf4j.LoggerFactory;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * The game screen containing the main menu.
@@ -18,8 +20,12 @@ public class MainMenuScreen extends StaticScreen {
             "images/box_boy_title.png", "images/bg_logo.png"
     };
 
+    /**
+     * Make the screen.
+     * @param game the overarching game.
+     */
     public MainMenuScreen(GdxGame game) {
-        super(game, mainMenuTextures, LoggerFactory.getLogger(MainMenuScreen.class));
+        super(game, mainMenuTextures, getLogger(MainMenuScreen.class));
     }
 
     @Override

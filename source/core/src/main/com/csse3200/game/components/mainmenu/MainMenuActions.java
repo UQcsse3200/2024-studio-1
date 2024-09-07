@@ -1,6 +1,7 @@
 package com.csse3200.game.components.mainmenu;
 
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.GdxGame.ScreenType;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.options.GameOptions;
 import org.slf4j.Logger;
@@ -12,29 +13,34 @@ import org.slf4j.LoggerFactory;
  */
 public class MainMenuActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
-    private GdxGame game;
+    private final GdxGame game;
 
+    /**
+     * Make the component.
+     * @param game the overarching game, needed so that buttons can trigger navigation through
+     *             screens
+     */
     public MainMenuActions(GdxGame game) {
         this.game = game;
     }
 
     @Override
     public void create() {
-        entity.getEvents().addListener("start", this::onStart);
+        entity.getEvents().addListener("player_select", this::onPlayerSelect);
         entity.getEvents().addListener("load", this::onLoad);
         entity.getEvents().addListener("exit", this::onExit);
         entity.getEvents().addListener("settings", this::onSettings);
         entity.getEvents().addListener("how-to-play", this::onHowToPlay);
-
     }
 
     /**
-     * Swaps to the Main Game screen.
+     * Set the game options to the selected options and go to the player select screen.
+     * @param options the options chosen by the player to use for the game.
      */
-    private void onStart(GameOptions options) {
-        logger.info("Start game");
+    private void onPlayerSelect(GameOptions options) {
+        logger.info("Going to player selection");
         game.gameOptions = options;
-        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+        game.setScreen(ScreenType.PLAYER_SELECT);
     }
 
     /**
@@ -58,12 +64,12 @@ public class MainMenuActions extends Component {
      */
     private void onSettings() {
         logger.info("Launching settings screen");
-        game.setScreen(GdxGame.ScreenType.SETTINGS);
+        game.setScreen(ScreenType.SETTINGS);
     }
 
     private void onHowToPlay() {
         logger.info("Launching how to play screen");
-        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
+        game.setScreen(ScreenType.HOW_TO_PLAY);
     }
 
 }

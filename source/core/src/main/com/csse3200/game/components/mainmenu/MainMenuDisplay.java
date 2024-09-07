@@ -82,7 +82,7 @@ public class MainMenuDisplay extends UIComponent {
                     public void changed(ChangeEvent event, Actor actor) {
                         GameOptions options = new GameOptions(difficulty);
                         logger.debug("{} difficulty button clicked", difficulty.toString());
-                        entity.getEvents().trigger("start", options);
+                        entity.getEvents().trigger("player_select", options);
                     }
                 }
         ));

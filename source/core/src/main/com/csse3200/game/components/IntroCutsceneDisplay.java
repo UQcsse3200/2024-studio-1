@@ -51,6 +51,8 @@ public class IntroCutsceneDisplay extends UIComponent {
                 onStart();
             }
         });
+        table.add(label);
+        table.row();
         table.add(startBtn);
         stage.addActor(table);
     }

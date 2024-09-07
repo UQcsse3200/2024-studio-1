@@ -22,11 +22,17 @@ import org.slf4j.LoggerFactory;
  */
 public class WeaponFactory {
 
+    /**
+     * Path for weapon textures
+     */
     private static final String[] weaponTextures = {
             "images/Weapons/sword1.png",
             "images/Weapons/shotgun4.png"
     };
 
+    /**
+     * Path for weapon atlas
+     */
     private static final String[] weaponTextureAtlas = {
             "images/Weapons/sword1.atlas",
             "images/Weapons/shotgun4.atlas"
@@ -34,6 +40,12 @@ public class WeaponFactory {
 
 
     public static final Logger logger = LoggerFactory.getLogger(WeaponFactory.class);
+
+    /**
+     * Create a melee weapon from specification
+     * @param specification
+     * @return MeleeWeapon
+     */
     private MeleeWeapon createMelee(String specification) {
         return switch (specification) {
             case "knife" -> new Knife();
@@ -42,6 +54,11 @@ public class WeaponFactory {
         };
     }
 
+    /**
+     * Create a range weapon from specification
+     * @param specification
+     * @return RangedWeapon
+     */
     private RangedWeapon createRanged(String specification){
         // specification format: "ranged:<Ranged Weapon>,<pathtoicon>,<damage>,<range>,<fireRate>,<ammo>,<maxAmmo>,<reloadTime>"
         if (specification.equals("shotgun")) {
@@ -154,7 +171,7 @@ public class WeaponFactory {
 
         PhysicsUtils.setScaledCollider(meleeEntity, -1f, -1f); //  this affect player movement!!!
         // set the collider to 0
-        meleeEntity.getComponent(ColliderComponent.class).setSensor(false);
+        meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
         meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
         meleeEntity.getComponent(HitboxComponent.class).setSize(new Vector2(10f, 10f));
         logger.info("Created collectible entity: " + collectible);

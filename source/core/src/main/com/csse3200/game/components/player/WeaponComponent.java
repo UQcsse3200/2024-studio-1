@@ -403,7 +403,7 @@ public class WeaponComponent extends Component {
             // Render attack here using
             this.lastSwing = currentTime;
             ServiceLocator.getResourceService()
-                    .getAsset("sounds/sword1_s.ogg", Sound.class)
+                    .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
             // get list of entities in range

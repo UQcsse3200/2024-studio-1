@@ -141,9 +141,9 @@ public abstract class BaseRoom implements Room {
      * @param area the game area to spawn the terrain onto.
      * @param wallThickness the thickness of the walls around the room.
      */
-    protected void spawnTerrain(GameArea area, float wallThickness) {
+    protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
         // Background terrain
-        TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1);
+        TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1 ,isBossRoom);
         area.setTerrain(terrain);
         area.spawnEntity(new Entity().addComponent(terrain));
         // Terrain walls

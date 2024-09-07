@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.compression.lzma.Base;
+import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
@@ -15,6 +17,9 @@ import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the foundation of a room,
@@ -126,6 +131,11 @@ public abstract class BaseRoom implements Room {
         for (Entity data : doors) {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         } 
+        
+        for (Entity data : enemies) {
+            ServiceLocator.getEntityService().markEntityForRemoval(data);
+        } 
+        
     }
 
 
@@ -189,6 +199,12 @@ public abstract class BaseRoom implements Room {
     }
 
     protected void spawnDoors(GameArea area, Entity player) {
+        final Logger logger = LoggerFactory.getLogger(BaseRoom.class);
+        // Ensure roomConnections is properly initialized
+        if (this.roomConnections == null || this.roomConnections.size() < 4) {
+            throw new IllegalStateException("Room connections are not properly initialized.");
+        }
+    
         // Define door connections
         List<String> connections = this.roomConnections;
         String connectN = connections.get(0);
@@ -196,48 +212,48 @@ public abstract class BaseRoom implements Room {
         String connectW = connections.get(2);
         String connectS = connections.get(3);
     
-        // Create doors
-        Entity[] doors = new Entity[4];
-        doors[0] = new Door('v', player.getId(), connectW); // left
-        doors[1] = new Door('v', player.getId(), connectE); // right
-        doors[2] = new Door('h', player.getId(), connectS); // bottom
-        doors[3] = new Door('h', player.getId(), connectN); // top
+        // Create doors and retrieve scales
+        Entity[] doors = {
+            new Door('v', player.getId(), connectW), // left
+            new Door('v', player.getId(), connectE), // right
+            new Door('h', player.getId(), connectN), // bottom
+            new Door('h', player.getId(), connectS)  // top
+        };
     
-        // Retrieve scales
         Vector2 doorvScale = doors[0].getScale();
         Vector2 doorhScale = doors[2].getScale();
     
-        // Define door data
-        DoorData[] doorData = {
-            new DoorData(connectE, doors[1], new GridPoint2(0, 5), new Vector2(-doorvScale.x, 0)),
-            new DoorData(connectW, doors[0], new GridPoint2(15, 5), new Vector2(-2 * doorvScale.x, 0)),
-            new DoorData(connectS, doors[2], new GridPoint2(7, 0), new Vector2(0, -doorhScale.y)),
-            new DoorData(connectN, doors[3], new GridPoint2(7, 11), new Vector2(0, -2 * doorhScale.y))
+        // Define positions and offsets
+        GridPoint2[] positions = {
+            new GridPoint2(15, 5),  // For connectW
+            new GridPoint2(0, 5),   // For connectE
+            new GridPoint2(7, 0),   // For connectS
+            new GridPoint2(7, 11)   // For connectN
+        };
+    
+        Vector2[] offsets = {
+            new Vector2(-2 * doorvScale.x, 0),  // For connectW
+            new Vector2(-doorvScale.x, 0),      // For connectE
+            new Vector2(0, -doorhScale.y),      // For connectS
+            new Vector2(0, -2 * doorhScale.y)   // For connectN
         };
     
         // Spawn and adjust doors
-        for (DoorData data : doorData) {
-            if (!data.connection.isEmpty()) {
-                area.spawnEntityAt(data.door, data.position, true, true);
-                Vector2 doorPos = data.door.getPosition();
-                data.door.setPosition(doorPos.x + data.offset.x, doorPos.y + data.offset.y);
-                this.doors.add(data.door);
+       
+        for (int i = 0; i < doors.length; i++) {
+            String connection = connections.get(i);
+            System.out.println(connections);
+            if (connection != "" && !connection.isEmpty()) {
+                area.spawnEntityAt(doors[i], positions[i], true, true);
+                Vector2 doorPos = doors[i].getPosition();
+                doors[i].setPosition(doorPos.x + offsets[i].x, doorPos.y + offsets[i].y);
+                this.doors.add(doors[i]);
+            } else {
+                System.out.println("Skipping door placement for connection: " + connection);
             }
         }
     }
     
-    // Inner class for storing door data
-    private static class DoorData {
-        String connection;
-        Entity door;
-        GridPoint2 position;
-        Vector2 offset;
     
-        DoorData(String connection, Entity door, GridPoint2 position, Vector2 offset) {
-            this.connection = connection;
-            this.door = door;
-            this.position = position;
-            this.offset = offset;
-        }
-    }
+    
 }

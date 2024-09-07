@@ -4,9 +4,12 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.CombatStatsComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -37,9 +40,12 @@ public class PlayerActions extends Component {
             updateSpeed();
         }
 
-        if (entity.getComponent(CombatStatsComponent.class).isDead() && !dead) {
-            entity.getEvents().trigger("death");
-            dead = true;
+        if (entity.getComponent(CombatStatsComponent.class).isDead()) {
+            entity.getEvents().trigger("stopAnimation");
+            if (!dead) {
+                entity.getEvents().trigger("death");
+                dead = true;
+            }
         }
     }
 

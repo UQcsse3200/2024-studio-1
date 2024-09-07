@@ -1,6 +1,5 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
@@ -12,6 +11,7 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 public class PlayerAnimationController extends Component {
     AnimationRenderComponent animationController;
     private boolean death = false;
+    private boolean animationStopped = false;
 
     /**
      * Adds the event listener to the character entity to trigger an animation change.
@@ -28,6 +28,7 @@ public class PlayerAnimationController extends Component {
         entity.getEvents().addListener("walkStop", this::stationaryAnimation);
         entity.getEvents().addListener("death", this::deathAnimation);
         entity.getEvents().addListener("playerHit", this::damageAnimation);
+        entity.getEvents().addListener("stopAnimation", this::stopAnimation);
         animationController.startAnimation("idle");
     }
 
@@ -82,6 +83,17 @@ public class PlayerAnimationController extends Component {
     void deathAnimation() {
         death = true;
         animationController.startAnimation("death-down");
+    }
+
+    /**
+     * Stops the player death animation.
+     */
+    boolean stopAnimation() {
+        if (animationController.isFinished()) {
+            animationController.stopAnimation();
+            animationStopped = true;
+        }
+        return animationStopped;
     }
 
     /**

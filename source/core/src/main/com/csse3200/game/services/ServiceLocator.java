@@ -4,6 +4,7 @@ import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.input.InputService;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
+import com.csse3200.game.areas.GameAreaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,8 @@ public class ServiceLocator {
   private static GameTime timeSource;
   private static InputService inputService;
   private static ResourceService resourceService;
-
+  private static GameAreaService gameAreaService;
+  private static RandomService randomService;
 
   public static EntityService getEntityService() {
     return entityService;
@@ -47,6 +49,14 @@ public class ServiceLocator {
 
   public static ResourceService getResourceService() {
     return resourceService;
+  }
+
+  public static GameAreaService getGameAreaService() {
+    return gameAreaService;
+  }
+
+  public static RandomService getRandomService() {
+    return randomService;
   }
 
   public static void registerEntityService(EntityService service) {
@@ -79,6 +89,16 @@ public class ServiceLocator {
     resourceService = source;
   }
 
+  public static void registerGameAreaService(GameAreaService source) {
+    logger.debug("Registering gameArea service {}", source);
+    gameAreaService = source;
+  }
+
+  public static void registerRandomService(RandomService source) {
+    logger.debug("Registering random service {}", source);
+    randomService = source;
+  }
+
   public static void clear() {
     entityService = null;
     renderService = null;
@@ -86,6 +106,7 @@ public class ServiceLocator {
     timeSource = null;
     inputService = null;
     resourceService = null;
+    gameAreaService = null;
   }
 
   private ServiceLocator() {

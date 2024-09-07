@@ -18,7 +18,10 @@ public class NPCConfigs {
 
   public static class NPCConfig extends BaseEntityConfig {
     public TaskConfig tasks = new TaskConfig();
+    public EffectConfig[] effects;
     public AnimationData[] animations = new AnimationData[0];
+    public float attackRange;
+    public float attackRate;
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;
@@ -69,6 +72,13 @@ public class NPCConfigs {
         public float runSpeed;
         public float waitTime;
       }
+    }
+
+    public static class EffectConfig {
+      public String type;
+      public float force; // For knockback
+      public float duration; // For stun or poison
+      public int damagePerSecond; // For poison
     }
 
     public static class AnimationData {

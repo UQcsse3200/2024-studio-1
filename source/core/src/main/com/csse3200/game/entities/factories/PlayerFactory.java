@@ -90,6 +90,7 @@ public class PlayerFactory {
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(animator)
                 .addComponent(new PlayerAnimationController())
+                .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
                 .addComponent(new WeaponComponent(

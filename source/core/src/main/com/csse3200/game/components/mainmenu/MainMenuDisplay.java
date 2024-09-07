@@ -75,14 +75,6 @@ public class MainMenuDisplay extends UIComponent {
         bg_logo.setPosition(0, 0);
 
         // Triggers an event when the button is pressed
-        startBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Start button clicked");
-                        entity.getEvents().trigger("start");
-                    }
-                });
 
         difficultyBtns.forEach((difficulty, btn) -> btn.addListener(
                 new ChangeListener() {

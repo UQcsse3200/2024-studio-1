@@ -68,18 +68,12 @@ public class GdxGame extends Game {
    * @return new screen
    */
   private Screen newScreen(ScreenType screenType) {
-    switch (screenType) {
-      case MAIN_MENU:
-        return new MainMenuScreen(this);
-      case MAIN_GAME:
-        return new MainGameScreen(this);
-      case SETTINGS:
-        return new SettingsScreen(this);
-      case HOW_TO_PLAY:
-        return new HowToPlayScreen(this);
-      default:
-        return null;
-    }
+      return switch (screenType) {
+          case MAIN_MENU -> new MainMenuScreen(this);
+          case MAIN_GAME -> new MainGameScreen(this);
+          case SETTINGS -> new SettingsScreen(this);
+          case HOW_TO_PLAY -> new HowToPlayScreen(this);
+      };
   }
 
   public enum ScreenType {

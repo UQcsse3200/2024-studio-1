@@ -11,6 +11,9 @@ import com.csse3200.game.files.UserSettings.Settings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Service for loading resources, e.g. textures, texture atlases, sounds, music, etc. Add new load
  * methods when new types of resources are added to the game.
@@ -20,13 +23,14 @@ public class ResourceService implements Disposable {
     private static final Logger logger = LoggerFactory.getLogger(ResourceService.class);
     private final AssetManager assetManager;
 
+    private final Map<String, Integer> referenceCounts = new HashMap<>();
+
     public ResourceService() {
         this(new AssetManager());
     }
 
     /**
      * Initialise this ResourceService to use the provided AssetManager.
-     *
      * @param assetManager AssetManager to use in this service.
      * @requires assetManager != null
      */
@@ -36,7 +40,6 @@ public class ResourceService implements Disposable {
 
     /**
      * Load an asset from a file.
-     *
      * @param filename Asset path
      * @param type     Class to load into
      * @param <T>      Type of class to load into
@@ -49,10 +52,9 @@ public class ResourceService implements Disposable {
 
     /**
      * Check if an asset has been loaded already
-     *
      * @param resourceName path of the asset
-     * @param type         Class type of the asset
-     * @param <T>          Type of the asset
+     * @param type Class type of the asset
+     * @param <T> Type of the asset
      * @return true if asset has been loaded, false otherwise
      * @see AssetManager#contains(String)
      */
@@ -120,7 +122,11 @@ public class ResourceService implements Disposable {
     private <T> void loadAsset(String assetName, Class<T> type) {
         logger.debug("Loading {}: {}", type.getSimpleName(), assetName);
         try {
+            if (!assetManager.isLoaded(assetName)) {
+                referenceCounts.put(assetName, 0);
+            }
             assetManager.load(assetName, type);
+            referenceCounts.put(assetName, referenceCounts.get(assetName) + 1);
         } catch (Exception e) {
             logger.error("Could not load {}: {}", type.getSimpleName(), assetName);
         }
@@ -193,7 +199,12 @@ public class ResourceService implements Disposable {
         for (String assetName : assetNames) {
             logger.debug("Unloading {}", assetName);
             try {
-                assetManager.unload(assetName);
+                if (referenceCounts.getOrDefault(assetName, 0) > 1) {
+                    referenceCounts.put(assetName, referenceCounts.get(assetName) - 1);
+                } else {
+                    assetManager.unload(assetName);
+                    referenceCounts.remove(assetName);
+                }
             } catch (Exception e) {
                 logger.error("Could not unload {}", assetName);
             }

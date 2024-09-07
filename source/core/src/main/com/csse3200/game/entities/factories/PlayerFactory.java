@@ -2,11 +2,10 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.*;
-import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.inventory.ItemPickupComponent;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
@@ -89,6 +88,13 @@ public class PlayerFactory extends LoadedFactory {
                         Collectible.Type.RANGED_WEAPON,
                         10, 1, 1, 10, 10, 0));
 
+        if(config.items != null) {
+            Array<Collectible> items = stringToItems(config.items);
+            for (Collectible item : items) {
+                inventoryComponent.getInventory().addItem(item); // Add each item to inventory
+            }
+        }
+
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
@@ -107,6 +113,35 @@ public class PlayerFactory extends LoadedFactory {
         animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
         return animator;
+    }
+
+    private static Array<Collectible> stringToItems(String[] itemSpecs) {
+        Array<Collectible> items = new Array<>();
+
+        for (String spec : itemSpecs) {
+            Collectible item = createCollectibleFromSpecification(spec);
+            if (item != null) {
+                items.add(item);
+            }
+        }
+
+        return items;
+    }
+
+    private static Collectible createCollectibleFromSpecification(String spec){
+        switch (spec.toLowerCase()) {
+            case "bandage":
+                return new Bandage();
+            case "med_kit":
+                return new MedKit();
+            case "shieldpotion":
+                return new ShieldPotion();
+            case "energydrink":
+                return new EnergyDrink();
+            default:
+                logger.warn("Unknown item specification: " + spec);
+                return null;
+        }
     }
 
     @Override

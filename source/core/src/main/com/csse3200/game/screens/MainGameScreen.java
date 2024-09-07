@@ -29,6 +29,7 @@ import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
 
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
@@ -51,6 +52,7 @@ public class MainGameScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
+    private static final String SAVE_CONFIG_PATH = "configs/player_save.json";
 
     public MainGameScreen(GdxGame game) {
         this.game = game;
@@ -82,9 +84,17 @@ public class MainGameScreen extends ScreenAdapter {
         createUI();
 
         // TODO move this to a "Character Select Screen"
-        this.playerFactory = new PlayerFactory(List.of(
-                "configs/player.json"
-        ));
+        File saveFile = new File(SAVE_CONFIG_PATH);
+        // Check if there is saved file exist, which need to refactor once the menu team implement the load function
+        if (saveFile.exists()) {
+            this.playerFactory = new PlayerFactory(List.of(
+                    SAVE_CONFIG_PATH
+            ));
+        } else {
+            this.playerFactory = new PlayerFactory(List.of(
+                    "configs/player.json"
+            ));
+        }
         Entity player = playerFactory.createPlayer();
         logger.debug("Initialising main game screen entities");
 

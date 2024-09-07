@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
  * It plays a death animation, disables physics and AI, and removes the entity from the game.
  */
 public class NPCDeathHandler extends Component {
-    public static final Logger logger = LoggerFactory.getLogger(NPCDeathHandler.class);
     public static final float DEATH_ANIMATION_DURATION = 1.0f;
 
     public AnimationRenderComponent animator;
@@ -34,7 +33,6 @@ public class NPCDeathHandler extends Component {
      * disabling physics and AI components, and scheduling the NPC's removal from the game.
      */
     void onDeath() {
-        logger.info("NPC {} death animation started.", entity.getId());
 
         // Play death animation if available
         if (animator != null && animator.hasAnimation("death")) {
@@ -49,7 +47,6 @@ public class NPCDeathHandler extends Component {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                logger.info("NPC {} death animation complete. Removing from game.", entity.getId());
                 ServiceLocator.getEntityService().unregister(entity);
                 entity.dispose();
                 NPCDamageHandlerComponent.deadAnimals.remove(Integer.valueOf(entity.getId()));

@@ -7,23 +7,28 @@ public class PoisonEffect implements Effect {
     private int damagePerSecond;
     private float duration;
     private float timeElapsed;
+    private CombatStatsComponent dummyAttacker;
 
     public PoisonEffect(int damagePerSecond, float duration) {
         this.damagePerSecond = damagePerSecond;
         this.duration = duration;
         this.timeElapsed = 0;
+        this.dummyAttacker = new CombatStatsComponent(1, damagePerSecond);
     }
 
     @Override
     public void apply(Entity target) {
+        // Initial application logic, if needed
     }
 
     @Override
     public void update(Entity target, float deltaTime) {
-        // Apply damage over time
         timeElapsed += deltaTime;
         if (timeElapsed >= 1) {
-            target.getComponent(CombatStatsComponent.class).takeDamage(damagePerSecond);
+            CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
+            if (targetStats != null) {
+                targetStats.hit(dummyAttacker);
+            }
             timeElapsed = 0;
         }
         duration -= deltaTime;

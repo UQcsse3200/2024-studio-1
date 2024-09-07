@@ -95,6 +95,36 @@ public class PlayerFactory extends LoadedFactory {
             }
         }
 
+        if (config.melee != null) {
+            MeleeWeapon meleeWeapon = createMeleeWeaponFromSpecification(config.melee); // Create MeleeWeapon
+            WeaponComponent meleeWeaponComponent = new WeaponComponent(
+                    new Sprite(meleeWeapon.getIcon()),  // Use texture from the melee weapon class
+                    Collectible.Type.MELEE_WEAPON,
+                    meleeWeapon.getDamage(),
+                    meleeWeapon.getRange(),
+                    meleeWeapon.getFireRate(),
+                    0, 0,  0
+            );
+            player.addComponent(meleeWeaponComponent); // Add melee weapon component to the player
+            inventoryComponent.getInventory().setMelee(meleeWeapon); // Set melee weapon in the inventory
+        }
+
+        if (config.ranged != null) {
+            RangedWeapon rangedWeapon = createRangeFromSpec(config.ranged);
+            WeaponComponent rangedWeaponComponent = new WeaponComponent(
+                    new Sprite(rangedWeapon.getIcon()),
+                    Collectible.Type.RANGED_WEAPON,
+                    rangedWeapon.getDamage(),
+                    rangedWeapon.getRange(),
+                    rangedWeapon.getFireRate(),
+                    rangedWeapon.getAmmo(),
+                    rangedWeapon.getMaxAmmo(),
+                    rangedWeapon.getReloadTime()
+            );
+            player.addComponent(rangedWeaponComponent); // Add melee weapon component to the player
+            inventoryComponent.getInventory().setRanged(rangedWeapon); // Set melee weapon in the inventory
+        }
+
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
@@ -113,6 +143,26 @@ public class PlayerFactory extends LoadedFactory {
         animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
         return animator;
+    }
+
+    private MeleeWeapon createMeleeWeaponFromSpecification(String specification) {
+        switch (specification.toLowerCase()) {
+            case "knife":
+                return new Knife();
+            case "pickaxe":
+                return new Pickaxe();
+            default:
+                throw new IllegalArgumentException("Unknown melee weapon specification: " + specification);
+        }
+    }
+
+    private RangedWeapon createRangeFromSpec(String specification) {
+        switch (specification.toLowerCase()) {
+            case "shotgun":
+                return new Shotgun();
+            default:
+                throw new IllegalArgumentException("Unknown ranged weapon specification: " + specification);
+        }
     }
 
     private static Array<Collectible> stringToItems(String[] itemSpecs) {
@@ -138,6 +188,9 @@ public class PlayerFactory extends LoadedFactory {
                 return new ShieldPotion();
             case "energydrink":
                 return new EnergyDrink();
+            //Add when team 3 implement
+            //case "syringe":
+                //return new Syringe();
             default:
                 logger.warn("Unknown item specification: " + spec);
                 return null;

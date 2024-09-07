@@ -85,17 +85,13 @@ public class MainGameScreen extends ScreenAdapter {
         createUI();
 
         // TODO move this to a "Character Select Screen"
-        File saveFile = new File("configs/player_save.json");
-        // Check if there is saved file exist, which need to refactor once the menu team implement the load function
-        if (saveFile.exists()) {
-            this.playerFactory = new PlayerFactory(List.of(
-                    "configs/player_save.json"
-            ));
-        } else {
-            this.playerFactory = new PlayerFactory(List.of(
-                    "configs/player.json"
-            ));
-        }
+        /**
+         * based on the characters selected, changed the link
+         * If Player choose Load, then create
+         */
+        this.playerFactory = new PlayerFactory(List.of(
+                "configs/player.json"
+        ));
         Entity player = playerFactory.createPlayer();
 
         List<Entity> players = playerSelection.createTwoPlayers();

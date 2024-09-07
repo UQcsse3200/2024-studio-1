@@ -75,21 +75,23 @@ public class PlayerInventoryDisplay extends UIComponent {
     }
 
     /**
-     * Takes all items stored in player's inventory and displays them with
-     * their amount and icon on UI, displaying one on each line.
+     * Helper method to adds and str all the 'Usable Items' a player can collect
+     * to player's inventory
      */
-    void addItems() {
+    private void addItems() {
         addItem("Medkit", new MedKit().getIcon());
         addItem("Shield Potion", new ShieldPotion().getIcon());
         addItem("Bandage", new Bandage().getIcon());
     }
 
     /**
-     * Adds an item to the inventory UI with an icon and initial quantity.
+     * Display an image and its description on UI
+     *
      * @param itemName The name of the item.
      * @param itemIcon The icon associated with the item.
      */
     private void addItem(String itemName, Texture itemIcon) {
+        // initialise the image, the name and the quantity as Label
         Image icon = new Image(itemIcon);
         Label nameLabel = new Label(itemName, skin, "small");
         Label quantityLabel = new Label(" x0", skin, "small");
@@ -104,47 +106,43 @@ public class PlayerInventoryDisplay extends UIComponent {
     }
 
     /**
-     * Updates the inventory UI with the current items that player has.
-     * This method will update the quantities of existing items.
+     * Get the quantities of items in the inventory.
+     *
+     * @return A map of item names to their quantities.
      */
-    public void updateInventoryUI() {
-        // possible bug:
-        // the inventory list doesnt have that item so it never updates the count
-        // so maybe create like an array that stores all the inventory and use .contains
-        // to check if teh inventory has or not and if not then set to zero
-
-        // Update with actual quantities from inventory
+    private Map<String, Integer> getItemQuantities() {
+        // initialise all items with 0 quantity
         Map<String, Integer> itemQuantities = new HashMap<>();
         for (String itemName : itemLabels.keySet()) {
-            itemQuantities.put(itemName, 0);  // Start all counts at 0
+            itemQuantities.put(itemName, 0);
         }
-
+        // store the amount of each item to update the count later
         for (Collectible item : inventoryComponent.getInventory().getItems()) {
             String itemName = item.getName();
             itemQuantities.put(itemName, itemQuantities.getOrDefault(itemName, 0) + 1);
         }
+        return itemQuantities;
+    }
+
+
+    /**
+     * Updates the inventory UI with the current items that player has.
+     * This method will update the quantities of existing items.
+     */
+    public void updateInventoryUI() {
+
+        Map<String, Integer> itemQuantities = getItemQuantities();
 
         // Update the displayed quantities
         for (Map.Entry<String, Integer> entry : itemQuantities.entrySet()) {
             Label quantityLabel = itemLabels.get(entry.getKey());
-
             if (quantityLabel != null) {
                 int quantity = entry.getValue();
-
-                // Update the quantity text, including when it's 0
                 quantityLabel.setText(" x" + quantity);
-
-                /*
-                // Ensure visibility of the label and icon, regardless of quantity
-                Image itemIcon = itemIcons.get(entry.getKey());
-                if (itemIcon != null) {
-                    itemIcon.setVisible(true); // Always visible, even if count is 0
-                }
-
-                 */
             }
         }
     }
+
 
     @Override
     public void draw(SpriteBatch batch) {

@@ -117,19 +117,10 @@ public class Inventory {
      */
     public void addItem(Collectible item) {
         this.items.add(item);
-        if (item instanceof UsableItem usableItem) {
-            // If the item is not in the map, set the count to 1, otherwise increment the count.
-            Integer count = component.getUsableItems().get(usableItem) + 1;
-            component.getUsableItems().put(usableItem, count);
-        }
     }
 
 
     public void removeItem(Collectible item) {
         this.items.removeValue(item, true);
-        if (item instanceof UsableItem usableItem) {
-            Integer count = component.getUsableItems().get(usableItem) - 1;
-            component.getUsableItems().put(usableItem, count);
-        }
     }
 }

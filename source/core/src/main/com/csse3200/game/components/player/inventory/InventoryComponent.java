@@ -16,7 +16,11 @@ import java.util.Map;
 public class InventoryComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
     private final Inventory inventory;
-    private final Map<UsableItem, Integer> usableItems = new HashMap<>();
+    private final Map<Integer, UsableItem> usableItems = Map.of(
+            1, new MedKit(),
+            2, new ShieldPotion(),
+            3, new Bandage()
+    );
     private int rangedWeaponCount = 0;
     private int meleeWeaponCount = 0;
 
@@ -26,11 +30,6 @@ public class InventoryComponent extends Component {
     public InventoryComponent() {
         super();
         this.inventory = new Inventory(this);
-        usableItems.put(new MedKit(), 0);
-        usableItems.put(
-                new ShieldPotion(), 0);
-        usableItems.put(
-                new Bandage(), 0);
     }
 
     /**
@@ -72,7 +71,7 @@ public class InventoryComponent extends Component {
         return inventory;
     }
 
-    public Map<UsableItem, Integer> getUsableItems() {
+    public Map<Integer, UsableItem> getUsableItems() {
         return usableItems;
     }
 }

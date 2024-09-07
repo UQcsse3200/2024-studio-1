@@ -274,9 +274,6 @@ public class WeaponComponent extends Component {
         this.reloadTime = rangedWeapon.getReloadTime();
         this.lastAttack = 0L;
         this.getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(600);
-        //this.itemEntity = itemEntity;
-        //this.itemEntity.addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON));
-        //this.itemEntity.getComponent(HitboxComponent.class).setAsBox(new Vector2(3f, 3f));
         if (this.fireRate == 0) {
             this.attackInterval = 0L;
         } else {
@@ -304,7 +301,7 @@ public class WeaponComponent extends Component {
             this.attackInterval = (1000L / this.fireRate);
         }
         this.rangedItemEntity = itemEntity;
-        getEntity().getComponent(RangeDetectionComponent.class).update(itemEntity);
+        getEntity().getComponent(RangeDetectionComponent.class).updateWeaponEntity(itemEntity);
     }
 
     @Override

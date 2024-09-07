@@ -59,7 +59,7 @@ public class WeaponFactory {
     public static Entity createCollectibleEntity(Collectible collectible) {
         Entity collectibleEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(new TextureRenderComponent(collectible.getIcon()));
@@ -68,6 +68,7 @@ public class WeaponFactory {
         // set the collider to 0
         collectibleEntity.getComponent(ColliderComponent.class).setSensor(false);
         collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();
+        // every hitbox is a collider and share the same physics component (create a new one is useless)
         collectibleEntity.getComponent(HitboxComponent.class).setSize(new Vector2(3f, 3f));
         logger.info("Created collectible entity: " + collectible);
         return collectibleEntity;

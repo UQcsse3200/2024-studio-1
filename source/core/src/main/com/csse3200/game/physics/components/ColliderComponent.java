@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
 public class ColliderComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(ColliderComponent.class);
 
-  private final FixtureDef fixtureDef;
-  private Fixture fixture;
+  private final FixtureDef fixtureDef; // Fixture definition
+  private Fixture fixture; // Fixture
 
   public ColliderComponent() {
     fixtureDef = new FixtureDef();

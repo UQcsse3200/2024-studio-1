@@ -1,7 +1,6 @@
 package com.csse3200.game.physics.components;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Shape;
 
 /**
  * Physics comp
@@ -18,7 +17,7 @@ public class HitboxComponent extends ColliderComponent {
    * @param size
    * @return
    */
-  public ColliderComponent setSize(Vector2 size) {
-    return super.setAsBox(size);
+  public HitboxComponent setSize(Vector2 size) {
+    return (HitboxComponent) super.setAsBox(size);
   }
 }

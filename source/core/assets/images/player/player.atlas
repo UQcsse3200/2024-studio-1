@@ -227,14 +227,14 @@ death-down
   orig: 800, 160
   offset: 319, 9
   index: -1
-death-down
+death-down0
   rotate: true
   xy: 1, 777
   size: 172, 102
   orig: 800, 160
   offset: 319, 9
   index: -1
-death-down
+death-down0
   rotate: true
   xy: 95, 389
   size: 172, 92

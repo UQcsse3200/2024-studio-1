@@ -50,7 +50,7 @@ public class MainRoom extends BaseRoom {
         logger.info("Spawning: {}", specification);
 
         logger.info("Spawning terrain:");
-        this.spawnTerrain(area, WALL_THICKNESS);
+        this.spawnTerrain(area, WALL_THICKNESS, false);
         logger.info("Spawning doors:");
         this.spawnDoors(area, player);
         List<String> split = Arrays.stream(specification.split(",")).toList();

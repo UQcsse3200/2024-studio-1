@@ -41,7 +41,7 @@ public class BossRoom extends BaseRoom {
 
     @Override
     public void spawn(Entity player, MainGameArea mainGameArea) {
-        this.spawnTerrain(mainGameArea, WALL_THICKNESS);
+        this.spawnTerrain(mainGameArea, WALL_THICKNESS, true);
         List<String> split = Arrays.stream(specification.split(",")).toList();
         GridPoint2 min = new GridPoint2(
                 Integer.parseInt(split.get(0)),

@@ -98,7 +98,6 @@ public class NPCFactory {
             .addComponent(animator)
             .addComponent(new NPCAnimationController())
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
@@ -150,6 +149,19 @@ public class NPCFactory {
     if (tasks.charge != null) {
       aiComponent.addTask(new ChargeTask(target, tasks.charge.priority, tasks.charge.viewDistance,
               tasks.charge.chaseDistance, tasks.charge.chaseSpeed, tasks.charge.waitTime));
+    }
+
+    // Add boss attack task
+    if (tasks.bossAttack != null) {
+      aiComponent.addTask(new BossAttackTask(target, tasks.bossAttack.priority, tasks.bossAttack.viewDistance,
+              tasks.bossAttack.chaseDistance, tasks.bossAttack.chaseSpeed, tasks.bossAttack.chargeSpeed,
+              tasks.bossAttack.waitTime));
+    }
+
+    // Add run away task
+    if (tasks.runAway != null) {
+      aiComponent.addTask(new RunAwayTask(target, tasks.runAway.priority, tasks.runAway.viewDistance,
+              tasks.runAway.maxRunDistance, tasks.runAway.runSpeed, tasks.runAway.waitTime));
     }
 
     return aiComponent;

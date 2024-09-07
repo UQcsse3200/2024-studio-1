@@ -1,5 +1,5 @@
 {
-  "projectileRat": {
+  "dragon": {
     "health": 200,
     "baseAttack": 15,
     "tasks": {

@@ -7,7 +7,6 @@ import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.BaseEntityConfig;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -73,6 +72,27 @@ public class NPCFactory {
       // This could be upgraded to a loading screen
       logger.info("Loading... {}%", resourceService.getProgress());
     }
+  }
+
+  /**
+   * Create a new NPC from specification
+   *
+   * @param specification the specification of the npc
+   * @param target entity to chase
+   * @return the created npc
+   */
+  public Entity create(String specification, Entity target) {
+    return switch (specification) {
+      case "Dragon" -> this.createDragon(target);
+      case "Rat" -> this.createRat(target);
+      case "Bear" -> this.createBear(target);
+      case "Snake" -> this.createSnake(target);
+      case "Dino" -> this.createDino(target);
+      case "Bat" -> this.createBat(target);
+      case "Dog" -> this.createDog(target);
+      case "Minotaur" -> this.createMinotaur(target);
+      default -> throw new IllegalArgumentException("Unknown animal: " + specification);
+    };
   }
 
   /**
@@ -178,11 +198,11 @@ public class NPCFactory {
    * @param target entity to chase
    * @return the created rat entity
    */
-  public Entity createProjectileRat(Entity target) {
-    NPCConfigs.NPCConfig config = configs.projectileRat;
+  public Entity createDragon(Entity target) {
+    NPCConfigs.NPCConfig config = configs.dragon;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity projectileRat = createBaseNPC(aiComponent, config, animator);
+    Entity projectileRat = createBaseNPC(target, aiComponent, config, animator);
 
     return projectileRat;
   }

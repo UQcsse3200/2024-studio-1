@@ -112,16 +112,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Player's base attack by default</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#equipped" class="member-name-link">equipped</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#favouriteColour" class="member-name-link">favouriteColour</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-second odd-row-color"><code><a href="#favouriteColour" class="member-name-link">favouriteColour</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">Player's favourite colour by default</div>
 </div>
-<div class="col-first odd-row-color"><code>int</code></div>
-<div class="col-second odd-row-color"><code><a href="#gold" class="member-name-link">gold</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>int</code></div>
 <div class="col-second even-row-color"><code><a href="#health" class="member-name-link">health</a></code></div>
 <div class="col-last even-row-color">
@@ -138,9 +132,24 @@ loadScripts(document, 'script');</script>
 <div class="block">The specification of player's equipped melee weapon</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#ranged" class="member-name-link">ranged</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#name" class="member-name-link">name</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">The specification of player's equiped ranged weapon</div>
+<div class="block">This character's name</div>
+</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#ranged" class="member-name-link">ranged</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The specification of player's equipped ranged weapon</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#textureAtlasFilename" class="member-name-link">textureAtlasFilename</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">The texture atlas this player uses</div>
+</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#textureFilename" class="member-name-link">textureFilename</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The texture this player uses</div>
 </div>
 </div>
 <div class="inherited-list">
@@ -200,15 +209,10 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="equipped">
-<h3>equipped</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">equipped</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="gold">
-<h3>gold</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">gold</span></div>
+<section class="detail" id="name">
+<h3>name</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">name</span></div>
+<div class="block">This character's name</div>
 </section>
 </li>
 <li>
@@ -250,7 +254,21 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="ranged">
 <h3>ranged</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">ranged</span></div>
-<div class="block">The specification of player's equiped ranged weapon</div>
+<div class="block">The specification of player's equipped ranged weapon</div>
+</section>
+</li>
+<li>
+<section class="detail" id="textureFilename">
+<h3>textureFilename</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">textureFilename</span></div>
+<div class="block">The texture this player uses</div>
+</section>
+</li>
+<li>
+<section class="detail" id="textureAtlasFilename">
+<h3>textureAtlasFilename</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">textureAtlasFilename</span></div>
+<div class="block">The texture atlas this player uses</div>
 </section>
 </li>
 </ul>

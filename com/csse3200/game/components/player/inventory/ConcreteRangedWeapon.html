@@ -97,6 +97,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ConcreteRangedWeapon</span>
 <span class="extends-implements">extends <a href="RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a></span></div>
+<div class="block">A ranged weapon Collectible.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -118,7 +119,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">ConcreteRangedWeapon</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">create a new basic ranged weapon from a specification.</div>
+</div>
 </div>
 </section>
 </li>
@@ -182,6 +185,13 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(java.lang.String)">
 <h3>ConcreteRangedWeapon</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ConcreteRangedWeapon</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification)</span></div>
+<div class="block">create a new basic ranged weapon from a specification.
+ The specification format is:
+ "name,textureFilePath,damage,range,fireRate,ammo,maxAmmo,reloadTime"</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>specification</code> - the specification of the ranged weapon to create.</dd>
+</dl>
 </section>
 </li>
 </ul>

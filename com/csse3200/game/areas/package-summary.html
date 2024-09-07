@@ -87,19 +87,54 @@ loadScripts(document, 'script');</script>
 </li>
 <li>
 <div id="class-summary">
-<div class="caption"><span>Classes</span></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="class-summary-tab0" role="tab" aria-selected="true" aria-controls="class-summary.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary', 2)" class="active-table-tab">All Classes and Interfaces</button><button id="class-summary-tab1" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab1', 2)" class="table-tab">Interfaces</button><button id="class-summary-tab2" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab2', 2)" class="table-tab">Classes</button></div>
+<div id="class-summary.tabpanel" role="tabpanel" aria-labelledby="class-summary-tab0">
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="EntitySpawner.html" title="class in com.csse3200.game.areas">EntitySpawner</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="ForestGameArea.html" title="class in com.csse3200.game.areas">ForestGameArea</a></div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">This is the foundation of a room,
+ it is able to use other factories to build the complex structures needed for a room in the game.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="BossRoom.html" title="class in com.csse3200.game.areas">BossRoom</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">Forest area for the demo game with trees, a player, and some enemies.</div>
+<div class="block">A boos room of the game,
+ these often have unique animals and rewards.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Represents an area in the game, such as a level, indoor area, etc.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="GameAreaService.html" title="class in com.csse3200.game.areas">GameAreaService</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">&nbsp;</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="Level.html" title="class in com.csse3200.game.areas">Level</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">A layer of the game consisting of a number of rooms for the player to overcome.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="LevelFactory.html" title="interface in com.csse3200.game.areas">LevelFactory</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="block">A level factory is essentially a "game mode",
+ it decides the behaviour of the game by supplying "levels"</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="LevelMap.html" title="class in com.csse3200.game.areas">LevelMap</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">A Factory responsible for loading and managing json file data for the game's Map</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">Forest area for the demo game with trees, a player, and some enemies.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="MainGameLevelFactory.html" title="class in com.csse3200.game.areas">MainGameLevelFactory</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">This is the main game mode.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="MainRoom.html" title="class in com.csse3200.game.areas">MainRoom</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">&nbsp;</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="TestGameArea.html" title="class in com.csse3200.game.areas">TestGameArea</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">This is a testing ground for difficult to test</div>
+</div>
 </div>
 </div>
 </div>

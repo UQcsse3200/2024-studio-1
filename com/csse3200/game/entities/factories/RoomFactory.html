@@ -39,7 +39,7 @@ loadScripts(document, 'script');</script>
 <ul>
 <li>Nested</li>
 <li>Field</li>
-<li>Constr</li>
+<li><a href="#constructor-summary">Constr</a></li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 </li>
@@ -47,7 +47,7 @@ loadScripts(document, 'script');</script>
 <p>Detail:</p>
 <ul>
 <li>Field</li>
-<li>Constr</li>
+<li><a href="#constructor-detail">Constr</a></li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
 </li>
@@ -59,13 +59,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
 </div>
@@ -92,35 +92,49 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">RoomFactory</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 <div class="block">Factory to create room entities.
-
- <p>Each room entity type should have a creation method that returns a corresponding entity.</div>
+ <p>
+ Each room entity type should have a creation method that returns a corresponding entity.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<li>
+<section class="constructor-summary" id="constructor-summary">
+<h2>Constructor Summary</h2>
+<div class="caption"><span>Constructors</span></div>
+<div class="summary-table two-column-summary">
+<div class="table-header col-first">Constructor</div>
+<div class="table-header col-last">Description</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory)" class="member-name-link">RoomFactory</a><wbr>(<a href="NPCFactory.html" title="class in com.csse3200.game.entities.factories">NPCFactory</a>&nbsp;npcFactory,
+ <a href="CollectibleFactory.html" title="class in com.csse3200.game.entities.factories">CollectibleFactory</a>&nbsp;collectibleFactory,
+ <a href="../../areas/terrain/TerrainFactory.html" title="class in com.csse3200.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Construct a new  Room Factory</div>
+</div>
+</div>
+</section>
+</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createConnections(com.csse3200.game.entities.Room,com.csse3200.game.entities.Room,com.csse3200.game.entities.Room,com.csse3200.game.entities.Room,com.csse3200.game.entities.Room)" class="member-name-link">createConnections</a><wbr>(<a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;mainRoom,
- <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;north,
- <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;south,
- <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;east,
- <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;west)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Adds connections to other rooms from this room
- If in some direction you don't want to connect a room, just pass null</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Room.html" title="interface in com.csse3200.game.entities">Room</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createBossRoom(java.util.List,java.lang.String)" class="member-name-link">createBossRoom</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;roomConnections,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Constructs boss room</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createRoom(boolean)" class="member-name-link">createRoom</a><wbr>(boolean&nbsp;isInside)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Room.html" title="interface in com.csse3200.game.entities">Room</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createRoom(java.util.List,java.lang.String)" class="member-name-link">createRoom</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;roomConnections,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Constructs room</div>
 </div>
 </div>
@@ -135,43 +149,55 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<li>
+<section class="constructor-details" id="constructor-detail">
+<h2>Constructor Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="&lt;init&gt;(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory)">
+<h3>RoomFactory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">RoomFactory</span><wbr><span class="parameters">(<a href="NPCFactory.html" title="class in com.csse3200.game.entities.factories">NPCFactory</a>&nbsp;npcFactory,
+ <a href="CollectibleFactory.html" title="class in com.csse3200.game.entities.factories">CollectibleFactory</a>&nbsp;collectibleFactory,
+ <a href="../../areas/terrain/TerrainFactory.html" title="class in com.csse3200.game.areas.terrain">TerrainFactory</a>&nbsp;terrainFactory)</span></div>
+<div class="block">Construct a new  Room Factory</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>npcFactory</code> - the npc factory to populate the room with.</dd>
+<dd><code>collectibleFactory</code> - the collectible factory to populate the room with.</dd>
+<dd><code>terrainFactory</code> - the terrain factory to re-skin the room with.</dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="createRoom(boolean)">
+<section class="detail" id="createRoom(java.util.List,java.lang.String)">
 <h3>createRoom</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Room.html" title="class in com.csse3200.game.entities">Room</a></span>&nbsp;<span class="element-name">createRoom</span><wbr><span class="parameters">(boolean&nbsp;isInside)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Room.html" title="interface in com.csse3200.game.entities">Room</a></span>&nbsp;<span class="element-name">createRoom</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;roomConnections,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification)</span></div>
 <div class="block">Constructs room</div>
 <dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>isInside</code> - should it be drawn on map</dd>
 <dt>Returns:</dt>
 <dd>room</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="createConnections(com.csse3200.game.entities.Room,com.csse3200.game.entities.Room,com.csse3200.game.entities.Room,com.csse3200.game.entities.Room,com.csse3200.game.entities.Room)">
-<h3>createConnections</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Room.html" title="class in com.csse3200.game.entities">Room</a></span>&nbsp;<span class="element-name">createConnections</span><wbr><span class="parameters">(<a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;mainRoom,
- <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;north,
- <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;south,
- <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;east,
- <a href="../Room.html" title="class in com.csse3200.game.entities">Room</a>&nbsp;west)</span></div>
-<div class="block">Adds connections to other rooms from this room
- If in some direction you don't want to connect a room, just pass null</div>
+<section class="detail" id="createBossRoom(java.util.List,java.lang.String)">
+<h3>createBossRoom</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Room.html" title="interface in com.csse3200.game.entities">Room</a></span>&nbsp;<span class="element-name">createBossRoom</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;roomConnections,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification)</span></div>
+<div class="block">Constructs boss room</div>
 <dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>mainRoom</code> - main room</dd>
-<dd><code>north</code> - room in north</dd>
-<dd><code>south</code> - room in south</dd>
-<dd><code>east</code> - room in east</dd>
-<dd><code>west</code> - room in west</dd>
 <dt>Returns:</dt>
-<dd>connected room</dd>
+<dd>room</dd>
 </dl>
 </section>
 </li>

@@ -1,8 +1,8 @@
 {
   "name": "default",
-  "health": 100,
+  "health": 60,
   "favouriteColour": "peach",
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
-  "melee": "pickaxe"
+  "items": ["bandage","energydrink"]
 }

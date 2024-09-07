@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.entities.Entity;
@@ -29,6 +30,7 @@ import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
 
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
@@ -46,6 +48,7 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png"
     };
+    private PlayerSelection playerSelection = new PlayerSelection();
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
     private final GdxGame game;
@@ -82,10 +85,16 @@ public class MainGameScreen extends ScreenAdapter {
         createUI();
 
         // TODO move this to a "Character Select Screen"
+        /**
+         * based on the characters selected, changed the link
+         * If Player choose Load, then create
+         */
         this.playerFactory = new PlayerFactory(List.of(
                 "configs/player.json"
         ));
         Entity player = playerFactory.createPlayer();
+
+        List<Entity> players = playerSelection.createTwoPlayers();
         logger.debug("Initialising main game screen entities");
 
         LevelFactory levelFactory = new MainGameLevelFactory();

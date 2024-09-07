@@ -16,6 +16,9 @@ bounds:2,262,128,128
 Attack_right
 index:1
 bounds:392,2,128,128
+default
+index:3
+bounds:652,2,128,128
 Attack_right
 index:3
 bounds:652,2,128,128

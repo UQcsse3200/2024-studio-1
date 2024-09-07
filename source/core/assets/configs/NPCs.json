@@ -26,11 +26,11 @@
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "Idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "Hurt_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "Walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "Attack_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "Death_left", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
   "rat": {

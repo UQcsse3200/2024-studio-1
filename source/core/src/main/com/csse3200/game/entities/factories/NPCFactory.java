@@ -38,6 +38,7 @@ public class NPCFactory {
   private static final String[] npcAtlas ={
     "images/ghost.atlas", 
     "images/ghostKing.atlas",
+    "images/npc/small_dragon/small_dragon.atlas",
     "images/rat.atlas", 
     "images/snake.atlas", 
     "images/minotaur.atlas",
@@ -50,6 +51,7 @@ public class NPCFactory {
     "images/ghost_1.png",
     "images/ghost_king.png",
     "images/rat.png",
+    "images/npc/small_dragon/small_dragon.png",
     "images/minotaur.png",
     "images/dog.png",
     "images/snake.png",
@@ -201,10 +203,10 @@ public class NPCFactory {
   public Entity createDragon(Entity target) {
     NPCConfigs.NPCConfig config = configs.dragon;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity projectileRat = createBaseNPC(target, aiComponent, config, animator);
+    AnimationRenderComponent animator = createAnimator("images/npc/small_dragon/small_dragon.atlas", config.animations);
+    Entity dragon = createBaseNPC(target, aiComponent, config, animator);
 
-    return projectileRat;
+    return dragon;
   }
 
   /**

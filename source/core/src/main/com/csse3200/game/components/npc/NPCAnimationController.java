@@ -19,6 +19,12 @@ public class NPCAnimationController extends Component {
         entity.getEvents().addListener("walk", this::animateWalk);
         entity.getEvents().addListener("attack", this::animateAttack);
         entity.getEvents().addListener("death", this::animateDeath);
+
+        entity.getEvents().addListener("Idle_left", this::animateIdleLeft);
+        entity.getEvents().addListener("Hurt_left", this::animateHurtLeft);
+        entity.getEvents().addListener("Walk_left", this::animateWalkLeft);
+        entity.getEvents().addListener("Attack_left", this::animateAttackLeft);
+        entity.getEvents().addListener("Death_left", this::animateDeathLeft);
     }
 
     void animateIdle() {
@@ -35,5 +41,21 @@ public class NPCAnimationController extends Component {
     }
     void animateDeath() {
         animator.startAnimation("death");
+    }
+
+    void animateIdleLeft() {
+        animator.startAnimation("Idle_left");
+    }
+    void animateHurtLeft() {
+        animator.startAnimation("Hurt_left");
+    }
+    void animateWalkLeft() {
+        animator.startAnimation("Walk_left");
+    }
+    void animateAttackLeft() {
+        animator.startAnimation("Attack_left");
+    }
+    void animateDeathLeft() {
+        animator.startAnimation("Death_left");
     }
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.entities.Entity;
@@ -47,12 +48,12 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png"
     };
+    private PlayerSelection playerSelection = new PlayerSelection();
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
-    private static final String SAVE_CONFIG_PATH = "configs/player_save.json";
 
     public MainGameScreen(GdxGame game) {
         this.game = game;
@@ -84,11 +85,11 @@ public class MainGameScreen extends ScreenAdapter {
         createUI();
 
         // TODO move this to a "Character Select Screen"
-        File saveFile = new File(SAVE_CONFIG_PATH);
+        File saveFile = new File("configs/player_save.json");
         // Check if there is saved file exist, which need to refactor once the menu team implement the load function
         if (saveFile.exists()) {
             this.playerFactory = new PlayerFactory(List.of(
-                    SAVE_CONFIG_PATH
+                    "configs/player_save.json"
             ));
         } else {
             this.playerFactory = new PlayerFactory(List.of(
@@ -96,6 +97,8 @@ public class MainGameScreen extends ScreenAdapter {
             ));
         }
         Entity player = playerFactory.createPlayer();
+
+        List<Entity> players = playerSelection.createTwoPlayers();
         logger.debug("Initialising main game screen entities");
 
         LevelFactory levelFactory = new MainGameLevelFactory();

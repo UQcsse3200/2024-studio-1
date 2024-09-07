@@ -48,6 +48,8 @@ public class WeaponComponent extends Component {
     private long lastSwing;
     private long swingInterval;
 
+    Vector2 lastPos;
+
     Entity rangedItemEntity;
     Entity meleeItemEntity;
 
@@ -307,11 +309,30 @@ public class WeaponComponent extends Component {
     @Override
     public void update() {
         if (this.entity != null) {
+            if (this.lastPos == null) {
+                this.lastPos = entity.getPosition();
+            }
+            Vector2 newPos = this.entity.getPosition();
+            float dx = newPos.x - this.lastPos.x;
+            float dy = newPos.y - this.lastPos.y;
             if (this.meleeItemEntity != null) {
                 this.meleeItemEntity.setPosition(this.entity.getPosition());
             }
             if (this.rangedItemEntity != null) {
+                if (dx == 0 && dy > 0) {
+                    logger.info("Range weapon point up");
+                }
+                else if (dx == 0 && dy < 0) {
+                    logger.info("Range weapon point down");
+                }
+                else if (dx > 0 && dy == 0) {
+                    logger.info("Range weapon point right");
+                }
+                else if (dx < 0 && dy == 0) {
+                    logger.info("Range weapon point left");
+                }
                 this.rangedItemEntity.setPosition(this.entity.getPosition());
+                this.lastPos = newPos;
             }
         }
     }

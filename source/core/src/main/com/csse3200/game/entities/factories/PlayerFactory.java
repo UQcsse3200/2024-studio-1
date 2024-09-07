@@ -88,7 +88,7 @@ public class PlayerFactory {
                 .addComponent(new PlayerAnimationController())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
-                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC, 3f))
+                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC))
                 .addComponent(new WeaponComponent(
                         new Sprite(new Texture("images/Weapons/knife.png")),
                         Collectible.Type.RANGED_WEAPON,

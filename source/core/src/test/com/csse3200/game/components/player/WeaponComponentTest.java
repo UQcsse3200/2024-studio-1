@@ -36,9 +36,9 @@ public class WeaponComponentTest {
     public void testWeaponComponentRange() {
         // create a weapon component
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.RANGED_WEAPON,
-                10, 5, 1, 0, 0, 0);
+                10, 5f, 1, 0, 0, 0);
         // check if weapon component range is correct
-        assertEquals(5, weaponComponent.getRange());
+        assertEquals(5f, weaponComponent.getRange(), 0.0);
     }
 
     @Test
@@ -137,9 +137,9 @@ public class WeaponComponentTest {
         // create a weapon component
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
         // set weapon range to 10
-        weaponComponent.setRange(10);
-        // check if weapon component range is correct
-        assertEquals(10, weaponComponent.getRange());
+        weaponComponent.setRange(10f);
+        // check if weapon component range is correct (covers the float to int conversion)
+        assertEquals( 10f, weaponComponent.getRange(), 0.0);
     }
 
     @Test

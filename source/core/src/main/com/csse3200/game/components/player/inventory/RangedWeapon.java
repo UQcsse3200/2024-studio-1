@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public abstract class RangedWeapon implements Collectible {
 
-    public static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
+    private static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
 
     private int damage;
     private int range;
@@ -30,6 +30,8 @@ public abstract class RangedWeapon implements Collectible {
         // Add a Weapon Component
         if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
             inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this);
+        } else {
+            logger.warning("Inventory entity or WeaponComponent is null");
         }
     }
 
@@ -40,7 +42,10 @@ public abstract class RangedWeapon implements Collectible {
 
         // Add a Weapon Component
         if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
+            logger.info("Setting ranged weapon in inventory");
             inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this, itemEntity);
+        } else {
+            logger.info("Inventory entity or WeaponComponent is null");
         }
     }
 

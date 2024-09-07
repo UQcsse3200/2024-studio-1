@@ -87,6 +87,7 @@ public class NPCFactory {
    */
   public Entity create(String specification, Entity target) {
     return switch (specification) {
+      case "ProjectileRat" -> this.createProjectileRat(target);
       case "Rat" -> this.createRat(target);
       case "Bear" -> this.createBear(target);
       case "Snake" -> this.createSnake(target);
@@ -176,6 +177,21 @@ public class NPCFactory {
     }
 
     return aiComponent;
+  }
+
+  /**
+   * Creates a rat entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the created rat entity
+   */
+  public Entity createProjectileRat(Entity target) {
+    NPCConfigs.NPCConfig config = configs.projectileRat;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
+    Entity projectileRat = createBaseNPC(aiComponent, config, animator);
+
+    return projectileRat;
   }
 
   /**

@@ -7,6 +7,7 @@ import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.AnimalProjectileConfig;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.physics.PhysicsEngine;
@@ -46,7 +47,7 @@ public class ShootTask extends DefaultTask implements PriorityTask {
         timeSource = ServiceLocator.getTimeSource();
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();
-        bulletConfig = new ProjectileConfig();
+        bulletConfig = new AnimalProjectileConfig();
     }
 
     @Override
@@ -146,7 +147,6 @@ public class ShootTask extends DefaultTask implements PriorityTask {
      */
     private boolean singleShoot(Vector2 direction) {
         if (isTargetVisible() && getDistanceToTarget() < attackRange) {
-            //ProjectileFactory.createProjectile(new ProjectileConfig(), direction);
             Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, owner.getEntity().getPosition());
             projectile.getComponent(ProjectileAttackComponent.class).create();
             ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);

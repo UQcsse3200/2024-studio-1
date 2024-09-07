@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
  * Defines all NPC configs to be loaded by the NPC Factory.
  */
 public class NPCConfigs {
+  public NPCConfig projectileRat = new NPCConfig();
   public NPCConfig rat = new NPCConfig();
   public NPCConfig bear = new NPCConfig();
   public NPCConfig bat = new NPCConfig();

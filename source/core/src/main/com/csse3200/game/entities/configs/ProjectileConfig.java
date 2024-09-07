@@ -11,7 +11,5 @@ public class ProjectileConfig {
     public float scaleX = 0.5f;
     public float scaleY = 0.5f;
     public String projectileAtlasPath = "images/Projectiles/GreenShoot.atlas";
-    public short Layer = PhysicsLayer.PLAYER;
-
-
+    public short Layer = PhysicsLayer.NPC;
 }

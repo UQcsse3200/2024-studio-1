@@ -1,5 +1,5 @@
 {
-  "rat": {
+  "projectileRat": {
     "health": 200,
     "baseAttack": 15,
     "tasks": {
@@ -33,6 +33,35 @@
       {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
+  "rat": {
+    "health": 200,
+    "baseAttack": 15,
+    "tasks": {
+      "straightWander": {
+        "wanderSpeed": 2
+      },
+      "chase": {
+        "priority": 5,
+        "viewDistance": 4,
+        "chaseDistance": 5,
+        "chaseSpeed": 2
+      },
+      "charge": {
+        "priority": 10,
+        "viewDistance": 2,
+        "chaseDistance": 2,
+        "chaseSpeed": 4,
+        "waitTime": 0
+      }
+    },
+    "animations": [
+      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "attack", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+    ]
+  },
   "bear": {
     "health": 600,
     "baseAttack": 35,
@@ -53,11 +82,6 @@
         "viewDistance": 4,
         "chaseDistance": 5,
         "chaseSpeed": 3,
-        "waitTime": 2
-      },
-      "shoot": {
-        "priority": 5,
-        "attackRange": 10,
         "waitTime": 2
       }
     },
@@ -88,11 +112,6 @@
         "chaseDistance": 6,
         "chaseSpeed": 5,
         "waitTime": 0
-      },
-      "shoot": {
-        "priority": 5,
-        "attackRange": 10,
-        "waitTime": 2
       }
     },
     "animations": [
@@ -117,11 +136,6 @@
         "viewDistance": 5,
         "chaseDistance": 6,
         "chaseSpeed": 2.5,
-        "waitTime": 2
-      },
-      "shoot": {
-        "priority": 5,
-        "attackRange": 10,
         "waitTime": 2
       }
     },

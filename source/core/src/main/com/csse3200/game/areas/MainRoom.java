@@ -16,7 +16,7 @@ public class MainRoom extends BaseRoom {
     private static final Logger logger = LoggerFactory.getLogger(MainRoom.class);
     private final String specification;
     List<List<String>> animalSpecifications = List.of(
-            List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat"),
+            List.of("ProjectileRat", "Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat"),
             List.of("Bear", "Snake", "Dino"),
             List.of("Bear", "Bear", "Minotaur"),
             List.of("Snake", "Bat", "Minotaur"),

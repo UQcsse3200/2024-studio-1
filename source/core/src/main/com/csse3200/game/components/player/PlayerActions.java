@@ -28,7 +28,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
-        setSpeedPercentage(1.0f);
+        setSpeedPercentage(0.0f);
     }
 
     @Override

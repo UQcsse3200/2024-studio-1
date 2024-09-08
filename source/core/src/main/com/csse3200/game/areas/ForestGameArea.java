@@ -163,10 +163,10 @@ public class ForestGameArea extends GameArea {
         EntitySpawner.addAnimalGroups(Arrays.asList("Bat","Bat","Bat"));
         EntitySpawner.addAnimalGroups(Arrays.asList("Minotaur","Minotaur","Minotaur"));
         EntitySpawner.addAnimalGroups(Arrays.asList("Rat","Bat","Bear"));
-        EntitySpawner.addItemGroups(Arrays.asList("buff:energydrink,Low", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"));
+        EntitySpawner.addItemGroups(Arrays.asList("buff:energydrink,High", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"));
         EntitySpawner.addItemGroups(Arrays.asList("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink,Low", "item:shieldpotion"));
         EntitySpawner.addItemGroups(Arrays.asList("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink,Low"));
-        EntitySpawner.addItemGroups(Arrays.asList("item:shieldpotion", "ranged:shotgun", "melee:knife", "item:medkit", "buff:energydrink,Low"));
+        EntitySpawner.addItemGroups(Arrays.asList("item:shieldpotion", "ranged:shotgun", "melee:knife", "item:medkit", "buff:energydrink,Medium"));
         EntitySpawner.addItemGroups(Arrays.asList("melee:knife", "item:bandage", "ranged:shotgun", "item:shieldpotion", "item:medkit"));
         EntitySpawner.addItemGroups(Arrays.asList("buff:energydrink,Low", "item:shieldpotion", "ranged:shotgun", "melee:knife", "item:bandage"));
         EntitySpawner.addItemGroups(Arrays.asList("item:medkit", "melee:knife", "buff:energydrink,Low", "ranged:shotgun", "item:shieldpotion"));

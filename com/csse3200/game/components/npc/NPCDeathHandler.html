@@ -107,12 +107,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
-<div class="col-second even-row-color"><code><a href="#deadEntities" class="member-name-link">deadEntities</a></code></div>
+<div class="col-first even-row-color"><code><a href="../../rendering/AnimationRenderComponent.html" title="class in com.csse3200.game.rendering">AnimationRenderComponent</a></code></div>
+<div class="col-second even-row-color"><code><a href="#animator" class="member-name-link">animator</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code>static final float</code></div>
 <div class="col-second odd-row-color"><code><a href="#DEATH_ANIMATION_DURATION" class="member-name-link">DEATH_ANIMATION_DURATION</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>static final org.slf4j.Logger</code></div>
+<div class="col-second even-row-color"><code><a href="#logger" class="member-name-link">logger</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.components.Component">Fields inherited from class&nbsp;com.csse3200.game.components.<a href="../Component.html" title="class in com.csse3200.game.components">Component</a></h3>
@@ -169,6 +172,12 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="logger">
+<h3>logger</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">org.slf4j.Logger</span>&nbsp;<span class="element-name">logger</span></div>
+</section>
+</li>
+<li>
 <section class="detail" id="DEATH_ANIMATION_DURATION">
 <h3>DEATH_ANIMATION_DURATION</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">DEATH_ANIMATION_DURATION</span></div>
@@ -183,9 +192,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="deadEntities">
-<h3>deadEntities</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">deadEntities</span></div>
+<section class="detail" id="animator">
+<h3>animator</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../rendering/AnimationRenderComponent.html" title="class in com.csse3200.game.rendering">AnimationRenderComponent</a></span>&nbsp;<span class="element-name">animator</span></div>
 </section>
 </li>
 </ul>
@@ -214,7 +223,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="create()">
 <h3>create</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">create</span>()</div>
-<div class="block">Called when the entity is created and registered. Sets up components and listeners.</div>
+<div class="block">Called when the entity is created and registered. Sets up the death event listener and gets the animator component.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="../Component.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../Component.html" title="class in com.csse3200.game.components">Component</a></code></dd>

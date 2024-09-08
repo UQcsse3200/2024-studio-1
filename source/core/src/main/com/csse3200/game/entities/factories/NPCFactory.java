@@ -284,36 +284,6 @@ public class NPCFactory extends LoadedFactory {
     return dog;
   }
 
-  /**
-   * Creates a crocodile entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created crocodile entity
-   */
-  public Entity createCroc(Entity target) {
-    NPCConfigs.NPCConfig config = configs.croc;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity croc = createBaseNPC(target, aiComponent, config, animator);
-
-    return croc;
-  }
-
-
-  /**
-   * Creates a gorilla entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created gorilla entity
-   */
-  public Entity createGorilla(Entity target) {
-    NPCConfigs.NPCConfig config = configs.gorilla;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity gorilla = createBaseNPC(target, aiComponent, config, animator);
-
-    return gorilla;
-  }
   @Override
   protected String[] getTextureAtlasFilepaths() {
     return new String[] {

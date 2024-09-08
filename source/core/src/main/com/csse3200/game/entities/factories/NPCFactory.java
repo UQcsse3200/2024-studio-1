@@ -3,6 +3,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.npc.GhostAnimationController;
+import com.csse3200.game.components.npc.NPCAnimationController;
+import com.csse3200.game.components.npc.NPCDeathHandler;
+import com.csse3200.game.components.npc.NPCHealthBarComponent;
+import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.*;
@@ -20,6 +25,7 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.components.Component;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -31,47 +37,36 @@ import com.csse3200.game.services.ResourceService;
  * <p>If needed, this factory can be separated into more specific factories for entities with
  * similar characteristics.
  */
-public class NPCFactory {
+public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static final NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+  private static final NPCConfigs configs =
+          FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
-  private static final String[] npcAtlas ={
-    "images/ghost.atlas", 
-    "images/ghostKing.atlas",
-    "images/rat.atlas", 
-    "images/snake.atlas", 
-    "images/minotaur.atlas",
-    "images/bear.atlas", 
-    "images/dino.atlas",
-    "images/bat.atlas", 
-    "images/dog.atlas"
-  };
-  private static final String[] npcTextures ={
-    "images/ghost_1.png",
-    "images/ghost_king.png",
-    "images/rat.png",
-    "images/minotaur.png",
-    "images/dog.png",
-    "images/snake.png",
-    "images/dino.png",
-    "images/minotaur.png",
-    "images/bear.png" 
-  };
-
-  public NPCFactory() {
-    loadAssets();
+  /**
+   * Construct a new NPC Factory.
+   */
+  public NPCFactory(){
+    super(logger);
   }
 
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(npcTextures);
-    resourceService.loadTextureAtlases(npcAtlas);
-
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading... {}%", resourceService.getProgress());
-    }
+  /**
+   * Create a new NPC from specification
+   *
+   * @param specification the specification of the npc
+   * @param target entity to chase
+   * @return the created npc
+   */
+  public Entity create(String specification, Entity target) {
+    return switch (specification) {
+      case "Rat" -> this.createRat(target);
+      case "Bear" -> this.createBear(target);
+      case "Snake" -> this.createSnake(target);
+      case "Dino" -> this.createDino(target);
+      case "Bat" -> this.createBat(target);
+      case "Dog" -> this.createDog(target);
+      case "Minotaur" -> this.createMinotaur(target);
+      default -> throw new IllegalArgumentException("Unknown animal: " + specification);
+    };
   }
 
   /**
@@ -82,10 +77,27 @@ public class NPCFactory {
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
    *
-   * @return entity
+   * @return returnEntity 
    */
   private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
+    Entity returnEntity = createBaseNPC(target, aiComponent, config, animator, new NPCAnimationController());
+    return returnEntity;
+  }
+  /**
+   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
+   *
+   * @param target The target entity for the NPC to chase.
+   * @param aiComponent The AI component to be added to the NPC.
+   * @param config The configuration for the NPC.
+   * @param animator The animator component for the NPC.
+   * @param The animator component for the NPC.
+   * @param The animator controller for the NPC.
+   *
+   * @return entity
+   */
+  private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
+                                      AnimationRenderComponent animator, NPCAnimationController animationController) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
@@ -96,7 +108,7 @@ public class NPCFactory {
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
-            .addComponent(new NPCAnimationController())
+            .addComponent(animationController)
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDeathHandler());
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
@@ -272,34 +284,33 @@ public class NPCFactory {
     return dog;
   }
 
-  /**
-   * Creates a crocodile entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created crocodile entity
-   */
-  public Entity createCroc(Entity target) {
-    NPCConfigs.NPCConfig config = configs.croc;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity croc = createBaseNPC(target, aiComponent, config, animator);
-
-    return croc;
+  @Override
+  protected String[] getTextureAtlasFilepaths() {
+    return new String[] {
+            "images/ghost.atlas",
+            "images/ghostKing.atlas",
+            "images/rat.atlas",
+            "images/snake.atlas",
+            "images/minotaur.atlas",
+            "images/bear.atlas",
+            "images/dino.atlas",
+            "images/bat.atlas",
+            "images/dog.atlas"
+    };
   }
 
-
-  /**
-   * Creates a gorilla entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created gorilla entity
-   */
-  public Entity createGorilla(Entity target) {
-    NPCConfigs.NPCConfig config = configs.gorilla;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity gorilla = createBaseNPC(target, aiComponent, config, animator);
-
-    return gorilla;
+  @Override
+  protected String[] getTextureFilepaths() {
+    return new String[]{
+            "images/ghost_1.png",
+            "images/ghost_king.png",
+            "images/rat.png",
+            "images/minotaur.png",
+            "images/dog.png",
+            "images/snake.png",
+            "images/dino.png",
+            "images/minotaur.png",
+            "images/bear.png"
+    };
   }
 }

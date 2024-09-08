@@ -15,14 +15,16 @@ import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
+import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 
 import java.util.Objects;
 
 
-public class LoadPlayer extends LoadedFactory {
+public class LoadPlayer {
 
     private final WeaponFactory weaponFactory;
+    private final ResourceService resourceService;
     private final CollectibleFactory collectibleFactory;
     private final ItemFactory itemFactory;
     private final AnimationFactory animationFactory;
@@ -31,8 +33,8 @@ public class LoadPlayer extends LoadedFactory {
     /**
      * Construct a new Player Factory (and load all of its assets)
      */
-    public LoadPlayer() {
-
+    public LoadPlayer(ResourceService resourceService) {
+        this.resourceService = resourceService;
         this.weaponFactory = new WeaponFactory();
         this.collectibleFactory = new CollectibleFactory();
         this.animationFactory = new AnimationFactory();
@@ -72,7 +74,7 @@ public class LoadPlayer extends LoadedFactory {
                 .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true))
                 .addComponent(inventoryComponent)
                 .addComponent(new ItemPickupComponent())
-                //.addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
+                .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(animationFactory.createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController())
@@ -122,7 +124,7 @@ public class LoadPlayer extends LoadedFactory {
         }
     }
 
-    private void addWeaponsAndItems(Entity player, PlayerConfig config) {
+    void addWeaponsAndItems(Entity player, PlayerConfig config) {
         if (!Objects.equals(config.melee, "")) {
             createMelee(config, player);
         }

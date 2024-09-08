@@ -1,81 +1,110 @@
-
 package com.csse3200.game.entities;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.*;
+import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.LoadPlayer;
+import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.entities.factories.AnimationFactory;
+import com.csse3200.game.entities.factories.WeaponFactory;
+import com.csse3200.game.physics.components.ColliderComponent;
+import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.physics.components.PhysicsComponent;
+import com.csse3200.game.services.ResourceService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.files.FileLoader;
-import com.csse3200.game.physics.PhysicsService;
-import com.csse3200.game.physics.PhysicsEngine;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+ class PlayerLoaderTest {
 
-import java.util.List;
-
-public class PlayerLoaderTest {
-
-    private PlayerSelection playerSelection;
-    private ResourceService mockResourceService;
-    private EntityService mockEntityService;
-    private PhysicsService mockPhysicsService;
-    private PhysicsEngine mockPhysicsEngine;
+    private LoadPlayer loadPlayer;
+    private PlayerConfig playerConfig;
+    private WeaponFactory weaponFactoryMock;
+    private AnimationFactory animationFactoryMock;
+    private InventoryComponent inventoryComponentMock;
+    private ResourceService resourceServiceMock;
 
     @BeforeEach
-    public void setUp() {
-        // Mock the necessary services
-        mockResourceService = mock(ResourceService.class);
-        mockEntityService = mock(EntityService.class);
-        mockPhysicsService = mock(PhysicsService.class);
-        mockPhysicsEngine = mock(PhysicsEngine.class);
+    void setUp() {
+        resourceServiceMock = mock(ResourceService.class); // Mocking ResourceService
+        weaponFactoryMock = mock(WeaponFactory.class);
+        animationFactoryMock = mock(AnimationFactory.class);
+        inventoryComponentMock = mock(InventoryComponent.class);
 
-        // Register the mocked services in ServiceLocator
-        ServiceLocator.registerResourceService(mockResourceService);
-        ServiceLocator.registerEntityService(mockEntityService);
-        ServiceLocator.registerPhysicsService(mockPhysicsService);
+        // Mock the behavior of resource loading (you can specify which resources to mock load)
+        doNothing().when(resourceServiceMock).loadTextures(any(String[].class));
 
-        // Mock the loadForMillis() and getProgress() methods to simulate successful loading
-        when(mockResourceService.loadForMillis(anyInt())).thenReturn(true); // Simulates that resources are loaded immediately
-        when(mockResourceService.getProgress()).thenReturn((int) 100f); // Simulates that loading is complete
-
-        // Ensure that the mockPhysicsService returns the mockPhysicsEngine
-        when(mockPhysicsService.getPhysics()).thenReturn(mockPhysicsEngine);
-
-        // Mock Gdx.files to simulate file handling
-        Gdx.files = mock(Files.class);
-        FileHandle mockFileHandle = mock(FileHandle.class);
-        when(Gdx.files.internal(anyString())).thenReturn(mockFileHandle);
-
-        // Mock FileLoader.readClass to simulate reading PlayerConfig from files
-        PlayerConfig mockPlayerConfig1 = new PlayerConfig();
-        mockPlayerConfig1.name = "default";
-        mockPlayerConfig1.melee = "melee:Pickaxe";
+        // Pass the mock ResourceService to LoadPlayer (if needed)
+        loadPlayer = new LoadPlayer(resourceServiceMock);  // Ensure your constructor accepts ResourceService
+        playerConfig = new PlayerConfig();
+        playerConfig.health = 100;
+        playerConfig.baseAttack = 50;
+        playerConfig.textureAtlasFilename = "textures/player.atlas";
+        playerConfig.melee = "melee:knife";
+        playerConfig.ranged = "ranged:shotgun";
+    }
 
 
-        PlayerConfig mockPlayerConfig2 = new PlayerConfig();
-        mockPlayerConfig2.name = "default";
-        mockPlayerConfig2.health = 70;
-        mockPlayerConfig2.favouriteColour = "yellow";
-        mockPlayerConfig2.textureAtlasFilename = "images/player/player.atlas";
-        mockPlayerConfig2.textureFilename = "images/player/player.png";
+    @Test
+    void testCreatePlayer() {
+        Entity player = loadPlayer.createPlayer(playerConfig);
 
-        mockStatic(FileLoader.class);
-        when(FileLoader.readClass(eq(PlayerConfig.class), anyString()))
-                .thenReturn(mockPlayerConfig1)  // Return mock config for player1
-                .thenReturn(mockPlayerConfig2);  // Return mock config for player2
+        assertNotNull(player.getComponent(PlayerConfigComponent.class));
+        assertNotNull(player.getComponent(PhysicsComponent.class));
+        assertNotNull(player.getComponent(ColliderComponent.class));
+        assertNotNull(player.getComponent(HitboxComponent.class));
+        assertNotNull(player.getComponent(PlayerActions.class));
+        assertNotNull(player.getComponent(CombatStatsComponent.class));
+        assertNotNull(player.getComponent(PlayerHealthDisplay.class));
+        assertNotNull(player.getComponent(PlayerStatsDisplay.class));
 
-        // Initialize the PlayerSelection object
-        playerSelection = new PlayerSelection();
+        assertEquals(100, player.getComponent(CombatStatsComponent.class).getHealth());
+        assertEquals(50, player.getComponent(CombatStatsComponent.class).getBaseAttack());
     }
 
     @Test
-    public void testAddItems() {
-        // Call the createTwoPlayers method
-        a
+    void testAddComponents() {
+        Entity player = loadPlayer.addComponents(playerConfig);
+
+        assertNotNull(player.getComponent(InventoryComponent.class));
+        assertNotNull(player.getComponent(PlayerActions.class));
+    }
+
+
+    @Test
+    void testCreateMelee() {
+        Entity player = new Entity();
+        loadPlayer.createMelee(playerConfig, player);
+
+        verify(weaponFactoryMock).create(Collectible.Type.MELEE_WEAPON, "knife");
+        assertNotNull(player.getComponent(WeaponComponent.class));
+    }
+
+    @Test
+    void testCreateRanged() {
+        Entity player = new Entity();
+        loadPlayer.createRanged(playerConfig, player);
+
+        verify(weaponFactoryMock).create(Collectible.Type.RANGED_WEAPON, "shotgun");
+        assertNotNull(player.getComponent(WeaponComponent.class));
+    }
+
+    @Test
+    void testAddWeaponsAndItems() {
+        Entity player = new Entity();
+        loadPlayer.addWeaponsAndItems(player, playerConfig);
+
+        verify(weaponFactoryMock, times(1)).create(Collectible.Type.MELEE_WEAPON, "knife");
+        verify(weaponFactoryMock, times(1)).create(Collectible.Type.RANGED_WEAPON, "shotgun");
+
     }
 }

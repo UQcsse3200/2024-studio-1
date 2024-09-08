@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class ResourceService implements Disposable {
 
   private static final Logger logger = LoggerFactory.getLogger(ResourceService.class);
-  public final AssetManager assetManager;
+  private final AssetManager assetManager;
 
   public ResourceService() {
     this(new AssetManager());

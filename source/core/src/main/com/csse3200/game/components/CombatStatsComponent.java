@@ -6,9 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
  * which engage it combat should have an instance of this class registered. This class can be
@@ -23,7 +20,10 @@ public class CombatStatsComponent extends Component {
     private int baseAttack;
     private boolean isInvincible;
     private static final int timeInvincible = 2000;
-    private final Timer timer;
+    private final Timer timerIFrames;
+    private static final int timeFlash = 250;
+    private final Timer timerFlashSprite;
+    private CombatStatsComponent.flashSprite flashTask;
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible) {
         this.canBeInvincible = canBeInvincible;
@@ -33,7 +33,8 @@ public class CombatStatsComponent extends Component {
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
-        timer = new Timer();
+        this.timerIFrames = new Timer();
+        this.timerFlashSprite = new Timer();
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
@@ -44,10 +45,24 @@ public class CombatStatsComponent extends Component {
      * A TimerTask class used to remove the entity's invincibility
      * 'timeInvincibile' milliseconds after being hit
      */
-    private class removeInvincible extends TimerTask {
+    private class removeIFrames extends TimerTask {
         @Override
         public void run() {
             setInvincible(false);
+            flashTask.cancel();
+            entity.getEvents().trigger("playerVisible");
+        }
+    }
+    private class flashSprite extends TimerTask {
+        private boolean invisible = false;
+        @Override
+        public void run() {
+            if (this.invisible){
+                entity.getEvents().trigger("playerInvisible");
+            } else {
+                entity.getEvents().trigger("playerVisible");
+            }
+            this.invisible = !this.invisible;
         }
     }
 
@@ -146,8 +161,10 @@ public class CombatStatsComponent extends Component {
             setHealth(newHealth);
             if (canBeInvincible){
                 setInvincible(true);
-                CombatStatsComponent.removeInvincible task = new CombatStatsComponent.removeInvincible();
-                timer.schedule(task, timeInvincible);
+                removeIFrames removeIFrames = new removeIFrames();
+                timerIFrames.schedule(removeIFrames, timeInvincible);
+                flashTask = new CombatStatsComponent.flashSprite();
+                timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
             }
         }
     }

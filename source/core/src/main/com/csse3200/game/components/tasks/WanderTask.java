@@ -45,7 +45,7 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     super.start();
     startPos = owner.getEntity().getPosition();
 
-    waitTask = new WaitTask(waitTime);
+    waitTask = new WaitTask(waitTime, 0);
     waitTask.create(owner);
     movementTask = new MovementTask(getRandomPosInRange());
     movementTask.create(owner);

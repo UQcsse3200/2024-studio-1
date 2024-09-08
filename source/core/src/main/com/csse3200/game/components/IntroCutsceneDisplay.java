@@ -66,6 +66,7 @@ public class IntroCutsceneDisplay extends UIComponent {
 
     private void addActors() {
         // todo make the cutscene more interesting
+        // todo make cutscene text respond to screen resizing
 
         table = new Table();
         table.setFillParent(true);

@@ -20,6 +20,7 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.components.Component;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -106,10 +107,27 @@ public class NPCFactory {
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
    *
-   * @return entity
+   * @return returnEntity 
    */
   private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
+    Entity returnEntity = createBaseNPC(target, aiComponent, config, animator, new NPCAnimationController());
+    return returnEntity;
+  }
+  /**
+   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
+   *
+   * @param target The target entity for the NPC to chase.
+   * @param aiComponent The AI component to be added to the NPC.
+   * @param config The configuration for the NPC.
+   * @param animator The animator component for the NPC.
+   * @param The animator component for the NPC.
+   * @param The animator controller for the NPC.
+   *
+   * @return entity
+   */
+  private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
+                                      AnimationRenderComponent animator, NPCAnimationController animationController) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
@@ -120,7 +138,7 @@ public class NPCFactory {
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
-            .addComponent(new NPCAnimationController())
+            .addComponent(animationController)
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDeathHandler());
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);

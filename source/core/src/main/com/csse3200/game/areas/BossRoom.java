@@ -9,6 +9,7 @@ import java.util.List;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
+import com.csse3200.game.entities.factories.StairFactory;
 import com.csse3200.game.utils.math.RandomUtils;
 
 public class BossRoom extends BaseRoom {
@@ -64,5 +65,13 @@ public class BossRoom extends BaseRoom {
             GridPoint2 randomPos = RandomUtils.random(min, max);
             this.spawnItem(mainGameArea, s, randomPos);
         }
+    }
+
+    /**
+     * spawns stair to get into the next level
+     */
+    private void spawnStair(GameArea area, Entity player) {
+        Entity stair = StairFactory.createStair(player.getId());
+        area.spawnEntityAt(stair, new GridPoint2(0, 9), true, true);
     }
 }

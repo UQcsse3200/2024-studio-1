@@ -7,6 +7,9 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.services.ServiceLocator;
 
+import java.util.List;
+
+import static com.csse3200.game.entities.PlayerSelection.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
@@ -14,14 +17,20 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 public class PlayerSelectScreen extends StaticScreen {
 
-    private static final String[] playerSelectTextures = {};
-
     /**
      * Make the screen.
      * @param game the overarching game.
      */
     public PlayerSelectScreen(GdxGame game) {
-        super(game, playerSelectTextures, getLogger(PlayerSelectScreen.class));
+        super(
+                game,
+                getPlayerConfigs(List.of(PLAYERS))
+                        .values()
+                        .stream()
+                        .map(config -> config.textureFilename)
+                        .toArray(String[]::new),
+                getLogger(PlayerSelectScreen.class)
+        );
     }
 
     @Override

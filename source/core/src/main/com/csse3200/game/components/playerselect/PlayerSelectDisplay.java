@@ -1,16 +1,23 @@
 package com.csse3200.game.components.playerselect;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
+import com.csse3200.game.entities.PlayerSelection;
+import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Creates the ui elements and functionality for the player select screen's ui.
@@ -37,24 +44,44 @@ public class PlayerSelectDisplay extends UIComponent {
         addActors();
     }
 
+    /**
+     * Populate the stage with player images and buttons to select them.
+     */
     private void addActors() {
-        // todo add the players to select from
         table = new Table();
         table.setFillParent(true);
-        Button startBtn = new TextButton("Choose this player", skin, "action");
-        startBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                logger.debug("Player select button pressed");
-                playerSelected();
-            }
+
+        Map<String, PlayerConfig> configs =
+                PlayerSelection.getPlayerConfigs(List.of(PlayerSelection.PLAYERS));
+
+        // Add images for each player
+        configs.forEach((filename, config) -> {
+            TextureRegion idleTexture = new TextureAtlas(config.textureAtlasFilename)
+                    .findRegion("idle");
+            Image playerImage = new Image(idleTexture);
+            table.add(playerImage);
         });
-        table.add(startBtn);
+
+        // Add buttons to choose each player
+        table.row();
+        configs.forEach((filename, config) -> {
+            TextButton button = new TextButton("Choose %s".formatted(config.name), skin, "action");
+            button.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    logger.debug("Button to select {} pressed", filename);
+                    playerSelected(filename);
+                }
+            });
+            table.add(button);
+        });
+
         stage.addActor(table);
     }
 
-    private void playerSelected() {
-        logger.info("Going to intro cutscene");
+    private void playerSelected(String filename) {
+        logger.info("Player chosen: {}", filename);
+        game.gameOptions.chosenPlayer = filename;
         game.setScreen(ScreenType.CUTSCENE);
     }
 

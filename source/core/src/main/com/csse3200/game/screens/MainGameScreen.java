@@ -7,7 +7,9 @@ import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.entities.PlayerSelection;
+import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.PlayerFactory;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
@@ -30,9 +32,9 @@ import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.List;
 
+import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
 /**
@@ -84,19 +86,21 @@ public class MainGameScreen extends ScreenAdapter {
         loadAssets();
         createUI();
 
-        // TODO move this to a "Character Select Screen"
-        /**
+        String chosenPlayer = gameOptions.chosenPlayer;
+        logger.info("Starting with chosen player file: {}", chosenPlayer);
+
+        /*
          * based on the characters selected, changed the link
          * If Player choose Load, then create
          */
-        this.playerFactory = new PlayerFactory(List.of(
-                "configs/player.json"
-        ));
-        Entity player = playerFactory.createPlayer();
+        this.playerFactory = new PlayerFactory(List.of(PLAYERS));
+        Entity player = playerFactory.createPlayer(
+                FileLoader.readClass(PlayerConfig.class, chosenPlayer));
 
-        List<Entity> players = playerSelection.createTwoPlayers();
+        // todo ask character team, is this needed?
+        // List<Entity> players = playerSelection.createTwoPlayers();
+
         logger.debug("Initialising main game screen entities");
-
         LevelFactory levelFactory = new MainGameLevelFactory();
         GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
                 new TestGameArea(levelFactory) :

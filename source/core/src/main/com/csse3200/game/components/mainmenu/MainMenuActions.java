@@ -3,7 +3,7 @@ package com.csse3200.game.components.mainmenu;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.options.GameOptions;
+import com.csse3200.game.options.GameOptions.Difficulty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,12 +34,12 @@ public class MainMenuActions extends Component {
     }
 
     /**
-     * Set the game options to the selected options and go to the player select screen.
-     * @param options the options chosen by the player to use for the game.
+     * Set the game's difficulty to the selected difficulty and go to the player select screen.
+     * @param difficulty the difficulty chosen by the player.
      */
-    private void onPlayerSelect(GameOptions options) {
+    private void onPlayerSelect(Difficulty difficulty) {
         logger.info("Going to player selection");
-        game.gameOptions = options;
+        game.gameOptions.difficulty = difficulty;
         game.setScreen(ScreenType.PLAYER_SELECT);
     }
 

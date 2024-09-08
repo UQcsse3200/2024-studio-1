@@ -18,7 +18,7 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
-  public GameOptions gameOptions;
+  public final GameOptions gameOptions = new GameOptions();
 
   @Override
   public void create() {

@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.options.GameOptions.Difficulty;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -46,11 +45,6 @@ public class MainMenuDisplay extends UIComponent {
 
         table = new Table();
         table.setFillParent(true);
-        Image title = new Image(
-                ServiceLocator.getResourceService().getAsset(
-                        "images/box_boy_title.png", Texture.class
-                )
-        );
         Image bg_logo =
             new Image(
                 ServiceLocator.getResourceService()
@@ -80,9 +74,8 @@ public class MainMenuDisplay extends UIComponent {
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        GameOptions options = new GameOptions(difficulty);
                         logger.debug("{} difficulty button clicked", difficulty.toString());
-                        entity.getEvents().trigger("player_select", options);
+                        entity.getEvents().trigger("player_select", difficulty);
                     }
                 }
         ));
@@ -123,8 +116,6 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
-        /*table.add(title);
-        table.row();*/
         table.add(startBtn).padTop(BTN_SPACING * 2);
         table.row();
         for (TextButton btn : difficultyBtns.values()) {

@@ -40,8 +40,8 @@ public class MainGameLevelFactory implements LevelFactory {
                         "0,0,14,10," + levelNumber + levelNumber));
             }
 
+
         }
-        //rooms.put("0_1", roomFactory.createBossRoom("0,0,14,10,0,0"));
         return new Level(map, levelNumber, rooms);
     }
 }

@@ -1,8 +1,11 @@
 package com.csse3200.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.components.maingame.MainGameActions;
@@ -18,10 +21,7 @@ import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.rendering.Renderer;
-import com.csse3200.game.services.GameTime;
-import com.csse3200.game.services.RandomService;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.services.*;
 import com.csse3200.game.ui.terminal.Terminal;
 import com.csse3200.game.ui.terminal.TerminalDisplay;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
@@ -44,7 +44,12 @@ public class MainGameScreen extends ScreenAdapter {
 
     private static final String[] mainGameTextures = {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-            "images/ui_white_icons_down.png"
+            "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png"
+    };
+    private static final String[] textureAtlases = {"skins/rainbow/skin/rainbow-ui.atlas"};
+    private static final String[] fonts = {
+            "skins/rainbow/skin/font-button-export.fnt", "skins/rainbow/skin/font-export.fnt",
+            "skins/rainbow/skin/font-title-export.fnt"
     };
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
@@ -80,6 +85,12 @@ public class MainGameScreen extends ScreenAdapter {
 
         loadAssets();
         createUI();
+
+        // Register AlertBoxService
+        Skin skin = new Skin(Gdx.files.internal("skins/rainbow/skin/rainbow-ui.json"),
+                ServiceLocator.getResourceService().getAsset("skins/rainbow/skin/rainbow-ui.atlas", TextureAtlas.class));
+        Stage stage = ServiceLocator.getRenderService().getStage();
+        ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
 
         // TODO move this to a "Character Select Screen"
         this.playerFactory = new PlayerFactory(List.of(

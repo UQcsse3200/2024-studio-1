@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ public class ResourceService implements Disposable {
   private final AssetManager assetManager;
 
   private final Map<String, Integer> referenceCounts = new HashMap<>();
+
+
 
   public ResourceService() {
     this(new AssetManager());
@@ -159,6 +162,15 @@ public class ResourceService implements Disposable {
    */
   public void loadTextureAtlases(String[] textureAtlasNames) {
     loadAssets(textureAtlasNames, TextureAtlas.class);
+  }
+
+  /**
+   * Loads a list of font assets into the asset manager.
+   *
+   * @param fontNames font filenames
+   */
+  public void loadFonts(String[] fontNames) {
+    loadAssets(fontNames, BitmapFont.class);
   }
 
   /**

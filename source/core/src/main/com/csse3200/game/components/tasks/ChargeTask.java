@@ -21,9 +21,9 @@ import org.slf4j.LoggerFactory;
 public class ChargeTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(ChargeTask.class);
   protected final Entity target;
-  private final int priority;
+  protected final int priority;
   private final float viewDistance;
-  private final float maxChaseDistance;
+  protected final float maxChaseDistance;
   private final float chaseSpeed;
   private final float waitTime;
   private final PhysicsEngine physics;
@@ -31,7 +31,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private final RaycastHit hit = new RaycastHit();
   protected MovementTask movementTask;
   private WaitTask waitTask;
-  protected Task currentTask;
+  private Task currentTask;
 
   /**
    * Creates a ChargeTask.
@@ -57,19 +57,18 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   @Override
   public void start() {
     super.start();
-    initialiseTasks();
+    if (movementTask == null) {
+      initialiseTasks();
+    }
     startMoving();
-    this.owner.getEntity().getEvents().trigger("walk");
   }
 
   @Override
   public void update() {
     if (currentTask.getStatus() != Status.ACTIVE) {
-      if (currentTask == movementTask) {
-        this.owner.getEntity().getEvents().trigger("gesture");
+      if (currentTask == movementTask && waitTime > 0) {
         startWaiting();
       } else {
-        this.owner.getEntity().getEvents().trigger("walk");
         startMoving();
       }
     }
@@ -93,7 +92,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   }
 
   protected void initialiseTasks() {
-    waitTask = new WaitTask(waitTime);
+    waitTask = new WaitTask(waitTime, priority + 1);
     waitTask.create(owner);
     movementTask = new MovementTask(target.getPosition());
     movementTask.create(owner);
@@ -101,13 +100,16 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     movementTask.setVelocity(chaseSpeed);
   }
 
-  private void startMoving() {
+  protected void startMoving() {
+    this.owner.getEntity().getEvents().trigger("walk");
     logger.debug("Starting moving towards {}", target.getPosition());
     movementTask.setTarget(target.getPosition());
+    movementTask.setVelocity(chaseSpeed);
     swapTask(movementTask);
   }
 
   protected void startWaiting() {
+    //this.owner.getEntity().getEvents().trigger("gesture");
     logger.debug("Starting waiting");
     if (movementTask != null) {
         movementTask.stop();
@@ -123,11 +125,11 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     currentTask.start();
   }
 
-  private float getDistanceToTarget() {
+  protected float getDistanceToTarget() {
     return owner.getEntity().getPosition().dst(target.getPosition());
   }
 
-  private int getActivePriority() {
+  protected int getActivePriority() {
     float dst = getDistanceToTarget();
     if (dst > maxChaseDistance || !isTargetVisible()) {
       return -1; // Too far, stop chasing
@@ -135,7 +137,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     return priority;
   }
 
-  private int getInactivePriority() {
+  protected int getInactivePriority() {
     float dst = getDistanceToTarget();
     if (dst < viewDistance && isTargetVisible()) {
       return priority;
@@ -143,7 +145,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     return -1;
   }
 
-  private boolean isTargetVisible() {
+  protected boolean isTargetVisible() {
     Vector2 from = owner.getEntity().getCenterPosition();
     Vector2 to = target.getCenterPosition();
 

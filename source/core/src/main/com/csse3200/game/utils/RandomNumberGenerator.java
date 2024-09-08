@@ -2,18 +2,12 @@ package com.csse3200.game.utils;
 import java.util.Random;
 
 public class RandomNumberGenerator {
-    private Random random;
-    private String seed;
+    private final Random random;
+    private final String seed;
 
     public RandomNumberGenerator(String seed) {
         // Convert string seed to a long value
         this.seed = seed;
-        long seedLong = stringToSeed(seed);
-        this.random = new Random(seedLong);
-    }
-
-    // Method to set seed
-    public void setSeed(String seed) {
         long seedLong = stringToSeed(seed);
         this.random = new Random(seedLong);
     }
@@ -43,4 +37,9 @@ public class RandomNumberGenerator {
         }
         // Generate random double within a range [minVal, maxVal)
         return minVal + (maxVal - minVal) * random.nextDouble();
-    }}
+    }
+
+    public String getRandomString(){
+         return Integer.toString(this.getRandomInt(0, Integer.MAX_VALUE));
+    }
+}

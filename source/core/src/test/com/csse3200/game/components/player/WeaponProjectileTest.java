@@ -7,6 +7,7 @@ import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
+import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
@@ -41,8 +42,8 @@ class WeaponProjectileTest {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
         // load in sound asset
-        resourceService.loadSounds(new String []{"sounds/shotgun1_f.ogg"});
-        resourceService.loadSounds(new String []{"sounds/shotgun1_r.ogg"});
+        WeaponFactory weaponFactory = new WeaponFactory();
+        weaponFactory.load();
         while (!resourceService.loadForMillis(1000)) {
             // wait for assets to load.
         }

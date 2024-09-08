@@ -3,57 +3,63 @@ package com.csse3200.game.components.npc;
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This component handles the death process for NPCs.
  * It plays a death animation, disables physics and AI, and removes the entity from the game.
  */
 public class NPCDeathHandler extends Component {
-    public static final Logger logger = LoggerFactory.getLogger(NPCDeathHandler.class);
     public static final float DEATH_ANIMATION_DURATION = 1.0f;
+    public static final List<Integer> deadEntities = new ArrayList<>();
 
-    public AnimationRenderComponent animator;
+    private AnimationRenderComponent animator;
+    private CombatStatsComponent combatStats;
+    private boolean isDead = false;
 
     /**
-     * Called when the entity is created and registered. Sets up the death event listener and gets the animator component.
+     * Called when the entity is created and registered. Sets up components and listeners.
      */
     @Override
     public void create() {
-        // Set up the death event listener and get the animator component
-        entity.getEvents().addListener("death", this::onDeath);
         animator = entity.getComponent(AnimationRenderComponent.class);
+        combatStats = entity.getComponent(CombatStatsComponent.class);
+        entity.getEvents().addListener("died", this::onDeath);
     }
 
     /**
-     * Handles the death of the NPC by playing the death animation,
-     * disabling physics and AI components, and scheduling the NPC's removal from the game.
+     * Handles the death of the entity by playing the death animation,
+     * disabling physics and AI components, and scheduling the entity's removal from the game.
      */
-    void onDeath() {
-        logger.info("NPC {} death animation started.", entity.getId());
+    private void onDeath() {
+        if (!isDead) {
+            isDead = true;
+            deadEntities.add(entity.getId());
 
-        // Play death animation if available
-        if (animator != null && animator.hasAnimation("death")) {
-            animator.startAnimation("death");
-        }
-
-        // Disable physics and AI components to prevent further interaction
-        entity.getComponent(PhysicsComponent.class).setEnabled(false);
-        entity.getComponent(AITaskComponent.class).setEnabled(false);
-
-        // Schedule entity removal after the death animation completes
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                logger.info("NPC {} death animation complete. Removing from game.", entity.getId());
-                ServiceLocator.getEntityService().unregister(entity);
-                entity.dispose();
-                NPCDamageHandlerComponent.deadAnimals.remove(Integer.valueOf(entity.getId()));
+            // Play death animation if available
+            if (animator != null && animator.hasAnimation("death")) {
+                animator.startAnimation("death");
             }
-        }, DEATH_ANIMATION_DURATION);
+
+            // Disable physics and AI components to prevent further interaction
+            entity.getComponent(PhysicsComponent.class).setEnabled(false);
+            entity.getComponent(AITaskComponent.class).setEnabled(false);
+
+            // Schedule entity removal after the death animation completes
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    ServiceLocator.getEntityService().unregister(entity);
+                    entity.dispose();
+                    deadEntities.remove(Integer.valueOf(entity.getId()));
+                }
+            }, DEATH_ANIMATION_DURATION);
+        }
     }
 }

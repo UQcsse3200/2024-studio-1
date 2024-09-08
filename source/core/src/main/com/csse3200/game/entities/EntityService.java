@@ -45,13 +45,6 @@ public class EntityService {
     }
 
     /**
-     *
-     */
-    public void queueEntityForCreation(Supplier<Entity> entitySupplier) {
-        entitiesToCreate.add(entitySupplier);
-    }
-
-    /**
      * Marks the specified entity to be removed on next update. If entity is already marked,
      * then it will not be marked for removal again
      *
@@ -104,6 +97,10 @@ public class EntityService {
         }
     }
 
+    /**
+     * Get all the registered entities
+     * @return the array of all the entities.
+     */
     public Entity[] getEntities() {
         return entities.toArray(Entity.class);
     }

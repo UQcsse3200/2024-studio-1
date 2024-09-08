@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
+import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.options.GameOptions;

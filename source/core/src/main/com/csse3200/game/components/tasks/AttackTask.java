@@ -30,7 +30,6 @@ public class AttackTask extends DefaultTask implements PriorityTask {
     /**
      * Constructor for AttackTask
      * @param target enemy's entity
-     * @param priority priority value for the task
      * @param viewDistance the distance to allow the entity to attack
      * @param chaseSpeed approaching speed of attack movement
      */

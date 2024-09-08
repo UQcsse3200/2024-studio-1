@@ -27,7 +27,6 @@ public class BossRoom extends BaseRoom {
     );
     }
 
-
     public BossRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,

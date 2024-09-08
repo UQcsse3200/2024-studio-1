@@ -159,7 +159,7 @@ public abstract class BaseRoom implements Room {
         this.spawnTerrain(area, WALL_THICKNESS);
         this.spawnDoors(area, player);
         this.spawnAnimals(area, player, this.minGridPoint, this.minGridPoint);
-        isRoomFresh = false;
+        this.isRoomFresh = false;
         // FIXME
         // logger.info("Spawning items:");
         // int itemGroup = Integer.parseInt(split.get(5));

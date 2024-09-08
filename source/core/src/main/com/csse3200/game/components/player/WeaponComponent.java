@@ -348,6 +348,7 @@ public class WeaponComponent extends Component {
                         .play();
 
                 logger.info("Ranged weapon reloading");
+                entity.getEvents().trigger("RELOAD");
             } else {
                 // Shooting
                 this.setAmmo(-1);
@@ -357,6 +358,8 @@ public class WeaponComponent extends Component {
                         .play();
                 ProjectileFactory.createProjectile(this.bulletConfig, direction);
                 logger.info("Ranged weapon shoot");
+                entity.getEvents().trigger("RANGED_ATTACK");
+
             }
             // Reset lastAtttack time
             this.lastAttack = currentTime;

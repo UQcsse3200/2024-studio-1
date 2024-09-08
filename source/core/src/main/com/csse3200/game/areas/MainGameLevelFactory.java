@@ -33,12 +33,6 @@ public class MainGameLevelFactory implements LevelFactory {
             rooms.put(room_key, roomFactory.createRoom(
               map.mapData.getPositions().get(room_key),
              "0,0,14,10,0,0"));
-
-            if (rooms.size() == 8) {
-                rooms.put(room_key, roomFactory.createBossRoom(
-                        map.mapData.getPositions().get(room_key),
-                        "0,0,14,10," + levelNumber + levelNumber));
-            }
         }
         return new Level(map, levelNumber, rooms);
     }

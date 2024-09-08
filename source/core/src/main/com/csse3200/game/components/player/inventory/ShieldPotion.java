@@ -1,7 +1,5 @@
 package com.csse3200.game.components.player.inventory;
-
 import com.badlogic.gdx.graphics.Texture;
-import com.csse3200.game.areas.ForestGameArea;
 import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.services.ServiceLocator;

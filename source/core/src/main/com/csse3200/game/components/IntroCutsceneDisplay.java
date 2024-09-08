@@ -30,15 +30,22 @@ public class IntroCutsceneDisplay extends UIComponent {
     Cutscene text is largely taken from storyline wiki page:
     https://github.com/UQcsse3200/2024-studio-1/wiki/Storyline
      */
-    private static final String CUTSCENE_TEXT = "They escaped.\n\n" +
-            "All of them.\n\n" +
-            "You tested them, tortured them, tormented them, " +
-            "all those poor, helpless animals.\n\n" +
-            "But now you're the helpless one.\n\n" +
-            "The humans have left, or rather, they left you behind. " +
-            "Hope you enjoyed your beer, because it may be your last.\n\n" +
-            "The beasts have broken out.\n\n" +
-            "Are you ready to put them back in their place?";
+    private static final String CUTSCENE_TEXT = """
+            They escaped.
+
+            All of them.
+
+            You tested them, tortured them, tormented them, \
+            all those poor, helpless animals.
+
+            But now you're the helpless one.
+
+            The humans have left, or rather, they left you behind. \
+            Hope you enjoyed your beer, because it may be your last.
+
+            The beasts have broken out.
+
+            Are you ready to put them back in their place?""";
     private final GdxGame game;
     private Table table;
 

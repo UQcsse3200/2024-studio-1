@@ -80,7 +80,6 @@ public class EnergyDrink extends BuffItem {
      */
     public Vector2 getSpeed() {
         return this.speed;
-        //3%, 5%, 8%
     }
 
     public float getSpeedPercentage() {
@@ -101,8 +100,6 @@ public class EnergyDrink extends BuffItem {
             this.speed = baseSpeed.scl(0.6f);
             this.speedPercentage = 0.6f;
         }
-
-
     }
 
     /**

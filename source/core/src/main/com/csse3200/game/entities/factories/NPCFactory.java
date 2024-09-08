@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.GhostAnimationController;
-import com.csse3200.game.components.Direction;
-import com.csse3200.game.components.npc.GhostAnimationController;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.npc.NPCDeathHandler;
@@ -27,7 +25,6 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.services.ResourceService;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -39,32 +36,38 @@ import com.csse3200.game.services.ResourceService;
  * <p>If needed, this factory can be separated into more specific factories for entities with
  * similar characteristics.
  */
-public class NPCFactory {
+public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
   private static final NPCConfigs configs =
           FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
-  private static final String[] npcAtlas ={
-    "images/ghost.atlas", 
-    "images/ghostKing.atlas",
-    "images/rat.atlas", 
-    "images/snake.atlas", 
-    "images/minotaur.atlas",
-    "images/bear.atlas", 
-    "images/dino.atlas",
-    "images/bat.atlas", 
-    "images/dog.atlas"
-  };
-  private static final String[] npcTextures ={
-    "images/ghost_1.png",
-    "images/ghost_king.png",
-    "images/rat.png",
-    "images/minotaur.png",
-    "images/dog.png",
-    "images/snake.png",
-    "images/dino.png",
-    "images/minotaur.png",
-    "images/bear.png" 
-  };
+
+  /**
+   * Construct a new NPC Factory.
+   */
+  public NPCFactory(){
+    super(logger);
+  }
+
+  /**
+   * Create a new NPC from specification
+   *
+   * @param specification the specification of the npc
+   * @param target entity to chase
+   * @return the created npc
+   */
+  public Entity create(String specification, Entity target) {
+    return switch (specification) {
+      case "Rat" -> this.createRat(target);
+      case "Bear" -> this.createBear(target);
+      case "Snake" -> this.createSnake(target);
+      case "Dino" -> this.createDino(target);
+      case "Bat" -> this.createBat(target);
+      case "Dog" -> this.createDog(target);
+      case "Minotaur" -> this.createMinotaur(target);
+      default -> throw new IllegalArgumentException("Unknown animal: " + specification);
+    };
+  }
+
   /**
    * Creates a rat entity with predefined components and behaviour.
    *
@@ -431,18 +434,34 @@ public class NPCFactory {
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;
   }
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(npcTextures);
-    resourceService.loadTextureAtlases(npcAtlas);
 
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading... {}%", resourceService.getProgress());
-    }
+  @Override
+  protected String[] getTextureAtlasFilepaths() {
+    return new String[] {
+            "images/ghost.atlas",
+            "images/ghostKing.atlas",
+            "images/rat.atlas",
+            "images/snake.atlas",
+            "images/minotaur.atlas",
+            "images/bear.atlas",
+            "images/dino.atlas",
+            "images/bat.atlas",
+            "images/dog.atlas"
+    };
   }
-  public NPCFactory(){
-    loadAssets();
+
+  @Override
+  protected String[] getTextureFilepaths() {
+    return new String[]{
+            "images/ghost_1.png",
+            "images/ghost_king.png",
+            "images/rat.png",
+            "images/minotaur.png",
+            "images/dog.png",
+            "images/snake.png",
+            "images/dino.png",
+            "images/minotaur.png",
+            "images/bear.png"
+    };
   }
 }

@@ -48,7 +48,6 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png"
     };
-    private PlayerSelection playerSelection = new PlayerSelection();
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
     private final GdxGame game;

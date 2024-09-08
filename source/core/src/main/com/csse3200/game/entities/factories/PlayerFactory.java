@@ -133,6 +133,13 @@ public class PlayerFactory extends LoadedFactory {
         return player;
     }
 
+    /**
+     * Creates the animation component for the player using the given texture atlas.
+     *
+     * @param textureAtlasFilename The filename of the texture atlas.
+     * @return The {@link AnimationRenderComponent} for the player.
+     */
+
     private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
         AnimationRenderComponent animator = new AnimationRenderComponent(
                 ServiceLocator.getResourceService().getAsset(textureAtlasFilename,
@@ -145,6 +152,12 @@ public class PlayerFactory extends LoadedFactory {
         return animator;
     }
 
+    /**
+     * Creates a melee weapon based on the given specification.
+     *
+     * @param specification The type of melee weapon (e.g., "knife", "pickaxe").
+     * @return A {@link MeleeWeapon} corresponding to the specification.
+     */
     private MeleeWeapon createMeleeWeaponFromSpecification(String specification) {
         switch (specification.toLowerCase()) {
             case "knife":
@@ -156,6 +169,12 @@ public class PlayerFactory extends LoadedFactory {
         }
     }
 
+    /**
+     * Creates a ranged weapon based on the given specification.
+     *
+     * @param specification The type of ranged weapon (e.g., "shotgun").
+     * @return A {@link RangedWeapon} corresponding to the specification.
+     */
     private RangedWeapon createRangeFromSpec(String specification) {
         switch (specification.toLowerCase()) {
             case "shotgun":
@@ -165,6 +184,12 @@ public class PlayerFactory extends LoadedFactory {
         }
     }
 
+    /**
+     * Converts a list of item specifications into an array of {@link Collectible} objects.
+     *
+     * @param itemSpecs Array of item specifications.
+     * @return An array of {@link Collectible} objects.
+     */
     private static Array<Collectible> stringToItems(String[] itemSpecs) {
         Array<Collectible> items = new Array<>();
 
@@ -178,6 +203,12 @@ public class PlayerFactory extends LoadedFactory {
         return items;
     }
 
+    /**
+     * Creates a collectible item based on the given specification.
+     *
+     * @param spec The specification of the collectible (e.g., "bandage", "med_kit").
+     * @return A {@link Collectible} corresponding to the specification, or null if the specification is unknown.
+     */
     private static Collectible createCollectibleFromSpecification(String spec){
         switch (spec.toLowerCase()) {
             case "bandage":
@@ -197,6 +228,11 @@ public class PlayerFactory extends LoadedFactory {
         }
     }
 
+    /**
+     * Retrieves the filepaths of texture atlases needed by this factory.
+     *
+     * @return An array of texture atlas filepaths.
+     */
     @Override
     protected String[] getTextureAtlasFilepaths() {
         if (this.options == null){
@@ -205,6 +241,11 @@ public class PlayerFactory extends LoadedFactory {
         return options.values().stream().map(config -> config.textureAtlasFilename).toArray(String[]::new);
     }
 
+    /**
+     * Retrieves the filepaths of textures needed by this factory.
+     *
+     * @return An array of texture filepaths.
+     */
     @Override
     protected String[] getTextureFilepaths() {
         if (this.options == null){

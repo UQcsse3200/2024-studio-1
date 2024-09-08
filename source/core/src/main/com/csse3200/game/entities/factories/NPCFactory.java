@@ -9,6 +9,7 @@ import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.TouchAttackComponent;
+import com.csse3200.game.components.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.*;
@@ -105,14 +106,15 @@ public class NPCFactory extends LoadedFactory {
    *
    * @param target entity to chase
    * @return entity
+   */
   public Entity createDirectionBear(Entity target) {
     NPCConfigs.NPCConfig config = configs.directionbear;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
-    Entity bear = createBaseNPC(target, aiComponent, config, animator, new BearAnimationController());
+    Entity bear = createBaseNPC(target, aiComponent, config, animator);
+    bear.addComponent(new BearAnimationController());
     return bear;
   }
-   */
 
   /**
    * Creates a Snake entity.
@@ -194,7 +196,6 @@ public class NPCFactory extends LoadedFactory {
     return dog;
   }
 
-
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
@@ -209,6 +210,25 @@ public class NPCFactory extends LoadedFactory {
    */
   private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
+    Entity npc = createBaseNPC(target, aiComponent, config, animator, false);
+    return npc;
+  }
+
+  /**
+   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
+   *
+   * @param target The target entity for the NPC to chase.
+   * @param aiComponent The AI component to be added to the NPC.
+   * @param config The configuration for the NPC.
+   * @param animator The animator component for the NPC.
+   * @param The animator component for the NPC.
+   * @param The animator controller for the NPC.
+   * @param If the NPC accepts direction 
+   *
+   * @return entity
+   */
+  private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
+                                      AnimationRenderComponent animator, Boolean directable) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
@@ -220,7 +240,8 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler());
+            .addComponent(new NPCDeathHandler()) 
+            .addComponent(new DirectionalNPCComponent(directable));
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
     return npc;

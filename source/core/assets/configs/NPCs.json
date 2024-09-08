@@ -69,7 +69,7 @@
       {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
-  "directionBear": {
+  "directionbear": {
     "health": 600,
     "baseAttack": 35,
     "attackRange": 1,
@@ -195,66 +195,7 @@
       {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
-  "gorilla": {
-    "health": 400,
-    "baseAttack": 35,
-    "attackRange": 0.8,
-    "attackRate": 1,
-    "tasks": {
-      "wander": {
-        "wanderRadius": 3,
-        "waitTime": 2,
-        "wanderSpeed": 0.7
-      },
-      "chase": {
-        "priority": 10,
-        "chaseSpeed": 1.5,
-        "viewDistance": 3,
-        "chaseDistance": 6
-      }
-    },
-    "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
-    ]
-  },
   "snake": {
-    "health": 300,
-    "baseAttack": 10,
-    "attackRange": 0.8,
-    "attackRate": 0.8,
-    "tasks": {
-      "wander": {
-        "wanderRadius": 2,
-        "waitTime": 6,
-        "wanderSpeed": 0.5
-      },
-      "chase": {
-        "priority": 5,
-        "chaseSpeed": 0.8,
-        "viewDistance": 4,
-        "chaseDistance": 4
-      },
-      "charge": {
-        "priority": 10,
-        "viewDistance": 1.8,
-        "chaseDistance": 2,
-        "chaseSpeed": 5,
-        "waitTime": 2
-      }
-    },
-    "animations": [
-      {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "walk", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
-    ]
-  },
-  "directionsnake": {
     "health": 300,
     "baseAttack": 10,
     "attackRange": 0.8,
@@ -321,6 +262,13 @@
   "minotaur": {
     "health": 400,
     "baseAttack": 35,
+    "animations": [
+      {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "walk", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
+    ]
     "attackRange": 2,
     "attackRate": 0.5,
     "tasks": {

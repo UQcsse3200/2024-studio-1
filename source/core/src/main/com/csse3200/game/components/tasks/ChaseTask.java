@@ -7,8 +7,11 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
+import com.csse3200.game.components.DirectionalNPCComponent;
 import com.csse3200.game.rendering.DebugRenderer;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.physics.components.PhysicsMovementComponent;
+import com.csse3200.game.components.DirectionalNPCComponent;
 
 /** Chases a target entity until they get too far away or line of sight is lost */
 public class ChaseTask extends DefaultTask implements PriorityTask {
@@ -46,8 +49,22 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
-
-    this.owner.getEntity().getEvents().trigger("walk");
+    char dir = getDirection(getVectorTo());
+    DirectionalNPCComponent getDirection = owner.getComponent(DirectionalNPCComponent.class);
+    Boolean directable = getDirection.isDirectable();
+    if(directable){
+        //right movement 
+        PhysicsMovementComponent direction = owner.getComponent(PhysicsMovementComponent.class);
+        if(dir == '<'){
+            this.owner.getEntity().getEvents().trigger("walk_right");
+        }
+        else{
+            this.owner.getEntity().getEvents().trigger("walk_left");
+        }
+    }
+    else{
+        this.owner.getEntity().getEvents().trigger("walk");
+    }
   }
 
   @Override
@@ -106,4 +123,31 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     debugRenderer.drawLine(from, to);
     return true;
   }
+private char getDirection(Vector2 destination) {
+    if (owner.getEntity().getPosition().x - destination.x < 0) {
+      return '>';
+    }
+    if (owner.getEntity().getPosition().x - destination.x > 0) {
+      return '<';
+    }
+    return '=';
+  }
+
+  /**
+   
+    Calculates the desired vector position to move away from the target*
+    @return The vector position.*/
+    private Vector2 getVectorTo(){
+      float currentX = owner.getEntity().getPosition().x;
+      float currentY = owner.getEntity().getPosition().y;
+
+        float targetX = target.getPosition().x;
+        float targetY = target.getPosition().y;
+
+        float newX = currentX + (currentX - targetX);
+        float newY = currentY + (currentY - targetY);
+
+        Vector2 newPos = new Vector2(newX, newY);
+        return newPos;
+      }
 }

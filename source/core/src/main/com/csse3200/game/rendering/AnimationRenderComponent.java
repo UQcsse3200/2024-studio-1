@@ -189,15 +189,14 @@ public class AnimationRenderComponent extends RenderComponent {
     float scaleX = 0.5f;
     float scaleY = 0.5f * aspectRatio;
 
-
+    batch.setColor(new Color(1f, 1f, 1f, this.opacity));
     if (region instanceof TextureAtlas.AtlasRegion && ((TextureAtlas.AtlasRegion) region).rotate) {
       batch.draw(region, pos.x, pos.y, scaleX, scaleY, 1f, aspectRatio, 1f, 1f, 180, false);
     } else {
       batch.draw(region, pos.x, pos.y, scale.x, scale.y);
     }
-//    if (canHaveIFrames){
-      batch.setColor(new Color(1f, 1f, 1f, this.opacity));
-//    }
+    batch.setColor(new Color(1f, 1f, 1f, 1));
+
     animationPlayTime += timeSource.getDeltaTime();
   }
 

@@ -95,11 +95,11 @@ public class PlayerAnimationController extends Component {
         }
     }
 
-    void setOpaque(){
+    public void setOpaque(){
         animationController.setOpacity(0f);
     }
 
-    void setSolid(){
+    public void setSolid(){
         animationController.setOpacity(1f);
     }
 }

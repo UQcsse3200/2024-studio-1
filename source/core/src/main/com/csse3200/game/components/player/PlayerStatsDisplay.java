@@ -24,9 +24,9 @@ public class PlayerStatsDisplay extends UIComponent {
     private Label shotgunLabel;
 
     private Image speedImage;
-    private Label speedLabel;
+    private Label speedLabelText;
 
-    private ProgressBar speedLabel2;
+    private ProgressBar speedProgressBar;
 
 
 
@@ -71,11 +71,11 @@ public class PlayerStatsDisplay extends UIComponent {
 
         //Speed text
         float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
-        CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
-        speedLabel = new Label(speedText, skin, "small");
-        speedLabel2 = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
-        speedLabel2.setWidth(200f);
-        speedLabel2.setAnimateDuration(2.0f);
+//        CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
+//        speedLabelText = new Label(speedText, skin, "small");
+        speedProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        speedProgressBar.setWidth(200f);
+        speedProgressBar.setAnimateDuration(2.0f);
 
 
 
@@ -90,7 +90,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
         table.row().padTop(10);
         table.add(speedImage).size(speedSideLength).pad(5);
-        table.add(speedLabel2).padLeft(10).left().width(200);
+        table.add(speedProgressBar).padLeft(10).left().width(200);
 
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
@@ -102,33 +102,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     @Override
     public void draw(SpriteBatch batch) {
-//        batch.end();
-//
-//        // Set up the projection matrix for rendering
-//        Matrix4 projectionMatrix = batch.getProjectionMatrix().cpy();
-//        shapeRenderer.setProjectionMatrix(projectionMatrix);
-//        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-//
-//        // Calculate health percentage and position
-//        float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
-//        float totalSpeedPercentage = (float) speedPercentage / 5.0f;
-//
-//        float x = 0f;//entity.getPosition().x;
-//        float y = entity.getPosition().y + 3;
-//
-//        // Draw background (red)
-//        shapeRenderer.setColor(Color.PURPLE);
-//        shapeRenderer.rect(x, y, 1f, 0.1f);
-//
-//        // Draw health (green)
-//        shapeRenderer.setColor(Color.ORANGE);
-//        shapeRenderer.rect(x, y, 1f * totalSpeedPercentage, 0.1f);
-//
-//        shapeRenderer.end();
-//
-//        batch.begin();
 
-        // draw is handled by the stage
     }
 
     /**
@@ -152,9 +126,9 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
     public void updateSpeedPercentageUI(float speedPercentage) {
-        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
-        speedLabel.setText(text);
-        speedLabel2.setValue(speedPercentage);
+//        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
+//        speedLabelText.setText(text);
+        speedProgressBar.setValue(speedPercentage);
     }
 
     @Override

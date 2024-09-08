@@ -118,6 +118,10 @@ public class MainGameArea extends GameArea {
         music.play();
     }
 
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+
     @Override
     protected String[] getSoundFilepaths() {
         return new String[]{
@@ -141,7 +145,8 @@ public class MainGameArea extends GameArea {
         String[] commonTextures = {
                 "images/box_boy_leaf.png",
                 "images/rounded_door_v.png",
-                "images/rounded_door_h.png"
+                "images/rounded_door_h.png",
+                "images/staircase.png"
         };
         Collections.addAll(filepaths, commonTextures);
 

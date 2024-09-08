@@ -4,7 +4,7 @@ import com.csse3200.game.components.player.inventory.*;
 /**
  * A factory that creates weapons.
  */
-public class WeaponFactory {
+public class WeaponFactory extends LoadedFactory {
     private MeleeWeapon createMelee(String specification) {
         return switch (specification) {
             case "knife" -> new Knife();
@@ -32,6 +32,21 @@ public class WeaponFactory {
             case MELEE_WEAPON -> createMelee(specification);
             case RANGED_WEAPON -> createRanged(specification);
             default -> throw new IllegalArgumentException("invalid weapon type: " + type);
+        };
+    }
+
+    @Override
+    protected String[] getTextureFilepaths() {
+        return new String[]{
+                "images/Weapons/Shotgun.png",
+                "images/Weapons/pickaxe.png"
+        };
+    }
+    @Override
+    protected String[] getSoundFilepaths() {
+        return new String[]{
+                "sounds/shotgun1_f.ogg",
+                "sounds/shotgun1_r.ogg"
         };
     }
 }

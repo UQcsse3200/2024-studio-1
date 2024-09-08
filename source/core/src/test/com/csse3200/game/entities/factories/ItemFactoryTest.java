@@ -22,8 +22,16 @@ public class ItemFactoryTest {
     }
 
     @Test
-    public void testCreateEnergyDrink() {
-        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink,Low"));
+    public void testCreateEnergyDrinkLow() {
+        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink:Low"));
+    }
+    @Test
+    public void testCreateEnergyDrinkMedium() {
+        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink:Medium"));
+    }
+    @Test
+    public void testCreateEnergyDrinkHigh() {
+        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink:High"));
     }
 
     @Test

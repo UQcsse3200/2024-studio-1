@@ -63,7 +63,7 @@ public class PlayerFactory {
 
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
-                        ServiceLocator.getResourceService().getAsset("images/player/player.atlas", TextureAtlas.class), true);
+                        ServiceLocator.getResourceService().getAsset("images/player/player.atlas", TextureAtlas.class));
 
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);

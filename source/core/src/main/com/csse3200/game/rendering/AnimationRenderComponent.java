@@ -43,22 +43,17 @@ public class AnimationRenderComponent extends RenderComponent {
   private String currentAnimationName;
   private float animationPlayTime;
   private float opacity;
-  private boolean canHaveIFrames;
+
 
   /**
    * Create the component for a given texture atlas.
    * @param atlas libGDX-supported texture atlas containing desired animations
    */
-  public AnimationRenderComponent(TextureAtlas atlas, boolean canHaveIFrames){
+  public AnimationRenderComponent(TextureAtlas atlas){
     this.atlas = atlas;
     this.animations = new HashMap<>(4);
     timeSource = ServiceLocator.getTimeSource();
     this.opacity = 1f;
-    this.canHaveIFrames = canHaveIFrames;
-  }
-
-  public AnimationRenderComponent(TextureAtlas atlas) {
-    this(atlas, false);
   }
 
 

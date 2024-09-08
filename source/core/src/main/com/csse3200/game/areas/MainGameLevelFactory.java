@@ -29,13 +29,11 @@ public class MainGameLevelFactory implements LevelFactory {
         Set<String> room_keySet = map.mapData.getPositions().keySet();
         for (String room_key : room_keySet) {
             rooms.put(room_key, roomFactory.createRoom(
-              map.mapData.getPositions().get(room_key),
-             "0,0,14,10,0,0"));
-          
+                    map.mapData.getPositions().get(room_key),
+                    "0,0,14,10,0,0"));
+        }
         rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", ""),
                 "0,0,14,10," + levelNumber + "," + levelNumber));
         return new Level(map, levelNumber, rooms);
     }
-
-
 }

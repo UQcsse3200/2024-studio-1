@@ -79,7 +79,6 @@ public abstract class BaseRoom implements Room {
 
         // item Group index specifcaiton 5
         this.itemGroup = Integer.parseInt(split.get(5));
-        
 
         this.specification = specification;
     }
@@ -249,7 +248,4 @@ public abstract class BaseRoom implements Room {
             }
         }
     }
-    
-    
-    
 }

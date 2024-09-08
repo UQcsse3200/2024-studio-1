@@ -28,8 +28,6 @@ public class PlayerAnimationController extends Component {
         entity.getEvents().addListener("walkStop", this::stationaryAnimation);
         entity.getEvents().addListener("death", this::deathAnimation);
         entity.getEvents().addListener("playerHit", this::damageAnimation);
-        entity.getEvents().addListener("playerInvisible", this::setOpaque);
-        entity.getEvents().addListener("playerVisible", this::setSolid);
         animationController.startAnimation("idle");
     }
 
@@ -95,11 +93,4 @@ public class PlayerAnimationController extends Component {
         }
     }
 
-    public void setOpaque(){
-        animationController.setOpacity(0f);
-    }
-
-    public void setSolid(){
-        animationController.setOpacity(1f);
-    }
 }

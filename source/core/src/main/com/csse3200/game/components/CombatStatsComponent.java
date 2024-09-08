@@ -50,9 +50,9 @@ public class CombatStatsComponent extends Component {
     private class removeIFrames extends TimerTask {
         @Override
         public void run() {
-            setInvincible(false);
             flashTask.cancel();
-            entity.getEvents().trigger("playerVisible");
+            setInvincible(false);
+            entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
         }
     }
     private class flashSprite extends TimerTask {
@@ -60,9 +60,9 @@ public class CombatStatsComponent extends Component {
         @Override
         public void run() {
             if (this.invisible){
-                entity.getEvents().trigger("playerInvisible");
+                entity.getComponent(AnimationRenderComponent.class).setOpacity(0);
             } else {
-                entity.getEvents().trigger("playerVisible");
+                entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
             }
             this.invisible = !this.invisible;
         }

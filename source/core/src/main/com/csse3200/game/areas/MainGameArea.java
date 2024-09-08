@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
+import com.csse3200.game.entities.factories.RoomFactory;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
@@ -23,7 +24,7 @@ public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
 
-    private Entity player;
+    public Entity player;
 
     private final LevelFactory levelFactory;
     private Level currentLevel;
@@ -35,18 +36,19 @@ public class MainGameArea extends GameArea {
      *
      * @param levelFactory the provided levelFactory.
      */
-    public MainGameArea(LevelFactory levelFactory) {
+    public MainGameArea(LevelFactory levelFactory, Entity player) {
         super();
+        this.player = player;
         this.levelFactory = levelFactory;
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
+        create();
     }
 
     /**
      * Create the game area, including terrain, static entities (trees), dynamic entities (player)
      */
     @Override
-    public void create(Entity player) {
-        this.player = player;
+    public void create() {
 
         load(logger);
         logger.error("loaded all assets");
@@ -62,17 +64,24 @@ public class MainGameArea extends GameArea {
         logger.info("Changing rooms!");
         //this.remove_room();
         this.currentRoom.remove_room();
-        //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
+        //this.player.getPosition();
+        //player.setPosition(null);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
+        if (this.currentRoom.isRoomFresh) {
+            this.currentLevel.roomTraversals ++;
+        }
     }
 
     public void spawnCurrentRoom() {
-        logger.info("Main Game Area update");
+        //logger.info("Main Game Area update");
         if (!spawnRoom) {
             return;
         }
-        logger.info("spawning: new room");
+        //logger.info("spawning: new room");
+        if (currentLevel.roomTraversals == 8) {
+            this.currentRoom = currentLevel.getRoom("BOSS");
+        }
         this.currentRoom.spawn(player, this);
         logger.info("spawned: new room");
         logger.info("spawning: player");

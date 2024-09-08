@@ -31,7 +31,7 @@ public abstract class GameArea extends LoadedFactory {
     /**
      * Create the game area in the world.
      */
-    public abstract void create(Entity player);
+    public abstract void create();
 
     /**
      * Dispose of all internal entities in the area

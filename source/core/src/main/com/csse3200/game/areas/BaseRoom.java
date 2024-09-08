@@ -131,6 +131,8 @@ public abstract class BaseRoom implements Room {
         for (Entity data : enemies) {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         } 
+        this.enemies.clear();
+        
         
     }
 
@@ -195,6 +197,7 @@ public abstract class BaseRoom implements Room {
 
     protected void spawnDoors(GameArea area, Entity player) {
         // Ensure roomConnections is properly initialized
+        this.doors.clear();
         if (this.roomConnections == null || this.roomConnections.size() < 4) {
             throw new IllegalStateException("Room connections are not properly initialized.");
         }

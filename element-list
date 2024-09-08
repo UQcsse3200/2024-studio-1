@@ -10,6 +10,8 @@ com.csse3200.game.components.howtoplaymenu
 com.csse3200.game.components.maingame
 com.csse3200.game.components.mainmenu
 com.csse3200.game.components.npc
+com.csse3200.game.components.npc.attack
+com.csse3200.game.components.npc.attack.attackeffects
 com.csse3200.game.components.player
 com.csse3200.game.components.player.inventory
 com.csse3200.game.components.projectile

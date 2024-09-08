@@ -94,6 +94,7 @@ public class WeaponFactory {
         if (collectible.getType() == Collectible.Type.MELEE_WEAPON) {
             return createMeleeEntity((MeleeWeapon) collectible);
         }
+
         return createRangeEntity((RangedWeapon) collectible);
     }
 

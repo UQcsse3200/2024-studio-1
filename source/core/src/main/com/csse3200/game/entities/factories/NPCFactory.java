@@ -91,8 +91,7 @@ public class NPCFactory extends LoadedFactory {
    * @param aiComponent The AI component to be added to the NPC.
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
-   * @param The animator component for the NPC.
-   * @param The animator controller for the NPC.
+   * @param animationController The animator component for the NPC.
    *
    * @return entity
    */

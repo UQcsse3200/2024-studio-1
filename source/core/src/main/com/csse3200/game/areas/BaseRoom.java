@@ -83,8 +83,6 @@ public abstract class BaseRoom implements Room {
         
 
         this.specification = specification;
-
-        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
     }
 
     // overide method 
@@ -156,6 +154,7 @@ public abstract class BaseRoom implements Room {
     }
 
     public void spawn(Entity player, MainGameArea area) {
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
         this.spawnTerrain(area, WALL_THICKNESS);
         this.spawnDoors(area, player);
         this.spawnAnimals(area, player, this.minGridPoint, this.minGridPoint);

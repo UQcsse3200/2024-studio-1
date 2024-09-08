@@ -37,6 +37,7 @@ public abstract class BaseRoom implements Room {
 
     List<List<String>> animalSpecifications;
     List<List<String>> itemSpecifications;
+    public Boolean isRoomFresh = true;
 
     private static final float WALL_THICKNESS = 0.15f;
 
@@ -58,8 +59,6 @@ public abstract class BaseRoom implements Room {
         this.roomConnections = roomConnections;
         this.doors = new ArrayList<>();
         this.enemies = new ArrayList<>();
-
-        
 
         initializeSpecifications();
 
@@ -159,7 +158,7 @@ public abstract class BaseRoom implements Room {
         this.spawnTerrain(area, WALL_THICKNESS);
         this.spawnDoors(area, player);
         this.spawnAnimals(area, player, this.minGridPoint, this.minGridPoint);
-        
+        isRoomFresh = false;
         // FIXME
         // logger.info("Spawning items:");
         // int itemGroup = Integer.parseInt(split.get(5));

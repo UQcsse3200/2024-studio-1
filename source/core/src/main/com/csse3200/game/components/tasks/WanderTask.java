@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,22 +18,19 @@ public class WanderTask extends DefaultTask implements PriorityTask {
 
   private final Vector2 wanderRange;
   private final float waitTime;
-  private final float wonderSpeed;
+  private final float wanderSpeed;
   private Vector2 startPos;
   private MovementTask movementTask;
   private WaitTask waitTask;
   private Task currentTask;
 
   /**
-   * @param wanderRange Distance in X and Y the entity can move from its position when start() is
-   *     called.
-   * @param waitTime How long in seconds to wait between wandering.
-   * @param wonderSpeed The speed an entity wanders at.
+   * @param config Configuration for the wander task.
    */
-  public WanderTask(Vector2 wanderRange, float waitTime, float wonderSpeed) {
-    this.wanderRange = wanderRange;
-    this.waitTime = waitTime;
-    this.wonderSpeed = wonderSpeed;
+  public WanderTask(NPCConfigs.NPCConfig.TaskConfig.WanderTaskConfig config) {
+    this.wanderRange = new Vector2(config.wanderRadius, config.wanderRadius);
+    this.waitTime = config.waitTime;
+    this.wanderSpeed = config.wanderSpeed;
   }
 
   @Override
@@ -50,7 +48,7 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     movementTask = new MovementTask(getRandomPosInRange());
     movementTask.create(owner);
     movementTask.start();
-    movementTask.setVelocity(wonderSpeed);
+    movementTask.setVelocity(wanderSpeed);
     currentTask = movementTask;
 
     this.owner.getEntity().getEvents().trigger("walk");

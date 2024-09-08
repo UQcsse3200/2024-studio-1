@@ -2,6 +2,7 @@ package com.csse3200.game.components.tasks;
 
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.physics.components.PhysicsComponent;
@@ -38,7 +39,13 @@ class ChaseTaskTest {
     Entity target = new Entity();
     target.setPosition(2f, 2f);
 
-    AITaskComponent ai = new AITaskComponent().addTask(new ChaseTask(target, 10, 5, 10, 1));
+    NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig();
+    config.priority = 10;
+    config.viewDistance = 5;
+    config.chaseDistance = 10;
+    config.chaseSpeed = 10;
+
+    AITaskComponent ai = new AITaskComponent().addTask(new ChaseTask(target, config));
     Entity entity = makePhysicsEntity().addComponent(ai);
     entity.create();
     entity.setPosition(0f, 0f);
@@ -63,7 +70,13 @@ class ChaseTaskTest {
     entity.create();
     entity.setPosition(0f, 0f);
 
-    ChaseTask chaseTask = new ChaseTask(target, 10, 5, 10, 1);
+    NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig();
+    config.priority = 10;
+    config.viewDistance = 5;
+    config.chaseDistance = 10;
+    config.chaseSpeed = 1;
+
+    ChaseTask chaseTask = new ChaseTask(target, config);
     chaseTask.create(() -> entity);
 
     // Not currently active, target is too far, should have negative priority

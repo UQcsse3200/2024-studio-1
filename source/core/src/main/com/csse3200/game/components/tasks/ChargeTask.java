@@ -5,6 +5,7 @@ import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
@@ -21,7 +22,9 @@ import org.slf4j.LoggerFactory;
 public class ChargeTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(ChargeTask.class);
   protected final Entity target;
-  protected final int priority;
+  protected int priority;
+  private final int basePriority;
+  private final int triggerPriority = 15;
   private final float viewDistance;
   protected final float maxChaseDistance;
   private final float chaseSpeed;
@@ -36,20 +39,17 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   /**
    * Creates a ChargeTask.
    *
-   * @param target Entity to charge towards
-   * @param priority Task priority while charging.
-   * @param viewDistance Maximum distance from the entity at which chasing can start.
-   * @param maxChaseDistance Maximum distance from the entity while chasing before giving up.
-   * @param chaseSpeed The speed at which an entity chases at.
+   * @param target Entity to charge towards.
+   * @param config Configuration for the charge task.
    */
-  public ChargeTask(Entity target, int priority, float viewDistance, float maxChaseDistance, float chaseSpeed,
-                    float waitTime) {
+  public ChargeTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config) {
     this.target = target;
-    this.priority = priority;
-    this.viewDistance = viewDistance;
-    this.maxChaseDistance = maxChaseDistance;
-    this.chaseSpeed = chaseSpeed;
-    this.waitTime = waitTime;
+    this.priority = config.priority;
+    this.basePriority = config.priority;
+    this.viewDistance = config.viewDistance;
+    this.maxChaseDistance = config.chaseDistance;
+    this.chaseSpeed = config.chaseSpeed;
+    this.waitTime = config.waitTime;
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
@@ -69,7 +69,11 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
       if (currentTask == movementTask && waitTime > 0) {
         startWaiting();
       } else {
-        startMoving();
+        if (priority == triggerPriority) {
+          resetPriority();
+        } else {
+          startMoving();
+        }
       }
     }
     currentTask.update();
@@ -91,7 +95,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     return getInactivePriority();
   }
 
-  protected void initialiseTasks() {
+  private void initialiseTasks() {
     waitTask = new WaitTask(waitTime, priority + 1);
     waitTask.create(owner);
     movementTask = new MovementTask(target.getPosition());
@@ -108,16 +112,13 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     swapTask(movementTask);
   }
 
-  protected void startWaiting() {
-    //this.owner.getEntity().getEvents().trigger("gesture");
+  private void startWaiting() {
+    this.owner.getEntity().getEvents().trigger("idle");
     logger.debug("Starting waiting");
-    if (movementTask != null) {
-        movementTask.stop();
-    }
     swapTask(waitTask);
   }
 
-  protected void swapTask(Task newTask) {
+  private void swapTask(Task newTask) {
     if (currentTask != null) {
       currentTask.stop();
     }
@@ -145,7 +146,18 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     return -1;
   }
 
-  protected boolean isTargetVisible() {
+  private void resetPriority() {
+    this.priority = basePriority;
+  }
+
+  /**
+   * Triggers the charge task to start charging towards the target once.
+   */
+  public void triggerCharge() {
+    this.priority = triggerPriority;
+  }
+
+  private boolean isTargetVisible() {
     Vector2 from = owner.getEntity().getCenterPosition();
     Vector2 to = target.getCenterPosition();
 

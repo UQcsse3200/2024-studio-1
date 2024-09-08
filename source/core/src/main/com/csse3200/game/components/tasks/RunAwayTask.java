@@ -2,6 +2,7 @@ package com.csse3200.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,8 +10,8 @@ public class RunAwayTask extends ChargeTask {
     private static final Logger logger = LoggerFactory.getLogger(RunAwayTask.class);
     private boolean isRunningAway = false;
 
-    public RunAwayTask(Entity target, int priority, float viewDistance, float maxRunDistance, float runSpeed, float waitTime) {
-        super(target, priority, viewDistance, maxRunDistance, runSpeed, waitTime);
+    public RunAwayTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config) {
+        super(target, config);
     }
 
     @Override

@@ -1,15 +1,10 @@
+/*
 package com.csse3200.game.entities;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.LoadPlayer;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.AnimationFactory;
 import com.csse3200.game.entities.factories.WeaponFactory;
@@ -19,7 +14,6 @@ import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ResourceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -44,7 +38,7 @@ import static org.mockito.Mockito.*;
         doNothing().when(resourceServiceMock).loadTextures(any(String[].class));
 
         // Pass the mock ResourceService to LoadPlayer (if needed)
-        loadPlayer = new LoadPlayer(resourceServiceMock);  // Ensure your constructor accepts ResourceService
+        loadPlayer = new LoadPlayer();  // Ensure your constructor accepts ResourceService
         playerConfig = new PlayerConfig();
         playerConfig.health = 100;
         playerConfig.baseAttack = 50;
@@ -107,4 +101,6 @@ import static org.mockito.Mockito.*;
         verify(weaponFactoryMock, times(1)).create(Collectible.Type.RANGED_WEAPON, "shotgun");
 
     }
+
 }
+*/

@@ -24,7 +24,6 @@ import java.util.Objects;
 public class LoadPlayer {
 
     private final WeaponFactory weaponFactory;
-    private final ResourceService resourceService;
     private final CollectibleFactory collectibleFactory;
     private final ItemFactory itemFactory;
     private final AnimationFactory animationFactory;
@@ -33,8 +32,7 @@ public class LoadPlayer {
     /**
      * Construct a new Player Factory (and load all of its assets)
      */
-    public LoadPlayer(ResourceService resourceService) {
-        this.resourceService = resourceService;
+    public LoadPlayer() {
         this.weaponFactory = new WeaponFactory();
         this.collectibleFactory = new CollectibleFactory();
         this.animationFactory = new AnimationFactory();

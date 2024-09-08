@@ -7,6 +7,7 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.LoadPlayer;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -54,7 +55,15 @@ public class PlayerFactory extends LoadedFactory {
      * @return entity
      */
     public Entity createPlayer(){
-        return createPlayer(options.get("default"));
+        LoadPlayer loader = new LoadPlayer();
+        PlayerConfig config = options.get("default");
+        return loader.createPlayer(config);
+    }
+
+    public Entity createPlayer(String player) {
+        LoadPlayer loader = new LoadPlayer();
+        PlayerConfig config = options.get(player);
+        return loader.createPlayer(config);
     }
 
     /**
@@ -63,6 +72,7 @@ public class PlayerFactory extends LoadedFactory {
      * @param config the config for the player.
      * @return entity
      */
+
     public Entity createPlayer(PlayerConfig config) {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         TextureRegion defaultTexture = atlas.findRegion("idle");
@@ -212,4 +222,5 @@ public class PlayerFactory extends LoadedFactory {
         }
         return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
     }
+    */
 }

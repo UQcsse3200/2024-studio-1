@@ -1,6 +1,7 @@
 package com.csse3200.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,13 +10,12 @@ import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.*;
-import com.csse3200.game.entities.factories.AnimationFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
 import java.util.Objects;
@@ -26,7 +26,6 @@ public class LoadPlayer {
     private final WeaponFactory weaponFactory;
     private final CollectibleFactory collectibleFactory;
     private final ItemFactory itemFactory;
-    private final AnimationFactory animationFactory;
     private final InventoryComponent inventoryComponent;
 
     /**
@@ -35,7 +34,6 @@ public class LoadPlayer {
     public LoadPlayer() {
         this.weaponFactory = new WeaponFactory();
         this.collectibleFactory = new CollectibleFactory();
-        this.animationFactory = new AnimationFactory();
         this.itemFactory = new ItemFactory();
         this.inventoryComponent = new InventoryComponent();
     }
@@ -74,7 +72,7 @@ public class LoadPlayer {
                 .addComponent(new ItemPickupComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
-                .addComponent(animationFactory.createAnimationComponent(config.textureAtlasFilename))
+                .addComponent(createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
@@ -137,7 +135,16 @@ public class LoadPlayer {
             }
         }
     }
+    public AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
+        AnimationRenderComponent animator = new AnimationRenderComponent(
+                ServiceLocator.getResourceService().getAsset(textureAtlasFilename, TextureAtlas.class));
+        animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
+        return animator;
 
-
+    }
 }
 

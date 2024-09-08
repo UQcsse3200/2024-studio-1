@@ -94,7 +94,6 @@ public class MainGameScreen extends ScreenAdapter {
         ));
         Entity player = playerFactory.createPlayer();
 
-        List<Entity> players = playerSelection.createTwoPlayers();
         logger.debug("Initialising main game screen entities");
 
         LevelFactory levelFactory = new MainGameLevelFactory();

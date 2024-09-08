@@ -39,8 +39,6 @@ public class MainGameLevelFactory implements LevelFactory {
                         map.mapData.getPositions().get(room_key),
                         "0,0,14,10," + levelNumber + levelNumber));
             }
-
-
         }
         return new Level(map, levelNumber, rooms);
     }

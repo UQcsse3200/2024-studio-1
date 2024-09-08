@@ -45,6 +45,7 @@ public class PlayerFactory {
     };
 
     private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
+    private static final float playerScale = 0.75f;
 
     /**
      * Create a player entity.
@@ -100,7 +101,8 @@ public class PlayerFactory {
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
-        //player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+//        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+        player.setScale(playerScale, playerScale);
 
         return player;
     }

@@ -7,8 +7,6 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.compression.lzma.Base;
-import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
@@ -17,9 +15,6 @@ import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This is the foundation of a room,
@@ -64,9 +59,9 @@ public abstract class BaseRoom implements Room {
         this.doors = new ArrayList<>();
         this.enemies = new ArrayList<>();
 
-        initializeSpecifications();
         
 
+        initializeSpecifications();
 
         List<String> split = Arrays.stream(specification.split(",")).toList();
 
@@ -88,6 +83,8 @@ public abstract class BaseRoom implements Room {
         
 
         this.specification = specification;
+
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
     }
 
     // overide method 
@@ -102,6 +99,7 @@ public abstract class BaseRoom implements Room {
         return enemies;
     } 
 
+    @SuppressWarnings("unused")
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
         // Create and spawn walls
         Entity leftWall = createAndSpawnWall(area, thickness, tileBounds.y, GridPoint2Utils.ZERO);
@@ -160,7 +158,6 @@ public abstract class BaseRoom implements Room {
     public void spawn(Entity player, MainGameArea area) {
         this.spawnTerrain(area, WALL_THICKNESS);
         this.spawnDoors(area, player);
-        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
         this.spawnAnimals(area, player, this.minGridPoint, this.minGridPoint);
         
         // FIXME
@@ -191,7 +188,6 @@ public abstract class BaseRoom implements Room {
      * @param pos the location to spawn it to.
      */
     protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
-
         for (Entity enemy : this.enemies) {
             GridPoint2 randomPos = RandomUtils.random(min, max);
             area.spawnEntityAt(enemy, randomPos, true, true);
@@ -199,7 +195,6 @@ public abstract class BaseRoom implements Room {
     }
 
     protected void spawnDoors(GameArea area, Entity player) {
-        final Logger logger = LoggerFactory.getLogger(BaseRoom.class);
         // Ensure roomConnections is properly initialized
         if (this.roomConnections == null || this.roomConnections.size() < 4) {
             throw new IllegalStateException("Room connections are not properly initialized.");

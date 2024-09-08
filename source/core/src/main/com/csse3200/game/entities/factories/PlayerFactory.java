@@ -78,6 +78,7 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true))
                 .addComponent(inventoryComponent)
                 .addComponent(new ItemPickupComponent())
+                .addComponent(new ShieldComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))

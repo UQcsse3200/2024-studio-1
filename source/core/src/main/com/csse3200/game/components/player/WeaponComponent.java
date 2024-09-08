@@ -348,7 +348,7 @@ public class WeaponComponent extends Component {
         this.swingDamage = meleeWeapon.getDamage();
         this.swingRange = meleeWeapon.getRange();
         this.swingRate = meleeWeapon.getFireRate();
-        this.lastSwing = 0L;
+        this.lastSwing = 0L; // 1000 means 1 second ago
         if (this.swingRate == 0) {
             this.swingInterval = 0L;
         } else {
@@ -418,8 +418,13 @@ public class WeaponComponent extends Component {
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
-            // get list of entities in range
-            // for each entity in range, apply damage
+            ArrayList<Entity> entities = this.getEntity().getComponent(RangeDetectionComponent.class).getEntities();
+            for (Entity e : entities) {
+                CombatStatsComponent targetStats = e.getComponent(CombatStatsComponent.class);
+                if (targetStats != null) {
+                    targetStats.hit(this.getEntity().getComponent(CombatStatsComponent.class));
+                }
+            }
         } else {
             logger.info("No melee weapon");
         }
@@ -460,13 +465,6 @@ public class WeaponComponent extends Component {
                         .play();
                 ProjectileFactory.createProjectile(this.bulletConfig, direction);
                 logger.info("Ranged weapon shoot");
-                ArrayList<Entity> entities = this.getEntity().getComponent(RangeDetectionComponent.class).getEntities();
-                for (Entity e : entities) {
-                    CombatStatsComponent targetStats = e.getComponent(CombatStatsComponent.class);
-                    if (targetStats != null) {
-                        targetStats.hit(this.getEntity().getComponent(CombatStatsComponent.class));
-                    }
-                }
             }
             // Reset lastAtttack time
             this.lastAttack = currentTime;

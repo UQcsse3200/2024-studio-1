@@ -3,6 +3,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.npc.BearAnimationController;
 import com.csse3200.game.components.npc.GhostAnimationController;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
@@ -97,7 +98,7 @@ public class NPCFactory extends LoadedFactory {
    * @return entity
    */
   private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
-                                      AnimationRenderComponent animator, NPCAnimationController animationController) {
+                                      AnimationRenderComponent animator, Component animationController) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
@@ -210,6 +211,20 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
+   * Creates a directional bear entity.
+   *
+   * @param target entity to chase
+   * @return entity
+  public Entity createDirectionBear(Entity target) {
+    NPCConfigs.NPCConfig config = configs.directionbear;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
+    Entity bear = createBaseNPC(target, aiComponent, config, animator, new BearAnimationController());
+    return bear;
+  }
+   */
+
+  /**
    * Creates a Snake entity.
    *
    * @param target entity to chase
@@ -243,7 +258,7 @@ public class NPCFactory extends LoadedFactory {
    * Creates a bat entity with predefined components and behaviour.
    *
    * @param target entity to chase
-   * @return the created rat entity
+   * @return the created bat entity
    */
   public Entity createBat(Entity target) {
     NPCConfigs.NPCConfig config = configs.bat;
@@ -325,6 +340,7 @@ public class NPCFactory extends LoadedFactory {
             "images/bear.atlas",
             "images/dino.atlas",
             "images/bat.atlas",
+            "images/npc/bear/bear.atlas",
             "images/dog.atlas"
     };
   }
@@ -340,6 +356,7 @@ public class NPCFactory extends LoadedFactory {
             "images/snake.png",
             "images/dino.png",
             "images/minotaur.png",
+            "images/npc/bear/bear.png",
             "images/bear.png"
     };
   }

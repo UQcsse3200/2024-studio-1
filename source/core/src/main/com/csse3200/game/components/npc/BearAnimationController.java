@@ -6,6 +6,7 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 /**
  * This class listens to events relevant to a bear entity's state and plays the animation when one
  * of the events is triggered.
+ *
  */
 public class BearAnimationController extends Component {
     AnimationRenderComponent animator;
@@ -15,23 +16,35 @@ public class BearAnimationController extends Component {
         super.create();
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         entity.getEvents().addListener("idle", this::animateIdle);
-        entity.getEvents().addListener("gesture", this::animateGesture);
-        entity.getEvents().addListener("walk", this::animateWalk);
-        entity.getEvents().addListener("attack", this::animateAttack);
+        entity.getEvents().addListener("walk_left", this::animateWalkLeft);
+        entity.getEvents().addListener("walk_right", this::animateWalkRight);
+        entity.getEvents().addListener("run_left", this::animateRunLeft);
+        entity.getEvents().addListener("run_right", this::animateRunRight);
+        entity.getEvents().addListener("attack_left", this::animateAttackLeft);
+        entity.getEvents().addListener("attack_right", this::animateAttackRight);
         entity.getEvents().addListener("death", this::animateDeath);
     }
 
     void animateIdle() {
         animator.startAnimation("idle");
     }
-    void animateGesture() {
-        animator.startAnimation("gesture");
+    void animateWalkRight() {
+        animator.startAnimation("walk_right");
     }
-    void animateWalk() {
-        animator.startAnimation("walk");
+    void animateWalkLeft() {
+        animator.startAnimation("walk_left");
     }
-    void animateAttack() {
-        animator.startAnimation("attack");
+    void animateRunLeft() {
+        animator.startAnimation("run_left");
+    }
+    void animateRunRight() {
+        animator.startAnimation("run_right");
+    }
+    void animateAttackLeft() {
+        animator.startAnimation("attack_left");
+    }
+    void animateAttackRight() {
+        animator.startAnimation("attack_right");
     }
     void animateDeath() {
         animator.startAnimation("death");

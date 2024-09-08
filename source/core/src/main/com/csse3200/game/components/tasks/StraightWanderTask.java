@@ -73,9 +73,7 @@ public class StraightWanderTask extends DefaultTask implements PriorityTask {
     }
 
     private void onCollisionStart(Object fixtureA, Object fixtureB) {
-        if (movementTask.getStatus() == Status.ACTIVE) {
-            logger.debug("Collision detected, changing direction");
-            startMoving();
-        }
+        logger.debug("Collision detected, changing direction");
+        startMoving();
     }
 }

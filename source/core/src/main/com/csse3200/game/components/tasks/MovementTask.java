@@ -92,11 +92,6 @@ public class MovementTask extends DefaultTask {
     logger.debug("Stopping movement");
   }
 
-  @Override
-  public int getPriority() {
-    return 0;
-  }
-
   private boolean isAtTarget() {
     return owner.getEntity().getPosition().dst(target) <= stopDistance;
   }

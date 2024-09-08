@@ -110,6 +110,19 @@ public class CombatStatsComponent extends Component {
     }
 
     /**
+     * Applies damage to the entity by reducing its health. If health drops to 0, triggers a "died" event.
+     *
+     * @param damage The amount of damage to apply to the entity.
+     */
+    public void takeDamage(int damage) {
+        health = Math.max(0, health - damage);
+        entity.getEvents().trigger("healthChanged", health);
+        if (health == 0) {
+            entity.getEvents().trigger("died");
+        }
+    }
+
+    /**
      * Returns the entity's maximum health.
      *
      * @return maximum health
@@ -127,19 +140,18 @@ public class CombatStatsComponent extends Component {
         if (isInvincible()) {
             return;
         }
+
         int newHealth = getHealth() - attacker.getBaseAttack();
         setHealth(newHealth);
-        if (canBeInvincible){
+
+        if (canBeInvincible) {
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timer.schedule(task, timeInvincible);
         }
-        if (!isInvincible()) {
-            if (health <= 0) {
-                entity.getEvents().trigger("died");
-            }
-        }
+
     }
+
 
     /**
      * Sets the state of the entity's invincibility

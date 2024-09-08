@@ -30,6 +30,4 @@ public abstract class DefaultTask implements Task {
   public Status getStatus() {
     return status;
   }
-
-  public abstract int getPriority();
 }

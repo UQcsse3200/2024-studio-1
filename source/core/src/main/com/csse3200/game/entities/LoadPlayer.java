@@ -168,8 +168,9 @@ public class LoadPlayer {
         }
 
         if (config.items != null) {
-            for (String item : config.items) {
-                itemFactory.create(item);
+            for (String itemName : config.items) {
+                Collectible item = itemFactory.create(itemName);
+                inventoryComponent.getInventory().addItem(item);
             }
         }
     }

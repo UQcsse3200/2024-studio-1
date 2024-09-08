@@ -28,6 +28,7 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private final GdxGame game;
     private Table table;
+    private static final float X_PADDING = 10f;
 
     /**
      * Make the component.
@@ -59,7 +60,7 @@ public class PlayerSelectDisplay extends UIComponent {
             TextureRegion idleTexture = new TextureAtlas(config.textureAtlasFilename)
                     .findRegion("idle");
             Image playerImage = new Image(idleTexture);
-            table.add(playerImage);
+            table.add(playerImage).padLeft(X_PADDING).padRight(X_PADDING);
         });
 
         // Add buttons to choose each player
@@ -73,7 +74,7 @@ public class PlayerSelectDisplay extends UIComponent {
                     playerSelected(filename);
                 }
             });
-            table.add(button);
+            table.add(button).padLeft(X_PADDING).padRight(X_PADDING);
         });
 
         stage.addActor(table);

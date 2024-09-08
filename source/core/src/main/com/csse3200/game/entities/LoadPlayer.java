@@ -49,18 +49,19 @@ public class LoadPlayer {
         addComponents(config);
         addWeaponsAndItems(player, config);
         addAtlas(player, config);
-        PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
-        player.getComponent(ColliderComponent.class).setDensity(1.5f);
+
         return player;
     }
     public Entity addAtlas(Entity player, PlayerConfig config) {
-        TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
-        TextureRegion defaultTexture = atlas.findRegion("idle");
-        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+
         return player;
     }
 
     public Entity addComponents(PlayerConfig config) {
+        TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
+        TextureRegion defaultTexture = atlas.findRegion("idle");
+
+        InventoryComponent inventoryComponent = new InventoryComponent();
         Entity player = new Entity()
                 .addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
@@ -81,10 +82,15 @@ public class LoadPlayer {
                         Collectible.Type.RANGED_WEAPON,
                         10, 1, 1, 10, 10, 0));
 
+
+        PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
+        player.getComponent(ColliderComponent.class).setDensity(1.5f);
+        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+
         return player;
     }
 
-    public void createRanged(PlayerConfig config, Entity player) {
+    public void createMelee(PlayerConfig config, Entity player) {
 
         Collectible melee = weaponFactory.create(Collectible.Type.MELEE_WEAPON, config.melee);
         if (melee instanceof MeleeWeapon meleeWeapon) {
@@ -101,9 +107,9 @@ public class LoadPlayer {
         }
     }
 
-    public void createMelee(PlayerConfig config, Entity player) {
+    public void createRanged(PlayerConfig config, Entity player) {
 
-        Collectible ranged = weaponFactory.create(Collectible.Type.RANGED_WEAPON, config.melee);
+        Collectible ranged = weaponFactory.create(Collectible.Type.RANGED_WEAPON, config.ranged);
         if (ranged instanceof RangedWeapon rangedWeapon) {
             WeaponComponent rangedWeaponComponent = new WeaponComponent(
                     new Sprite(rangedWeapon.getIcon()),
@@ -137,14 +143,14 @@ public class LoadPlayer {
     }
     public AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
         AnimationRenderComponent animator = new AnimationRenderComponent(
-                ServiceLocator.getResourceService().getAsset(textureAtlasFilename, TextureAtlas.class));
+                ServiceLocator.getResourceService().getAsset(textureAtlasFilename,
+                        TextureAtlas.class));
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
         return animator;
-
     }
 }
 

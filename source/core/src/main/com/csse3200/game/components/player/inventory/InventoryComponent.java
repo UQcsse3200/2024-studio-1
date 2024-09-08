@@ -30,6 +30,16 @@ public class InventoryComponent extends Component {
      *
      * @param item The item to add to your inventory
      */
+    public void pickup(Collectible item) {
+        item.pickup(inventory);
+        getEntity().getEvents().trigger("updateInventory");
+    }
+
+    /**
+     * Add a weapon collectible and its entity wrapper to your inventory.
+     *
+     * @param item The item to add to your inventory
+     */
     public void pickup(Collectible item, Entity itemEntity) {
         if(item instanceof MeleeWeapon){
             meleeWeaponCount = meleeWeaponCount + 1;
@@ -44,6 +54,7 @@ public class InventoryComponent extends Component {
             item.pickup(inventory, itemEntity);
         }
         else {
+            // Should never go here
             item.pickup(inventory);
         }
         getEntity().getEvents().trigger("updateInventory");

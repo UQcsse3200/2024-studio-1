@@ -55,6 +55,10 @@ public class CombatStatsComponent extends Component {
             entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
         }
     }
+
+    /**
+     * A TimerTask used to alternate the visibility of the entity during their IFrames
+     */
     private class flashSprite extends TimerTask {
         private boolean invisible = false;
         @Override
@@ -153,6 +157,7 @@ public class CombatStatsComponent extends Component {
 
     /**
      * Handles a hit from another entity by reducing the entity's health based on the attacker's base attack value.
+     * Gives them invincibility frames if they can have any
      *
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */

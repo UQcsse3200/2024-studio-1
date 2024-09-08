@@ -41,6 +41,15 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
+  private char getDirection(Vector2 destination) {
+    if (owner.getEntity().getPosition().x - destination.x < 0) {
+      return '>';
+    }
+    if (owner.getEntity().getPosition().x - destination.x > 0) {
+      return '<';
+    }
+    return '=';
+  }
 
   @Override
   public void start() {
@@ -49,12 +58,12 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
-    char dir = getDirection(getVectorTo());
-    DirectionalNPCComponent getDirection = owner.getComponent(DirectionalNPCComponent.class);
-    Boolean directable = getDirection.isDirectable();
+    char dir = getDirection(target.getPosition());
+    Entity entity = owner.getEntity();
+    //Boolean directable = entity.getComponent(DirectionalNPCComponent.class).isDirectable();
+    Boolean directable = false; 
     if(directable){
         //right movement 
-        PhysicsMovementComponent direction = owner.getComponent(PhysicsMovementComponent.class);
         if(dir == '<'){
             this.owner.getEntity().getEvents().trigger("walk_right");
         }
@@ -122,15 +131,6 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     }
     debugRenderer.drawLine(from, to);
     return true;
-  }
-private char getDirection(Vector2 destination) {
-    if (owner.getEntity().getPosition().x - destination.x < 0) {
-      return '>';
-    }
-    if (owner.getEntity().getPosition().x - destination.x > 0) {
-      return '<';
-    }
-    return '=';
   }
 
   /**

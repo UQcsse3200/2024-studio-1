@@ -12,13 +12,12 @@ import java.util.TimerTask;
  */
 public class DirectionalNPCComponent extends Component {
 
-    private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
     private final Boolean directional;
 
     public DirectionalNPCComponent(Boolean isDirectional){
         this.directional = isDirectional;
     }
     public Boolean isDirectable(){
-        return directional;
+        return this.directional;
     }
 }

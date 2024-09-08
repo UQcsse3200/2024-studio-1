@@ -2,6 +2,7 @@ package com.csse3200.game.entities;
 
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerConfigComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
@@ -14,16 +15,15 @@ import com.csse3200.game.entities.configs.PlayerConfig;
  * into a configuration format that can be saved and loaded as needed.
  */
 public class PlayerConfigGenerator {
-
     /**
-     * Generates a playercomfig object based on current state of given entity.
+     * Generates a playerconfig object based on current state of given entity.
      *
      * @param player the entity player whose state needs to be saved
      *
      * @return returns a player configuration that can be saved
      */
     public PlayerConfig savePlayerState(Entity player) {
-        PlayerConfig config = new PlayerConfig();
+        PlayerConfig config = player.getComponent(PlayerConfigComponent.class).getPlayerConfig();
 
         // obtain the stats and inventory components of the player
         CombatStatsComponent statsComponent = player.getComponent(CombatStatsComponent.class);
@@ -44,6 +44,7 @@ public class PlayerConfigGenerator {
         config.ranged = inventoryComponent.getInventory().getRanged()
                 .map(RangedWeapon::getSpecification)
                 .orElse("");
+
         return config;
     }
 

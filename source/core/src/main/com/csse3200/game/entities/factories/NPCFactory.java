@@ -3,6 +3,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.npc.GhostAnimationController;
+import com.csse3200.game.components.npc.NPCAnimationController;
+import com.csse3200.game.components.npc.NPCDeathHandler;
+import com.csse3200.game.components.npc.NPCHealthBarComponent;
+import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.*;
@@ -32,47 +37,36 @@ import com.csse3200.game.components.Component;
  * <p>If needed, this factory can be separated into more specific factories for entities with
  * similar characteristics.
  */
-public class NPCFactory {
+public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static final NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+  private static final NPCConfigs configs =
+          FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
-  private static final String[] npcAtlas ={
-    "images/ghost.atlas", 
-    "images/ghostKing.atlas",
-    "images/rat.atlas", 
-    "images/snake.atlas", 
-    "images/minotaur.atlas",
-    "images/bear.atlas", 
-    "images/dino.atlas",
-    "images/bat.atlas", 
-    "images/dog.atlas"
-  };
-  private static final String[] npcTextures ={
-    "images/ghost_1.png",
-    "images/ghost_king.png",
-    "images/rat.png",
-    "images/minotaur.png",
-    "images/dog.png",
-    "images/snake.png",
-    "images/dino.png",
-    "images/minotaur.png",
-    "images/bear.png" 
-  };
-
-  public NPCFactory() {
-    loadAssets();
+  /**
+   * Construct a new NPC Factory.
+   */
+  public NPCFactory(){
+    super(logger);
   }
 
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(npcTextures);
-    resourceService.loadTextureAtlases(npcAtlas);
-
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading... {}%", resourceService.getProgress());
-    }
+  /**
+   * Create a new NPC from specification
+   *
+   * @param specification the specification of the npc
+   * @param target entity to chase
+   * @return the created npc
+   */
+  public Entity create(String specification, Entity target) {
+    return switch (specification) {
+      case "Rat" -> this.createRat(target);
+      case "Bear" -> this.createBear(target);
+      case "Snake" -> this.createSnake(target);
+      case "Dino" -> this.createDino(target);
+      case "Bat" -> this.createBat(target);
+      case "Dog" -> this.createDog(target);
+      case "Minotaur" -> this.createMinotaur(target);
+      default -> throw new IllegalArgumentException("Unknown animal: " + specification);
+    };
   }
 
   /**
@@ -319,5 +313,34 @@ public class NPCFactory {
     Entity gorilla = createBaseNPC(target, aiComponent, config, animator);
 
     return gorilla;
+  }
+  @Override
+  protected String[] getTextureAtlasFilepaths() {
+    return new String[] {
+            "images/ghost.atlas",
+            "images/ghostKing.atlas",
+            "images/rat.atlas",
+            "images/snake.atlas",
+            "images/minotaur.atlas",
+            "images/bear.atlas",
+            "images/dino.atlas",
+            "images/bat.atlas",
+            "images/dog.atlas"
+    };
+  }
+
+  @Override
+  protected String[] getTextureFilepaths() {
+    return new String[]{
+            "images/ghost_1.png",
+            "images/ghost_king.png",
+            "images/rat.png",
+            "images/minotaur.png",
+            "images/dog.png",
+            "images/snake.png",
+            "images/dino.png",
+            "images/minotaur.png",
+            "images/bear.png"
+    };
   }
 }

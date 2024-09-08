@@ -30,6 +30,8 @@ public class PlayerStatsDisplay extends UIComponent {
     private int currentAmmo;
     private WeaponComponent weaponComponent;
     private static final int RELOAD_TIME = 3;
+    float screenWidth = Gdx.graphics.getWidth();
+
 
     /**
      * Creates reusable UI styles and adds actors to the stage.
@@ -92,6 +94,8 @@ public class PlayerStatsDisplay extends UIComponent {
         stage.addActor(table);
     }
 
+
+
     @Override
     public void draw(SpriteBatch batch) {
         // Draw is handled by the stage
@@ -145,7 +149,7 @@ public class PlayerStatsDisplay extends UIComponent {
             } else {
                 ammoImages.get(i).setVisible(false);
             }
-            ammoTable.add(ammoImages.get(i)).size(30f);
+            ammoTable.add(ammoImages.get(i)).size(screenWidth/45f);
             itemsInRow++;
         }
 

@@ -67,6 +67,7 @@ public class Door extends Entity {
                 System.out.println("this is the room " + Room);
                 
                 ServiceLocator.getGameAreaService().getGameArea().changeRooms(Room);
+
             }
         });
     }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
+import com.csse3200.game.entities.factories.RoomFactory;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
@@ -61,9 +62,11 @@ public class MainGameArea extends GameArea {
         this.currentRoom.remove_room();
         //this.player.getPosition();
         //player.setPosition(null);
-
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
+        if (this.currentRoom.isRoomFresh) {
+            this.currentLevel.roomTraversals ++;
+        }
     }
 
     public void spawnCurrentRoom() {
@@ -72,6 +75,9 @@ public class MainGameArea extends GameArea {
             return;
         }
         //logger.info("spawning: new room");
+        if (currentLevel.roomTraversals == 8) {
+            this.currentRoom = currentLevel.getRoom("BOSS");
+        }
         this.currentRoom.spawn(player, this);
         logger.info("spawned: new room");
         logger.info("spawning: player");

@@ -20,50 +20,67 @@ import com.csse3200.game.services.ServiceLocator;
 
 import java.util.Objects;
 
-
+/**
+ * Handles the setup of various player components, including animations,
+ * inventory, weapons, and physics.
+ *
+ */
 public class LoadPlayer {
-
     private final WeaponFactory weaponFactory;
-    private final CollectibleFactory collectibleFactory;
     private final ItemFactory itemFactory;
     private final InventoryComponent inventoryComponent;
 
+
     /**
-     * Construct a new Player Factory (and load all of its assets)
+    * Constructs a new LoadPlayer instance, initializing factories and inventory component.
      */
     public LoadPlayer() {
         this.weaponFactory = new WeaponFactory();
-        this.collectibleFactory = new CollectibleFactory();
         this.itemFactory = new ItemFactory();
         this.inventoryComponent = new InventoryComponent();
     }
 
     /**
-     * Create a player entity
+     * Create a player entity based on provided config file
      *
      * @param config the config for the player.
+     *
      * @return entity
      */
     public Entity createPlayer(PlayerConfig config) {
         Entity player = new Entity();
-        addComponents(config);
+        addComponents(player, config);
         addWeaponsAndItems(player, config);
         addAtlas(player, config);
+        PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
+        player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
         return player;
     }
-    public Entity addAtlas(Entity player, PlayerConfig config) {
 
-        return player;
-    }
-
-    public Entity addComponents(PlayerConfig config) {
+    /**
+     * Adds texture atlas and default texture settings to the player entity.
+     *
+     * @param player the player entity to which the atlas will be added.
+     *
+     * @param config the config file that contain the texture atlas filename.
+     */
+    public  void addAtlas(Entity player, PlayerConfig config) {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         TextureRegion defaultTexture = atlas.findRegion("idle");
+        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
 
-        InventoryComponent inventoryComponent = new InventoryComponent();
-        Entity player = new Entity()
-                .addComponent(new PlayerConfigComponent(config))
+    }
+
+    /**
+     * Adds various components to the player entity based on the configuration.
+     *
+     * @param player the player entity to which components will be added.
+     * @param config the configuration object containing player settings.
+     */
+    public void addComponents(Entity player, PlayerConfig config) {
+
+        player.addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
@@ -82,16 +99,17 @@ public class LoadPlayer {
                         Collectible.Type.RANGED_WEAPON,
                         10, 1, 1, 10, 10, 0));
 
-
-        PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
-        player.getComponent(ColliderComponent.class).setDensity(1.5f);
-        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
-
-        return player;
     }
 
+    /**
+     * Creates and adds a melee weapon to the player entity.
+     *
+     * @param config file containing melee weapon details.
+     *
+     * @param player the player entity to which the melee weapon will be added.
+     */
     public void createMelee(PlayerConfig config, Entity player) {
-
+        // calls create method in weapon factory to initialise a weapon
         Collectible melee = weaponFactory.create(Collectible.Type.MELEE_WEAPON, config.melee);
         if (melee instanceof MeleeWeapon meleeWeapon) {
             WeaponComponent meleeWeaponComponent = new WeaponComponent(
@@ -107,6 +125,13 @@ public class LoadPlayer {
         }
     }
 
+    /**
+     * Creates and adds a ranged weapon to the player entity
+     *
+     * @param config file containing ranged weapon details.
+     *
+     * @param player the player entity to which the ranged weapon will be added.
+     */
     public void createRanged(PlayerConfig config, Entity player) {
 
         Collectible ranged = weaponFactory.create(Collectible.Type.RANGED_WEAPON, config.ranged);
@@ -126,7 +151,14 @@ public class LoadPlayer {
         }
     }
 
-    void addWeaponsAndItems(Entity player, PlayerConfig config) {
+    /**
+     * Adds weapons and items to the player entity
+     *
+     * @param player the player entity to which weapons and items will be added.
+     *
+     * @param config the configuration object containing weapon and item details.
+     */
+    public void addWeaponsAndItems(Entity player, PlayerConfig config) {
         if (!Objects.equals(config.melee, "")) {
             createMelee(config, player);
         }
@@ -141,6 +173,14 @@ public class LoadPlayer {
             }
         }
     }
+
+    /**
+     * Creates an AnimationRenderComponent for handling player animations.
+     *
+     * @param textureAtlasFilename the filename of the texture atlas containing animations.
+     *
+     * @return the created AnimationRenderComponent.
+     */
     public AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
         AnimationRenderComponent animator = new AnimationRenderComponent(
                 ServiceLocator.getResourceService().getAsset(textureAtlasFilename,

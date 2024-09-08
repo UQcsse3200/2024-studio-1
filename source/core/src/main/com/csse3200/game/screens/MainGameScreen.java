@@ -4,6 +4,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.GdxGame.ScreenColour;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.entities.PlayerSelection;
@@ -59,6 +60,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     public MainGameScreen(GdxGame game) {
         this.game = game;
+        game.setScreenColour(ScreenColour.DEFAULT);
 
         GameOptions gameOptions = game.gameOptions;
         logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());

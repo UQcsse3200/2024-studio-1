@@ -1,5 +1,6 @@
 package com.csse3200.game.components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -20,6 +21,24 @@ public class IntroCutsceneDisplay extends UIComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(IntroCutsceneScreen.class);
     private static final float Z_INDEX = 2f;
+    private static final float Y_PADDING = 20f;
+    /**
+     * Proportion of the screen width to be taken up by the cutscene text.
+     */
+    private static final float WIDTH_PROPORTION = .8f;
+    /*
+    Cutscene text is largely taken from storyline wiki page:
+    https://github.com/UQcsse3200/2024-studio-1/wiki/Storyline
+     */
+    private static final String CUTSCENE_TEXT = "They escaped.\n\n" +
+            "All of them.\n\n" +
+            "You tested them, tortured them, tormented them, " +
+            "all those poor, helpless animals.\n\n" +
+            "But now you're the helpless one.\n\n" +
+            "The humans have left, or rather, they left you behind. " +
+            "Hope you enjoyed your beer, because it may be your last.\n\n" +
+            "The beasts have broken out.\n\n" +
+            "Are you ready to put them back in their place?";
     private final GdxGame game;
     private Table table;
 
@@ -40,20 +59,27 @@ public class IntroCutsceneDisplay extends UIComponent {
 
     private void addActors() {
         // todo make the cutscene more interesting
+
         table = new Table();
         table.setFillParent(true);
-        Label label = new Label("Cutscene", skin);
+
+        // Cutscene text
+        Label label = new Label(CUTSCENE_TEXT, skin, "cutscene");
+        label.setWrap(true);
+        table.add(label).width(Gdx.graphics.getWidth() * WIDTH_PROPORTION);
+
+        // Button to start game
         Button startBtn = new TextButton("I'm ready", skin, "action");
         startBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                logger.debug("I'm ready (start game) button pressed");
+                logger.debug("Start game button pressed");
                 onStart();
             }
         });
-        table.add(label);
         table.row();
-        table.add(startBtn);
+        table.add(startBtn).padTop(Y_PADDING);
+
         stage.addActor(table);
     }
 

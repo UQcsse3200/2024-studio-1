@@ -26,7 +26,7 @@ public class GdxGame extends Game {
     loadSettings();
 
     // Sets background to light yellow
-    Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
+    setScreenColour(ScreenColour.DEFAULT);
 
     setScreen(ScreenType.MAIN_MENU);
   }
@@ -77,6 +77,32 @@ public class GdxGame extends Game {
 
   public enum ScreenType {
     MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, PLAYER_SELECT, CUTSCENE
+  }
+
+  /**
+   * Set background colour of the game window. I'm pretty sure setting a bg image will override
+   * this.
+   * @param colour The colour to set as the bg colour.
+   */
+  public void setScreenColour(ScreenColour colour) {
+    switch (colour) {
+      case DEFAULT -> Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
+      case BLACK -> Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+    }
+  }
+
+  /**
+   * Possible background colours for the game window.
+   */
+  public enum ScreenColour {
+    /**
+     * Default colour (light yellow).
+     */
+    DEFAULT,
+    /**
+     * Black, currently used for cutscene for extra spookiness.
+     */
+    BLACK
   }
 
   /**

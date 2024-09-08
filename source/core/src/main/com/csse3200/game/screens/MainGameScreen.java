@@ -101,9 +101,8 @@ public class MainGameScreen extends ScreenAdapter {
 
         LevelFactory levelFactory = new MainGameLevelFactory();
         GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-                new TestGameArea(levelFactory) :
-                new MainGameArea(levelFactory);
-        mainGameArea.create(player);
+                new TestGameArea(levelFactory, player) :
+                new MainGameArea(levelFactory, player);
     }
 
     @Override

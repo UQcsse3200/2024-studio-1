@@ -15,8 +15,8 @@ public class ItemFactory {
      */
     public Collectible create(String specification) {
         String speedType = null;
-        if (specification.contains(",")) {
-            String[] split = specification.split(",", 2);
+        if (specification.contains(":")) {
+            String[] split = specification.split(":", 2);
             specification = split[0];
             speedType = split[1];
             //check valid speedType

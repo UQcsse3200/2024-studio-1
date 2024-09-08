@@ -59,7 +59,7 @@ public interface Collectible {
         NONE
     }
 
-    default Texture getMysteryIcon() {
+    default String getMysteryIcon() {
         return null;
     }
 

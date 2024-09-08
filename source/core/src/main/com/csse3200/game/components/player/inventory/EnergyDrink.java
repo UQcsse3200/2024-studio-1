@@ -113,7 +113,7 @@ public class EnergyDrink extends BuffItem {
     }
 
     @Override
-    public Texture getMysteryIcon() {
-        return new Texture("images/items/mystery_box_blue.png");
+    public String getMysteryIcon() {
+        return ("images/items/mystery_box_blue.png");
     }
 }

@@ -15,6 +15,10 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 public class WinScreen extends StaticScreen {
 
+    // todo add citation
+    /**
+     * Happy player image, edited from assets/images/player/player.png
+     */
     public static final String PLAYER_HAPPY = "images/player/player_happy.png";
 
     /**

@@ -2,35 +2,45 @@
   "dragon": {
     "health": 200,
     "baseAttack": 15,
+    "attackRange": 1,
+    "attackRate": 0.5,
+    "isDirectional": true,
     "tasks": {
-      "straightWander": {
-        "wanderSpeed": 2
+      "wander": {
+        "wanderRadius": 3,
+        "waitTime": 2,
+        "wanderSpeed": 0.5
       },
       "chase": {
+        "priority": 10,
+        "chaseSpeed": 1.5,
+        "viewDistance": 1.5,
+        "chaseDistance": 2
+      },
+      "charge": {
         "priority": 5,
         "viewDistance": 4,
         "chaseDistance": 5,
-        "chaseSpeed": 2
-      },
-      "charge": {
-        "priority": 10,
-        "viewDistance": 2,
-        "chaseDistance": 2,
-        "chaseSpeed": 4,
-        "waitTime": 0
+        "chaseSpeed": 3,
+        "waitTime": 2
       },
       "shoot": {
-        "priority": 5,
+        "priority": 4,
         "attackRange": 10,
         "waitTime": 2
       }
     },
     "animations": [
-      {"name": "Idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "Hurt_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "Walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "Attack_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "Death_left", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "run_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "run_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
   "rat": {

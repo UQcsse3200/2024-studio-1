@@ -23,6 +23,8 @@ public class NPCAnimationController extends Component {
         entity.getEvents().addListener("run", this::animateRun);
         entity.getEvents().addListener("attack", this::animateAttack);
         entity.getEvents().addListener("death", this::animateDeath);
+        entity.getEvents().addListener("hurt", this::animateHurt);
+        entity.getEvents().addListener("jump", this::animateJump);
     }
 
     void animateIdle() {
@@ -82,6 +84,26 @@ public class NPCAnimationController extends Component {
             animator.startAnimation("death");
         } else {
             throw new IllegalStateException("No death animation found");
+        }
+    }
+
+    void animateHurt() {
+        if (animator.hasAnimation("hurt_right") && animator.hasAnimation("hurt_left")) {
+            triggerDirectionalAnimation("hurt");
+        } else if (animator.hasAnimation("hurt")) {
+            animator.startAnimation("hurt");
+        } else {
+            throw new IllegalStateException("No hurt animation found");
+        }
+    }
+
+    void animateJump() {
+        if (animator.hasAnimation("jump_right") && animator.hasAnimation("jump_left")) {
+            triggerDirectionalAnimation("jump");
+        } else if (animator.hasAnimation("jump")) {
+            animator.startAnimation("jump");
+        } else {
+            throw new IllegalStateException("No jump animation found");
         }
     }
 

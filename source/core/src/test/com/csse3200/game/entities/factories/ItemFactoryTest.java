@@ -45,4 +45,15 @@ public class ItemFactoryTest {
         assertEquals(exception.getMessage(), "Invalid item specification: invalid");
     }
 
+    @Test
+    public void testInvalidItemType() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> itemFactory.create("energydrink:invalid"));
+        assertEquals(exception.getMessage(), "Invalid item type specification: invalid");
+    }
+
+    @Test
+    public void testNullEnergydrinkType() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> itemFactory.create("energydrink"));
+        assertEquals(exception.getMessage(), "Energy drink must have a type. Choose: Low, Medium, High");
+    }
 }

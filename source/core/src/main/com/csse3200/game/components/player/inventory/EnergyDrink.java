@@ -164,7 +164,7 @@ public class EnergyDrink extends BuffItem {
      */
     @Override
     public String getBuffSpecification() {
-        return "energydrink";
+        return "energydrink:" + this.speedType;
     }
 
     /**

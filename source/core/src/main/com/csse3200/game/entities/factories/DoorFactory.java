@@ -8,13 +8,20 @@ import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
+import com.csse3200.game.services.ServiceLocator;
 
 import static java.lang.String.format;
 
 /**
  * Create door with necessary components
  */
-public class DoorFactory extends LoadedFactory {
+public class DoorFactory {
+    /**
+     * Door entity to track updates to entity over different function calls
+     */
+    static Entity door;
+    static int playerId;
+
     /**
      * Create door with specific orientation and callback function implementation
      *
@@ -22,8 +29,9 @@ public class DoorFactory extends LoadedFactory {
      * @param callback: DoorCallBack - call callback onDoorCollided function when event collision is triggered
      * @return door: Entity
      */
-    public Entity createDoor(Entity player, char orientation, DoorCallBack callback) {
-        Entity door = createBaseDoor(orientation);
+    public static Entity createDoor(char orientation, int idOfPlayer, String next_Room) {
+        door = createBaseDoor(orientation);
+        playerId = idOfPlayer;
         // door config can be implemented later if deigned necessary
         door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
         door.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -37,7 +45,8 @@ public class DoorFactory extends LoadedFactory {
         // Change orientation of physics collider to fit door texture orientation
 
         PhysicsUtils.setScaledCollider(door, 0.18f, 0.8f); // 0.5f, 0.2f
-        createCollision(door, callback, player);
+
+        createCollision(next_Room);
 
         return door;
     }
@@ -47,12 +56,15 @@ public class DoorFactory extends LoadedFactory {
      *
      * @param callback: DoorCallBack - callback onDoorCollide to be set within door when door collided with
      */
-    private void createCollision(Entity door, DoorCallBack callback, Entity player) {
+    private static void createCollision(String Room) {
+        
         door.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
-            Entity entity = (Entity) fixture2.getUserData();
-            if (callback != null && entity.equals(player)) {
-                System.out.println("This worked!");
-                callback.onDoorCollided();
+            Entity entity2 = (Entity) fixture2.getUserData();
+            if (entity2.getId() == playerId) {
+                
+                System.out.println("this is the room " + Room);
+                
+                ServiceLocator.getGameAreaService().getGameArea().changeRooms(Room);
             }
         });
     }
@@ -63,18 +75,11 @@ public class DoorFactory extends LoadedFactory {
      * @return door: Entity - base door
      */
     public static Entity createBaseDoor(char orientation) {
-        return new Entity()
-                .addComponent(new TextureRenderComponent(format("images/rounded_door_%c.png",orientation)))
-                .addComponent(new PhysicsComponent())
-                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-    }
-
-    @Override
-    protected String[] getTextureFilepaths() {
-        return new String[]{
-                "images/rounded_door_h.png",
-                "images/rounded_door_v.png"
-        };
+        Entity door =
+                new Entity()
+                        .addComponent(new TextureRenderComponent(format("images/rounded_door_%c.png",orientation)))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+        return door;
     }
 }
-

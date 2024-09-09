@@ -10,6 +10,7 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.csse3200.game.areas.GameAreaService;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
@@ -23,6 +24,7 @@ public class MainGameArea extends GameArea {
     private final LevelFactory levelFactory;
     private Level currentLevel;
     private Room currentRoom;
+    private boolean spawnRoom = true;
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -30,7 +32,9 @@ public class MainGameArea extends GameArea {
      * @param levelFactory the provided levelFactory.
      */
     public MainGameArea(LevelFactory levelFactory) {
+        super();
         this.levelFactory = levelFactory;
+        ServiceLocator.registerGameAreaService(new GameAreaService(this));
     }
 
     /**
@@ -51,18 +55,35 @@ public class MainGameArea extends GameArea {
     }
 
     public void changeRooms(String roomKey){
-        // FIXME clear room
-
+        logger.info("Changing rooms!");
+        //this.remove_room();
+        this.currentRoom.remove_room();
+        //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
         this.currentRoom = this.currentLevel.getRoom(roomKey);
-        this.currentRoom.spawn(player, this);
+        this.spawnRoom = true;
+    }
 
-        // FIXME actually spawn on the door into this room from last room.
+    public void spawnCurrentRoom() {
+        logger.info("Main Game Area update");
+        if (!spawnRoom) {
+            return;
+        }
+        logger.info("spawning: new room");
+        this.currentRoom.spawn(player, this);
+        logger.info("spawned: new room");
+        logger.info("spawning: player");
         spawnEntityAt(player, new GridPoint2(10, 10), true, true);
+        logger.info("spawned: player");
+
+        spawnRoom = false;
     }
 
     public void changeLevel(int levelNumber){
         this.currentLevel = this.levelFactory.create(levelNumber);
-        changeRooms(this.currentLevel.getStartingRoomKey());
+        this.currentRoom = this.currentLevel.getRoom(this.currentLevel.getStartingRoomKey());
+        spawnRoom = true;
+//        this.currentRoom.spawn(player, this);
+//        spawnEntityAt(player, new GridPoint2(10, 10), true, true);
     }
 
     private void displayUI() {
@@ -123,6 +144,8 @@ public class MainGameArea extends GameArea {
                 "images/tile_staircase.png",
                 "images/tile_staircase_down.png",
                 "images/tile_blood.png",
+                "images/rounded_door_v.png",
+                "images/rounded_door_h.png"
         };
     }
 

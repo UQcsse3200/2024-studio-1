@@ -10,7 +10,7 @@ import java.util.List;
 public class LevelMap {
     //Assuming that the map is a static json file for the mvp loads the data from a json file called map.json
 
-    public static MapGenerator mapData;
+    public MapGenerator mapData;
 
     public LevelMap(String seed, int mapSize) {
         mapData = new MapGenerator(mapSize, seed);
@@ -18,9 +18,9 @@ public class LevelMap {
     }
 
     /** A loader method which loads the map from either a json file or from the Map Generator class. **/
-    public static void loadMap(String fileDirectory){
+    public void loadMap(String fileDirectory){
         if (fileDirectory != null) {
-            mapData = FileLoader.readClass(MapGenerator.class, fileDirectory);
+            this.mapData = FileLoader.readClass(MapGenerator.class, fileDirectory);
         } 
     }
 

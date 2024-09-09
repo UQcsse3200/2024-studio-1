@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.function.Supplier;
+
 /**
  * Provides a global access point for entities to register themselves. This allows for iterating
  * over entities to perform updates each loop. All game entities should be registered here.
@@ -18,6 +20,7 @@ public class EntityService {
     private final Array<Entity> entities = new Array<>(false, INITIAL_CAPACITY);
 
     private final Array<Entity> entitiesToRemove = new Array<>();
+    private final Array<Supplier<Entity>> entitiesToCreate = new Array<>();
 
     /**
      * Register a new entity with the entity service. The entity will be created and start updating.
@@ -39,6 +42,13 @@ public class EntityService {
         logger.debug("Unregistering {} in entity service", entity);
         entities.removeValue(entity, true);
 
+    }
+
+    /**
+     *
+     */
+    public void queueEntityForCreation(Supplier<Entity> entitySupplier) {
+        entitiesToCreate.add(entitySupplier);
     }
 
     /**
@@ -76,6 +86,13 @@ public class EntityService {
             entity.dispose();
         }
         entitiesToRemove.clear();
+    }
+
+    private void createQueuedEntities() {
+        for (Supplier<Entity> entitySupplier : entitiesToCreate) {
+            register(entitySupplier.get());
+        }
+        entitiesToCreate.clear();
     }
 
     /**

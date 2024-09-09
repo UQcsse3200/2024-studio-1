@@ -8,12 +8,13 @@ import com.csse3200.game.entities.factories.RoomFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This is the main game mode.
  */
 public class MainGameLevelFactory implements LevelFactory {
-    private static final int DEFAULT_MAP_SIZE = 20;
+    private static final int DEFAULT_MAP_SIZE = 40;
 
     @Override
     public Level create(int levelNumber) {
@@ -23,10 +24,18 @@ public class MainGameLevelFactory implements LevelFactory {
                 new CollectibleFactory(),
                 new TerrainFactory()
         );
+        // Sprint 4 Switch the MapGenerator to use Rooms
         Map<String, Room> rooms = new HashMap<>();
-        // FIXME make ALL the real Rooms
-        rooms.put("0_0", roomFactory.createRoom("0,0,14,10,0,0"));
-        rooms.put("0_1", roomFactory.createBossRoom("0,0,14,10,0,0"));
+
+        Set<String> room_keySet = map.mapData.getPositions().keySet();
+        
+        for (String room_key : room_keySet) {
+            rooms.put(room_key, roomFactory.createRoom(
+              map.mapData.getPositions().get(room_key),
+             "0,0,14,10,0,0"));
+
+        }
+        //rooms.put("0_1", roomFactory.createBossRoom("0,0,14,10,0,0"));
         return new Level(map, levelNumber, rooms);
     }
 }

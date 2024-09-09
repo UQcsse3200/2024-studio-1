@@ -1,5 +1,9 @@
 package com.csse3200.game.entities.factories;
 
+import java.util.List;
+
+import javax.print.DocFlavor.STRING;
+
 import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.MainRoom;
 import com.csse3200.game.areas.terrain.TerrainFactory;
@@ -33,16 +37,19 @@ public class RoomFactory {
      * Constructs room
      * @return room
      */
-    public Room createRoom(String specification) {
-        return new MainRoom(this.npcFactory, this.collectibleFactory, this.terrainFactory, specification);
+    public Room createRoom(List<String> roomConnections, String specification) {
+        return new MainRoom(this.npcFactory, this.collectibleFactory, 
+                             this.terrainFactory, roomConnections, specification);
     }
 
     /**
      * Constructs boss room
      * @return room
      */
-    public Room createBossRoom(String specification) {
-        return new BossRoom(this.npcFactory, this.collectibleFactory, this.terrainFactory, specification);
+    public Room createBossRoom(List<String> roomConnections, String specification) {
+        // add connections to boss Room
+        return new BossRoom(this.npcFactory, this.collectibleFactory,
+                            this.terrainFactory, roomConnections, specification);
     }
 
 //    /**

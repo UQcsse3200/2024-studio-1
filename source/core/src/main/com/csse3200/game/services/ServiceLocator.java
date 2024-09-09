@@ -26,6 +26,7 @@ public class ServiceLocator {
   private static ResourceService resourceService;
   private static GameAreaService gameAreaService;
   private static RandomService randomService;
+  private static CollectibleFactoryService collectibleFactoryService;
 
   public static EntityService getEntityService() {
     return entityService;
@@ -57,6 +58,10 @@ public class ServiceLocator {
 
   public static RandomService getRandomService() {
     return randomService;
+  }
+
+  public static CollectibleFactoryService getCollectibleFactoryService() {
+    return collectibleFactoryService;
   }
 
   public static void registerEntityService(EntityService service) {
@@ -99,6 +104,11 @@ public class ServiceLocator {
     randomService = source;
   }
 
+  public static void registerCollectibleFactoryService(CollectibleFactoryService source) {
+    logger.debug("Registering collectibleFactory service {}", source);
+    collectibleFactoryService = source;
+  }
+
   public static void clear() {
     entityService = null;
     renderService = null;
@@ -107,6 +117,7 @@ public class ServiceLocator {
     inputService = null;
     resourceService = null;
     gameAreaService = null;
+    collectibleFactoryService = null;
   }
 
   private ServiceLocator() {

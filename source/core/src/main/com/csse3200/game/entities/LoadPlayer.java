@@ -159,11 +159,11 @@ public class LoadPlayer {
      * @param config the configuration object containing weapon and item details.
      */
     public void addWeaponsAndItems(Entity player, PlayerConfig config) {
-        if (!Objects.equals(config.melee, "")) {
+        if (config.melee!=null) {
             createMelee(config, player);
         }
 
-        if (!Objects.equals(config.ranged, "")) {
+        if (config.ranged!=null) {
             createRanged(config, player);
         }
 

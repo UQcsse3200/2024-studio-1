@@ -27,6 +27,7 @@ public class ItemFactory {
             case "energydrink" -> createEnergyDrink(speedType);
             case "shieldpotion" -> createShieldPotion();
             case "syringe" -> createSyringe();
+            case "armor" -> createArmor();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -70,6 +71,12 @@ public class ItemFactory {
     private Collectible createSyringe() {
         return new Syringe();
     }
+
+    /**
+     * Creates an Armor item that increases the armor statistics of the player.
+     * @return Armor item
+     */
+    private Collectible createArmor() { return new Armor();}
 
 }
 

@@ -26,6 +26,7 @@ public class ServiceLocator {
   private static ResourceService resourceService;
   private static GameAreaService gameAreaService;
   private static RandomService randomService;
+  private static AlertBoxService alertBoxService;
 
   public static EntityService getEntityService() {
     return entityService;
@@ -57,6 +58,10 @@ public class ServiceLocator {
 
   public static RandomService getRandomService() {
     return randomService;
+  }
+
+  public static AlertBoxService getAlertBoxService() {
+    return alertBoxService;
   }
 
   public static void registerEntityService(EntityService service) {
@@ -97,6 +102,11 @@ public class ServiceLocator {
   public static void registerRandomService(RandomService source) {
     logger.debug("Registering random service {}", source);
     randomService = source;
+  }
+
+  public static void registerAlertBoxService(AlertBoxService source) {
+    logger.debug("Registering alertBox service {}", source);
+    alertBoxService = source;
   }
 
   public static void clear() {

@@ -7,7 +7,6 @@ import com.csse3200.game.areas.MainGameArea;
  * Rooms are individual screens of the game that have their own entities.
  */
 public interface Room {
-
     /**
      * Spawn all entities that form this room.
      *
@@ -20,4 +19,8 @@ public interface Room {
      * Remove all entities that form this room.
      */
     void removeRoom();
+
+    public Boolean isRoomFresh = true;
+    void spawn(Entity player, MainGameArea mainGameArea);
+
 }

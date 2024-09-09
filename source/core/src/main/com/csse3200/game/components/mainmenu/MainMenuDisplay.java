@@ -35,6 +35,8 @@ public class MainMenuDisplay extends UIComponent {
      */
     private Table diffBtnsTable;
 
+    private Image bg_logo;
+
     @Override
     public void create() {
         super.create();
@@ -51,7 +53,7 @@ public class MainMenuDisplay extends UIComponent {
                         "images/box_boy_title.png", Texture.class
                 )
         );
-        Image bg_logo =
+        bg_logo =
             new Image(
                 ServiceLocator.getResourceService()
                     .getAsset("images/bg_logo.png", Texture.class));
@@ -71,7 +73,8 @@ public class MainMenuDisplay extends UIComponent {
         if (settings.displayMode == null) {
             settings.displayMode = new UserSettings.DisplaySettings(Gdx.graphics.getDisplayMode());
         }
-        bg_logo.setSize(settings.displayMode.width, settings.displayMode.height);
+        
+        bg_logo.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         bg_logo.setPosition(0, 0);
 
         // Triggers an event when the button is pressed
@@ -90,6 +93,7 @@ public class MainMenuDisplay extends UIComponent {
                     public void changed(ChangeEvent event, Actor actor) {
                         GameOptions options = new GameOptions(difficulty);
                         logger.debug("{} difficulty button clicked", difficulty.toString());
+                        ServiceLocator.getResourceService().loadAll();
                         entity.getEvents().trigger("start", options);
                     }
                 }
@@ -169,4 +173,7 @@ public class MainMenuDisplay extends UIComponent {
         super.dispose();
     }
 
+    public void resize(int width, int height) {
+        bg_logo.setSize(width, height);
+    }
 }

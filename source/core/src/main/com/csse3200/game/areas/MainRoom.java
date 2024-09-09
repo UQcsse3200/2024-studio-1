@@ -10,7 +10,6 @@ import java.util.List;
 public class MainRoom extends BaseRoom {
     @Override
     protected void initializeSpecifications() {
-    private final String specification;
     List<List<String>> animalSpecifications = List.of(
             List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat","Werewolf"),
             List.of("Bear", "Snake", "Dino"),

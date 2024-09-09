@@ -12,7 +12,6 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
-import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +67,7 @@ public class WeaponFactory extends LoadedFactory {
      * @param collectible the item to convert
      * @return the final entity containing the collectible.
      */
-    public Entity createCollectibleEntity(Collectible collectible) {
+    public Entity createWeaponEntity(Collectible collectible) {
         if (collectible.getType() == Collectible.Type.MELEE_WEAPON) {
             return createMeleeEntity((MeleeWeapon) collectible);
         }
@@ -107,7 +106,7 @@ public class WeaponFactory extends LoadedFactory {
         meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
         meleeEntity.getComponent(HitboxComponent.class).setSize(new Vector2(1f, 1f));
 
-        logger.info("Created collectible entity: " + collectible);
+        logger.info("Created melee weapon entity: " + collectible);
 
         return meleeEntity;
     }
@@ -142,7 +141,7 @@ public class WeaponFactory extends LoadedFactory {
         meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
         meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
         meleeEntity.getComponent(HitboxComponent.class).setSize(new Vector2(1f, 1f));
-        logger.info("Created collectible entity: " + collectible);
+        logger.info("Created range weapon entity: " + collectible);
 
         return meleeEntity;
     }

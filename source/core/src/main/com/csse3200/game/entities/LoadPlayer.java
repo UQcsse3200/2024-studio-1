@@ -20,6 +20,7 @@ import com.csse3200.game.services.ServiceLocator;
 
 import java.util.Objects;
 
+
 /**
  * Handles the setup of various player components, including animations,
  * inventory, weapons, and physics.
@@ -29,6 +30,7 @@ public class LoadPlayer {
     private final WeaponFactory weaponFactory;
     private final ItemFactory itemFactory;
     private final InventoryComponent inventoryComponent;
+    private static final float playerScale = 0.75f;
 
 
     /**
@@ -54,6 +56,7 @@ public class LoadPlayer {
         addAtlas(player, config);
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
+        player.setScale(playerScale, playerScale);
 
         return player;
     }
@@ -85,13 +88,15 @@ public class LoadPlayer {
                 .addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new PlayerActions())
-                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true))
+                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0))
                 .addComponent(inventoryComponent)
                 .addComponent(new ItemPickupComponent())
+                .addComponent(new ShieldComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController())
+                .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
                 .addComponent(new WeaponComponent(
@@ -182,15 +187,21 @@ public class LoadPlayer {
      *
      * @return the created AnimationRenderComponent.
      */
-    public AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
-        AnimationRenderComponent animator = new AnimationRenderComponent(
-                ServiceLocator.getResourceService().getAsset(textureAtlasFilename,
-                        TextureAtlas.class));
+    private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService().getAsset("images/player/player.atlas", TextureAtlas.class));
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-up", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-left", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
+
         return animator;
     }
 }

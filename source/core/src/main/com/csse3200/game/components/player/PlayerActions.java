@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -15,17 +16,32 @@ public class PlayerActions extends Component {
     private static final Vector2 DEFAULT_SPEED = new Vector2(3f, 3f); // Metres per second
 
     private PhysicsComponent physicsComponent;
+    private InventoryComponent inventoryComponent;
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
+    private float speedPercentage;
 
     @Override
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
+        inventoryComponent = entity.getComponent(InventoryComponent.class);
         entity.getEvents().addListener("walk", this::walk);
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
+        entity.getEvents().addListener("use1", () -> use(new MedKit()));
+        entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
+        entity.getEvents().addListener("use3", () -> use(new Bandage()));
+        setSpeedPercentage(1.0f);
+        // entity.getEvents().addListener("use4", () -> use(4));
+        /*
+        entity.getEvents().addListener("useMedKit", this::applyMedKit);
+        entity.getEvents().addListener("useShieldPotion", this::applyShieldPotion);
+        entity.getEvents().addListener("useBandage", this::applyBandage);
+
+         */
+
     }
 
     @Override
@@ -33,6 +49,18 @@ public class PlayerActions extends Component {
         if (moving) {
             updateSpeed();
         }
+    }
+
+    public Vector2 getCurrSpeed() {
+        return this.speed;
+    }
+
+    public void setSpeedPercentage(float speedPercentage) {
+        this.speedPercentage = speedPercentage;
+    }
+
+    public float getCurrSpeedPercentage() {
+        return this.speedPercentage;
     }
 
     /**
@@ -93,5 +121,52 @@ public class PlayerActions extends Component {
         this.walkDirection = direction;
         moving = true;
     }
+
+    private void use(UsableItem item) {
+        Inventory inventory = inventoryComponent.getInventory();
+        for (Collectible collectedItem : inventory.getItems()) {
+            if (collectedItem.getClass() == item.getClass()) {
+                item.apply(entity);
+                inventoryComponent.drop(collectedItem);
+                break;
+            }
+        }
+    }
+
+
+    private void applyMedKit() {
+        Inventory inventory = inventoryComponent.getInventory();
+        for (Collectible item : inventory.getItems()) {
+            if (item instanceof MedKit medkit) {
+                inventoryComponent.drop(medkit);
+                medkit.apply(entity);
+                break;
+            }
+        }
+    }
+
+    private void applyShieldPotion() {
+        Inventory inventory = inventoryComponent.getInventory();
+        for (Collectible item : inventory.getItems()) {
+            if (item instanceof ShieldPotion) {
+                inventoryComponent.drop(item);
+                ((ShieldPotion) item).apply(entity);
+                break;
+            }
+        }
+    }
+    private void applyBandage() {
+        Inventory inventory = inventoryComponent.getInventory();
+        for (Collectible item : inventory.getItems()) {
+            if (item instanceof Bandage) {
+                inventoryComponent.drop(item);
+                ((Bandage) item).apply(entity);
+                break;
+            }
+        }
+    }
+
+
 }
+
 

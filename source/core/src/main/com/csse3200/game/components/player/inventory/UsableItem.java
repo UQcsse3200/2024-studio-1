@@ -1,5 +1,6 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -17,11 +18,16 @@ public abstract class UsableItem implements Collectible {
         inventory.addItem(this);
 
         //Apply method just for testing purpose of Health items(Sprint 1)
-        apply(inventory.getEntity());
+        // apply(inventory.getEntity());
 
         //FIXME This currently "uses" every item in the inventory at once.
-        inventory.getEntity().getEvents().addListener("use", () -> this.apply(inventory.getEntity()));
+        //inventory.getEntity().getEvents().addListener("use", () -> this.apply(inventory.getEntity()));
         // Add anything needed to add to the user upon pickup.
+    }
+
+    @Override
+    public void drop(Inventory inventory) {
+        inventory.removeItem(this);
     }
 
     @Override

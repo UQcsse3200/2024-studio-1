@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
  */
 public class PlayerFactory extends LoadedFactory {
     private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
-    private static final float playerScale = 0.75f;
     Map<String, PlayerConfig> options;
 
     /**

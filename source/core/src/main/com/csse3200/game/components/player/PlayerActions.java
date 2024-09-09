@@ -160,40 +160,6 @@ public class PlayerActions extends Component {
         }
     }
 
-
-    private void applyMedKit() {
-        Inventory inventory = inventoryComponent.getInventory();
-        for (Collectible item : inventory.getItems()) {
-            if (item instanceof MedKit medkit) {
-                inventoryComponent.drop(medkit);
-                medkit.apply(entity);
-                break;
-            }
-        }
-    }
-
-    private void applyShieldPotion() {
-        Inventory inventory = inventoryComponent.getInventory();
-        for (Collectible item : inventory.getItems()) {
-            if (item instanceof ShieldPotion) {
-                inventoryComponent.drop(item);
-                ((ShieldPotion) item).apply(entity);
-                break;
-            }
-        }
-    }
-    private void applyBandage() {
-        Inventory inventory = inventoryComponent.getInventory();
-        for (Collectible item : inventory.getItems()) {
-            if (item instanceof Bandage) {
-                inventoryComponent.drop(item);
-                ((Bandage) item).apply(entity);
-                break;
-            }
-        }
-    }
-
-
 }
 
 

@@ -175,10 +175,12 @@ public class AnimationRenderComponent extends RenderComponent {
 
   @Override
   protected void draw(SpriteBatch batch) {
+    // Don't draw anything if no animation is playing.
     if (currentAnimation == null) {
       return;
     }
 
+    // Get the current frame of the animation.
     TextureRegion region = currentAnimation.getKeyFrame(animationPlayTime);
     Vector2 pos = entity.getPosition();
     Vector2 scale = entity.getScale();
@@ -186,10 +188,15 @@ public class AnimationRenderComponent extends RenderComponent {
     float textureWidth = region.getRegionWidth();
     float textureHeight = region.getRegionHeight();
     float aspectRatio =  textureWidth / textureHeight;
+
+    // Set default scale for drawing the animation.
     float scaleX = 0.5f;
     float scaleY = 0.5f * aspectRatio;
 
+
     batch.setColor(1f, 1f, 1f, this.opacity);
+    // Check if the current frame is a rotated AtlasRegion
+    // If true, rotate it by 180 degrees when rendering
     if (region instanceof TextureAtlas.AtlasRegion && ((TextureAtlas.AtlasRegion) region).rotate) {
       batch.draw(region, pos.x, pos.y, scaleX, scaleY, 1f, aspectRatio, 1f, 1f, 180, false);
     } else {

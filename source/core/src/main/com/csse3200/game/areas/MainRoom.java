@@ -16,13 +16,14 @@ public class MainRoom extends BaseRoom {
     private static final Logger logger = LoggerFactory.getLogger(MainRoom.class);
     private final String specification;
     List<List<String>> animalSpecifications = List.of(
-            List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat"),
+            List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat","Werewolf"),
             List.of("Bear", "Snake", "Dino"),
             List.of("Bear", "Bear", "Minotaur"),
             List.of("Snake", "Bat", "Minotaur"),
             List.of("Bat", "Bat", "Bat"),
             List.of("Minotaur", "Minotaur", "Minotaur"),
-            List.of("Rat", "Bat", "Bear")
+            List.of("Rat", "Bat", "Bear"),
+            List.of("Werewolf", "Werewolf", "Bear")
     );
     List<List<String>> itemSpecifications = List.of(
             List.of("buff:energydrink", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),

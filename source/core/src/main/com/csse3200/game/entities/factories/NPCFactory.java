@@ -61,6 +61,7 @@ public class NPCFactory extends LoadedFactory {
       case "Bat" -> this.createBat(target);
       case "Dog" -> this.createDog(target);
       case "Minotaur" -> this.createMinotaur(target);
+      case "Werewolf" -> this.createWerewolf(target);
       default -> throw new IllegalArgumentException("Unknown animal: " + specification);
     };
   }
@@ -160,6 +161,19 @@ public class NPCFactory extends LoadedFactory {
    * @param target entity to chase
    * @return the created dog entity
    */
+  /**
+   * Creates a Werewolf entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public Entity createWerewolf(Entity target) {
+    NPCConfigs.NPCConfig config = configs.werewolf;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
+    Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
+    return werewolf;
+  }
   public Entity createDog(Entity target) {
     NPCConfigs.NPCConfig config = configs.dog;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
@@ -275,7 +289,8 @@ public class NPCFactory extends LoadedFactory {
             "images/dino.atlas",
             "images/bat.atlas",
             "images/npc/bear/bear.atlas",
-            "images/npc/dog/dog.atlas"
+            "images/npc/dog/dog.atlas",
+            "images/npc/werewolf/werewolf.atlas"
     };
   }
 
@@ -291,7 +306,8 @@ public class NPCFactory extends LoadedFactory {
             "images/dino.png",
             "images/minotaur.png",
             "images/npc/bear/bear.png",
-            "images/bear.png"
+            "images/bear.png",
+            "images/npc/werewolf/werewolf.png"
     };
   }
 }

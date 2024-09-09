@@ -157,7 +157,8 @@ public class WeaponFactory extends LoadedFactory {
     protected String[] getSoundFilepaths() {
         return new String[]{
                 "sounds/shotgun1_f.ogg",
-                "sounds/shotgun1_r.ogg"
+                "sounds/shotgun1_r.ogg",
+                "sounds/sword1.ogg"
         };
     }
 

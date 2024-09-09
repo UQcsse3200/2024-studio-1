@@ -2,6 +2,7 @@ package com.csse3200.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
@@ -14,12 +15,13 @@ import org.slf4j.LoggerFactory;
  */
 public class MovementTask extends DefaultTask {
   private static final Logger logger = LoggerFactory.getLogger(MovementTask.class);
-  private final GameTime gameTime; // Reference to the game's time source.
-  private Vector2 target; // The target position to move to.
-  private float stopDistance = 0.05f; // Distance from the target at which to stop.
-  private long lastTimeMoved; // Time when the entity last moved.
-  private Vector2 lastPos; // Last known position of the entity.
-  private PhysicsMovementComponent movementComponent; // Component for handling physics-based movement.
+  private final GameTime gameTime;
+  private Vector2 target;
+  private float stopDistance = 0.05f;
+  private long lastTimeMoved;
+  private Vector2 lastPos;
+  private PhysicsMovementComponent movementComponent;
+  private DirectionalNPCComponent directionalComponent;
 
   /**
    * Creates a MovementTask with a target position.
@@ -48,9 +50,10 @@ public class MovementTask extends DefaultTask {
   @Override
   public void start() {
     super.start();
-    this.movementComponent = owner.getEntity().getComponent(PhysicsMovementComponent.class); // Get movement component.
-    movementComponent.setTarget(target); // Set movement target.
-    movementComponent.setMoving(true); // Enable movement.
+    this.movementComponent = owner.getEntity().getComponent(PhysicsMovementComponent.class);
+    this.directionalComponent = owner.getEntity().getComponent(DirectionalNPCComponent.class);
+    movementComponent.setTarget(target);
+    movementComponent.setMoving(true);
     logger.debug("Starting movement towards {}", target);
     lastTimeMoved = gameTime.getTime(); // Record the current time.
     lastPos = owner.getEntity().getPosition(); // Record the current position.
@@ -78,6 +81,7 @@ public class MovementTask extends DefaultTask {
   public void setTarget(Vector2 target) {
     this.target = target;
     movementComponent.setTarget(target);
+    updateDirection();
   }
 
   /**
@@ -141,6 +145,17 @@ public class MovementTask extends DefaultTask {
    */
   private boolean didMove() {
     return owner.getEntity().getPosition().dst2(lastPos) > 0.001f; // Check if the squared distance moved is significant.
+  }
+
+  private void updateDirection() {
+    if (directionalComponent != null) {
+      Vector2 currentPosition = owner.getEntity().getPosition();
+      if (currentPosition.x < target.x) {
+        directionalComponent.setDirection("right");
+      } else {
+        directionalComponent.setDirection("left");
+      }
+    }
   }
 }
 

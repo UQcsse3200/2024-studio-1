@@ -3,6 +3,7 @@ package com.csse3200.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -15,15 +16,16 @@ import com.csse3200.game.services.ServiceLocator;
  * Requires an entity with a PhysicsMovementComponent to function.
  */
 public class ChaseTask extends DefaultTask implements PriorityTask {
-  private final Entity target; // The entity to chase.
-  private final int priority; // Priority when the task is active.
-  private final float viewDistance; // Distance within which chasing can start.
-  private final float maxChaseDistance; // Maximum distance to keep chasing before giving up.
-  private final float chaseSpeed; // Speed at which the entity chases.
-  private final PhysicsEngine physics; // Physics engine for raycasting.
-  private final DebugRenderer debugRenderer; // Renderer for debugging visuals.
-  private final RaycastHit hit = new RaycastHit(); // Stores raycast hit information.
-  private MovementTask movementTask; // Task for handling movement towards the target.
+  private final Entity target;
+  private final int priority;
+  private final float viewDistance;
+  private final float maxChaseDistance;
+  private final float chaseSpeed;
+  private String direction;
+  private final PhysicsEngine physics;
+  private final DebugRenderer debugRenderer;
+  private final RaycastHit hit = new RaycastHit();
+  private MovementTask movementTask;
 
   /**
    * Constructs a ChaseTask.
@@ -40,8 +42,8 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     this.viewDistance = viewDistance;
     this.maxChaseDistance = maxChaseDistance;
     this.chaseSpeed = chaseSpeed;
-    physics = ServiceLocator.getPhysicsService().getPhysics(); // Get physics engine.
-    debugRenderer = ServiceLocator.getRenderService().getDebug(); // Get debug renderer.
+    this.physics = ServiceLocator.getPhysicsService().getPhysics();
+    this.debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
 
   /**
@@ -53,9 +55,9 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask = new MovementTask(target.getPosition()); // Create a movement task towards the target.
     movementTask.create(owner);
     movementTask.start();
-    movementTask.setVelocity(chaseSpeed); // Set the chase speed.
-
-    this.owner.getEntity().getEvents().trigger("walk"); // Trigger walk event.
+    movementTask.setVelocity(chaseSpeed);
+    direction = owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection();
+    this.owner.getEntity().getEvents().trigger("walk");
   }
 
   /**
@@ -66,7 +68,10 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.setTarget(target.getPosition()); // Update target position in case it has moved.
     movementTask.update();
     if (movementTask.getStatus() != Status.ACTIVE) {
-      movementTask.start(); // Restart the movement task if it has stopped.
+      movementTask.start();
+    } else if (!direction.equals(owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection())) {
+      direction = owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection();
+      this.owner.getEntity().getEvents().trigger("walk");
     }
   }
 
@@ -144,4 +149,22 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     debugRenderer.drawLine(from, to); // Draw line directly to the target for debugging.
     return true; // No obstacle, target is visible.
   }
+
+  /**
+
+    Calculates the desired vector position to move away from the target*
+    @return The vector position.*/
+    private Vector2 getVectorTo(){
+      float currentX = owner.getEntity().getPosition().x;
+      float currentY = owner.getEntity().getPosition().y;
+
+        float targetX = target.getPosition().x;
+        float targetY = target.getPosition().y;
+
+        float newX = currentX + (currentX - targetX);
+        float newY = currentY + (currentY - targetY);
+
+        Vector2 newPos = new Vector2(newX, newY);
+        return newPos;
+      }
 }

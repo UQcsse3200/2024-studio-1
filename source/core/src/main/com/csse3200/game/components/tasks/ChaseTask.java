@@ -7,11 +7,8 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
-import com.csse3200.game.components.DirectionalNPCComponent;
 import com.csse3200.game.rendering.DebugRenderer;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.physics.components.PhysicsMovementComponent;
-import com.csse3200.game.components.DirectionalNPCComponent;
 
 /** Chases a target entity until they get too far away or line of sight is lost */
 public class ChaseTask extends DefaultTask implements PriorityTask {
@@ -41,15 +38,6 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
-  private char getDirection(Vector2 destination) {
-    if (owner.getEntity().getPosition().x - destination.x < 0) {
-      return '>';
-    }
-    if (owner.getEntity().getPosition().x - destination.x > 0) {
-      return '<';
-    }
-    return '=';
-  }
 
   @Override
   public void start() {
@@ -58,22 +46,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
-    char dir = getDirection(target.getPosition());
-    Entity entity = owner.getEntity();
-    //Boolean directable = entity.getComponent(DirectionalNPCComponent.class).isDirectable();
-    Boolean directable = false; 
-    if(directable){
-        //right movement 
-        if(dir == '<'){
-            this.owner.getEntity().getEvents().trigger("walk_right");
-        }
-        else{
-            this.owner.getEntity().getEvents().trigger("walk_left");
-        }
-    }
-    else{
-        this.owner.getEntity().getEvents().trigger("walk");
-    }
+    this.owner.getEntity().getEvents().trigger("walk");
   }
 
   @Override

@@ -6,7 +6,10 @@ import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 
+
+
 public class BossRoom extends BaseRoom {
+    private static final float WALL_THICKNESS = 0.15f;
    
 
     @Override
@@ -25,8 +28,9 @@ public class BossRoom extends BaseRoom {
             List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink", "item:shieldpotion"),
             List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink")
     );
+    
+    this.isBossRoom = true;
     }
-
 
     public BossRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
@@ -34,5 +38,6 @@ public class BossRoom extends BaseRoom {
                     List<String> roomConnections,
                     String specification) {
         super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
+
     }
 }

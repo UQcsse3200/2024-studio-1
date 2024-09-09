@@ -8,9 +8,9 @@ import java.util.List;
  * A Factory responsible for loading and managing json file data for the game's Map
  */
 public class LevelMap {
-    //Assuming that the map is a static json file for the mvp loads the data from a json file called map.json
 
     public MapGenerator mapData;
+
 
     public LevelMap(String seed, int mapSize) {
         mapData = new MapGenerator(mapSize, seed);

@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.BooleanArray;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
@@ -16,13 +17,15 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * This is the foundation of a room,
  * it is able to use other factories to build the complex structures needed for a room in the game.
  * e.g. walls, terrain, items, and enemies.
  */
 public abstract class BaseRoom implements Room {
+    private static final Logger logger = LoggerFactory.getLogger(BaseRoom.class);
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
@@ -39,6 +42,8 @@ public abstract class BaseRoom implements Room {
 
     List<List<String>> animalSpecifications;
     List<List<String>> itemSpecifications;
+    public Boolean isRoomFresh = true;
+    protected Boolean isBossRoom = false;
 
     private static final float WALL_THICKNESS = 0.15f;
 
@@ -62,8 +67,6 @@ public abstract class BaseRoom implements Room {
         this.enemies = new ArrayList<>();
         this.items = new ArrayList<>();
 
-        
-
         initializeSpecifications();
 
         List<String> split = Arrays.stream(specification.split(",")).toList();
@@ -83,12 +86,10 @@ public abstract class BaseRoom implements Room {
 
         // item Group index specifcaiton 5
         this.itemGroup = Integer.parseInt(split.get(5));
-        
 
         this.specification = specification;
-
+      
         this.items = this.itemSpecifications.get(this.itemGroup);
-        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
     }
 
     // overide method 
@@ -138,6 +139,8 @@ public abstract class BaseRoom implements Room {
         for (Entity data : enemies) {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         } 
+        this.enemies.clear();
+        
         
     }
 
@@ -148,9 +151,9 @@ public abstract class BaseRoom implements Room {
      * @param area the game area to spawn the terrain onto.
      * @param wallThickness the thickness of the walls around the room.
      */
-    protected void spawnTerrain(GameArea area, float wallThickness) {
+    protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
         // Background terrain
-        TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1);
+        TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1 ,isBossRoom);
         area.setTerrain(terrain);
         area.spawnEntity(new Entity().addComponent(terrain));
         // Terrain walls
@@ -161,10 +164,12 @@ public abstract class BaseRoom implements Room {
     }
 
     public void spawn(Entity player, MainGameArea area) {
-        this.spawnTerrain(area, WALL_THICKNESS);
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
+        this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
         this.spawnDoors(area, player);
-        this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
-        
+        this.spawnAnimals(area, player, this.minGridPoint, this.minGridPoint);
+        this.isRoomFresh = false;
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
         // FIXME
         // logger.info("Spawning items:");
         // int itemGroup = Integer.parseInt(split.get(5));
@@ -227,6 +232,7 @@ public abstract class BaseRoom implements Room {
 
     protected void spawnDoors(GameArea area, Entity player) {
         // Ensure roomConnections is properly initialized
+        this.doors.clear();
         if (this.roomConnections == null || this.roomConnections.size() < 4) {
             throw new IllegalStateException("Room connections are not properly initialized.");
         }
@@ -269,7 +275,7 @@ public abstract class BaseRoom implements Room {
         for (int i = 0; i < doors.length; i++) {
             String connection = connections.get(i);
             System.out.println(connections);
-            if (connection != "" && !connection.isEmpty()) {
+            if (connection != "" && !connection.isEmpty() && connection != null) {
                 area.spawnEntityAt(doors[i], positions[i], true, true);
                 Vector2 doorPos = doors[i].getPosition();
                 doors[i].setPosition(doorPos.x + offsets[i].x, doorPos.y + offsets[i].y);
@@ -279,7 +285,4 @@ public abstract class BaseRoom implements Room {
             }
         }
     }
-    
-    
-    
 }

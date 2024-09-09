@@ -19,7 +19,7 @@ public class Armor extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        // entity.getComponent(CombatStatsComponent.class).increaseArmor(armor);
+        entity.getComponent(CombatStatsComponent.class).increaseArmor(armor);
     }
 
     /**

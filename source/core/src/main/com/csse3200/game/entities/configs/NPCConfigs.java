@@ -53,7 +53,7 @@ public class NPCConfigs {
       public static class ShootTaskConfig {
         public int priority;
         public float attackRange;
-        public float waitTime;
+        public float attackRate;
       }
 
       public static class ChargeTaskConfig {

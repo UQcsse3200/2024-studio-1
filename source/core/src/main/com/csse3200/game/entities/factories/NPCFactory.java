@@ -8,6 +8,7 @@ import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
+import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
@@ -92,9 +93,10 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.dragon;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
-    Entity rat = createBaseNPC(target, aiComponent, config, animator);
-    rat.addComponent(new NPCAnimationController());
-    return rat;
+    Entity dragon = createBaseNPC(target, aiComponent, config, animator);
+    dragon.addComponent(new RangeAttackComponent(target, config.tasks.shoot.attackRange, config.tasks.shoot.attackRate,
+            0, config.effects));
+    return dragon;
   }
 
   /**
@@ -259,10 +261,6 @@ public class NPCFactory extends LoadedFactory {
     // Add charge task
     if (tasks.charge != null) {
       aiComponent.addTask(new ChargeTask(target, tasks.charge));
-    }
-
-    if (tasks.shoot != null) {
-      aiComponent.addTask(new ShootTask(target, tasks.shoot.attackRange, tasks.shoot.waitTime, tasks.shoot.priority));
     }
 
     // Add boss attack task

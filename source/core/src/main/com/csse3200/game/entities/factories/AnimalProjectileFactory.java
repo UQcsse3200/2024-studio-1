@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.projectile.ProjectileAnimationController;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.components.projectile.ProjectileActions;
@@ -22,13 +23,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Factory for producing entities with a projectile themed component configuration.
  */
-public class ProjectileFactory extends LoadedFactory {
+public class AnimalProjectileFactory extends ProjectileFactory {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProjectileFactory.class);
-    public ProjectileFactory() {
-        super(logger);
-    }
-
+    private static final Logger logger = LoggerFactory.getLogger(AnimalProjectileFactory.class);
 
     /**
      * Makes a new Entity with projectile components.
@@ -36,12 +33,14 @@ public class ProjectileFactory extends LoadedFactory {
      * @param stats     Contains all the re-usable projectile configurations. See ProjectileConfig.
      * @param direction Direction of shot projectile.
      */
+    @Override
     public Entity createProjectile(ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {
 
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
-                        ServiceLocator.getResourceService().getAsset(stats.projectileAtlasPath, TextureAtlas.class));
-        animator.addAnimation("GreenShoot", 0.1f, Animation.PlayMode.LOOP);
+                        ServiceLocator.getResourceService().getAsset("images/npc/dragon/dragon.atlas", TextureAtlas.class));
+        animator.addAnimation("fire_attack_left", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("fire_attack_right", 0.1f, Animation.PlayMode.LOOP);
 
         Entity projectile =
                 new Entity()
@@ -52,13 +51,14 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
                         .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
                         .addComponent(new ProjectileActions())
-
+                        .addComponent(new DirectionalNPCComponent(true))
+                        .addComponent(new ProjectileAnimationController())
                         .addComponent(animator);
 
         projectile.getComponent(ColliderComponent.class).setSensor(true);
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
-        projectile.setScale(stats.scaleX, stats.scaleY);
-        projectile.getComponent(ColliderComponent.class).setDensity(1.5f);
+        //projectile.setScale(stats.scaleX, stats.scaleY);
+        projectile.getComponent(AnimationRenderComponent.class).scaleEntity();
 
 
         return projectile;
@@ -67,14 +67,14 @@ public class ProjectileFactory extends LoadedFactory {
     @Override
     protected String[] getTextureAtlasFilepaths() {
         return new String[] {
-                "images/Projectiles/GreenShoot.atlas",
+                "images/npc/dragon/dragon.atlas"
         };
     }
 
     @Override
     protected String[] getTextureFilepaths() {
         return new String[]{
-                "images/Projectiles/GreenShoot.png",
+                "images/npc/dragon/dragon.pnc"
         };
     }
 }

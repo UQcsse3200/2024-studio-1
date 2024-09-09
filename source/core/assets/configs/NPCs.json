@@ -27,7 +27,7 @@
       "shoot": {
         "priority": 4,
         "attackRange": 10,
-        "waitTime": 2
+        "attackRate": 2
       }
     },
     "animations": [

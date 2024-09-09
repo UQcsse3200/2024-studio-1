@@ -1,5 +1,7 @@
 package com.csse3200.game.components;
 
+import com.csse3200.game.components.player.PlayerAnimationController;
+import com.csse3200.game.rendering.AnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +22,11 @@ public class CombatStatsComponent extends Component {
     private int baseAttack;
     private int armor;
     private boolean isInvincible;
-    private static final int timeInvincible = 150;
-    private final Timer timer;
+    private static final int timeInvincible = 2000;
+    private final Timer timerIFrames;
+    private static final int timeFlash = 250;
+    private final Timer timerFlashSprite;
+    private CombatStatsComponent.flashSprite flashTask;
     private static int buffedAttack;
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
@@ -33,7 +38,8 @@ public class CombatStatsComponent extends Component {
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
-        timer = new Timer();
+        this.timerIFrames = new Timer();
+        this.timerFlashSprite = new Timer();
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
@@ -44,10 +50,30 @@ public class CombatStatsComponent extends Component {
      * A TimerTask class used to remove the entity's invincibility
      * 'timeInvincible' milliseconds after being hit
      */
+
+
     private class InvincibilityRemover extends TimerTask {
         @Override
         public void run() {
+            flashTask.cancel();
             setInvincible(false);
+            entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
+        }
+    }
+
+    /**
+     * A TimerTask used to alternate the visibility of the entity during their IFrames
+     */
+    private class flashSprite extends TimerTask {
+        private boolean invisible = false;
+        @Override
+        public void run() {
+            if (this.invisible){
+                entity.getComponent(AnimationRenderComponent.class).setOpacity(0);
+            } else {
+                entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
+            }
+            this.invisible = !this.invisible;
         }
     }
 
@@ -148,22 +174,27 @@ public class CombatStatsComponent extends Component {
 
     /**
      * Handles a hit from another entity by reducing the entity's health based on the attacker's base attack value.
+     * Gives them invincibility frames if they can have any
      *
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */
     public void hit(CombatStatsComponent attacker) {
 
-        if (!isInvincible()) {
-            int newHealth = getHealth() - attacker.getBaseAttack();
-            entity.getEvents().trigger("playerHit");
-            setHealth(newHealth);
-            if (canBeInvincible){
-                setInvincible(true);
-                CombatStatsComponent.InvincibilityRemover task = new CombatStatsComponent.InvincibilityRemover();
-                timer.schedule(task, timeInvincible);
-            }
-
+        if (getIsInvincible()) {
+            return;
         }
+        float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
+        int newHealth = getHealth() - (int) (attacker.getBaseAttack() * (1 - damageReduction));
+        setHealth(newHealth);
+        entity.getEvents().trigger("playerHit");
+        if (canBeInvincible) {
+            setInvincible(true);
+            InvincibilityRemover task = new InvincibilityRemover();
+            timerIFrames.schedule(task, timeInvincible);
+            flashTask = new CombatStatsComponent.flashSprite();
+            timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+        }
+
 
     }
 
@@ -182,7 +213,7 @@ public class CombatStatsComponent extends Component {
      *
      * @return invincibility state
      */
-    public boolean isInvincible() {
+    public boolean getIsInvincible() {
         return isInvincible;
     }
 }

@@ -19,21 +19,20 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected Entity target;
     protected float attackRange;
     protected float attackCooldown;
-    protected float timeSinceLastAttack = 0;
-    protected int damage;
+    protected float timeSinceLastAttack;
     protected CombatStatsComponent combatStats;
     protected List<Effect> effects;
     protected NPCConfigs.NPCConfig.EffectConfig[] effectConfigs;
     protected static final Logger logger = LoggerFactory.getLogger(MeleeAttackComponent.class);
 
 
-    public AttackComponent(Entity target, float attackRange, float attackRate, int damage,
+    public AttackComponent(Entity target, float attackRange, float attackRate,
                                 NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
         this.target = target;
         this.attackRange = attackRange;
         this.attackCooldown = 1/attackRate;
-        this.damage = damage;
         this.effectConfigs = effectConfigs;
+        this.timeSinceLastAttack = attackCooldown;
     }
 
     @Override

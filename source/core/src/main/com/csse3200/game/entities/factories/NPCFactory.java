@@ -1,12 +1,12 @@
 package com.csse3200.game.entities.factories;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
-import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -200,8 +200,7 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new MeleeAttackComponent(target, config.attackRange, config.attackRate, config.baseAttack,
-                    config.effects))
+            .addComponent(new MeleeAttackComponent(target, config.attackRange, config.attackRate, config.effects))
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)

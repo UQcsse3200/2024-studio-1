@@ -10,14 +10,14 @@ import com.csse3200.game.entities.configs.NPCConfigs;
  */
 public class MeleeAttackComponent extends AttackComponent {
 
-    public MeleeAttackComponent(Entity target, float attackRange, float attackRate, int damage,
+    public MeleeAttackComponent(Entity target, float attackRange, float attackRate,
                                 NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
-        super(target, attackRange, attackRate, damage, effectConfigs);
+        super(target, attackRange, attackRate, effectConfigs);
     }
 
     @Override
     public void performAttack() {
-        logger.info("{} attacks {} for {} damage", entity, target, damage);
+        logger.info("{} attacks {} for {} damage", entity, target, combatStats.getBaseAttack());
         // Apply damage to the target
         target.getComponent(CombatStatsComponent.class).hit(combatStats);
 

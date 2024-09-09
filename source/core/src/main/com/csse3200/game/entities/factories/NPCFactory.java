@@ -84,8 +84,6 @@ public class NPCFactory extends LoadedFactory {
 
     Entity rat = createBaseNPC(aiComponent);
 
-    if(!ServiceLocator.getResourceService().containsAsset("images/rat.atlas", TextureAtlas.class))
-        loadAssets();
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/rat.atlas", TextureAtlas.class));
@@ -125,8 +123,6 @@ public class NPCFactory extends LoadedFactory {
     
     Entity bear = createBaseNPC(aiComponent);
 
-    if(!ServiceLocator.getResourceService().containsAsset("images/bear.atlas", TextureAtlas.class))
-        loadAssets();
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService().getAsset("images/bear.atlas", TextureAtlas.class));
@@ -165,8 +161,6 @@ public class NPCFactory extends LoadedFactory {
 
     Entity snake = createBaseNPC(aiComponent);
 
-    if(!ServiceLocator.getResourceService().containsAsset("images/snake.atlas", TextureAtlas.class))
-        loadAssets();
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/snake.atlas", TextureAtlas.class));
@@ -206,8 +200,6 @@ public class NPCFactory extends LoadedFactory {
 
     Entity dino = createBaseNPC(aiComponent);
 
-    if(!ServiceLocator.getResourceService().containsAsset("images/dino.atlas", TextureAtlas.class))
-        loadAssets();
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/dino.atlas", TextureAtlas.class));
@@ -248,8 +240,6 @@ public class NPCFactory extends LoadedFactory {
 
     Entity bat = createBaseNPC(aiComponent);
 
-    if(!ServiceLocator.getResourceService().containsAsset("images/bat.atlas", TextureAtlas.class))
-        loadAssets();
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/bat.atlas", TextureAtlas.class));
@@ -289,8 +279,6 @@ public class NPCFactory extends LoadedFactory {
 
     Entity minotaur = createBaseNPC(aiComponent);
 
-    if(!ServiceLocator.getResourceService().containsAsset("images/minotaur.atlas", TextureAtlas.class))
-        loadAssets();
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/minotaur.atlas", TextureAtlas.class));
@@ -331,8 +319,6 @@ public class NPCFactory extends LoadedFactory {
 
     Entity dog = createBaseNPC(aiComponent);
 
-    if(!ServiceLocator.getResourceService().containsAsset("images/dog.atlas", TextureAtlas.class))
-        loadAssets();
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService()
@@ -373,8 +359,6 @@ public class NPCFactory extends LoadedFactory {
 
     Entity croc = createBaseNPC(aiComponent);
 
-    if(!ServiceLocator.getResourceService().containsAsset("images/ghost.atlas", TextureAtlas.class))
-        loadAssets();
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
@@ -411,8 +395,6 @@ public class NPCFactory extends LoadedFactory {
                             config.chaseSpeed));
 
     Entity gorilla = createBaseNPC(aiComponent);
-    if(!ServiceLocator.getResourceService().containsAsset("images/ghostKing.atlas", TextureAtlas.class))
-        loadAssets();
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()

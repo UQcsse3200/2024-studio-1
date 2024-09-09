@@ -27,7 +27,6 @@ public class MainGameExitDisplay extends UIComponent {
   private static final float BTN_SPACING = 15f;
   private Table table;
   private ImageButton mainMenuBtn;
-  private Image window;
   private Table pauseTable;
 
   @Override

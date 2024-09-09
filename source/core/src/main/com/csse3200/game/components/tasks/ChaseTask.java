@@ -5,6 +5,7 @@ import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
@@ -26,17 +27,14 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
 
   /**
    * @param target The entity to chase.
-   * @param priority Task priority when chasing (0 when not chasing).
-   * @param viewDistance Maximum distance from the entity at which chasing can start.
-   * @param maxChaseDistance Maximum distance from the entity while chasing before giving up.
-   * @param chaseSpeed The speed at which an entity chases at.
+   * @param config Configuration for the chase task.
    */
-  public ChaseTask(Entity target, int priority, float viewDistance, float maxChaseDistance, float chaseSpeed) {
+  public ChaseTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config) {
     this.target = target;
-    this.priority = priority;
-    this.viewDistance = viewDistance;
-    this.maxChaseDistance = maxChaseDistance;
-    this.chaseSpeed = chaseSpeed;
+    this.priority = config.priority;
+    this.viewDistance = config.viewDistance;
+    this.maxChaseDistance = config.chaseDistance;
+    this.chaseSpeed = config.chaseSpeed;
     this.physics = ServiceLocator.getPhysicsService().getPhysics();
     this.debugRenderer = ServiceLocator.getRenderService().getDebug();
   }

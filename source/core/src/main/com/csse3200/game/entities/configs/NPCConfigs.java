@@ -65,7 +65,7 @@ public class NPCConfigs {
         public float waitTime;
       }
 
-      public static class RunAwayTaskConfig {
+      public static class RunAwayTaskConfig extends ChargeTaskConfig{
         public int priority;
         public float viewDistance;
         public float maxRunDistance;

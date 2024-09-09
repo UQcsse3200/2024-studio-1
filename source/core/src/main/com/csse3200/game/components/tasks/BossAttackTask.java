@@ -3,6 +3,7 @@ package com.csse3200.game.components.tasks;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,28 +16,40 @@ public class BossAttackTask extends DefaultTask implements PriorityTask {
     private final float chaseSpeed;
     private final float chargeSpeed;
     private final float waitTime;
+    private final NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig chaseConfig;
+    private final NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig chargeConfig;
 
     private PriorityTask chaseTask;
     private PriorityTask chargeTask;
     private PriorityTask waitTask;
     private PriorityTask currentTask;
 
-    public BossAttackTask(Entity target, int priority, float viewDistance, float maxChaseDistance,
-                          float chaseSpeed, float chargeSpeed, float waitTime) {
+    public BossAttackTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.BossAttackTaskConfig config) {
         this.target = target;
-        this.priority = priority;
-        this.viewDistance = viewDistance;
-        this.maxChaseDistance = maxChaseDistance;
-        this.chaseSpeed = chaseSpeed;
-        this.chargeSpeed = chargeSpeed;
-        this.waitTime = waitTime;
+        this.priority = config.priority;
+        this.viewDistance = config.viewDistance;
+        this.maxChaseDistance = config.chaseDistance;
+        this.chaseSpeed = config.chaseSpeed;
+        this.chargeSpeed = config.chargeSpeed;
+        this.waitTime = config.waitTime;
+        this.chaseConfig = new NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig();
+        chaseConfig.priority = priority;
+        chaseConfig.viewDistance = viewDistance;
+        chaseConfig.chaseDistance = maxChaseDistance;
+        chaseConfig.chaseSpeed = chaseSpeed;
+        this.chargeConfig = new NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig();
+        chargeConfig.priority = priority + 1;
+        chargeConfig.viewDistance = viewDistance / 2;
+        chargeConfig.chaseDistance = maxChaseDistance;
+        chargeConfig.chaseSpeed = chargeSpeed;
+        chargeConfig.waitTime = 0;
     }
 
     @Override
     public void start() {
         super.start();
-        chaseTask = new ChaseTask(target, priority, viewDistance, maxChaseDistance, chaseSpeed);
-        chargeTask = new ChargeTask(target, priority + 1, viewDistance / 2, maxChaseDistance, chargeSpeed, 0);
+        chaseTask = new ChaseTask(target, chaseConfig);
+        chargeTask = new ChargeTask(target, chargeConfig);
         waitTask = new WaitTask(waitTime, priority + 2);
 
         chaseTask.create(owner);

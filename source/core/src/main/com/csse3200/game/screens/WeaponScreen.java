@@ -3,7 +3,7 @@ package com.csse3200.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.components.howtoplaymenu.AnimalDisplay;
+import com.csse3200.game.components.howtoplaymenu.WeaponDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.factories.RenderFactory;
@@ -17,16 +17,16 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AnimalScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(AnimalScreen.class);
+public class WeaponScreen extends ScreenAdapter{
+    private static final Logger logger = LoggerFactory.getLogger(WeaponScreen.class);
 
     private final GdxGame game;
     private final Renderer renderer;
 
-    public AnimalScreen(GdxGame game) {
+    public WeaponScreen(GdxGame game) {
         this.game = game;
 
-        logger.debug("Initialising animal screen services");
+        logger.debug("Initialising weapon screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
@@ -67,7 +67,7 @@ public class AnimalScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new AnimalDisplay(game)).addComponent(new InputDecorator(stage, 10));
+        ui.addComponent(new WeaponDisplay(game)).addComponent(new InputDecorator(stage, 10));
         ServiceLocator.getEntityService().register(ui);
     }
 }

@@ -81,6 +81,26 @@ public class HowToPlayMenuDisplay extends UIComponent {
                         + "must defeat before continuing to the next level."
             }
         };
+        TextButton animalBtn = new TextButton("About Animals", skin);
+
+        animalBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Animals button clicked");
+                        animalMenu();
+                    }
+                });
+        TextButton weaponBtn = new TextButton("About Weapons", skin);
+
+        weaponBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Weapons button clicked");
+                        weaponMenu();
+                    }
+                });
 
         // Position components on the table
         Table table = new Table();
@@ -98,6 +118,10 @@ public class HowToPlayMenuDisplay extends UIComponent {
                 table.row().padTop(lastLine ? 40f : 10f);
             }
         }
+        table.add(animalBtn).left().expandX();
+        table.row().padTop(10f);
+        table.add(weaponBtn).left().expandX();
+
 
         // todo look into word wrap so we don't need this many labels
 
@@ -144,20 +168,9 @@ public class HowToPlayMenuDisplay extends UIComponent {
                         exitMenu();
                     }
                 });
-        TextButton animalBtn = new TextButton("Animals", skin);
-
-        animalBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Animals button clicked");
-                        AnimalMenu();
-                    }
-                });
 
         Table table = new Table();
         table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
-        table.add(animalBtn).expandX().right().pad(0f, 0f, 15f, 15f);
         return table;
     }
 
@@ -179,8 +192,11 @@ public class HowToPlayMenuDisplay extends UIComponent {
     private void exitMenu() {
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
-    private void AnimalMenu() {
+    private void animalMenu() {
         game.setScreen(GdxGame.ScreenType.ANIMALS);
+    }
+    private void weaponMenu() {
+        game.setScreen(GdxGame.ScreenType.WEAPONS);
     }
 
     private Integer parseOrNull(String num) {

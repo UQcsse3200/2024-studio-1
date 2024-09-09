@@ -76,13 +76,15 @@ public class GdxGame extends Game {
         return new HowToPlayScreen(this);
       case ANIMALS:
         return new AnimalScreen(this);
+      case WEAPONS:
+        return new WeaponScreen(this);
       default:
         return null;
     }
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, ANIMALS
+    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, ANIMALS, WEAPONS
   }
 
   /**

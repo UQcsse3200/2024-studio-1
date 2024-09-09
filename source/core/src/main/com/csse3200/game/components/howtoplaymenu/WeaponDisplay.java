@@ -15,8 +15,8 @@ import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AnimalDisplay extends UIComponent{
-    private static final Logger logger = LoggerFactory.getLogger(AnimalDisplay.class);
+public class WeaponDisplay extends UIComponent {
+    private static final Logger logger = LoggerFactory.getLogger(WeaponDisplay.class);
     private final GdxGame game;
 
     private Table rootTable;
@@ -26,7 +26,7 @@ public class AnimalDisplay extends UIComponent{
     private Slider uiScaleSlider;
     private SelectBox<StringDecorator<Graphics.DisplayMode>> displayModeSelect;
 
-    public AnimalDisplay(GdxGame game) {
+    public WeaponDisplay(GdxGame game) {
         super();
         this.game = game;
     }
@@ -38,7 +38,7 @@ public class AnimalDisplay extends UIComponent{
     }
 
     private void addActors() {
-        Label title = new Label("Animals", skin, "title");
+        Label title = new Label("Weapons", skin, "title");
         Table howToPlayTable = makeHowToPlayTable();
         Table menuBtns = makeMenuBtns();
 
@@ -57,7 +57,7 @@ public class AnimalDisplay extends UIComponent{
     }
 
     private Table makeHowToPlayTable() {
-        Label instruction = new Label("There are x types of animals: ", skin);
+        Label instruction = new Label("There are x types of weapons: ", skin);
 
         String[][] paragraphs = {{
                 "Beast Breakout is a top-down dungeon crawler game, presented using "

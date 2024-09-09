@@ -14,6 +14,7 @@ public class NPCConfigs {
   public NPCConfig dino = new NPCConfig();
   public NPCConfig minotaur = new NPCConfig();
   public NPCConfig werewolf = new NPCConfig();
+  public NPCConfig birdman = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
     public TaskConfig tasks = new TaskConfig();

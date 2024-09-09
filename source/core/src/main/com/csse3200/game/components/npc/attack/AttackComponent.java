@@ -19,7 +19,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected Entity target;
     protected float attackRange;
     protected float attackCooldown;
-    protected float timeSinceLastAttack;
+    protected float timeSinceLastAttack = 0;
     protected int damage;
     protected CombatStatsComponent combatStats;
     protected List<Effect> effects;

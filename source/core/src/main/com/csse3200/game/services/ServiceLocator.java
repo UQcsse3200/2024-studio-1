@@ -64,6 +64,7 @@ public class ServiceLocator {
   }
   public static CollectibleFactoryService getCollectibleFactoryService() {
     return collectibleFactoryService;
+  }
 
   public static AlertBoxService getAlertBoxService() {
     return alertBoxService;
@@ -114,6 +115,8 @@ public class ServiceLocator {
   public static void registerCollectibleFactoryService(CollectibleFactoryService source) {
     logger.debug("Registering collectibleFactory service {}", source);
     collectibleFactoryService = source;
+
+  }
 
   public static void registerAlertBoxService(AlertBoxService source) {
     logger.debug("Registering alertBox service {}", source);

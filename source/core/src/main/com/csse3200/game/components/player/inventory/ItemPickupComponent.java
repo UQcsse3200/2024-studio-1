@@ -49,7 +49,6 @@ public class ItemPickupComponent extends Component {
         //Use the 'pickup' method of the InventoryComponent, pass in the item
         //The 'pickup' method of the InventoryComponent class uses the unique 'pickup' method of the item that
         // is passed in
-//        markEntityForRemoval(itemEntity);
         if (item.getType() == Collectible.Type.MELEE_WEAPON || item.getType() == Collectible.Type.RANGED_WEAPON) {
             entity.getComponent(InventoryComponent.class).pickup(item, itemEntity);
         }

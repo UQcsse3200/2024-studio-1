@@ -1,6 +1,7 @@
 package com.csse3200.game.components.tasks;
 
 import com.csse3200.game.ai.tasks.DefaultTask;
+import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -8,17 +9,19 @@ import com.csse3200.game.services.ServiceLocator;
  * Task that does nothing other than waiting for a given time. Status is Finished
  * after the time has passed.
  */
-public class WaitTask extends DefaultTask {
+public class WaitTask extends DefaultTask implements PriorityTask {
   private final GameTime timeSource;
   private final float duration;
   private long endTime;
+  private final int priority;
 
   /**
    * @param duration How long to wait for, in seconds.
    */
-  public WaitTask(float duration) {
+  public WaitTask(float duration, int priority) {
     timeSource = ServiceLocator.getTimeSource();
     this.duration = duration;
+    this.priority = priority;
   }
 
   /**
@@ -35,5 +38,10 @@ public class WaitTask extends DefaultTask {
     if (timeSource.getTime() >= endTime) {
       status = Status.FINISHED;
     }
+  }
+  
+  @Override
+  public int getPriority() {
+    return priority;
   }
 }

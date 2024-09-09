@@ -19,7 +19,8 @@ class WaitTaskTest {
     when(time.getTime()).thenReturn(1000L);
     ServiceLocator.registerTimeSource(time);
 
-    WaitTask task = new WaitTask(5f);
+    // Create WaitTask with a duration of 5 seconds and priority of 1
+    WaitTask task = new WaitTask(5f, 1);
     task.start();
     assertEquals(Status.ACTIVE, task.getStatus());
 
@@ -30,5 +31,12 @@ class WaitTaskTest {
     when(time.getTime()).thenReturn(6100L);
     task.update();
     assertEquals(Status.FINISHED, task.getStatus());
+  }
+
+  @Test
+  void shouldReturnCorrectPriority() {
+    // Create WaitTask with a duration of 5 seconds and priority of 2
+    WaitTask task = new WaitTask(5f, 2);
+    assertEquals(2, task.getPriority());
   }
 }

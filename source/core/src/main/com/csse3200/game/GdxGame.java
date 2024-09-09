@@ -5,10 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.files.UserSettings;
-import com.csse3200.game.screens.HowToPlayScreen;
-import com.csse3200.game.screens.MainGameScreen;
-import com.csse3200.game.screens.MainMenuScreen;
-import com.csse3200.game.screens.SettingsScreen;
+import com.csse3200.game.screens.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,13 +74,15 @@ public class GdxGame extends Game {
         return new SettingsScreen(this);
       case HOW_TO_PLAY:
         return new HowToPlayScreen(this);
+      case ANIMALS:
+        return new AnimalScreen(this);
       default:
         return null;
     }
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY
+    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, ANIMALS
   }
 
   /**

@@ -15,7 +15,7 @@ import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HowToPlayMenuDisplay extends UIComponent {
+public class AnimalDisplay extends UIComponent{
     private static final Logger logger = LoggerFactory.getLogger(HowToPlayMenuDisplay.class);
     private final GdxGame game;
 
@@ -26,7 +26,7 @@ public class HowToPlayMenuDisplay extends UIComponent {
     private Slider uiScaleSlider;
     private SelectBox<StringDecorator<Graphics.DisplayMode>> displayModeSelect;
 
-    public HowToPlayMenuDisplay(GdxGame game) {
+    public AnimalDisplay(GdxGame game) {
         super();
         this.game = game;
     }
@@ -38,7 +38,7 @@ public class HowToPlayMenuDisplay extends UIComponent {
     }
 
     private void addActors() {
-        Label title = new Label("How To Play", skin, "title");
+        Label title = new Label("Animals", skin, "title");
         Table howToPlayTable = makeHowToPlayTable();
         Table menuBtns = makeMenuBtns();
 
@@ -57,29 +57,29 @@ public class HowToPlayMenuDisplay extends UIComponent {
     }
 
     private Table makeHowToPlayTable() {
-        Label instruction = new Label("Instructions: ", skin);
+        Label instruction = new Label("There are x types of animals: ", skin);
 
         String[][] paragraphs = {{
                 "Beast Breakout is a top-down dungeon crawler game, presented using "
                         + "two-dimensional sprites, in which the player controls",
                 "an unnamed character in a non-specific facility."
-            }, {
+        }, {
                 "On each floor of the facility, the player must fight enraged animals in a room "
                         + "before continuing onto the next room. This is",
                 "most commonly done by the character's melee or ranged weapon in the style of a "
                         + "twin-stick shooter."
-            }, {
+        }, {
                 "Other methods of defeating enemies become possible as the character gains "
                         + "power-ups, items that are automatically worn",
                 "by the player-character when picked up that can alter the character's core "
                         + "attributes, such as increasing health or the",
                 "strength of their weapons, or cause additional side effects."
-            }, {
+        }, {
                 "When the player loses all of their health the game ends in permadeath and the "
                         + "player must start over from a freshly-",
                 "generated dungeon. Each floor of the dungeon includes a boss which the player "
                         + "must defeat before continuing to the next level."
-            }
+        }
         };
 
         // Position components on the table
@@ -144,20 +144,9 @@ public class HowToPlayMenuDisplay extends UIComponent {
                         exitMenu();
                     }
                 });
-        TextButton animalBtn = new TextButton("Animals", skin);
-
-        animalBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Animals button clicked");
-                        AnimalMenu();
-                    }
-                });
 
         Table table = new Table();
         table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
-        table.add(animalBtn).expandX().right().pad(0f, 0f, 15f, 15f);
         return table;
     }
 
@@ -178,9 +167,6 @@ public class HowToPlayMenuDisplay extends UIComponent {
 
     private void exitMenu() {
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
-    }
-    private void AnimalMenu() {
-        game.setScreen(GdxGame.ScreenType.ANIMALS);
     }
 
     private Integer parseOrNull(String num) {
@@ -207,4 +193,3 @@ public class HowToPlayMenuDisplay extends UIComponent {
         super.dispose();
     }
 }
-

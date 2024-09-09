@@ -41,15 +41,6 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
-  private char getDirection(Vector2 destination) {
-    if (owner.getEntity().getPosition().x - destination.x < 0) {
-      return '>';
-    }
-    if (owner.getEntity().getPosition().x - destination.x > 0) {
-      return '<';
-    }
-    return '=';
-  }
 
   @Override
   public void start() {
@@ -58,22 +49,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
-    char dir = getDirection(target.getPosition());
-    Entity entity = owner.getEntity();
-    //Boolean directable = entity.getComponent(DirectionalNPCComponent.class).isDirectable();
-    Boolean directable = false; 
-    if(directable){
-        //right movement 
-        if(dir == '<'){
-            this.owner.getEntity().getEvents().trigger("walk_right");
-        }
-        else{
-            this.owner.getEntity().getEvents().trigger("walk_left");
-        }
-    }
-    else{
-        this.owner.getEntity().getEvents().trigger("walk");
-    }
+    this.owner.getEntity().getEvents().trigger("walk");
   }
 
   @Override
@@ -83,6 +59,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     if (movementTask.getStatus() != Status.ACTIVE) {
       movementTask.start();
     }
+    this.owner.getEntity().getEvents().trigger("walk");
   }
 
   @Override

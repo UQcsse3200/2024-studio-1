@@ -3,14 +3,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.npc.BearAnimationController;
-import com.csse3200.game.components.npc.GhostAnimationController;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
-import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.DirectionalNPCComponent;
-import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -26,8 +22,6 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.components.Component;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -94,25 +88,9 @@ public class NPCFactory extends LoadedFactory {
   public Entity createBear(Entity target) {
     NPCConfigs.NPCConfig config = configs.bear;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/bear.atlas", config.animations);
-    Entity bear = createBaseNPC(target, aiComponent, config, animator);
-    bear.addComponent(new NPCAnimationController());
-
-    return bear;
-  }
-
-  /**
-   * Creates a directional bear entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createDirectionBear(Entity target) {
-    NPCConfigs.NPCConfig config = configs.directionbear;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
-    Entity bear = createBaseNPC(target, aiComponent, config, animator);
-    bear.addComponent(new BearAnimationController());
+    Entity bear = createBaseNPC(target, aiComponent, config, animator, true);
+    bear.addComponent(new NPCAnimationController());
     return bear;
   }
 
@@ -189,8 +167,8 @@ public class NPCFactory extends LoadedFactory {
   public Entity createDog(Entity target) {
     NPCConfigs.NPCConfig config = configs.dog;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/dog.atlas", config.animations);
-    Entity dog = createBaseNPC(target, aiComponent, config, animator);
+    AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
+    Entity dog = createBaseNPC(target, aiComponent, config, animator, true);
     dog.addComponent(new NPCAnimationController());
 
     return dog;
@@ -203,8 +181,6 @@ public class NPCFactory extends LoadedFactory {
    * @param aiComponent The AI component to be added to the NPC.
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
-   * @param The animator component for the NPC.
-   * @param The animator controller for the NPC.
    *
    * @return entity
    */
@@ -221,9 +197,7 @@ public class NPCFactory extends LoadedFactory {
    * @param aiComponent The AI component to be added to the NPC.
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
-   * @param The animator component for the NPC.
-   * @param The animator controller for the NPC.
-   * @param If the NPC accepts direction 
+   * @param directable Whether the NPC animations are direction based.
    *
    * @return entity
    */
@@ -319,11 +293,10 @@ public class NPCFactory extends LoadedFactory {
             "images/rat.atlas",
             "images/snake.atlas",
             "images/minotaur.atlas",
-            "images/bear.atlas",
             "images/dino.atlas",
             "images/bat.atlas",
             "images/npc/bear/bear.atlas",
-            "images/dog.atlas"
+            "images/npc/dog/dog.atlas"
     };
   }
 
@@ -334,7 +307,7 @@ public class NPCFactory extends LoadedFactory {
             "images/ghost_king.png",
             "images/rat.png",
             "images/minotaur.png",
-            "images/dog.png",
+            "images/npc/dog/dog.png",
             "images/snake.png",
             "images/dino.png",
             "images/minotaur.png",

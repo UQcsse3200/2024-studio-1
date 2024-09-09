@@ -2,6 +2,7 @@ package com.csse3200.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
+import com.csse3200.game.components.DirectionalNPCComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
@@ -20,6 +21,7 @@ public class MovementTask extends DefaultTask {
   private long lastTimeMoved;
   private Vector2 lastPos;
   private PhysicsMovementComponent movementComponent;
+  private DirectionalNPCComponent directionalComponent;
 
   /**
    * Creates a MovementTask with a target position.
@@ -46,6 +48,7 @@ public class MovementTask extends DefaultTask {
   public void start() {
     super.start();
     this.movementComponent = owner.getEntity().getComponent(PhysicsMovementComponent.class);
+    this.directionalComponent = owner.getEntity().getComponent(DirectionalNPCComponent.class);
     movementComponent.setTarget(target);
     movementComponent.setMoving(true);
     logger.debug("Starting movement towards {}", target);
@@ -72,6 +75,7 @@ public class MovementTask extends DefaultTask {
   public void setTarget(Vector2 target) {
     this.target = target;
     movementComponent.setTarget(target);
+    updateDirection();
   }
 
   /**
@@ -114,5 +118,16 @@ public class MovementTask extends DefaultTask {
 
   private boolean didMove() {
     return owner.getEntity().getPosition().dst2(lastPos) > 0.001f;
+  }
+
+  private void updateDirection() {
+    if (directionalComponent != null) {
+      Vector2 currentPosition = owner.getEntity().getPosition();
+      if (currentPosition.x < target.x) {
+        directionalComponent.setDirection("right");
+      } else {
+        directionalComponent.setDirection("left");
+      }
+    }
   }
 }

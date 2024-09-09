@@ -8,11 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 public class NPCConfigs {
   public NPCConfig rat = new NPCConfig();
   public NPCConfig bear = new NPCConfig();
-  public NPCConfig directionbear = new NPCConfig();
   public NPCConfig bat = new NPCConfig();
   public NPCConfig dog = new NPCConfig();
-  public NPCConfig croc = new NPCConfig();
-  public NPCConfig gorilla = new NPCConfig();
   public NPCConfig snake = new NPCConfig();
   public NPCConfig dino = new NPCConfig();
   public NPCConfig minotaur = new NPCConfig();

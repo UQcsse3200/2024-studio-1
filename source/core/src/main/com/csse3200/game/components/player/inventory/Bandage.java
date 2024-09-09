@@ -33,6 +33,7 @@ public class Bandage extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
+        super.drop(inventory);
     }
 
     /**

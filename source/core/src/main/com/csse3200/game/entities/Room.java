@@ -13,7 +13,6 @@ public interface Room {
      * @param player the player that will play this room.
      * @param mainGameArea the game area to spawn this room into.
      */
-    void spawn(Entity player, MainGameArea mainGameArea);
 
     /**
      * Remove all entities that form this room.

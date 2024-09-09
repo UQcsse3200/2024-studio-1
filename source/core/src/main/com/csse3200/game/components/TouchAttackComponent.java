@@ -3,8 +3,6 @@ package com.csse3200.game.components;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.csse3200.game.components.player.ShieldComponent;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -65,23 +63,10 @@ public class TouchAttackComponent extends Component {
     Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
     CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
     if (targetStats != null) {
-      // If target has a shield component and the shield is active then negate hit
-      if (target.getComponent(ShieldComponent.class) != null) {
-        if (target.getComponent(ShieldComponent.class).isActive()) {
-          target.getEvents().trigger("hit");
-        } else {
-          targetStats.hit(combatStats);
-        }
-      } else {
-        targetStats.hit(combatStats);
-      }
+      targetStats.hit(combatStats);
     }
 
-    //Add the bonus damage here
-    //Checks if the target is the player by checking the buff class
-    //If not trigger targetStats.hit(bonus damage)
-
-    // Apply knock back
+    // Apply knockback
     PhysicsComponent physicsComponent = target.getComponent(PhysicsComponent.class);
     if (physicsComponent != null && knockbackForce > 0f) {
       Body targetBody = physicsComponent.getBody();

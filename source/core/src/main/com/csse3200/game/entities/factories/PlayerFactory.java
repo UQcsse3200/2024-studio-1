@@ -8,6 +8,7 @@ import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.LoadPlayer;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.input.InputComponent;
@@ -59,7 +60,15 @@ public class PlayerFactory extends LoadedFactory {
      * @return entity
      */
     public Entity createPlayer(){
-        return createPlayer(options.get("default"));
+        LoadPlayer loader = new LoadPlayer();
+        PlayerConfig config = options.get("default");
+        return loader.createPlayer(config);
+    }
+
+    public Entity createPlayer(String player) {
+        LoadPlayer loader = new LoadPlayer();
+        PlayerConfig config = options.get(player);
+        return loader.createPlayer(config);
     }
 
     /**
@@ -71,9 +80,6 @@ public class PlayerFactory extends LoadedFactory {
     public Entity createPlayer(PlayerConfig config) {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         TextureRegion defaultTexture = atlas.findRegion("idle");
-
-        InputComponent inputComponent =
-                ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
         InventoryComponent inventoryComponent = new InventoryComponent();
         Entity player = new Entity()
@@ -101,7 +107,7 @@ public class PlayerFactory extends LoadedFactory {
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
-//        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+        //player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
         player.setScale(playerScale, playerScale);
 
         return player;

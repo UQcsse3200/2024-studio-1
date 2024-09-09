@@ -42,6 +42,7 @@ public class StraightWanderTask extends DefaultTask implements PriorityTask {
         movementTask.update();
         if (movementTask.getStatus() != Status.ACTIVE) {
             startMoving();
+            owner.getEntity().getEvents().trigger("walk");
         }
     }
 

@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.BooleanArray;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
@@ -40,6 +41,7 @@ public abstract class BaseRoom implements Room {
     List<List<String>> animalSpecifications;
     List<List<String>> itemSpecifications;
     public Boolean isRoomFresh = true;
+    protected Boolean isBossRoom = false;
 
     private static final float WALL_THICKNESS = 0.15f;
 
@@ -157,7 +159,7 @@ public abstract class BaseRoom implements Room {
 
     public void spawn(Entity player, MainGameArea area) {
         createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
-        this.spawnTerrain(area, WALL_THICKNESS, false);
+        this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
         this.spawnDoors(area, player);
         this.spawnAnimals(area, player, this.minGridPoint, this.minGridPoint);
         this.isRoomFresh = false;
@@ -240,7 +242,7 @@ public abstract class BaseRoom implements Room {
         for (int i = 0; i < doors.length; i++) {
             String connection = connections.get(i);
             System.out.println(connections);
-            if (connection != "" && !connection.isEmpty()) {
+            if (connection != "" && !connection.isEmpty() && connection != null) {
                 area.spawnEntityAt(doors[i], positions[i], true, true);
                 Vector2 doorPos = doors[i].getPosition();
                 doors[i].setPosition(doorPos.x + offsets[i].x, doorPos.y + offsets[i].y);

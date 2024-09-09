@@ -28,6 +28,8 @@ public class BossRoom extends BaseRoom {
             List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink", "item:shieldpotion"),
             List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink")
     );
+    
+    this.isBossRoom = true;
     }
 
     public BossRoom(NPCFactory npcFactory,

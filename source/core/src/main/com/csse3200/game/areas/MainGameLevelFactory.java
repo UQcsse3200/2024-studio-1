@@ -14,6 +14,7 @@ import java.util.*;
  */
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
+    private int levelNum;
 
     @Override
     public Level create(int levelNumber) {
@@ -38,4 +39,11 @@ public class MainGameLevelFactory implements LevelFactory {
                 "0,0,14,10," + levelNumber + "," + levelNumber));
         return new Level(map, levelNumber, rooms);
     }
+
+
+    public int getCurrentLevel() {
+        return levelNum;
+    }
+
+
 }

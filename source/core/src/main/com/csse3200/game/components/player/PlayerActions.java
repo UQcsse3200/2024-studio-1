@@ -4,13 +4,9 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.components.CombatStatsComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -23,7 +19,6 @@ public class PlayerActions extends Component {
     private InventoryComponent inventoryComponent;
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
-    private boolean dead = false;
     private Vector2 speed = DEFAULT_SPEED;
     private float maxSpeed = 5.0f;
     private float speedPercentage;
@@ -40,6 +35,13 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
         entity.getEvents().addListener("use3", () -> use(new Bandage()));
         setSpeedPercentage(1.0f);
+        // entity.getEvents().addListener("use4", () -> use(4));
+        /*
+        entity.getEvents().addListener("useMedKit", this::applyMedKit);
+        entity.getEvents().addListener("useShieldPotion", this::applyShieldPotion);
+        entity.getEvents().addListener("useBandage", this::applyBandage);
+
+         */
         setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
     }
 
@@ -47,14 +49,6 @@ public class PlayerActions extends Component {
     public void update() {
         if (moving) {
             updateSpeed();
-        }
-
-        if (entity.getComponent(CombatStatsComponent.class).isDead()) {
-            entity.getEvents().trigger("stopAnimation");
-            if (!dead) {
-                entity.getEvents().trigger("death");
-                dead = true;
-            }
         }
     }
 

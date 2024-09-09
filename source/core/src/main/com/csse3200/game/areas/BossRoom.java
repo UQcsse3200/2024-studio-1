@@ -42,7 +42,7 @@ public class BossRoom extends BaseRoom {
                     String specification) {
         super(npcFactory, collectibleFactory, terrainFactory, stairFactory, roomConnections, specification);
     }
-
+//
 //    @Override
 //    public void spawn(Entity player, MainGameArea area) {
 //        super.spawn(player, area);

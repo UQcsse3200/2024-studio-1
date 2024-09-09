@@ -92,7 +92,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="HitboxComponent.html" title="class in com.csse3200.game.physics.components">HitboxComponent</a></code></dd>
+<dd><code><a href="CollectibleHitboxComponent.html" title="class in com.csse3200.game.physics.components">CollectibleHitboxComponent</a></code>, <code><a href="HitboxComponent.html" title="class in com.csse3200.game.physics.components">HitboxComponent</a></code>, <code><a href="PlayerHitboxComponent.html" title="class in com.csse3200.game.physics.components">PlayerHitboxComponent</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ColliderComponent</span>
@@ -121,7 +121,24 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">ColliderComponent</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructs collider component</div>
+</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(float)" class="member-name-link">ColliderComponent</a><wbr>(float&nbsp;boxRatio)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Constructs collider component</div>
+</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(float,float)" class="member-name-link">ColliderComponent</a><wbr>(float&nbsp;translateX,
+ float&nbsp;translateY)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Constructs collider component</div>
+</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(float,float,float)" class="member-name-link">ColliderComponent</a><wbr>(float&nbsp;boxRatio,
+ float&nbsp;translateX,
+ float&nbsp;translateY)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Constructs collider component</div>
+</div>
 </div>
 </section>
 </li>
@@ -146,29 +163,44 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Called when the component is disposed.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.physics.box2d.Fixture</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFixture()" class="member-name-link">getFixture</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBoxRatio()" class="member-name-link">getBoxRatio</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>short</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLayer()" class="member-name-link">getLayer</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.physics.box2d.Fixture</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFixture()" class="member-name-link">getFixture</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAsBox(com.badlogic.gdx.math.Vector2)" class="member-name-link">setAsBox</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;size)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>short</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLayer()" class="member-name-link">getLayer</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTranslateX()" class="member-name-link">getTranslateX</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTranslateY()" class="member-name-link">getTranslateY</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAsBox(com.badlogic.gdx.math.Vector2)" class="member-name-link">setAsBox</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;size)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Set physics as a box with a given size.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAsBox(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)" class="member-name-link">setAsBox</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;size,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAsBox(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)" class="member-name-link">setAsBox</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;size,
  com.badlogic.gdx.math.Vector2&nbsp;position)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Set physics as a box with a given size and local position.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAsBoxAligned(com.badlogic.gdx.math.Vector2,com.csse3200.game.physics.components.PhysicsComponent.AlignX,com.csse3200.game.physics.components.PhysicsComponent.AlignY)" class="member-name-link">setAsBoxAligned</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;size,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAsBoxAligned(com.badlogic.gdx.math.Vector2,com.csse3200.game.physics.components.PhysicsComponent.AlignX,com.csse3200.game.physics.components.PhysicsComponent.AlignY)" class="member-name-link">setAsBoxAligned</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;size,
  <a href="PhysicsComponent.AlignX.html" title="enum class in com.csse3200.game.physics.components">PhysicsComponent.AlignX</a>&nbsp;alignX,
  <a href="PhysicsComponent.AlignY.html" title="enum class in com.csse3200.game.physics.components">PhysicsComponent.AlignY</a>&nbsp;alignY)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Set physics as a box with a given size.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setBoxRatio(float)" class="member-name-link">setBoxRatio</a><wbr>(float&nbsp;ratio)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Set ratio to 1 for bounding box to be same as the image width,
+ otherwise set it to higher value for smaller bounding box and vice versa</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDensity(float)" class="member-name-link">setDensity</a><wbr>(float&nbsp;density)</code></div>
@@ -200,6 +232,12 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Set shape</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTranslateX(float)" class="member-name-link">setTranslateX</a><wbr>(float&nbsp;translateX)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTranslateY(float)" class="member-name-link">setTranslateY</a><wbr>(float&nbsp;translateY)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -221,9 +259,49 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="&lt;init&gt;(float,float)">
+<h3>ColliderComponent</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ColliderComponent</span><wbr><span class="parameters">(float&nbsp;translateX,
+ float&nbsp;translateY)</span></div>
+<div class="block">Constructs collider component</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>translateX</code> - translate bounding box on x-axis</dd>
+<dd><code>translateY</code> - translate bounding box on y-axis</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="&lt;init&gt;(float,float,float)">
+<h3>ColliderComponent</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ColliderComponent</span><wbr><span class="parameters">(float&nbsp;boxRatio,
+ float&nbsp;translateX,
+ float&nbsp;translateY)</span></div>
+<div class="block">Constructs collider component</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>boxRatio</code> - pass 1f for default box size, otherwise greater value will lead to smaller bounding box</dd>
+<dd><code>translateX</code> - translate bounding box on x-axis</dd>
+<dd><code>translateY</code> - translate bounding box on y-axis</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="&lt;init&gt;(float)">
+<h3>ColliderComponent</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ColliderComponent</span><wbr><span class="parameters">(float&nbsp;boxRatio)</span></div>
+<div class="block">Constructs collider component</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>boxRatio</code> - pass 1f for default box size, otherwise greater value will lead to smaller bounding box</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="&lt;init&gt;()">
 <h3>ColliderComponent</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ColliderComponent</span>()</div>
+<div class="block">Constructs collider component</div>
 </section>
 </li>
 </ul>
@@ -403,6 +481,44 @@ loadScripts(document, 'script');</script>
 <dt>Overrides:</dt>
 <dd><code><a href="../../components/Component.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="../../components/Component.html" title="class in com.csse3200.game.components">Component</a></code></dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getBoxRatio()">
+<h3>getBoxRatio</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getBoxRatio</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="setBoxRatio(float)">
+<h3>setBoxRatio</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setBoxRatio</span><wbr><span class="parameters">(float&nbsp;ratio)</span></div>
+<div class="block">Set ratio to 1 for bounding box to be same as the image width,
+ otherwise set it to higher value for smaller bounding box and vice versa</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getTranslateX()">
+<h3>getTranslateX</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getTranslateX</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="setTranslateX(float)">
+<h3>setTranslateX</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setTranslateX</span><wbr><span class="parameters">(float&nbsp;translateX)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="getTranslateY()">
+<h3>getTranslateY</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getTranslateY</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="setTranslateY(float)">
+<h3>setTranslateY</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setTranslateY</span><wbr><span class="parameters">(float&nbsp;translateY)</span></div>
 </section>
 </li>
 </ul>

@@ -28,6 +28,11 @@ import java.util.Arrays;
  * Forest area for the demo game with trees, a player, and some enemies.
  */
 public class ForestGameArea extends GameArea {
+    /**
+     * make ForestGameArea a singleton
+     */
+    private static ForestGameArea instance = null;
+
     private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
     private static final GridPoint2 ITEM_SPAWN = new GridPoint2(10, 5);
@@ -86,21 +91,32 @@ public class ForestGameArea extends GameArea {
      */
     public ForestGameArea(TerrainFactory terrainFactory) {
         this(terrainFactory, 1, "1234", "0_0");
-
     }
 
     public ForestGameArea(TerrainFactory terrainFactory, int difficulty, String seed, String startingRoom) {
-        this.terrainFactory = terrainFactory;
-        this.roomList = new ArrayList<>();
-        this.mapGenerator = new MapGenerator(difficulty * 12, seed);
-        this.mapGenerator.createMap();
-        this.currentRoom = startingRoom;
-        //this.mapGenerator.getRoomDetails().get("0_0");
-        EntitySpawner.setGameArea(this);
-        //IDK NOTHING IS RETURNED!!
-        //logger.info(String.join(",",MapFactory.loadMap(null).roomConnections.get("0_0")));
+        if (instance == null) {
+            this.terrainFactory = terrainFactory;
+            this.roomList = new ArrayList<>();
+            this.mapGenerator = new MapGenerator(difficulty * 12, seed);
+            this.mapGenerator.createMap();
+            this.currentRoom = startingRoom;
+            //this.mapGenerator.getRoomDetails().get("0_0");
+            EntitySpawner.setGameArea(this);
+            //IDK NOTHING IS RETURNED!!
+            //logger.info(String.join(",",MapFactory.loadMap(null).roomConnections.get("0_0")));
+            logger.info(this.mapGenerator.printRelativePosition());
+            instance = this; // initialise the singleton
+        } else {
+            throw new IllegalStateException("Cannot create multiple instances of a singleton");
+        }
+    }
 
-        logger.info(this.mapGenerator.printRelativePosition());
+    /**
+     * Get the singleton instance of the ForestGameArea.
+     * @return the singleton instance of the ForestGameArea
+     */
+    public static ForestGameArea getInstance() {
+        return instance;
     }
 
     /**
@@ -131,7 +147,7 @@ public class ForestGameArea extends GameArea {
         spawnMedkit();
         spawnShieldPotion();
         spawnPickaxes();
-        spawnShotgun();
+        spawnShotguns();
     }
 
     private void displayUI() {
@@ -354,25 +370,43 @@ public class ForestGameArea extends GameArea {
         spawnEntityAt(collectibleEntity, new GridPoint2(5, 5), true, true);
     }
 
+    /**
+     * Spawns a knife at a specified position
+     * @param pos the position to spawn the knife at
+     * @return the knife entity
+     */
+    public Entity spawnKnife(GridPoint2 pos) {
+        Entity pickaxe = CollectibleFactory.createCollectibleEntity("melee:knife");
+        spawnEntityAt(pickaxe, pos, true, false);
+        return pickaxe;
+    }
     private void spawnPickaxes() {
         GridPoint2 minPos = new GridPoint2(0, 0);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
         for (int i = 0; i < NUM_PICKAXES; i++) {
             GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-            Entity pickaxe = CollectibleFactory.createCollectibleEntity("melee:knife");
-            spawnEntityAt(pickaxe, randomPos, true, false); // Spawning the knife at a random position
+            spawnKnife(randomPos);
         }
     }
 
-    private void spawnShotgun() {
+    /**
+     * Spawns a shotgun at a specified position
+     * @param pos the position to spawn the shotgun at
+     * @return the shotgun entity
+     */
+    public void spawnShotgun(GridPoint2 pos) {
+        Entity shotgun = CollectibleFactory.createCollectibleEntity("ranged:shotgun");
+        spawnEntityAt(shotgun, pos, true, false);
+    }
+
+    private void spawnShotguns() {
         GridPoint2 minPos = new GridPoint2(0, 0);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
         for (int i = 0; i < NUM_SHOTGUNS; i++) {
             GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-            Entity shotgun = CollectibleFactory.createCollectibleEntity("ranged:shotgun");
-            spawnEntityAt(shotgun, randomPos, true, false); // Spawning the Shotgun at a random position
+            spawnShotgun(randomPos);
         }
     }
 

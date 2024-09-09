@@ -11,6 +11,7 @@ import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
+import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -305,7 +306,6 @@ public class WeaponComponent extends Component {
             this.attackInterval = (1000L / this.fireRate);
         }
         this.rangedItemEntity = itemEntity;
-        getEntity().getComponent(RangeDetectionComponent.class).updateWeaponEntity(itemEntity);
     }
 
     @Override
@@ -373,6 +373,7 @@ public class WeaponComponent extends Component {
             this.swingInterval = (1000L / this.swingRate);
         }
         this.meleeItemEntity = itemEntity;
+        getEntity().getComponent(RangeDetectionComponent.class).updateWeaponEntity(itemEntity);
     }
 
     /**

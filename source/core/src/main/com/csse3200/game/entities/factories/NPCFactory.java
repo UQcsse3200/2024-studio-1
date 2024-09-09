@@ -310,6 +310,7 @@ public class NPCFactory extends LoadedFactory {
     return aiComponent;
   }
 
+
   @Override
   protected String[] getTextureAtlasFilepaths() {
     return new String[] {

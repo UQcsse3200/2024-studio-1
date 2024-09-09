@@ -10,7 +10,7 @@ import com.csse3200.game.entities.Entity;
  */
 public class Armor extends BuffItem {
 
-    private final int armor = 5;
+    private final int armor = 10;
 
     /**
      * Applies the armor effect to the player which increases the armor value.

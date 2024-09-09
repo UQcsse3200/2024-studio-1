@@ -89,8 +89,6 @@ public abstract class BaseRoom implements Room {
 
         this.specification = specification;
 
-        //this.items = this.itemSpecifications.get(this.itemGroup);
-        this.specification = specification;
         //createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
     }
 
@@ -201,7 +199,7 @@ public abstract class BaseRoom implements Room {
      * @param specification the specification of the item to create.
      * @param pos           the location to spawn it to.
      */
-    protected void spawnItem(GameArea area, String specification, GridPoint2 pos) {
+    protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
         item.getEvents().addListener("pickedUp",()->{
             for (Entity curItem : this.items){
@@ -216,7 +214,7 @@ public abstract class BaseRoom implements Room {
     }
 
     public void spawnItems() {
-        GameArea area = ServiceLocator.getGameAreaService().getGameArea();
+        MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
         spawnItem(area,this.itemSpecifications.get(this.itemGroup).get(0),new GridPoint2(8,8));
         spawnItem(area,this.itemSpecifications.get(this.itemGroup).get(1),new GridPoint2(6,8));
     }
@@ -229,22 +227,24 @@ public abstract class BaseRoom implements Room {
      * @param animal the specification of the animal to create.
      * @param pos    the location to spawn it to.
      */
-    protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
-        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
-        for (Entity enemy : this.enemies) {
+    protected void spawnAnimals(MainGameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
+        if(area.isRoomFresh(this)) {
+            createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
+            for (Entity enemy : this.enemies) {
 
-            
-            GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1), 
-                                                  ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
 
-            area.spawnEntityAt(enemy, randomPos, true, true);
-            enemy.getEvents().addListener("died",()->{
-               if(this.isAllAnimalDead())
-                   this.spawnItems();
-            });
+                GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
+                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
+
+                area.spawnEntityAt(enemy, randomPos, true, true);
+                enemy.getEvents().addListener("died", () -> {
+                    if (this.isAllAnimalDead())
+                        this.spawnItems();
+                });
+            }
+            //this will make all animals commit suicide
+            makeAllAnimalDead();
         }
-        //this will make all animals commit suicide 
-        makeAllAnimalDead();
     }
 
     /**

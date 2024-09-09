@@ -155,7 +155,7 @@
         "priority": 5,
         "chaseSpeed": 0.8,
         "viewDistance": 4,
-        "chaseDistance": 4
+        "chaseDistance": 5
       },
       "charge": {
         "priority": 10,

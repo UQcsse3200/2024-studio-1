@@ -59,6 +59,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     if (movementTask.getStatus() != Status.ACTIVE) {
       movementTask.start();
     } else if (!direction.equals(owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection())) {
+      direction = owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection();
       this.owner.getEntity().getEvents().trigger("walk");
     }
   }

@@ -58,7 +58,7 @@ public class Armor extends BuffItem {
      */
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/mystery_box_blue.png");
+        return new Texture("images/items/armor.png");
     }
 
     /**

@@ -215,8 +215,8 @@ public abstract class BaseRoom implements Room {
      * Spawn an NPC into the room
      * @param area the game area to spawn the NPC into.
      * @param player the player character for this npc to target.
-     * @param animal the specification of the animal to create.
-     * @param pos the location to spawn it to.
+     * @param min the specification of the animal to create.
+     * @param max the location to spawn it to.
      */
     protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
         for (Entity enemy : this.enemies) {
@@ -232,7 +232,7 @@ public abstract class BaseRoom implements Room {
             });
         }
         //this will make all animals commit suicide 
-        makeAllAnimalDead();
+       makeAllAnimalDead();
     }
 
     protected void spawnDoors(GameArea area, Entity player) {

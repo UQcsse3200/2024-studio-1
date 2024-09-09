@@ -2,6 +2,7 @@ package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.RoomFactory;
@@ -64,8 +65,8 @@ public class MainGameArea extends GameArea {
         logger.info("Changing rooms!");
         //this.remove_room();
         this.currentRoom.removeRoom();
-        //this.player.getPosition();
-        //player.setPosition(null);
+        //Vector2 playerPos = this.player.getPosition();
+        //player.setPosition(playerPos);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
         if (this.currentRoom.isRoomFresh) {
@@ -87,7 +88,6 @@ public class MainGameArea extends GameArea {
         logger.info("spawning: player");
         spawnEntityAt(player, new GridPoint2(10, 10), true, true);
         logger.info("spawned: player");
-
         spawnRoom = false;
     }
 

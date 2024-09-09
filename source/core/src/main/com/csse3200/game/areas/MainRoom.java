@@ -22,7 +22,8 @@ public class MainRoom extends BaseRoom {
             List.of("Snake", "Bat", "Minotaur"),
             List.of("Bat", "Bat", "Bat"),
             List.of("Minotaur", "Minotaur", "Minotaur"),
-            List.of("Rat", "Bat", "Bear")
+            List.of("Rat", "Bat", "Bear"),
+            List.of("Werewolf", "Werewolf", "Bear")
     );
     List<List<String>> itemSpecifications = List.of(
             List.of("buff:energydrink", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),

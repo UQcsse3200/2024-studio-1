@@ -26,8 +26,6 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.components.Component;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -81,7 +79,7 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity rat = createBaseNPC(target, aiComponent, config, animator);
-    rat.addComponent(new NPCAnimationController());
+
     return rat;
   }
 
@@ -166,6 +164,19 @@ public class NPCFactory extends LoadedFactory {
    * @param target entity to chase
    * @return the created dog entity
    */
+  /**
+   * Creates a Werewolf entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public Entity createWerewolf(Entity target) {
+    NPCConfigs.NPCConfig config = configs.werewolf;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
+    Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
+    return werewolf;
+  }
   public Entity createDog(Entity target) {
     NPCConfigs.NPCConfig config = configs.dog;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
@@ -276,13 +287,13 @@ public class NPCFactory extends LoadedFactory {
             "images/ghost.atlas",
             "images/ghostKing.atlas",
             "images/rat.atlas",
-            "images/snake.atlas",
+            "images/npc/snake/snake.atlas",
             "images/minotaur.atlas",
-            "images/bear.atlas",
             "images/dino.atlas",
             "images/bat.atlas",
             "images/npc/bear/bear.atlas",
-            "images/dog.atlas"
+            "images/npc/dog/dog.atlas",
+            "images/npc/werewolf/werewolf.atlas"
     };
   }
 
@@ -293,12 +304,13 @@ public class NPCFactory extends LoadedFactory {
             "images/ghost_king.png",
             "images/rat.png",
             "images/minotaur.png",
-            "images/dog.png",
-            "images/snake.png",
+            "images/npc/dog/dog.png",
+            "images/npc/snake/snake.png",
             "images/dino.png",
             "images/minotaur.png",
             "images/npc/bear/bear.png",
-            "images/bear.png"
+            "images/bear.png",
+            "images/npc/werewolf/werewolf.png"
     };
   }
 }

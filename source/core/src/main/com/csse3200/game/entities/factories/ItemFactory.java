@@ -45,6 +45,7 @@ public class ItemFactory {
             case "shieldpotion" -> createShieldPotion();
             case "syringe" -> createSyringe();
             case "armor" -> createArmor();
+            case "damagebuff" -> createDamageBuff();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -94,6 +95,8 @@ public class ItemFactory {
      * @return Armor item
      */
     private Collectible createArmor() { return new Armor();}
+
+    private Collectible createDamageBuff() { return new DamageBuff();}
 
 }
 

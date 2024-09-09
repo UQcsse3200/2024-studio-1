@@ -177,7 +177,7 @@ public class MainGameScreen extends ScreenAdapter {
                 .addComponent(new PerformanceDisplay())
                 .addComponent(new MainGameActions(this.game))
                 .addComponent(new MainGameExitDisplay())
-                .addComponent(new Terminal())
+                .addComponent(new Terminal(this.game))
                 .addComponent(inputComponent)
                 .addComponent(new TerminalDisplay());
 

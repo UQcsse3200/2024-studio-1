@@ -20,5 +20,4 @@ public interface Room {
      */
     void removeRoom();
     public Boolean isRoomFresh = true;
-
 }

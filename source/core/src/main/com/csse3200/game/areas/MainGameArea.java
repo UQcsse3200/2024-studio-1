@@ -64,9 +64,14 @@ public class MainGameArea extends GameArea {
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
+
         this.currentRoom.removeRoom();
         //Vector2 playerPos = this.player.getPosition();
         //player.setPosition(playerPos);
+        //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
+
+        //this.player.getPosition();
+        //player.setPosition(null);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
         if (this.currentRoom.isRoomFresh) {

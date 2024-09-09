@@ -46,11 +46,14 @@ public abstract class BaseRoom implements Room {
 
     private static final float WALL_THICKNESS = 0.15f;
 
+
     /**
      * Inject factories to be used for spawning here room object.
+     *
      * @param npcFactory the NPC factory to use
      * @param collectibleFactory the Collectible factory to use.
-     * @param terrainFactory the terrain factory to use.
+     * @param terrainFactory  the terrain factory to use.
+     * @param roomConnections  the keys for all the adjacent rooms.
      */
     public BaseRoom(
             NPCFactory npcFactory,
@@ -89,7 +92,7 @@ public abstract class BaseRoom implements Room {
         this.itemGroup = Integer.parseInt(split.get(5));
 
         this.specification = specification;
-      
+
         this.items = this.itemSpecifications.get(this.itemGroup);
 
         createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
@@ -133,7 +136,9 @@ public abstract class BaseRoom implements Room {
         wall.setPosition(wallPos.x + offsetX, wallPos.y + offsetY);
     }
 
-
+    /**
+     * Mark all entities in the room for removal.
+     */
     public void removeRoom() {
         for (Entity data : doors) {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
@@ -215,10 +220,13 @@ public abstract class BaseRoom implements Room {
      * Spawn an NPC into the room
      * @param area the game area to spawn the NPC into.
      * @param player the player character for this npc to target.
+     * @param animal the specification of the animal to create.
+     * @param pos    the location to spawn it to.
      * @param min the specification of the animal to create.
      * @param max the location to spawn it to.
      */
     protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
         for (Entity enemy : this.enemies) {
 
             
@@ -235,7 +243,14 @@ public abstract class BaseRoom implements Room {
        makeAllAnimalDead();
     }
 
+    /**
+     * Spawn the doors for this room.
+     *
+     * @param area   the game area to spawn them into.
+     * @param player The main player of the room.
+     */
     protected void spawnDoors(GameArea area, Entity player) {
+
         // Ensure roomConnections is properly initialized
         this.doors.clear();
         if (this.roomConnections == null || this.roomConnections.size() < 4) {

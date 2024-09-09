@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * State tracker for a debug terminal. Any commands to be actioned through the terminal input should
- * be added to the map of commands.
+ * be added to the map of commands. open terminal with fn f1 on mac.
  */
 public class Terminal extends Component {
   private static final Logger logger = LoggerFactory.getLogger(Terminal.class);

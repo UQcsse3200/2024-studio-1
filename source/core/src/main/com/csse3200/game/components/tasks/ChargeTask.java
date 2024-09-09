@@ -5,6 +5,7 @@ import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
@@ -20,39 +21,37 @@ import org.slf4j.LoggerFactory;
  */
 public class ChargeTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(ChargeTask.class);
-  protected final Entity target; // The entity to charge towards.
-  protected final int priority; // Priority of this task.
-  private final float viewDistance; // Distance within which charging can start.
-  protected final float maxChaseDistance; // Maximum distance to keep charging before giving up.
-  private final float chaseSpeed; // Speed of the charge.
-  private final float waitTime; // Time to wait after charging.
-  private final PhysicsEngine physics; // Physics engine for raycasting.
-  private final DebugRenderer debugRenderer; // Renderer for debugging visuals.
-  private final RaycastHit hit = new RaycastHit(); // Stores raycast hit information.
-  protected MovementTask movementTask; // Task for handling movement towards the target.
-  private WaitTask waitTask; // Task for waiting after charging.
-  private Task currentTask; // The current active task.
+  protected final Entity target;
+  protected int priority;
+  private final int basePriority;
+  private final int triggerPriority = 15;
+  private final float viewDistance;
+  protected final float maxChaseDistance;
+  private final float chaseSpeed;
+  private final float waitTime;
+  private final PhysicsEngine physics;
+  private final DebugRenderer debugRenderer;
+  private final RaycastHit hit = new RaycastHit();
+  protected MovementTask movementTask;
+  private WaitTask waitTask;
+  private Task currentTask;
 
   /**
    * Creates a ChargeTask.
    *
    * @param target Entity to charge towards.
-   * @param priority Task priority while charging.
-   * @param viewDistance Maximum distance from the entity at which charging can start.
-   * @param maxChaseDistance Maximum distance from the entity while charging before giving up.
-   * @param chaseSpeed The speed at which the entity charges.
-   * @param waitTime How long to wait after charging.
+   * @param config Configuration for the charge task.
    */
-  public ChargeTask(Entity target, int priority, float viewDistance, float maxChaseDistance, float chaseSpeed,
-                    float waitTime) {
+  public ChargeTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config) {
     this.target = target;
-    this.priority = priority;
-    this.viewDistance = viewDistance;
-    this.maxChaseDistance = maxChaseDistance;
-    this.chaseSpeed = chaseSpeed;
-    this.waitTime = waitTime;
-    physics = ServiceLocator.getPhysicsService().getPhysics(); // Get physics engine.
-    debugRenderer = ServiceLocator.getRenderService().getDebug(); // Get debug renderer.
+    this.priority = config.priority;
+    this.basePriority = config.priority;
+    this.viewDistance = config.viewDistance;
+    this.maxChaseDistance = config.chaseDistance;
+    this.chaseSpeed = config.chaseSpeed;
+    this.waitTime = config.waitTime;
+    physics = ServiceLocator.getPhysicsService().getPhysics();
+    debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
 
   /**
@@ -76,7 +75,11 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
       if (currentTask == movementTask && waitTime > 0) {
         startWaiting(); // After moving, start waiting if waitTime is set.
       } else {
-        startMoving(); // Start moving again.
+        if (priority == triggerPriority) {
+          resetPriority();
+        } else {
+          startMoving();
+        }
       }
     }
     currentTask.update(); // Continue updating the active task.
@@ -189,11 +192,17 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     return -1;
   }
 
+  private void resetPriority() {
+    this.priority = basePriority;
+  }
+
   /**
-   * Checks if the target is visible using a raycast to detect obstacles.
-   *
-   * @return True if the target is visible, false otherwise.
+   * Triggers the charge task to start charging towards the target once.
    */
+  public void triggerCharge() {
+    this.priority = triggerPriority;
+  }
+
   protected boolean isTargetVisible() {
     Vector2 from = owner.getEntity().getCenterPosition();
     Vector2 to = target.getCenterPosition();

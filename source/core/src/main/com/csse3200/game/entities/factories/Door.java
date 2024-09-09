@@ -65,8 +65,9 @@ public class Door extends Entity {
             if (entity2.getId() == playerId) {
                 
                 System.out.println("this is the room " + Room);
-                
-                ServiceLocator.getGameAreaService().getGameArea().changeRooms(Room);
+                if(ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().isAllAnimalDead()) {
+                    ServiceLocator.getGameAreaService().getGameArea().changeRooms(Room);
+                }
             }
         });
     }

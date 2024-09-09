@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,25 +17,21 @@ import org.slf4j.LoggerFactory;
 public class WanderTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(WanderTask.class);
 
-  private final Vector2 wanderRange; // The maximum distance the entity can move from its starting point.
-  private final float waitTime; // Time to wait between movements.
-  private final float wonderSpeed; // Speed of the entity's movement.
-  private Vector2 startPos; // Starting position of the entity.
-  private MovementTask movementTask; // Task for managing movement behavior.
-  private WaitTask waitTask; // Task for managing waiting behavior.
-  private Task currentTask; // Keeps track of the current active task (movement or wait).
+  private final Vector2 wanderRange;
+  private final float waitTime;
+  private final float wanderSpeed;
+  private Vector2 startPos;
+  private MovementTask movementTask;
+  private WaitTask waitTask;
+  private Task currentTask;
 
   /**
-   * Constructor for creating a WanderTask.
-   *
-   * @param wanderRange Distance in X and Y the entity can move from its starting position.
-   * @param waitTime How long to wait between wandering movements.
-   * @param wonderSpeed Speed at which the entity moves while wandering.
+   * @param config Configuration for the wander task.
    */
-  public WanderTask(Vector2 wanderRange, float waitTime, float wonderSpeed) {
-    this.wanderRange = wanderRange;
-    this.waitTime = waitTime;
-    this.wonderSpeed = wonderSpeed;
+  public WanderTask(NPCConfigs.NPCConfig.TaskConfig.WanderTaskConfig config) {
+    this.wanderRange = new Vector2(config.wanderRadius, config.wanderRadius);
+    this.waitTime = config.waitTime;
+    this.wanderSpeed = config.wanderSpeed;
   }
 
   @Override
@@ -53,7 +50,7 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     movementTask = new MovementTask(getRandomPosInRange()); // Move to a random position within the wander range.
     movementTask.create(owner);
     movementTask.start();
-    movementTask.setVelocity(wonderSpeed); // Set the wandering speed.
+    movementTask.setVelocity(wanderSpeed);
     currentTask = movementTask;
     this.owner.getEntity().getEvents().trigger("walk");
   }

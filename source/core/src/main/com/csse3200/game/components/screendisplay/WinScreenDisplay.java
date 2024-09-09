@@ -14,6 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import static com.csse3200.game.GdxGame.ScreenType.MAIN_MENU;
 
+/**
+ * Display and actions for the win screen (happy player image, you win label, button that goes
+ * back to main menu).
+ */
 public class WinScreenDisplay extends UIComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(WinScreenDisplay.class);

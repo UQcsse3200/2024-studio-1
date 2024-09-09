@@ -152,18 +152,17 @@ public class CombatStatsComponent extends Component {
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */
     public void hit(CombatStatsComponent attacker) {
-        if (isInvincible()) {
-            return;
-        }
 
-        float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
-        int newHealth = getHealth() - (int)(attacker.getBaseAttack() * (1 - damageReduction));
-        setHealth(newHealth);
+        if (!isInvincible()) {
+            int newHealth = getHealth() - attacker.getBaseAttack();
+            entity.getEvents().trigger("playerHit");
+            setHealth(newHealth);
+            if (canBeInvincible){
+                setInvincible(true);
+                CombatStatsComponent.InvincibilityRemover task = new CombatStatsComponent.InvincibilityRemover();
+                timer.schedule(task, timeInvincible);
+            }
 
-        if (canBeInvincible) {
-            setInvincible(true);
-            InvincibilityRemover task = new InvincibilityRemover();
-            timer.schedule(task, timeInvincible);
         }
 
     }

@@ -23,6 +23,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.csse3200.game.input.InputComponent;
 
 import java.util.List;
 import java.util.Map;
@@ -69,6 +70,11 @@ public class PlayerFactory extends LoadedFactory {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         TextureRegion defaultTexture = atlas.findRegion("idle");
 
+
+        InputComponent inputComponent =
+                ServiceLocator.getInputService().getInputFactory().createForPlayer();
+
+
         InventoryComponent inventoryComponent = new InventoryComponent();
         Entity player = new Entity()
                 .addComponent(new PlayerConfigComponent(config))
@@ -84,6 +90,7 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController())
+                .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay(inventoryComponent))
                 .addComponent(new WeaponComponent(
@@ -100,14 +107,20 @@ public class PlayerFactory extends LoadedFactory {
     }
 
     private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
-        AnimationRenderComponent animator = new AnimationRenderComponent(
-                ServiceLocator.getResourceService().getAsset(textureAtlasFilename,
-                        TextureAtlas.class));
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService().getAsset("images/player/player.atlas", TextureAtlas.class));
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-up", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-left", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
+
         return animator;
     }
 

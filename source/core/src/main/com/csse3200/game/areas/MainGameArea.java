@@ -58,7 +58,7 @@ public class MainGameArea extends GameArea {
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
-        this.currentRoom.remove_room();
+        this.currentRoom.removeRoom();
         //this.player.getPosition();
         //player.setPosition(null);
 
@@ -109,6 +109,10 @@ public class MainGameArea extends GameArea {
             music.setVolume(0);
         }
         music.play();
+    }
+
+    public Room getCurrentRoom(){
+        return this.currentRoom;
     }
 
     @Override

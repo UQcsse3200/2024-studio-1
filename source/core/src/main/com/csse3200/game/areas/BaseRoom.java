@@ -13,6 +13,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
 
@@ -28,6 +29,7 @@ public abstract class BaseRoom implements Room {
     private List<String> roomConnections;
     protected List<Entity> doors;
     protected List<Entity> enemies;
+    protected List<String> items;
 
     protected final String specification;
     protected final GridPoint2 minGridPoint;
@@ -58,6 +60,7 @@ public abstract class BaseRoom implements Room {
         this.roomConnections = roomConnections;
         this.doors = new ArrayList<>();
         this.enemies = new ArrayList<>();
+        this.items = new ArrayList<>();
 
         
 
@@ -84,6 +87,7 @@ public abstract class BaseRoom implements Room {
 
         this.specification = specification;
 
+        this.items = this.itemSpecifications.get(this.itemGroup);
         createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
     }
 
@@ -125,7 +129,8 @@ public abstract class BaseRoom implements Room {
         wall.setPosition(wallPos.x + offsetX, wallPos.y + offsetY);
     }
 
-    public void remove_room() {
+
+    public void removeRoom() {
         for (Entity data : doors) {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         } 
@@ -158,7 +163,7 @@ public abstract class BaseRoom implements Room {
     public void spawn(Entity player, MainGameArea area) {
         this.spawnTerrain(area, WALL_THICKNESS);
         this.spawnDoors(area, player);
-        this.spawnAnimals(area, player, this.minGridPoint, this.minGridPoint);
+        this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
         
         // FIXME
         // logger.info("Spawning items:");
@@ -167,6 +172,20 @@ public abstract class BaseRoom implements Room {
         //     GridPoint2 randomPos = RandomUtils.random(min, max);
         //     this.spawnItem(area, s, randomPos);
         // }
+    }
+    protected void makeAllAnimalDead(){
+        for(Entity animal : enemies){
+            CombatStatsComponent combatStatsComponent = animal.getComponent(CombatStatsComponent.class);
+            combatStatsComponent.setHealth(0);
+            combatStatsComponent.hit(combatStatsComponent);
+        }
+    }
+    public boolean isAllAnimalDead(){
+        for(Entity animal : enemies){
+            if (!animal.getComponent(CombatStatsComponent.class).isDead())
+                return false;
+        }
+        return true;
     }
 
     /**
@@ -180,6 +199,12 @@ public abstract class BaseRoom implements Room {
         area.spawnEntityAt(item, pos, true, true);
     }
 
+    public void spawnItems() {
+        GameArea area = ServiceLocator.getGameAreaService().getGameArea();
+        spawnItem(area,this.items.get(0),new GridPoint2(8,8));
+        spawnItem(area,this.items.get(1),new GridPoint2(6,8));
+    }
+
     /**
      * Spawn an NPC into the room
      * @param area the game area to spawn the NPC into.
@@ -191,7 +216,13 @@ public abstract class BaseRoom implements Room {
         for (Entity enemy : this.enemies) {
             GridPoint2 randomPos = RandomUtils.random(min, max);
             area.spawnEntityAt(enemy, randomPos, true, true);
+            enemy.getEvents().addListener("died",()->{
+               if(this.isAllAnimalDead())
+                   this.spawnItems();
+            });
         }
+        //this will unalive all animal
+        makeAllAnimalDead();
     }
 
     protected void spawnDoors(GameArea area, Entity player) {

@@ -11,7 +11,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 
 import com.csse3200.game.components.CameraComponent;
-import com.csse3200.game.rendering.GridRenderer;
 import com.csse3200.game.utils.math.RandomUtils;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
@@ -34,13 +33,11 @@ public class TerrainFactory {
   }
 
   /**
-   * Create a terrain factory
-   *
-   * @param cameraComponent Camera to render terrains to. Must be orthographic.
-   * @param orientation orientation to render terrain at
+   * Create a terrain factory with the default camera.
    */
-
-
+  public TerrainFactory(){
+    this(ServiceLocator.getRenderService().getCamera());
+  }
 
   /**
    * Create a terrain of the given type, using the orientation of the factory. This can be extended

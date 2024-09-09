@@ -3,6 +3,7 @@ package com.csse3200.game.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerConfigComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.extensions.GameExtension;
@@ -20,7 +21,7 @@ import static org.junit.Assert.*;
 @ExtendWith(GameExtension.class)
 public class PlayerConfigGeneratorTest {
     Entity player;
-    PlayerConfigGenerator generator = new PlayerConfigGenerator();;
+    PlayerConfigGenerator generator = new PlayerConfigGenerator();
     InventoryComponent inventoryComponent;
     CombatStatsComponent statsComponent;
 
@@ -28,8 +29,9 @@ public class PlayerConfigGeneratorTest {
     public void setUp() {
         player = new Entity();
         inventoryComponent = new InventoryComponent();
-        statsComponent = new CombatStatsComponent(100, 30, true);
+        statsComponent = new CombatStatsComponent(100, 30, true, 0);
         player.addComponent(inventoryComponent).addComponent(statsComponent);
+        player.addComponent(new PlayerConfigComponent(new PlayerConfig()));
     }
 
     /**

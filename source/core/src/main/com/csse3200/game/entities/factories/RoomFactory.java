@@ -18,7 +18,6 @@ public class RoomFactory {
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
-
     /**
      * Construct a new  Room Factory
      * @param npcFactory the npc factory to populate the room with.

@@ -7,7 +7,6 @@ import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 
 
-
 public class BossRoom extends BaseRoom {
     private static final float WALL_THICKNESS = 0.15f;
    
@@ -38,6 +37,5 @@ public class BossRoom extends BaseRoom {
                     List<String> roomConnections,
                     String specification) {
         super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
-
     }
 }

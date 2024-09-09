@@ -43,7 +43,7 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png"
     };
-    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
 
     private final GdxGame game;
     private final Renderer renderer;
@@ -87,9 +87,8 @@ public class MainGameScreen extends ScreenAdapter {
 
         LevelFactory levelFactory = new MainGameLevelFactory();
         GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-                new TestGameArea(levelFactory) :
-                new MainGameArea(levelFactory);
-        mainGameArea.create(player);
+                new TestGameArea(levelFactory, player) :
+                new MainGameArea(levelFactory, player);
     }
 
     @Override

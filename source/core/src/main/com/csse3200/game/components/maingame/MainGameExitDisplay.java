@@ -1,13 +1,10 @@
 package com.csse3200.game.components.maingame;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -17,6 +14,7 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.csse3200.game.screens.MainGameScreen;
 
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
@@ -82,29 +80,32 @@ public class MainGameExitDisplay extends UIComponent {
 
     // Triggers an event when the button is pressed.
     mainMenuBtn.addListener(
-      new ChangeListener() {
-        @Override
-        public void changed(ChangeEvent changeEvent, Actor actor) {
-          stage.addActor(pauseTable);
-          table.remove();
-        }
-      });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                MainGameScreen.isPaused=true;
+                stage.addActor(pauseTable);
+                table.remove();
+              }
+            });
     resumeBtn.addListener(
-      new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-            pauseTable.remove();
-            stage.addActor(table);
-          }
-      });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                pauseTable.remove();
+                MainGameScreen.isPaused=false;
+                stage.addActor(table);
+              }
+            });
     exitBtn.addListener(
-      new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-              logger.debug("Exit button clicked");
-              entity.getEvents().trigger("exit");
-          }
-      });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Exit button clicked");
+                MainGameScreen.isPaused=false;
+                entity.getEvents().trigger("exit");
+              }
+            });
 
     table.add(mainMenuBtn).padTop(10f).padRight(10f);
 

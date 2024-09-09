@@ -20,6 +20,7 @@ public class NPCConfigs {
     public AnimationData[] animations = new AnimationData[0];
     public float attackRange;
     public float attackRate;
+    public boolean isDirectional;
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;

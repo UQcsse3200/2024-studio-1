@@ -19,8 +19,12 @@ public class DirectionalNPCComponent extends Component {
      * @param isDirectional Whether the NPC animations are directable.
      */
     public DirectionalNPCComponent(Boolean isDirectional){
-        this.directional = isDirectional;
-        this.direction = "left";
+        if (isDirectional == null) {
+            this.directional = false;
+        } else {
+            this.directional = isDirectional;
+            this.direction = "left";
+        }
     }
 
     /**

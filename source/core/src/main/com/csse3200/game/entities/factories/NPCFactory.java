@@ -89,7 +89,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.bear;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
-    Entity bear = createBaseNPC(target, aiComponent, config, animator, true);
+    Entity bear = createBaseNPC(target, aiComponent, config, animator);
 
     return bear;
   }
@@ -164,7 +164,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.dog;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
-    Entity dog = createBaseNPC(target, aiComponent, config, animator, true);
+    Entity dog = createBaseNPC(target, aiComponent, config, animator);
 
     return dog;
   }
@@ -181,23 +181,6 @@ public class NPCFactory extends LoadedFactory {
    */
   private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
-    Entity npc = createBaseNPC(target, aiComponent, config, animator, false);
-    return npc;
-  }
-
-  /**
-   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
-   *
-   * @param target The target entity for the NPC to chase.
-   * @param aiComponent The AI component to be added to the NPC.
-   * @param config The configuration for the NPC.
-   * @param animator The animator component for the NPC.
-   * @param directable Whether the NPC animations are direction based.
-   *
-   * @return entity
-   */
-  private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
-                                      AnimationRenderComponent animator, Boolean directable) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
@@ -210,7 +193,7 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDeathHandler()) 
-            .addComponent(new DirectionalNPCComponent(directable))
+            .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController());
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();

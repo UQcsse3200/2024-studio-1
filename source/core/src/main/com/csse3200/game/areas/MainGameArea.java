@@ -11,7 +11,6 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.areas.GameAreaService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +29,7 @@ public class MainGameArea extends GameArea {
     private Level currentLevel;
     private Room currentRoom;
     private boolean spawnRoom = true;
+    private List<Room> roomsVisited = new ArrayList<>();
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -60,21 +60,35 @@ public class MainGameArea extends GameArea {
         playMusic();
     }
 
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public boolean isRoomFresh (Room currentRoom) {
+        if (roomsVisited.contains(currentRoom)) {
+            return false;
+        }
+        roomsVisited.add(currentRoom);
+        return true;
+    }
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
+
         this.currentRoom.removeRoom();
+        //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
+
         //this.player.getPosition();
         //player.setPosition(null);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
-        if (this.currentRoom.isRoomFresh) {
+        if (isRoomFresh(this.currentRoom)) {
             this.currentLevel.roomTraversals ++;
         }
     }
 
     public void spawnCurrentRoom() {
-        //logger.info("Main Game Area update");
         if (!spawnRoom) {
             return;
         }
@@ -83,10 +97,7 @@ public class MainGameArea extends GameArea {
             this.currentRoom = currentLevel.getRoom("BOSS");
         }
         this.currentRoom.spawn(player, this);
-        logger.info("spawned: new room");
-        logger.info("spawning: player");
         spawnEntityAt(player, new GridPoint2(10, 10), true, true);
-        logger.info("spawned: player");
 
         spawnRoom = false;
     }

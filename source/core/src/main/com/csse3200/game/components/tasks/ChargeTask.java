@@ -101,20 +101,20 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   }
 
   protected void startMoving() {
-    this.owner.getEntity().getEvents().trigger("walk");
     logger.debug("Starting moving towards {}", target.getPosition());
     movementTask.setTarget(target.getPosition());
     movementTask.setVelocity(chaseSpeed);
     swapTask(movementTask);
+    this.owner.getEntity().getEvents().trigger("run");
   }
 
   protected void startWaiting() {
-    //this.owner.getEntity().getEvents().trigger("gesture");
     logger.debug("Starting waiting");
     if (movementTask != null) {
         movementTask.stop();
     }
     swapTask(waitTask);
+    this.owner.getEntity().getEvents().trigger("gesture");
   }
 
   protected void swapTask(Task newTask) {

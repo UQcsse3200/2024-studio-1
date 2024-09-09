@@ -6,9 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
  * which engage it combat should have an instance of this class registered. This class can be
@@ -22,7 +19,7 @@ public class CombatStatsComponent extends Component {
     private int health;
     private int baseAttack;
     private boolean isInvincible;
-    private static final int timeInvincible = 2000;
+    private static final int timeInvincible = 150;
     private final Timer timer;
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible) {
@@ -42,9 +39,9 @@ public class CombatStatsComponent extends Component {
 
     /**
      * A TimerTask class used to remove the entity's invincibility
-     * 'timeInvincibile' milliseconds after being hit
+     * 'timeInvincible' milliseconds after being hit
      */
-    private class removeInvincible extends TimerTask {
+    private class InvincibilityRemover extends TimerTask {
         @Override
         public void run() {
             setInvincible(false);
@@ -127,21 +124,22 @@ public class CombatStatsComponent extends Component {
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */
     public void hit(CombatStatsComponent attacker) {
-        if (!getIsInvincible()) {
-            int newHealth = getHealth() - attacker.getBaseAttack();
-            setHealth(newHealth);
+        if (isInvincible()) {
+            return;
+        }
+        int newHealth = getHealth() - attacker.getBaseAttack();
+        setHealth(newHealth);
+        if (canBeInvincible){
+            setInvincible(true);
+            InvincibilityRemover task = new InvincibilityRemover();
+            timer.schedule(task, timeInvincible);
+        }
+        if (!isInvincible()) {
             if (health <= 0) {
                 entity.getEvents().trigger("died");
             }
-
-            if (canBeInvincible){
-                setInvincible(true);
-                CombatStatsComponent.removeInvincible task = new CombatStatsComponent.removeInvincible();
-                timer.schedule(task, timeInvincible);
-            }
         }
     }
-
 
     /**
      * Sets the state of the entity's invincibility
@@ -157,7 +155,7 @@ public class CombatStatsComponent extends Component {
      *
      * @return invincibility state
      */
-    public boolean getIsInvincible() {
+    public boolean isInvincible() {
         return isInvincible;
     }
 }

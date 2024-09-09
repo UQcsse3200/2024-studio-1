@@ -9,6 +9,7 @@ public class NPCConfigs {
   public NPCConfig projectileRat = new NPCConfig();
   public NPCConfig rat = new NPCConfig();
   public NPCConfig bear = new NPCConfig();
+  public NPCConfig directionbear = new NPCConfig();
   public NPCConfig bat = new NPCConfig();
   public NPCConfig dog = new NPCConfig();
   public NPCConfig croc = new NPCConfig();

@@ -1,10 +1,7 @@
 package com.csse3200.game.areas;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class GameAreaService {
-    private static final Logger log = LoggerFactory.getLogger(GameAreaService.class);
+//    private static final Logger log = LoggerFactory.getLogger(GameAreaService.class);
     private final MainGameArea gameArea;
 
     public GameAreaService(MainGameArea gameArea) {
@@ -16,7 +13,6 @@ public class GameAreaService {
     }
 
     public void update() {
-        log.info("update");
         this.gameArea.spawnCurrentRoom();
     }
 }

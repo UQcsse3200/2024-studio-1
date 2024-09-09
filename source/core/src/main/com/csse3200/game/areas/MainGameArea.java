@@ -10,7 +10,6 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.areas.GameAreaService;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
@@ -57,23 +56,19 @@ public class MainGameArea extends GameArea {
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
-        this.currentRoom.remove_room();
+        this.currentRoom.removeRoom();
         //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
     }
 
     public void spawnCurrentRoom() {
-        logger.info("Main Game Area update");
         if (!spawnRoom) {
             return;
         }
         logger.info("spawning: new room");
         this.currentRoom.spawn(player, this);
-        logger.info("spawned: new room");
-        logger.info("spawning: player");
         spawnEntityAt(player, new GridPoint2(10, 10), true, true);
-        logger.info("spawned: player");
 
         spawnRoom = false;
     }

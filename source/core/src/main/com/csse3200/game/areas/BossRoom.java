@@ -11,9 +11,13 @@ import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.utils.math.RandomUtils;
 
+/**
+ * A boos room of the game,
+ * these often have unique animals and rewards.
+ */
 public class BossRoom extends BaseRoom {
     private final String specification;
-    List<List<String>> animalSpecifications = List.of(
+    private final static List<List<String>> ANIMAL_SPECIFICATIONS = List.of(
             //Currently there are three random animals being spawned in base on the level the player is in. Bosses haven't been implemented thus using
             //currently available animals.
             List.of("Rat"),//change to boss 1
@@ -21,7 +25,7 @@ public class BossRoom extends BaseRoom {
             List.of("Bear")//boss 3
     );
 
-    List<List<String>> itemSpecifications = List.of(
+    private final static List<List<String>> ITEM_SPECIFICATIONS = List.of(
             //List of three lists of items for 3 different levels to be spawned in base on which level player is in.
             List.of("buff:energydrink", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
             List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink", "item:shieldpotion"),
@@ -30,6 +34,15 @@ public class BossRoom extends BaseRoom {
 
     private static final float WALL_THICKNESS = 0.15f;
 
+    /**
+     * A boss room with particular features.
+     *
+     * @param npcFactory         the NPC factory to use
+     * @param collectibleFactory the Collectible factory to use.
+     * @param terrainFactory     the terrain factory to use.
+     * @param roomConnections    the keys for all the adjacent rooms.
+     * @param specification      the specification for this room.
+     */
     public BossRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
@@ -54,13 +67,13 @@ public class BossRoom extends BaseRoom {
         //if level == 1 then index 1
         // for boss room the specification should be different
         int animalGroup = Integer.parseInt(split.get(4));
-        for (String s : animalSpecifications.get(animalGroup)) {
+        for (String s : ANIMAL_SPECIFICATIONS.get(animalGroup)) {
             GridPoint2 randomPos = RandomUtils.random(min, max);
             this.spawnAnimal(mainGameArea, player, s, randomPos);
         }
 
         int itemGroup = Integer.parseInt(split.get(5));
-        for (String s : itemSpecifications.get(itemGroup)) {
+        for (String s : ITEM_SPECIFICATIONS.get(itemGroup)) {
             GridPoint2 randomPos = RandomUtils.random(min, max);
             this.spawnItem(mainGameArea, s, randomPos);
         }

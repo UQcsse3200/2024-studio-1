@@ -3,6 +3,7 @@ package com.csse3200.game.components.tasks;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.physics.components.PhysicsComponent;
@@ -53,8 +54,17 @@ class BossAttackTaskTest {
                 .addComponent(new DirectionalNPCComponent(true)); // Add DirectionalNPCComponent
         boss.setPosition(0f, 0f);
 
-        // Create the BossAttackTask
-        bossAttackTask = new BossAttackTask(target, 10, VIEW_DISTANCE, MAX_CHASE_DISTANCE, CHASE_SPEED, CHARGE_SPEED, WAIT_TIME);
+        // Create the BossAttackTask configuration
+        NPCConfigs.NPCConfig.TaskConfig.BossAttackTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.BossAttackTaskConfig();
+        config.priority = 10;
+        config.viewDistance = VIEW_DISTANCE;
+        config.chaseDistance = MAX_CHASE_DISTANCE;
+        config.chaseSpeed = CHASE_SPEED;
+        config.chargeSpeed = CHARGE_SPEED;
+        config.waitTime = WAIT_TIME;
+
+        // Create the BossAttackTask with the configuration
+        bossAttackTask = new BossAttackTask(target, config);
         ai.addTask(bossAttackTask);
         boss.create();
     }

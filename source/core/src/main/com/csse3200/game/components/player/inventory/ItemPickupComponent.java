@@ -11,6 +11,7 @@ import com.csse3200.game.services.ServiceLocator;
  * A component that allows a player to interact with items
  */
 public class ItemPickupComponent extends Component {
+    private Entity lastPickedUpEntity = null;
 
     /**
      * Construct a new empty item pickup component
@@ -39,6 +40,10 @@ public class ItemPickupComponent extends Component {
             //If the other thing does not have a 'CollectibleComponent', then it is not a Collectible entity
             return;
         }
+        // Avoid picking up the same entity twice
+        if (itemEntity == lastPickedUpEntity) {
+            return;
+        }
         //Get the Collectible that was passed into this Collectible entity
         Collectible item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
         //Use the 'pickup' method of the InventoryComponent, pass in the item
@@ -46,7 +51,13 @@ public class ItemPickupComponent extends Component {
         // is passed in
         entity.getComponent(InventoryComponent.class).pickup(item);
         markEntityForRemoval(itemEntity);
-        System.out.println("It works!"); //Test to see if on collision, it works
+        if (item instanceof RangedWeapon || item instanceof MeleeWeapon) {
+            System.out.println("Ranged Weapon Picked Up");
+            lastPickedUpEntity = itemEntity;
+        }
+        else{
+            System.out.println("It works!");
+        }
     }
 
     /**

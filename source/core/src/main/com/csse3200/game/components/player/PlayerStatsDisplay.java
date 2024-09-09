@@ -80,8 +80,8 @@ public class PlayerStatsDisplay extends UIComponent {
         healthLabel = new Label(healthText, skin, "small");
 
         // Weapon text
-        pickaxeLabel = new Label("Pickaxe x 0", skin, "large");
-        shotgunLabel = new Label("Shotgun x 0", skin, "large");
+        pickaxeLabel = new Label("Knife x 0", skin, "small");
+        shotgunLabel = new Label("Shotgun x 0", skin, "small");
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
@@ -112,7 +112,7 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
     public void updateMeleeWeaponCountUI(int weaponCount) {
-        CharSequence text = String.format("Pickaxe x %d", weaponCount);
+        CharSequence text = String.format("Knife x %d", weaponCount);
         pickaxeLabel.setText(text);
     }
 

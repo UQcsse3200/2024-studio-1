@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EnergyDrinkTest {
 //    @Test
 //    public void getNameTest() {
-//        EnergyDrink energyDrink = new EnergyDrink();
+//        EnergyDrink energyDrink = new EnergyDrink("Low");
 //        String name = energyDrink.getName();
 //        assertEquals(name, "Energy drink");
 //        }
-
+//
 //    @Test
 //    public void getSpeedTest() {
 //        EnergyDrink energyDrink = new EnergyDrink();
@@ -20,7 +20,7 @@ public class EnergyDrinkTest {
 //        Vector2 compare = new Vector2(6f, 6f);
 //        assertEquals(speed, compare);
 //    }
-
+//
 //    @Test
 //    public void getSpecificationTest() {
 //        EnergyDrink energyDrink = new EnergyDrink();

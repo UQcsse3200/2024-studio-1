@@ -36,7 +36,6 @@ public class PlayerStatsDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
-//        shapeRenderer = new ShapeRenderer();
         addActors();
 
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
@@ -70,14 +69,15 @@ public class PlayerStatsDisplay extends UIComponent {
         speedImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
 
         //Speed text
-        float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
-//        CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
-//        speedLabelText = new Label(speedText, skin, "small");
         speedProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
-
-
+        /*
+        //Temporarily commented out in case design team prefers text instead of progress bar
+        float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+        CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
+        speedLabelText = new Label(speedText, skin, "small");
+         */
 
         //Weapon text, like the name of weapon
         //entity.getComponent(WeaponComponent.class).getWeaponType();
@@ -125,7 +125,13 @@ public class PlayerStatsDisplay extends UIComponent {
         shotgunLabel.setText(text);
     }
 
+    /**
+     * Updates the player's speed on the ui.
+     *
+     * @param speedPercentage the player's new speed percentage to update the UI to
+     */
     public void updateSpeedPercentageUI(float speedPercentage) {
+        //Temporarily commented out in case design team prefers text over a progress bar
 //        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
 //        speedLabelText.setText(text);
         speedProgressBar.setValue(speedPercentage);

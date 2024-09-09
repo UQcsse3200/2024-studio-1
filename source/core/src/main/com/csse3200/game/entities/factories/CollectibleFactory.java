@@ -49,11 +49,12 @@ public class CollectibleFactory extends LoadedFactory {
                 .addComponent(new HitboxComponent())
                 .addComponent(new PhysicsComponent())
                 .addComponent(new TextureRenderComponent(collectible.getIcon()));
+        /*
         //Commented out due to "asset not loaded" issues
-//        if (collectible.getSpecification().contains("-mystery")) {
-//            collectibleEntity.getComponent(TextureRenderComponent.class).setTexture(collectible.getMysteryIcon());
-//        }
-
+        if (collectible.getSpecification().contains("-mystery")) {
+            collectibleEntity.getComponent(TextureRenderComponent.class).setTexture(collectible.getMysteryIcon());
+        }
+         */
         collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();
         return collectibleEntity;
     }

@@ -14,17 +14,34 @@ public class ItemFactory {
      * @return the specified entity
      */
     public Collectible create(String specification) {
-        String speedType = null;
+        String type = null;
         if (specification.contains(":")) {
+            //This code if mainly for the speed boost item, however, could be used for other items that have a
+            //"Low", "Medium" or "High" type
             String[] split = specification.split(":", 2);
             specification = split[0];
-            speedType = split[1];
-            //check valid speedType
+            type = split[1];
+            //Check for valid item type
+            switch (type) {
+                case "Low":
+                    break;
+                case "Medium":
+                    break;
+                case "High":
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid item type specification: " + type);
+            }
         }
+        if (specification.contains("energydrink") && type == null) {
+            //Throw an error if energy drink item does not have an associated type
+            throw new IllegalArgumentException("Energy drink must have a type. Choose: Low, Medium, High");
+        }
+
         return switch (specification){
             case "medkit" -> createMedKit();
             case "bandage" -> createBandage();
-            case "energydrink" -> createEnergyDrink(speedType);
+            case "energydrink" -> createEnergyDrink(type);
             case "shieldpotion" -> createShieldPotion();
             case "syringe" -> createSyringe();
             case "armor" -> createArmor();

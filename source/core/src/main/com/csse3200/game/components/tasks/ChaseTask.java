@@ -3,6 +3,7 @@ package com.csse3200.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.PhysicsEngine;
@@ -18,6 +19,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private final float viewDistance;
   private final float maxChaseDistance;
   private final float chaseSpeed;
+  private String direction;
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
@@ -33,8 +35,8 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     this.viewDistance = config.viewDistance;
     this.maxChaseDistance = config.chaseDistance;
     this.chaseSpeed = config.chaseSpeed;
-    physics = ServiceLocator.getPhysicsService().getPhysics();
-    debugRenderer = ServiceLocator.getRenderService().getDebug();
+    this.physics = ServiceLocator.getPhysicsService().getPhysics();
+    this.debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
 
   @Override
@@ -44,6 +46,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
+    direction = owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection();
     this.owner.getEntity().getEvents().trigger("walk");
   }
 
@@ -53,6 +56,9 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.update();
     if (movementTask.getStatus() != Status.ACTIVE) {
       movementTask.start();
+    } else if (!direction.equals(owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection())) {
+      direction = owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection();
+      this.owner.getEntity().getEvents().trigger("walk");
     }
   }
 

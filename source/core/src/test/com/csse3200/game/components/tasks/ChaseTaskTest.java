@@ -1,6 +1,7 @@
 package com.csse3200.game.components.tasks;
 
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.extensions.GameExtension;
@@ -46,7 +47,8 @@ class ChaseTaskTest {
     config.chaseSpeed = 10;
 
     AITaskComponent ai = new AITaskComponent().addTask(new ChaseTask(target, config));
-    Entity entity = makePhysicsEntity().addComponent(ai);
+    Entity entity = makePhysicsEntity().addComponent(ai)
+            .addComponent(new DirectionalNPCComponent(true));
     entity.create();
     entity.setPosition(0f, 0f);
 
@@ -66,7 +68,8 @@ class ChaseTaskTest {
     Entity target = new Entity();
     target.setPosition(0f, 6f);
 
-    Entity entity = makePhysicsEntity();
+    Entity entity = makePhysicsEntity()
+      .addComponent(new DirectionalNPCComponent(true));
     entity.create();
     entity.setPosition(0f, 0f);
 

@@ -67,4 +67,16 @@ public abstract class MeleeWeapon implements Collectible {
     public int getFireRate() {
         return fireRate;
     }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public void setFireRate(int fireRate) {
+        this.fireRate = fireRate;
+    }
 }

@@ -32,7 +32,7 @@ public class TerrainFactory {
    */
   public TerrainFactory(CameraComponent cameraComponent) {
     this.camera = (OrthographicCamera) cameraComponent.getCamera();
-    this.currentLevel = 3;
+    this.currentLevel = 0;
   }
 
   /**
@@ -41,7 +41,7 @@ public class TerrainFactory {
   public TerrainFactory(){
 
     this(ServiceLocator.getRenderService().getCamera());
-    this.currentLevel = 3;
+    this.currentLevel = 0;
 
   }
 
@@ -65,7 +65,7 @@ public class TerrainFactory {
    */
   public TerrainComponent createTerrain(TerrainType terrainType, boolean isBossRoom) {
     ResourceService resourceService = ServiceLocator.getResourceService();
-    String suffix = "_level" + (currentLevel+3) + ".png";
+    String suffix = "_level" + (currentLevel+1) + ".png";
     setBossRoom(isBossRoom);
 
     switch (terrainType) {

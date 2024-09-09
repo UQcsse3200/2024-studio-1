@@ -55,16 +55,7 @@ public class MainGameArea extends GameArea {
 
         displayUI();
 
-        if (currentLevel != null) {
-            changeLevel(currentLevel.getLevelNumber() + 1);
-        }
-
-        else  {
-            changeLevel(-2);
-        }
-        
-
-        
+        changeLevel(0);
 
         playMusic();
     }

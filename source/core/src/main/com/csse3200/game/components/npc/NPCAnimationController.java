@@ -1,7 +1,6 @@
 package com.csse3200.game.components.npc;
 
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.DirectionalNPCComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
 /**

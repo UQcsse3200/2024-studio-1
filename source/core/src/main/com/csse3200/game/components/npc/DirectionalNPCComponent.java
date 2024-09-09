@@ -1,10 +1,8 @@
-package com.csse3200.game.components;
+package com.csse3200.game.components.npc;
 
+import com.csse3200.game.components.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Component for an NPC that can be directed to face a certain direction.

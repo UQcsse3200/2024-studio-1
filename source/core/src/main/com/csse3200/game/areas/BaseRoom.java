@@ -15,13 +15,15 @@ import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import com.csse3200.game.utils.math.RandomUtils;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * This is the foundation of a room,
  * it is able to use other factories to build the complex structures needed for a room in the game.
  * e.g. walls, terrain, items, and enemies.
  */
 public abstract class BaseRoom implements Room {
+    private static final Logger logger = LoggerFactory.getLogger(BaseRoom.class);
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
@@ -155,7 +157,7 @@ public abstract class BaseRoom implements Room {
 
     public void spawn(Entity player, MainGameArea area) {
         createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
-        this.spawnTerrain(area, WALL_THICKNESS);
+        this.spawnTerrain(area, WALL_THICKNESS, false);
         this.spawnDoors(area, player);
         this.spawnAnimals(area, player, this.minGridPoint, this.minGridPoint);
         this.isRoomFresh = false;

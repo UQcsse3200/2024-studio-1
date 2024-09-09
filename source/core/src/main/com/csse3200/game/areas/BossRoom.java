@@ -6,7 +6,10 @@ import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 
+
+
 public class BossRoom extends BaseRoom {
+    private static final float WALL_THICKNESS = 0.15f;
    
 
     @Override

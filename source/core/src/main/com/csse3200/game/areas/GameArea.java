@@ -90,20 +90,6 @@ public abstract class GameArea extends LoadedFactory {
         if (areaEntities != null && !areaEntities.isEmpty()) {
             for (int i = 0; i < areaEntities.size(); i++) {
                 if (areaEntities.get(i).equals(entity)) {
-                    ServiceLocator.getEntityService().unregister(entity);
-                    ServiceLocator.getEntityService().markEntityForRemoval(entity);
-                    areaEntities.remove(i);
-                    break;
-                }
-            }
-        }
-    }
-
-    public void disposeEntity(Entity entity) {
-        if (areaEntities != null && !areaEntities.isEmpty()) {
-            for (int i = 0; i < areaEntities.size(); i++) {
-                if (areaEntities.get(i).equals(entity)) {
-                    ServiceLocator.getEntityService().unregister(entity);
                     ServiceLocator.getEntityService().markEntityForRemoval(entity);
                     areaEntities.remove(i);
                     break;

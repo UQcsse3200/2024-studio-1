@@ -2,12 +2,10 @@ package com.csse3200.game.areas;
 
 import java.util.List;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
-import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
-import com.csse3200.game.entities.factories.StairFactory;
+
 
 
 /**
@@ -51,27 +49,8 @@ public class BossRoom extends BaseRoom {
     public BossRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
-                    StairFactory stairFactory,
                     List<String> roomConnections,
                     String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, stairFactory, roomConnections, specification);
-    }
-
-    @Override
-    public void spawn(Entity player, MainGameArea area) {
-        super.spawn(player, area);
-        //if (isDefeated) {
-        spawnStairs(player, area);
-        // }
-    }
-    private void spawnStairs (Entity player, MainGameArea area) {
-        Entity stairs = stairFactory.createStair(player.getId());
-        GridPoint2 stairPos = stairsPosition(stairs);
-    }
-
-    private GridPoint2 stairsPosition (Entity stairs) {
-        int x  = maxGridPoint.x;
-        int y = maxGridPoint.y/2;
-        return new GridPoint2(x,y);
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
     }
 }

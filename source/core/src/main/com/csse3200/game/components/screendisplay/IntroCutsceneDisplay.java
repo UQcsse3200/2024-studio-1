@@ -1,4 +1,4 @@
-package com.csse3200.game.components;
+package com.csse3200.game.components.screendisplay;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

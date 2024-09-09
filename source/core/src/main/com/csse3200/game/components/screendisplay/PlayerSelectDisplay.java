@@ -1,4 +1,4 @@
-package com.csse3200.game.components.playerselect;
+package com.csse3200.game.components.screendisplay;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;

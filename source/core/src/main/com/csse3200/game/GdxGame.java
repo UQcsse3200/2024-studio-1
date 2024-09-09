@@ -72,11 +72,12 @@ public class GdxGame extends Game {
           case HOW_TO_PLAY -> new HowToPlayScreen(this);
           case PLAYER_SELECT -> new PlayerSelectScreen(this);
           case CUTSCENE -> new IntroCutsceneScreen(this);
+          case WIN -> new WinScreen(this);
       };
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, PLAYER_SELECT, CUTSCENE
+    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, PLAYER_SELECT, CUTSCENE, WIN
   }
 
   /**

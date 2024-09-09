@@ -39,7 +39,7 @@ public class Terminal extends Component {
     this.commands = commands;
 
     addCommand("debug", new DebugCommand());
-    addCommand("switch", new ScreenSwitchCommand(game));
+    addCommand("screen", new ScreenSwitchCommand(game));
   }
 
   /** @return message entered by user */

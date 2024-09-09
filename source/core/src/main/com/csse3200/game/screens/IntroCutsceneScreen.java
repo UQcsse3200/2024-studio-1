@@ -3,7 +3,7 @@ package com.csse3200.game.screens;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenColour;
-import com.csse3200.game.components.IntroCutsceneDisplay;
+import com.csse3200.game.components.screendisplay.IntroCutsceneDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputDecorator;
 

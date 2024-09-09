@@ -15,6 +15,7 @@ public class NPCConfigs {
   public NPCConfig minotaur = new NPCConfig();
   public NPCConfig werewolf = new NPCConfig();
   public NPCConfig dragon = new NPCConfig();
+  public NPCConfig birdman = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
     public TaskConfig tasks = new TaskConfig();
@@ -29,7 +30,6 @@ public class NPCConfigs {
       public StraightWanderTaskConfig straightWander = null;
       public ChaseTaskConfig chase = null;
       public ChargeTaskConfig charge = null;
-      public ShootTaskConfig shoot = null;
       public BossAttackTaskConfig bossAttack = null;
       public RunAwayTaskConfig runAway = null;
 
@@ -48,12 +48,6 @@ public class NPCConfigs {
         public float chaseSpeed;
         public float viewDistance;
         public float chaseDistance;
-      }
-
-      public static class ShootTaskConfig {
-        public int priority;
-        public float attackRange;
-        public float attackRate;
       }
 
       public static class ChargeTaskConfig {

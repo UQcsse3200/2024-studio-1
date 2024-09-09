@@ -65,6 +65,8 @@ public class NPCFactory extends LoadedFactory {
       case "Bat" -> this.createBat(target);
       case "Dog" -> this.createDog(target);
       case "Minotaur" -> this.createMinotaur(target);
+      case "Werewolf" -> this.createWerewolf(target);
+      case "Birdman" -> this.createBirdman(target);
       default -> throw new IllegalArgumentException("Unknown animal: " + specification);
     };
   }
@@ -79,7 +81,6 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity rat = createBaseNPC(target, aiComponent, config, animator);
-    rat.addComponent(new NPCAnimationController());
     return rat;
   }
 
@@ -190,6 +191,33 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
+   * Creates a Birdman entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public Entity createBirdman(Entity target) {
+    NPCConfigs.NPCConfig config = configs.birdman;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
+    Entity birdman = createBaseNPC(target, aiComponent, config, animator);
+    return birdman;
+  }
+
+  /**
+   * Creates a Werewolf entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public Entity createWerewolf(Entity target) {
+    NPCConfigs.NPCConfig config = configs.werewolf;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
+    Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
+    return werewolf;
+  }
+  /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
    * @param target The target entity for the NPC to chase.
@@ -291,7 +319,8 @@ public class NPCFactory extends LoadedFactory {
             "images/bat.atlas",
             "images/npc/bear/bear.atlas",
             "images/npc/dog/dog.atlas",
-            "images/npc/werewolf/werewolf.atlas"
+            "images/npc/werewolf/werewolf.atlas",
+            "images/npc/birdman/birdman.atlas"
     };
   }
 
@@ -308,7 +337,8 @@ public class NPCFactory extends LoadedFactory {
             "images/dino.png",
             "images/npc/bear/bear.png",
             "images/bear.png",
-            "images/npc/werewolf/werewolf.png"
+            "images/npc/werewolf/werewolf.png",
+            "images/npc/birdman/birdman.png"
     };
   }
 }

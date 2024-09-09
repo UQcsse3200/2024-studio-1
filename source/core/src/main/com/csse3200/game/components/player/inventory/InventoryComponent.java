@@ -42,13 +42,13 @@ public class InventoryComponent extends Component {
      */
     public void pickup(Collectible item, Entity itemEntity) {
         if(item instanceof MeleeWeapon){
-            meleeWeaponCount = meleeWeaponCount + 1;
+            meleeWeaponCount = 1;
             System.out.println("Melee Weapon picked up. Total Melee weapons are: " + meleeWeaponCount);
             entity.getEvents().trigger("updateMeleeWeaponCount", meleeWeaponCount);
             item.pickup(inventory, itemEntity);
         }
         if(item instanceof RangedWeapon){
-            rangedWeaponCount = rangedWeaponCount + 1;
+            rangedWeaponCount = 1;
             System.out.println("Ranged Weapon picked up. Total Ranged weapons are: " + rangedWeaponCount);
             entity.getEvents().trigger("updateRangedWeaponCount", rangedWeaponCount);
             item.pickup(inventory, itemEntity);

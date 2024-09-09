@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
 
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerStatsDisplay;
 
 
 public class DamageBuff extends BuffItem{
@@ -26,10 +27,19 @@ public class DamageBuff extends BuffItem{
      */
     @Override
     public void effect(Entity entity) {
-        entity.getComponent(CombatStatsComponent.class).addAttack(buff);
+        int currDamage = entity.getComponent(CombatStatsComponent.class).getBaseAttack();
+        int buffedDamage = currDamage + buff;
+        int maxDamage = entity.getComponent(CombatStatsComponent.class).getMaxDamage();
+        if (buffedDamage >= maxDamage) {
+            //Damage is maxed out
+            //Need to update UI and cap
+            buffedDamage = maxDamage;
+            entity.getComponent(CombatStatsComponent.class).setBaseAttack(maxDamage);
+        } else {
+            entity.getComponent(CombatStatsComponent.class).addAttack(buff);
+        }
+        entity.getEvents().trigger("updateDamageBuff", buffedDamage);
     }
-
-    public int getBuff() {return buff;}
 
     /**
      * Gets the name of the item
@@ -60,4 +70,7 @@ public class DamageBuff extends BuffItem{
     public void drop(Inventory inventory) {
 
     }
+
+    @Override
+    public String getMysteryIcon() {return ("images/items/mystery_box_red.png");}
 }

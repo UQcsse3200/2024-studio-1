@@ -1,4 +1,48 @@
 {
+  "dragon": {
+    "health": 200,
+    "baseAttack": 15,
+    "attackRange": 1,
+    "attackRate": 0.5,
+    "isDirectional": true,
+    "tasks": {
+      "wander": {
+        "wanderRadius": 3,
+        "waitTime": 2,
+        "wanderSpeed": 0.5
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 1.5,
+        "viewDistance": 1.5,
+        "chaseDistance": 2
+      },
+      "charge": {
+        "priority": 5,
+        "viewDistance": 4,
+        "chaseDistance": 5,
+        "chaseSpeed": 3,
+        "waitTime": 2
+      },
+      "shoot": {
+        "attackRange": 10,
+        "attackRate": 2,
+        "type": 0
+      }
+    },
+    "animations": [
+      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "run_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "run_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
+    ]
+  },
   "rat": {
     "health": 100,
     "baseAttack": 10,

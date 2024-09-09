@@ -1,0 +1,68 @@
+fire_right.png
+size: 62, 82
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+default
+  rotate: false
+  xy: 39, 53
+  size: 19, 25
+  orig: 64, 64
+  offset: 32, 15
+  index: -1
+fire_attack_right
+  rotate: false
+  xy: 1, 37
+  size: 36, 11
+  orig: 64, 64
+  offset: 14, 19
+  index: 1
+fire_attack_right
+  rotate: false
+  xy: 1, 50
+  size: 36, 11
+  orig: 64, 64
+  offset: 14, 19
+  index: 2
+fire_attack_right
+  rotate: false
+  xy: 1, 1
+  size: 37, 12
+  orig: 64, 64
+  offset: 13, 19
+  index: 3
+fire_attack_right
+  rotate: false
+  xy: 39, 53
+  size: 19, 25
+  orig: 64, 64
+  offset: 32, 15
+  index: 5
+fire_attack_right
+  rotate: false
+  xy: 40, 1
+  size: 21, 34
+  orig: 64, 64
+  offset: 31, 14
+  index: 6
+fire_attack_right
+  rotate: true
+  xy: 1, 15
+  size: 20, 36
+  orig: 64, 64
+  offset: 31, 14
+  index: 7
+fire_attack_right
+  rotate: true
+  xy: 1, 63
+  size: 18, 34
+  orig: 64, 64
+  offset: 34, 17
+  index: 8
+fire_attack_right
+  rotate: true
+  xy: 39, 37
+  size: 14, 20
+  orig: 64, 64
+  offset: 37, 31
+  index: 9

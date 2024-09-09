@@ -24,10 +24,7 @@ import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.rendering.Renderer;
-import com.csse3200.game.services.GameTime;
-import com.csse3200.game.services.RandomService;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.services.*;
 import com.csse3200.game.ui.terminal.Terminal;
 import com.csse3200.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
@@ -72,16 +69,16 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen services");
         ServiceLocator.registerTimeSource(new GameTime());
         ServiceLocator.registerRandomService(new RandomService("Default Seed :p"));
-
         PhysicsService physicsService = new PhysicsService();
         ServiceLocator.registerPhysicsService(physicsService);
         this.physicsEngine = physicsService.getPhysics();
-
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
 
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
+
+        ServiceLocator.registerCollectibleFactoryService(new CollectibleFactoryService());
 
         this.renderer = RenderFactory.createRenderer();
         this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);

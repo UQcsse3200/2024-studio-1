@@ -12,6 +12,7 @@ import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
+import com.csse3200.game.physics.components.PlayerHitboxComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.csse3200.game.input.InputComponent;
 
 import java.util.List;
 import java.util.Map;
@@ -67,6 +69,9 @@ public class PlayerFactory extends LoadedFactory {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         TextureRegion defaultTexture = atlas.findRegion("idle");
 
+        InputComponent inputComponent =
+                ServiceLocator.getInputService().getInputFactory().createForPlayer();
+
         InventoryComponent inventoryComponent = new InventoryComponent();
         Entity player = new Entity()
                 .addComponent(new PlayerConfigComponent(config))
@@ -74,13 +79,15 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new PlayerActions())
-                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true))
+                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0))
                 .addComponent(inventoryComponent)
                 .addComponent(new ItemPickupComponent())
+                .addComponent(new ShieldComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController())
+                .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
                 .addComponent(new WeaponComponent(
@@ -128,20 +135,26 @@ public class PlayerFactory extends LoadedFactory {
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
-        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+        //player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
 
         return player;
     }
 
     private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
-        AnimationRenderComponent animator = new AnimationRenderComponent(
-                ServiceLocator.getResourceService().getAsset(textureAtlasFilename,
-                        TextureAtlas.class));
+        AnimationRenderComponent animator =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService().getAsset("images/player/player.atlas", TextureAtlas.class));
+
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-up", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-left", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
         return animator;
     }
 

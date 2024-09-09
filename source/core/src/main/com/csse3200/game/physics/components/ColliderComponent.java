@@ -19,60 +19,16 @@ public class ColliderComponent extends Component {
 
   private final FixtureDef fixtureDef;
   private Fixture fixture;
-  private float boxRatio, translateX, translateY;
 
-  /**
-   * Constructs collider component
-   *
-   * @param translateX translate bounding box on x-axis
-   * @param translateY translate bounding box on y-axis
-   */
-  public ColliderComponent(float translateX, float translateY) {
-    fixtureDef = new FixtureDef();
-    this.boxRatio = 1f;
-    this.translateX = translateX;
-    this.translateY = translateY;
-  }
-
-  /**
-   * Constructs collider component
-   *
-   * @param boxRatio pass 1f for default box size, otherwise greater value will lead to smaller bounding box
-   * @param translateX translate bounding box on x-axis
-   * @param translateY translate bounding box on y-axis
-   */
-  public ColliderComponent(float boxRatio, float translateX, float translateY) {
-    fixtureDef = new FixtureDef();
-    this.boxRatio = boxRatio;
-    this.translateX = translateX;
-    this.translateY = translateY;
-  }
-
-  /**
-   * Constructs collider component
-   *
-   * @param boxRatio pass 1f for default box size, otherwise greater value will lead to smaller bounding box
-   */
-  public ColliderComponent(float boxRatio) {
-    fixtureDef = new FixtureDef();
-    this.boxRatio = boxRatio;
-    this.translateX = 0;
-    this.translateY = 0;
-  }
-
-  /** Constructs collider component */
   public ColliderComponent() {
     fixtureDef = new FixtureDef();
-    this.boxRatio = 1f; // default value, box size will be same as image size
-    this.translateX = 0;
-    this.translateY = 0;
   }
 
   @Override
   public void create() {
     if (fixtureDef.shape == null) {
       logger.trace("{} Setting default bounding box", this);
-      fixtureDef.shape = makeBoundingBox(getBoxRatio(), getTranslateX(), getTranslateY());
+      fixtureDef.shape = makeBoundingBox();
     }
 
     Body physBody = entity.getComponent(PhysicsComponent.class).getBody();
@@ -259,42 +215,10 @@ public class ColliderComponent extends Component {
     }
   }
 
-  private Shape makeBoundingBox(float ratio, float translateX, float translateY) {
+  private Shape makeBoundingBox() {
     PolygonShape bbox = new PolygonShape();
     Vector2 center = entity.getScale().scl(0.5f);
-
-    // apply translation to the center coordinate
-    center.add(translateX, translateY);
-
-    bbox.setAsBox(center.x/ratio, center.y/ratio, center, 0f);
+    bbox.setAsBox(center.x, center.y, center, 0f);
     return bbox;
-  }
-
-  public float getBoxRatio() {
-    return boxRatio;
-  }
-
-  /**
-   * Set ratio to 1 for bounding box to be same as the image width,
-   * otherwise set it to higher value for smaller bounding box and vice versa
-   */
-  public void setBoxRatio(float ratio) {
-    this.boxRatio = ratio;
-  }
-
-  public float getTranslateX() {
-    return translateX;
-  }
-
-  public void setTranslateX(float translateX) {
-    this.translateX = translateX;
-  }
-
-  public float getTranslateY() {
-    return translateY;
-  }
-
-  public void setTranslateY(float translateY) {
-    this.translateY = translateY;
   }
 }

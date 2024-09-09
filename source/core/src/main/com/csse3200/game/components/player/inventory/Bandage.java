@@ -73,8 +73,6 @@ public class Bandage extends UsableItem {
      */
     public void increaseSmallBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-        int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + Small_Health_Boost,100);
-        combatStats.setHealth(newHealth);
+        combatStats.addHealth(Small_Health_Boost);
     }
 }

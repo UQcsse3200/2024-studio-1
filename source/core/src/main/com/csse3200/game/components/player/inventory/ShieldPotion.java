@@ -1,8 +1,7 @@
 package com.csse3200.game.components.player.inventory;
+
 import com.badlogic.gdx.graphics.Texture;
-import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.services.ServiceLocator;
 
 /**
  * The ShieldPotion class represents a shield potion item within the game.
@@ -26,7 +25,6 @@ public class ShieldPotion extends UsableItem {
     @Override
     public void apply(Entity entity) {
         charges = 2; // Activate the shield with full charges
-        entity.getComponent(ShieldComponent.class).activateShield();
         entity.getEvents().addListener("hit", () -> negateHit(entity));
     }
 
@@ -42,7 +40,7 @@ public class ShieldPotion extends UsableItem {
             System.out.println("Negated a hit! Remaining charges: " + charges);
             if (charges == 0) {
                 System.out.println("Shield depleted");
-                entity.getComponent(ShieldComponent.class).deactivateShield();
+                removeShield(entity);
             }
         }
     }

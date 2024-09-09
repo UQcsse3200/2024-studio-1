@@ -43,6 +43,7 @@ public class PlayerFactory extends LoadedFactory {
         PlayerConfig config = options.get("default");
         return loader.createPlayer(config);
     }
+
     public Entity createPlayer(String player) {
         LoadPlayer loader = new LoadPlayer();
         PlayerConfig config = options.get(player);

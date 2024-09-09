@@ -1,6 +1,5 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.entities.Entity;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -8,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class ShieldPotionTest {
 
     ShieldPotion potion = new ShieldPotion();
-    Entity entity = new Entity().addComponent(new ShieldComponent());
+    Entity entity = new Entity();
 
     @Test
     public void testGetName() {
@@ -30,7 +29,6 @@ public class ShieldPotionTest {
         assertEquals(0, potion.getCharges());
         potion.apply(entity);
         assertEquals(2, potion.getCharges());
-        assertTrue(entity.getComponent(ShieldComponent.class).isActive());
     }
 
     @Test
@@ -38,12 +36,10 @@ public class ShieldPotionTest {
         potion.apply(entity);
         entity.getEvents().trigger("hit");
         assertEquals(1, potion.getCharges());
-        assertTrue(entity.getComponent(ShieldComponent.class).isActive());
         entity.getEvents().trigger("hit");
         assertEquals(0, potion.getCharges());
         entity.getEvents().trigger("hit");
         assertEquals(0, potion.getCharges());
-        assertFalse(entity.getComponent(ShieldComponent.class).isActive());
     }
 
     @Test
@@ -52,4 +48,9 @@ public class ShieldPotionTest {
         assertEquals(0, potion.getCharges());
     }
 
+     //@Test
+     //public void testGetIcon() {
+     //Texture texture = potion.getIcon();
+     //Assertions.assertNotNull(texture);
+     //}
 }

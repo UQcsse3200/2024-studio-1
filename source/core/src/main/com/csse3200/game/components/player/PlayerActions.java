@@ -18,8 +18,6 @@ public class PlayerActions extends Component {
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
-    private float maxSpeed = 5.0f;
-    private float speedPercentage;
 
     @Override
     public void create() {
@@ -28,7 +26,6 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
-        setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
     }
 
     @Override
@@ -36,42 +33,6 @@ public class PlayerActions extends Component {
         if (moving) {
             updateSpeed();
         }
-    }
-
-    /**
-     * Gets the current speed of the player
-     *
-     * @return the current speed of the player
-     */
-    public Vector2 getCurrSpeed() {
-        return this.speed;
-    }
-
-    /**
-     * Gets the maximum speed limit of the player
-     *
-     * @return the maximum speed limit
-     */
-    public float getMaxSpeed() {
-        return this.maxSpeed;
-    }
-
-    /**
-     * Sets the current speed percentage stat to a new value
-     *
-     * @param speedPercentage the new speed percentage to set to
-     */
-    public void setSpeedPercentage(float speedPercentage) {
-        this.speedPercentage = speedPercentage;
-    }
-
-    /**
-     * Gets the current speed percentage, which is shown on the UI
-     *
-     * @return the current speed percentage
-     */
-    public float getCurrSpeedPercentage() {
-        return this.speedPercentage;
     }
 
     /**
@@ -83,6 +44,7 @@ public class PlayerActions extends Component {
         this.speed = speed;
         update();
     }
+
 
     /**
      * Stops the player from walking.

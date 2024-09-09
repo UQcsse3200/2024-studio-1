@@ -41,7 +41,6 @@ public abstract class BaseRoom implements Room {
 
     List<List<String>> animalSpecifications;
     List<List<String>> itemSpecifications;
-    public Boolean isRoomFresh = true;
     protected Boolean isBossRoom = false;
 
     private static final float WALL_THICKNESS = 0.15f;
@@ -66,7 +65,6 @@ public abstract class BaseRoom implements Room {
         this.terrainFactory = terrainFactory;
         this.roomConnections = roomConnections;
         this.doors = new ArrayList<>();
-
         this.enemies = new ArrayList<>();
         this.items = new ArrayList<>();
 
@@ -95,7 +93,6 @@ public abstract class BaseRoom implements Room {
 
     // overide method 
     protected void initializeSpecifications() {}
-
 
     protected List<Entity> createEnemyEntities(List<String> animals, Entity player) {
         enemies = new ArrayList<>();
@@ -169,7 +166,6 @@ public abstract class BaseRoom implements Room {
         this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
         this.spawnDoors(area, player);
         this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
-        this.isRoomFresh = false;
         // FIXME
         // logger.info("Spawning items:");
         // int itemGroup = Integer.parseInt(split.get(5));

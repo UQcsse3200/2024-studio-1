@@ -29,6 +29,7 @@ public class MainGameArea extends GameArea {
     private Level currentLevel;
     private Room currentRoom;
     private boolean spawnRoom = true;
+    private List<Room> roomsVisited = new ArrayList<>();
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -64,6 +65,13 @@ public class MainGameArea extends GameArea {
         return currentRoom;
     }
 
+    public boolean isRoomFresh (Room currentRoom) {
+        if (roomsVisited.contains(currentRoom)) {
+            return false;
+        }
+        roomsVisited.add(currentRoom);
+        return true;
+    }
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
@@ -75,7 +83,7 @@ public class MainGameArea extends GameArea {
         //player.setPosition(null);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
-        if (this.currentRoom.isRoomFresh) {
+        if (isRoomFresh(this.currentRoom)) {
             this.currentLevel.roomTraversals ++;
         }
     }

@@ -54,15 +54,6 @@ public class Terminal extends Component {
   }
 
   /**
-   * Toggles between the terminal being open and closed.
-   */
-  public void pauseGame() {
-    if (isOpen) {
-      this.setClosed();
-    }
-  }
-
-  /**
    * Opens the terminal.
    */
   public void setOpen() {

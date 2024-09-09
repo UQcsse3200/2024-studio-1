@@ -1,9 +1,13 @@
 package com.csse3200.game.components.player;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.services.ServiceLocator;
@@ -20,7 +24,9 @@ public class PlayerStatsDisplay extends UIComponent {
     private Label shotgunLabel;
 
     private Image speedImage;
-    private Label speedLabel;
+    private Label speedLabelText;
+
+    private ProgressBar speedProgressBar;
 
 
 
@@ -64,9 +70,15 @@ public class PlayerStatsDisplay extends UIComponent {
 
         //Speed text
 
+        speedProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        speedProgressBar.setWidth(200f);
+        speedProgressBar.setAnimateDuration(2.0f);
+        /*
+        //Temporarily commented out in case design team prefers text instead of progress bar
         float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
         CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
-        speedLabel = new Label(speedText, skin, "small");
+        speedLabelText = new Label(speedText, skin, "small");
+         */
 
 
 
@@ -81,18 +93,19 @@ public class PlayerStatsDisplay extends UIComponent {
 
         table.row().padTop(10);
         table.add(speedImage).size(speedSideLength).pad(5);
-        table.add(speedLabel).padLeft(10).left();
+        table.add(speedProgressBar).padLeft(10).left().width(200);
 
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
         table.row().padTop(10);
         table.add(shotgunLabel).colspan(2).padLeft(10).left();
         stage.addActor(table);
+
     }
 
     @Override
     public void draw(SpriteBatch batch) {
-        // draw is handled by the stage
+
     }
 
     /**
@@ -115,9 +128,16 @@ public class PlayerStatsDisplay extends UIComponent {
         shotgunLabel.setText(text);
     }
 
+    /**
+     * Updates the player's speed on the ui.
+     *
+     * @param speedPercentage the player's new speed percentage to update the UI to
+     */
     public void updateSpeedPercentageUI(float speedPercentage) {
-        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
-        speedLabel.setText(text);
+        //Temporarily commented out in case design team prefers text over a progress bar
+//        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
+//        speedLabelText.setText(text);
+        speedProgressBar.setValue(speedPercentage);
     }
 
     @Override

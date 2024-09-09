@@ -6,9 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
  * which engage it combat should have an instance of this class registered. This class can be
@@ -21,15 +18,18 @@ public class CombatStatsComponent extends Component {
     private final int maxHealth;
     private int health;
     private int baseAttack;
+    private int armor;
     private boolean isInvincible;
-    private static final int timeInvincible = 2000;
+    private static final int timeInvincible = 150;
     private final Timer timer;
+    private static int buffedAttack;
 
-    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible) {
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
         this.baseAttack = baseAttack;
+        this.armor = armor;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
@@ -37,14 +37,14 @@ public class CombatStatsComponent extends Component {
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
-        this(health, baseAttack, false);
+        this(health, baseAttack, false, 0);
     }
 
     /**
      * A TimerTask class used to remove the entity's invincibility
-     * 'timeInvincibile' milliseconds after being hit
+     * 'timeInvincible' milliseconds after being hit
      */
-    private class removeInvincible extends TimerTask {
+    private class InvincibilityRemover extends TimerTask {
         @Override
         public void run() {
             setInvincible(false);
@@ -113,6 +113,18 @@ public class CombatStatsComponent extends Component {
     }
 
     /**
+     * Increases the entities base Attack damage
+     *
+     * @param buffedAttack increased Damage
+     */
+
+    public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
+
+    public void increaseArmor(int additionalArmor) {
+        armor = Math.max(armor + additionalArmor, 100);
+    }
+
+    /**
      * Applies damage to the entity by reducing its health. If health drops to 0, triggers a "died" event.
      *
      * @param damage The amount of damage to apply to the entity.
@@ -140,15 +152,20 @@ public class CombatStatsComponent extends Component {
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */
     public void hit(CombatStatsComponent attacker) {
-        if (!getIsInvincible()) {
-            int newHealth = getHealth() - attacker.getBaseAttack();
-            setHealth(newHealth);
-            if (canBeInvincible){
-                setInvincible(true);
-                CombatStatsComponent.removeInvincible task = new CombatStatsComponent.removeInvincible();
-                timer.schedule(task, timeInvincible);
-            }
+        if (isInvincible()) {
+            return;
         }
+
+        float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
+        int newHealth = getHealth() - (int)(attacker.getBaseAttack() * (1 - damageReduction));
+        setHealth(newHealth);
+
+        if (canBeInvincible) {
+            setInvincible(true);
+            InvincibilityRemover task = new InvincibilityRemover();
+            timer.schedule(task, timeInvincible);
+        }
+
     }
 
 
@@ -166,7 +183,7 @@ public class CombatStatsComponent extends Component {
      *
      * @return invincibility state
      */
-    public boolean getIsInvincible() {
+    public boolean isInvincible() {
         return isInvincible;
     }
 }

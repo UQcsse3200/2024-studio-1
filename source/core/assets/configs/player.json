@@ -1,6 +1,7 @@
 {
+  "name": "default",
   "health": 100,
-  "baseAttack": 10,
-  "gold": 50,
-  "favouriteColour": "peach"
+  "favouriteColour": "peach",
+  "textureFilename": "images/player/player.png",
+  "textureAtlasFilename": "images/player/player.atlas"
 }

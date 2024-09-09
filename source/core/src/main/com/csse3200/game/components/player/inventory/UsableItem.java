@@ -3,6 +3,9 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
 
+/**
+ * An item that can be used at the player's leisure.
+ */
 public abstract class UsableItem implements Collectible {
     @Override
     public Type getType() {
@@ -41,6 +44,8 @@ public abstract class UsableItem implements Collectible {
 
     /**
      * Apply any effects this item does upon use.
+     *
+     * @param entity the entity to apply it to.
      */
     public abstract void apply(Entity entity);
 }

@@ -61,7 +61,7 @@
         "type": "knockback",
         "force": 3
       }
-      ],
+    ],
     "animations": [
       {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
@@ -139,7 +139,6 @@
       {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
-
   "snake": {
     "health": 300,
     "baseAttack": 10,
@@ -238,6 +237,57 @@
       {"name": "walk", "frameDuration": 0.15, "playMode": "LOOP"},
       {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
+    ]
+  },
+  "werewolf": {
+    "health": 500,
+    "baseAttack": 40,
+    "attackRange": 1.2,
+    "attackRate": 0.8,
+    "isDirectional": true,
+    "tasks": {
+      "wander": {
+        "wanderRadius": 5,
+        "waitTime": 3,
+        "wanderSpeed": 1
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 2,
+        "viewDistance": 6,
+        "chaseDistance": 8
+      },
+      "charge": {
+        "priority": 5,
+        "viewDistance": 4,
+        "chaseDistance": 5,
+        "chaseSpeed": 3,
+        "waitTime": 1
+      }
+    },
+    "effects": [
+      {
+        "type": "knockback",
+        "force": 2
+      }
+    ],
+    "animations": [
+      {"name": "idle_left", "frameDuration": 0.125, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.125, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.09, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.09, "playMode": "LOOP"},
+      {"name": "run_left", "frameDuration": 0.11, "playMode": "LOOP"},
+      {"name": "run_right", "frameDuration": 0.11, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.33, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.33, "playMode": "NORMAL"},
+      {"name": "run+attack_left", "frameDuration": 0.14, "playMode": "NORMAL"},
+      {"name": "run+attack_right", "frameDuration": 0.14, "playMode": "NORMAL"},
+      {"name": "hurt_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+      {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+      {"name": "jump_left", "frameDuration": 0.09, "playMode": "NORMAL"},
+      {"name": "jump_right", "frameDuration": 0.09, "playMode": "NORMAL"}
     ]
   }
 }

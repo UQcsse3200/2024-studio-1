@@ -8,10 +8,11 @@ import com.csse3200.game.entities.factories.StairFactory;
 import java.util.List;
 
 public class MainRoom extends BaseRoom {
+    
     @Override
     protected void initializeSpecifications() {
-    List<List<String>> animalSpecifications = List.of(
-            List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat","Werewolf"),
+    this.animalSpecifications = List.of(
+            List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat"),
             List.of("Bear", "Snake", "Dino"),
             List.of("Bear", "Bear", "Minotaur"),
             List.of("Snake", "Bat", "Minotaur"),

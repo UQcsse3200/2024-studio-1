@@ -22,10 +22,9 @@ public class BossRoom extends BaseRoom {
         this.animalSpecifications = List.of(
             //Currently there are three random animals being spawned in base on the level the player is in. Bosses haven't been implemented thus using
             //currently available animals.
-            List.of("Rat"),//change to boss 1
+            List.of("Werewolf"),//boss 1
             List.of("Minotaur"),//boss 2
-            List.of("Bear"),// boss 4
-            List.of("Werewolf")//boss 3
+            List.of("Bear")// boss 3
     );
 
 

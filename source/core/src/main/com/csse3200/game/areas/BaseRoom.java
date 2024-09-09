@@ -235,7 +235,7 @@ public abstract class BaseRoom implements Room {
             });
         }
         //this will make all animals commit suicide 
-        makeAllAnimalDead();
+        //makeAllAnimalDead();
     }
 
     /**

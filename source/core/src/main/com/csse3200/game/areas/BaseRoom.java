@@ -3,6 +3,8 @@ package com.csse3200.game.areas;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
@@ -11,19 +13,39 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.utils.math.GridPoint2Utils;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * This is the foundation of a room,
  * it is able to use other factories to build the complex structures needed for a room in the game.
  * e.g. walls, terrain, items, and enemies.
  */
 public abstract class BaseRoom implements Room {
+    private static final Logger logger = LoggerFactory.getLogger(BaseRoom.class);
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
-    private final List<String> roomConnections;
-    List<Entity> doors;
+    public final StairFactory stairFactory;
+    private List<String> roomConnections;
+    protected List<Entity> doors;
+    protected List<Entity> enemies;
+    protected List<String> items;
+
+    protected final String specification;
+    protected final GridPoint2 minGridPoint;
+    protected final GridPoint2 maxGridPoint; 
+    protected final int animalGroup;
+    protected final int itemGroup;
+
+    List<List<String>> animalSpecifications;
+    List<List<String>> itemSpecifications;
+    public Boolean isRoomFresh = true;
+    protected Boolean isBossRoom = false;
+
+    private static final float WALL_THICKNESS = 0.15f;
+
 
     /**
      * Inject factories to be used for spawning here room object.
@@ -37,47 +59,78 @@ public abstract class BaseRoom implements Room {
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
-            List<String> roomConnections) {
+            StairFactory stairFactory,
+            List<String> roomConnections,
+            String specification) {
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;
+        this.stairFactory = stairFactory;
         this.roomConnections = roomConnections;
         this.doors = new ArrayList<>();
 
+        this.enemies = new ArrayList<>();
+        this.items = new ArrayList<>();
+
+        initializeSpecifications();
+
+        List<String> split = Arrays.stream(specification.split(",")).toList();
+
+        // first 4 indexes of specification is the Grid points
+        this.minGridPoint = new GridPoint2(
+                Integer.parseInt(split.get(0)),
+                Integer.parseInt(split.get(1))
+        );
+        this.maxGridPoint = new GridPoint2(
+                Integer.parseInt(split.get(2)),
+                Integer.parseInt(split.get(3))
+        );
+
+        // animal index in specificaiton 4
+        this.animalGroup = Integer.parseInt(split.get(4));
+
+        // item Group index specifcaiton 5
+        this.itemGroup = Integer.parseInt(split.get(5));
+        this.items = this.itemSpecifications.get(this.itemGroup);
+        this.specification = specification;
     }
 
+    // overide method 
+    protected void initializeSpecifications() {}
+
+
+    protected List<Entity> createEnemyEntities(List<String> animals, Entity player) {
+        enemies = new ArrayList<>();
+        for (String animal : animals) {
+            enemies.add(npcFactory.create(animal, player));
+        }
+        return enemies;
+    } 
+
+    @SuppressWarnings("unused")
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
-        // Left
-        Entity leftWall = ObstacleFactory.createWall(thickness, tileBounds.y);
-        area.spawnEntityAt(
-                leftWall,
-                GridPoint2Utils.ZERO,
-                false,
-                false);
-        // Right
-        Entity rightWall = ObstacleFactory.createWall((thickness), worldBounds.y);
-        area.spawnEntityAt(
-                rightWall,
-                new GridPoint2(tileBounds.x, 0),
-                false,
-                false);
-        Vector2 rightWallPos = rightWall.getPosition();
-        rightWall.setPosition(rightWallPos.x - thickness, rightWallPos.y);
-        // Top
-        Entity topWall = ObstacleFactory.createWall(worldBounds.x, thickness);
-        area.spawnEntityAt(
-                topWall,
-                new GridPoint2(0, tileBounds.y),
-                false,
-                false);
-        Vector2 topWallPos = topWall.getPosition();
-        topWall.setPosition(topWallPos.x, topWallPos.y - thickness);
-        // Bottom
-        Entity bottomWall = ObstacleFactory.createWall(worldBounds.x, thickness);
-        area.spawnEntityAt(
-                bottomWall,
-                GridPoint2Utils.ZERO,
-                false, false);
+        // Create and spawn walls
+        Entity leftWall = createAndSpawnWall(area, thickness, tileBounds.y, GridPoint2Utils.ZERO);
+        Entity rightWall = createAndSpawnWall(area, thickness, worldBounds.y, new GridPoint2(tileBounds.x, 0));
+        Entity topWall = createAndSpawnWall(area, worldBounds.x, thickness, new GridPoint2(0, tileBounds.y));
+        Entity bottomWall = createAndSpawnWall(area, worldBounds.x, thickness, GridPoint2Utils.ZERO);
+    
+        // Adjust wall positions
+        adjustWallPosition(rightWall, -thickness, 0);
+        adjustWallPosition(topWall, 0, -thickness);
+    }
+    
+    // Method to create and spawn a wall
+    private Entity createAndSpawnWall(GameArea area, float width, float height, GridPoint2 position) {
+        Entity wall = ObstacleFactory.createWall(width, height);
+        area.spawnEntityAt(wall, position, false, false);
+        return wall;
+    }
+    
+    // Method to adjust the position of a wall
+    private void adjustWallPosition(Entity wall, float offsetX, float offsetY) {
+        Vector2 wallPos = wall.getPosition();
+        wall.setPosition(wallPos.x + offsetX, wallPos.y + offsetY);
     }
 
     /**
@@ -86,7 +139,12 @@ public abstract class BaseRoom implements Room {
     public void removeRoom() {
         for (Entity data : doors) {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
-        }
+        } 
+        
+        // for (Entity data : enemies) {
+        //     ServiceLocator.getEntityService().markEntityForRemoval(data);
+        // } 
+        this.enemies.clear();
     }
 
     /**
@@ -95,9 +153,9 @@ public abstract class BaseRoom implements Room {
      * @param area          the game area to spawn the terrain onto.
      * @param wallThickness the thickness of the walls around the room.
      */
-    protected void spawnTerrain(GameArea area, float wallThickness) {
+    protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
         // Background terrain
-        TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1);
+        TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1 ,isBossRoom);
         area.setTerrain(terrain);
         area.spawnEntity(new Entity().addComponent(terrain));
         // Terrain walls
@@ -105,6 +163,35 @@ public abstract class BaseRoom implements Room {
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
         createWalls(area, wallThickness, tileBounds, worldBounds);
+    }
+
+    public void spawn(Entity player, MainGameArea area) {
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
+        this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
+        this.spawnDoors(area, player);
+        this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
+        this.isRoomFresh = false;
+        // FIXME
+        // logger.info("Spawning items:");
+        // int itemGroup = Integer.parseInt(split.get(5));
+        // for (String s : itemSpecifications.get(itemGroup)){
+        //     GridPoint2 randomPos = RandomUtils.random(min, max);
+        //     this.spawnItem(area, s, randomPos);
+        // }
+    }
+    protected void makeAllAnimalDead(){
+        for(Entity animal : enemies){
+            CombatStatsComponent combatStatsComponent = animal.getComponent(CombatStatsComponent.class);
+            combatStatsComponent.setHealth(0);
+            combatStatsComponent.hit(combatStatsComponent);
+        }
+    }
+    public boolean isAllAnimalDead(){
+        for(Entity animal : enemies){
+            if (!animal.getComponent(CombatStatsComponent.class).isDead())
+                return false;
+        }
+        return true;
     }
 
     /**
@@ -119,6 +206,12 @@ public abstract class BaseRoom implements Room {
         area.spawnEntityAt(item, pos, true, true);
     }
 
+    public void spawnItems() {
+        GameArea area = ServiceLocator.getGameAreaService().getGameArea();
+        spawnItem(area,this.items.get(0),new GridPoint2(8,8));
+        spawnItem(area,this.items.get(1),new GridPoint2(6,8));
+    }
+
     /**
      * Spawn an NPC into the room
      *
@@ -127,9 +220,22 @@ public abstract class BaseRoom implements Room {
      * @param animal the specification of the animal to create.
      * @param pos    the location to spawn it to.
      */
-    protected void spawnAnimal(GameArea area, Entity player, String animal, GridPoint2 pos) {
-        Entity spawn = npcFactory.create(animal, player);
-        area.spawnEntityAt(spawn, pos, true, true);
+    protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
+        for (Entity enemy : this.enemies) {
+
+            
+            GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1), 
+                                                  ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
+
+            area.spawnEntityAt(enemy, randomPos, true, true);
+            enemy.getEvents().addListener("died",()->{
+               if(this.isAllAnimalDead())
+                   this.spawnItems();
+            });
+        }
+        //this will make all animals commit suicide 
+        makeAllAnimalDead();
     }
 
     /**
@@ -139,46 +245,60 @@ public abstract class BaseRoom implements Room {
      * @param player The main player of the room.
      */
     protected void spawnDoors(GameArea area, Entity player) {
+
+        // Ensure roomConnections is properly initialized
+        this.doors.clear();
+        if (this.roomConnections == null || this.roomConnections.size() < 4) {
+            throw new IllegalStateException("Room connections are not properly initialized.");
+        }
+    
+        // Define door connections
         List<String> connections = this.roomConnections;
         String connectN = connections.get(0);
         String connectE = connections.get(1);
         String connectW = connections.get(2);
         String connectS = connections.get(3);
 
-        Entity westDoor = new Door('v', player.getId(), connectW); // left
-        Entity eastDoor = new Door('v', player.getId(), connectE); // right
-        Entity southDoor = new Door('h', player.getId(), connectS); // bottom
-        Entity northDoor = new Door('h', player.getId(), connectN); // top
-
-        Vector2 doorvScale = westDoor.getScale();
-        Vector2 doorhScale = southDoor.getScale();
-
-
-        List<DoorData> doorData = List.of(
-                new DoorData(connectE, westDoor, new GridPoint2(0, 5), new Vector2(-doorvScale.x, 0)),
-                new DoorData(connectW, eastDoor, new GridPoint2(15, 5), new Vector2(-2 * doorvScale.x, 0)),
-                new DoorData(connectS, southDoor, new GridPoint2(7, 0), new Vector2(0, -doorhScale.y)),
-                new DoorData(connectN, northDoor, new GridPoint2(7, 11), new Vector2(0, -2 * doorhScale.y))
-        );
-
-        // Loop through the door data and handle each door
-        for (DoorData data : doorData) {
-            if (!data.connection.isEmpty()) {
-                area.spawnEntityAt(data.door, data.position, true, true);
-                Vector2 doorPos = data.door.getPosition();
-                data.door.setPosition(doorPos.x + data.offset.x, doorPos.y + data.offset.y);
-                doors.add(data.door);
+    
+        // Create doors and retrieve scales
+        Entity[] doors = {
+            new Door('v', player.getId(), connectW), // left
+            new Door('v', player.getId(), connectE), // right
+            new Door('h', player.getId(), connectN), // bottom
+            new Door('h', player.getId(), connectS)  // top
+        };
+    
+        Vector2 doorvScale = doors[0].getScale();
+        Vector2 doorhScale = doors[2].getScale();
+    
+        // Define positions and offsets
+        GridPoint2[] positions = {
+            new GridPoint2(15, 5),  // For connectW
+            new GridPoint2(0, 5),   // For connectE
+            new GridPoint2(7, 0),   // For connectS
+            new GridPoint2(7, 11)   // For connectN
+        };
+    
+        Vector2[] offsets = {
+            new Vector2(-2 * doorvScale.x, 0),  // For connectW
+            new Vector2(-doorvScale.x, 0),      // For connectE
+            new Vector2(0, -doorhScale.y),      // For connectS
+            new Vector2(0, -2 * doorhScale.y)   // For connectN
+        };
+    
+        // Spawn and adjust doors
+       
+        for (int i = 0; i < doors.length; i++) {
+            String connection = connections.get(i);
+            System.out.println(connections);
+            if (connection != "" && !connection.isEmpty() && connection != null) {
+                area.spawnEntityAt(doors[i], positions[i], true, true);
+                Vector2 doorPos = doors[i].getPosition();
+                doors[i].setPosition(doorPos.x + offsets[i].x, doorPos.y + offsets[i].y);
+                this.doors.add(doors[i]);
+            } else {
+                System.out.println("Skipping door placement for connection: " + connection);
             }
         }
-    }
-
-    /**
-     * Details of a door.
-     */
-    private record DoorData(
-            String connection,
-            Entity door,
-            GridPoint2 position,
-            Vector2 offset) {
     }
 }

@@ -34,6 +34,8 @@ public class MainMenuDisplay extends UIComponent {
      */
     private Table diffBtnsTable;
 
+    private Image bg_logo;
+
     @Override
     public void create() {
         super.create();
@@ -45,7 +47,12 @@ public class MainMenuDisplay extends UIComponent {
 
         table = new Table();
         table.setFillParent(true);
-        Image bg_logo =
+        Image title = new Image(
+                ServiceLocator.getResourceService().getAsset(
+                        "images/box_boy_title.png", Texture.class
+                )
+        );
+        bg_logo =
             new Image(
                 ServiceLocator.getResourceService()
                     .getAsset("images/bg_logo.png", Texture.class));
@@ -65,7 +72,8 @@ public class MainMenuDisplay extends UIComponent {
         if (settings.displayMode == null) {
             settings.displayMode = new UserSettings.DisplaySettings(Gdx.graphics.getDisplayMode());
         }
-        bg_logo.setSize(settings.displayMode.width, settings.displayMode.height);
+
+        bg_logo.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         bg_logo.setPosition(0, 0);
 
         // Triggers an event when the button is pressed
@@ -75,6 +83,7 @@ public class MainMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         logger.debug("{} difficulty button clicked", difficulty.toString());
+                        ServiceLocator.getResourceService().loadAll();
                         entity.getEvents().trigger("player_select", difficulty);
                     }
                 }
@@ -152,4 +161,7 @@ public class MainMenuDisplay extends UIComponent {
         super.dispose();
     }
 
+    public void resize(int width, int height) {
+        bg_logo.setSize(width, height);
+    }
 }

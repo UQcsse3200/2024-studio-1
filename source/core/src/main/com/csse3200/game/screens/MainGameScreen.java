@@ -6,18 +6,20 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenColour;
 import com.csse3200.game.areas.*;
+import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.components.maingame.MainGameExitDisplay;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.PlayerFactory;
-import com.csse3200.game.files.FileLoader;
-import com.csse3200.game.options.GameOptions;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.factories.RenderFactory;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.input.InputComponent;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.input.InputService;
+import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
@@ -28,8 +30,6 @@ import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.terminal.Terminal;
 import com.csse3200.game.ui.terminal.TerminalDisplay;
-import com.csse3200.game.components.maingame.MainGameExitDisplay;
-import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,23 +47,27 @@ public class MainGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
     private final PlayerFactory playerFactory;
 
-    private static final String[] mainGameTextures = {
-            "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-            "images/ui_white_icons_down.png"
-    };
+  private static final String[] mainGameTextures = {
+          "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
+          "images/ui_white_icons_down.png", "flat-earth/skin/flat-earth-ui.png",
+          "images/black_dot_transparent.png"
+  };
     private PlayerSelection playerSelection = new PlayerSelection();
-    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+    private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
+  private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
 
-    public MainGameScreen(GdxGame game) {
-        this.game = game;
-        game.setScreenColour(ScreenColour.DEFAULT);
+  private Entity ui;
 
-        GameOptions gameOptions = game.gameOptions;
-        logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
+  public MainGameScreen(GdxGame game) {
+    this.game = game;
+      game.setScreenColour(ScreenColour.DEFAULT);
+
+    GameOptions gameOptions = game.gameOptions;
+    logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
 
         logger.debug("Initialising main game screen services");
         ServiceLocator.registerTimeSource(new GameTime());
@@ -121,6 +125,7 @@ public class MainGameScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         renderer.resize(width, height);
+        ui.getComponent(MainGameExitDisplay.class).resize(width, height);
         logger.trace("Resized renderer: ({} x {})", width, height);
     }
 
@@ -149,12 +154,13 @@ public class MainGameScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
-    private void loadAssets() {
-        logger.debug("Loading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(mainGameTextures);
-        ServiceLocator.getResourceService().loadAll();
-    }
+  private void loadAssets() {
+    logger.debug("Loading assets");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    resourceService.loadTextures(mainGameTextures);
+    resourceService.loadTextureAtlases(mainGameAtlases);
+    ServiceLocator.getResourceService().loadAll();
+  }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
@@ -172,14 +178,14 @@ public class MainGameScreen extends ScreenAdapter {
         InputComponent inputComponent =
                 ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
-        Entity ui = new Entity();
-        ui.addComponent(new InputDecorator(stage, 10))
-                .addComponent(new PerformanceDisplay())
-                .addComponent(new MainGameActions(this.game))
-                .addComponent(new MainGameExitDisplay())
-                .addComponent(new Terminal(this.game))
-                .addComponent(inputComponent)
-                .addComponent(new TerminalDisplay());
+    ui = new Entity();
+    ui.addComponent(new InputDecorator(stage, 10))
+        .addComponent(new PerformanceDisplay())
+        .addComponent(new MainGameActions(this.game))
+        .addComponent(new MainGameExitDisplay())
+        .addComponent(new Terminal(this.game))
+        .addComponent(inputComponent)
+        .addComponent(new TerminalDisplay());
 
         ServiceLocator.getEntityService().register(ui);
     }

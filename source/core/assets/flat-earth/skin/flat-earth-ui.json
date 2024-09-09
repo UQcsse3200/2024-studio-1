@@ -24,7 +24,7 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	font_very_large: {
 		file: fonts/fnt_96.fnt
 	}
-	cutscene_font: {
+	pixel_font: {
 		file: fonts/pixel_26.fnt
 	}
 }
@@ -378,8 +378,12 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: black
 	}
 	cutscene: {
-		font: cutscene_font,
+		font: pixel_font,
 		fontColor: white
+	}
+	terminal: {
+		font: pixel_font,
+		fontColor: black
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {

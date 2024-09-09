@@ -14,9 +14,11 @@ import static org.slf4j.LoggerFactory.getLogger;
  * The game screen containing the main menu.
  */
 public class MainMenuScreen extends StaticScreen {
+
     private static final String[] mainMenuTextures = {
             "images/box_boy_title.png", "images/bg_logo.png"
     };
+    private MainMenuDisplay mainMenuDisplay;
 
     /**
      * Make the screen.
@@ -27,10 +29,17 @@ public class MainMenuScreen extends StaticScreen {
     }
 
     @Override
+    public void resize(int width, int height) {
+        mainMenuDisplay.resize(width, height);
+        super.resize(width, height);
+    }
+
+    @Override
     protected Entity getUI() {
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new MainMenuDisplay())
+        mainMenuDisplay = new MainMenuDisplay();
+        ui.addComponent(mainMenuDisplay)
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new MainMenuActions(game));
         return ui;

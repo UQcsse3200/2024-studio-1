@@ -44,7 +44,6 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
-
     this.owner.getEntity().getEvents().trigger("walk");
   }
 
@@ -104,4 +103,22 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     debugRenderer.drawLine(from, to);
     return true;
   }
+
+  /**
+   
+    Calculates the desired vector position to move away from the target*
+    @return The vector position.*/
+    private Vector2 getVectorTo(){
+      float currentX = owner.getEntity().getPosition().x;
+      float currentY = owner.getEntity().getPosition().y;
+
+        float targetX = target.getPosition().x;
+        float targetY = target.getPosition().y;
+
+        float newX = currentX + (currentX - targetX);
+        float newY = currentY + (currentY - targetY);
+
+        Vector2 newPos = new Vector2(newX, newY);
+        return newPos;
+      }
 }

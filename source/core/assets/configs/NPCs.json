@@ -35,6 +35,7 @@
     "baseAttack": 35,
     "attackRange": 1,
     "attackRate": 0.5,
+    "isDirectional": true,
     "tasks": {
       "wander": {
         "wanderRadius": 3,
@@ -62,11 +63,16 @@
       }
       ],
     "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "run_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "run_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
   "bat": {
@@ -105,6 +111,7 @@
     "baseAttack": 20,
     "attackRange": 1,
     "attackRate": 1,
+    "isDirectional": true,
     "tasks": {
       "wander": {
         "wanderRadius": 4,
@@ -120,70 +127,25 @@
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "gesture_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "gesture_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
-  "croc": {
-    "health": 500,
-    "baseAttack": 30,
-    "attackRange": 0.8,
-    "attackRate": 0.1,
-    "tasks": {
-      "wander": {
-        "wanderRadius": 1,
-        "waitTime": 4,
-        "wanderSpeed": 0.1
-      },
-      "chase": {
-        "priority": 10,
-        "chaseSpeed": 0.3,
-        "viewDistance": 2,
-        "chaseDistance": 2
-      }
-    },
-    "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
-    ]
-  },
-  "gorilla": {
-    "health": 400,
-    "baseAttack": 35,
-    "attackRange": 0.8,
-    "attackRate": 1,
-    "tasks": {
-      "wander": {
-        "wanderRadius": 3,
-        "waitTime": 2,
-        "wanderSpeed": 0.7
-      },
-      "chase": {
-        "priority": 10,
-        "chaseSpeed": 1.5,
-        "viewDistance": 3,
-        "chaseDistance": 6
-      }
-    },
-    "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
-    ]
-  },
+
   "snake": {
     "health": 300,
     "baseAttack": 10,
     "attackRange": 0.8,
     "attackRate": 0.8,
+    "isDirectional": true,
     "tasks": {
       "wander": {
         "wanderRadius": 2,
@@ -207,8 +169,10 @@
     "animations": [
       {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "walk", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "walk_left", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.15, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },

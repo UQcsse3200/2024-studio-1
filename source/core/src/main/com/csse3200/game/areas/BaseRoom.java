@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.BooleanArray;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
@@ -16,7 +15,6 @@ import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.utils.math.GridPoint2Utils;
-import com.csse3200.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -90,6 +88,8 @@ public abstract class BaseRoom implements Room {
         this.specification = specification;
       
         this.items = this.itemSpecifications.get(this.itemGroup);
+
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
     }
 
     // overide method 
@@ -136,9 +136,9 @@ public abstract class BaseRoom implements Room {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         } 
         
-        for (Entity data : enemies) {
-            ServiceLocator.getEntityService().markEntityForRemoval(data);
-        } 
+        // for (Entity data : enemies) {
+        //     ServiceLocator.getEntityService().markEntityForRemoval(data);
+        // } 
         this.enemies.clear();
         
         
@@ -169,7 +169,6 @@ public abstract class BaseRoom implements Room {
         this.spawnDoors(area, player);
         this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
         this.isRoomFresh = false;
-        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
         // FIXME
         // logger.info("Spawning items:");
         // int itemGroup = Integer.parseInt(split.get(5));
@@ -219,14 +218,18 @@ public abstract class BaseRoom implements Room {
      */
     protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
         for (Entity enemy : this.enemies) {
-            GridPoint2 randomPos = RandomUtils.random(min, max);
+
+            
+            GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1), 
+                                                  ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
+
             area.spawnEntityAt(enemy, randomPos, true, true);
             enemy.getEvents().addListener("died",()->{
                if(this.isAllAnimalDead())
                    this.spawnItems();
             });
         }
-        //this will unalive all animal
+        //this will make all animals commit suicide 
         makeAllAnimalDead();
     }
 

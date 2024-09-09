@@ -70,10 +70,8 @@ public class PlayerFactory extends LoadedFactory {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         TextureRegion defaultTexture = atlas.findRegion("idle");
 
-
         InputComponent inputComponent =
                 ServiceLocator.getInputService().getInputFactory().createForPlayer();
-
 
         InventoryComponent inventoryComponent = new InventoryComponent();
         Entity player = new Entity()
@@ -92,7 +90,7 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new PlayerAnimationController())
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay(inventoryComponent))
+                .addComponent(new PlayerHealthDisplay())
                 .addComponent(new WeaponComponent(
                         new Sprite(new Texture("images/Weapons/knife.png")),
                         Collectible.Type.RANGED_WEAPON,
@@ -101,11 +99,10 @@ public class PlayerFactory extends LoadedFactory {
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
-        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+        //player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
 
         return player;
     }
-
     private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(

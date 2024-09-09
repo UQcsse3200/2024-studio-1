@@ -21,11 +21,11 @@ public class PlayerHealthDisplay extends UIComponent{
     /** Shape rendered for drawing the health bar */
     private ShapeRenderer shapeRenderer;
     private boolean sheildActivated = false;
-    private InventoryComponent inventoryComponent;
 
 
-    public PlayerHealthDisplay(InventoryComponent inventoryComponent) {
-        this.inventoryComponent = inventoryComponent;
+
+    public PlayerHealthDisplay() {
+
     }
     /**
      * Creates reusable ui styles and adds actors to the stage.

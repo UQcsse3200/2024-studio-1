@@ -22,7 +22,7 @@ public class CombatStatsComponent extends Component {
     private boolean isInvincible;
     private static final int timeInvincible = 150;
     private final Timer timer;
-    private static int buffedAttack;
+
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
         this.canBeInvincible = canBeInvincible;

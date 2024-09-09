@@ -1,12 +1,12 @@
 package com.csse3200.game.entities.factories;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
-import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
@@ -195,7 +195,7 @@ public class NPCFactory extends LoadedFactory {
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
    *
-   * @return entity
+   * @return The created NPC entity.
    */
   private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
@@ -204,8 +204,7 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new MeleeAttackComponent(target, config.attackRange, config.attackRate, config.baseAttack,
-                    config.effects))
+            .addComponent(new MeleeAttackComponent(target, config.attackRange, config.attackRate, config.effects))
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
@@ -247,8 +246,7 @@ public class NPCFactory extends LoadedFactory {
 
     // Add wander task
     if (tasks.wander != null) {
-      aiComponent.addTask(new WanderTask(new Vector2(tasks.wander.wanderRadius, tasks.wander.wanderRadius),
-              tasks.wander.waitTime, tasks.wander.wanderSpeed));
+      aiComponent.addTask(new WanderTask(tasks.wander));
     }
     // Add straight wander task
     if (tasks.straightWander != null) {
@@ -256,13 +254,11 @@ public class NPCFactory extends LoadedFactory {
     }
     // Add chase task
     if (tasks.chase != null) {
-      aiComponent.addTask(new ChaseTask(target, tasks.chase.priority, tasks.chase.viewDistance,
-              tasks.chase.chaseDistance, tasks.chase.chaseSpeed));
+      aiComponent.addTask(new ChaseTask(target, tasks.chase));
     }
     // Add charge task
     if (tasks.charge != null) {
-      aiComponent.addTask(new ChargeTask(target, tasks.charge.priority, tasks.charge.viewDistance,
-              tasks.charge.chaseDistance, tasks.charge.chaseSpeed, tasks.charge.waitTime));
+      aiComponent.addTask(new ChargeTask(target, tasks.charge));
     }
 
     if (tasks.shoot != null) {
@@ -271,15 +267,12 @@ public class NPCFactory extends LoadedFactory {
 
     // Add boss attack task
     if (tasks.bossAttack != null) {
-      aiComponent.addTask(new BossAttackTask(target, tasks.bossAttack.priority, tasks.bossAttack.viewDistance,
-              tasks.bossAttack.chaseDistance, tasks.bossAttack.chaseSpeed, tasks.bossAttack.chargeSpeed,
-              tasks.bossAttack.waitTime));
+      aiComponent.addTask(new BossAttackTask(target, tasks.bossAttack));
     }
 
     // Add run away task
     if (tasks.runAway != null) {
-      aiComponent.addTask(new RunAwayTask(target, tasks.runAway.priority, tasks.runAway.viewDistance,
-              tasks.runAway.maxRunDistance, tasks.runAway.runSpeed, tasks.runAway.waitTime));
+      aiComponent.addTask(new RunAwayTask(target, tasks.runAway));
     }
 
     return aiComponent;

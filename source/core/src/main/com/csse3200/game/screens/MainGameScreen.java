@@ -3,11 +3,11 @@ package com.csse3200.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
-import com.csse3200.game.services.*;
+import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
@@ -19,9 +19,7 @@ import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.rendering.Renderer;
-import com.csse3200.game.services.GameTime;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.services.*;
 import com.csse3200.game.ui.terminal.Terminal;
 import com.csse3200.game.ui.terminal.TerminalDisplay;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
@@ -46,7 +44,7 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png"
     };
-    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
 
     private final GdxGame game;
     private final Renderer renderer;
@@ -61,16 +59,16 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen services");
         ServiceLocator.registerTimeSource(new GameTime());
         ServiceLocator.registerRandomService(new RandomService("Default Seed :p"));
-
         PhysicsService physicsService = new PhysicsService();
         ServiceLocator.registerPhysicsService(physicsService);
         this.physicsEngine = physicsService.getPhysics();
-
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
 
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
+
+        ServiceLocator.registerCollectibleFactoryService(new CollectibleFactoryService());
 
         this.renderer = RenderFactory.createRenderer();
         this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
@@ -90,9 +88,8 @@ public class MainGameScreen extends ScreenAdapter {
 
         LevelFactory levelFactory = new MainGameLevelFactory();
         GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-                new TestGameArea(levelFactory) :
-                new MainGameArea(levelFactory);
-        mainGameArea.create(player);
+                new TestGameArea(levelFactory, player) :
+                new MainGameArea(levelFactory, player);
     }
 
     @Override

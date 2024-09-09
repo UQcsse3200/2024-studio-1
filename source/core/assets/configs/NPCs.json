@@ -46,7 +46,7 @@
   "rat": {
     "health": 100,
     "baseAttack": 10,
-    "attackRange": 0.8,
+    "attackRange": 1,
     "attackRate": 2,
     "tasks": {
       "straightWander": {
@@ -77,7 +77,7 @@
   "bear": {
     "health": 600,
     "baseAttack": 35,
-    "attackRange": 1,
+    "attackRange": 1.5,
     "attackRate": 0.5,
     "isDirectional": true,
     "tasks": {
@@ -122,7 +122,7 @@
   "bat": {
     "health": 50,
     "baseAttack": 10,
-    "attackRange": 0.8,
+    "attackRange": 1,
     "attackRate": 1.2,
     "tasks": {
       "straightWander": {
@@ -153,7 +153,7 @@
   "dog": {
     "health": 300,
     "baseAttack": 20,
-    "attackRange": 1,
+    "attackRange": 1.5,
     "attackRate": 1,
     "isDirectional": true,
     "tasks": {
@@ -186,7 +186,7 @@
   "snake": {
     "health": 300,
     "baseAttack": 10,
-    "attackRange": 0.8,
+    "attackRange": 1,
     "attackRate": 0.8,
     "isDirectional": true,
     "tasks": {
@@ -222,7 +222,7 @@
   "dino": {
     "health": 300,
     "baseAttack": 10,
-    "attackRange": 1,
+    "attackRange": 1.2,
     "attackRate": 1,
     "tasks": {
       "straightWander": {

@@ -31,7 +31,7 @@ public abstract class GameArea extends LoadedFactory {
     /**
      * Create the game area in the world.
      */
-    public abstract void create(Entity player);
+    public abstract void create();
 
     /**
      * Dispose of all internal entities in the area
@@ -90,7 +90,6 @@ public abstract class GameArea extends LoadedFactory {
         if (areaEntities != null && !areaEntities.isEmpty()) {
             for (int i = 0; i < areaEntities.size(); i++) {
                 if (areaEntities.get(i).equals(entity)) {
-                    ServiceLocator.getEntityService().unregister(entity);
                     ServiceLocator.getEntityService().markEntityForRemoval(entity);
                     areaEntities.remove(i);
                     break;

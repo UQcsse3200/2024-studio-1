@@ -143,8 +143,6 @@ public abstract class BaseRoom implements Room {
         //     ServiceLocator.getEntityService().markEntityForRemoval(data);
         // } 
         this.enemies.clear();
-        
-        
     }
 
 

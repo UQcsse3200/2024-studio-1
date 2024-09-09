@@ -59,6 +59,11 @@ public class MainGameArea extends GameArea {
         playMusic();
     }
 
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();

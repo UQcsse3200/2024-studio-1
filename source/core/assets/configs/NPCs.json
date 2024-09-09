@@ -166,8 +166,10 @@
     "animations": [
       {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
       {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "walk", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "walk_left", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.15, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },

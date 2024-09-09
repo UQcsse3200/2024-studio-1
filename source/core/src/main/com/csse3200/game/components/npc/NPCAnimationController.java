@@ -27,53 +27,62 @@ public class NPCAnimationController extends Component {
     }
 
     void animateIdle() {
-        if (directionalComponent.isDirectable()) {
+        if (animator.hasAnimation("idle_right") && animator.hasAnimation("idle_left")) {
             triggerDirectionalAnimation("idle");
-        } else {
+        } else if (animator.hasAnimation("idle")) {
             animator.startAnimation("idle");
+        } else {
+            throw new IllegalStateException("No idle animation found");
         }
     }
+
     void animateGesture() {
-        if (animator.hasAnimation("gesture")) {
-            if (directionalComponent.isDirectable()) {
-                triggerDirectionalAnimation("gesture");
-            } else {
-                animator.startAnimation("gesture");
-            }
+        if (animator.hasAnimation("gesture_right") && animator.hasAnimation("gesture_left")) {
+            triggerDirectionalAnimation("gesture");
+        } else if (animator.hasAnimation("gesture")) {
+            animator.startAnimation("gesture");
         } else {
             animateIdle();
         }
     }
+
     void animateWalk() {
-        if (directionalComponent.isDirectable()) {
+        if (animator.hasAnimation("walk_right") && animator.hasAnimation("walk_left")) {
             triggerDirectionalAnimation("walk");
-        } else {
+        } else if (animator.hasAnimation("walk")) {
             animator.startAnimation("walk");
+        } else {
+            throw new IllegalStateException("No walk animation found");
         }
     }
+
     void animateRun() {
-        if (animator.hasAnimation("run")) {
-            if (directionalComponent.isDirectable()) {
-                triggerDirectionalAnimation("run");
-            } else {
-                animator.startAnimation("run");
-            }
+        if (animator.hasAnimation("run_right") && animator.hasAnimation("run_left")) {
+            triggerDirectionalAnimation("run");
+        } else if (animator.hasAnimation("run")) {
+            animator.startAnimation("run");
         } else {
             animateWalk();
         }
     }
+
     void animateAttack() {
-        if (directionalComponent.isDirectable()) {
+        if (animator.hasAnimation("attack_right") && animator.hasAnimation("attack_left")) {
             triggerDirectionalAnimation("attack");
-        } else {
+        } else if (animator.hasAnimation("attack")) {
             animator.startAnimation("attack");
+        } else {
+            throw new IllegalStateException("No attack animation found");
         }
     }
+
     void animateDeath() {
-        if (directionalComponent.isDirectable()) {
+        if (animator.hasAnimation("death_right") && animator.hasAnimation("death_left")) {
             triggerDirectionalAnimation("death");
-        } else {
+        } else if (animator.hasAnimation("death")) {
             animator.startAnimation("death");
+        } else {
+            throw new IllegalStateException("No death animation found");
         }
     }
 

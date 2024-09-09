@@ -75,7 +75,7 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
     Entity rat = createBaseNPC(target, aiComponent, config, animator);
-    rat.addComponent(new NPCAnimationController());
+
     return rat;
   }
 
@@ -90,7 +90,7 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
     Entity bear = createBaseNPC(target, aiComponent, config, animator, true);
-    bear.addComponent(new NPCAnimationController());
+
     return bear;
   }
 
@@ -103,9 +103,8 @@ public class NPCFactory extends LoadedFactory {
   public Entity createSnake(Entity target) {
     NPCConfigs.NPCConfig config = configs.snake;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/snake.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/snake/snake.atlas", config.animations);
     Entity snake = createBaseNPC(target, aiComponent, config, animator);
-    snake.addComponent(new NPCAnimationController());
 
     return snake;
   }
@@ -121,7 +120,6 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/dino.atlas", config.animations);
     Entity dino = createBaseNPC(target, aiComponent, config, animator);
-    dino.addComponent(new NPCAnimationController());
 
     return dino;
   }
@@ -137,7 +135,6 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/bat.atlas", config.animations);
     Entity bat = createBaseNPC(target, aiComponent, config, animator);
-    bat.addComponent(new NPCAnimationController());
 
     return bat;
   }
@@ -153,7 +150,6 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/minotaur.atlas", config.animations);
     Entity minotaur = createBaseNPC(target, aiComponent, config, animator);
-    minotaur.addComponent(new NPCAnimationController());
 
     return minotaur;
   }
@@ -169,7 +165,6 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
     Entity dog = createBaseNPC(target, aiComponent, config, animator, true);
-    dog.addComponent(new NPCAnimationController());
 
     return dog;
   }
@@ -215,7 +210,8 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDeathHandler()) 
-            .addComponent(new DirectionalNPCComponent(directable));
+            .addComponent(new DirectionalNPCComponent(directable))
+            .addComponent(new NPCAnimationController());
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
     return npc;
@@ -291,7 +287,7 @@ public class NPCFactory extends LoadedFactory {
             "images/ghost.atlas",
             "images/ghostKing.atlas",
             "images/rat.atlas",
-            "images/snake.atlas",
+            "images/npc/snake/snake.atlas",
             "images/minotaur.atlas",
             "images/dino.atlas",
             "images/bat.atlas",
@@ -308,7 +304,7 @@ public class NPCFactory extends LoadedFactory {
             "images/rat.png",
             "images/minotaur.png",
             "images/npc/dog/dog.png",
-            "images/snake.png",
+            "images/npc/snake/snake.png",
             "images/dino.png",
             "images/minotaur.png",
             "images/npc/bear/bear.png",

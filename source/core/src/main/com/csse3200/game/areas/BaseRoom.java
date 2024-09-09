@@ -167,7 +167,7 @@ public abstract class BaseRoom implements Room {
         createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
         this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
         this.spawnDoors(area, player);
-        this.spawnAnimals(area, player, this.minGridPoint, this.minGridPoint);
+        this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
         this.isRoomFresh = false;
         createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
         // FIXME

@@ -25,9 +25,9 @@
         "waitTime": 2
       },
       "shoot": {
-        "priority": 4,
         "attackRange": 10,
-        "attackRate": 2
+        "attackRate": 2,
+        "type": 0
       }
     },
     "animations": [

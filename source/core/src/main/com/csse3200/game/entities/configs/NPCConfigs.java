@@ -32,11 +32,18 @@ public class NPCConfigs {
       public ChargeTaskConfig charge = null;
       public BossAttackTaskConfig bossAttack = null;
       public RunAwayTaskConfig runAway = null;
+      public ShootTaskConfig shoot;
 
       public static class WanderTaskConfig {
         public float wanderRadius;
         public float waitTime;
         public float wanderSpeed;
+      }
+
+      public static class ShootTaskConfig {
+        public float attackRange;
+        public float attackRate;
+        public int type;
       }
 
       public static class StraightWanderTaskConfig {

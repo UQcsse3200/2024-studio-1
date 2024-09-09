@@ -24,7 +24,7 @@ public class BossAttackTask extends DefaultTask implements PriorityTask {
     private PriorityTask chaseTask; // Task for chasing the target.
     private PriorityTask chargeTask; // Task for charging at the target.
     private PriorityTask waitTask; // Task for waiting after an attack.
-    private PriorityTask currentTask; // The current active task.
+    protected PriorityTask currentTask; // The current active task.
 
     /**
      * Constructor for BossAttackTask.
@@ -86,7 +86,7 @@ public class BossAttackTask extends DefaultTask implements PriorityTask {
         currentTask.update(); // Continue updating the active task.
     }
 
-    private void switchToTask(PriorityTask newTask) {
+    protected void switchToTask(PriorityTask newTask) {
         currentTask.stop(); // Stop the current task before switching.
         currentTask = newTask;
         currentTask.start(); // Start the new task.

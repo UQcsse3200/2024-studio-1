@@ -52,8 +52,8 @@ public class MainGameScreen extends ScreenAdapter {
           "images/ui_white_icons_down.png", "flat-earth/skin/flat-earth-ui.png",
           "images/black_dot_transparent.png"
   };
+  private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
     private PlayerSelection playerSelection = new PlayerSelection();
-    private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
     private final GdxGame game;
@@ -122,12 +122,12 @@ public class MainGameScreen extends ScreenAdapter {
         renderer.render();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        renderer.resize(width, height);
-        ui.getComponent(MainGameExitDisplay.class).resize(width, height);
-        logger.trace("Resized renderer: ({} x {})", width, height);
-    }
+  @Override
+  public void resize(int width, int height) {
+    renderer.resize(width, height);
+    ui.getComponent(MainGameExitDisplay.class).resize(width, height);
+    logger.trace("Resized renderer: ({} x {})", width, height);
+  }
 
     @Override
     public void pause() {

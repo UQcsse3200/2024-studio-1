@@ -97,9 +97,6 @@ public class PlayerActions extends Component {
      * Makes the player attack.
      */
     private void attack() {
-        ServiceLocator.getResourceService()
-                .getAsset("sounds/Impact4.ogg", Sound.class)
-                .play();
         entity.getComponent(WeaponComponent.class).attack();
     }
 
@@ -107,9 +104,6 @@ public class PlayerActions extends Component {
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        ServiceLocator.getResourceService()
-                .getAsset("sounds/Impact4.ogg", Sound.class)
-                .play();
         entity.getComponent(WeaponComponent.class).shoot(direction);
     }
 

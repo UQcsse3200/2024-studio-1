@@ -65,6 +65,7 @@ public class MainGameArea extends GameArea {
 
         this.currentRoom.removeRoom();
         //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
+
         //this.player.getPosition();
         //player.setPosition(null);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
@@ -123,7 +124,6 @@ public class MainGameArea extends GameArea {
         }
         music.play();
     }
-
     public Level getCurrentLevel() {
         return currentLevel;
     }

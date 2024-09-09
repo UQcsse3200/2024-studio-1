@@ -113,6 +113,7 @@ public class CombatStatsComponent extends Component {
     }
 
     /**
+
      * Increases the entities base Attack damage
      *
      * @param buffedAttack increased Damage
@@ -155,19 +156,22 @@ public class CombatStatsComponent extends Component {
         if (isInvincible()) {
             return;
         }
+     
 
         float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
         int newHealth = getHealth() - (int)(attacker.getBaseAttack() * (1 - damageReduction));
         setHealth(newHealth);
-
-        if (canBeInvincible) {
+        if (canBeInvincible){
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timer.schedule(task, timeInvincible);
         }
-
+        if (!isInvincible()) {
+            if (health <= 0) {
+                entity.getEvents().trigger("died");
+            }
+        }
     }
-
 
     /**
      * Sets the state of the entity's invincibility

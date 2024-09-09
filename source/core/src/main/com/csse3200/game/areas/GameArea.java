@@ -86,6 +86,18 @@ public abstract class GameArea extends LoadedFactory {
         }
     }
 
+    public void disposeEntity(Entity entity) {
+        if (areaEntities != null && !areaEntities.isEmpty()) {
+            for (int i = 0; i < areaEntities.size(); i++) {
+                if (areaEntities.get(i).equals(entity)) {
+                    ServiceLocator.getEntityService().markEntityForRemoval(entity);
+                    areaEntities.remove(i);
+                    break;
+                }
+            }
+        }
+    }
+
     public void setTerrain(TerrainComponent terrain) {
         this.terrain = terrain;
     }

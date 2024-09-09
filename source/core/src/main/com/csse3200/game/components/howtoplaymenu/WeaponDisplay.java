@@ -2,6 +2,7 @@ package com.csse3200.game.components.howtoplaymenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -15,7 +16,7 @@ import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WeaponDisplay extends UIComponent {
+public class WeaponDisplay extends UIComponent{
     private static final Logger logger = LoggerFactory.getLogger(WeaponDisplay.class);
     private final GdxGame game;
 
@@ -57,49 +58,32 @@ public class WeaponDisplay extends UIComponent {
     }
 
     private Table makeHowToPlayTable() {
-        Label instruction = new Label("There are x types of weapons: ", skin);
+        Table table = new Table();
 
-        String[][] paragraphs = {{
-                "Beast Breakout is a top-down dungeon crawler game, presented using "
-                        + "two-dimensional sprites, in which the player controls",
-                "an unnamed character in a non-specific facility."
-        }, {
-                "On each floor of the facility, the player must fight enraged animals in a room "
-                        + "before continuing onto the next room. This is",
-                "most commonly done by the character's melee or ranged weapon in the style of a "
-                        + "twin-stick shooter."
-        }, {
-                "Other methods of defeating enemies become possible as the character gains "
-                        + "power-ups, items that are automatically worn",
-                "by the player-character when picked up that can alter the character's core "
-                        + "attributes, such as increasing health or the",
-                "strength of their weapons, or cause additional side effects."
-        }, {
-                "When the player loses all of their health the game ends in permadeath and the "
-                        + "player must start over from a freshly-",
-                "generated dungeon. Each floor of the dungeon includes a boss which the player "
-                        + "must defeat before continuing to the next level."
-        }
+        String[] animalDescriptions = {
+                "Knife",
+                "Pickaxe",
+                "Shotgun",
         };
 
-        // Position components on the table
-        Table table = new Table();
-        table.add(instruction).left().padRight(10f);
-        table.row().padTop(40f);
+        String[] animalImagePaths = {
+                "images/Weapons/knife.png",
+                "images/Weapons/pickaxe.png",
+                "images/Weapons/shotgun.png",
+        };
 
-        for (String[] paragraph : paragraphs) {
-            for (int i = 0; i < paragraph.length; i++) {
-                String line = paragraph[i];
-                Label label = new Label(line, skin);
-                table.add(label).left().expandX();
+        for (int i = 0; i < animalDescriptions.length; i++) {
+            Image animalImage = new Image(new Texture(Gdx.files.internal(animalImagePaths[i])));
+            Label animalLabel = new Label(animalDescriptions[i], skin);
 
-                // Different padding for end of paragraph
-                boolean lastLine = (i + 1 == paragraph.length);
-                table.row().padTop(lastLine ? 40f : 10f);
+            if (i == 1){
+                table.add(animalImage).size(240, 120).pad(10);
             }
+            else{
+                table.add(animalImage).size(120, 120).pad(10);
+            }
+            table.add(animalLabel).pad(10).left().row();
         }
-
-        // todo look into word wrap so we don't need this many labels
 
         return table;
     }

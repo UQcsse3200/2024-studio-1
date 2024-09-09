@@ -94,25 +94,9 @@ public class NPCFactory extends LoadedFactory {
   public Entity createBear(Entity target) {
     NPCConfigs.NPCConfig config = configs.bear;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/bear.atlas", config.animations);
-    Entity bear = createBaseNPC(target, aiComponent, config, animator);
-    bear.addComponent(new NPCAnimationController());
-
-    return bear;
-  }
-
-  /**
-   * Creates a directional bear entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createDirectionBear(Entity target) {
-    NPCConfigs.NPCConfig config = configs.directionbear;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
     Entity bear = createBaseNPC(target, aiComponent, config, animator);
-    bear.addComponent(new BearAnimationController());
+
     return bear;
   }
 
@@ -125,9 +109,8 @@ public class NPCFactory extends LoadedFactory {
   public Entity createSnake(Entity target) {
     NPCConfigs.NPCConfig config = configs.snake;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/snake.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/snake/snake.atlas", config.animations);
     Entity snake = createBaseNPC(target, aiComponent, config, animator);
-    snake.addComponent(new NPCAnimationController());
 
     return snake;
   }
@@ -143,7 +126,6 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/dino.atlas", config.animations);
     Entity dino = createBaseNPC(target, aiComponent, config, animator);
-    dino.addComponent(new NPCAnimationController());
 
     return dino;
   }
@@ -159,7 +141,6 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/bat.atlas", config.animations);
     Entity bat = createBaseNPC(target, aiComponent, config, animator);
-    bat.addComponent(new NPCAnimationController());
 
     return bat;
   }
@@ -175,7 +156,6 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/minotaur.atlas", config.animations);
     Entity minotaur = createBaseNPC(target, aiComponent, config, animator);
-    minotaur.addComponent(new NPCAnimationController());
 
     return minotaur;
   }
@@ -189,32 +169,10 @@ public class NPCFactory extends LoadedFactory {
   public Entity createDog(Entity target) {
     NPCConfigs.NPCConfig config = configs.dog;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/dog.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
     Entity dog = createBaseNPC(target, aiComponent, config, animator);
-    dog.addComponent(new NPCAnimationController());
 
     return dog;
-  }
-
-  /**
-   * Create a new NPC from specification
-   *
-   * @param specification the specification of the npc
-   * @param target entity to chase
-   * @return the created npc
-   */
-  public Entity create(String specification, Entity target) {
-    return switch (specification) {
-      case "Dragon" -> this.createDragon(target);
-      case "Rat" -> this.createRat(target);
-      case "Bear" -> this.createBear(target);
-      case "Snake" -> this.createSnake(target);
-      case "Dino" -> this.createDino(target);
-      case "Bat" -> this.createBat(target);
-      case "Dog" -> this.createDog(target);
-      case "Minotaur" -> this.createMinotaur(target);
-      default -> throw new IllegalArgumentException("Unknown animal: " + specification);
-    };
   }
 
   /**
@@ -229,23 +187,6 @@ public class NPCFactory extends LoadedFactory {
    */
   private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
-    Entity npc = createBaseNPC(target, aiComponent, config, animator, false);
-    return npc;
-  }
-  /**
-   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
-   *
-   * @param target The target entity for the NPC to chase.
-   * @param aiComponent The AI component to be added to the NPC.
-   * @param config The configuration for the NPC.
-   * @param animator The animator component for the NPC.
-   * @param The animator component for the NPC.
-   * @param The animator controller for the NPC.
-   *
-   * @return entity
-   */
-  private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
-                                      AnimationRenderComponent animator, Boolean directable) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
@@ -257,8 +198,9 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler())
-            .addComponent(new DirectionalNPCComponent(directable));
+            .addComponent(new NPCDeathHandler()) 
+            .addComponent(new DirectionalNPCComponent(config.isDirectional))
+            .addComponent(new NPCAnimationController());
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
     return npc;
@@ -324,84 +266,9 @@ public class NPCFactory extends LoadedFactory {
               tasks.runAway.maxRunDistance, tasks.runAway.runSpeed, tasks.runAway.waitTime));
     }
 
-    if (tasks.shoot != null) {
-      aiComponent.addTask(new ShootTask(target, tasks.shoot.attackRange, tasks.shoot.waitTime, tasks.shoot.priority));
-    }
-
     return aiComponent;
   }
 
-  /**
-   * Creates a rat entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created rat entity
-   */
-  public Entity createDragon(Entity target) {
-    NPCConfigs.NPCConfig config = configs.dragon;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/small_dragon/small_dragon.atlas", config.animations);
-    Entity dragon = createBaseNPC(target, aiComponent, config, animator);
-
-    return dragon;
-  }
-
-  /**
-   * Creates a rat entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created rat entity
-   */
-  public Entity createRat(Entity target) {
-    NPCConfigs.NPCConfig config = configs.rat;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
-    Entity rat = createBaseNPC(target, aiComponent, config, animator);
-
-    return rat;
-  }
-
-  /**
-   * Creates a bear entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createBear(Entity target) {
-    NPCConfigs.NPCConfig config = configs.bear;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/bear.atlas", config.animations);
-    Entity bear = createBaseNPC(target, aiComponent, config, animator);
-
-    return bear;
-  }
-
-  /**
-   * Creates a Snake entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createSnake(Entity target) {
-    NPCConfigs.NPCConfig config = configs.snake;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/snake.atlas", config.animations);
-    Entity snake = createBaseNPC(target, aiComponent, config, animator);
-
-    return snake;
-  }
-
-  /**
-   * Creates a Dino entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createDino(Entity target) {
-    NPCConfigs.NPCConfig config = configs.dino;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/dino.atlas", config.animations);
-    Entity dino = createBaseNPC(target, aiComponent, config, animator);
 
   @Override
   protected String[] getTextureAtlasFilepaths() {

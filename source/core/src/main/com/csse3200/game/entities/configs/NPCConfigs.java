@@ -9,11 +9,8 @@ public class NPCConfigs {
   public NPCConfig projectileRat = new NPCConfig();
   public NPCConfig rat = new NPCConfig();
   public NPCConfig bear = new NPCConfig();
-  public NPCConfig directionbear = new NPCConfig();
   public NPCConfig bat = new NPCConfig();
   public NPCConfig dog = new NPCConfig();
-  public NPCConfig croc = new NPCConfig();
-  public NPCConfig gorilla = new NPCConfig();
   public NPCConfig snake = new NPCConfig();
   public NPCConfig dino = new NPCConfig();
   public NPCConfig minotaur = new NPCConfig();
@@ -25,6 +22,7 @@ public class NPCConfigs {
     public AnimationData[] animations = new AnimationData[0];
     public float attackRange;
     public float attackRate;
+    public boolean isDirectional;
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;

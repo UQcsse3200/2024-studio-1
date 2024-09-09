@@ -11,7 +11,6 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.areas.GameAreaService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,7 +62,10 @@ public class MainGameArea extends GameArea {
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
+
         this.currentRoom.removeRoom();
+        //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
+
         //this.player.getPosition();
         //player.setPosition(null);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
@@ -74,7 +76,6 @@ public class MainGameArea extends GameArea {
     }
 
     public void spawnCurrentRoom() {
-        //logger.info("Main Game Area update");
         if (!spawnRoom) {
             return;
         }
@@ -83,10 +84,7 @@ public class MainGameArea extends GameArea {
             this.currentRoom = currentLevel.getRoom("BOSS");
         }
         this.currentRoom.spawn(player, this);
-        logger.info("spawned: new room");
-        logger.info("spawning: player");
         spawnEntityAt(player, new GridPoint2(10, 10), true, true);
-        logger.info("spawned: player");
 
         spawnRoom = false;
     }

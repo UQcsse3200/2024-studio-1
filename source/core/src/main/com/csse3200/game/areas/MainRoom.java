@@ -3,6 +3,7 @@ package com.csse3200.game.areas;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
+import com.csse3200.game.entities.factories.StairFactory;
 
 import java.util.List;
 
@@ -36,8 +37,9 @@ public class MainRoom extends BaseRoom {
     public MainRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
+                    StairFactory stairFactory,
                     List<String> roomConnections,
                     String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
+        super(npcFactory, collectibleFactory, terrainFactory, stairFactory, roomConnections, specification);
     }
 }

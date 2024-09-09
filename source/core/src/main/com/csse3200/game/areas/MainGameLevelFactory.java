@@ -5,7 +5,7 @@ import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
-import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.entities.factories.StairFactory;
 
 import java.util.*;
 
@@ -23,7 +23,8 @@ public class MainGameLevelFactory implements LevelFactory {
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),
                 new CollectibleFactory(),
-                new TerrainFactory(levelNumber)
+                new TerrainFactory(levelNumber),
+                new StairFactory()
         );
         // Sprint 4 Switch the MapGenerator to use Rooms
         Map<String, Room> rooms = new HashMap<>();
@@ -35,7 +36,7 @@ public class MainGameLevelFactory implements LevelFactory {
         }
         //creating and adding a boss room instance into the Map containing the rooms for
         // the level
-        rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", ""),
+        rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
                 "0,0,14,10," + levelNumber + "," + levelNumber));
         return new Level(map, levelNumber, rooms);
     }

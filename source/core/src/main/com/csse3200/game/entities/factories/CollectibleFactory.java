@@ -10,20 +10,29 @@ import com.csse3200.game.rendering.TextureRenderComponent;
 /**
  * A factory that creates a collectible from a specification.
  */
-public class CollectibleFactory {
-    private static final WeaponFactory weaponFactory = new WeaponFactory();
-    private static final ItemFactory itemFactory = new ItemFactory();
+public class CollectibleFactory extends LoadedFactory {
+    private final WeaponFactory weaponFactory = new WeaponFactory();
+    private final ItemFactory itemFactory = new ItemFactory();
 
     /**
      * Create a collectible from a specification.
+     * <p>
+     * The specification format is one of the following,
+     * "melee:"
+     * "ranged:"
+     * "item:"
+     * "buff:"
+     * followed by a specific specification for those item's respective factories.
      *
      * @param specification the specification to follow.
      * @return the created collectible.
      */
-    public static Collectible create(String specification) {
+    public Collectible create(String specification) {
         String[] split = specification.split(":", 2);
 
         return switch (split[0]) {
+            case "melee" -> weaponFactory.create(Collectible.Type.MELEE_WEAPON, split[1]);
+            case "ranged" -> weaponFactory.create(Collectible.Type.RANGED_WEAPON, split[1]);
             case "item", "buff" -> itemFactory.create(split[1]);
             default -> throw new IllegalStateException("Unexpected value: " + split[0]);
         };
@@ -35,7 +44,7 @@ public class CollectibleFactory {
      * @param collectible the item to convert
      * @return the final entity containing the collectible.
      */
-    public static Entity createCollectibleEntity(Collectible collectible) {
+    public Entity createCollectibleEntity(Collectible collectible) {
         Entity collectibleEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent())
@@ -52,13 +61,14 @@ public class CollectibleFactory {
      * @param specification the item to create
      * @return the final entity containing the collectible.
      */
-    public static Entity createCollectibleEntity(String specification) {
-        String[] split = specification.split(":", 2);
-        return switch (split[0]) {
-            case "item", "buff" -> createCollectibleEntity(create(specification));
-            case "melee" -> weaponFactory.createCollectibleEntity(weaponFactory.create(Collectible.Type.MELEE_WEAPON, split[1]));
-            case "ranged" -> weaponFactory.createCollectibleEntity(weaponFactory.create(Collectible.Type.RANGED_WEAPON, split[1]));
-            default -> throw new IllegalStateException("Unexpected value: " + split[0]);
+    public Entity createCollectibleEntity(String specification) {
+        Collectible collectible = create(specification);
+
+        return switch (collectible.getType()) {
+            case MELEE_WEAPON -> weaponFactory.createMeleeEntity((MeleeWeapon) collectible);
+            case RANGED_WEAPON -> weaponFactory.createRangeEntity((RangedWeapon) collectible);
+            case ITEM, BUFF_ITEM -> createCollectibleEntity(collectible);
+            default -> throw new IllegalStateException("Unexpected type: " + collectible.getType());
         };
     }
 }

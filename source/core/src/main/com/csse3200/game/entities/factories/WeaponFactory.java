@@ -20,37 +20,10 @@ import org.slf4j.LoggerFactory;
 /**
  * A factory that creates weapons.
  */
-public class WeaponFactory {
+public class WeaponFactory extends LoadedFactory {
 
-    /**
-     * Path for weapon textures
-     */
-    private static final String[] weaponTextures = {
-            "images/Weapons/sword1.png",
-            "images/Weapons/shotgun4.png"
-    };
+    private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
 
-    /**
-     * Path for weapon atlas
-     */
-    private static final String[] weaponTextureAtlas = {
-            "images/Weapons/sword1.atlas",
-            "images/Weapons/shotgun4.atlas"
-    };
-
-
-    public static final Logger logger = LoggerFactory.getLogger(WeaponFactory.class);
-
-    public WeaponFactory() {
-        loadAssets();
-    }
-
-    /**
-     * Create a melee weapon from specification
-     *
-     * @param specification
-     * @return MeleeWeapon
-     */
     private MeleeWeapon createMelee(String specification) {
         return switch (specification) {
             case "knife" -> new Knife();
@@ -88,13 +61,14 @@ public class WeaponFactory {
         };
     }
 
+
     /**
      * Convert a collectible item into a collectible entity.
      *
      * @param collectible the item to convert
      * @return the final entity containing the collectible.
      */
-    public static Entity createCollectibleEntity(Collectible collectible) {
+    public Entity createCollectibleEntity(Collectible collectible) {
         if (collectible.getType() == Collectible.Type.MELEE_WEAPON) {
             return createMeleeEntity((MeleeWeapon) collectible);
         }
@@ -103,27 +77,14 @@ public class WeaponFactory {
     }
 
     /**
-     * Load in the assets for the weapons
-     */
-    private static void loadAssets() {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(weaponTextures);
-        resourceService.loadTextureAtlases(weaponTextureAtlas);
-
-        while (!resourceService.loadForMillis(10)) {
-            logger.info("Loading... {}%", resourceService.getProgress());
-        }
-    }
-
-    /**
      * Convert a collectible melee weapon into a melee weapon entity.
      *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      */
-    public static Entity createMeleeEntity(MeleeWeapon collectible) {
+    public Entity createMeleeEntity(MeleeWeapon collectible) {
 
-        TextureAtlas atlas = new TextureAtlas(weaponTextureAtlas[0]);
+        TextureAtlas atlas = new TextureAtlas(getTextureAtlasFilepaths()[0]);
         TextureRegion defaultTexture = atlas.findRegion("idle");
 
         WeaponAnimationRenderComponent animator =
@@ -157,9 +118,9 @@ public class WeaponFactory {
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      */
-    public static Entity createRangeEntity(RangedWeapon collectible) {
+    public Entity createRangeEntity(RangedWeapon collectible) {
 
-        TextureAtlas atlas = new TextureAtlas(weaponTextureAtlas[1]);
+        TextureAtlas atlas = new TextureAtlas(this.getTextureAtlasFilepaths()[1]);
         TextureRegion defaultTexture = atlas.findRegion("idle");
 
         WeaponAnimationRenderComponent animator =
@@ -184,5 +145,27 @@ public class WeaponFactory {
         logger.info("Created collectible entity: " + collectible);
 
         return meleeEntity;
+    }
+    @Override
+    protected String[] getTextureFilepaths() {
+        return new String[]{
+                "images/Weapons/sword1.png",
+                "images/Weapons/shotgun4.png"
+        };
+    }
+    @Override
+    protected String[] getSoundFilepaths() {
+        return new String[]{
+                "sounds/shotgun1_f.ogg",
+                "sounds/shotgun1_r.ogg"
+        };
+    }
+
+    @Override
+    protected String[] getTextureAtlasFilepaths(){
+        return new String[]{
+                "images/Weapons/sword1.atlas",
+                "images/Weapons/shotgun4.atlas"
+        };
     }
 }

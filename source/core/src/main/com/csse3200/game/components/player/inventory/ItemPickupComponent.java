@@ -11,6 +11,7 @@ import com.csse3200.game.services.ServiceLocator;
  * A component that allows a player to interact with items
  */
 public class ItemPickupComponent extends Component {
+    private Entity lastPickedUpEntity = null;
 
     /**
      * Construct a new empty item pickup component
@@ -37,6 +38,10 @@ public class ItemPickupComponent extends Component {
         Entity itemEntity = ((BodyUserData) other.getBody().getUserData()).entity;
         if (itemEntity.getComponent(CollectibleComponent.class) == null) {
             //If the other thing does not have a 'CollectibleComponent', then it is not a Collectible entity
+            return;
+        }
+        // Avoid picking up the same entity twice
+        if (itemEntity == lastPickedUpEntity) {
             return;
         }
         //Get the Collectible that was passed into this Collectible entity

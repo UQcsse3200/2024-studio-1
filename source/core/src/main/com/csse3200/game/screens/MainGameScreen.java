@@ -3,15 +3,12 @@ package com.csse3200.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.areas.ForestGameArea;
+import com.csse3200.game.areas.*;
 import com.csse3200.game.areas.terrain.TerrainFactory;
-import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.options.GameOptions;
-import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
-import com.csse3200.game.components.npc.NPCDamageTester;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.factories.RenderFactory;
@@ -23,6 +20,7 @@ import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.rendering.Renderer;
 import com.csse3200.game.services.GameTime;
+import com.csse3200.game.services.RandomService;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.terminal.Terminal;
@@ -32,132 +30,143 @@ import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
+import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
+
 /**
  * The game screen containing the main game.
  *
- * <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens
+ * <p>Details on libGDX screens: <a href="https://happycoding.io/tutorials/libgdx/game-screens">...</a>
  */
 public class MainGameScreen extends ScreenAdapter {
-  private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
+    private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
+    private final PlayerFactory playerFactory;
 
-  private static final String[] mainGameTextures = {
-          "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-          "images/ui_white_icons_down.png"
-  };
-  private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+    private static final String[] mainGameTextures = {
+            "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
+            "images/ui_white_icons_down.png"
+    };
+    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
+    private final GdxGame game;
+    private final Renderer renderer;
+    private final PhysicsEngine physicsEngine;
 
-  private final GdxGame game;
-  private final GameOptions gameOptions;
-  private final Renderer renderer;
-  private final PhysicsEngine physicsEngine;
+    public MainGameScreen(GdxGame game) {
+        this.game = game;
 
-  public MainGameScreen(GdxGame game) {
-    this.game = game;
+        GameOptions gameOptions = game.gameOptions;
+        logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
 
-    gameOptions = game.gameOptions;
-    logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
+        logger.debug("Initialising main game screen services");
+        ServiceLocator.registerTimeSource(new GameTime());
+        ServiceLocator.registerRandomService(new RandomService("Default Seed :p"));
 
-    logger.debug("Initialising main game screen services");
-    ServiceLocator.registerTimeSource(new GameTime());
+        PhysicsService physicsService = new PhysicsService();
+        ServiceLocator.registerPhysicsService(physicsService);
+        this.physicsEngine = physicsService.getPhysics();
 
-    PhysicsService physicsService = new PhysicsService();
-    ServiceLocator.registerPhysicsService(physicsService);
-    physicsEngine = physicsService.getPhysics();
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(new ResourceService());
 
-    ServiceLocator.registerInputService(new InputService());
-    ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRenderService(new RenderService());
 
-    ServiceLocator.registerEntityService(new EntityService());
-    ServiceLocator.registerRenderService(new RenderService());
+        this.renderer = RenderFactory.createRenderer();
+        this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
-    renderer = RenderFactory.createRenderer();
-    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
-    renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+        ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());
 
-    loadAssets();
-    createUI();
+        loadAssets();
+        createUI();
 
-    logger.debug("Initialising main game screen entities");
-    TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
-    forestGameArea.create();
-  }
+        // TODO move this to a "Character Select Screen"
+        this.playerFactory = new PlayerFactory(List.of(
+                "configs/player.json"
+        ));
+        Entity player = playerFactory.createPlayer();
+        logger.debug("Initialising main game screen entities");
 
-  @Override
-  public void render(float delta) {
-    physicsEngine.update();
-    ServiceLocator.getEntityService().update();
-    renderer.render();
-
-    // Test NPC damage every 5 seconds
-    if (ServiceLocator.getTimeSource().getTime() % 5 < 0.1f) {
-      NPCDamageTester.testNPCDamage();
+        LevelFactory levelFactory = new MainGameLevelFactory();
+        GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
+                new TestGameArea(levelFactory) :
+                new MainGameArea(levelFactory);
+        mainGameArea.create(player);
     }
-  }
 
-  @Override
-  public void resize(int width, int height) {
-    renderer.resize(width, height);
-    logger.trace("Resized renderer: ({} x {})", width, height);
-  }
+    @Override
+    public void render(float delta) {
+        physicsEngine.update();
+        ServiceLocator.getEntityService().update();
+        ServiceLocator.getGameAreaService().update();
+        renderer.render();
+    }
 
-  @Override
-  public void pause() {
-    logger.info("Game paused");
-  }
+    @Override
+    public void resize(int width, int height) {
+        renderer.resize(width, height);
+        logger.trace("Resized renderer: ({} x {})", width, height);
+    }
 
-  @Override
-  public void resume() {
-    logger.info("Game resumed");
-  }
+    @Override
+    public void pause() {
+        logger.info("Game paused");
+    }
 
-  @Override
-  public void dispose() {
-    logger.debug("Disposing main game screen");
+    @Override
+    public void resume() {
+        logger.info("Game resumed");
+    }
 
-    renderer.dispose();
-    unloadAssets();
+    @Override
+    public void dispose() {
+        logger.debug("Disposing main game screen");
 
-    ServiceLocator.getEntityService().dispose();
-    ServiceLocator.getRenderService().dispose();
-    ServiceLocator.getResourceService().dispose();
+        renderer.dispose();
+        playerFactory.dispose();
+        unloadAssets();
 
-    ServiceLocator.clear();
-  }
+        ServiceLocator.getEntityService().dispose();
+        ServiceLocator.getRenderService().dispose();
+        ServiceLocator.getResourceService().dispose();
 
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(mainGameTextures);
-    ServiceLocator.getResourceService().loadAll();
-  }
+        ServiceLocator.clear();
+    }
 
-  private void unloadAssets() {
-    logger.debug("Unloading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.unloadAssets(mainGameTextures);
-  }
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(mainGameTextures);
+        ServiceLocator.getResourceService().loadAll();
+    }
 
-  /**
-   * Creates the main game's ui including components for rendering ui elements to the screen and
-   * capturing and handling ui input.
-   */
-  private void createUI() {
-    logger.debug("Creating ui");
-    Stage stage = ServiceLocator.getRenderService().getStage();
-    InputComponent inputComponent =
-        ServiceLocator.getInputService().getInputFactory().createForTerminal();
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(mainGameTextures);
+    }
 
-    Entity ui = new Entity();
-    ui.addComponent(new InputDecorator(stage, 10))
-        .addComponent(new PerformanceDisplay())
-        .addComponent(new MainGameActions(this.game))
-        .addComponent(new MainGameExitDisplay())
-        .addComponent(new Terminal())
-        .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay());
+    /**
+     * Creates the main game's ui including components for rendering ui elements to the screen and
+     * capturing and handling ui input.
+     */
+    private void createUI() {
+        logger.debug("Creating ui");
+        Stage stage = ServiceLocator.getRenderService().getStage();
+        InputComponent inputComponent =
+                ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
-    ServiceLocator.getEntityService().register(ui);
-  }
+        Entity ui = new Entity();
+        ui.addComponent(new InputDecorator(stage, 10))
+                .addComponent(new PerformanceDisplay())
+                .addComponent(new MainGameActions(this.game))
+                .addComponent(new MainGameExitDisplay())
+                .addComponent(new Terminal())
+                .addComponent(inputComponent)
+                .addComponent(new TerminalDisplay());
+
+        ServiceLocator.getEntityService().register(ui);
+    }
 }

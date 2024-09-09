@@ -13,7 +13,7 @@ public class Shotgun extends RangedWeapon {
         int damage = 30;
         int range = 5;
         int fireRate = 5;
-        int ammo = 10;
+        int ammo = 20;
         int maxAmmo = 20;
         int reloadTime = 3;
         setDamage(damage);

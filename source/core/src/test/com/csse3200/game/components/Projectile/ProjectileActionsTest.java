@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.MainGameArea;
-import com.csse3200.game.areas.MainGameLevelFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
@@ -40,7 +39,7 @@ class ProjectileActionsTest {
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
-        ServiceLocator.registerGameAreaService(new GameAreaService(new MainGameArea(new MainGameLevelFactory())));
+        ServiceLocator.registerGameAreaService(new GameAreaService(mock(MainGameArea.class)));
         ServiceLocator.registerTimeSource(gameTime);
 
         //load in the current default texture.

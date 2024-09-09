@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.MainGameArea;
-import com.csse3200.game.areas.MainGameLevelFactory;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
@@ -23,7 +22,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,7 +42,7 @@ class WeaponProjectileTest {
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
         ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerGameAreaService(new GameAreaService(new MainGameArea(new MainGameLevelFactory())));
+        ServiceLocator.registerGameAreaService(new GameAreaService(mock(MainGameArea.class)));
 
         ServiceLocator.getGameAreaService().getGameArea()
                 .setTerrain(new TerrainComponent(

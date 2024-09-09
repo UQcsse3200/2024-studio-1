@@ -1,16 +1,12 @@
 package com.csse3200.game.components.Projectile;
 
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.MainGameArea;
-import com.csse3200.game.areas.MainGameLevelFactory;
-import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.WeaponComponent;
-import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
@@ -24,7 +20,6 @@ import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.Vector2Utils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,7 +44,7 @@ class ProjectileAttackComponentTest {
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
         ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerGameAreaService(new GameAreaService(new MainGameArea(new MainGameLevelFactory())));
+        ServiceLocator.registerGameAreaService(new GameAreaService(mock(MainGameArea.class)));
 
 
         //load in the current default texture.

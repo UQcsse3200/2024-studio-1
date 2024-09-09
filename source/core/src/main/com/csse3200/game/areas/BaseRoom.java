@@ -27,7 +27,7 @@ public abstract class BaseRoom implements Room {
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
-
+    public final StairFactory stairFactory;
     private List<String> roomConnections;
     protected List<Entity> doors;
     protected List<Entity> enemies;
@@ -59,11 +59,13 @@ public abstract class BaseRoom implements Room {
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
+            StairFactory stairFactory,
             List<String> roomConnections,
             String specification) {
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;
+        this.stairFactory = stairFactory;
         this.roomConnections = roomConnections;
         this.doors = new ArrayList<>();
 
@@ -144,7 +146,6 @@ public abstract class BaseRoom implements Room {
         // } 
         this.enemies.clear();
     }
-
 
     /**
      * Spawn the terrain of the room, including the walls and background of the map.

@@ -42,6 +42,7 @@ public abstract class BaseRoom implements Room {
     List<List<String>> animalSpecifications;
     List<List<String>> itemSpecifications;
     protected Boolean isBossRoom = false;
+    private boolean isRoomCompleted = false;
 
     private static final float WALL_THICKNESS = 0.15f;
 
@@ -162,10 +163,15 @@ public abstract class BaseRoom implements Room {
     }
 
     public void spawn(Entity player, MainGameArea area) {
-        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
+        
         this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
         this.spawnDoors(area, player);
-        this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
+
+        if (!isRoomCompleted) {
+            createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
+            this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
+        }
+            
         // FIXME
         // logger.info("Spawning items:");
         // int itemGroup = Integer.parseInt(split.get(5));
@@ -226,6 +232,7 @@ public abstract class BaseRoom implements Room {
             area.spawnEntityAt(enemy, randomPos, true, true);
             enemy.getEvents().addListener("died",()->{
                if(this.isAllAnimalDead())
+                   this.isRoomCompleted = true;
                    this.spawnItems();
             });
         }

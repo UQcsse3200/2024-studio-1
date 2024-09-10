@@ -16,6 +16,7 @@ import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
+import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -70,6 +71,11 @@ public class PlayerFactory extends LoadedFactory {
         TextureRegion defaultTexture = atlas.findRegion("idle");
 
         InventoryComponent inventoryComponent = new InventoryComponent();
+        WeaponAnimationRenderComponent animatorWeapon =
+                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/shotgun4.atlas"));
+        animatorWeapon.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+        animatorWeapon.addAnimation("left", 0.2f, Animation.PlayMode.LOOP);
+
         Entity player = new Entity()
                 .addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
@@ -83,6 +89,8 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController())
+                .addComponent(animatorWeapon)
+                .addComponent(new WeaponAnimationController())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
                 .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC))

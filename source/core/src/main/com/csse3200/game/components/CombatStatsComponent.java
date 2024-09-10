@@ -147,18 +147,34 @@ public class CombatStatsComponent extends Component {
         buff = (buff + buffedAttack);
     }
 
+    /**
+     * gets the total extra damage from buff
+     * @return buff value
+     */
     public int getDamageBuff() {
         return buff;
     }
 
+    /**
+     * gets max damage cap
+     * @return int of maximum damage
+     */
     public int getMaxDamage() {
         return 200;
     }
 
+    /**
+     * increases total armor to reduce additional damage
+     * @param additionalArmor increases total armor
+     */
     public void increaseArmor(int additionalArmor) {
         armor = Math.min(armor + additionalArmor, 100);
     }
 
+    /**
+     * Gets armor value
+     * @return value of armor
+     */
     public int getArmor() {
         return armor;
     }

@@ -204,8 +204,7 @@ public class CombatStatsComponent extends Component {
     /**
      *Returns if the entity can be invincible
      * 
-     * @returns canBeInvincible 
-     *
+     * @return boolean canbeInvincible 
      */
     public boolean getCanBeInvincible() {
         return this.canBeInvincible;

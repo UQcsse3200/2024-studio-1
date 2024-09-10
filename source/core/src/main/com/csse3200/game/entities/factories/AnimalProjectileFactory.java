@@ -31,9 +31,9 @@ public class AnimalProjectileFactory extends ProjectileFactory {
      * Makes a new Entity with projectile components.
      *
      * @param stats     Contains all the re-usable projectile configurations. See ProjectileConfig.
-     * @param direction  
-     * @param  parentPosition
-     * @return Entity 
+     * @param direction  the Vector2 where the projectile is launched 
+     * @param  parentPosition the origin point for the projectile 
+     * @return Entity the returned projectile Entity
      */
     @Override
     public Entity createProjectile(ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {

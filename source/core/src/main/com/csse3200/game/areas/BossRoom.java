@@ -15,26 +15,26 @@ import com.csse3200.game.entities.factories.StairFactory;
  * these often have unique animals and rewards.
  */
 public class BossRoom extends BaseRoom {
+
     @Override
-    protected void initializeSpecifications() {
-        this.animalSpecifications = List.of(
+    protected List<List<String>> getAnimalSpecifications() {
+        return List.of(
                 //Currently there are three random animals being spawned in base on the level the player is in. Bosses haven't been implemented thus using
                 //currently available animals.
-                List.of("Rat"),//change to boss 1
+                List.of("Werewolf"),//boss 1
                 List.of("Minotaur"),//boss 2
-                List.of("Bear"),// boss 4
-                List.of("Werewolf")//boss 3
+                List.of("Bear")// boss 3
         );
+    }
 
-
-        this.itemSpecifications = List.of(
+    @Override
+    protected List<List<String>> getItemSpecifications() {
+        return List.of(
                 //List of three lists of items for 3 different levels to be spawned in base on which level player is in.
                 List.of("buff:energydrink:High", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
                 List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink:High", "item:shieldpotion"),
                 List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High")
         );
-
-        this.isBossRoom = true;
     }
 
     /**

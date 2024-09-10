@@ -16,12 +16,11 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /**
  * Abstract base class representing a room in the game.
  * <p>
- * The {@code BaseRoom} class provides the foundation for creating and managing a room in the game. 
- * It includes functionality for spawning terrain, walls, enemies, and items, as well as managing 
+ * The {@code BaseRoom} class provides the foundation for creating and managing a room in the game.
+ * It includes functionality for spawning terrain, walls, enemies, and items, as well as managing
  * connections to other rooms and handling room completion status.
  * </p>
  */
@@ -40,6 +39,7 @@ public abstract class BaseRoom implements Room {
      * The list of enemy entities in the room.
      */
     protected List<Entity> enemies;
+    //protected List<String> items;
 
     /**
      * The list of collectible item entities in the room.
@@ -90,7 +90,7 @@ public abstract class BaseRoom implements Room {
      * Indicates whether the room is a boss room.
      */
     protected Boolean isBossRoom = false;
-    
+
     private boolean isRoomCompleted = false;
 
     private static final float WALL_THICKNESS = 0.15f;
@@ -98,7 +98,7 @@ public abstract class BaseRoom implements Room {
     // Constructor and other methods remain unchanged
     /**
      * Constructs a {@code BaseRoom} with the specified factories, room connections, and room specification.
-     * 
+     *
      * @param npcFactory         the NPC factory used to create NPCs in the room
      * @param collectibleFactory the Collectible factory used to create collectible items in the room
      * @param terrainFactory     the Terrain factory used to create terrain in the room
@@ -118,8 +118,8 @@ public abstract class BaseRoom implements Room {
         this.doors = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.items = new ArrayList<>();
-
-        initializeSpecifications();
+        this.animalSpecifications = getAnimalSpecifications();
+        this.itemSpecifications = getItemSpecifications();
 
         List<String> split = Arrays.stream(specification.split(",")).toList();
 
@@ -134,21 +134,20 @@ public abstract class BaseRoom implements Room {
         );
         this.animalGroup = Integer.parseInt(split.get(4));
         this.itemGroup = Integer.parseInt(split.get(5));
-
+        this.items = new ArrayList<>(this.itemSpecifications
+                .get(this.itemGroup)
+                .stream().map(this.collectibleFactory::createCollectibleEntity)
+                .toList());
         this.specification = specification;
     }
 
-    /**
-     * Initializes the specifications for animals and items in the room.
-     * <p>
-     * This method must be implemented by subclasses to provide specific initialization logic.
-     * </p>
-     */
-    protected abstract void initializeSpecifications();
+    protected abstract List<List<String>> getAnimalSpecifications();
+
+    protected abstract List<List<String>> getItemSpecifications();
 
     /**
      * Creates enemies for the room based on the provided animal specifications.
-     * 
+     *
      * @param animals the list of specifications for the animals
      * @param player  the main player character for the room
      */
@@ -161,7 +160,7 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Creates and spawns walls around the room.
-     * 
+     *
      * @param area         the game area to spawn the walls in
      * @param thickness    the thickness of the walls
      * @param tileBounds   the bounds of the tile map
@@ -181,7 +180,7 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Creates and spawns a wall entity at the specified position.
-     * 
+     *
      * @param area     the game area to spawn the wall in
      * @param width    the width of the wall
      * @param height   the height of the wall
@@ -196,7 +195,7 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Adjusts the position of a wall entity.
-     * 
+     *
      * @param wall      the wall entity to adjust
      * @param offsetX   the offset in the X direction
      * @param offsetY   the offset in the Y direction
@@ -224,7 +223,7 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawns the terrain for the room, including walls and background.
-     * 
+     *
      * @param area          the game area to spawn the terrain in
      * @param wallThickness the thickness of the walls
      * @param isBossRoom    whether the room is a boss room
@@ -243,7 +242,7 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawns the room with terrain, doors, enemies, and items.
-     * 
+     *
      * @param player the main player character for the room
      * @param area   the game area to spawn the room in
      */
@@ -254,7 +253,7 @@ public abstract class BaseRoom implements Room {
             createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
         }
-       // makeAllAnimalDead();
+        makeAllAnimalDead();
     }
 
     /**
@@ -271,7 +270,7 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Checks if the room is complete.
-     * 
+     *
      * @return {@code true} if the room is complete, {@code false} otherwise
      */
     public boolean getIsRoomComplete() {
@@ -281,7 +280,7 @@ public abstract class BaseRoom implements Room {
     /**
      * Checks if all animals in the room are dead.
      * If all animals are dead, the room is marked as complete.
-     * 
+     *
      * @return {@code true} if all animals are dead, {@code false} otherwise
      */
     public boolean isAllAnimalDead() {
@@ -298,7 +297,7 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawns a collectible item in the room at the specified location.
-     * 
+     *
      * @param area          the game area to spawn the item in
      * @param specification the specification of the item to spawn
      * @param pos           the location to spawn the item at
@@ -333,7 +332,7 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawns animals in the room based on the provided specifications.
-     * 
+     *
      * @param area   the game area to spawn the animals in
      * @param player the player character for the animals to target
      * @param min    the minimum position for spawning animals
@@ -351,12 +350,14 @@ public abstract class BaseRoom implements Room {
                 this.spawnItems();
             });
         }
+        //this will make all animals commit suicide 
+        //makeAllAnimalDead();
     }
 
     /**
      * Spawns doors for the room based on the room connections.
      * Ensures that door connections are properly initialized and creates doors at appropriate positions.
-     * 
+     *
      * @param area   the game area to spawn the doors in
      * @param player the main player character for the doors to interact with
      */

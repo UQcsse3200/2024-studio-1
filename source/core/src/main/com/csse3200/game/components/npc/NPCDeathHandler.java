@@ -37,7 +37,7 @@ public class NPCDeathHandler extends Component {
      * Handles the death of the entity by playing the death animation,
      * disabling physics and AI components, and scheduling the entity's removal from the game.
      */
-    private void onDeath() {
+    protected void onDeath() {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());
@@ -48,15 +48,14 @@ public class NPCDeathHandler extends Component {
             }
 
             // Disable physics and AI components to prevent further interaction
-            entity.getComponent(PhysicsComponent.class).setEnabled(false);
-            entity.getComponent(AITaskComponent.class).setEnabled(false);
+            //entity.getComponent(PhysicsComponent.class).setEnabled(false);
+            //entity.getComponent(AITaskComponent.class).setEnabled(false);
 
             // Schedule entity removal after the death animation completes
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    ServiceLocator.getEntityService().unregister(entity);
-                    entity.dispose();
+                    ServiceLocator.getGameAreaService().getGameArea().disposeEntity(entity);
                     deadEntities.remove(Integer.valueOf(entity.getId()));
                 }
             }, DEATH_ANIMATION_DURATION);

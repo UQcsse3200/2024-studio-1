@@ -74,7 +74,6 @@ public class MainGameArea extends GameArea {
 
         changeLevel(0);
 
-
         playMusic();
     }
 
@@ -89,14 +88,6 @@ public class MainGameArea extends GameArea {
 
     public Room getCurrentRoom() {
         return currentRoom;
-    }
-
-    public boolean isRoomFresh(Room currentRoom) {
-        if (roomsVisited.contains(currentRoom)) {
-            return false;
-        }
-        roomsVisited.add(currentRoom);
-        return true;
     }
 
     private void selectRoom(String roomKey) {
@@ -192,8 +183,6 @@ public class MainGameArea extends GameArea {
     protected String[] getTextureAtlasFilepaths() {
         return new String[]{
                 "images/terrain_iso_grass.atlas",
-                "images/ghost.atlas",
-                "images/ghostKing.atlas"
         };
     }
 
@@ -211,6 +200,22 @@ public class MainGameArea extends GameArea {
         List<String> filepaths = new ArrayList<>();
         String[] commonTextures = {
                 "images/box_boy_leaf.png",
+                "images/tile_1.png",
+                "images/tile_2.png",
+                "images/tile_3.png",
+                "images/tile_4.png",
+                "images/tile_5.png",
+                "images/tile_6.png",
+                "images/tile_7.png",
+                "images/tile_8.png",
+                "images/tile_middle.png",
+                "images/tile_general.png",
+                "images/tile_broken1.png",
+                "images/tile_broken2.png",
+                "images/tile_broken3.png",
+                "images/tile_staircase.png",
+                "images/tile_staircase_down.png",
+                "images/tile_blood.png",
                 "images/rounded_door_v.png",
                 "images/rounded_door_h.png",
                 "images/staircase.png"

@@ -105,6 +105,10 @@ public class MainGameScreen extends ScreenAdapter {
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
 
         // TODO move this to a "Character Select Screen"
+        /**
+         * based on the characters selected, changed the link
+         * If Player choose Load, then create
+         */
         this.playerFactory = new PlayerFactory(List.of(
                 "configs/player.json"
         ));

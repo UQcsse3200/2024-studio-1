@@ -20,20 +20,27 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected float attackRange;
     protected float attackCooldown;
     protected float timeSinceLastAttack;
-    protected int damage;
     protected CombatStatsComponent combatStats;
     protected List<Effect> effects;
     protected NPCConfigs.NPCConfig.EffectConfig[] effectConfigs;
     protected static final Logger logger = LoggerFactory.getLogger(MeleeAttackComponent.class);
 
 
-    public AttackComponent(Entity target, float attackRange, float attackRate, int damage,
+    /**
+     * Makes an attack component 
+     *
+     * @param target 
+     * @param attackRange 
+     * @param attackRate 
+     * @param effectConfigs 
+     */
+    public AttackComponent(Entity target, float attackRange, float attackRate,
                                 NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
         this.target = target;
         this.attackRange = attackRange;
         this.attackCooldown = 1/attackRate;
-        this.damage = damage;
         this.effectConfigs = effectConfigs;
+        this.timeSinceLastAttack = attackCooldown;
     }
 
     @Override
@@ -63,7 +70,13 @@ public abstract class AttackComponent extends Component implements AttackBehavio
             effect.apply(target);
         }
     }
-
+    
+    /**
+     * Makes Effects
+     *
+     * @param list of effectConfig 
+     * @return List of effects
+     */
     private List<Effect> createEffects(NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
         List<Effect> effects = new ArrayList<>();
         if (effectConfigs != null) {

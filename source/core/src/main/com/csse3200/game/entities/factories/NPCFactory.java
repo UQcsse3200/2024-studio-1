@@ -2,6 +2,7 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.NPCAnimationController;
@@ -67,6 +68,7 @@ public class NPCFactory extends LoadedFactory {
       case "Minotaur" -> this.createMinotaur(target);
       case "Werewolf" -> this.createWerewolf(target);
       case "Birdman" -> this.createBirdman(target);
+      case "Kitsune" -> this.createKitsune(target);
       default -> throw new IllegalArgumentException("Unknown animal: " + specification);
     };
   }
@@ -85,10 +87,26 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
-   * Creates a rat entity with predefined components and behaviour.
+   * Creates a kitsune boss entity with predefined components and behaviour.
    *
    * @param target entity to chase
-   * @return the created rat entity
+   * @return the kitsune entity
+   */
+  public Entity createKitsune(Entity target) {
+    NPCConfigs.NPCConfig config = configs.kitsune;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
+    Entity kitsune = createBaseNPC(target, aiComponent, config, animator);
+    kitsune.addComponent(new RangeAttackComponent(target, config.tasks.shoot.attackRange, config.tasks.shoot.attackRate,
+            0, config.effects));
+    return kitsune; 
+  }
+
+  /**
+   * Creates a dragon entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the dragon entity
    */
   public Entity createDragon(Entity target) {
     NPCConfigs.NPCConfig config = configs.dragon;
@@ -212,10 +230,42 @@ public class NPCFactory extends LoadedFactory {
    */
   public Entity createWerewolf(Entity target) {
     NPCConfigs.NPCConfig config = configs.werewolf;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    BossAITaskComponent aiComponent = new BossAITaskComponent();
+    aiComponent.addTask(new ChaseTask(target, config.tasks.chase));
+    aiComponent.addTask(new ChargeTask(target, config.tasks.charge));
+    aiComponent.addTask(new WanderTask(config.tasks.wander));
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
-    Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
+    Entity werewolf = createBaseNPC(target, config, animator);
+    werewolf.addComponent(aiComponent);
     return werewolf;
+  }
+  /**
+   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
+   *
+   * @param target The target entity for the NPC to chase.
+   * @param aiComponent The AI component to be added to the NPC.
+   * @param config The configuration for the NPC.
+   * @param animator The animator component for the NPC.
+   *
+   * @return The created NPC entity.
+   */
+  private static Entity createBaseNPC(Entity target, NPCConfigs.NPCConfig config,
+                                      AnimationRenderComponent animator) {
+    Entity npc = new Entity()
+            .addComponent(new PhysicsComponent())
+            .addComponent(new PhysicsMovementComponent())
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(new MeleeAttackComponent(target, config.attackRange, config.attackRate, config.effects))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDeathHandler()) 
+            .addComponent(new DirectionalNPCComponent(config.isDirectional))
+            .addComponent(new NPCAnimationController());
+    PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+    npc.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return npc;
   }
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
@@ -320,6 +370,7 @@ public class NPCFactory extends LoadedFactory {
             "images/npc/bear/bear.atlas",
             "images/npc/dog/dog.atlas",
             "images/npc/werewolf/werewolf.atlas",
+            "images/npc/kitsune/kitsune.atlas",
             "images/npc/birdman/birdman.atlas"
     };
   }
@@ -338,6 +389,7 @@ public class NPCFactory extends LoadedFactory {
             "images/npc/bear/bear.png",
             "images/bear.png",
             "images/npc/werewolf/werewolf.png",
+            "images/npc/kitsune/kitsune.png",
             "images/npc/birdman/birdman.png"
     };
   }

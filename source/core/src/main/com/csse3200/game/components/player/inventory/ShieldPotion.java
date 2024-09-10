@@ -26,6 +26,8 @@ public class ShieldPotion extends UsableItem {
     @Override
     public void apply(Entity entity) {
         charges = 2; // Activate the shield with full charges
+        entity.getEvents().trigger("shieldActivated");
+         entity.getEvents().addListener("hit", () -> negateHit(entity));
         entity.getComponent(ShieldComponent.class).activateShield();
         entity.getEvents().addListener("hit", () -> negateHit(entity));
     }
@@ -42,6 +44,7 @@ public class ShieldPotion extends UsableItem {
             System.out.println("Negated a hit! Remaining charges: " + charges);
             if (charges == 0) {
                 System.out.println("Shield depleted");
+                entity.getEvents().trigger("shieldDeactivated");
                 entity.getComponent(ShieldComponent.class).deactivateShield();
             }
         }
@@ -73,6 +76,7 @@ public class ShieldPotion extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
+        super.drop(inventory);
     }
 
     /**
@@ -115,6 +119,7 @@ public class ShieldPotion extends UsableItem {
      * @param entity the entity from which the shield is removed.
      */
     public void removeShield(Entity entity) {
-        //entity.getEvents().removeListener();
+        entity.getEvents().trigger("shieldDeactivated");
     }
 }
+

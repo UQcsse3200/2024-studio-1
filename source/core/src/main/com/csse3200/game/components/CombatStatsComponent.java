@@ -19,20 +19,17 @@ public class CombatStatsComponent extends Component {
     private int health;
     private int baseAttack;
     private int armor;
-    private int buff;
     private boolean isInvincible;
     private static final int timeInvincible = 150;
     private final Timer timer;
-    private int maxDamage = 200;
+    private static int buffedAttack;
 
-
-    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
         this.baseAttack = baseAttack;
         this.armor = armor;
-        this.buff = buff;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
@@ -40,7 +37,7 @@ public class CombatStatsComponent extends Component {
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
-        this(health, baseAttack, false, 0, 0);
+        this(health, baseAttack, false, 0);
     }
 
     /**
@@ -121,29 +118,11 @@ public class CombatStatsComponent extends Component {
      * @param buffedAttack increased Damage
      */
 
-    public void addAttack(int buffedAttack)
-    {
-        buff = Math.min(buff + buffedAttack, 200);
-    }
-
-    /**
-     * Checks the max damage value
-     *
-     * @return max damage
-     */
-    public int getMaxDamage() {return maxDamage;}
-
-    public int getDamageBuff() {return buff;}
+    public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
 
     public void increaseArmor(int additionalArmor) {
-        armor = Math.min(armor + additionalArmor, 100);
+        armor = Math.max(armor + additionalArmor, 100);
     }
-
-    /**
-     * Gets the current armor of the enitity
-     * @return the entities armor value
-     */
-    public int getArmor() {return armor;}
 
     /**
      * Applies damage to the entity by reducing its health. If health drops to 0, triggers a "died" event.
@@ -179,8 +158,8 @@ public class CombatStatsComponent extends Component {
 
         float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
         int newHealth = getHealth() - (int)(attacker.getBaseAttack() * (1 - damageReduction));
-        newHealth = newHealth - buff;
         setHealth(newHealth);
+
         if (canBeInvincible) {
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();

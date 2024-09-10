@@ -1,0 +1,12 @@
+dead_corpse.png
+size: 482, 356
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dead-corpse
+  rotate: false
+  xy: 0, 0
+  size: 482, 356
+  orig: 482, 356
+  offset: 0, 0
+  index: -1

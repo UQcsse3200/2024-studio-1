@@ -22,6 +22,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
 class ChargeTaskTest {
+    // Entities and components
     private Entity target;
     private Entity chargingEntity;
     private ChargeTask chargeTask;
@@ -49,6 +50,7 @@ class ChargeTaskTest {
                 .addComponent(ai)
                 .addComponent(new DirectionalNPCComponent(true));
         chargingEntity.setPosition(0f, 0f);
+        // Configuring charge task
 
         NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig();
         config.priority = 10;
@@ -63,16 +65,16 @@ class ChargeTaskTest {
     }
 
     @Test
-    void shouldStartCharging() {
+    void shouldStartCharging() {    // To check if charge task is starting correctly
         chargeTask.start();
         assertEquals(ChargeTask.Status.ACTIVE, chargeTask.getStatus(), "ChargeTask should be active after starting");
     }
 
     @Test
     void shouldStopChargingWhenOutOfRange() {
-        chargeTask.start();
+        chargeTask.start();                // checks if the charge task stoppes when the main char goes out of range
         chargingEntity.setPosition(0f, 0f);
-        target.setPosition(20f, 20f);
+        target.setPosition(20f, 20f);   // cordinations for moving target out of range
         chargeTask.update();
 
         assertEquals(-1, chargeTask.getPriority(), "Should return low priority when target is out of charge range");
@@ -80,7 +82,7 @@ class ChargeTaskTest {
 
     @Test
     void shouldMaintainPriorityWhenInRange() {
-        chargeTask.start();
+        chargeTask.start();         // Checking if the charge tasks implementing priority if the target is in range
         chargingEntity.setPosition(0f, 0f);
         chargeTask.update();
 

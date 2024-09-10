@@ -20,6 +20,7 @@ public class Level {
         this.roomTraversals = 0;
     }
     public Room getRoom(String roomKey) {
+        System.out.println("event recognised \n\n\n\n");
         return rooms.get(roomKey);
     }
 

@@ -24,7 +24,7 @@ public class StairFactory {
      * @param idOfPlayer player id
      * @return stair: Entity
      */
-    public Entity createStair(int idOfPlayer) {
+    public static Entity createStair(int idOfPlayer) {
         stair = createBaseStair();
         playerId = idOfPlayer;
         createCollision();
@@ -56,7 +56,9 @@ public class StairFactory {
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     }
 
-    /** checks if the player wants to move to next level */
+    /**
+     * checks if the player wants to move to next level
+     */
     private static void alertGoToNextLevel(int currentLevel) {
         ServiceLocator.getAlertBoxService().showConfirmationDialog("Confirm", "Do you want to proceed to the next level?", new AlertBoxService.ConfirmationListener() {
             @Override

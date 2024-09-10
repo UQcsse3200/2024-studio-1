@@ -58,6 +58,10 @@ public class KeyMapping {
         USE_2,
         USE_3,
         USE_4,
+        /**
+         * The player action to jump to boss room.
+         */
+        ENTER_BOSS
     }
 
     /**
@@ -87,6 +91,7 @@ public class KeyMapping {
             keyMap.put(Input.Keys.NUM_1, USE_1);
             keyMap.put(Input.Keys.NUM_2, USE_2);
             keyMap.put(Input.Keys.NUM_3, USE_3);
+            keyMap.put(Input.Keys.B, ENTER_BOSS);
 
             this.keyMap = keyMap;
 

@@ -6,8 +6,10 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerStatsDisplay;
 
-
-public class DamageBuff extends BuffItem{
+/**
+ * An item that boosts your damage.
+ */
+public class DamageBuff extends BuffItem {
     private final int buff = 5;
 
     /**
@@ -20,6 +22,10 @@ public class DamageBuff extends BuffItem{
         return "damagebuff";
     }
 
+    /**
+     * get the amount the damage is buffed by.
+     * @return the amount the damages is buff by.
+     */
     public int getBuff() {
         return buff;
     }

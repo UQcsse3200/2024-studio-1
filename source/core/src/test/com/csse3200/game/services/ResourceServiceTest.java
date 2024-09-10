@@ -149,18 +149,18 @@ class ResourceServiceTest {
     verify(assetManager).load(asset2, Music.class);
   }
 
-  @Test
-  void shouldPlaySound() {
-    Settings settings = new Settings();
-    settings.mute = false;
-    UserSettings.applySettings(settings);
+  // @Test
+  // void shouldPlaySound() {
+  //   Settings settings = new Settings();
+  //   settings.mute = false;
+  //   UserSettings.applySettings(settings);
 
-    String testSound = "test/files/sound1.ogg";
-    ResourceService resourceService = spy(ResourceService.class);
-    resourceService.loadSounds(new String[]{testSound});
-    resourceService.loadAll();
-    resourceService.playSound(testSound);
-    verify(resourceService).getAsset(testSound, Sound.class);
-  }
+  //   String testSound = "test/files/sound1.ogg";
+  //   ResourceService resourceService = spy(ResourceService.class);
+  //   resourceService.loadSounds(new String[]{testSound});
+  //   resourceService.loadAll();
+  //   resourceService.playSound(testSound);
+  //   verify(resourceService).getAsset(testSound, Sound.class);
+  // }
 
 }

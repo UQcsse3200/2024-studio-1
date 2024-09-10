@@ -65,10 +65,9 @@ public class CombatStatsComponent extends Component {
      */
     private class flashSprite extends TimerTask {
         private boolean invisible = false;
-
         @Override
         public void run() {
-            if (this.invisible) {
+            if (this.invisible){
                 entity.getComponent(AnimationRenderComponent.class).setOpacity(0);
             } else {
                 entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
@@ -172,8 +171,8 @@ public class CombatStatsComponent extends Component {
     }
 
     /**
-     * Gets armor value
-     * @return value of armor
+     * Gets the current armor of the entity
+     * @return the entities armor value
      */
     public int getArmor() {
         return armor;
@@ -228,14 +227,15 @@ public class CombatStatsComponent extends Component {
             setHealth(newHealth);
             if (health <= 0) {
                 entity.getEvents().trigger("died");
+                entity.getEvents().trigger("checkAnimalsDead");
             }
         }
     }
 
     /**
-     * Returns if the entity can be invincible
+     *Returns if the entity can be invincible
      *
-     * @return boolean canbeInvincible
+     * @return boolean can be Invincible
      */
     public boolean getCanBeInvincible() {
         return this.canBeInvincible;

@@ -17,112 +17,111 @@ import org.slf4j.LoggerFactory;
  * Read the wiki for details (https://github.com/UQcsse3200/game-engine/wiki/Service-Locator).
  */
 public class ServiceLocator {
-  private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
-  private static EntityService entityService;
-  private static RenderService renderService;
-  private static PhysicsService physicsService;
-  private static GameTime timeSource;
-  private static InputService inputService;
-  private static ResourceService resourceService;
-  private static GameAreaService gameAreaService;
-  private static RandomService randomService;
+    private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
+    private static EntityService entityService;
+    private static RenderService renderService;
+    private static PhysicsService physicsService;
+    private static GameTime timeSource;
+    private static InputService inputService;
+    private static ResourceService resourceService;
+    private static GameAreaService gameAreaService;
+    private static RandomService randomService;
 
-  private static AlertBoxService alertBoxService;
+    private static AlertBoxService alertBoxService;
 
+    public static EntityService getEntityService() {
+        return entityService;
+    }
 
-  public static EntityService getEntityService() {
-    return entityService;
-  }
+    public static RenderService getRenderService() {
+        return renderService;
+    }
 
-  public static RenderService getRenderService() {
-    return renderService;
-  }
+    public static PhysicsService getPhysicsService() {
+        return physicsService;
+    }
 
-  public static PhysicsService getPhysicsService() {
-    return physicsService;
-  }
+    public static GameTime getTimeSource() {
+        return timeSource;
+    }
 
-  public static GameTime getTimeSource() {
-    return timeSource;
-  }
+    public static InputService getInputService() {
+        return inputService;
+    }
 
-  public static InputService getInputService() {
-    return inputService;
-  }
+    public static ResourceService getResourceService() {
+        return resourceService;
+    }
 
-  public static ResourceService getResourceService() {
-    return resourceService;
-  }
+    public static GameAreaService getGameAreaService() {
+        return gameAreaService;
+    }
 
-  public static GameAreaService getGameAreaService() {
-    return gameAreaService;
-  }
+    public static RandomService getRandomService() {
+        return randomService;
+    }
 
-  public static RandomService getRandomService() {
-    return randomService;
-  }
+    public static AlertBoxService getAlertBoxService() {
+        return alertBoxService;
 
-  public static AlertBoxService getAlertBoxService() {
-    return alertBoxService;
+    }
 
-  }
+    public static void registerEntityService(EntityService service) {
+        logger.debug("Registering entity service {}", service);
+        entityService = service;
+    }
 
-  public static void registerEntityService(EntityService service) {
-    logger.debug("Registering entity service {}", service);
-    entityService = service;
-  }
+    public static void registerRenderService(RenderService service) {
+        logger.debug("Registering render service {}", service);
+        renderService = service;
+    }
 
-  public static void registerRenderService(RenderService service) {
-    logger.debug("Registering render service {}", service);
-    renderService = service;
-  }
+    public static void registerPhysicsService(PhysicsService service) {
+        logger.debug("Registering physics service {}", service);
+        physicsService = service;
+    }
 
-  public static void registerPhysicsService(PhysicsService service) {
-    logger.debug("Registering physics service {}", service);
-    physicsService = service;
-  }
+    public static void registerTimeSource(GameTime source) {
+        logger.debug("Registering time source {}", source);
+        timeSource = source;
+    }
 
-  public static void registerTimeSource(GameTime source) {
-    logger.debug("Registering time source {}", source);
-    timeSource = source;
-  }
+    public static void registerInputService(InputService source) {
+        logger.debug("Registering input service {}", source);
+        inputService = source;
+    }
 
-  public static void registerInputService(InputService source) {
-    logger.debug("Registering input service {}", source);
-    inputService = source;
-  }
+    public static void registerResourceService(ResourceService source) {
+        logger.debug("Registering resource service {}", source);
+        resourceService = source;
+    }
 
-  public static void registerResourceService(ResourceService source) {
-    logger.debug("Registering resource service {}", source);
-    resourceService = source;
-  }
+    public static void registerGameAreaService(GameAreaService source) {
+        logger.debug("Registering gameArea service {}", source);
+        gameAreaService = source;
+    }
 
-  public static void registerGameAreaService(GameAreaService source) {
-    logger.debug("Registering gameArea service {}", source);
-    gameAreaService = source;
-  }
+    public static void registerRandomService(RandomService source) {
+        logger.debug("Registering random service {}", source);
+        randomService = source;
+    }
 
-  public static void registerRandomService(RandomService source) {
-    logger.debug("Registering random service {}", source);
-    randomService = source;
-  }
+    public static void registerAlertBoxService(AlertBoxService source) {
+        logger.debug("Registering alertBox service {}", source);
+        alertBoxService = source;
+    }
 
-  public static void registerAlertBoxService(AlertBoxService source) {
-    logger.debug("Registering alertBox service {}", source);
-    alertBoxService = source;
-  }
+    public static void clear() {
+        entityService = null;
+        renderService = null;
+        physicsService = null;
+        timeSource = null;
+        inputService = null;
+        resourceService = null;
+        gameAreaService = null;
+    }
 
-  public static void clear() {
-    entityService = null;
-    renderService = null;
-    physicsService = null;
-    timeSource = null;
-    inputService = null;
-    resourceService = null;
-    gameAreaService = null;
-  }
-
-  private ServiceLocator() {
-    throw new IllegalStateException("Instantiating static util class");
-  }
+    private ServiceLocator() {
+        throw new IllegalStateException("Instantiating static util class");
+    }
 }

@@ -1,11 +1,13 @@
 package com.csse3200.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
-import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.factories.PlayerFactory;
@@ -20,10 +22,7 @@ import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.rendering.Renderer;
-import com.csse3200.game.services.GameTime;
-import com.csse3200.game.services.RandomService;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.services.*;
 import com.csse3200.game.ui.terminal.Terminal;
 import com.csse3200.game.ui.terminal.TerminalDisplay;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
@@ -31,7 +30,6 @@ import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.List;
 
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
@@ -47,10 +45,25 @@ public class MainGameScreen extends ScreenAdapter {
 
     private static final String[] mainGameTextures = {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-            "images/ui_white_icons_down.png"
+            "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png"
     };
+
     private PlayerSelection playerSelection = new PlayerSelection();
-    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+
+    private static final String[] textureAtlases = {"skins/rainbow/skin/rainbow-ui.atlas"};
+
+    /**
+     * Array of font file paths used in the game.
+     * These fonts are loaded as assets and can be used for various UI elements.
+     */
+
+    private static final String[] fonts = {
+            "skins/rainbow/skin/font-button-export.fnt", "skins/rainbow/skin/font-export.fnt",
+            "skins/rainbow/skin/font-title-export.fnt"
+    };
+
+
+    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
 
     private final GdxGame game;
     private final Renderer renderer;
@@ -85,6 +98,12 @@ public class MainGameScreen extends ScreenAdapter {
         loadAssets();
         createUI();
 
+        // Register AlertBoxService
+        Skin skin = new Skin(Gdx.files.internal("skins/rainbow/skin/rainbow-ui.json"),
+                ServiceLocator.getResourceService().getAsset("skins/rainbow/skin/rainbow-ui.atlas", TextureAtlas.class));
+        Stage stage = ServiceLocator.getRenderService().getStage();
+        ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
+
         // TODO move this to a "Character Select Screen"
         /**
          * based on the characters selected, changed the link
@@ -94,13 +113,14 @@ public class MainGameScreen extends ScreenAdapter {
                 "configs/player.json"
         ));
         Entity player = playerFactory.createPlayer();
-
         logger.debug("Initialising main game screen entities");
 
         LevelFactory levelFactory = new MainGameLevelFactory();
-        GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-                new TestGameArea(levelFactory, player) :
-                new MainGameArea(levelFactory, player);
+        if (gameOptions.difficulty == TEST) {
+            new TestGameArea(levelFactory, player);
+        } else {
+            new MainGameArea(levelFactory, player);
+        }
     }
 
     @Override
@@ -146,6 +166,8 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(mainGameTextures);
+        resourceService.loadTextureAtlases(textureAtlases);
+        resourceService.loadFonts(fonts);
         ServiceLocator.getResourceService().loadAll();
     }
 

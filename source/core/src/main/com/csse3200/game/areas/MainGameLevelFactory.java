@@ -23,16 +23,17 @@ public class MainGameLevelFactory implements LevelFactory {
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),
                 new CollectibleFactory(),
-                new TerrainFactory(levelNumber),
-                new StairFactory()
+                new TerrainFactory(levelNumber)
         );
         // Sprint 4 Switch the MapGenerator to use Rooms
         Map<String, Room> rooms = new HashMap<>();
         Set<String> room_keySet = map.mapData.getPositions().keySet();
         for (String room_key : room_keySet) {
+            int itemIndex = map.mapData.getRoomDetails().get(room_key).get("item_index");
+            int animalIndex = map.mapData.getRoomDetails().get(room_key).get("animal_index");
             rooms.put(room_key, roomFactory.createRoom(
                     map.mapData.getPositions().get(room_key),
-                    "0,0,14,10,0,0"));
+                    "0,0,14,10," + animalIndex + "," + itemIndex));
         }
         //creating and adding a boss room instance into the Map containing the rooms for
         // the level
@@ -40,7 +41,6 @@ public class MainGameLevelFactory implements LevelFactory {
                 "0,0,14,10," + levelNumber + "," + levelNumber));
         return new Level(map, levelNumber, rooms);
     }
-
 
     public int getCurrentLevel() {
         return levelNum;

@@ -9,6 +9,8 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static java.lang.String.format;
 
@@ -16,6 +18,7 @@ import static java.lang.String.format;
  * Create door with necessary components
  */
 public class Door extends Entity {
+    private static final Logger log = LoggerFactory.getLogger(Door.class);
     /**
      * Door entity to track updates to entity over different function calls
      */
@@ -63,8 +66,7 @@ public class Door extends Entity {
         this.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
             Entity entity2 = (Entity) fixture2.getUserData();
             if (entity2.getId() == playerId) {
-                
-                System.out.println("this is the room " + Room);
+                log.info("this is the room {}", Room);
                 if(ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().isAllAnimalDead()) {
                     ServiceLocator.getGameAreaService().getGameArea().changeRooms(Room);
                 }

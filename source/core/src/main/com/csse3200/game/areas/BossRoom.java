@@ -11,7 +11,7 @@ import com.csse3200.game.entities.factories.StairFactory;
 
 
 /**
- * A boos room of the game,
+ * A boss room of the game,
  * these often have unique animals and rewards.
  */
 public class BossRoom extends BaseRoom {
@@ -31,9 +31,9 @@ public class BossRoom extends BaseRoom {
     protected List<List<String>> getItemSpecifications() {
         return List.of(
                 //List of three lists of items for 3 different levels to be spawned in base on which level player is in.
-                List.of("buff:energydrink", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
-                List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink", "item:shieldpotion"),
-                List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink")
+                List.of("buff:energydrink:High", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
+                List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink:High", "item:shieldpotion"),
+                List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High")
         );
     }
 
@@ -49,28 +49,24 @@ public class BossRoom extends BaseRoom {
     public BossRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
-                    StairFactory stairFactory,
                     List<String> roomConnections,
                     String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, stairFactory, roomConnections, specification);
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
     }
 
     @Override
     public void spawn(Entity player, MainGameArea area) {
         super.spawn(player, area);
-        //if (isDefeated) {
         spawnStairs(player, area);
-        // }
     }
 
     private void spawnStairs(Entity player, MainGameArea area) {
-        Entity stairs = stairFactory.createStair(player.getId());
-        GridPoint2 stairPos = stairsPosition(stairs);
+        Entity stairs = StairFactory.createStair(player.getId());
+        int x = maxGridPoint.x / 2;
+        int y = maxGridPoint.y;
+        GridPoint2 pos = new GridPoint2(x, y);
+        area.spawnEntityAt(stairs, pos, true, true);
     }
 
-    private GridPoint2 stairsPosition(Entity stairs) {
-        int x = maxGridPoint.x;
-        int y = maxGridPoint.y / 2;
-        return new GridPoint2(x, y);
-    }
+
 }

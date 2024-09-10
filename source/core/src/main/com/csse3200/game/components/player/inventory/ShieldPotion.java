@@ -2,7 +2,8 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The ShieldPotion class represents a shield potion item within the game.
@@ -13,6 +14,7 @@ import com.csse3200.game.services.ServiceLocator;
 public class ShieldPotion extends UsableItem {
 
 
+    private static final Logger log = LoggerFactory.getLogger(ShieldPotion.class);
     /**
      * The number of hits the shield can negate before being depleted (initially inactive).
      */
@@ -41,9 +43,9 @@ public class ShieldPotion extends UsableItem {
     public void negateHit(Entity entity) {
         if (charges > 0) {
             charges--;
-            System.out.println("Negated a hit! Remaining charges: " + charges);
+            log.info("Negated a hit! Remaining charges: {}", charges);
             if (charges == 0) {
-                System.out.println("Shield depleted");
+                log.info("Shield depleted");
                 entity.getEvents().trigger("shieldDeactivated");
                 entity.getComponent(ShieldComponent.class).deactivateShield();
             }

@@ -5,7 +5,6 @@ import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.components.CollectibleHitboxComponent;
-import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
@@ -31,6 +30,7 @@ public class CollectibleFactory extends LoadedFactory {
      */
     public Collectible create(String specification) {
         String[] split = specification.split(":", 2);
+
         return switch (split[0]) {
             case "melee" -> weaponFactory.create(Collectible.Type.MELEE_WEAPON, split[1]);
             case "ranged" -> weaponFactory.create(Collectible.Type.RANGED_WEAPON, split[1]);

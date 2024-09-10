@@ -61,13 +61,13 @@ public class AnimalDisplay extends UIComponent{
         Table table = new Table();
 
         String[] animalDescriptions = {
-                "A small, cunning rodent.",
-                "A loyal companion.",
-                "A mythical creature with the body of a man and the head of a bull.",
-                "A prehistoric giant.",
-                "A nocturnal flying mammal.",
-                "A slithering reptile.",
-                "Another slithering reptile."
+                "Rat - 100 Health, 10 Base Attack, 1 Attack Range, 2 Attack Rate",
+                "Dog - 300 Health, 20 Base Attack, 1.5 Attack Range, 1 Attack Rate",
+                "Minotaur - 400 Health, 35 Base Attack, 2 Attack Range, 0.5 Attack Rate",
+                "Dino - 300 Health, 10 Base Attack, 1.2 Attack Range, 1 Attack Rate",
+                "Bat - 50 Health, 10 Base Attack, 1 Attack Range, 1.2 Attack Rate",
+                "Snake - 300 Health, 10 Base Attack, 1 Attack Range, 0.8 Attack Rate",
+                "Bear - 600 Health, 35 Base Attack, 1.5 Attack Range, 0.5 Attack Rate"
         };
 
         String[] animalImagePaths = {

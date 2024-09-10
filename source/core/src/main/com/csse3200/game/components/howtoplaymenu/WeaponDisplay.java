@@ -61,27 +61,20 @@ public class WeaponDisplay extends UIComponent{
         Table table = new Table();
 
         String[] animalDescriptions = {
-                "Knife",
-                "Pickaxe",
-                "Shotgun",
+                "Shotgun - 30 dmg, 5 range, 5 rounds per second, 20 rounds per magazine",
+                "Sword - 100 dmg, 0 range, 10 fire rate, no need to reload",
         };
 
         String[] animalImagePaths = {
-                "images/Weapons/knife.png",
-                "images/Weapons/pickaxe.png",
-                "images/Weapons/shotgun.png",
+                "images/Weapons/Centered/Shotgun4_center.png",
+                "images/Weapons/Centered/Sword1_center.png",
         };
 
         for (int i = 0; i < animalDescriptions.length; i++) {
             Image animalImage = new Image(new Texture(Gdx.files.internal(animalImagePaths[i])));
             Label animalLabel = new Label(animalDescriptions[i], skin);
 
-            if (i == 1){
-                table.add(animalImage).size(240, 120).pad(10);
-            }
-            else{
-                table.add(animalImage).size(120, 120).pad(10);
-            }
+            table.add(animalImage).size(100, 100).pad(10);
             table.add(animalLabel).pad(10).left().row();
         }
 

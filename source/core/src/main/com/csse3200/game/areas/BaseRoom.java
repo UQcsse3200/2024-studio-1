@@ -15,8 +15,6 @@ import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.utils.math.GridPoint2Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This is the foundation of a room,
@@ -98,7 +96,6 @@ public abstract class BaseRoom implements Room {
     protected abstract List<List<String>> getAnimalSpecifications();
 
     protected abstract List<List<String>> getItemSpecifications();
-
 
     protected List<Entity> createEnemyEntities(List<String> animals, Entity player) {
         enemies = new ArrayList<>();

@@ -35,8 +35,6 @@ public class MedKit extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
-        super.drop(inventory);
-
     }
 
     /**
@@ -59,6 +57,7 @@ public class MedKit extends UsableItem {
         return new Texture("images/items/med_kit.png");
     }
 
+
     /**
      * Applies the Medkit to an entity, increasing its health by a large amount,
      * calls the increaseLargeBoost(entity) method
@@ -70,6 +69,7 @@ public class MedKit extends UsableItem {
         increaseLargeBoost(entity);
     }
 
+
     /**
      * Increases health by using entity's CombatStatsComponent to add Health
      *
@@ -77,6 +77,8 @@ public class MedKit extends UsableItem {
      */
     public void increaseLargeBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-        combatStats.addHealth(Large_Health_Boost);
+        int currentHealth = combatStats.getHealth();
+        int newHealth = Math.min(currentHealth + Large_Health_Boost,100);
+        combatStats.setHealth(newHealth);
     }
 }

@@ -208,8 +208,8 @@ public class TerrainFactory {
           }
 
           // staircase position
-          if (isBossRoom() && x == STAIRCASE_UP_POS.x && y == (STAIRCASE_UP_POS.y))
-            cell.setTile(tileList[12]);
+          //if (isBossRoom() && x == STAIRCASE_UP_POS.x && y == (STAIRCASE_UP_POS.y))
+            //cell.setTile(tileList[12]);
 
           layer.setCell(x, y, cell);
         }

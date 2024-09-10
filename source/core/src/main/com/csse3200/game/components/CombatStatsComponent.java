@@ -129,7 +129,7 @@ public class CombatStatsComponent extends Component {
     public int getMaxDamage() {return maxDamage;}
 
     public void increaseArmor(int additionalArmor) {
-        armor = Math.max(armor + additionalArmor, 100);
+        armor = Math.min(armor + additionalArmor, 100);
     }
 
     /**

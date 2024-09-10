@@ -2,10 +2,14 @@ package com.csse3200.game.areas;
 
 import java.util.List;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
+import com.csse3200.game.entities.factories.Door;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.StairFactory;
+import com.sun.tools.javac.Main;
 
 
 /**
@@ -15,6 +19,7 @@ import com.csse3200.game.entities.factories.StairFactory;
 public class BossRoom extends BaseRoom {
 
     private static final float WALL_THICKNESS = 0.15f;
+    private Entity stairs;
     @Override
     protected void initializeSpecifications() {
         this.animalSpecifications = List.of(
@@ -53,4 +58,20 @@ public class BossRoom extends BaseRoom {
                     String specification) {
         super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
     }
+
+    @Override
+    public void spawn(Entity player, MainGameArea area) {
+        super.spawn(player, area);
+        spawnStairs(player, area);
+    }
+
+    private void spawnStairs (Entity player, MainGameArea area) {
+        stairs = StairFactory.createStair(player.getId());
+        int x = maxGridPoint.x/2;
+        int y = maxGridPoint.y;
+        GridPoint2 pos = new GridPoint2(x,y);
+        area.spawnEntityAt(stairs, pos, true ,true);
+    }
+
+
 }

@@ -26,4 +26,6 @@ public class DamageBuffTest {
         damageBuff.effect(entity);
         assertEquals(5, entity.getComponent(CombatStatsComponent.class).getDamageBuff());
     }
+
+
 }

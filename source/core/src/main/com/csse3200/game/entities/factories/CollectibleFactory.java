@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.physics.components.CollectibleHitboxComponent;
+//import com.csse3200.game.physics.components.CollectibleHitboxComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
@@ -48,7 +48,6 @@ public class CollectibleFactory extends LoadedFactory {
     public Entity createCollectibleEntity(String specification, Collectible collectible) {
         Entity collectibleEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
-                .addComponent(new CollectibleHitboxComponent())
                 .addComponent(new PhysicsComponent());
 
         Texture texture = collectible.getIcon();

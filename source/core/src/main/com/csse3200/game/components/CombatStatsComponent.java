@@ -22,14 +22,16 @@ public class CombatStatsComponent extends Component {
     private boolean isInvincible;
     private static final int timeInvincible = 150;
     private final Timer timer;
-    private static int buffedAttack;
+    private int buff;
+    private int maxDamage = 200;
 
-    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
         this.baseAttack = baseAttack;
         this.armor = armor;
+        this.buff = buff;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
@@ -37,7 +39,7 @@ public class CombatStatsComponent extends Component {
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
-        this(health, baseAttack, false, 0);
+        this(health, baseAttack, false, 0, 0);
     }
 
     /**
@@ -118,10 +120,20 @@ public class CombatStatsComponent extends Component {
      * @param buffedAttack increased Damage
      */
 
-    public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
+    public void addAttack(int buffedAttack)
+    {
+        buff = (buff + buffedAttack);
+    }
 
+    public int getDamageBuff() {return buff;}
+
+    public int getMaxDamage() {return maxDamage; }
     public void increaseArmor(int additionalArmor) {
         armor = Math.max(armor + additionalArmor, 100);
+    }
+
+    public int getArmor() {
+        return armor;
     }
 
     /**
@@ -154,6 +166,11 @@ public class CombatStatsComponent extends Component {
     public void hit(CombatStatsComponent attacker) {
         if (isInvincible()) {
             return;
+        }
+        if (!canBeInvincible)
+        {
+            int buffedDamage = attacker.getHealth() - (attacker.getBaseAttack() + buff);
+            setHealth(buffedDamage);
         }
 
         float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)

@@ -38,8 +38,28 @@ public class MainGameArea extends GameArea {
         super();
         this.player = player;
         this.levelFactory = levelFactory;
+        player.getEvents().addListener("teleportToBoss", this::spawnBoss);
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
+    }
+
+    private void spawnBoss() {
+        this.currentRoom = currentLevel.getRoom("BOSS");
+        this.currentRoom.spawn(player, this);
+        logger.info("spawned: new room");
+        logger.info("spawning: player");
+
+        // int player_x = (int) (15 - player.getPosition().x);
+        // int player_y = (int) (9 - player.getPosition().y);
+
+
+        int player_x = 7;
+        int player_y = 5;
+
+        player.setPosition(player_x, player_y);
+        spawnEntity(player);
+        logger.info("spawned: player");
+        spawnRoom = false;
     }
 
     /**
@@ -53,6 +73,7 @@ public class MainGameArea extends GameArea {
         displayUI();
 
         changeLevel(0);
+
 
         playMusic();
     }
@@ -104,7 +125,7 @@ public class MainGameArea extends GameArea {
             return;
         }
         logger.info("spawning: new room");
-        if (currentLevel.roomTraversals == 8) {
+        if (currentLevel.roomTraversals == 8 ) {
             this.currentRoom = currentLevel.getRoom("BOSS");
         }
         this.currentRoom.spawn(player, this);

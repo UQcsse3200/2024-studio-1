@@ -69,6 +69,6 @@ public class MedkitTest {
         medkit.apply(entity);
 
         // Verify that addHealth was called with the correct amount
-        verify(combatStatsComponent).addHealth(100);
+        verify(combatStatsComponent).setHealth(expectedHealth);
     }
 }

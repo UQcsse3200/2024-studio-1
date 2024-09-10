@@ -1,6 +1,7 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 
@@ -11,7 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EnergyDrinkTest {
 
     EnergyDrink energyDrink = new EnergyDrink("Low", true);
-    Entity entity = new Entity().addComponent(new PlayerActions());
+    Entity entity = new Entity()
+            .addComponent(new PlayerActions())
+            .addComponent(new CombatStatsComponent(1, 1, true, 1));
 
     @Test
     public void getNameTest() {

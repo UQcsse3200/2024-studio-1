@@ -66,9 +66,9 @@ public class MainGameArea extends GameArea {
         //this.remove_room();
 
         this.currentRoom.removeRoom();
-        //Vector2 playerPos = this.player.getPosition();
-        //player.setPosition(playerPos);
-        //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
+        // Vector2 playerPos = this.player.getPosition();
+        // player.setPosition(playerPos);
+        // ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
 
         //this.player.getPosition();
         //player.setPosition(null);

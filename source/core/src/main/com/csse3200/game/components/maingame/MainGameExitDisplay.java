@@ -114,7 +114,7 @@ public class MainGameExitDisplay extends UIComponent {
               public void changed(ChangeEvent changeEvent, Actor actor) {
                 System.out.println("Save button clicked");
                 Label saveLabel = new Label("Game saved!", skin);
-                table.add(saveLabel).colspan(2).pad(10).row();
+                pauseTable.add(saveLabel).colspan(2).pad(10).row();
                 saveGame();
               }});
 

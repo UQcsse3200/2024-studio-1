@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
 
 /**
- * Example Weapon Collectible.
+ * Collectible Knife weapon
  */
 public class Knife extends MeleeWeapon {
 

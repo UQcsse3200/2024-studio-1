@@ -29,11 +29,11 @@ public class WeaponFactory extends LoadedFactory {
      * @param specification the specification of the weapon.
      * @return MeleeWeapon the newly created collectible of type melee weapon.
      */
-    private MeleeWeapon createMelee(String specification) {
+    private MeleeWeapon createMelee(String specification) throws IllegalArgumentException {
         return switch (specification) {
             case "knife" -> new Knife();
             case "pickaxe" -> new Pickaxe();
-            default -> new ConcreteMeleeWeapon(specification);
+            default -> throw new IllegalArgumentException("Invalid melee weapon specification: " + specification);
         };
     }
 
@@ -43,11 +43,11 @@ public class WeaponFactory extends LoadedFactory {
      * @param specification the specification of the weapon.
      * @return RangedWeapon the newly created collectible of type ranged weapon.
      */
-    private RangedWeapon createRanged(String specification) {
-        if (specification.equals("shotgun")) {
-            return new Shotgun();
-        }
-        return new ConcreteRangedWeapon(specification);
+    private RangedWeapon createRanged(String specification) throws IllegalArgumentException {
+        return switch (specification) {
+            case "shotgun" -> new Shotgun();
+            default -> throw new IllegalArgumentException("Invalid ranged weapon specification: " + specification);
+        };
     }
 
     /**

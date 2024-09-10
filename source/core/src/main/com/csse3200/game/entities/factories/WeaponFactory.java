@@ -81,7 +81,7 @@ public class WeaponFactory extends LoadedFactory {
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      */
-    public Entity createMeleeEntity(MeleeWeapon collectible) {
+    private Entity createMeleeEntity(MeleeWeapon collectible) {
 
         TextureAtlas atlas = new TextureAtlas(getTextureAtlasFilepaths()[0]);
         TextureRegion defaultTexture = atlas.findRegion("idle");
@@ -117,7 +117,7 @@ public class WeaponFactory extends LoadedFactory {
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      */
-    public Entity createRangeEntity(RangedWeapon collectible) {
+    private Entity createRangeEntity(RangedWeapon collectible) {
 
         TextureAtlas atlas = new TextureAtlas(this.getTextureAtlasFilepaths()[1]);
         TextureRegion defaultTexture = atlas.findRegion("idle");

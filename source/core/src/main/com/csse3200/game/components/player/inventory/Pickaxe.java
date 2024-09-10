@@ -10,6 +10,12 @@ import com.csse3200.game.entities.Entity;
  */
 public class Pickaxe extends MeleeWeapon {
 
+    public Pickaxe() {
+        this.setDamage(50);
+        this.setRange(0);
+        this.setFireRate(3);
+    }
+
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);

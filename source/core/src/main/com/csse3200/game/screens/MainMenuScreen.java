@@ -8,6 +8,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.services.ServiceLocator;
 
+import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
@@ -25,7 +26,7 @@ public class MainMenuScreen extends StaticScreen {
      * @param game the overarching game.
      */
     public MainMenuScreen(GdxGame game) {
-        super(game, mainMenuTextures, getLogger(MainMenuScreen.class));
+        super(game, mainMenuTextures, getLogger(MainMenuScreen.class), DEFAULT);
     }
 
     @Override

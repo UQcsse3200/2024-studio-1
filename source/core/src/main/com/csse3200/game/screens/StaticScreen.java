@@ -28,11 +28,15 @@ public abstract class StaticScreen extends ScreenAdapter {
      * @param game     the game that this screen is associated with.
      * @param textures array of textures to load.
      * @param logger   the logger for this class.
+     * @param bgColour screen background colour.
      */
-    public StaticScreen(GdxGame game, String[] textures, Logger logger) {
+    public StaticScreen(GdxGame game, String[] textures, Logger logger,
+                        GdxGame.ScreenColour bgColour) {
         this.game = game;
         this.textures = textures;
         this.logger = logger;
+
+        game.setScreenColour(bgColour);
 
         logger.debug("Initialising services for {}", this.getClass().getSimpleName());
         ServiceLocator.registerInputService(new InputService());

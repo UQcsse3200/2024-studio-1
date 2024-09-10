@@ -33,7 +33,7 @@ public class MainGameExitDisplay extends UIComponent {
   private static final float Z_INDEX = 2f;
   private static final float BTN_SPACING = 15f;
   private Table table;
-  private ImageButton mainMenuBtn;
+  private ImageButton pauseBtn;
   private Table pauseTable;
 
   @Override
@@ -75,10 +75,10 @@ public class MainGameExitDisplay extends UIComponent {
     pauseTable.setFillParent(true);
     pauseTable.setBackground(new TextureRegionDrawable(new TextureRegion(blackDotTrans)));
 
-    mainMenuBtn = new ImageButton(skin);
-    mainMenuBtn.getStyle().imageUp = new TextureRegionDrawable(icons[1][1]);
-    mainMenuBtn.getStyle().imageOver = new TextureRegionDrawable(iconsOver[1][1]);
-    mainMenuBtn.getStyle().imageDown = new TextureRegionDrawable(iconsDown[1][1]);
+    pauseBtn = new ImageButton(skin);
+    pauseBtn.getStyle().imageUp = new TextureRegionDrawable(icons[1][1]);
+    pauseBtn.getStyle().imageOver = new TextureRegionDrawable(iconsOver[1][1]);
+    pauseBtn.getStyle().imageDown = new TextureRegionDrawable(iconsDown[1][1]);
 
     TextButton resumeBtn = new TextButton("Resume", skin);
     TextButton saveBtn = new TextButton("Save", skin);
@@ -90,7 +90,7 @@ public class MainGameExitDisplay extends UIComponent {
     //window = new Image(windowTexture);
 
     // Triggers an event when the button is pressed.
-    mainMenuBtn.addListener(
+    pauseBtn.addListener(
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -124,7 +124,7 @@ public class MainGameExitDisplay extends UIComponent {
                 saveGame();
               }});
 
-    table.add(mainMenuBtn).padTop(10f).padRight(10f);
+    table.add(pauseBtn).padTop(10f).padRight(10f);
 
     pauseTable.add(resumeBtn).padTop(BTN_SPACING);
     pauseTable.row();
@@ -141,11 +141,11 @@ public class MainGameExitDisplay extends UIComponent {
   {
     InputEvent event1 = new InputEvent();
     event1.setType(InputEvent.Type.touchDown);
-    mainMenuBtn.fire(event1);
+    pauseBtn.fire(event1);
 
     InputEvent event2 = new InputEvent();
     event2.setType(InputEvent.Type.touchUp);
-    mainMenuBtn.fire(event2);
+    pauseBtn.fire(event2);
   }
 
   public class EntityCoordinates {

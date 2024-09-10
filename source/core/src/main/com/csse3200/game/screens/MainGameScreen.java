@@ -7,6 +7,7 @@ import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.entities.Entity;
@@ -19,7 +20,10 @@ import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.rendering.Renderer;
-import com.csse3200.game.services.*;
+import com.csse3200.game.services.GameTime;
+import com.csse3200.game.services.RandomService;
+import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.terminal.Terminal;
 import com.csse3200.game.ui.terminal.TerminalDisplay;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
@@ -27,6 +31,7 @@ import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
 
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
@@ -44,7 +49,8 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png"
     };
-    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
+    private PlayerSelection playerSelection = new PlayerSelection();
+    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
     private final GdxGame game;
     private final Renderer renderer;
@@ -59,16 +65,16 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen services");
         ServiceLocator.registerTimeSource(new GameTime());
         ServiceLocator.registerRandomService(new RandomService("Default Seed :p"));
+
         PhysicsService physicsService = new PhysicsService();
         ServiceLocator.registerPhysicsService(physicsService);
         this.physicsEngine = physicsService.getPhysics();
+
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
 
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
-
-        ServiceLocator.registerCollectibleFactoryService(new CollectibleFactoryService());
 
         this.renderer = RenderFactory.createRenderer();
         this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
@@ -80,10 +86,15 @@ public class MainGameScreen extends ScreenAdapter {
         createUI();
 
         // TODO move this to a "Character Select Screen"
+        /**
+         * based on the characters selected, changed the link
+         * If Player choose Load, then create
+         */
         this.playerFactory = new PlayerFactory(List.of(
                 "configs/player.json"
         ));
         Entity player = playerFactory.createPlayer();
+
         logger.debug("Initialising main game screen entities");
 
         LevelFactory levelFactory = new MainGameLevelFactory();

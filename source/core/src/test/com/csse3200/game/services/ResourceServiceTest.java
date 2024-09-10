@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.files.UserSettings;
+import com.csse3200.game.files.UserSettings.Settings;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -145,6 +147,20 @@ class ResourceServiceTest {
     resourceService.loadMusic(textures);
     verify(assetManager).load(asset1, Music.class);
     verify(assetManager).load(asset2, Music.class);
+  }
+
+  @Test
+  void shouldPlaySound() {
+    Settings settings = new Settings();
+    settings.mute = false;
+    UserSettings.applySettings(settings);
+
+    String testSound = "test/files/sound1.ogg";
+    ResourceService resourceService = spy(ResourceService.class);
+    resourceService.loadSounds(new String[]{testSound});
+    resourceService.loadAll();
+    resourceService.playSound(testSound);
+    verify(resourceService).getAsset(testSound, Sound.class);
   }
 
 }

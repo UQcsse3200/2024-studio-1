@@ -8,7 +8,7 @@ import com.csse3200.game.entities.factories.StairFactory;
 import java.util.List;
 
 public class MainRoom extends BaseRoom {
-    
+
     @Override
     protected void initializeSpecifications() {
     //,"Kitsune"
@@ -22,19 +22,18 @@ public class MainRoom extends BaseRoom {
             List.of("Rat", "Bat", "Bear"),
             List.of("Werewolf", "Werewolf", "Bear")
     );
-
-    this.itemSpecifications = List.of(
-            List.of("buff:energydrink:High", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
-            List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink:Medium", "item:shieldpotion"),
-            List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High"),
-            List.of("item:shieldpotion", "ranged:shotgun", "melee:knife", "item:medkit", "buff:energydrink:Medium"),
+    List<List<String>> itemSpecifications = List.of(
+            List.of("buff:energydrink", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
+            List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink", "item:shieldpotion"),
+            List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink"),
+            List.of("item:shieldpotion", "ranged:shotgun", "melee:knife", "item:medkit", "buff:energydrink"),
             List.of("melee:knife", "item:bandage", "ranged:shotgun", "item:shieldpotion", "item:medkit"),
-            List.of("buff:energydrink:Medium", "item:shieldpotion", "ranged:shotgun", "melee:knife", "item:bandage"),
-            List.of("item:medkit", "melee:knife", "buff:energydrink:High", "ranged:shotgun", "item:shieldpotion")
+            List.of("buff:energydrink", "item:shieldpotion", "ranged:shotgun", "melee:knife", "item:bandage"),
+            List.of("item:medkit", "melee:knife", "buff:energydrink", "ranged:shotgun", "item:shieldpotion")
     );
     }
 
-    
+
 
     public MainRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,

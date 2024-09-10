@@ -87,7 +87,7 @@ public class MainGameArea extends GameArea {
         //player.setPosition(null);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
-        if (isRoomFresh(this.currentRoom)) {
+        if (!this.currentRoom.getIsRoomComplete()) {
             this.currentLevel.roomTraversals ++;
         }
     }

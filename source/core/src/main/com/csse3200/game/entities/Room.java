@@ -21,6 +21,8 @@ public interface Room {
     void removeRoom();
 
     public boolean isAllAnimalDead();
+
+    public boolean getIsRoomComplete();
 }
 
 

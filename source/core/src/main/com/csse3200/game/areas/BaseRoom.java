@@ -17,25 +17,25 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.utils.math.GridPoint2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  * This is the foundation of a room,
  * it is able to use other factories to build the complex structures needed for a room in the game.
  * e.g. walls, terrain, items, and enemies.
  */
 public abstract class BaseRoom implements Room {
-    private static final Logger logger = LoggerFactory.getLogger(BaseRoom.class);
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
     public final StairFactory stairFactory;
-    private List<String> roomConnections;
+    private final List<String> roomConnections;
     protected List<Entity> doors;
     protected List<Entity> enemies;
     protected List<String> items;
 
     protected final String specification;
     protected final GridPoint2 minGridPoint;
-    protected final GridPoint2 maxGridPoint; 
+    protected final GridPoint2 maxGridPoint;
     protected final int animalGroup;
     protected final int itemGroup;
 
@@ -106,7 +106,7 @@ public abstract class BaseRoom implements Room {
             enemies.add(npcFactory.create(animal, player));
         }
         return enemies;
-    } 
+    }
 
     @SuppressWarnings("unused")
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
@@ -115,19 +115,19 @@ public abstract class BaseRoom implements Room {
         Entity rightWall = createAndSpawnWall(area, thickness, worldBounds.y, new GridPoint2(tileBounds.x, 0));
         Entity topWall = createAndSpawnWall(area, worldBounds.x, thickness, new GridPoint2(0, tileBounds.y));
         Entity bottomWall = createAndSpawnWall(area, worldBounds.x, thickness, GridPoint2Utils.ZERO);
-    
+
         // Adjust wall positions
         adjustWallPosition(rightWall, -thickness, 0);
         adjustWallPosition(topWall, 0, -thickness);
     }
-    
+
     // Method to create and spawn a wall
     private Entity createAndSpawnWall(GameArea area, float width, float height, GridPoint2 position) {
         Entity wall = ObstacleFactory.createWall(width, height);
         area.spawnEntityAt(wall, position, false, false);
         return wall;
     }
-    
+
     // Method to adjust the position of a wall
     private void adjustWallPosition(Entity wall, float offsetX, float offsetY) {
         Vector2 wallPos = wall.getPosition();
@@ -140,8 +140,8 @@ public abstract class BaseRoom implements Room {
     public void removeRoom() {
         for (Entity data : doors) {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
-        } 
-        
+        }
+
         // for (Entity data : enemies) {
         //     ServiceLocator.getEntityService().markEntityForRemoval(data);
         // } 
@@ -156,7 +156,7 @@ public abstract class BaseRoom implements Room {
      */
     protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
         // Background terrain
-        TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1 ,isBossRoom);
+        TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1, isBossRoom);
         area.setTerrain(terrain);
         area.spawnEntity(new Entity().addComponent(terrain));
         // Terrain walls
@@ -180,15 +180,17 @@ public abstract class BaseRoom implements Room {
         //     this.spawnItem(area, s, randomPos);
         // }
     }
-    protected void makeAllAnimalDead(){
-        for(Entity animal : enemies){
+
+    protected void makeAllAnimalDead() {
+        for (Entity animal : enemies) {
             CombatStatsComponent combatStatsComponent = animal.getComponent(CombatStatsComponent.class);
             combatStatsComponent.setHealth(0);
             combatStatsComponent.hit(combatStatsComponent);
         }
     }
-    public boolean isAllAnimalDead(){
-        for(Entity animal : enemies){
+
+    public boolean isAllAnimalDead() {
+        for (Entity animal : enemies) {
             if (!animal.getComponent(CombatStatsComponent.class).isDead())
                 return false;
         }
@@ -207,10 +209,13 @@ public abstract class BaseRoom implements Room {
         area.spawnEntityAt(item, pos, true, true);
     }
 
+    /**
+     * Spawn the items into this room.
+     */
     public void spawnItems() {
         GameArea area = ServiceLocator.getGameAreaService().getGameArea();
-        spawnItem(area,this.items.get(0),new GridPoint2(8,8));
-        spawnItem(area,this.items.get(1),new GridPoint2(6,8));
+        spawnItem(area, this.items.get(0), new GridPoint2(8, 8));
+        spawnItem(area, this.items.get(1), new GridPoint2(6, 8));
     }
 
     /**
@@ -218,21 +223,21 @@ public abstract class BaseRoom implements Room {
      *
      * @param area   the game area to spawn the NPC into.
      * @param player the player character for this npc to target.
-     * @param animal the specification of the animal to create.
-     * @param pos    the location to spawn it to.
+     * @param min    the minimum position to spawn the animal at.
+     * @param max    the maximum position to spawn the animal at.
      */
     protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
         createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
         for (Entity enemy : this.enemies) {
 
-            
-            GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1), 
-                                                  ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
+
+            GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
+                    ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
 
             area.spawnEntityAt(enemy, randomPos, true, true);
-            enemy.getEvents().addListener("died",()->{
-               if(this.isAllAnimalDead())
-                   this.spawnItems();
+            enemy.getEvents().addListener("died", () -> {
+                if (this.isAllAnimalDead())
+                    this.spawnItems();
             });
         }
         //this will make all animals commit suicide 
@@ -252,7 +257,7 @@ public abstract class BaseRoom implements Room {
         if (this.roomConnections == null || this.roomConnections.size() < 4) {
             throw new IllegalStateException("Room connections are not properly initialized.");
         }
-    
+
         // Define door connections
         List<String> connections = this.roomConnections;
         String connectN = connections.get(0);
@@ -260,39 +265,39 @@ public abstract class BaseRoom implements Room {
         String connectW = connections.get(2);
         String connectS = connections.get(3);
 
-    
+
         // Create doors and retrieve scales
         Entity[] doors = {
-            new Door('v', player.getId(), connectW), // left
-            new Door('v', player.getId(), connectE), // right
-            new Door('h', player.getId(), connectN), // bottom
-            new Door('h', player.getId(), connectS)  // top
+                new Door('v', player.getId(), connectW), // left
+                new Door('v', player.getId(), connectE), // right
+                new Door('h', player.getId(), connectN), // bottom
+                new Door('h', player.getId(), connectS)  // top
         };
-    
+
         Vector2 doorvScale = doors[0].getScale();
         Vector2 doorhScale = doors[2].getScale();
-    
+
         // Define positions and offsets
         GridPoint2[] positions = {
-            new GridPoint2(15, 5),  // For connectW
-            new GridPoint2(0, 5),   // For connectE
-            new GridPoint2(7, 0),   // For connectS
-            new GridPoint2(7, 11)   // For connectN
+                new GridPoint2(15, 5),  // For connectW
+                new GridPoint2(0, 5),   // For connectE
+                new GridPoint2(7, 0),   // For connectS
+                new GridPoint2(7, 11)   // For connectN
         };
-    
+
         Vector2[] offsets = {
-            new Vector2(-2 * doorvScale.x, 0),  // For connectW
-            new Vector2(-doorvScale.x, 0),      // For connectE
-            new Vector2(0, -doorhScale.y),      // For connectS
-            new Vector2(0, -2 * doorhScale.y)   // For connectN
+                new Vector2(-2 * doorvScale.x, 0),  // For connectW
+                new Vector2(-doorvScale.x, 0),      // For connectE
+                new Vector2(0, -doorhScale.y),      // For connectS
+                new Vector2(0, -2 * doorhScale.y)   // For connectN
         };
-    
+
         // Spawn and adjust doors
-       
+
         for (int i = 0; i < doors.length; i++) {
             String connection = connections.get(i);
             System.out.println(connections);
-            if (connection != "" && !connection.isEmpty() && connection != null) {
+            if (connection != null && !connection.isEmpty()) {
                 area.spawnEntityAt(doors[i], positions[i], true, true);
                 Vector2 doorPos = doors[i].getPosition();
                 doors[i].setPosition(doorPos.x + offsets[i].x, doorPos.y + offsets[i].y);

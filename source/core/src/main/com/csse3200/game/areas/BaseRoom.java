@@ -135,14 +135,8 @@ public abstract class BaseRoom implements Room {
      */
     public void removeRoom() {
         for (Entity data : doors) {
-            ServiceLocator.getEntityService().unregister(data);
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         } 
-
-        for (Entity curItem : this.items){
-                ServiceLocator.getEntityService().unregister(curItem);
-                ServiceLocator.getEntityService().markEntityForRemoval(curItem);
-        }
         
         // for (Entity data : enemies) {
         //     ServiceLocator.getEntityService().markEntityForRemoval(data);
@@ -194,6 +188,11 @@ public abstract class BaseRoom implements Room {
         }
     }
 
+
+    public boolean getIsRoomComplete() {
+        return this.isRoomCompleted;
+    }
+
     
     public boolean isAllAnimalDead(){
         if (enemies.isEmpty()) {
@@ -203,6 +202,7 @@ public abstract class BaseRoom implements Room {
             if (!animal.getComponent(CombatStatsComponent.class).isDead())
                 return false;
         }
+        this.isRoomCompleted = true;
         return true;
     }
 
@@ -221,9 +221,8 @@ public abstract class BaseRoom implements Room {
                     ServiceLocator.getEntityService().markEntityForRemoval(curItem);
                 }
             }
-            this.items.remove(item);
         });
-
+        this.items.add(item);
         area.spawnEntityAt(item, pos, true, true);
     }
 
@@ -254,9 +253,11 @@ public abstract class BaseRoom implements Room {
 
             area.spawnEntityAt(enemy, randomPos, true, true);
             enemy.getEvents().addListener("died",()->{
-               if(this.isAllAnimalDead())
+               if(this.isAllAnimalDead()) {
                    this.isRoomCompleted = true;
                    this.spawnItems();
+               }
+                   
             });
         }
         //this will make all animals commit suicide 
@@ -323,10 +324,5 @@ public abstract class BaseRoom implements Room {
                 System.out.println("Skipping door placement for connection: " + connection);
             }
         }
-    }
-
-
-    public boolean getIsRoomComplete() {
-        return this.isRoomCompleted;
     }
 }

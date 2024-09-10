@@ -169,6 +169,7 @@ public class CombatStatsComponent extends Component {
         if (!isInvincible()) {
             if (health <= 0) {
                 entity.getEvents().trigger("died");
+                entity.getEvents().trigger("checkAnimalsDead");
             }
         }
     }

@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import static com.csse3200.game.GdxGame.ScreenType.LOSE;
 import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
@@ -42,29 +43,26 @@ import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
  */
 public class MainGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
+    private static final String[] mainGameTextures = {
+            "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
+            "images/ui_white_icons_down.png", "flat-earth/skin/flat-earth-ui.png",
+            "images/black_dot_transparent.png"
+    };
+    private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
+    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
     private final PlayerFactory playerFactory;
-
-  private static final String[] mainGameTextures = {
-          "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-          "images/ui_white_icons_down.png", "flat-earth/skin/flat-earth-ui.png",
-          "images/black_dot_transparent.png"
-  };
-  private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
-    private PlayerSelection playerSelection = new PlayerSelection();
-  private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
+    private final PlayerSelection playerSelection = new PlayerSelection();
+    private Entity ui;
 
-  private Entity ui;
+    public MainGameScreen(GdxGame game) {
+        this.game = game;
+        game.setScreenColour(ScreenColour.DEFAULT);
 
-  public MainGameScreen(GdxGame game) {
-    this.game = game;
-      game.setScreenColour(ScreenColour.DEFAULT);
-
-    GameOptions gameOptions = game.gameOptions;
-    logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
+        GameOptions gameOptions = game.gameOptions;
+        logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
 
         logger.debug("Initialising main game screen services");
         ServiceLocator.registerTimeSource(new GameTime());
@@ -99,6 +97,8 @@ public class MainGameScreen extends ScreenAdapter {
         this.playerFactory = new PlayerFactory(List.of(PLAYERS));
         Entity player = playerFactory.createPlayer(
                 FileLoader.readClass(PlayerConfig.class, chosenPlayer));
+        // todo refactor events to be more decoupled
+        player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         // todo ask character team, is this needed?
         // List<Entity> players = playerSelection.createTwoPlayers();
@@ -119,12 +119,12 @@ public class MainGameScreen extends ScreenAdapter {
         renderer.render();
     }
 
-  @Override
-  public void resize(int width, int height) {
-    renderer.resize(width, height);
-    ui.getComponent(MainGameExitDisplay.class).resize(width, height);
-    logger.trace("Resized renderer: ({} x {})", width, height);
-  }
+    @Override
+    public void resize(int width, int height) {
+        renderer.resize(width, height);
+        ui.getComponent(MainGameExitDisplay.class).resize(width, height);
+        logger.trace("Resized renderer: ({} x {})", width, height);
+    }
 
     @Override
     public void pause() {
@@ -151,18 +151,23 @@ public class MainGameScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(mainGameTextures);
-    resourceService.loadTextureAtlases(mainGameAtlases);
-    ServiceLocator.getResourceService().loadAll();
-  }
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(mainGameTextures);
+        resourceService.loadTextureAtlases(mainGameAtlases);
+        ServiceLocator.getResourceService().loadAll();
+    }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(mainGameTextures);
+    }
+
+    private void loseGame() {
+        logger.info("Received event: player finished dying");
+        game.setScreen(LOSE);
     }
 
     /**
@@ -175,14 +180,18 @@ public class MainGameScreen extends ScreenAdapter {
         InputComponent inputComponent =
                 ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
-    ui = new Entity();
-    ui.addComponent(new InputDecorator(stage, 10))
-        .addComponent(new PerformanceDisplay())
-        .addComponent(new MainGameActions(this.game))
-        .addComponent(new MainGameExitDisplay())
-        .addComponent(new Terminal(this.game))
-        .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay());
+        ui = new Entity();
+        ui.addComponent(new InputDecorator(stage, 10))
+                .addComponent(new PerformanceDisplay())
+                .addComponent(new MainGameActions(this.game))
+                .addComponent(new MainGameExitDisplay())
+                .addComponent(new Terminal(this.game))
+                .addComponent(inputComponent)
+                .addComponent(new TerminalDisplay());
+
+        // When player finishes dying, go to death screen
+        logger.info("Add listener for player finished dying");
+        ui.getEvents().addListener("player_finished_dying", this::loseGame);
 
         ServiceLocator.getEntityService().register(ui);
     }

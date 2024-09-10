@@ -47,7 +47,6 @@ public class MainGameArea extends GameArea {
      */
     @Override
     public void create() {
-
         load(logger);
         logger.error("loaded all assets");
 
@@ -80,6 +79,7 @@ public class MainGameArea extends GameArea {
     }
 
     private void selectRoom(String roomKey) {
+        logger.info("Changing to room: {}", roomKey);
         Room newRoom = this.currentLevel.getRoom(roomKey);
         if (newRoom == null) {
             logger.error("Room \"{}\" not found!", roomKey);
@@ -91,7 +91,6 @@ public class MainGameArea extends GameArea {
 
 
     public void changeRooms(String roomKey) {
-        logger.info("Changing rooms!");
         this.currentRoom.removeRoom();
         selectRoom(roomKey);
 
@@ -101,11 +100,10 @@ public class MainGameArea extends GameArea {
     }
 
     public void spawnCurrentRoom() {
-        //logger.info("Main Game Area update");
         if (!spawnRoom) {
             return;
         }
-        //logger.info("spawning: new room");
+        logger.info("spawning: new room");
         if (currentLevel.roomTraversals == 8) {
             this.currentRoom = currentLevel.getRoom("BOSS");
         }
@@ -113,8 +111,8 @@ public class MainGameArea extends GameArea {
         logger.info("spawned: new room");
         logger.info("spawning: player");
 
-        //int player_x = (int) (15 - player.getPosition().x);
-        //int player_y = (int) (9 - player.getPosition().y);
+        // int player_x = (int) (15 - player.getPosition().x);
+        // int player_y = (int) (9 - player.getPosition().y);
 
 
         int player_x = 7;
@@ -127,7 +125,7 @@ public class MainGameArea extends GameArea {
     }
 
     public void changeLevel(int levelNumber) {
-        logger.info("Changing to level: " + levelNumber);
+        logger.info("Changing to level: {}", levelNumber);
 
         // TODO: Save player progress or game state here, create a save manager
 

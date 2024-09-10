@@ -56,7 +56,9 @@ public class StairFactory {
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     }
 
-    /** checks if the player wants to move to next level */
+    /**
+     * checks if the player wants to move to next level
+     */
     private static void alertGoToNextLevel(int currentLevel) {
         ServiceLocator.getAlertBoxService().showConfirmationDialog("Confirm", "Do you want to proceed to the next level?", new AlertBoxService.ConfirmationListener() {
             @Override

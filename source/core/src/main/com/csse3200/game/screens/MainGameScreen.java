@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.components.maingame.MainGameActions;
+import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.entities.Entity;
@@ -69,8 +70,6 @@ public class MainGameScreen extends ScreenAdapter {
 
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
-
-        ServiceLocator.registerCollectibleFactoryService(new CollectibleFactoryService());
 
         this.renderer = RenderFactory.createRenderer();
         this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);

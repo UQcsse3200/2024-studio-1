@@ -48,7 +48,7 @@ public class CollectibleFactory extends LoadedFactory {
     public Entity createCollectibleEntity(String specification, Collectible collectible) {
         Entity collectibleEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
-                .addComponent(new CollectibleHitboxComponent())
+                .addComponent(new HitboxComponent())
                 .addComponent(new PhysicsComponent());
 
         Texture texture = collectible.getIcon();

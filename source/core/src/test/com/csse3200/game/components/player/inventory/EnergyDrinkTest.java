@@ -2,18 +2,9 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
-import com.csse3200.game.components.player.PlayerStatsDisplay;
-import com.badlogic.gdx.graphics.Texture;
-import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.entities.Entity;
-import static org.mockito.Mockito.*;
 
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

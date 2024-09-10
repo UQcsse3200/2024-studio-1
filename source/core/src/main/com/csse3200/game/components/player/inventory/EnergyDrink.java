@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 
-import java.util.Objects;
-
 /**
  * An energy drink item that immediately affects the player's speed upon pickup. An energy drink has three different
  * types, which can be chosen by changing the specification of this item to either "Low", "Medium" or "High". Each
@@ -39,6 +37,7 @@ public class EnergyDrink extends BuffItem {
     /***
      * A constructor used simply for testing in JUnit (The only difference is that this constructor does not
      * call setIcon(), avoiding issues. This is because JUnit cannot access Textures.
+     *
      * @param speedType
      * @param flag
      */
@@ -49,6 +48,7 @@ public class EnergyDrink extends BuffItem {
 
     /**
      * A constructor to initialise an EnergyDrink item
+     *
      * @param speedType
      */
     public EnergyDrink(String speedType) {
@@ -85,11 +85,9 @@ public class EnergyDrink extends BuffItem {
     public void setIcon(String speedType) {
         if (speedType.equals("Low")) {
             this.EnergyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
-        }
-        else if (speedType.equals("Medium")) {
+        } else if (speedType.equals("Medium")) {
             this.EnergyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
-        }
-        else if (speedType.equals("High")) {
+        } else if (speedType.equals("High")) {
             this.EnergyDrinkIcon = new Texture("images/items/energy_drink_red.png");
         }
     }
@@ -161,12 +159,10 @@ public class EnergyDrink extends BuffItem {
         if (speedType.equals("Low")) {
             this.speed = baseSpeed.scl(0.3f); //0.3% of the base speed
             this.speedPercentage = 0.3f; //% Increase
-        }
-        else if (speedType.equals("Medium")) {
+        } else if (speedType.equals("Medium")) {
             this.speed = baseSpeed.scl(0.5f);
             this.speedPercentage = 0.5f;
-        }
-        else if (speedType.equals("High")) {
+        } else if (speedType.equals("High")) {
             this.speed = baseSpeed.scl(0.6f);
             this.speedPercentage = 0.6f;
         }

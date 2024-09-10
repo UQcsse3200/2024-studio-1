@@ -26,6 +26,14 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected static final Logger logger = LoggerFactory.getLogger(MeleeAttackComponent.class);
 
 
+    /**
+     * Makes an attack component 
+     *
+     * @param target 
+     * @param attackRange 
+     * @param attackRate 
+     * @param effectConfigs 
+     */
     public AttackComponent(Entity target, float attackRange, float attackRate,
                                 NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
         this.target = target;
@@ -62,7 +70,13 @@ public abstract class AttackComponent extends Component implements AttackBehavio
             effect.apply(target);
         }
     }
-
+    
+    /**
+     * Makes Effects
+     *
+     * @param list of effectConfig 
+     * @return List of effects
+     */
     private List<Effect> createEffects(NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
         List<Effect> effects = new ArrayList<>();
         if (effectConfigs != null) {

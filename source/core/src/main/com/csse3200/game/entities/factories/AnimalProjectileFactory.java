@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Factory for producing entities with a projectile themed component configuration.
+ * <p> Factory for producing entities with a projectile themed component configuration.
  */
 public class AnimalProjectileFactory extends ProjectileFactory {
 
@@ -31,7 +31,9 @@ public class AnimalProjectileFactory extends ProjectileFactory {
      * Makes a new Entity with projectile components.
      *
      * @param stats     Contains all the re-usable projectile configurations. See ProjectileConfig.
-     * @param direction Direction of shot projectile.
+     * @param direction  
+     * @param  parentPosition
+     * @return Entity 
      */
     @Override
     public Entity createProjectile(ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {

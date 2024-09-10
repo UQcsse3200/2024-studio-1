@@ -19,18 +19,20 @@ public class CombatStatsComponent extends Component {
     private int health;
     private int baseAttack;
     private int armor;
+    private int buff;
     private boolean isInvincible;
     private static final int timeInvincible = 150;
     private final Timer timer;
     private int maxDamage = 200;
 
 
-    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
         this.baseAttack = baseAttack;
         this.armor = armor;
+        this.buff = buff;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
@@ -38,7 +40,7 @@ public class CombatStatsComponent extends Component {
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
-        this(health, baseAttack, false, 0);
+        this(health, baseAttack, false, 0, 0);
     }
 
     /**
@@ -119,7 +121,10 @@ public class CombatStatsComponent extends Component {
      * @param buffedAttack increased Damage
      */
 
-    public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
+    public void addAttack(int buffedAttack)
+    {
+        buff = Math.min(buff + buffedAttack, 200);
+    }
 
     /**
      * Checks the max damage value
@@ -127,6 +132,8 @@ public class CombatStatsComponent extends Component {
      * @return max damage
      */
     public int getMaxDamage() {return maxDamage;}
+
+    public int getDamageBuff() {return buff;}
 
     public void increaseArmor(int additionalArmor) {
         armor = Math.min(armor + additionalArmor, 100);
@@ -172,8 +179,8 @@ public class CombatStatsComponent extends Component {
 
         float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
         int newHealth = getHealth() - (int)(attacker.getBaseAttack() * (1 - damageReduction));
+        newHealth = newHealth - buff;
         setHealth(newHealth);
-
         if (canBeInvincible) {
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();

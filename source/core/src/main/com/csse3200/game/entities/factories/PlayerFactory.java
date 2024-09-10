@@ -76,7 +76,7 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new PlayerActions())
-                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0))
+                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0))
                 .addComponent(inventoryComponent)
                 .addComponent(new ItemPickupComponent())
                 .addComponent(new ShieldComponent())

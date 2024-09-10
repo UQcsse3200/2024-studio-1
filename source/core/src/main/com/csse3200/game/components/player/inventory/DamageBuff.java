@@ -20,6 +20,10 @@ public class DamageBuff extends BuffItem{
         return "damagebuff";
     }
 
+    public int getBuff() {
+        return buff;
+    }
+
     /**
      * Applies the damage buff to the player for each weapon
      *

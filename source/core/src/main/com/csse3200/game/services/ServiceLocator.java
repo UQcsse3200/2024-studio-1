@@ -27,7 +27,6 @@ public class ServiceLocator {
   private static GameAreaService gameAreaService;
   private static RandomService randomService;
 
-  private static CollectibleFactoryService collectibleFactoryService;
   private static AlertBoxService alertBoxService;
 
 
@@ -61,9 +60,6 @@ public class ServiceLocator {
 
   public static RandomService getRandomService() {
     return randomService;
-  }
-  public static CollectibleFactoryService getCollectibleFactoryService() {
-    return collectibleFactoryService;
   }
 
   public static AlertBoxService getAlertBoxService() {
@@ -111,13 +107,6 @@ public class ServiceLocator {
     randomService = source;
   }
 
-
-  public static void registerCollectibleFactoryService(CollectibleFactoryService source) {
-    logger.debug("Registering collectibleFactory service {}", source);
-    collectibleFactoryService = source;
-
-  }
-
   public static void registerAlertBoxService(AlertBoxService source) {
     logger.debug("Registering alertBox service {}", source);
     alertBoxService = source;
@@ -131,7 +120,6 @@ public class ServiceLocator {
     inputService = null;
     resourceService = null;
     gameAreaService = null;
-    collectibleFactoryService = null;
   }
 
   private ServiceLocator() {

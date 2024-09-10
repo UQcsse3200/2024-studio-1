@@ -22,7 +22,7 @@ public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
 
-    private Entity player;
+    public Entity player;
 
     private final LevelFactory levelFactory;
     private Level currentLevel;

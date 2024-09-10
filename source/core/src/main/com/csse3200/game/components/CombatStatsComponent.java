@@ -192,13 +192,21 @@ public class CombatStatsComponent extends Component {
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         }
-        if (!isInvincible()) {
+        if (!getCanBeInvincible()) {
             if (health <= 0) {
                 entity.getEvents().trigger("died");
             }
         }
     }
 
+    /**
+     * returns if entity can be invincible 
+     *
+     * @param invinciblity capability 
+     */
+    public boolean getCanBeInvincible() {
+        return this.canBeInvincible;
+    }
     /**
      * Sets the state of the entity's invincibility
      *

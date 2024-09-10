@@ -27,7 +27,8 @@ public class RoomFactory {
      */
     public RoomFactory(NPCFactory npcFactory,
                        CollectibleFactory collectibleFactory,
-                       TerrainFactory terrainFactory, StairFactory stairFactory) {
+                       TerrainFactory terrainFactory, 
+                       StairFactory stairFactory) {
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;

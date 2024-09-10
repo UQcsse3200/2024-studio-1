@@ -5,7 +5,7 @@ import java.util.List;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
-
+import com.csse3200.game.entities.factories.StairFactory;
 
 
 /**
@@ -51,7 +51,7 @@ public class BossRoom extends BaseRoom {
                     TerrainFactory terrainFactory,
                     List<String> roomConnections,
                     String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, stairFactory, roomConnections, specification);
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
     }
 
 //    @Override

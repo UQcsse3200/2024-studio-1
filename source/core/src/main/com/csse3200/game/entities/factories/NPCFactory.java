@@ -346,7 +346,7 @@ public class NPCFactory extends LoadedFactory {
     return aiComponent;
   }
 
-
+// assets below are cited in core/assets/images/npc/citation.txt
   @Override
   protected String[] getTextureAtlasFilepaths() {
     return new String[] {

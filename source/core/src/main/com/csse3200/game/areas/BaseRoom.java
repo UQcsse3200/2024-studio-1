@@ -50,10 +50,10 @@ public abstract class BaseRoom implements Room {
     /**
      * Inject factories to be used for spawning here room object.
      *
-     * @param npcFactory         the NPC factory to use
+     * @param npcFactory the NPC factory to use
      * @param collectibleFactory the Collectible factory to use.
-     * @param terrainFactory     the terrain factory to use.
-     * @param roomConnections    the keys for all the adjacent rooms.
+     * @param terrainFactory  the terrain factory to use.
+     * @param roomConnections  the keys for all the adjacent rooms.
      */
     public BaseRoom(
             NPCFactory npcFactory,
@@ -88,8 +88,12 @@ public abstract class BaseRoom implements Room {
 
         // item Group index specifcaiton 5
         this.itemGroup = Integer.parseInt(split.get(5));
-        this.items = this.itemSpecifications.get(this.itemGroup);
+
         this.specification = specification;
+
+        this.items = this.itemSpecifications.get(this.itemGroup);
+
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
     }
 
     // overide method 
@@ -147,7 +151,7 @@ public abstract class BaseRoom implements Room {
     /**
      * Spawn the terrain of the room, including the walls and background of the map.
      *
-     * @param area          the game area to spawn the terrain onto.
+     * @param area the game area to spawn the terrain onto.
      * @param wallThickness the thickness of the walls around the room.
      */
     protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
@@ -197,10 +201,9 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawn a collectible item into the room.
-     *
-     * @param area          the game area to spawn the item into.
+     * @param area the game area to spawn the item into.
      * @param specification the specification of the item to create.
-     * @param pos           the location to spawn it to.
+     * @param pos the location to spawn it to.
      */
     protected void spawnItem(GameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
@@ -215,11 +218,12 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawn an NPC into the room
-     *
-     * @param area   the game area to spawn the NPC into.
+     * @param area the game area to spawn the NPC into.
      * @param player the player character for this npc to target.
      * @param animal the specification of the animal to create.
      * @param pos    the location to spawn it to.
+     * @param min the specification of the animal to create.
+     * @param max the location to spawn it to.
      */
     protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
         createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
@@ -237,7 +241,7 @@ public abstract class BaseRoom implements Room {
             });
         }
         //this will make all animals commit suicide 
-        makeAllAnimalDead();
+       makeAllAnimalDead();
     }
 
     /**
@@ -260,7 +264,6 @@ public abstract class BaseRoom implements Room {
         String connectE = connections.get(1);
         String connectW = connections.get(2);
         String connectS = connections.get(3);
-
     
         // Create doors and retrieve scales
         Entity[] doors = {

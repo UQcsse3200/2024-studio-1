@@ -124,8 +124,12 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">Create a terrain factory with the default camera.</div>
 </div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.components.CameraComponent)" class="member-name-link">TerrainFactory</a><wbr>(<a href="../../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;cameraComponent)</code></div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">TerrainFactory</a><wbr>(int&nbsp;currentLevel)</code></div>
 <div class="col-last odd-row-color">
+<div class="block">Create a terrain factory with the default camera.</div>
+</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.components.CameraComponent)" class="member-name-link">TerrainFactory</a><wbr>(<a href="../../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;cameraComponent)</code></div>
+<div class="col-last even-row-color">
 <div class="block">Create a terrain factory with Orthogonal orientation</div>
 </div>
 </div>
@@ -143,18 +147,31 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createTerrain(com.csse3200.game.areas.terrain.TerrainFactory.TerrainType)" class="member-name-link">createTerrain</a><wbr>(<a href="TerrainFactory.TerrainType.html" title="enum class in com.csse3200.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;terrainType)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createTerrain(com.csse3200.game.areas.terrain.TerrainFactory.TerrainType,boolean)" class="member-name-link">createTerrain</a><wbr>(<a href="TerrainFactory.TerrainType.html" title="enum class in com.csse3200.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;terrainType,
+ boolean&nbsp;isBossRoom)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Create a terrain of the given type, using the orientation of the factory.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBrokenTile()" class="member-name-link">getBrokenTile</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCurrentLevel()" class="member-name-link">getCurrentLevel</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isBossRoom()" class="member-name-link">isBossRoom</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isBrokenTile()" class="member-name-link">isBrokenTile</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isStainedTile()" class="member-name-link">isStainedTile</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setBossRoom(boolean)" class="member-name-link">setBossRoom</a><wbr>(boolean&nbsp;bossRoom)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCurrentLevel(int)" class="member-name-link">setCurrentLevel</a><wbr>(int&nbsp;currentLevel)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -191,6 +208,13 @@ loadScripts(document, 'script');</script>
 <div class="block">Create a terrain factory with the default camera.</div>
 </section>
 </li>
+<li>
+<section class="detail" id="&lt;init&gt;(int)">
+<h3>TerrainFactory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">TerrainFactory</span><wbr><span class="parameters">(int&nbsp;currentLevel)</span></div>
+<div class="block">Create a terrain factory with the default camera.</div>
+</section>
+</li>
 </ul>
 </section>
 </li>
@@ -200,14 +224,16 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="createTerrain(com.csse3200.game.areas.terrain.TerrainFactory.TerrainType)">
+<section class="detail" id="createTerrain(com.csse3200.game.areas.terrain.TerrainFactory.TerrainType,boolean)">
 <h3>createTerrain</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></span>&nbsp;<span class="element-name">createTerrain</span><wbr><span class="parameters">(<a href="TerrainFactory.TerrainType.html" title="enum class in com.csse3200.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;terrainType)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></span>&nbsp;<span class="element-name">createTerrain</span><wbr><span class="parameters">(<a href="TerrainFactory.TerrainType.html" title="enum class in com.csse3200.game.areas.terrain">TerrainFactory.TerrainType</a>&nbsp;terrainType,
+ boolean&nbsp;isBossRoom)</span></div>
 <div class="block">Create a terrain of the given type, using the orientation of the factory. This can be extended
  to add additional game terrains.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>terrainType</code> - Terrain to create</dd>
+<dd><code>isBossRoom</code> - is boss room</dd>
 <dt>Returns:</dt>
 <dd>Terrain component which renders the terrain</dd>
 </dl>
@@ -229,6 +255,30 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="isStainedTile()">
 <h3>isStainedTile</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isStainedTile</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getCurrentLevel()">
+<h3>getCurrentLevel</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getCurrentLevel</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="setCurrentLevel(int)">
+<h3>setCurrentLevel</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setCurrentLevel</span><wbr><span class="parameters">(int&nbsp;currentLevel)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="isBossRoom()">
+<h3>isBossRoom</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isBossRoom</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="setBossRoom(boolean)">
+<h3>setBossRoom</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setBossRoom</span><wbr><span class="parameters">(boolean&nbsp;bossRoom)</span></div>
 </section>
 </li>
 </ul>

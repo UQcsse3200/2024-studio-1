@@ -36,6 +36,21 @@ public class EnergyDrink extends BuffItem {
      */
     Texture EnergyDrinkIcon;
 
+    /***
+     * A constructor used simply for testing in JUnit (The only difference is that this constructor does not
+     * call setIcon(), avoiding issues. This is because JUnit cannot access Textures.
+     * @param speedType
+     * @param flag
+     */
+    public EnergyDrink(String speedType, boolean flag) {
+        this.speedType = speedType;
+        setScalar(speedType);
+    }
+
+    /**
+     * A constructor to initialise an EnergyDrink item
+     * @param speedType
+     */
     public EnergyDrink(String speedType) {
         this.speedType = speedType;
         setScalar(speedType);

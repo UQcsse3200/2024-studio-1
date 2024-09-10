@@ -135,22 +135,12 @@ public abstract class BaseRoom implements Room {
      */
     public void removeRoom() {
         for (Entity data : doors) {
-            ServiceLocator.getEntityService().unregister(data);
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         } 
-
-        for (Entity curItem : this.items){
-                ServiceLocator.getEntityService().unregister(curItem);
-                ServiceLocator.getEntityService().markEntityForRemoval(curItem);
-        }
         
         // for (Entity data : enemies) {
         //     ServiceLocator.getEntityService().markEntityForRemoval(data);
-        // }
-        for(Entity item : items) {
-            ServiceLocator.getEntityService().markEntityForRemoval(item);
-        }
-        this.items.clear();
+        // } 
         this.enemies.clear();
     }
 
@@ -198,10 +188,10 @@ public abstract class BaseRoom implements Room {
         }
     }
 
+
     public boolean getIsRoomComplete() {
         return this.isRoomCompleted;
     }
-
 
     
     public boolean isAllAnimalDead(){
@@ -231,18 +221,16 @@ public abstract class BaseRoom implements Room {
                     ServiceLocator.getEntityService().markEntityForRemoval(curItem);
                 }
             }
-            this.items.clear();
         });
         this.items.add(item);
-
         area.spawnEntityAt(item, pos, true, true);
     }
 
     public void spawnItems() {
-
-        if(!this.items.isEmpty()){return;}
-
-
+        MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
+        spawnItem(area,this.itemSpecifications.get(this.itemGroup).get(0),new GridPoint2(8,8));
+        spawnItem(area,this.itemSpecifications.get(this.itemGroup).get(1),new GridPoint2(6,8));
+    }
 
     /**
      * Spawn an NPC into the room
@@ -254,16 +242,22 @@ public abstract class BaseRoom implements Room {
      * @param max the location to spawn it to.
      */
     protected void spawnAnimals(MainGameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
-        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
-        for (Entity enemy : this.enemies) {
-            GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
-                    ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
+        if(area.isRoomFresh(this)) {
+            createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
+            for (Entity enemy : this.enemies) {
+
+
+                GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
+                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
+
 
             area.spawnEntityAt(enemy, randomPos, true, true);
-            enemy.getEvents().addListener("checkAnimalsDead", () -> {
-                if (this.isAllAnimalDead())
-                    this.isRoomCompleted = true;
-                this.spawnItems();
+            enemy.getEvents().addListener("died",()->{
+               if(this.isAllAnimalDead()) {
+                   this.isRoomCompleted = true;
+                   this.spawnItems();
+               }
+                   
             });
         }
         //this will make all animals commit suicide 
@@ -328,12 +322,7 @@ public abstract class BaseRoom implements Room {
                 this.doors.add(doors[i]);
             } else {
                 System.out.println("Skipping door placement for connection: " + connection);
-            } 
+            }
         }
-    }
-
-
-    public boolean getIsRoomComplete() {
-        return this.isRoomCompleted;
     }
 }

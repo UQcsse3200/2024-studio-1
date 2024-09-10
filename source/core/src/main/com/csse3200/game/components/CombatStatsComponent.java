@@ -121,7 +121,7 @@ public class CombatStatsComponent extends Component {
     public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
 
     public void increaseArmor(int additionalArmor) {
-        armor = Math.max(armor + additionalArmor, 100);
+        armor = Math.min(armor + additionalArmor, 100);
     }
 
     /**

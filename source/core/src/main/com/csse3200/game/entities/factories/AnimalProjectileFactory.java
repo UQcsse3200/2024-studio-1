@@ -74,7 +74,7 @@ public class AnimalProjectileFactory extends ProjectileFactory {
     @Override
     protected String[] getTextureFilepaths() {
         return new String[]{
-                "images/npc/dragon/dragon.pnc"
+                "images/npc/dragon/dragon.png"
         };
     }
 }

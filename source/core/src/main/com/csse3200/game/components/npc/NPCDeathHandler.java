@@ -37,7 +37,7 @@ public class NPCDeathHandler extends Component {
      * Handles the death of the entity by playing the death animation,
      * disabling physics and AI components, and scheduling the entity's removal from the game.
      */
-    private void onDeath() {
+    protected void onDeath() {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());

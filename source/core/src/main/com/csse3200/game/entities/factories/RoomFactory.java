@@ -2,7 +2,6 @@ package com.csse3200.game.entities.factories;
 
 import java.util.List;
 
-import javax.print.DocFlavor.STRING;
 
 import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.MainRoom;

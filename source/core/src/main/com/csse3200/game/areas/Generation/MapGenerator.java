@@ -1,7 +1,6 @@
 package com.csse3200.game.areas.Generation;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,16 +32,14 @@ public class MapGenerator {
         this.roomDetails = new HashMap<>();
         this.detlas = new int[][]{
                 {1, 0},    // Up
-                {0, -1},   // Right
-                {0, 1},    // Left
+                {0, 1},    // Right
+                {0, -1},   // Left
                 {-1, 0}    // Down
         };
         this.player_position = "0_0"; // Placeholder
 
         // Add the starting room to the relative position map
         addBlankRoom(this.player_position, 0, 0);
-
-        
     }
 
     /**
@@ -63,7 +60,7 @@ public class MapGenerator {
         this.roomDetails.put(key, roomDetails);
     }
 
-    public String get_player_position() {
+    public String getPlayerPosition() {
         return this.player_position;
     }
 
@@ -78,8 +75,6 @@ public class MapGenerator {
      */
     public void addRoomAtPosition(int x, int y, int animal_index, int item_index, int detlas_index) {
         String key = x + "_" + y;
-        // generating new room
-
         // generating new room key
         String room_key = getStringRelativeLocation(x + detlas[detlas_index][0], y + detlas[detlas_index][1]);
         // get room connections 
@@ -114,7 +109,7 @@ public class MapGenerator {
      * @param detlas_index The index of the direction to connect the rooms.
      */
     private void connectRooms(String host_room, String new_room, int detlas_index) {
-        // detlas is made so that 3 - dedetlas_indextlas = connecting room
+        // detlas is made so that 3 - detlas_index = connecting room
 
         // get the detlas index for both rooms
         int[] detlas_coordinates = this.detlas[detlas_index];
@@ -174,8 +169,8 @@ public class MapGenerator {
      */
     public int[] parseIntRelativeLocation(String string) {
         String[] parts = string.split("_");
-        int y = Integer.parseInt(parts[0]);
-        int x = Integer.parseInt(parts[1]);
+        int x = Integer.parseInt(parts[0]);
+        int y = Integer.parseInt(parts[1]);
         return new int[]{x, y};
     }
 
@@ -187,7 +182,7 @@ public class MapGenerator {
      * @return A string representation of the relative location.
      */
     public String getStringRelativeLocation(int x, int y) {
-        return Integer.toString(x) + "_" + Integer.toString(y);
+        return x + "_" + y;
     }
 
     /**
@@ -195,7 +190,7 @@ public class MapGenerator {
      */
     public void createMap() {
         int roomCount = (int) calculateCeiling(mapSize);
-        while (0 < roomCount) {
+        while (roomCount > 0) {
             List<String> rooms = new ArrayList<>(relativePosition.keySet());
 
             String randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
@@ -205,7 +200,7 @@ public class MapGenerator {
                 continue;
             }
             int animal_index = rng.getRandomInt(0, 7);
-            int item_index = rng.getRandomInt(0, 15);
+            int item_index = rng.getRandomInt(0, 6);
             addBlankRoom(new_Room_key, animal_index, item_index);
             connectRooms(randomRoomKey, new_Room_key, detlas_index);
             roomCount--;
@@ -256,7 +251,6 @@ public class MapGenerator {
      * Exports the map data to a JSON file.
      *
      * @param filePath The path of the file to write the JSON data to.
-//     * @return A string indicating the success or failure of the export operation.
      */
     public void exportToJson(String filePath) {
         FileLoader.writeClass(this, filePath);
@@ -279,4 +273,11 @@ public class MapGenerator {
     public String getMapSeed() {
         return rng.getSeed();
     }
+
+    public String get_player_position() {
+        return this.player_position;
+    }
 }
+
+
+

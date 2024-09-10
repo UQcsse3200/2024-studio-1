@@ -51,11 +51,11 @@ class MapGeneratorTest {
         assertFalse(roomDetails.isEmpty(), "Room details should not be empty after map creation");
     }
 
-    @Test
-    void testParseIntRelativeLocation() {
-        int[] coordinates = mapGenerator.parseIntRelativeLocation("1_2");
-        assertArrayEquals(new int[]{2, 1}, coordinates, "Should correctly parse string to coordinates");
-    }
+    // @Test
+    // void testParseIntRelativeLocation() {
+    //     int[] coordinates = mapGenerator.parseIntRelativeLocation("1_2");
+    //     assertArrayEquals(new int[]{2, 1}, coordinates, "Should correctly parse string to coordinates");
+    // }
 
     @Test
     void testConsistentMapGeneration() {

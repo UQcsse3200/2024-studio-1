@@ -19,10 +19,8 @@ public class NPCConfigs {
 
   public static class NPCConfig extends BaseEntityConfig {
     public TaskConfig tasks = new TaskConfig();
-    public EffectConfig[] effects;
+    public AttackConfig attacks = new AttackConfig();
     public AnimationData[] animations = new AnimationData[0];
-    public float attackRange;
-    public float attackRate;
     public boolean isDirectional;
 
     public static class TaskConfig {
@@ -32,18 +30,11 @@ public class NPCConfigs {
       public ChargeTaskConfig charge = null;
       public BossAttackTaskConfig bossAttack = null;
       public RunAwayTaskConfig runAway = null;
-      public ShootTaskConfig shoot;
 
       public static class WanderTaskConfig {
         public float wanderRadius;
         public float waitTime;
         public float wanderSpeed;
-      }
-
-      public static class ShootTaskConfig {
-        public float attackRange;
-        public float attackRate;
-        public int type;
       }
 
       public static class StraightWanderTaskConfig {
@@ -80,6 +71,24 @@ public class NPCConfigs {
         public float maxRunDistance;
         public float runSpeed;
         public float waitTime;
+      }
+    }
+
+    public static class AttackConfig {
+      public MeleeAttack melee = null;
+      public RangeAttack ranged = null;
+
+      public static class MeleeAttack {
+        public float range;
+        public float rate;
+        public EffectConfig[] effects = new EffectConfig[0];
+      }
+
+      public static class RangeAttack {
+        public float range;
+        public float rate;
+        public int type;
+        public EffectConfig[] effects = new EffectConfig[0];
       }
     }
 

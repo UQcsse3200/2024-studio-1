@@ -23,8 +23,6 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.components.Component;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -39,7 +37,18 @@ import com.csse3200.game.components.Component;
 public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
   private static final NPCConfigs configs =
-          FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+          loadConfigs();
+
+  public static NPCConfigs loadConfigs() {
+    NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+    System.out.println("Loaded configs: " + configs); // Add debug printout
+    if (configs.rat.attacks == null) {
+      System.out.println("Rat attacks are null!"); // Check if attacks are being loaded
+    } else {
+      System.out.println("Rat melee attack range: " + configs.rat.attacks.melee.range); // Log specific fields
+    }
+    return configs;
+  }
 
   /**
    * Construct a new NPC Factory.
@@ -95,8 +104,7 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
     Entity dragon = createBaseNPC(target, aiComponent, config, animator);
-    dragon.addComponent(new RangeAttackComponent(target, config.tasks.shoot.attackRange, config.tasks.shoot.attackRate,
-            0, config.effects));
+
     return dragon;
   }
 
@@ -234,7 +242,6 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new MeleeAttackComponent(target, config.attackRange, config.attackRate, config.effects))
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
@@ -242,6 +249,14 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new NPCDeathHandler()) 
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController());
+    if (config.attacks.melee != null) {
+      npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee.range, config.attacks.melee.rate,
+              config.attacks.melee.effects));
+    }
+    if (config.attacks.ranged != null) {
+      npc.addComponent(new RangeAttackComponent(target, config.attacks.ranged.range, config.attacks.ranged.rate,
+              config.attacks.ranged.type, config.attacks.ranged.effects));
+    }
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
     return npc;

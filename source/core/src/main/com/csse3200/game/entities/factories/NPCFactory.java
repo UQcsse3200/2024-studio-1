@@ -120,7 +120,7 @@ public class NPCFactory extends LoadedFactory {
                     .addTask(new StraightWanderTask(2f))
                     .addTask(new ChaseTask(target, 9, 5f, 6f, 2f))
                     .addTask(new AttackTask(target, 10, 2f, 2.5f));
-    
+
     Entity bear = createBaseNPC(aiComponent);
 
     AnimationRenderComponent animator =
@@ -134,7 +134,7 @@ public class NPCFactory extends LoadedFactory {
     bear
         .addComponent(new CombatStatsComponent(
                 config.health,
-                config.baseAttack)) 
+                config.baseAttack))
         .addComponent(animator)
         .addComponent(new NPCAnimationController())
         .addComponent(new NPCHealthBarComponent())
@@ -218,8 +218,8 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDamageHandlerComponent())
             .addComponent(new NPCDeathHandler());
-      
-      
+
+
    dino.getComponent(AnimationRenderComponent.class).scaleEntity();
     return dino;
   }

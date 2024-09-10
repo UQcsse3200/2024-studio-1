@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
+import com.csse3200.game.files.UserSettings;
+import com.csse3200.game.files.UserSettings.Settings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -194,6 +196,19 @@ public class ResourceService implements Disposable {
       }
     }
   }
+    /**
+     * Play a sound effect. The volume is determined by {@link UserSettings}. No sound is played
+     * when mute is on.
+     *
+     * @param soundName The path of the asset relative to the assets folder.
+     */
+    public void playSound(String soundName) {
+        Settings settings = UserSettings.get();
+        if (!settings.mute) {
+            Sound sound = getAsset(soundName, Sound.class);
+            sound.play(settings.soundVolume);
+        }
+    }
 
   @Override
   public void dispose() {

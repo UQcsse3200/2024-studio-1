@@ -2,7 +2,6 @@ package com.csse3200.game.entities.factories;
 
 import java.util.List;
 
-import javax.print.DocFlavor.STRING;
 
 import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.MainRoom;
@@ -24,12 +23,10 @@ public class RoomFactory {
      * @param npcFactory the npc factory to populate the room with.
      * @param collectibleFactory the collectible factory to populate the room with.
      * @param terrainFactory the terrain factory to re-skin the room with.
-     * @param stairFactory 
      */
     public RoomFactory(NPCFactory npcFactory,
                        CollectibleFactory collectibleFactory,
-                       TerrainFactory terrainFactory, 
-                       StairFactory stairFactory) {
+                       TerrainFactory terrainFactory) {
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;

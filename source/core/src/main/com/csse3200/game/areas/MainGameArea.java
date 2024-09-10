@@ -196,9 +196,6 @@ public class MainGameArea extends GameArea {
         // Convert the list to an array and return
         return filepaths.toArray(new String[0]);
     }
-
-
-
     @Override
     protected String[] getMusicFilepaths() {
         return new String[]{BACKGROUND_MUSIC};

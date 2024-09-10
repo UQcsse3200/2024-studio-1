@@ -23,6 +23,12 @@ public class WeaponFactory extends LoadedFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
 
+    /**
+     * Create a collectible melee weapon from specification
+     *
+     * @param specification the specification of the weapon.
+     * @return MeleeWeapon the newly created collectible of type melee weapon.
+     */
     private MeleeWeapon createMelee(String specification) {
         return switch (specification) {
             case "knife" -> new Knife();
@@ -32,13 +38,12 @@ public class WeaponFactory extends LoadedFactory {
     }
 
     /**
-     * Create a range weapon from specification
+     * Create a collectible range weapon from specification
      *
-     * @param specification
-     * @return RangedWeapon
+     * @param specification the specification of the weapon.
+     * @return RangedWeapon the newly created collectible of type ranged weapon.
      */
     private RangedWeapon createRanged(String specification) {
-        // specification format: "ranged:<Ranged Weapon>,<pathtoicon>,<damage>,<range>,<fireRate>,<ammo>,<maxAmmo>,<reloadTime>"
         if (specification.equals("shotgun")) {
             return new Shotgun();
         }
@@ -46,7 +51,7 @@ public class WeaponFactory extends LoadedFactory {
     }
 
     /**
-     * Create a new weapon from a specification.
+     * Create a new collectible weapon from a specification.
      *
      * @param type          the type of the weapon (melee or ranged)
      * @param specification the specification of the weapon.
@@ -145,6 +150,12 @@ public class WeaponFactory extends LoadedFactory {
 
         return meleeEntity;
     }
+
+    /**
+     * Get all the filepath to textures needed by this Factory
+     *
+     * @return the filepath needed.
+     */
     @Override
     protected String[] getTextureFilepaths() {
         return new String[]{
@@ -152,6 +163,12 @@ public class WeaponFactory extends LoadedFactory {
                 "images/Weapons/shotgun4.png"
         };
     }
+
+    /**
+     * Get all the filepath to sounds needed by this Factory
+     *
+     * @return the filepath needed.
+     */
     @Override
     protected String[] getSoundFilepaths() {
         return new String[]{
@@ -161,6 +178,11 @@ public class WeaponFactory extends LoadedFactory {
         };
     }
 
+    /**
+     * Get all the filepath to texture atlases needed by this Factory
+     *
+     * @return the filepath needed.
+     */
     @Override
     protected String[] getTextureAtlasFilepaths(){
         return new String[]{

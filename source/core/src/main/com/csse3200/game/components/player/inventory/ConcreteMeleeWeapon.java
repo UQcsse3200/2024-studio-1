@@ -16,6 +16,13 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
     private final int range;
     private final int fireRate;
 
+    /**
+     * create a new basic melee weapon from a specification.
+     * The specification format is:
+     * "name,textureFilePath,damage,range,fireRate"
+     *
+     * @param specification the specification of the melee weapon to create.
+     */
     public ConcreteMeleeWeapon(String specification) {
         Texture texture1;
         this.specification = specification;

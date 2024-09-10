@@ -18,7 +18,7 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
-  public GameOptions gameOptions;
+  public final GameOptions gameOptions = new GameOptions();
 
   @Override
   public void create() {
@@ -26,7 +26,7 @@ public class GdxGame extends Game {
     loadSettings();
 
     // Sets background to light yellow
-    Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
+    setScreenColour(ScreenColour.DEFAULT);
 
     setScreen(ScreenType.MAIN_MENU);
   }
@@ -65,26 +65,46 @@ public class GdxGame extends Game {
    * @return new screen
    */
   private Screen newScreen(ScreenType screenType) {
-    switch (screenType) {
-      case MAIN_MENU:
-        return new MainMenuScreen(this);
-      case MAIN_GAME:
-        return new MainGameScreen(this);
-      case SETTINGS:
-        return new SettingsScreen(this);
-      case HOW_TO_PLAY:
-        return new HowToPlayScreen(this);
-      case ANIMALS:
-        return new AnimalScreen(this);
-      case WEAPONS:
-        return new WeaponScreen(this);
-      default:
-        return null;
-    }
+      return switch (screenType) {
+          case MAIN_MENU -> new MainMenuScreen(this);
+          case MAIN_GAME -> new MainGameScreen(this);
+          case SETTINGS -> new SettingsScreen(this);
+          case HOW_TO_PLAY -> new HowToPlayScreen(this);
+          case PLAYER_SELECT -> new PlayerSelectScreen(this);
+          case CUTSCENE -> new IntroCutsceneScreen(this);
+          case WIN -> new WinScreen(this);
+          case LOSE -> new LoseScreen(this);
+      };
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, ANIMALS, WEAPONS
+    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, PLAYER_SELECT, CUTSCENE, WIN, LOSE
+  }
+
+  /**
+   * Set background colour of the game window. I'm pretty sure setting a bg image will override
+   * this.
+   * @param colour The colour to set as the bg colour.
+   */
+  public void setScreenColour(ScreenColour colour) {
+    switch (colour) {
+      case DEFAULT -> Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
+      case BLACK -> Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+    }
+  }
+
+  /**
+   * Possible background colours for the game window.
+   */
+  public enum ScreenColour {
+    /**
+     * Default colour (light yellow).
+     */
+    DEFAULT,
+    /**
+     * Black, currently used for cutscene for extra spookiness.
+     */
+    BLACK
   }
 
   /**

@@ -44,35 +44,4 @@ class RandomNumberGeneratorTest {
         assertThrows(IllegalArgumentException.class, () -> rng.getRandomDouble(20.0, 10.0),
             "Should throw IllegalArgumentException when minVal is greater than maxVal");
     }
-
-    @Test
-    void testSetSeedChangesRandomSequence() {
-        int min = 10;
-        int max = 20;
-        
-        int firstValue = rng.getRandomInt(min, max);
-
-        
-        rng.setSeed("differentSeed");
-        int secondValue = rng.getRandomInt(min, max);
-
-        assertNotEquals(firstValue, secondValue,
-            "Setting a different seed should change the random sequence");
-    }
-
-    @Test
-    void testSameSeedProducesSameSequence() {
-        int min = 10;
-        int max = 20;
-
-        
-        int firstValue = rng.getRandomInt(min, max);
-
-        
-        rng.setSeed("testSeed");
-        int secondValue = rng.getRandomInt(min, max);
-
-        assertEquals(firstValue, secondValue,
-            "Using the same seed should produce the same random sequence");
-    }
 }

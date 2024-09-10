@@ -11,6 +11,7 @@ public class MainRoom extends BaseRoom {
     
     @Override
     protected void initializeSpecifications() {
+    //,"Kitsune"
     this.animalSpecifications = List.of(
             List.of("Dragon", "Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat", "Birdman", "Werewolf"),
             List.of("Bear", "Snake", "Dino"),

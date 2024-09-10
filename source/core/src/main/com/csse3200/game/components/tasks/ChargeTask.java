@@ -33,7 +33,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
   protected MovementTask movementTask;
-  private WaitTask waitTask;
+  WaitTask waitTask;
   private Task currentTask;
 
   /**

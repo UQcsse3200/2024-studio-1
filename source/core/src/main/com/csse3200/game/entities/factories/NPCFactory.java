@@ -2,7 +2,9 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.Component;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
@@ -75,6 +77,7 @@ public class NPCFactory extends LoadedFactory {
       case "Minotaur" -> this.createMinotaur(target);
       case "Werewolf" -> this.createWerewolf(target);
       case "Birdman" -> this.createBirdman(target);
+      case "Kitsune" -> this.createKitsune(target);
       case "Dragon" -> this.createDragon(target);
       default -> throw new IllegalArgumentException("Unknown animal: " + specification);
     };
@@ -91,8 +94,25 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
     Entity rat = createBaseNPC(target, aiComponent, config, animator);
+
     return rat;
   }
+
+  /**
+   * Creates a kitsune boss entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the kitsune entity
+   */
+  public Entity createKitsune(Entity target) {
+    NPCConfigs.NPCConfig config = configs.kitsune;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
+    Entity kitsune = createBaseNPC(target, aiComponent, config, animator);
+
+    return kitsune; 
+  }
+
 
   /**
    * Creates a bear entity.
@@ -207,7 +227,10 @@ public class NPCFactory extends LoadedFactory {
    */
   public Entity createWerewolf(Entity target) {
     NPCConfigs.NPCConfig config = configs.werewolf;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    BossAITaskComponent aiComponent = new BossAITaskComponent();
+    aiComponent.addTask(new ChaseTask(target, config.tasks.chase));
+    aiComponent.addTask(new ChargeTask(target, config.tasks.charge));
+    aiComponent.addTask(new WanderTask(config.tasks.wander));
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
 
@@ -236,9 +259,10 @@ public class NPCFactory extends LoadedFactory {
    * @param aiComponent The AI component to be added to the NPC.
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
+   *
    * @return The created NPC entity.
    */
-  private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
+  private static Entity createBaseNPC(Entity target, Component aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
@@ -335,6 +359,7 @@ public class NPCFactory extends LoadedFactory {
             "images/npc/bear/bear.atlas",
             "images/npc/dog/dog.atlas",
             "images/npc/werewolf/werewolf.atlas",
+            "images/npc/kitsune/kitsune.atlas",
             "images/npc/birdman/birdman.atlas"
     };
   }
@@ -351,6 +376,7 @@ public class NPCFactory extends LoadedFactory {
             "images/npc/bear/bear.png",
             "images/npc/dog/dog.png",
             "images/npc/werewolf/werewolf.png",
+            "images/npc/kitsune/kitsune.png",
             "images/npc/birdman/birdman.png"
     };
   }

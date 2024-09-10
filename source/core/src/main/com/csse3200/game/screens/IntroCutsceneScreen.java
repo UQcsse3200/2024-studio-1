@@ -2,11 +2,11 @@ package com.csse3200.game.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.GdxGame.ScreenColour;
 import com.csse3200.game.components.screendisplay.IntroCutsceneDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputDecorator;
 
+import static com.csse3200.game.GdxGame.ScreenColour.BLACK;
 import static com.csse3200.game.services.ServiceLocator.getRenderService;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -24,8 +24,7 @@ public class IntroCutsceneScreen extends StaticScreen {
      * @param game the overarching game.
      */
     public IntroCutsceneScreen(GdxGame game) {
-        super(game, cutsceneTextures, getLogger(IntroCutsceneScreen.class));
-        game.setScreenColour(ScreenColour.BLACK);
+        super(game, cutsceneTextures, getLogger(IntroCutsceneScreen.class), BLACK);
     }
 
     @Override

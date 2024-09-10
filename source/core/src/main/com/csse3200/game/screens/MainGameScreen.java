@@ -4,7 +4,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.GdxGame.ScreenColour;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
@@ -32,6 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
 import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
@@ -94,26 +94,26 @@ public class MainGameScreen extends ScreenAdapter {
     /*
      * based on the characters selected, changed the link
      * If Player choose Load, then create
-     */
-    this.playerFactory = new PlayerFactory(List.of(PLAYERS));
-    Entity player = playerFactory.createPlayer(
-            FileLoader.readClass(PlayerConfig.class, chosenPlayer));
-    // todo refactor events to be more decoupled
-    player.getEvents().addListener("player_finished_dying", this::loseGame);
+         */
+        this.playerFactory = new PlayerFactory(List.of(PLAYERS));
+        Entity player = playerFactory.createPlayer(
+                FileLoader.readClass(PlayerConfig.class, chosenPlayer));
+        // todo refactor events to be more decoupled
+        player.getEvents().addListener("player_finished_dying", this::loseGame);
 
-    // todo ask character team, is this needed?
-    // List<Entity> players = playerSelection.createTwoPlayers();
+        // todo ask character team, is this needed?
+        // List<Entity> players = playerSelection.createTwoPlayers();
 
-    logger.debug("Initialising main game screen entities");
-    LevelFactory levelFactory = new MainGameLevelFactory();
-    GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-            new TestGameArea(levelFactory) :
-            new MainGameArea(levelFactory);
-    mainGameArea.create(player);
-  }
+        logger.debug("Initialising main game screen entities");
+        LevelFactory levelFactory = new MainGameLevelFactory();
+        GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
+                new TestGameArea(levelFactory) :
+                new MainGameArea(levelFactory);
+        mainGameArea.create(player);
+    }
 
-  @Override
-  public void render(float delta) {
+    @Override
+    public void render(float delta) {
     renderer.render();
     if ( isPaused) {
       return;
@@ -125,56 +125,56 @@ public class MainGameScreen extends ScreenAdapter {
 
   }
 
-  @Override
-  public void resize(int width, int height) {
-    renderer.resize(width, height);
-    ui.getComponent(MainGameExitDisplay.class).resize(width, height);
-    logger.trace("Resized renderer: ({} x {})", width, height);
-  }
+    @Override
+    public void resize(int width, int height) {
+        renderer.resize(width, height);
+        ui.getComponent(MainGameExitDisplay.class).resize(width, height);
+        logger.trace("Resized renderer: ({} x {})", width, height);
+    }
 
-  @Override
-  public void pause() {
-    logger.info("Game paused");
-  }
+    @Override
+    public void pause() {
+        logger.info("Game paused");
+    }
 
-  @Override
-  public void resume() {
-    logger.info("Game resumed");
-  }
+    @Override
+    public void resume() {
+        logger.info("Game resumed");
+    }
 
-  @Override
-  public void dispose() {
-    logger.debug("Disposing main game screen");
+    @Override
+    public void dispose() {
+        logger.debug("Disposing main game screen");
 
-    renderer.dispose();
-    playerFactory.dispose();
-    unloadAssets();
+        renderer.dispose();
+        playerFactory.dispose();
+        unloadAssets();
 
-    ServiceLocator.getEntityService().dispose();
-    ServiceLocator.getRenderService().dispose();
-    ServiceLocator.getResourceService().dispose();
+        ServiceLocator.getEntityService().dispose();
+        ServiceLocator.getRenderService().dispose();
+        ServiceLocator.getResourceService().dispose();
 
-    ServiceLocator.clear();
-  }
+        ServiceLocator.clear();
+    }
 
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(mainGameTextures);
-    resourceService.loadTextureAtlases(mainGameAtlases);
-    ServiceLocator.getResourceService().loadAll();
-  }
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(mainGameTextures);
+        resourceService.loadTextureAtlases(mainGameAtlases);
+        ServiceLocator.getResourceService().loadAll();
+    }
 
-  private void unloadAssets() {
-    logger.debug("Unloading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.unloadAssets(mainGameTextures);
-  }
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(mainGameTextures);
+    }
 
-  private void loseGame() {
-    logger.info("Received event: player finished dying");
-    game.setScreen(LOSE);
-  }
+    private void loseGame() {
+        logger.info("Received event: player finished dying");
+        game.setScreen(LOSE);
+    }
 
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and

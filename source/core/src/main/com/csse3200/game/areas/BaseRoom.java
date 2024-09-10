@@ -229,8 +229,6 @@ public abstract class BaseRoom implements Room {
     protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
         createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
         for (Entity enemy : this.enemies) {
-
-
             GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
                     ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
 

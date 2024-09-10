@@ -60,6 +60,9 @@ public class WeaponDisplay extends UIComponent{
     private Table makeHowToPlayTable() {
         Table table = new Table();
 
+        Label introLabel = new Label("Below are the available weapons in the game:", skin);
+        table.add(introLabel).colspan(2).pad(10).row();
+
         String[] animalDescriptions = {
                 "Shotgun - 30 dmg, 5 range, 5 rounds per second, 20 rounds per magazine",
                 "Sword - 100 dmg, 0 range, 10 fire rate, no need to reload",
@@ -77,6 +80,8 @@ public class WeaponDisplay extends UIComponent{
             table.add(animalImage).size(100, 100).pad(10);
             table.add(animalLabel).pad(10).left().row();
         }
+        Label bottomLabel = new Label("For melee weapons, press Space to use - Use arrow keys for ranged weapons.", skin);
+        table.add(bottomLabel).colspan(2).pad(10).row();
 
         return table;
     }

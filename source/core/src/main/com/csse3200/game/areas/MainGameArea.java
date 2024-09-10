@@ -104,7 +104,16 @@ public class MainGameArea extends GameArea {
         this.currentRoom.spawn(player, this);
         logger.info("spawned: new room");
         logger.info("spawning: player");
-        spawnEntityAt(player, new GridPoint2(10, 10), true, true);
+
+        //int player_x = (int) (15 - player.getPosition().x);
+        //int player_y = (int) (9 - player.getPosition().y);
+
+
+        int player_x = 7;
+        int player_y = 5;
+
+        player.setPosition(player_x, player_y);
+        spawnEntity(player);
         logger.info("spawned: player");
         spawnRoom = false;
     }

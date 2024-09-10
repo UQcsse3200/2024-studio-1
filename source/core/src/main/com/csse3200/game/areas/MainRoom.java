@@ -3,22 +3,21 @@ package com.csse3200.game.areas;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
-import com.csse3200.game.entities.factories.StairFactory;
 
 import java.util.List;
 
 public class MainRoom extends BaseRoom {
-
     @Override
     protected void initializeSpecifications() {
     this.animalSpecifications = List.of(
-            List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat"),
+            List.of("Rat", "Dog", "Minotaur", "Dino", "Bear", "Snake", "Bat","Werewolf"),
             List.of("Bear", "Snake", "Dino"),
             List.of("Bear", "Bear", "Minotaur"),
             List.of("Snake", "Bat", "Minotaur"),
             List.of("Bat", "Bat", "Bat"),
             List.of("Minotaur", "Minotaur", "Minotaur"),
-            List.of("Rat", "Bat", "Bear")
+            List.of("Rat", "Bat", "Bear"),
+            List.of("Werewolf", "Werewolf", "Bear")
     );
 
     this.itemSpecifications = List.of(
@@ -37,9 +36,8 @@ public class MainRoom extends BaseRoom {
     public MainRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
-                    StairFactory stairFactory,
                     List<String> roomConnections,
                     String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, stairFactory, roomConnections, specification);
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
     }
 }

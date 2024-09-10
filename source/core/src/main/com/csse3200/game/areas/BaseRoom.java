@@ -27,7 +27,7 @@ public abstract class BaseRoom implements Room {
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
-    public final StairFactory stairFactory;
+
     private List<String> roomConnections;
     protected List<Entity> doors;
     protected List<Entity> enemies;
@@ -41,8 +41,8 @@ public abstract class BaseRoom implements Room {
 
     List<List<String>> animalSpecifications;
     List<List<String>> itemSpecifications;
-    public Boolean isRoomFresh = true;
     protected Boolean isBossRoom = false;
+    private boolean isRoomCompleted = false;
 
     private static final float WALL_THICKNESS = 0.15f;
 
@@ -59,13 +59,11 @@ public abstract class BaseRoom implements Room {
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
-            StairFactory stairFactory,
             List<String> roomConnections,
             String specification) {
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;
-        this.stairFactory = stairFactory;
         this.roomConnections = roomConnections;
         this.doors = new ArrayList<>();
         this.enemies = new ArrayList<>();
@@ -100,7 +98,6 @@ public abstract class BaseRoom implements Room {
 
     // overide method 
     protected void initializeSpecifications() {}
-
 
     protected List<Entity> createEnemyEntities(List<String> animals, Entity player) {
         enemies = new ArrayList<>();
@@ -148,9 +145,8 @@ public abstract class BaseRoom implements Room {
         //     ServiceLocator.getEntityService().markEntityForRemoval(data);
         // } 
         this.enemies.clear();
-        
-        
     }
+
 
     /**
      * Spawn the terrain of the room, including the walls and background of the map.
@@ -171,11 +167,15 @@ public abstract class BaseRoom implements Room {
     }
 
     public void spawn(Entity player, MainGameArea area) {
-        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
+        
         this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
         this.spawnDoors(area, player);
-        this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
-        this.isRoomFresh = false;
+
+        if (!isRoomCompleted) {
+            createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
+            this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
+        }
+            
         // FIXME
         // logger.info("Spawning items:");
         // int itemGroup = Integer.parseInt(split.get(5));
@@ -236,6 +236,7 @@ public abstract class BaseRoom implements Room {
             area.spawnEntityAt(enemy, randomPos, true, true);
             enemy.getEvents().addListener("died",()->{
                if(this.isAllAnimalDead())
+                   this.isRoomCompleted = true;
                    this.spawnItems();
             });
         }

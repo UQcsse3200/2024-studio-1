@@ -3,6 +3,7 @@ package com.csse3200.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -17,6 +18,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private final float viewDistance;
   private final float maxChaseDistance;
   private final float chaseSpeed;
+  private String direction;
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
@@ -35,8 +37,8 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     this.viewDistance = viewDistance;
     this.maxChaseDistance = maxChaseDistance;
     this.chaseSpeed = chaseSpeed;
-    physics = ServiceLocator.getPhysicsService().getPhysics();
-    debugRenderer = ServiceLocator.getRenderService().getDebug();
+    this.physics = ServiceLocator.getPhysicsService().getPhysics();
+    this.debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
 
   @Override
@@ -46,7 +48,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
-
+    direction = owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection();
     this.owner.getEntity().getEvents().trigger("walk");
   }
 
@@ -56,6 +58,9 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.update();
     if (movementTask.getStatus() != Status.ACTIVE) {
       movementTask.start();
+    } else if (!direction.equals(owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection())) {
+      direction = owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection();
+      this.owner.getEntity().getEvents().trigger("walk");
     }
   }
 
@@ -106,4 +111,22 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     debugRenderer.drawLine(from, to);
     return true;
   }
+
+  /**
+   
+    Calculates the desired vector position to move away from the target*
+    @return The vector position.*/
+    private Vector2 getVectorTo(){
+      float currentX = owner.getEntity().getPosition().x;
+      float currentY = owner.getEntity().getPosition().y;
+
+        float targetX = target.getPosition().x;
+        float targetY = target.getPosition().y;
+
+        float newX = currentX + (currentX - targetX);
+        float newY = currentY + (currentY - targetY);
+
+        Vector2 newPos = new Vector2(newX, newY);
+        return newPos;
+      }
 }

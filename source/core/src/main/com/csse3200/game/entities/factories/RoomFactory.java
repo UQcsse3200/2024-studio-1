@@ -18,20 +18,21 @@ public class RoomFactory {
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
     private final TerrainFactory terrainFactory;
-    private final StairFactory stairFactory;
+
     /**
      * Construct a new  Room Factory
      * @param npcFactory the npc factory to populate the room with.
      * @param collectibleFactory the collectible factory to populate the room with.
      * @param terrainFactory the terrain factory to re-skin the room with.
+     * @param stairFactory 
      */
     public RoomFactory(NPCFactory npcFactory,
                        CollectibleFactory collectibleFactory,
-                       TerrainFactory terrainFactory, StairFactory stairFactory) {
+                       TerrainFactory terrainFactory, 
+                       StairFactory stairFactory) {
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;
-        this.stairFactory = stairFactory;
     }
 
     /**
@@ -40,7 +41,7 @@ public class RoomFactory {
      */
     public Room createRoom(List<String> roomConnections, String specification) {
         return new MainRoom(this.npcFactory, this.collectibleFactory, 
-                             this.terrainFactory, this.stairFactory, roomConnections, specification);
+                             this.terrainFactory, roomConnections, specification);
     }
 
     /**
@@ -50,7 +51,7 @@ public class RoomFactory {
     public Room createBossRoom(List<String> roomConnections, String specification) {
         // add connections to boss Room
         return new BossRoom(this.npcFactory, this.collectibleFactory,
-                            this.terrainFactory, this.stairFactory, roomConnections, specification);
+                            this.terrainFactory, roomConnections, specification);
     }
 
 //    /**

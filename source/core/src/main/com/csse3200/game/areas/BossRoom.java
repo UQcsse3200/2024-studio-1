@@ -2,9 +2,7 @@ package com.csse3200.game.areas;
 
 import java.util.List;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
-import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.StairFactory;
@@ -24,7 +22,8 @@ public class BossRoom extends BaseRoom {
             //currently available animals.
             List.of("Rat"),//change to boss 1
             List.of("Minotaur"),//boss 2
-            List.of("Bear")//boss 3
+            List.of("Bear"),// boss 4
+            List.of("Werewolf")//boss 3
     );
 
 
@@ -50,10 +49,9 @@ public class BossRoom extends BaseRoom {
     public BossRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
-                    StairFactory stairFactory,
                     List<String> roomConnections,
                     String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, stairFactory, roomConnections, specification);
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
     }
 
 //    @Override
@@ -73,4 +71,5 @@ public class BossRoom extends BaseRoom {
 //        int y = maxGridPoint.y/2;
 //        return new GridPoint2(x,y);
 //   }
+
 }

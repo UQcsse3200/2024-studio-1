@@ -24,7 +24,7 @@ public class StairFactory {
      * @param idOfPlayer player id
      * @return stair: Entity
      */
-    public Entity createStair(int idOfPlayer) {
+    public static Entity createStair(int idOfPlayer) {
         stair = createBaseStair();
         playerId = idOfPlayer;
         createCollision();

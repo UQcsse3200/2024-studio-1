@@ -248,25 +248,20 @@ public abstract class BaseRoom implements Room {
      * @param max the location to spawn it to.
      */
     protected void spawnAnimals(MainGameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
-        if(area.isRoomFresh(this)) {
-            createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
-            for (Entity enemy : this.enemies) {
-
-
-                GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
-                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
-
-
+        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
+        for (Entity enemy : this.enemies) {
+            GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
+                    ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
             area.spawnEntityAt(enemy, randomPos, true, true);
-            enemy.getEvents().addListener("checkAnimalsDead",()->{
-               if(this.isAllAnimalDead())
-                   this.isRoomCompleted = true;
-                   this.spawnItems();
+            enemy.getEvents().addListener("checkAnimalsDead", () -> {
+                if (this.isAllAnimalDead())
+                    this.isRoomCompleted = true;
+                this.spawnItems();
             });
         }
         //this will make all animals commit suicide 
        makeAllAnimalDead();
-    }}
+    }
 
     /**
      * Spawn the doors for this room.

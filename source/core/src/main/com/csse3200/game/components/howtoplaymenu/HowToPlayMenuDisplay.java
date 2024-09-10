@@ -53,7 +53,7 @@ public class HowToPlayMenuDisplay extends UIComponent {
     }
 
     private Table makeHowToPlayTable() {
-        Label instruction = new Label("Instructions: ", skin);
+        Label instruction = new Label("User Guide: ", skin);
 
         String[][] paragraphs = {{
                 "Beast Breakout is a top-down dungeon crawler game, presented using "

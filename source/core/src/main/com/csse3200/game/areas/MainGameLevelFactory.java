@@ -23,7 +23,8 @@ public class MainGameLevelFactory implements LevelFactory {
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),
                 new CollectibleFactory(),
-                new TerrainFactory(levelNumber)
+                new TerrainFactory(levelNumber),
+                new StairFactory()
         );
         // Sprint 4 Switch the MapGenerator to use Rooms
         Map<String, Room> rooms = new HashMap<>();

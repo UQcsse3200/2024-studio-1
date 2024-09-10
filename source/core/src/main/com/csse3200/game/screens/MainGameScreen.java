@@ -51,6 +51,12 @@ public class MainGameScreen extends ScreenAdapter {
     private PlayerSelection playerSelection = new PlayerSelection();
 
     private static final String[] textureAtlases = {"skins/rainbow/skin/rainbow-ui.atlas"};
+
+    /**
+     * Array of font file paths used in the game.
+     * These fonts are loaded as assets and can be used for various UI elements.
+     */
+
     private static final String[] fonts = {
             "skins/rainbow/skin/font-button-export.fnt", "skins/rainbow/skin/font-export.fnt",
             "skins/rainbow/skin/font-title-export.fnt"

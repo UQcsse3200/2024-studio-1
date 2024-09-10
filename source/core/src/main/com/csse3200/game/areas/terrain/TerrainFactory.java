@@ -106,6 +106,13 @@ public class TerrainFactory {
     }
   }
 
+
+/**
+ * Creates a TerrainComponent for a room using the provided tile set and world size.
+ * @param tileWorldSize -the size of each tile in world units
+ * @param tileSet -An array of TextureRegions representing different tile types.
+ * */
+
   private TerrainComponent createRoomTerrain(float tileWorldSize, TextureRegion[] tileSet) {
     GridPoint2 tilePixelSize = new GridPoint2(tileSet[0].getRegionWidth(), tileSet[0].getRegionHeight());
     TiledMap tiledMap = createRoomTiles(tilePixelSize, tileSet);
@@ -167,6 +174,14 @@ public class TerrainFactory {
     }
   }
 
+  /** Fills the TiledMapTileLayer with tiles based on the provided tile list and map size.
+   * his method handles the placement of different tile types, including boundary tiles,
+   *  * broken tiles, and stained tiles.
+   * @param layer
+   * @param mapSize
+   * @param tileList
+   */
+
   private void fillTiles(
           TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile[] tileList) {
     for (int x = 0; x < mapSize.x; x++) {
@@ -217,6 +232,14 @@ public class TerrainFactory {
     }
   }
 
+  /**
+   * Determines if a given tile coordinate is on the boundary of the map
+   * @param x - The x-coordinate of the tile.
+   * @param y - The y-coordinate of the tile.
+   * @param mapSize - The size of the map in grid coordinates.
+   * @return true if tile is on boundary of map
+   */
+
   private boolean isBoundaryTile(int x, int y, GridPoint2 mapSize) {
     return x == 0 || x == mapSize.x - 1 || y == 0 || y == mapSize.y - 1;
   }
@@ -249,6 +272,12 @@ public class TerrainFactory {
     ROOM1
   }
 
+  /**
+   * Creates a TiledMapRenderer for the given TiledMap with the specified tile scale.
+   * @param tiledMap
+   * @param tileScale
+   * @return
+   */
   private TiledMapRenderer createRenderer(TiledMap tiledMap, float tileScale) {
     return new OrthogonalTiledMapRenderer(tiledMap, tileScale);
   }

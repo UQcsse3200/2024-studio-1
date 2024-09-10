@@ -197,6 +197,14 @@ public class MainGameArea extends GameArea {
         };
     }
 
+    /**
+     * Gets the file paths for all textures used in the game area.
+     *
+     * @return An array of String paths for textures, including:
+     *         - Common textures (player, doors, etc.)
+     *         - Tile textures for levels 1-3
+     */
+
     @Override
     protected String[] getTextureFilepaths() {
 

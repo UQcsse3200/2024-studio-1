@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class ArmorTest {
     Armor armor = new Armor();
 
-    Entity entity = new Entity().addComponent(new CombatStatsComponent(100, 5, true, 0));
+    Entity entity = new Entity().addComponent(new CombatStatsComponent(100, 5, true, 0, 0));
 
     CombatStatsComponent attacker = new CombatStatsComponent(100, 15);
 

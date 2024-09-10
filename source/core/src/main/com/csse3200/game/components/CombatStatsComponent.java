@@ -1,7 +1,5 @@
 package com.csse3200.game.components;
 
-import com.csse3200.game.components.player.PlayerAnimationController;
-import com.csse3200.game.rendering.AnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +20,8 @@ public class CombatStatsComponent extends Component {
     private int baseAttack;
     private int maxDamage = 200;
     private int armor;
+    private int buff;
+
     private boolean isInvincible;
     private static final int timeInvincible = 150;
     private final Timer timerIFrames;
@@ -30,12 +30,13 @@ public class CombatStatsComponent extends Component {
     private CombatStatsComponent.flashSprite flashTask;
     private static int buffedAttack;
 
-    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
         this.baseAttack = baseAttack;
         this.armor = armor;
+        this.buff = buff;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
@@ -44,7 +45,7 @@ public class CombatStatsComponent extends Component {
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
-        this(health, baseAttack, false, 0);
+        this(health, baseAttack, false, 0, 0);
     }
 
     /**
@@ -143,24 +144,25 @@ public class CombatStatsComponent extends Component {
      * @param buffedAttack increased Damage
      */
 
-    public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
+    public void addAttack(int buffedAttack) {
+        buff = (buff + buffedAttack);
+    }
 
-    /**
-     * Checks the max damage value
-     *
-     * @return max damage
-     */
-    public int getMaxDamage() {return maxDamage;}
+    public int getDamageBuff() {
+        return buff;
+    }
+
+    public int getMaxDamage() {
+        return maxDamage;
+    }
 
     public void increaseArmor(int additionalArmor) {
         armor = Math.min(armor + additionalArmor, 100);
     }
 
-    /**
-     * Gets the current armor of the enitity
-     * @return the entities armor value
-     */
-    public int getArmor() {return armor;}
+    public int getArmor() {
+        return armor;
+    }
 
     /**
      * Applies damage to the entity by reducing its health. If health drops to 0, triggers a "died" event.
@@ -207,7 +209,7 @@ public class CombatStatsComponent extends Component {
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         } else {
-            int newHealth = getHealth() - attacker.getBaseAttack();
+            int newHealth = getHealth() - (attacker.getBaseAttack() + buff);
             setHealth(newHealth);
             if (health <= 0) {
                 entity.getEvents().trigger("died");

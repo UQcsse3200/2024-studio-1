@@ -83,12 +83,10 @@ public class EnergyDrink extends BuffItem {
      * @param speedType the string identification representing the type of energy drink
      */
     public void setIcon(String speedType) {
-        if (speedType.equals("Low")) {
-            this.EnergyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
-        } else if (speedType.equals("Medium")) {
-            this.EnergyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
-        } else if (speedType.equals("High")) {
-            this.EnergyDrinkIcon = new Texture("images/items/energy_drink_red.png");
+        switch (speedType) {
+            case "Low" -> this.EnergyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
+            case "Medium" -> this.EnergyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
+            case "High" -> this.EnergyDrinkIcon = new Texture("images/items/energy_drink_red.png");
         }
     }
 
@@ -156,15 +154,19 @@ public class EnergyDrink extends BuffItem {
      */
     public void setScalar(String speedType) {
         Vector2 baseSpeed = new Vector2(3f, 3f); //Improvement: actually get the default speed somehow
-        if (speedType.equals("Low")) {
-            this.speed = baseSpeed.scl(0.3f); //0.3% of the base speed
-            this.speedPercentage = 0.3f; //% Increase
-        } else if (speedType.equals("Medium")) {
-            this.speed = baseSpeed.scl(0.5f);
-            this.speedPercentage = 0.5f;
-        } else if (speedType.equals("High")) {
-            this.speed = baseSpeed.scl(0.6f);
-            this.speedPercentage = 0.6f;
+        switch (speedType) {
+            case "Low" -> {
+                this.speed = baseSpeed.scl(0.3f); //0.3% of the base speed
+                this.speedPercentage = 0.3f; //% Increase
+            }
+            case "Medium" -> {
+                this.speed = baseSpeed.scl(0.5f);
+                this.speedPercentage = 0.5f;
+            }
+            case "High" -> {
+                this.speed = baseSpeed.scl(0.6f);
+                this.speedPercentage = 0.6f;
+            }
         }
     }
 

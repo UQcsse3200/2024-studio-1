@@ -20,6 +20,10 @@ public class DamageBuff extends BuffItem{
         return "damagebuff";
     }
 
+    public int getBuff() {
+        return buff;
+    }
+
     /**
      * Applies the damage buff to the player for each weapon
      *
@@ -70,7 +74,4 @@ public class DamageBuff extends BuffItem{
     public void drop(Inventory inventory) {
 
     }
-
-    //@Override
-    //public String getMysteryIcon() {return ("images/items/mystery_box_red.png");}
 }

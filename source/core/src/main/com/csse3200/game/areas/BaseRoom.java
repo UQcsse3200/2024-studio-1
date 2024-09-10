@@ -42,16 +42,17 @@ public abstract class BaseRoom implements Room {
     List<List<String>> itemSpecifications;
     public Boolean isRoomFresh = true;
     protected Boolean isBossRoom = false;
+    private boolean isRoomCompleted = false;
 
     private static final float WALL_THICKNESS = 0.15f;
 
     /**
      * Inject factories to be used for spawning here room object.
      *
-     * @param npcFactory         the NPC factory to use
+     * @param npcFactory the NPC factory to use
      * @param collectibleFactory the Collectible factory to use.
-     * @param terrainFactory     the terrain factory to use.
-     * @param roomConnections    the keys for all the adjacent rooms.
+     * @param terrainFactory  the terrain factory to use.
+     * @param roomConnections  the keys for all the adjacent rooms.
      */
     public BaseRoom(
             NPCFactory npcFactory,
@@ -88,8 +89,6 @@ public abstract class BaseRoom implements Room {
         this.itemGroup = Integer.parseInt(split.get(5));
 
         this.specification = specification;
-
-        //createEnemyEntities(this.animalSpecifications.get(this.animalGroup), ServiceLocator.getGameAreaService().getGameArea().player);
     }
 
     // overide method 
@@ -148,7 +147,7 @@ public abstract class BaseRoom implements Room {
     /**
      * Spawn the terrain of the room, including the walls and background of the map.
      *
-     * @param area          the game area to spawn the terrain onto.
+     * @param area the game area to spawn the terrain onto.
      * @param wallThickness the thickness of the walls around the room.
      */
     protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
@@ -164,11 +163,14 @@ public abstract class BaseRoom implements Room {
     }
 
     public void spawn(Entity player, MainGameArea area) {
-        createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
+        
         this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
         this.spawnDoors(area, player);
-        this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
-        this.isRoomFresh = false;
+        if (!isRoomCompleted) {
+            createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
+            this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
+        }
+           
         // FIXME
         // logger.info("Spawning items:");
         // int itemGroup = Integer.parseInt(split.get(5));
@@ -194,10 +196,9 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawn a collectible item into the room.
-     *
-     * @param area          the game area to spawn the item into.
-     * @param specification the specification of the item to create.
-     * @param pos           the location to spawn it to.
+     * @param area the game area to spawn the item into.
+     * @param specification the specification of the item to tete.
+     * @param pos the location to spawn it to.
      */
     protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
@@ -221,11 +222,12 @@ public abstract class BaseRoom implements Room {
 
     /**
      * Spawn an NPC into the room
-     *
-     * @param area   the game area to spawn the NPC into.
+     * @param area the game area to spawn the NPC into.
      * @param player the player character for this npc to target.
      * @param animal the specification of the animal to create.
      * @param pos    the location to spawn it to.
+     * @param min the specification of the animal to create.
+     * @param max the location to spawn it to.
      */
     protected void spawnAnimals(MainGameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
         if(area.isRoomFresh(this)) {
@@ -236,15 +238,16 @@ public abstract class BaseRoom implements Room {
                 GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
                         ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
 
-                area.spawnEntityAt(enemy, randomPos, true, true);
-                enemy.getEvents().addListener("died", () -> {
-                    if (this.isAllAnimalDead())
-                        this.spawnItems();
-                });
-            }
-            //this will make all animals commit suicide
-            makeAllAnimalDead();
+
+            area.spawnEntityAt(enemy, randomPos, true, true);
+            enemy.getEvents().addListener("died",()->{
+               if(this.isAllAnimalDead())
+                   this.isRoomCompleted = true;
+                   this.spawnItems();
+            });
         }
+        //this will make all animals commit suicide 
+       makeAllAnimalDead();
     }
 
     /**
@@ -267,7 +270,6 @@ public abstract class BaseRoom implements Room {
         String connectE = connections.get(1);
         String connectW = connections.get(2);
         String connectS = connections.get(3);
-
         // Create doors and retrieve scales
         Entity[] doors = {
             new Door('v', player.getId(), connectW), // left

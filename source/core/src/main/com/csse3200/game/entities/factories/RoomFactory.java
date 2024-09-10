@@ -24,10 +24,12 @@ public class RoomFactory {
      * @param npcFactory the npc factory to populate the room with.
      * @param collectibleFactory the collectible factory to populate the room with.
      * @param terrainFactory the terrain factory to re-skin the room with.
+     * @param stairFactory 
      */
     public RoomFactory(NPCFactory npcFactory,
                        CollectibleFactory collectibleFactory,
-                       TerrainFactory terrainFactory) {
+                       TerrainFactory terrainFactory, 
+                       StairFactory stairFactory) {
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;

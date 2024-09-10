@@ -2,6 +2,7 @@ package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.RoomFactory;
@@ -11,6 +12,7 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.csse3200.game.areas.GameAreaService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,7 +79,9 @@ public class MainGameArea extends GameArea {
         //this.remove_room();
 
         this.currentRoom.removeRoom();
-        //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
+        // Vector2 playerPos = this.player.getPosition();
+        // player.setPosition(playerPos);
+        // ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
 
         //this.player.getPosition();
         //player.setPosition(null);
@@ -89,6 +93,7 @@ public class MainGameArea extends GameArea {
     }
 
     public void spawnCurrentRoom() {
+        //logger.info("Main Game Area update");
         if (!spawnRoom) {
             return;
         }
@@ -97,8 +102,10 @@ public class MainGameArea extends GameArea {
             this.currentRoom = currentLevel.getRoom("BOSS");
         }
         this.currentRoom.spawn(player, this);
+        logger.info("spawned: new room");
+        logger.info("spawning: player");
         spawnEntityAt(player, new GridPoint2(10, 10), true, true);
-
+        logger.info("spawned: player");
         spawnRoom = false;
     }
 

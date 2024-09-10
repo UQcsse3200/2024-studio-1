@@ -3,12 +3,17 @@ package com.csse3200.game.components.maingame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -75,6 +80,8 @@ public class MainGameExitDisplay extends UIComponent {
     TextButton restartBtn = new TextButton("Restart", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
 
+
+
     //window = new Image(windowTexture);
 
     // Triggers an event when the button is pressed.
@@ -101,6 +108,15 @@ public class MainGameExitDisplay extends UIComponent {
               entity.getEvents().trigger("exit");
           }
       });
+    saveBtn.addListener(
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                System.out.println("Save button clicked");
+                Label saveLabel = new Label("Game saved!", skin);
+                pauseTable.add(saveLabel).colspan(2).pad(10).row();
+                saveGame();
+              }});
 
     table.add(pauseBtn).padTop(10f).padRight(10f);
 
@@ -133,6 +149,38 @@ public class MainGameExitDisplay extends UIComponent {
     MainGameScreen.isPaused = false;
     pauseTable.remove();
     stage.addActor(table);
+  }
+
+  public class EntityCoordinates {
+    private float x;
+    private float y;
+
+    public EntityCoordinates(float x, float y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    public float getX() {
+      return x;
+    }
+
+    public float getY() {
+      return y;
+    }
+  }
+
+  public void saveGame() {
+    Array<EntityCoordinates> entities = new Array<>();
+    for (Entity entity : ServiceLocator.getEntityService().getEntities()) {
+       Vector2 pos = entity.getPosition();
+       float x = pos.x;
+       float y = pos.y;
+       EntityCoordinates coordinates = new EntityCoordinates(x, y);
+       entities.add(coordinates);
+    }
+    String filePath = "configs/save.json";
+    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
+    logger.debug("Game saved to: " + filePath);
   }
 
   public void resize(int width, int height){

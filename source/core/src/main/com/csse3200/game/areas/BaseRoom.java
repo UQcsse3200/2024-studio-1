@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.ai.tasks.TaskRunner;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
@@ -186,11 +187,22 @@ public abstract class BaseRoom implements Room {
             combatStatsComponent.hit(combatStatsComponent);
         }
     }
+
+
+    public boolean getIsRoomComplete() {
+        return this.isRoomCompleted;
+    }
+
+    
     public boolean isAllAnimalDead(){
+        if (enemies.isEmpty()) {
+            return true;
+        }
         for(Entity animal : enemies){
             if (!animal.getComponent(CombatStatsComponent.class).isDead())
                 return false;
         }
+        this.isRoomCompleted = true;
         return true;
     }
 

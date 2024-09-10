@@ -74,6 +74,8 @@ public class MainGameArea extends GameArea {
         roomsVisited.add(currentRoom);
         return true;
     }
+
+    
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
@@ -87,7 +89,7 @@ public class MainGameArea extends GameArea {
         //player.setPosition(null);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
-        if (isRoomFresh(this.currentRoom)) {
+        if (this.currentRoom.getIsRoomComplete()) {
             this.currentLevel.roomTraversals ++;
         }
     }

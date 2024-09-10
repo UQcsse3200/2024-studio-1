@@ -105,21 +105,6 @@ public class AnimalDisplay extends UIComponent{
         return null;
     }
 
-    private Array<StringDecorator<Graphics.DisplayMode>> getDisplayModes(Graphics.Monitor monitor) {
-        Graphics.DisplayMode[] displayModes = Gdx.graphics.getDisplayModes(monitor);
-        Array<StringDecorator<Graphics.DisplayMode>> arr = new Array<>();
-
-        for (Graphics.DisplayMode displayMode : displayModes) {
-            arr.add(new StringDecorator<>(displayMode, this::prettyPrint));
-        }
-
-        return arr;
-    }
-
-    private String prettyPrint(Graphics.DisplayMode displayMode) {
-        return displayMode.width + "x" + displayMode.height + ", " + displayMode.refreshRate + "hz";
-    }
-
     private Table makeMenuBtns() {
         TextButton exitBtn = new TextButton("Back", skin);
 

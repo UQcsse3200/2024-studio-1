@@ -22,6 +22,7 @@ public class CombatStatsComponent extends Component {
     private boolean isInvincible;
     private static final int timeInvincible = 150;
     private final Timer timer;
+    private int maxDamage = 200;
 
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
@@ -120,9 +121,22 @@ public class CombatStatsComponent extends Component {
 
     public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
 
+    /**
+     * Checks the max damage value
+     *
+     * @return max damage
+     */
+    public int getMaxDamage() {return maxDamage;}
+
     public void increaseArmor(int additionalArmor) {
         armor = Math.max(armor + additionalArmor, 100);
     }
+
+    /**
+     * Gets the current armor of the enitity
+     * @return the entities armor value
+     */
+    public int getArmor() {return armor;}
 
     /**
      * Applies damage to the entity by reducing its health. If health drops to 0, triggers a "died" event.

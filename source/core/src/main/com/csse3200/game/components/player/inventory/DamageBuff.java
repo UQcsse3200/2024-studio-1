@@ -71,6 +71,6 @@ public class DamageBuff extends BuffItem{
 
     }
 
-    @Override
-    public String getMysteryIcon() {return ("images/items/mystery_box_red.png");}
+    //@Override
+    //public String getMysteryIcon() {return ("images/items/mystery_box_red.png");}
 }

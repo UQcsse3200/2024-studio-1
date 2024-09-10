@@ -140,7 +140,11 @@ public abstract class BaseRoom implements Room {
         
         // for (Entity data : enemies) {
         //     ServiceLocator.getEntityService().markEntityForRemoval(data);
-        // } 
+        // }
+        for(Entity item : items) {
+            ServiceLocator.getEntityService().markEntityForRemoval(item);
+        }
+        this.items.clear();
         this.enemies.clear();
     }
 
@@ -221,6 +225,7 @@ public abstract class BaseRoom implements Room {
                     ServiceLocator.getEntityService().markEntityForRemoval(curItem);
                 }
             }
+            this.items.clear();
         });
         this.items.add(item);
         area.spawnEntityAt(item, pos, true, true);
@@ -252,7 +257,7 @@ public abstract class BaseRoom implements Room {
 
 
             area.spawnEntityAt(enemy, randomPos, true, true);
-            enemy.getEvents().addListener("died",()->{
+            enemy.getEvents().addListener("checkAnimalsDead",()->{
                if(this.isAllAnimalDead())
                    this.isRoomCompleted = true;
                    this.spawnItems();

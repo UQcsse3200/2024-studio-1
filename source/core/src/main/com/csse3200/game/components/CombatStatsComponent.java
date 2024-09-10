@@ -135,6 +135,7 @@ public class CombatStatsComponent extends Component {
         entity.getEvents().trigger("healthChanged", health);
         if (health == 0) {
             entity.getEvents().trigger("died");
+            entity.getEvents().trigger("checkAnimalsDead")
         }
     }
 

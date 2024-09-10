@@ -19,8 +19,5 @@ public interface Room {
      * Remove all entities that form this room.
      */
     void removeRoom();
-
-    public boolean isAllAnimalDead();
+    public Boolean isRoomFresh = true;
 }
-
-

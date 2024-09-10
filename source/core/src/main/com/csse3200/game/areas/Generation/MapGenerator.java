@@ -200,7 +200,7 @@ public class MapGenerator {
                 continue;
             }
             int animal_index = rng.getRandomInt(0, 7);
-            int item_index = rng.getRandomInt(0, 6);
+            int item_index = rng.getRandomInt(0, 15);
             addBlankRoom(new_Room_key, animal_index, item_index);
             connectRooms(randomRoomKey, new_Room_key, detlas_index);
             roomCount--;

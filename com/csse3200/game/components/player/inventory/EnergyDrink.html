@@ -97,9 +97,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">EnergyDrink</span>
 <span class="extends-implements">extends <a href="BuffItem.html" title="class in com.csse3200.game.components.player.inventory">BuffItem</a></span></div>
-<div class="block">An energy drink item that immediately affects the player's speed upon pickup. An energy drink has three different
- types, which can be chosen by changing the specification of this item to either "Low", "Medium" or "High". Each
- of the three types have a different speed boost associated with it</div>
+<div class="block">An energy drink item that immediately affects the player's speed upon pickup</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -120,7 +118,7 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">EnergyDrink</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;speedType)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">EnergyDrink</a>()</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -144,7 +142,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#effect(com.csse3200.game.entities.Entity)" class="member-name-link">effect</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A method that applies the effect of this specific energy drink to the player.</div>
+<div class="block">A method that applies the effect of the energy drink to the player.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBuffSpecification()" class="member-name-link">getBuffSpecification</a>()</code></div>
@@ -157,34 +155,14 @@ loadScripts(document, 'script');</script>
 <div class="block">Get the texture for this item's icon.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMysteryIcon()" class="member-name-link">getMysteryIcon</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getName()" class="member-name-link">getName</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get the mystery box icon representation of this item</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getName()" class="member-name-link">getName</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get the name of this item</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.math.Vector2</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSpeed()" class="member-name-link">getSpeed</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get the vector representing the speed boost of this energy drink type</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSpeedPercentage()" class="member-name-link">getSpeedPercentage</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.math.Vector2</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSpeed()" class="member-name-link">getSpeed</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get the float representing the speed boost of this energy drink type</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setIcon(java.lang.String)" class="member-name-link">setIcon</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;speedType)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the correct icon depending on what type of energy drink this is</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setScalar(java.lang.String)" class="member-name-link">setScalar</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;speedType)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the correct speed boost depending on what type of energy drink this is.</div>
+<div class="block">Get the speed value of this item</div>
 </div>
 </div>
 </div>
@@ -207,9 +185,9 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.String)">
+<section class="detail" id="&lt;init&gt;()">
 <h3>EnergyDrink</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">EnergyDrink</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;speedType)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">EnergyDrink</span>()</div>
 </section>
 </li>
 </ul>
@@ -243,17 +221,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="setIcon(java.lang.String)">
-<h3>setIcon</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setIcon</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;speedType)</span></div>
-<div class="block">Sets the correct icon depending on what type of energy drink this is</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>speedType</code> - the string identification representing the type of energy drink</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="drop(com.csse3200.game.components.player.inventory.Inventory)">
 <h3>drop</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">drop</span><wbr><span class="parameters">(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory)</span></div>
@@ -268,8 +235,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="effect(com.csse3200.game.entities.Entity)">
 <h3>effect</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">effect</span><wbr><span class="parameters">(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</span></div>
-<div class="block">A method that applies the effect of this specific energy drink to the player. This method handles the
- effect upon the player's speed, as well as updates to the UI of the speed percentage stats</div>
+<div class="block">A method that applies the effect of the energy drink to the player. Specifically, updates the player's
+ speed</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="BuffItem.html#effect(com.csse3200.game.entities.Entity)">effect</a></code>&nbsp;in class&nbsp;<code><a href="BuffItem.html" title="class in com.csse3200.game.components.player.inventory">BuffItem</a></code></dd>
@@ -282,33 +249,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getSpeed()">
 <h3>getSpeed</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.math.Vector2</span>&nbsp;<span class="element-name">getSpeed</span>()</div>
-<div class="block">Get the vector representing the speed boost of this energy drink type</div>
+<div class="block">Get the speed value of this item</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the speed boost (vector) of this energy drink type</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getSpeedPercentage()">
-<h3>getSpeedPercentage</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getSpeedPercentage</span>()</div>
-<div class="block">Get the float representing the speed boost of this energy drink type</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the speed boost (float) of this energy drink type</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setScalar(java.lang.String)">
-<h3>setScalar</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setScalar</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;speedType)</span></div>
-<div class="block">Sets the correct speed boost depending on what type of energy drink this is. The speed boost will be
- a percentage of the original "base speed"</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>speedType</code> - the string identification representing the type of energy drink</dd>
+<dd>the speed value</dd>
 </dl>
 </section>
 </li>
@@ -322,17 +266,6 @@ loadScripts(document, 'script');</script>
 <dd><code><a href="BuffItem.html#getBuffSpecification()">getBuffSpecification</a></code>&nbsp;in class&nbsp;<code><a href="BuffItem.html" title="class in com.csse3200.game.components.player.inventory">BuffItem</a></code></dd>
 <dt>Returns:</dt>
 <dd>the string representation of this collectible.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getMysteryIcon()">
-<h3>getMysteryIcon</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getMysteryIcon</span>()</div>
-<div class="block">Get the mystery box icon representation of this item</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>a string containing the path to the mystery box icon</dd>
 </dl>
 </section>
 </li>

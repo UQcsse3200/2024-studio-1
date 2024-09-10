@@ -9,6 +9,7 @@ import com.csse3200.game.services.ServiceLocator;
 
 import java.util.List;
 
+import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
 import static com.csse3200.game.entities.PlayerSelection.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -29,7 +30,8 @@ public class PlayerSelectScreen extends StaticScreen {
                         .stream()
                         .map(config -> config.textureFilename)
                         .toArray(String[]::new),
-                getLogger(PlayerSelectScreen.class)
+                getLogger(PlayerSelectScreen.class),
+                DEFAULT
         );
     }
 

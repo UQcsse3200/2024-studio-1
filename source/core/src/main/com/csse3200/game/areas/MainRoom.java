@@ -31,7 +31,7 @@ public class MainRoom extends BaseRoom {
     );
     }
 
-    
+
 
     public MainRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,

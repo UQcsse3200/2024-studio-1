@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
-import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.options.GameOptions;
@@ -44,6 +43,7 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png"
     };
+    private PlayerSelection playerSelection = new PlayerSelection();
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
 
     private final GdxGame game;
@@ -59,9 +59,11 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen services");
         ServiceLocator.registerTimeSource(new GameTime());
         ServiceLocator.registerRandomService(new RandomService("Default Seed :p"));
+
         PhysicsService physicsService = new PhysicsService();
         ServiceLocator.registerPhysicsService(physicsService);
         this.physicsEngine = physicsService.getPhysics();
+
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
 
@@ -87,9 +89,11 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen entities");
 
         LevelFactory levelFactory = new MainGameLevelFactory();
-        GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-                new TestGameArea(levelFactory, player) :
-                new MainGameArea(levelFactory, player);
+        if (gameOptions.difficulty == TEST) {
+            new TestGameArea(levelFactory, player);
+        } else {
+            new MainGameArea(levelFactory, player);
+        }
     }
 
     @Override

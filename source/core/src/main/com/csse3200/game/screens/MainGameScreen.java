@@ -114,13 +114,26 @@ public class MainGameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        renderer.render();
+
+        // The ui should be updated, whether paused or unpaused. Other entities may not need to
+        // be updated yet
+        ui.earlyUpdate();
+        ui.update();
+
         if (isPaused) {
+            // Render just the ui
+            renderer.render();
+            // Exit early, don't update other entities
             return;
         }
+
+        // Not paused, so update everything
         physicsEngine.update();
         ServiceLocator.getEntityService().update();
         ServiceLocator.getGameAreaService().update();
+
+        // Re-render for the non-ui entities
+        renderer.render();
     }
 
     @Override

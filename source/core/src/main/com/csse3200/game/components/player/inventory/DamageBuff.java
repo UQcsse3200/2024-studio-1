@@ -2,11 +2,12 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.components.player.PlayerActions;
+
 import com.csse3200.game.components.CombatStatsComponent;
 
 
 public class DamageBuff extends BuffItem{
+    private final int buff = 5;
 
     /**
      * Returns the string of the buff item
@@ -18,12 +19,17 @@ public class DamageBuff extends BuffItem{
         return "damagebuff";
     }
 
+    /**
+     * Applies the damage buff to the player for each weapon
+     *
+     * @param entity The player entity
+     */
     @Override
     public void effect(Entity entity) {
-        int baseAttack = entity.getComponent(CombatStatsComponent.class).getBaseAttack();
-        entity.getComponent(CombatStatsComponent.class).setBaseAttack(35); //placeholder value
-
+        entity.getComponent(CombatStatsComponent.class).addAttack(buff);
     }
+
+    public int getBuff() {return buff;}
 
     /**
      * Gets the name of the item
@@ -42,7 +48,7 @@ public class DamageBuff extends BuffItem{
      */
     @Override
     public Texture getIcon() {
-        return null;
+        return new Texture("damage_buff.png");
     }
 
     /**

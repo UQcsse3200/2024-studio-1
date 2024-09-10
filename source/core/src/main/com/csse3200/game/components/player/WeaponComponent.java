@@ -359,7 +359,7 @@ public class WeaponComponent extends Component {
                 ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
                 logger.info("Ranged weapon shoot");
             }
-            // Reset lastAtttack time
+            // Reset last Attack time
             this.lastAttack = currentTime;
         } else {
             logger.info("No ranged weapon");

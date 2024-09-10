@@ -82,6 +82,6 @@ public class WeaponPickupComponent extends Component {
         // Perform any last checks or cleanup before actual disposal
         ServiceLocator.getEntityService().unregister(itemEntity);
         ServiceLocator.getEntityService().markEntityForRemoval(itemEntity);
-        logger.info("Marking entity for removal: " + itemEntity);
+        logger.info("Marking entity for removal: {}", itemEntity);
     }
 }

@@ -9,7 +9,6 @@ import com.csse3200.game.entities.Entity;
  * by a large health boost of 100.
  */
 public class MedKit extends UsableItem {
-
     private static final int Large_Health_Boost = 100;
 
     /**
@@ -35,6 +34,8 @@ public class MedKit extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
+        super.drop(inventory);
+
     }
 
     /**
@@ -57,6 +58,14 @@ public class MedKit extends UsableItem {
         return new Texture("images/items/med_kit.png");
     }
 
+    /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_green.png");
+    }
 
     /**
      * Applies the Medkit to an entity, increasing its health by a large amount,
@@ -77,8 +86,6 @@ public class MedKit extends UsableItem {
      */
     public void increaseLargeBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-        int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + Large_Health_Boost,100);
-        combatStats.setHealth(newHealth);
+        combatStats.addHealth(Large_Health_Boost);
     }
 }

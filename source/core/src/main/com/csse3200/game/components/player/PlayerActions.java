@@ -1,9 +1,10 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -15,19 +16,27 @@ public class PlayerActions extends Component {
     private static final Vector2 DEFAULT_SPEED = new Vector2(3f, 3f); // Metres per second
 
     private PhysicsComponent physicsComponent;
+    private InventoryComponent inventoryComponent;
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
+    private boolean dead = false;
     private float maxSpeed = 5.0f;
     private float speedPercentage;
 
     @Override
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
+        inventoryComponent = entity.getComponent(InventoryComponent.class);
         entity.getEvents().addListener("walk", this::walk);
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
+        entity.getEvents().addListener("use1", () -> use(new MedKit()));
+        entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
+        entity.getEvents().addListener("use3", () -> use(new Bandage()));
+        setSpeedPercentage(1.0f);
+
         setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
     }
 
@@ -35,6 +44,13 @@ public class PlayerActions extends Component {
     public void update() {
         if (moving) {
             updateSpeed();
+        }
+        if (entity.getComponent(CombatStatsComponent.class).isDead()) {
+            entity.getEvents().trigger("stopAnimation");
+            if (!dead) {
+                entity.getEvents().trigger("death");
+                dead = true;
+            }
         }
     }
 
@@ -97,6 +113,7 @@ public class PlayerActions extends Component {
      * Makes the player attack.
      */
     private void attack() {
+        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
         entity.getComponent(WeaponComponent.class).attack();
     }
 
@@ -104,6 +121,7 @@ public class PlayerActions extends Component {
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
+        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
         entity.getComponent(WeaponComponent.class).shoot(direction);
     }
 
@@ -125,5 +143,18 @@ public class PlayerActions extends Component {
         this.walkDirection = direction;
         moving = true;
     }
+
+    private void use(UsableItem item) {
+        Inventory inventory = inventoryComponent.getInventory();
+        for (Collectible collectedItem : inventory.getItems()) {
+            if (collectedItem.getClass() == item.getClass()) {
+                item.apply(entity);
+                inventoryComponent.drop(collectedItem);
+                break;
+            }
+        }
+    }
+
 }
+
 

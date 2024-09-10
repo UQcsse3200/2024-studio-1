@@ -1,0 +1,7 @@
+{
+  "name": "the other one",
+  "health": 70,
+  "favouriteColour": "yellow",
+  "textureFilename": "images/player/player.png",
+  "textureAtlasFilename": "images/player/player.atlas"
+}

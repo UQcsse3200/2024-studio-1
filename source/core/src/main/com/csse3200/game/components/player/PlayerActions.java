@@ -4,8 +4,12 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.npc.NPCDamageHandlerComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.components.CombatStatsComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -17,7 +21,10 @@ public class PlayerActions extends Component {
     private PhysicsComponent physicsComponent;
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
+    private boolean dead = false;
     private Vector2 speed = DEFAULT_SPEED;
+    private float maxSpeed = 5.0f;
+    private float speedPercentage;
 
     @Override
     public void create() {
@@ -26,13 +33,59 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
+        setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
     }
 
     @Override
     public void update() {
+
         if (moving) {
             updateSpeed();
         }
+
+        if (entity.getComponent(CombatStatsComponent.class).isDead()) {
+            entity.getEvents().trigger("stopAnimation");
+            if (!dead) {
+                entity.getEvents().trigger("death");
+                dead = true;
+            }
+        }
+    }
+
+    /**
+     * Gets the current speed of the player
+     *
+     * @return the current speed of the player
+     */
+    public Vector2 getCurrSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * Gets the maximum speed limit of the player
+     *
+     * @return the maximum speed limit
+     */
+    public float getMaxSpeed() {
+        return this.maxSpeed;
+    }
+
+    /**
+     * Sets the current speed percentage stat to a new value
+     *
+     * @param speedPercentage the new speed percentage to set to
+     */
+    public void setSpeedPercentage(float speedPercentage) {
+        this.speedPercentage = speedPercentage;
+    }
+
+    /**
+     * Gets the current speed percentage, which is shown on the UI
+     *
+     * @return the current speed percentage
+     */
+    public float getCurrSpeedPercentage() {
+        return this.speedPercentage;
     }
 
     /**
@@ -44,7 +97,6 @@ public class PlayerActions extends Component {
         this.speed = speed;
         update();
     }
-
 
     /**
      * Stops the player from walking.

@@ -170,10 +170,22 @@ public class AnimationRenderComponent extends RenderComponent {
     if (currentAnimation == null) {
       return;
     }
+
     TextureRegion region = currentAnimation.getKeyFrame(animationPlayTime);
     Vector2 pos = entity.getPosition();
     Vector2 scale = entity.getScale();
-    batch.draw(region, pos.x, pos.y, scale.x, scale.y);
+
+    float textureWidth = region.getRegionWidth();
+    float textureHeight = region.getRegionHeight();
+    float aspectRatio =  textureWidth / textureHeight;
+    float scaleX = 0.5f;
+    float scaleY = 0.5f * aspectRatio;
+
+    if (region instanceof TextureAtlas.AtlasRegion && ((TextureAtlas.AtlasRegion) region).rotate) {
+      batch.draw(region, pos.x, pos.y, scaleX, scaleY, 1f, aspectRatio, 1f, 1f, 180, false);
+    } else {
+      batch.draw(region, pos.x, pos.y, scale.x, scale.y);
+    }
     animationPlayTime += timeSource.getDeltaTime();
   }
 

@@ -8,35 +8,23 @@ public class GameOptions {
 
     /** The difficulty of the game. */
     public Difficulty difficulty;
-
     /**
-     * Create new GameOptions.
-     * @param difficulty what to set the difficulty to.
+     * The path to the json file of the selected player.
      */
-    public GameOptions(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
+    public String chosenPlayer;
 
     /**
      * The difficulty of the game. Will likely affect map creation (number of rooms). May affect
      * other features in the future.
      */
     public enum Difficulty {
-        EASY {
-            @Override
-            public String toString() {
-                return "Easy";
-            }
-        }, MEDIUM {
-            @Override
-            public String toString() {
-                return "Medium";
-            }
-        }, HARD {
-            @Override
-            public String toString() {
-                return "Hard";
-            }
+        EASY, MEDIUM, HARD, TEST;
+
+        @Override
+        public String toString() {
+            // this/THIS/tHiS -> This
+            return this.name().substring(0, 1).toUpperCase()
+                    + this.name().substring(1).toLowerCase();
         }
     }
 }

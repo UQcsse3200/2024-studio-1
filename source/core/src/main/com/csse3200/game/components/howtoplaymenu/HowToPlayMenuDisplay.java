@@ -8,23 +8,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.files.UserSettings;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Display for the how to play screen e.g. labels for game description.
+ */
 public class HowToPlayMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(HowToPlayMenuDisplay.class);
     private final GdxGame game;
 
     private Table rootTable;
-    private TextField fpsText;
-    private CheckBox fullScreenCheck;
-    private CheckBox vsyncCheck;
-    private Slider uiScaleSlider;
-    private SelectBox<StringDecorator<Graphics.DisplayMode>> displayModeSelect;
 
     public HowToPlayMenuDisplay(GdxGame game) {
         super();
@@ -150,21 +146,6 @@ public class HowToPlayMenuDisplay extends UIComponent {
         return table;
     }
 
-    private void applyChanges() {
-        UserSettings.Settings settings = UserSettings.get();
-
-        Integer fpsVal = parseOrNull(fpsText.getText());
-        if (fpsVal != null) {
-            settings.fps = fpsVal;
-        }
-        settings.fullscreen = fullScreenCheck.isChecked();
-        settings.uiScale = uiScaleSlider.getValue();
-        settings.displayMode = new UserSettings.DisplaySettings(displayModeSelect.getSelected().object);
-        settings.vsync = vsyncCheck.isChecked();
-
-        UserSettings.set(settings, true);
-    }
-
     private void exitMenu() {
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
@@ -180,11 +161,6 @@ public class HowToPlayMenuDisplay extends UIComponent {
     @Override
     protected void draw(SpriteBatch batch) {
         // draw is handled by the stage
-    }
-
-    @Override
-    public void update() {
-        stage.act(ServiceLocator.getTimeSource().getDeltaTime());
     }
 
     @Override

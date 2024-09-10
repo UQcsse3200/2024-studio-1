@@ -7,6 +7,9 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A ranged weapon Collectible.
+ */
 public class ConcreteRangedWeapon extends RangedWeapon {
     private final String specification;
     private final String name;
@@ -18,7 +21,13 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     private final int maxAmmo;
     private final int reloadTime;
 
-
+    /**
+     * create a new basic ranged weapon from a specification.
+     * The specification format is:
+     * "name,textureFilePath,damage,range,fireRate,ammo,maxAmmo,reloadTime"
+     *
+     * @param specification the specification of the ranged weapon to create.
+     */
     public ConcreteRangedWeapon(String specification) {
         Texture texture1;
         this.specification = specification;

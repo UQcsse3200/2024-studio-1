@@ -266,8 +266,8 @@ public abstract class BaseRoom implements Room {
                 this.spawnItems();
             });
         }
-        //this will make all animals commit suicide
-        makeAllAnimalDead();
+        // this will make all animals commit suicide
+//        makeAllAnimalDead();
     }
 
     /**
@@ -277,7 +277,6 @@ public abstract class BaseRoom implements Room {
      * @param player The main player of the room.
      */
     protected void spawnDoors(GameArea area, Entity player) {
-
         // Ensure roomConnections is properly initialized
         this.doors.clear();
         if (this.roomConnections == null || this.roomConnections.size() < 4) {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.Component;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
@@ -38,7 +39,18 @@ import org.slf4j.LoggerFactory;
 public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
   private static final NPCConfigs configs =
-          FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+          loadConfigs();
+
+  public static NPCConfigs loadConfigs() {
+    NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+    System.out.println("Loaded configs: " + configs); // Add debug printout
+    if (configs.rat.attacks == null) {
+      System.out.println("Rat attacks are null!"); // Check if attacks are being loaded
+    } else {
+      System.out.println("Rat melee attack range: " + configs.rat.attacks.melee.range); // Log specific fields
+    }
+    return configs;
+  }
 
   /**
    * Construct a new NPC Factory.
@@ -82,11 +94,11 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
     Entity rat = createBaseNPC(target, aiComponent, config, animator);
+
     return rat;
   }
 
   /**
-<<<<<<< HEAD
    * Creates a kitsune boss entity with predefined components and behaviour.
    *
    * @param target entity to chase
@@ -97,8 +109,7 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
     Entity kitsune = createBaseNPC(target, aiComponent, config, animator);
-    kitsune.addComponent(new RangeAttackComponent(target, config.tasks.shoot.attackRange, config.tasks.shoot.attackRate,
-            0, config.effects));
+
     return kitsune; 
   }
 
@@ -204,6 +215,7 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
     Entity birdman = createBaseNPC(target, aiComponent, config, animator);
+
     return birdman;
   }
 
@@ -220,8 +232,8 @@ public class NPCFactory extends LoadedFactory {
     aiComponent.addTask(new ChargeTask(target, config.tasks.charge));
     aiComponent.addTask(new WanderTask(config.tasks.wander));
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
-    Entity werewolf = createBaseNPC(target, config, animator);
-    werewolf.addComponent(aiComponent);
+    Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
+
     return werewolf;
   }
 
@@ -236,8 +248,7 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
     Entity dragon = createBaseNPC(target, aiComponent, config, animator);
-    dragon.addComponent(new RangeAttackComponent(target, config.tasks.shoot.attackRange, config.tasks.shoot.attackRate,
-            0, config.effects));
+
     return dragon;
   }
 
@@ -248,44 +259,16 @@ public class NPCFactory extends LoadedFactory {
    * @param aiComponent The AI component to be added to the NPC.
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
+   *
    * @return The created NPC entity.
    */
-  private static Entity createBaseNPC(Entity target, NPCConfigs.NPCConfig config,
+  private static Entity createBaseNPC(Entity target, Component aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new MeleeAttackComponent(target, config.attackRange, config.attackRate, config.effects))
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-            .addComponent(animator)
-            .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler()) 
-            .addComponent(new DirectionalNPCComponent(config.isDirectional))
-            .addComponent(new NPCAnimationController());
-    PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
-    npc.getComponent(AnimationRenderComponent.class).scaleEntity();
-    return npc;
-  }
-  /**
-   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
-   *
-   * @param target The target entity for the NPC to chase.
-   * @param aiComponent The AI component to be added to the NPC.
-   * @param config The configuration for the NPC.
-   * @param animator The animator component for the NPC.
-   *
-   * @return The created NPC entity.
-   */
-  private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
-                                      AnimationRenderComponent animator) {
-    Entity npc = new Entity()
-            .addComponent(new PhysicsComponent())
-            .addComponent(new PhysicsMovementComponent())
-            .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new MeleeAttackComponent(target, config.attackRange, config.attackRate, config.effects))
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
@@ -293,6 +276,14 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new NPCDeathHandler()) 
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController());
+    if (config.attacks.melee != null) {
+      npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee.range, config.attacks.melee.rate,
+              config.attacks.melee.effects));
+    }
+    if (config.attacks.ranged != null) {
+      npc.addComponent(new RangeAttackComponent(target, config.attacks.ranged.range, config.attacks.ranged.rate,
+              config.attacks.ranged.type, config.attacks.ranged.effects));
+    }
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
     return npc;

@@ -2,11 +2,15 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.components.player.PlayerActions;
+
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerStatsDisplay;
 
-
-public class DamageBuff extends BuffItem{
+/**
+ * An item that boosts your damage.
+ */
+public class DamageBuff extends BuffItem {
+    private final int buff = 5;
 
     /**
      * Returns the string of the buff item
@@ -18,11 +22,33 @@ public class DamageBuff extends BuffItem{
         return "damagebuff";
     }
 
+    /**
+     * get the amount the damage is buffed by.
+     * @return the amount the damages is buff by.
+     */
+    public int getBuff() {
+        return buff;
+    }
+
+    /**
+     * Applies the damage buff to the player for each weapon
+     *
+     * @param entity The player entity
+     */
     @Override
     public void effect(Entity entity) {
-        int baseAttack = entity.getComponent(CombatStatsComponent.class).getBaseAttack();
-        entity.getComponent(CombatStatsComponent.class).setBaseAttack(35); //placeholder value
-
+        int currDamage = entity.getComponent(CombatStatsComponent.class).getBaseAttack();
+        int buffedDamage = currDamage + buff;
+        int maxDamage = entity.getComponent(CombatStatsComponent.class).getMaxDamage();
+        if (buffedDamage >= maxDamage) {
+            //Damage is maxed out
+            //Need to update UI and cap
+            buffedDamage = maxDamage;
+            entity.getComponent(CombatStatsComponent.class).setBaseAttack(maxDamage);
+        } else {
+            entity.getComponent(CombatStatsComponent.class).addAttack(buff);
+        }
+        entity.getEvents().trigger("updateDamageBuff", buffedDamage);
     }
 
     /**
@@ -42,7 +68,7 @@ public class DamageBuff extends BuffItem{
      */
     @Override
     public Texture getIcon() {
-        return null;
+        return new Texture("damage_buff.png");
     }
 
     /**

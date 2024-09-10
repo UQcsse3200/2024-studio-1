@@ -47,7 +47,6 @@ public class ItemPickupComponent extends Component {
         entity.getComponent(InventoryComponent.class).pickup(item);
         itemEntity.getEvents().trigger("pickedUp");
         markEntityForRemoval(itemEntity);
-        System.out.println("It works!"); //Test to see if on collision, it works
     }
 
     /**

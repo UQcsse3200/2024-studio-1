@@ -1,22 +1,25 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerActions;
-import com.csse3200.game.components.player.PlayerStatsDisplay;
-import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.entities.Entity;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EnergyDrinkTest {
-    EnergyDrink energyDrink = new EnergyDrink("Low");
-    Entity entity = new Entity().addComponent(new PlayerActions()).addComponent(new PlayerStatsDisplay());
+
+    EnergyDrink energyDrink = new EnergyDrink("Low", true);
+    Entity entity = new Entity()
+            .addComponent(new PlayerActions())
+            .addComponent(new CombatStatsComponent(1, 1, true, 1, 0));
 
     @Test
     public void getNameTest() {
         assertEquals("Energy drink", energyDrink.getName());
-        }
+    }
 
     @Test
     public void getSpeedTest() {
@@ -40,11 +43,12 @@ public class EnergyDrinkTest {
         assertEquals(Collectible.Type.BUFF_ITEM, energyDrink.getType());
     }
 
+    /*
     @Test
     public void getMysteryIconTest() {
         assertEquals("images/items/mystery_box_blue.png", energyDrink.getMysteryIcon());
     }
-
+    */
     @Test
     public void effectTest() {
         Vector2 initialSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();

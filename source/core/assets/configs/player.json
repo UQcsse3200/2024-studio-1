@@ -3,5 +3,7 @@
   "health": 100,
   "favouriteColour": "peach",
   "textureFilename": "images/player/player.png",
-  "textureAtlasFilename": "images/player/player.atlas"
+  "textureAtlasFilename": "images/player/player.atlas",
+  "melee": "pickaxe",
+  "ranged": "shotgun"
 }

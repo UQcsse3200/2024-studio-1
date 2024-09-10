@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 
-import java.util.Objects;
-
 /**
  * An energy drink item that immediately affects the player's speed upon pickup. An energy drink has three different
  * types, which can be chosen by changing the specification of this item to either "Low", "Medium" or "High". Each
@@ -36,6 +34,23 @@ public class EnergyDrink extends BuffItem {
      */
     Texture EnergyDrinkIcon;
 
+    /***
+     * A constructor used simply for testing in JUnit (The only difference is that this constructor does not
+     * call setIcon(), avoiding issues. This is because JUnit cannot access Textures.
+     *
+     * @param speedType
+     * @param flag
+     */
+    public EnergyDrink(String speedType, boolean flag) {
+        this.speedType = speedType;
+        setScalar(speedType);
+    }
+
+    /**
+     * A constructor to initialise an EnergyDrink item
+     *
+     * @param speedType
+     */
     public EnergyDrink(String speedType) {
         this.speedType = speedType;
         setScalar(speedType);
@@ -68,14 +83,10 @@ public class EnergyDrink extends BuffItem {
      * @param speedType the string identification representing the type of energy drink
      */
     public void setIcon(String speedType) {
-        if (speedType.equals("Low")) {
-            this.EnergyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
-        }
-        else if (speedType.equals("Medium")) {
-            this.EnergyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
-        }
-        else if (speedType.equals("High")) {
-            this.EnergyDrinkIcon = new Texture("images/items/energy_drink_red.png");
+        switch (speedType) {
+            case "Low" -> this.EnergyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
+            case "Medium" -> this.EnergyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
+            case "High" -> this.EnergyDrinkIcon = new Texture("images/items/energy_drink_red.png");
         }
     }
 
@@ -143,17 +154,19 @@ public class EnergyDrink extends BuffItem {
      */
     public void setScalar(String speedType) {
         Vector2 baseSpeed = new Vector2(3f, 3f); //Improvement: actually get the default speed somehow
-        if (speedType.equals("Low")) {
-            this.speed = baseSpeed.scl(0.3f); //0.3% of the base speed
-            this.speedPercentage = 0.3f; //% Increase
-        }
-        else if (speedType.equals("Medium")) {
-            this.speed = baseSpeed.scl(0.5f);
-            this.speedPercentage = 0.5f;
-        }
-        else if (speedType.equals("High")) {
-            this.speed = baseSpeed.scl(0.6f);
-            this.speedPercentage = 0.6f;
+        switch (speedType) {
+            case "Low" -> {
+                this.speed = baseSpeed.scl(0.3f); //0.3% of the base speed
+                this.speedPercentage = 0.3f; //% Increase
+            }
+            case "Medium" -> {
+                this.speed = baseSpeed.scl(0.5f);
+                this.speedPercentage = 0.5f;
+            }
+            case "High" -> {
+                this.speed = baseSpeed.scl(0.6f);
+                this.speedPercentage = 0.6f;
+            }
         }
     }
 
@@ -170,10 +183,10 @@ public class EnergyDrink extends BuffItem {
     /**
      * Get the mystery box icon representation of this item
      *
-     * @return a string containing the path to the mystery box icon
+     * @return the mystery box icon representation of this item
      */
     @Override
-    public String getMysteryIcon() {
-        return ("images/items/mystery_box_blue.png");
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_blue.png");
     }
 }

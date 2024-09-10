@@ -1,13 +1,16 @@
 package com.csse3200.game.entities.factories;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.Component;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
-import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
+import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
@@ -36,7 +39,18 @@ import org.slf4j.LoggerFactory;
 public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
   private static final NPCConfigs configs =
-          FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+          loadConfigs();
+
+  public static NPCConfigs loadConfigs() {
+    NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+    System.out.println("Loaded configs: " + configs); // Add debug printout
+    if (configs.rat.attacks == null) {
+      System.out.println("Rat attacks are null!"); // Check if attacks are being loaded
+    } else {
+      System.out.println("Rat melee attack range: " + configs.rat.attacks.melee.range); // Log specific fields
+    }
+    return configs;
+  }
 
   /**
    * Construct a new NPC Factory.
@@ -62,9 +76,13 @@ public class NPCFactory extends LoadedFactory {
       case "Dog" -> this.createDog(target);
       case "Minotaur" -> this.createMinotaur(target);
       case "Werewolf" -> this.createWerewolf(target);
+      case "Birdman" -> this.createBirdman(target);
+      case "Kitsune" -> this.createKitsune(target);
+      case "Dragon" -> this.createDragon(target);
       default -> throw new IllegalArgumentException("Unknown animal: " + specification);
     };
   }
+
   /**
    * Creates a rat entity with predefined components and behaviour.
    *
@@ -74,11 +92,27 @@ public class NPCFactory extends LoadedFactory {
   public Entity createRat(Entity target) {
     NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
     Entity rat = createBaseNPC(target, aiComponent, config, animator);
 
     return rat;
   }
+
+  /**
+   * Creates a kitsune boss entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the kitsune entity
+   */
+  public Entity createKitsune(Entity target) {
+    NPCConfigs.NPCConfig config = configs.kitsune;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
+    Entity kitsune = createBaseNPC(target, aiComponent, config, animator);
+
+    return kitsune; 
+  }
+
 
   /**
    * Creates a bear entity.
@@ -119,7 +153,7 @@ public class NPCFactory extends LoadedFactory {
   public Entity createDino(Entity target) {
     NPCConfigs.NPCConfig config = configs.dino;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/dino.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/dino/dino.atlas", config.animations);
     Entity dino = createBaseNPC(target, aiComponent, config, animator);
 
     return dino;
@@ -134,10 +168,25 @@ public class NPCFactory extends LoadedFactory {
   public Entity createBat(Entity target) {
     NPCConfigs.NPCConfig config = configs.bat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/bat.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/bat/bat.atlas", config.animations);
     Entity bat = createBaseNPC(target, aiComponent, config, animator);
 
     return bat;
+  }
+
+  /**
+   * Creates a dog entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the created dog entity
+   */
+  public Entity createDog(Entity target) {
+    NPCConfigs.NPCConfig config = configs.dog;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
+    Entity dog = createBaseNPC(target, aiComponent, config, animator);
+
+    return dog;
   }
 
   /**
@@ -149,18 +198,27 @@ public class NPCFactory extends LoadedFactory {
   public Entity createMinotaur(Entity target) {
     NPCConfigs.NPCConfig config = configs.minotaur;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/minotaur.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/minotaur/minotaur.atlas", config.animations);
     Entity minotaur = createBaseNPC(target, aiComponent, config, animator);
 
     return minotaur;
   }
 
   /**
-   * Creates a dog entity with predefined components and behaviour.
+   * Creates a Birdman entity.
    *
    * @param target entity to chase
-   * @return the created dog entity
+   * @return entity
    */
+  public Entity createBirdman(Entity target) {
+    NPCConfigs.NPCConfig config = configs.birdman;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
+    Entity birdman = createBaseNPC(target, aiComponent, config, animator);
+
+    return birdman;
+  }
+
   /**
    * Creates a Werewolf entity.
    *
@@ -169,18 +227,29 @@ public class NPCFactory extends LoadedFactory {
    */
   public Entity createWerewolf(Entity target) {
     NPCConfigs.NPCConfig config = configs.werewolf;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    BossAITaskComponent aiComponent = new BossAITaskComponent();
+    aiComponent.addTask(new ChaseTask(target, config.tasks.chase));
+    aiComponent.addTask(new ChargeTask(target, config.tasks.charge));
+    aiComponent.addTask(new WanderTask(config.tasks.wander));
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
+
     return werewolf;
   }
-  public Entity createDog(Entity target) {
-    NPCConfigs.NPCConfig config = configs.dog;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
-    Entity dog = createBaseNPC(target, aiComponent, config, animator);
 
-    return dog;
+  /**
+   * Creates a dragon entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the created dragon entity
+   */
+  public Entity createDragon(Entity target) {
+    NPCConfigs.NPCConfig config = configs.dragon;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
+    Entity dragon = createBaseNPC(target, aiComponent, config, animator);
+
+    return dragon;
   }
 
   /**
@@ -191,17 +260,15 @@ public class NPCFactory extends LoadedFactory {
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
    *
-   * @return entity
+   * @return The created NPC entity.
    */
-  private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
+  private static Entity createBaseNPC(Entity target, Component aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
     Entity npc = new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new MeleeAttackComponent(target, config.attackRange, config.attackRate, config.baseAttack,
-                    config.effects))
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
@@ -209,6 +276,14 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new NPCDeathHandler()) 
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController());
+    if (config.attacks.melee != null) {
+      npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee.range, config.attacks.melee.rate,
+              config.attacks.melee.effects));
+    }
+    if (config.attacks.ranged != null) {
+      npc.addComponent(new RangeAttackComponent(target, config.attacks.ranged.range, config.attacks.ranged.rate,
+              config.attacks.ranged.type, config.attacks.ranged.effects));
+    }
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
     return npc;
@@ -243,8 +318,7 @@ public class NPCFactory extends LoadedFactory {
 
     // Add wander task
     if (tasks.wander != null) {
-      aiComponent.addTask(new WanderTask(new Vector2(tasks.wander.wanderRadius, tasks.wander.wanderRadius),
-              tasks.wander.waitTime, tasks.wander.wanderSpeed));
+      aiComponent.addTask(new WanderTask(tasks.wander));
     }
     // Add straight wander task
     if (tasks.straightWander != null) {
@@ -252,62 +326,58 @@ public class NPCFactory extends LoadedFactory {
     }
     // Add chase task
     if (tasks.chase != null) {
-      aiComponent.addTask(new ChaseTask(target, tasks.chase.priority, tasks.chase.viewDistance,
-              tasks.chase.chaseDistance, tasks.chase.chaseSpeed));
+      aiComponent.addTask(new ChaseTask(target, tasks.chase));
     }
     // Add charge task
     if (tasks.charge != null) {
-      aiComponent.addTask(new ChargeTask(target, tasks.charge.priority, tasks.charge.viewDistance,
-              tasks.charge.chaseDistance, tasks.charge.chaseSpeed, tasks.charge.waitTime));
+      aiComponent.addTask(new ChargeTask(target, tasks.charge));
     }
 
     // Add boss attack task
     if (tasks.bossAttack != null) {
-      aiComponent.addTask(new BossAttackTask(target, tasks.bossAttack.priority, tasks.bossAttack.viewDistance,
-              tasks.bossAttack.chaseDistance, tasks.bossAttack.chaseSpeed, tasks.bossAttack.chargeSpeed,
-              tasks.bossAttack.waitTime));
+      aiComponent.addTask(new BossAttackTask(target, tasks.bossAttack));
     }
 
     // Add run away task
     if (tasks.runAway != null) {
-      aiComponent.addTask(new RunAwayTask(target, tasks.runAway.priority, tasks.runAway.viewDistance,
-              tasks.runAway.maxRunDistance, tasks.runAway.runSpeed, tasks.runAway.waitTime));
+      aiComponent.addTask(new RunAwayTask(target, tasks.runAway));
     }
 
     return aiComponent;
   }
 
-
+// assets below are cited in core/assets/images/npc/citation.txt
   @Override
   protected String[] getTextureAtlasFilepaths() {
     return new String[] {
-            "images/ghost.atlas",
-            "images/ghostKing.atlas",
-            "images/rat.atlas",
+            "images/npc/rat/rat.atlas",
+            "images/npc/dragon/dragon.atlas",
             "images/npc/snake/snake.atlas",
-            "images/minotaur.atlas",
-            "images/dino.atlas",
-            "images/bat.atlas",
+            "images/npc/minotaur/minotaur.atlas",
+            "images/npc/dino/dino.atlas",
+            "images/npc/bat/bat.atlas",
             "images/npc/bear/bear.atlas",
             "images/npc/dog/dog.atlas",
-            "images/npc/werewolf/werewolf.atlas"
+            "images/npc/werewolf/werewolf.atlas",
+            "images/npc/kitsune/kitsune.atlas",
+            "images/npc/birdman/birdman.atlas"
     };
   }
 
   @Override
   protected String[] getTextureFilepaths() {
     return new String[]{
-            "images/ghost_1.png",
-            "images/ghost_king.png",
-            "images/rat.png",
-            "images/minotaur.png",
-            "images/npc/dog/dog.png",
+            "images/npc/rat/rat.png",
+            "images/npc/dragon/dragon.png",
+            "images/npc/minotaur/minotaur.png",
             "images/npc/snake/snake.png",
-            "images/dino.png",
-            "images/minotaur.png",
+            "images/npc/dino/dino.png",
+            "images/npc/bat/bat.png",
             "images/npc/bear/bear.png",
-            "images/bear.png",
-            "images/npc/werewolf/werewolf.png"
+            "images/npc/dog/dog.png",
+            "images/npc/werewolf/werewolf.png",
+            "images/npc/kitsune/kitsune.png",
+            "images/npc/birdman/birdman.png"
     };
   }
 }

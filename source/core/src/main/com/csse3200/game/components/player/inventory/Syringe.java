@@ -48,6 +48,14 @@ public class Syringe extends BuffItem {
         return new Texture("images/items/syringe.png");
     }
 
+    /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_green.png");
+    }
 
     /**
      * Applies the Syringe to an entity, increasing the health by an instant boost,

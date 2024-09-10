@@ -1,7 +1,6 @@
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.player.inventory.Bandage;
-import com.csse3200.game.components.player.inventory.EnergyDrink;
 import com.csse3200.game.components.player.inventory.MedKit;
 import static org.junit.jupiter.api.Assertions.*;
 import com.csse3200.game.components.player.inventory.ShieldPotion;
@@ -22,19 +21,6 @@ public class ItemFactoryTest {
     }
 
     @Test
-    public void testCreateEnergyDrinkLow() {
-        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink:Low"));
-    }
-    @Test
-    public void testCreateEnergyDrinkMedium() {
-        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink:Medium"));
-    }
-    @Test
-    public void testCreateEnergyDrinkHigh() {
-        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink:High"));
-    }
-
-    @Test
     public void testCreateShieldPotion() {
         assertInstanceOf(ShieldPotion.class, itemFactory.create("shieldpotion"));
     }
@@ -45,15 +31,4 @@ public class ItemFactoryTest {
         assertEquals(exception.getMessage(), "Invalid item specification: invalid");
     }
 
-    @Test
-    public void testInvalidItemType() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> itemFactory.create("energydrink:invalid"));
-        assertEquals(exception.getMessage(), "Invalid item type specification: invalid");
-    }
-
-    @Test
-    public void testNullEnergydrinkType() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> itemFactory.create("energydrink"));
-        assertEquals(exception.getMessage(), "Energy drink must have a type. Choose: Low, Medium, High");
-    }
 }

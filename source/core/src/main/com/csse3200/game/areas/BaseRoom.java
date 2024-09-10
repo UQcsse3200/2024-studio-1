@@ -232,6 +232,7 @@ public abstract class BaseRoom implements Room {
     }
 
     public void spawnItems() {
+        if(!this.items.isEmpty()){return;}
         MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
         spawnItem(area,this.itemSpecifications.get(this.itemGroup).get(0),new GridPoint2(8,8));
         spawnItem(area,this.itemSpecifications.get(this.itemGroup).get(1),new GridPoint2(6,8));

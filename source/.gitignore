@@ -116,3 +116,6 @@ Thumbs.db
 
 ## Auto-generated .log files
 *.log
+
+## save file, shouldn't be tracked in repo
+save.json

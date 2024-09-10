@@ -50,9 +50,8 @@ class ChargeTaskTest {
                 .addComponent(ai)
                 .addComponent(new DirectionalNPCComponent(true));
         chargingEntity.setPosition(0f, 0f);
-        // Configuring charge task
 
-        NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig();
+        NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig();  // Configuring charge task
         config.priority = 10;
         config.viewDistance = VIEW_DISTANCE;
         config.chaseDistance = MAX_CHASE_DISTANCE;

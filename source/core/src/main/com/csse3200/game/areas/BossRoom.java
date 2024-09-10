@@ -11,7 +11,7 @@ import com.csse3200.game.entities.factories.StairFactory;
 
 
 /**
- * A boos room of the game,
+ * A boss room of the game,
  * these often have unique animals and rewards.
  */
 public class BossRoom extends BaseRoom {

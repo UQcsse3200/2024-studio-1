@@ -269,7 +269,7 @@ public abstract class BaseRoom implements Room {
      * @param area   the game area to spawn them into.
      * @param player The main player of the room.
      */
-    protected void spawnDoors(GameArea area, Entity player) {
+    protected void spawnDoorsFake(GameArea area, Entity player) {
 
         // Ensure roomConnections is properly initialized
         this.doors.clear();
@@ -284,6 +284,11 @@ public abstract class BaseRoom implements Room {
         String connectW = connections.get(2);
         String connectS = connections.get(3);
         // Create doors and retrieve scales
+//        String connectS = connections.get(0);
+//        String connectW = connections.get(1);
+//        String connectE = connections.get(2);
+//        String connectN = connections.get(3);
+        System.out.println("[" + connectN + ", " + connectE + ", " + connectW + ", " + connectS + "]XD");
         Entity[] doors = {
                 new Door('v', player.getId(), connectW), // left
                 new Door('v', player.getId(), connectE), // right
@@ -306,6 +311,64 @@ public abstract class BaseRoom implements Room {
                 new Vector2(-2 * doorvScale.x, 0),  // For connectW
                 new Vector2(-doorvScale.x, 0),      // For connectE
                 new Vector2(0, -doorhScale.y),      // For connectS
+                new Vector2(0, -2 * doorhScale.y)   // For connectN
+        };
+
+        // Spawn and adjust doors
+
+        for (int i = 0; i < doors.length; i++) {
+            String connection = connections.get(i);
+            System.out.println(connections);
+            if (connection != "" && !connection.isEmpty() && connection != null) {
+                area.spawnEntityAt(doors[i], positions[i], true, true);
+                Vector2 doorPos = doors[i].getPosition();
+                doors[i].setPosition(doorPos.x + offsets[i].x, doorPos.y + offsets[i].y);
+                this.doors.add(doors[i]);
+            } else {
+                System.out.println("Skipping door placement for connection: " + connection);
+            }
+        }
+    }
+
+    protected void spawnDoors(GameArea area, Entity player) {
+
+        // Ensure roomConnections is properly initialized
+        this.doors.clear();
+        if (this.roomConnections == null || this.roomConnections.size() < 4) {
+            throw new IllegalStateException("Room connections are not properly initialized.");
+        }
+
+        // Define door connections
+        List<String> connections = this.roomConnections;
+        // Create doors and retrieve scales
+        String connectS = connections.get(0);
+        String connectW = connections.get(1);
+        String connectE = connections.get(2);
+        String connectN = connections.get(3);
+        System.out.println("[" + connectN + ", " + connectE + ", " + connectW + ", " + connectS + "]XD");
+        Entity[] doors = {
+                new Door('h', player.getId(), connectS), // bottom
+                new Door('v', player.getId(), connectW), // left
+                new Door('v', player.getId(), connectE), // right
+                new Door('h', player.getId(), connectN)  // top
+        };
+
+        Vector2 doorvScale = doors[1].getScale();
+        Vector2 doorhScale = doors[0].getScale();
+
+        // Define positions and offset
+
+        GridPoint2[] positions = {
+                new GridPoint2(7, 0),  // For connectS
+                new GridPoint2(15, 5),   // For connectW
+                new GridPoint2(0, 5),   // For connectE
+                new GridPoint2(7, 11)   // For connectN
+        };
+
+        Vector2[] offsets = {
+                new Vector2(0, -doorhScale.y),      // For connectS
+                new Vector2(-2 * doorvScale.x, 0),  // For connectW
+                new Vector2(-doorvScale.x, 0),      // For connectE
                 new Vector2(0, -2 * doorhScale.y)   // For connectN
         };
 

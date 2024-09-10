@@ -135,8 +135,14 @@ public abstract class BaseRoom implements Room {
      */
     public void removeRoom() {
         for (Entity data : doors) {
+            ServiceLocator.getEntityService().unregister(data);
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         } 
+
+        for (Entity curItem : this.items){
+                ServiceLocator.getEntityService().unregister(curItem);
+                ServiceLocator.getEntityService().markEntityForRemoval(curItem);
+        }
         
         // for (Entity data : enemies) {
         //     ServiceLocator.getEntityService().markEntityForRemoval(data);
@@ -192,10 +198,10 @@ public abstract class BaseRoom implements Room {
         }
     }
 
-
     public boolean getIsRoomComplete() {
         return this.isRoomCompleted;
     }
+
 
     
     public boolean isAllAnimalDead(){
@@ -228,15 +234,15 @@ public abstract class BaseRoom implements Room {
             this.items.clear();
         });
         this.items.add(item);
+
         area.spawnEntityAt(item, pos, true, true);
     }
 
     public void spawnItems() {
+
         if(!this.items.isEmpty()){return;}
-        MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
-        spawnItem(area,this.itemSpecifications.get(this.itemGroup).get(0),new GridPoint2(8,8));
-        spawnItem(area,this.itemSpecifications.get(this.itemGroup).get(1),new GridPoint2(6,8));
-    }
+
+
 
     /**
      * Spawn an NPC into the room
@@ -252,6 +258,7 @@ public abstract class BaseRoom implements Room {
         for (Entity enemy : this.enemies) {
             GridPoint2 randomPos = new GridPoint2(ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
                     ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
+
             area.spawnEntityAt(enemy, randomPos, true, true);
             enemy.getEvents().addListener("checkAnimalsDead", () -> {
                 if (this.isAllAnimalDead())
@@ -261,7 +268,7 @@ public abstract class BaseRoom implements Room {
         }
         //this will make all animals commit suicide 
        makeAllAnimalDead();
-    }
+    }}
 
     /**
      * Spawn the doors for this room.
@@ -321,7 +328,12 @@ public abstract class BaseRoom implements Room {
                 this.doors.add(doors[i]);
             } else {
                 System.out.println("Skipping door placement for connection: " + connection);
-            }
+            } 
         }
+    }
+
+
+    public boolean getIsRoomComplete() {
+        return this.isRoomCompleted;
     }
 }

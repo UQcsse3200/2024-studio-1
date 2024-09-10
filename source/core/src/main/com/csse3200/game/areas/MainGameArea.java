@@ -89,7 +89,8 @@ public class MainGameArea extends GameArea {
         //player.setPosition(null);
         this.currentRoom = this.currentLevel.getRoom(roomKey);
         this.spawnRoom = true;
-        if (this.currentRoom.getIsRoomComplete()) {
+
+        if (!this.currentRoom.getIsRoomComplete()) {
             this.currentLevel.roomTraversals ++;
         }
     }
@@ -106,7 +107,16 @@ public class MainGameArea extends GameArea {
         this.currentRoom.spawn(player, this);
         logger.info("spawned: new room");
         logger.info("spawning: player");
-        spawnEntityAt(player, new GridPoint2(10, 10), true, true);
+
+        //int player_x = (int) (15 - player.getPosition().x);
+        //int player_y = (int) (9 - player.getPosition().y);
+
+
+        int player_x = 7;
+        int player_y = 5;
+
+        player.setPosition(player_x, player_y);
+        spawnEntity(player);
         logger.info("spawned: player");
         spawnRoom = false;
     }
@@ -198,9 +208,6 @@ public class MainGameArea extends GameArea {
         // Convert the list to an array and return
         return filepaths.toArray(new String[0]);
     }
-
-
-
     @Override
     protected String[] getMusicFilepaths() {
         return new String[]{BACKGROUND_MUSIC};

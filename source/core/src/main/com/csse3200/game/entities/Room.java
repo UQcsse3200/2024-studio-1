@@ -22,8 +22,7 @@ public interface Room {
 
     public boolean isAllAnimalDead();
 
-
-    boolean getIsRoomComplete();
+    public boolean getIsRoomComplete();
 }
 
 

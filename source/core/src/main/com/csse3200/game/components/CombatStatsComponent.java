@@ -20,20 +20,22 @@ public class CombatStatsComponent extends Component {
     private int health;
     private int baseAttack;
     private int armor;
+    private int buff;
+
     private boolean isInvincible;
-    private static final int timeInvincible = 2000;
+    private static final int timeInvincible = 150;
     private final Timer timerIFrames;
     private static final int timeFlash = 250;
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
-    private static int buffedAttack;
 
-    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
         this.baseAttack = baseAttack;
         this.armor = armor;
+        this.buff = buff;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
@@ -42,7 +44,7 @@ public class CombatStatsComponent extends Component {
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
-        this(health, baseAttack, false, 0);
+        this(health, baseAttack, false, 0, 0);
     }
 
     /**
@@ -140,12 +142,29 @@ public class CombatStatsComponent extends Component {
      *
      * @param buffedAttack increased Damage
      */
-
-    public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
+    public void addAttack(int buffedAttack) {
+        buff = (buff + buffedAttack);
+    }
 
     /**
-     * Increases the entities armor
-     * @param additionalArmor armor to add
+     * gets the total extra damage from buff
+     * @return buff value
+     */
+    public int getDamageBuff() {
+        return buff;
+    }
+
+    /**
+     * gets max damage cap
+     * @return int of maximum damage
+     */
+    public int getMaxDamage() {
+        return 200;
+    }
+
+    /**
+     * increases total armor to reduce additional damage
+     * @param additionalArmor increases total armor
      */
     public void increaseArmor(int additionalArmor) {
         armor = Math.min(armor + additionalArmor, 100);
@@ -192,6 +211,7 @@ public class CombatStatsComponent extends Component {
         if (getIsInvincible()) {
             return;
         }
+
         if (getCanBeInvincible()) {
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) (attacker.getBaseAttack() * (1 - damageReduction));
@@ -202,9 +222,8 @@ public class CombatStatsComponent extends Component {
             timerIFrames.schedule(task, timeInvincible);
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
-        }
-        if (!getCanBeInvincible()) {
-            int newHealth = getHealth() - (int) (attacker.getBaseAttack());
+        } else {
+            int newHealth = getHealth() - (attacker.getBaseAttack() + attacker.buff);
             setHealth(newHealth);
             if (health <= 0) {
                 entity.getEvents().trigger("died");
@@ -216,11 +235,12 @@ public class CombatStatsComponent extends Component {
     /**
      *Returns if the entity can be invincible
      *
-     * @return boolean canbeInvincible
+     * @return boolean can be Invincible
      */
     public boolean getCanBeInvincible() {
         return this.canBeInvincible;
     }
+
     /**
      * Sets the state of the entity's invincibility
      *

@@ -62,7 +62,7 @@ public interface Collectible {
     /**
      * Get the mystery box icon representation of this item
      *
-     * @return the mustery box icon representation of this item
+     * @return the mystery box icon representation of this item
      */
     default Texture getMysteryIcon() {
         return null;

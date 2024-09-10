@@ -1,10 +1,7 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -28,6 +25,9 @@ public class PlayerStatsDisplay extends UIComponent {
 
     private ProgressBar speedProgressBar;
 
+    private Image damageImage;
+    private ProgressBar damageProgressBar;
+
 
 
     /**
@@ -42,6 +42,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateMeleeWeaponCount", this::updateMeleeWeaponCountUI);
         entity.getEvents().addListener("updateRangedWeaponCount", this::updateRangedWeaponCountUI);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
+        entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
     }
 
     /**
@@ -69,7 +70,6 @@ public class PlayerStatsDisplay extends UIComponent {
         speedImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
 
         //Speed text
-
         speedProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
@@ -80,7 +80,14 @@ public class PlayerStatsDisplay extends UIComponent {
         speedLabelText = new Label(speedText, skin, "small");
          */
 
-
+        //Damage Progress bar
+        //Will need to check values
+        float damageSideLength = 30f;
+        damageImage = new Image(
+                ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        damageProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        damageProgressBar.setWidth(200f);
+        damageProgressBar.setAnimateDuration(2.0f);
 
         //Weapon text, like the name of weapon
         //entity.getComponent(WeaponComponent.class).getWeaponType();
@@ -94,6 +101,11 @@ public class PlayerStatsDisplay extends UIComponent {
         table.row().padTop(10);
         table.add(speedImage).size(speedSideLength).pad(5);
         table.add(speedProgressBar).padLeft(10).left().width(200);
+
+        //Don't know if values are correct, may overlap
+        table.row().padTop(10);
+        table.add(damageImage).size(damageSideLength).pad(5);
+        table.add(damageProgressBar).padLeft(10).left().width(200);
 
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
@@ -138,6 +150,10 @@ public class PlayerStatsDisplay extends UIComponent {
 //        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
 //        speedLabelText.setText(text);
         speedProgressBar.setValue(speedPercentage);
+    }
+
+    public void updateDamageUI(float damage) {
+        damageProgressBar.setValue(damage);
     }
 
     @Override

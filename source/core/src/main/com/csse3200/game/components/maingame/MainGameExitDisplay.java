@@ -10,10 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import 
 
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
@@ -82,6 +84,7 @@ public class MainGameExitDisplay extends UIComponent {
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
+          MainGameScreen.isPaused=true;
           stage.addActor(pauseTable);
           table.remove();
         }
@@ -90,6 +93,7 @@ public class MainGameExitDisplay extends UIComponent {
       new ChangeListener() {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
+             MainGameScreen.isPaused=false;
             pauseTable.remove();
             stage.addActor(table);
           }
@@ -98,6 +102,7 @@ public class MainGameExitDisplay extends UIComponent {
       new ChangeListener() {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
+             MainGameScreen.isPaused=false;
               logger.debug("Exit button clicked");
               entity.getEvents().trigger("exit");
           }

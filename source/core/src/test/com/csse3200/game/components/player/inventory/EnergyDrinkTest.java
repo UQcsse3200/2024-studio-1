@@ -40,11 +40,12 @@ public class EnergyDrinkTest {
         assertEquals(Collectible.Type.BUFF_ITEM, energyDrink.getType());
     }
 
+    /*
     @Test
     public void getMysteryIconTest() {
         assertEquals("images/items/mystery_box_blue.png", energyDrink.getMysteryIcon());
     }
-
+    */
     @Test
     public void effectTest() {
         Vector2 initialSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();

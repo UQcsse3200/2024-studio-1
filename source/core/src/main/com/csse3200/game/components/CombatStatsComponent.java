@@ -22,7 +22,6 @@ public class CombatStatsComponent extends Component {
     private boolean isInvincible;
     private static final int timeInvincible = 150;
     private final Timer timer;
-    private int maxDamage = 200; //temp value
 
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
@@ -120,13 +119,6 @@ public class CombatStatsComponent extends Component {
      */
 
     public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
-
-    /**
-     * Returns the maxDamage of the character
-     *
-     * @return max damage integer
-     */
-    public int getMaxDamage() { return maxDamage; }
 
     public void increaseArmor(int additionalArmor) {
         armor = Math.max(armor + additionalArmor, 100);

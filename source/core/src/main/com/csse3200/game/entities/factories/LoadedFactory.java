@@ -53,13 +53,13 @@ public abstract class LoadedFactory implements Disposable {
         return new String[]{};
     }
 
-
     private void logLoaded(String type, String[] paths){
         if (paths.length == 0){
             return;
         }
-        logger.info("Loaded Texture Files:\n{}", String.join("\n", paths));
+        logger.info("Loaded {} Files:\n{}", type, String.join("\n", paths));
     }
+
     /**
      * load all the assets needed by this factory.
      *

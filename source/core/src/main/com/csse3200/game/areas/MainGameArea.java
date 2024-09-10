@@ -53,13 +53,22 @@ public class MainGameArea extends GameArea {
         playMusic();
     }
 
+    private void selectRoom(String roomKey){
+        Room newRoom = this.currentLevel.getRoom(roomKey);
+        if (newRoom == null) {
+            logger.error("Room \"{}\" not found!", roomKey);
+            return;
+        }
+        this.currentRoom = newRoom;
+        this.spawnRoom = true;
+    }
+
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
         this.currentRoom.removeRoom();
         //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
-        this.currentRoom = this.currentLevel.getRoom(roomKey);
-        this.spawnRoom = true;
+        selectRoom(roomKey);
     }
 
     public void spawnCurrentRoom() {
@@ -75,10 +84,7 @@ public class MainGameArea extends GameArea {
 
     public void changeLevel(int levelNumber){
         this.currentLevel = this.levelFactory.create(levelNumber);
-        this.currentRoom = this.currentLevel.getRoom(this.currentLevel.getStartingRoomKey());
-        spawnRoom = true;
-//        this.currentRoom.spawn(player, this);
-//        spawnEntityAt(player, new GridPoint2(10, 10), true, true);
+        selectRoom(this.currentLevel.getStartingRoomKey());
     }
 
     private void displayUI() {

@@ -62,6 +62,15 @@ public class Armor extends BuffItem {
     }
 
     /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_red.png");
+    }
+
+    /**
      * Removes the collectible item from the entity.
      *
      * @param inventory The inventory to be dropped out of.

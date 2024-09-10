@@ -86,6 +86,15 @@ public class ShieldPotion extends UsableItem {
     }
 
     /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_red.png");
+    }
+    
+    /**
      * Returns the name of the item.
      *
      * @return the item name.

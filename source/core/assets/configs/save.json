@@ -56,67 +56,67 @@
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 0.21633193
-	y: 6.9206624
+	x: 10.033818
+	y: 9.085236
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 13.399852
-	y: 2.5268505
+	x: 5.3182087
+	y: 3.5410612
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 1.5229563
-	y: 7.020695
+	x: 12.5025835
+	y: 1.6646504
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 10
-	y: 10.021537
+	x: 11.345397
+	y: 2.8943348
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 6.8871675
-	y: 3.331491
+	x: 7.109114
+	y: 8.844974
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 1.7851473
-	y: 2.2700453
+	x: 13.704161
+	y: 8.181984
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 12.801438
-	y: 5.2662597
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 10
-	y: 4
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 8
-	y: 7
+	x: 13.885002
+	y: 2.0751429
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
 	x: 0
+	y: 4
+}
+{
+	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
+	x: 7
 	y: 8
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 1
-	y: 8
+	x: 9
+	y: 2
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 4
-	y: 9
+	x: 9
+	y: 2
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
 	x: 10
-	y: 9.221831
+	y: 2
+}
+{
+	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
+	x: 10.349999
+	y: 10.533482
 }
 ]

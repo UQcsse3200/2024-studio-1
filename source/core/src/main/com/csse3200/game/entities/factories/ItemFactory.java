@@ -20,7 +20,13 @@ public class ItemFactory {
             //"Low", "Medium" or "High" type
             String[] split = specification.split(":", 2);
             specification = split[0];
-            type = split[1];
+            // If split contains mystery disregard it and get correct item type
+            if (split[1].contains(":")) {
+                String[] secondSplit = split[1].split(":",2);
+                type = secondSplit[0];
+            } else {
+                type = split[1];
+            }
             //Check for valid item type
             switch (type) {
                 case "Low":

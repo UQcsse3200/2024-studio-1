@@ -64,7 +64,7 @@ public interface Collectible {
      *
      * @return a string containing the path to the mystery box icon
      */
-    default String getMysteryIcon() {
+    default Texture getMysteryIcon() {
         return null;
     }
 

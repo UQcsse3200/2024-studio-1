@@ -173,7 +173,7 @@ public class EnergyDrink extends BuffItem {
      * @return a string containing the path to the mystery box icon
      */
     @Override
-    public String getMysteryIcon() {
-        return ("images/items/mystery_box_blue.png");
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_blue.png");
     }
 }

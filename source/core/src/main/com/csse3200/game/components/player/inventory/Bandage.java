@@ -56,6 +56,15 @@ public class Bandage extends UsableItem {
     }
 
     /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_green.png");
+    }
+
+    /**
      * Applies the bandage to an entity, increasing its health by a small amount,
      * calls the increaseSmallBoost(entity) method
      *

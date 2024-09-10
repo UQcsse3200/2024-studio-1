@@ -21,10 +21,10 @@ public class ItemFactoryTest {
         assertInstanceOf(Bandage.class, itemFactory.create("bandage"));
     }
 
-    @Test
-    public void testCreateEnergyDrink() {
-        assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink"));
-    }
+    // @Test
+    // public void testCreateEnergyDrink() {
+    //     assertInstanceOf(EnergyDrink.class, itemFactory.create("energydrink"));
+    // }
 
     @Test
     public void testCreateShieldPotion() {

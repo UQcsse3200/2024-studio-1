@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -19,6 +18,7 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.csse3200.game.screens.MainGameScreen;
 
 import javax.xml.stream.Location;
 import java.io.FileWriter;
@@ -94,22 +94,21 @@ public class MainGameExitDisplay extends UIComponent {
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
-          stage.addActor(pauseTable);
-          table.remove();
+          pauseGame();
         }
       });
     resumeBtn.addListener(
       new ChangeListener() {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
-            pauseTable.remove();
-            stage.addActor(table);
+             unpause();
           }
       });
     exitBtn.addListener(
       new ChangeListener() {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
+             unpause();
               logger.debug("Exit button clicked");
               entity.getEvents().trigger("exit");
           }
@@ -137,15 +136,24 @@ public class MainGameExitDisplay extends UIComponent {
     stage.addActor(table);
   }
 
-  public void pauseGame()
-  {
-    InputEvent event1 = new InputEvent();
-    event1.setType(InputEvent.Type.touchDown);
-    pauseBtn.fire(event1);
+  // todo refactor pausing to use events instead of public methods/fields
 
-    InputEvent event2 = new InputEvent();
-    event2.setType(InputEvent.Type.touchUp);
-    pauseBtn.fire(event2);
+  /**
+   * Pause the game, show the pause menu.
+   */
+  public void pauseGame() {
+    MainGameScreen.isPaused = true;
+    stage.addActor(pauseTable);
+    table.remove();
+  }
+
+  /**
+   * Unpause the game, remove the pause menu.
+   */
+  public void unpause() {
+    MainGameScreen.isPaused = false;
+    pauseTable.remove();
+    stage.addActor(table);
   }
 
   public class EntityCoordinates {

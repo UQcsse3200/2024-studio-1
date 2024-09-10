@@ -20,7 +20,9 @@ public class TerrainFactory {
   private static final GridPoint2 MAP_SIZE = new GridPoint2(15, 11);
   private final OrthographicCamera camera;
   private static GridPoint2 STAIRCASE_UP_POS = new GridPoint2(0, MAP_SIZE.y-3);
-  private static GridPoint2 STAIRCASE_DOWN_POS = new GridPoint2(MAP_SIZE.x-1, 3);
+
+  private int currentLevel;
+  private boolean isBossRoom = false;
 
 
   /**
@@ -30,13 +32,27 @@ public class TerrainFactory {
    */
   public TerrainFactory(CameraComponent cameraComponent) {
     this.camera = (OrthographicCamera) cameraComponent.getCamera();
+    this.currentLevel = 0;
   }
 
   /**
    * Create a terrain factory with the default camera.
    */
   public TerrainFactory(){
+
     this(ServiceLocator.getRenderService().getCamera());
+    this.currentLevel = 0;
+
+  }
+
+  /**
+   * Create a terrain factory with the default camera.
+   */
+  public TerrainFactory(int currentLevel){
+
+    this(ServiceLocator.getRenderService().getCamera());
+    this.currentLevel = currentLevel;
+
   }
 
   /**
@@ -44,44 +60,47 @@ public class TerrainFactory {
    * to add additional game terrains.
    *
    * @param terrainType Terrain to create
+   * @param isBossRoom is boss room
    * @return Terrain component which renders the terrain
    */
-  public TerrainComponent createTerrain(TerrainType terrainType) {
+  public TerrainComponent createTerrain(TerrainType terrainType, boolean isBossRoom) {
     ResourceService resourceService = ServiceLocator.getResourceService();
+    String suffix = "_level" + (currentLevel+1) + ".png";
+    setBossRoom(isBossRoom);
+
     switch (terrainType) {
       case ROOM1:
         TextureRegion tileMain =
-                new TextureRegion(resourceService.getAsset("images/tile_middle.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_middle" + suffix , Texture.class));
         TextureRegion tileLU =
-                new TextureRegion(resourceService.getAsset("images/tile_1.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_1" + suffix, Texture.class));
         TextureRegion tileLD =
-                new TextureRegion(resourceService.getAsset("images/tile_4.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_4" + suffix, Texture.class));
         TextureRegion tileRU =
-                new TextureRegion(resourceService.getAsset("images/tile_2.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_2" + suffix, Texture.class));
         TextureRegion tileRD =
-                new TextureRegion(resourceService.getAsset("images/tile_3.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_3" + suffix, Texture.class));
         TextureRegion tileL =
-                new TextureRegion(resourceService.getAsset("images/tile_8.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_8" + suffix, Texture.class));
         TextureRegion tileR =
-                new TextureRegion(resourceService.getAsset("images/tile_6.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_6" + suffix, Texture.class));
         TextureRegion tileU =
-                new TextureRegion(resourceService.getAsset("images/tile_5.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_5" + suffix, Texture.class));
         TextureRegion tileD =
-                new TextureRegion(resourceService.getAsset("images/tile_7.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_7" + suffix, Texture.class));
         TextureRegion tileB1 =
-                new TextureRegion(resourceService.getAsset("images/tile_broken1.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_broken1" + suffix, Texture.class));
         TextureRegion tileB2 =
-                new TextureRegion(resourceService.getAsset("images/tile_broken2.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_broken2" + suffix, Texture.class));
         TextureRegion tileB3 =
-                new TextureRegion(resourceService.getAsset("images/tile_broken3.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_broken3"+ suffix, Texture.class));
         TextureRegion tileStaircase =
-                new TextureRegion(resourceService.getAsset("images/tile_staircase.png", Texture.class));
-        TextureRegion tileStaircaseDown =
-                new TextureRegion(resourceService.getAsset("images/tile_staircase_down.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_staircase" + suffix, Texture.class));
         TextureRegion tileStained =
-                new TextureRegion(resourceService.getAsset("images/tile_blood.png", Texture.class));
+                new TextureRegion(resourceService.getAsset("images/tile_blood" + suffix, Texture.class));
+
         return createRoomTerrain(1f, new TextureRegion[]{
-                tileMain, tileLU, tileLD, tileRU, tileRD, tileL, tileR, tileU, tileD ,tileB1, tileB2, tileB3, tileStaircase, tileStaircaseDown, tileStained});
+                tileMain, tileLU, tileLD, tileRU, tileRD, tileL, tileR, tileU, tileD ,tileB1, tileB2, tileB3, tileStaircase, tileStained});
       default:
         return null;
     }
@@ -110,15 +129,16 @@ public class TerrainFactory {
     TerrainTile b2Tile = new TerrainTile(tileSet[10]);
     TerrainTile b3Tile = new TerrainTile(tileSet[11]);
     TerrainTile stairTile = new TerrainTile(tileSet[12]);
-    TerrainTile stairDownTile = new TerrainTile(tileSet[13]);
-    TerrainTile stairStained = new TerrainTile(tileSet[14]);
+    TerrainTile stairStained = new TerrainTile(tileSet[13]);
+
+
 
     TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
 
     // fill room tile
     fillTiles(layer, MAP_SIZE, new TerrainTile[]{
             mainTile, luTile, ldTile, ruTile, rdTile, lTile, rTile, uTile, dTile,
-            b1Tile, b2Tile, b3Tile, stairTile, stairDownTile, stairStained
+            b1Tile, b2Tile, b3Tile, stairTile, stairStained
     });
 
     tiledMap.getLayers().add(layer);
@@ -159,7 +179,7 @@ public class TerrainFactory {
             layer.setCell(x, y, cell);
           } else if (isStainedTile()) {
             Cell cell = new Cell();
-            cell.setTile(tileList[14]);
+            cell.setTile(tileList[13]);
             layer.setCell(x, y, cell);
           } else {
             // general tiles
@@ -188,11 +208,8 @@ public class TerrainFactory {
           }
 
           // staircase position
-          if (x == STAIRCASE_UP_POS.x && y == (STAIRCASE_UP_POS.y))
+          if (isBossRoom() && x == STAIRCASE_UP_POS.x && y == (STAIRCASE_UP_POS.y))
             cell.setTile(tileList[12]);
-
-          if (x == (STAIRCASE_DOWN_POS.x) && y == STAIRCASE_DOWN_POS.y)
-            cell.setTile(tileList[13]);
 
           layer.setCell(x, y, cell);
         }
@@ -236,6 +253,21 @@ public class TerrainFactory {
     return new OrthogonalTiledMapRenderer(tiledMap, tileScale);
   }
 
+  public int getCurrentLevel() {
+    return currentLevel;
+  }
+
+  public void setCurrentLevel(int currentLevel) {
+    this.currentLevel = currentLevel;
+  }
+
+  public boolean isBossRoom() {
+    return isBossRoom;
+  }
+
+  public void setBossRoom(boolean bossRoom) {
+    isBossRoom = bossRoom;
+  }
 }
 
 

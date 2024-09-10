@@ -196,18 +196,32 @@ public class CombatStatsComponent extends Component {
             return;
         }
 
-        float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
-        int newHealth = getHealth() - (int) (attacker.getBaseAttack() * (1 - damageReduction));
-        setHealth(newHealth);
-        entity.getEvents().trigger("playerHit");
-        if (canBeInvincible) {
+        if (getCanBeInvincible()) {
+            float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
+            int newHealth = getHealth() - (int) (attacker.getBaseAttack() * (1 - damageReduction));
+            setHealth(newHealth);
+            entity.getEvents().trigger("playerHit");
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+        } else {
+            int newHealth = getHealth() - attacker.getBaseAttack();
+            setHealth(newHealth);
+            if (health <= 0) {
+                entity.getEvents().trigger("died");
+            }
         }
+    }
 
+    /**
+     *Returns if the entity can be invincible
+     *
+     * @return boolean canbeInvincible
+     */
+    public boolean getCanBeInvincible() {
+        return this.canBeInvincible;
     }
 
     /**

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
+import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.factories.PlayerFactory;
@@ -98,9 +99,8 @@ public class MainGameScreen extends ScreenAdapter {
 
         LevelFactory levelFactory = new MainGameLevelFactory();
         GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-                new TestGameArea(levelFactory) :
-                new MainGameArea(levelFactory);
-        mainGameArea.create(player);
+                new TestGameArea(levelFactory, player) :
+                new MainGameArea(levelFactory, player);
     }
 
     @Override

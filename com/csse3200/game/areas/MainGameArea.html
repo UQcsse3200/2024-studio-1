@@ -46,7 +46,7 @@ loadScripts(document, 'script');</script>
 <li>
 <p>Detail:</p>
 <ul>
-<li><a href="#field-detail">Field</a></li>
+<li>Field</li>
 <li><a href="#constructor-detail">Constr</a></li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -64,7 +64,7 @@ loadScripts(document, 'script');</script>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -111,15 +111,6 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="field-summary" id="field-summary">
 <h2>Field Summary</h2>
-<div class="caption"><span>Fields</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Field</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code><a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color"><code><a href="#player" class="member-name-link">player</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-</div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.areas.GameArea">Fields inherited from class&nbsp;com.csse3200.game.areas.<a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a></h3>
 <code><a href="GameArea.html#areaEntities">areaEntities</a>, <a href="GameArea.html#terrain">terrain</a></code></div>
@@ -179,30 +170,35 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get all the filepaths to music needed by this Factory</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSoundFilepaths()" class="member-name-link">getSoundFilepaths</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlayer()" class="member-name-link">getPlayer</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepaths to sounds needed by this Factory</div>
+<div class="block">Get the main player of this game area.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSoundFilepaths()" class="member-name-link">getSoundFilepaths</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
+<div class="block">Get all the filepaths to sounds needed by this Factory</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepaths to textures needed by this Factory</div>
+<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnCurrentRoom()" class="member-name-link">spawnCurrentRoom</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the file paths for all textures used in the game area.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnCurrentRoom()" class="member-name-link">spawnCurrentRoom</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.areas.GameArea">Methods inherited from class&nbsp;com.csse3200.game.areas.<a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a></h3>
-<code><a href="GameArea.html#disposeEntity(com.csse3200.game.entities.Entity)">disposeEntity</a>, <a href="GameArea.html#remove_room()">remove_room</a>, <a href="GameArea.html#setTerrain(com.csse3200.game.areas.terrain.TerrainComponent)">setTerrain</a>, <a href="GameArea.html#spawnEntity(com.csse3200.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a></code></div>
+<code><a href="GameArea.html#disposeEntity(com.csse3200.game.entities.Entity)">disposeEntity</a>, <a href="GameArea.html#setTerrain(com.csse3200.game.areas.terrain.TerrainComponent)">setTerrain</a>, <a href="GameArea.html#spawnEntity(com.csse3200.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.entities.factories.LoadedFactory">Methods inherited from class&nbsp;com.csse3200.game.entities.factories.<a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></h3>
 <code><a href="../entities/factories/LoadedFactory.html#load()">load</a>, <a href="../entities/factories/LoadedFactory.html#load(org.slf4j.Logger)">load</a></code></div>
@@ -215,20 +211,6 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
-<!-- ============ FIELD DETAIL =========== -->
-<li>
-<section class="field-details" id="field-detail">
-<h2>Field Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="player">
-<h3>player</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">player</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor-detail">
@@ -262,6 +244,17 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="GameArea.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getPlayer()">
+<h3>getPlayer</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">getPlayer</span>()</div>
+<div class="block">Get the main player of this game area.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the player entity.</dd>
 </dl>
 </section>
 </li>
@@ -327,13 +320,14 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getTextureFilepaths()">
 <h3>getTextureFilepaths</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name">getTextureFilepaths</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="../entities/factories/LoadedFactory.html#getTextureFilepaths()">LoadedFactory</a></code></span></div>
-<div class="block">Get all the filepaths to textures needed by this Factory</div>
+<div class="block">Gets the file paths for all textures used in the game area.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="../entities/factories/LoadedFactory.html#getTextureFilepaths()">getTextureFilepaths</a></code>&nbsp;in class&nbsp;<code><a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></code></dd>
 <dt>Returns:</dt>
-<dd>the filepaths needed.</dd>
+<dd>An array of String paths for textures, including:
+         - Common textures (player, doors, etc.)
+         - Tile textures for levels 1-3</dd>
 </dl>
 </section>
 </li>

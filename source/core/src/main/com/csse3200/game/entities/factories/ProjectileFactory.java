@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.projectile.ProjectileAnimationController;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.components.projectile.ProjectileActions;
 import com.csse3200.game.entities.Entity;
@@ -52,7 +51,6 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
                         .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
                         .addComponent(new ProjectileActions())
-
                         .addComponent(animator);
 
         projectile.getComponent(ColliderComponent.class).setSensor(true);

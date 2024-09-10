@@ -2,6 +2,7 @@ package com.csse3200.game.components.maingame;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,6 +16,7 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.csse3200.game.screens.MainGameScreen;
 
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
@@ -106,7 +108,6 @@ public class MainGameExitDisplay extends UIComponent {
               entity.getEvents().trigger("exit");
           }
       });
-
     table.add(mainMenuBtn).padTop(10f).padRight(10f);
 
     pauseTable.add(resumeBtn).padTop(BTN_SPACING);

@@ -27,8 +27,7 @@ public class WinScreen extends StaticScreen {
      * @param game the overarching game.
      */
     public WinScreen(GdxGame game) {
-        super(game, new String[]{PLAYER_HAPPY}, getLogger(WinScreen.class));
-        game.setScreenColour(DEFAULT);
+        super(game, new String[]{PLAYER_HAPPY}, getLogger(WinScreen.class), DEFAULT);
     }
 
     @Override

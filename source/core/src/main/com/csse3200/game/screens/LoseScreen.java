@@ -8,6 +8,8 @@ import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.LoggerFactory;
 
+import static com.csse3200.game.GdxGame.ScreenColour.BLACK;
+
 /**
  * Screen shown when you lose the game (die).
  */
@@ -25,8 +27,7 @@ public class LoseScreen extends StaticScreen {
      * @param game the overarching game.
      */
     public LoseScreen(GdxGame game) {
-        super(game, new String[]{PLAYER_DEAD}, LoggerFactory.getLogger(LoseScreen.class));
-        game.setScreenColour(GdxGame.ScreenColour.BLACK);
+        super(game, new String[]{PLAYER_DEAD}, LoggerFactory.getLogger(LoseScreen.class), BLACK);
     }
 
     @Override

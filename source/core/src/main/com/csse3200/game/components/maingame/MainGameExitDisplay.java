@@ -14,16 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.screens.MainGameScreen;
-
-import javax.xml.stream.Location;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.

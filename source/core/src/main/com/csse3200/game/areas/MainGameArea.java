@@ -38,28 +38,9 @@ public class MainGameArea extends GameArea {
         super();
         this.player = player;
         this.levelFactory = levelFactory;
-        player.getEvents().addListener("teleportToBoss", this::spawnBoss);
+        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
-    }
-
-    private void spawnBoss() {
-        this.currentRoom = currentLevel.getRoom("BOSS");
-        this.currentRoom.spawn(player, this);
-        logger.info("spawned: new room");
-        logger.info("spawning: player");
-
-        // int player_x = (int) (15 - player.getPosition().x);
-        // int player_y = (int) (9 - player.getPosition().y);
-
-
-        int player_x = 7;
-        int player_y = 5;
-
-        player.setPosition(player_x, player_y);
-        spawnEntity(player);
-        logger.info("spawned: player");
-        spawnRoom = false;
     }
 
     /**
@@ -193,7 +174,6 @@ public class MainGameArea extends GameArea {
      *         - Common textures (player, doors, etc.)
      *         - Tile textures for levels 1-3
      */
-
     @Override
     protected String[] getTextureFilepaths() {
 

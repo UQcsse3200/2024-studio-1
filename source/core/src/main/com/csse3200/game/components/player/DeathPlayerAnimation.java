@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class DeathPlayerAnimation extends UIComponent {
     private Texture playerDeath;
 
-    public static final Logger logger = LoggerFactory.getLogger(DeathPlayerAnimation.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeathPlayerAnimation.class);
 
     @Override
     public void create() {

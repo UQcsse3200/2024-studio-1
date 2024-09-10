@@ -135,10 +135,7 @@ public abstract class BaseRoom implements Room {
         );
         this.animalGroup = Integer.parseInt(split.get(4));
         this.itemGroup = Integer.parseInt(split.get(5));
-        this.items = new ArrayList<>(this.itemSpecifications
-                .get(this.itemGroup)
-                .stream().map(this.collectibleFactory::createCollectibleEntity)
-                .toList());
+        this.items = new ArrayList<>();
         this.specification = specification;
     }
 
@@ -327,6 +324,7 @@ public abstract class BaseRoom implements Room {
             return;
         }
         MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
+
         spawnItem(area, this.itemSpecifications.get(this.itemGroup).get(0), new GridPoint2(8, 8));
         spawnItem(area, this.itemSpecifications.get(this.itemGroup).get(1), new GridPoint2(6, 8));
     }
@@ -346,9 +344,10 @@ public abstract class BaseRoom implements Room {
                     ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1));
             area.spawnEntityAt(enemy, randomPos, true, true);
             enemy.getEvents().addListener("checkAnimalsDead", () -> {
-                if (this.isAllAnimalDead())
+                if (this.isAllAnimalDead()) {
                     this.isRoomCompleted = true;
-                this.spawnItems();
+                    this.spawnItems();
+                }
             });
         }
         //this will make all animals commit suicide 

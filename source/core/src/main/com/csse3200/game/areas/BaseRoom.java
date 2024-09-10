@@ -71,8 +71,8 @@ public abstract class BaseRoom implements Room {
 
         this.enemies = new ArrayList<>();
         this.items = new ArrayList<>();
-
-        initializeSpecifications();
+        this.animalSpecifications = getAnimalSpecifications();
+        this.itemSpecifications = getItemSpecifications();
 
         List<String> split = Arrays.stream(specification.split(",")).toList();
 
@@ -95,8 +95,9 @@ public abstract class BaseRoom implements Room {
         this.specification = specification;
     }
 
-    // overide method 
-    protected void initializeSpecifications() {}
+    protected abstract List<List<String>> getAnimalSpecifications();
+
+    protected abstract List<List<String>> getItemSpecifications();
 
 
     protected List<Entity> createEnemyEntities(List<String> animals, Entity player) {

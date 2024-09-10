@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
@@ -44,12 +45,21 @@ public class CollectibleFactory extends LoadedFactory {
      * @param collectible the item to convert
      * @return the final entity containing the collectible.
      */
-    public Entity createCollectibleEntity(Collectible collectible) {
+    public Entity createCollectibleEntity(String specification, Collectible collectible) {
         Entity collectibleEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
-                .addComponent(new HitboxComponent())
-                .addComponent(new PhysicsComponent())
-                .addComponent(new TextureRenderComponent(collectible.getIcon()));
+                .addComponent(new CollectibleHitboxComponent())
+                .addComponent(new PhysicsComponent());
+
+        Texture texture = collectible.getIcon();
+        if (specification.contains("mystery")) {
+            if (collectible.getMysteryIcon() != null) {
+                texture = collectible.getMysteryIcon();
+            }
+            collectibleEntity.addComponent(new TextureRenderComponent(texture));
+        } else {
+            collectibleEntity.addComponent(new TextureRenderComponent(texture));
+        }
 
         collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();
         return collectibleEntity;
@@ -63,7 +73,7 @@ public class CollectibleFactory extends LoadedFactory {
      */
     public Entity createCollectibleEntity(String specification) {
         Collectible collectible = create(specification);
-        return createCollectibleEntity(collectible);
+        return createCollectibleEntity(specification, collectible);
     }
 }
 

@@ -143,8 +143,20 @@ public class CombatStatsComponent extends Component {
 
     public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
 
+    /**
+     * Increases the entities armor
+     * @param additionalArmor armor to add
+     */
     public void increaseArmor(int additionalArmor) {
-        armor = Math.max(armor + additionalArmor, 100);
+        armor = Math.min(armor + additionalArmor, 100);
+    }
+
+    /**
+     * Gets the current armor of the entity
+     * @return the entities armor value
+     */
+    public int getArmor() {
+        return armor;
     }
 
     /**

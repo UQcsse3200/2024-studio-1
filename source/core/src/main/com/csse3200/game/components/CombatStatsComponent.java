@@ -224,7 +224,7 @@ public class CombatStatsComponent extends Component {
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         } else {
-            int newHealth = getHealth() - (attacker.getBaseAttack() + buff);
+            int newHealth = getHealth() - (attacker.getBaseAttack() + attacker.buff);
             setHealth(newHealth);
             if (health <= 0) {
                 entity.getEvents().trigger("died");

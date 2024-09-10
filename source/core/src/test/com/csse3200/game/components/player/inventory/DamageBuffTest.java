@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class DamageBuffTest {
     DamageBuff damageBuff = new DamageBuff();
     Entity entity = new Entity().addComponent(new CombatStatsComponent(100, 5, true, 0, 0));
-    CombatStatsComponent attacker = new CombatStatsComponent(100,15);
+    Entity victim = new Entity().addComponent(new CombatStatsComponent(100,15));
     @Test
     public void testGetName() {assertEquals("Damage Buff", damageBuff.getName());}
 
@@ -27,5 +27,14 @@ public class DamageBuffTest {
         assertEquals(5, entity.getComponent(CombatStatsComponent.class).getDamageBuff());
     }
 
+    @Test
+    public void testAdditionalDamage() {
+        damageBuff.effect(entity);
+        CombatStatsComponent victimstats = victim.getComponent(CombatStatsComponent.class);
+        CombatStatsComponent entitystats = entity.getComponent(CombatStatsComponent.class);
+        victimstats.hit(entitystats);
+        assertEquals(90, victimstats.getHealth());
+
+    }
 
 }

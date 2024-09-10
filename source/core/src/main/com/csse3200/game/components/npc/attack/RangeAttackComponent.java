@@ -46,6 +46,7 @@ public class RangeAttackComponent extends AttackComponent {
         logger.info("{} shoots {}", entity, target);
         // Shoot target
         Vector2 direction = getDirection(target);
+        entity.getEvents().trigger("attack");
         shoot(direction);
         // Attack effects
         applyEffects(target);

@@ -15,12 +15,12 @@ import static com.csse3200.game.services.ServiceLocator.getTimeSource;
 public class DeathPlayerAnimation extends UIComponent {
     private Texture playerDeath;
 
+    private static final Logger logger = LoggerFactory.getLogger(DeathPlayerAnimation.class);
     /**
      * Time between completion of death animation and death screen, in milliseconds
      */
     private static final int DEATH_DELAY = 1000;
 
-    public static final Logger logger = LoggerFactory.getLogger(DeathPlayerAnimation.class);
     private boolean didTriggerEvent;
     private boolean didSetTime;
     private long deathTime;
@@ -43,18 +43,18 @@ public class DeathPlayerAnimation extends UIComponent {
         // Ensure the player health is 0 and the animation has finished before drawing
         if (entity.getComponent(CombatStatsComponent.class).isDead()
                 && entity.getComponent(PlayerAnimationController.class).stopAnimation()) {
-                float textureWidth = playerDeath.getWidth();
-                float textureHeight = playerDeath.getHeight();
-                float aspectRatio = textureWidth / textureHeight;
+            float textureWidth = playerDeath.getWidth();
+            float textureHeight = playerDeath.getHeight();
+            float aspectRatio = textureWidth / textureHeight;
 
-                // Get the player position
-                float x = entity.getPosition().x;
-                float y = entity.getPosition().y;
+            // Get the player position
+            float x = entity.getPosition().x;
+            float y = entity.getPosition().y;
 
-                batch.draw(playerDeath, x, y,
-                        0, 0, 1, 0.4f, // Size
-                        1f, aspectRatio, 0f, 0, 0, playerDeath.getWidth(), playerDeath.getHeight(), // Source region
-                        false, false);
+            batch.draw(playerDeath, x, y,
+                    0, 0, 1, 0.4f, // Size
+                    1f, aspectRatio, 0f, 0, 0, playerDeath.getWidth(), playerDeath.getHeight(), // Source region
+                    false, false);
 
             // Wait given amount of time before triggering event
             if (!didSetTime) {

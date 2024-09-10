@@ -39,7 +39,6 @@ public class HitboxComponent extends ColliderComponent {
   public HitboxComponent(float boxRatio, float translateX, float translateY) {
     super(boxRatio, translateX, translateY);
   }
-
   @Override
   public void create() {
     setSensor(true);

@@ -1,5 +1,6 @@
 package com.csse3200.game.components;
 
+import com.csse3200.game.rendering.AnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,25 +20,31 @@ public class CombatStatsComponent extends Component {
     private int health;
     private int baseAttack;
     private int armor;
+    private int buff;
+
     private boolean isInvincible;
     private static final int timeInvincible = 150;
-    private final Timer timer;
-    private static int buffedAttack;
+    private final Timer timerIFrames;
+    private static final int timeFlash = 250;
+    private final Timer timerFlashSprite;
+    private CombatStatsComponent.flashSprite flashTask;
 
-    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor) {
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
         this.baseAttack = baseAttack;
         this.armor = armor;
+        this.buff = buff;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
-        timer = new Timer();
+        this.timerIFrames = new Timer();
+        this.timerFlashSprite = new Timer();
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
-        this(health, baseAttack, false, 0);
+        this(health, baseAttack, false, 0, 0);
     }
 
     /**
@@ -47,7 +54,25 @@ public class CombatStatsComponent extends Component {
     private class InvincibilityRemover extends TimerTask {
         @Override
         public void run() {
+            flashTask.cancel();
             setInvincible(false);
+            entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
+        }
+    }
+
+    /**
+     * A TimerTask used to alternate the visibility of the entity during their IFrames
+     */
+    private class flashSprite extends TimerTask {
+        private boolean invisible = false;
+        @Override
+        public void run() {
+            if (this.invisible){
+                entity.getComponent(AnimationRenderComponent.class).setOpacity(0);
+            } else {
+                entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
+            }
+            this.invisible = !this.invisible;
         }
     }
 
@@ -117,11 +142,40 @@ public class CombatStatsComponent extends Component {
      *
      * @param buffedAttack increased Damage
      */
+    public void addAttack(int buffedAttack) {
+        buff = (buff + buffedAttack);
+    }
 
-    public void addAttack(int buffedAttack) {setBaseAttack(baseAttack + buffedAttack);}
+    /**
+     * gets the total extra damage from buff
+     * @return buff value
+     */
+    public int getDamageBuff() {
+        return buff;
+    }
 
+    /**
+     * gets max damage cap
+     * @return int of maximum damage
+     */
+    public int getMaxDamage() {
+        return 200;
+    }
+
+    /**
+     * increases total armor to reduce additional damage
+     * @param additionalArmor increases total armor
+     */
     public void increaseArmor(int additionalArmor) {
-        armor = Math.max(armor + additionalArmor, 100);
+        armor = Math.min(armor + additionalArmor, 100);
+    }
+
+    /**
+     * Gets the current armor of the entity
+     * @return the entities armor value
+     */
+    public int getArmor() {
+        return armor;
     }
 
     /**
@@ -148,23 +202,44 @@ public class CombatStatsComponent extends Component {
 
     /**
      * Handles a hit from another entity by reducing the entity's health based on the attacker's base attack value.
+     * Gives them invincibility frames if they can have any
      *
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */
     public void hit(CombatStatsComponent attacker) {
-        if (!isInvincible()) {
-            int newHealth = getHealth() - attacker.getBaseAttack();
-            entity.getEvents().trigger("playerHit");
-            setHealth(newHealth);
-            if (canBeInvincible){
-                setInvincible(true);
-                CombatStatsComponent.InvincibilityRemover task = new CombatStatsComponent.InvincibilityRemover();
-                timer.schedule(task, timeInvincible);
-            }
+
+        if (getIsInvincible()) {
+            return;
         }
 
+        if (getCanBeInvincible()) {
+            float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
+            int newHealth = getHealth() - (int) (attacker.getBaseAttack() * (1 - damageReduction));
+            setHealth(newHealth);
+            entity.getEvents().trigger("playerHit");
+            setInvincible(true);
+            InvincibilityRemover task = new InvincibilityRemover();
+            timerIFrames.schedule(task, timeInvincible);
+            flashTask = new CombatStatsComponent.flashSprite();
+            timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+        } else {
+            int newHealth = getHealth() - (attacker.getBaseAttack() + attacker.buff);
+            setHealth(newHealth);
+            if (health <= 0) {
+                entity.getEvents().trigger("died");
+                entity.getEvents().trigger("checkAnimalsDead");
+            }
+        }
     }
 
+    /**
+     *Returns if the entity can be invincible
+     *
+     * @return boolean can be Invincible
+     */
+    public boolean getCanBeInvincible() {
+        return this.canBeInvincible;
+    }
 
     /**
      * Sets the state of the entity's invincibility
@@ -180,7 +255,7 @@ public class CombatStatsComponent extends Component {
      *
      * @return invincibility state
      */
-    public boolean isInvincible() {
+    public boolean getIsInvincible() {
         return isInvincible;
     }
 }

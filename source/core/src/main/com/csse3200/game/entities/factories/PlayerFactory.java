@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.*;
-import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
@@ -68,9 +70,6 @@ public class PlayerFactory extends LoadedFactory {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         TextureRegion defaultTexture = atlas.findRegion("idle");
 
-        InputComponent inputComponent =
-                ServiceLocator.getInputService().getInputFactory().createForPlayer();
-
         InventoryComponent inventoryComponent = new InventoryComponent();
         Entity player = new Entity()
                 .addComponent(new PlayerConfigComponent(config))
@@ -78,7 +77,7 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new PlayerActions())
-                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0))
+                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0))
                 .addComponent(inventoryComponent)
                 .addComponent(new ItemPickupComponent())
                 .addComponent(new ShieldComponent())
@@ -86,7 +85,6 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController())
-                .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
                 .addComponent(new WeaponComponent(
@@ -94,120 +92,24 @@ public class PlayerFactory extends LoadedFactory {
                         Collectible.Type.RANGED_WEAPON,
                         10, 1, 1, 10, 10, 0));
 
-        if(config.items != null) {
-            Array<Collectible> items = stringToItems(config.items);
-            for (Collectible item : items) {
-                inventoryComponent.getInventory().addItem(item); // Add each item to inventory
-            }
-        }
-
-        if (config.melee != null) {
-            MeleeWeapon meleeWeapon = createMeleeWeaponFromSpecification(config.melee); // Create MeleeWeapon
-            WeaponComponent meleeWeaponComponent = new WeaponComponent(
-                    new Sprite(meleeWeapon.getIcon()),  // Use texture from the melee weapon class
-                    Collectible.Type.MELEE_WEAPON,
-                    meleeWeapon.getDamage(),
-                    meleeWeapon.getRange(),
-                    meleeWeapon.getFireRate(),
-                    0, 0,  0
-            );
-            player.addComponent(meleeWeaponComponent); // Add melee weapon component to the player
-            inventoryComponent.getInventory().setMelee(meleeWeapon); // Set melee weapon in the inventory
-        }
-
-        if (config.ranged != null) {
-            RangedWeapon rangedWeapon = createRangeFromSpec(config.ranged);
-            WeaponComponent rangedWeaponComponent = new WeaponComponent(
-                    new Sprite(rangedWeapon.getIcon()),
-                    Collectible.Type.RANGED_WEAPON,
-                    rangedWeapon.getDamage(),
-                    rangedWeapon.getRange(),
-                    rangedWeapon.getFireRate(),
-                    rangedWeapon.getAmmo(),
-                    rangedWeapon.getMaxAmmo(),
-                    rangedWeapon.getReloadTime()
-            );
-            player.addComponent(rangedWeaponComponent); // Add melee weapon component to the player
-            inventoryComponent.getInventory().setRanged(rangedWeapon); // Set melee weapon in the inventory
-        }
-
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
 
-        //player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
 
         return player;
     }
 
     private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
-        AnimationRenderComponent animator =
-                new AnimationRenderComponent(
-                        ServiceLocator.getResourceService().getAsset("images/player/player.atlas", TextureAtlas.class));
-
+        AnimationRenderComponent animator = new AnimationRenderComponent(
+                ServiceLocator.getResourceService().getAsset(textureAtlasFilename,
+                        TextureAtlas.class));
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("death-up", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("death-left", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
         return animator;
-    }
-
-    private MeleeWeapon createMeleeWeaponFromSpecification(String specification) {
-        switch (specification.toLowerCase()) {
-            case "knife":
-                return new Knife();
-            case "pickaxe":
-                return new Pickaxe();
-            default:
-                throw new IllegalArgumentException("Unknown melee weapon specification: " + specification);
-        }
-    }
-
-    private RangedWeapon createRangeFromSpec(String specification) {
-        switch (specification.toLowerCase()) {
-            case "shotgun":
-                return new Shotgun();
-            default:
-                throw new IllegalArgumentException("Unknown ranged weapon specification: " + specification);
-        }
-    }
-
-    private static Array<Collectible> stringToItems(String[] itemSpecs) {
-        Array<Collectible> items = new Array<>();
-
-        for (String spec : itemSpecs) {
-            Collectible item = createCollectibleFromSpecification(spec);
-            if (item != null) {
-                items.add(item);
-            }
-        }
-
-        return items;
-    }
-
-    private static Collectible createCollectibleFromSpecification(String spec){
-        switch (spec.toLowerCase()) {
-            case "bandage":
-                return new Bandage();
-            case "med_kit":
-                return new MedKit();
-            case "shieldpotion":
-                return new ShieldPotion();
-                // todo uncomment once I know what goes in EnergyDrink constructor
-//            case "energydrink":
-//                return new EnergyDrink();
-            //Add when team 3 implement
-            //case "syringe":
-                //return new Syringe();
-            default:
-                logger.warn("Unknown item specification: " + spec);
-                return null;
-        }
     }
 
     @Override

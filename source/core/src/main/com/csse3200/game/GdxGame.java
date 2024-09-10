@@ -25,8 +25,8 @@ public class GdxGame extends Game {
     logger.info("Creating game");
     loadSettings();
 
-    // Sets background to light yellow
-    setScreenColour(ScreenColour.DEFAULT);
+    // Sets background to light grey
+    setScreenColour(ScreenColour.GREY);
 
     setScreen(ScreenType.MAIN_MENU);
   }
@@ -92,6 +92,7 @@ public class GdxGame extends Game {
     switch (colour) {
       case DEFAULT -> Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
       case BLACK -> Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+        case GREY -> Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
     }
   }
 
@@ -106,7 +107,11 @@ public class GdxGame extends Game {
     /**
      * Black, currently used for cutscene for extra spookiness.
      */
-    BLACK
+    BLACK,
+      /**
+       * Light grey
+       */
+      GREY
   }
 
   /**

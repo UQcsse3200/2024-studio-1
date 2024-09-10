@@ -2,7 +2,6 @@ package com.csse3200.game.files;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
-import com.badlogic.gdx.audio.Music;
 import com.csse3200.game.files.FileLoader.Location;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
@@ -55,10 +54,8 @@ public class UserSettings {
     Gdx.graphics.setForegroundFPS(settings.fps);
     Gdx.graphics.setVSync(settings.vsync);
     ResourceService resourceService = ServiceLocator.getResourceService();
-    System.out.println(settings.mute);
-    System.out.println(settings.musicVolume);
-    System.out.println();
-    //System.out.println(resourceService.getAsset("sounds/BGM_03_mp3.mp3", Music.class));
+    log.info("{}", settings.mute);
+    log.info("{}", settings.musicVolume);
 
     //applyAudioSettings(settings);
 

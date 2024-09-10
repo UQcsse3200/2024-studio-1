@@ -4,5 +4,6 @@
   "favouriteColour": "peach",
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
-  "melee": "pickaxe"
+  "melee": "pickaxe",
+  "ranged": "shotgun"
 }

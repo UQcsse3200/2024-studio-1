@@ -1,8 +1,11 @@
 package com.csse3200.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
@@ -43,20 +46,38 @@ import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
  */
 public class MainGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
+    private final PlayerFactory playerFactory;
     private static final String[] mainGameTextures = {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-            "images/ui_white_icons_down.png", "flat-earth/skin/flat-earth-ui.png",
-            "images/black_dot_transparent.png"
+            "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/black_dot_transparent.png"
     };
+
+    // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
-    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-    private final PlayerFactory playerFactory;
+
+    private PlayerSelection playerSelection = new PlayerSelection();
+
+    private static final String[] textureAtlases = {"skins/rainbow/skin/rainbow-ui.atlas"};
+
+    /**
+     * Array of font file paths used in the game.
+     * These fonts are loaded as assets and can be used for various UI elements.
+     */
+
+    private static final String[] fonts = {
+            "skins/rainbow/skin/font-button-export.fnt", "skins/rainbow/skin/font-export.fnt",
+            "skins/rainbow/skin/font-title-export.fnt"
+    };
+
+
+    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
+
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
-    private final PlayerSelection playerSelection = new PlayerSelection();
     private Entity ui;
     public static boolean isPaused = false;
+
 
     public MainGameScreen(GdxGame game) {
         this.game = game;
@@ -69,16 +90,16 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Initialising main game screen services");
         ServiceLocator.registerTimeSource(new GameTime());
         ServiceLocator.registerRandomService(new RandomService("Default Seed :p"));
+
         PhysicsService physicsService = new PhysicsService();
         ServiceLocator.registerPhysicsService(physicsService);
         this.physicsEngine = physicsService.getPhysics();
+
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
 
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
-
-        ServiceLocator.registerCollectibleFactoryService(new CollectibleFactoryService());
 
         this.renderer = RenderFactory.createRenderer();
         this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
@@ -92,25 +113,31 @@ public class MainGameScreen extends ScreenAdapter {
         String chosenPlayer = gameOptions.chosenPlayer;
         logger.info("Starting with chosen player file: {}", chosenPlayer);
 
-        /*
+        // Register AlertBoxService
+        Skin skin = new Skin(Gdx.files.internal("skins/rainbow/skin/rainbow-ui.json"),
+                ServiceLocator.getResourceService().getAsset("skins/rainbow/skin/rainbow-ui.atlas", TextureAtlas.class));
+        Stage stage = ServiceLocator.getRenderService().getStage();
+        ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
+
+        /**
          * based on the characters selected, changed the link
          * If Player choose Load, then create
          */
-        this.playerFactory = new PlayerFactory(List.of(PLAYERS));
-        Entity player = playerFactory.createPlayer(
-                FileLoader.readClass(PlayerConfig.class, chosenPlayer));
-        // todo refactor events to be more decoupled
-        player.getEvents().addListener("player_finished_dying", this::loseGame);
+        // todo confirm which players should be passed into PlayerFactory
+        this.playerFactory = new PlayerFactory(List.of(
+                PLAYERS
+        ));
+        Entity player = playerFactory.createPlayer(FileLoader.readClass(PlayerConfig.class, chosenPlayer));
 
-        // todo ask character team, is this needed?
-        // List<Entity> players = playerSelection.createTwoPlayers();
+        player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
         LevelFactory levelFactory = new MainGameLevelFactory();
-        GameArea mainGameArea = (gameOptions.difficulty == TEST) ?
-                new TestGameArea(levelFactory) :
-                new MainGameArea(levelFactory);
-        mainGameArea.create(player);
+        if (gameOptions.difficulty == TEST) {
+            new TestGameArea(levelFactory, player);
+        } else {
+            new MainGameArea(levelFactory, player);
+        }
     }
 
     @Override
@@ -174,6 +201,8 @@ public class MainGameScreen extends ScreenAdapter {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(mainGameTextures);
         resourceService.loadTextureAtlases(mainGameAtlases);
+        resourceService.loadTextureAtlases(textureAtlases);
+        resourceService.loadFonts(fonts);
         ServiceLocator.getResourceService().loadAll();
     }
 

@@ -33,6 +33,7 @@ public class Bandage extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
+        super.drop(inventory);
     }
 
     /**
@@ -56,6 +57,15 @@ public class Bandage extends UsableItem {
     }
 
     /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_green.png");
+    }
+
+    /**
      * Applies the bandage to an entity, increasing its health by a small amount,
      * calls the increaseSmallBoost(entity) method
      *
@@ -73,8 +83,6 @@ public class Bandage extends UsableItem {
      */
     public void increaseSmallBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-        int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + Small_Health_Boost,100);
-        combatStats.setHealth(newHealth);
+        combatStats.addHealth(Small_Health_Boost);
     }
 }

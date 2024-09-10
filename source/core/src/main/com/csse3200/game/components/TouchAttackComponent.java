@@ -77,10 +77,6 @@ public class TouchAttackComponent extends Component {
       }
     }
 
-    //Add the bonus damage here
-    //Checks if the target is the player by checking the buff class
-    //If not trigger targetStats.hit(bonus damage)
-
     // Apply knock back
     PhysicsComponent physicsComponent = target.getComponent(PhysicsComponent.class);
     if (physicsComponent != null && knockbackForce > 0f) {

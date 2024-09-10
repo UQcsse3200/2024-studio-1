@@ -2,14 +2,18 @@ package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
@@ -18,7 +22,7 @@ public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
 
-    private Entity player;
+    public Entity player;
 
     private final LevelFactory levelFactory;
     private Level currentLevel;
@@ -30,18 +34,19 @@ public class MainGameArea extends GameArea {
      *
      * @param levelFactory the provided levelFactory.
      */
-    public MainGameArea(LevelFactory levelFactory) {
+    public MainGameArea(LevelFactory levelFactory, Entity player) {
         super();
+        this.player = player;
         this.levelFactory = levelFactory;
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
+        create();
     }
 
     /**
      * Create the game area, including terrain, static entities (trees), dynamic entities (player)
      */
     @Override
-    public void create(Entity player) {
-        this.player = player;
+    public void create() {
 
         load(logger);
         logger.error("loaded all assets");
@@ -53,29 +58,35 @@ public class MainGameArea extends GameArea {
         playMusic();
     }
 
-    private void selectRoom(String roomKey){
-        Room newRoom = this.currentLevel.getRoom(roomKey);
-        if (newRoom == null) {
-            logger.error("Room \"{}\" not found!", roomKey);
-            return;
-        }
-        this.currentRoom = newRoom;
-        this.spawnRoom = true;
+
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 
     public void changeRooms(String roomKey){
         logger.info("Changing rooms!");
         //this.remove_room();
+
         this.currentRoom.removeRoom();
         //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
-        selectRoom(roomKey);
+
+        //this.player.getPosition();
+        //player.setPosition(null);
+        this.currentRoom = this.currentLevel.getRoom(roomKey);
+        this.spawnRoom = true;
+        if (this.currentRoom.isRoomFresh) {
+            this.currentLevel.roomTraversals ++;
+        }
     }
 
     public void spawnCurrentRoom() {
         if (!spawnRoom) {
             return;
         }
-        logger.info("spawning: new room");
+        //logger.info("spawning: new room");
+        if (currentLevel.roomTraversals == 8) {
+            this.currentRoom = currentLevel.getRoom("BOSS");
+        }
         this.currentRoom.spawn(player, this);
         spawnEntityAt(player, new GridPoint2(10, 10), true, true);
 
@@ -83,8 +94,17 @@ public class MainGameArea extends GameArea {
     }
 
     public void changeLevel(int levelNumber){
+        logger.info("Changing to level: " + levelNumber);
+
+        // TODO: Save player progress or game state here, create a save manager
+
+        // Create and load the new level
         this.currentLevel = this.levelFactory.create(levelNumber);
-        selectRoom(this.currentLevel.getStartingRoomKey());
+        this.currentRoom = this.currentLevel.getRoom(this.currentLevel.getStartingRoomKey());
+
+        // TODO: Perform level-specific setup
+
+        this.spawnRoom = true;
     }
 
     private void displayUI() {
@@ -108,6 +128,9 @@ public class MainGameArea extends GameArea {
         }
         music.play();
     }
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
 
     @Override
     protected String[] getSoundFilepaths() {
@@ -120,35 +143,43 @@ public class MainGameArea extends GameArea {
     protected String[] getTextureAtlasFilepaths() {
         return new String[]{
                 "images/terrain_iso_grass.atlas",
-                "images/ghost.atlas",
-                "images/ghostKing.atlas"
         };
     }
 
     @Override
     protected String[] getTextureFilepaths() {
-        return new String[]{
+
+        List<String> filepaths = new ArrayList<>();
+        String[] commonTextures = {
                 "images/box_boy_leaf.png",
-                "images/tile_1.png",
-                "images/tile_2.png",
-                "images/tile_3.png",
-                "images/tile_4.png",
-                "images/tile_5.png",
-                "images/tile_6.png",
-                "images/tile_7.png",
-                "images/tile_8.png",
-                "images/tile_middle.png",
-                "images/tile_general.png",
-                "images/tile_broken1.png",
-                "images/tile_broken2.png",
-                "images/tile_broken3.png",
-                "images/tile_staircase.png",
-                "images/tile_staircase_down.png",
-                "images/tile_blood.png",
                 "images/rounded_door_v.png",
-                "images/rounded_door_h.png"
+                "images/rounded_door_h.png",
+                "images/staircase.png"
         };
+        Collections.addAll(filepaths, commonTextures);
+
+        for (int level = 1; level <= 3; level++) {
+            filepaths.add("images/tile_1_level" + level + ".png");
+            filepaths.add("images/tile_2_level" + level + ".png");
+            filepaths.add("images/tile_3_level" + level + ".png");
+            filepaths.add("images/tile_4_level" + level + ".png");
+            filepaths.add("images/tile_5_level" + level + ".png");
+            filepaths.add("images/tile_6_level" + level + ".png");
+            filepaths.add("images/tile_7_level" + level + ".png");
+            filepaths.add("images/tile_8_level" + level + ".png");
+            filepaths.add("images/tile_middle_level" + level + ".png");
+            filepaths.add("images/tile_broken1_level" + level + ".png");
+            filepaths.add("images/tile_broken2_level" + level + ".png");
+            filepaths.add("images/tile_broken3_level" + level + ".png");
+            filepaths.add("images/tile_blood_level" + level + ".png");
+            filepaths.add("images/tile_staircase_level" + level + ".png");
+        }
+
+        // Convert the list to an array and return
+        return filepaths.toArray(new String[0]);
     }
+
+
 
     @Override
     protected String[] getMusicFilepaths() {

@@ -20,6 +20,10 @@ import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.stream.Location;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
@@ -145,12 +149,20 @@ public class MainGameExitDisplay extends UIComponent {
   }
 
   public class EntityCoordinates {
-    public float x;
-    public float y;
+    private float x;
+    private float y;
 
     public EntityCoordinates(float x, float y) {
       this.x = x;
       this.y = y;
+    }
+
+    public float getX() {
+      return x;
+    }
+
+    public float getY() {
+      return y;
     }
   }
 

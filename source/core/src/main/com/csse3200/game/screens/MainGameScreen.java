@@ -56,7 +56,7 @@ public class MainGameScreen extends ScreenAdapter {
     private final PhysicsEngine physicsEngine;
     private final PlayerSelection playerSelection = new PlayerSelection();
     private Entity ui;
-    public static boolean isPaused=false;
+    public static boolean isPaused = false;
 
     public MainGameScreen(GdxGame game) {
         this.game = game;
@@ -115,8 +115,7 @@ public class MainGameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         renderer.render();
-        if(isPaused)
-        {
+        if (isPaused) {
             return;
         }
         physicsEngine.update();

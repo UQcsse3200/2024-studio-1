@@ -61,6 +61,7 @@ public class MainGameScreen extends ScreenAdapter {
     public MainGameScreen(GdxGame game) {
         this.game = game;
         game.setScreenColour(DEFAULT);
+        isPaused = false;
 
         GameOptions gameOptions = game.gameOptions;
         logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());

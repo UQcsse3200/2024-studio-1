@@ -1,8 +1,14 @@
 package com.csse3200.game.components.player;
 
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.areas.GameAreaService;
+import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
@@ -19,8 +25,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 
 @ExtendWith(GameExtension.class)
@@ -37,10 +43,18 @@ class WeaponProjectileTest {
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
         ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerGameAreaService(new GameAreaService(mock(MainGameArea.class)));
+
+        ServiceLocator.getGameAreaService().getGameArea()
+                .setTerrain(new TerrainComponent(
+                        mock(OrthographicCamera.class),
+                        mock(TiledMap.class),
+                        mock(TiledMapRenderer.class),
+                        3f));
 
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
+        resourceService.loadTextureAtlases(new String []{new ProjectileConfig().projectileAtlasPath});
         // load in sound asset
         WeaponFactory weaponFactory = new WeaponFactory();
         weaponFactory.load();

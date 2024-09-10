@@ -18,6 +18,7 @@ public class WeaponFactory extends LoadedFactory {
         if (specification.equals("shotgun")) {
             return new Shotgun();
         }
+        System.out.println(specification);
         return new ConcreteRangedWeapon(specification);
     }
 

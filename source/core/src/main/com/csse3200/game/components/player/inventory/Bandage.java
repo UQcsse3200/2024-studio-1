@@ -33,6 +33,7 @@ public class Bandage extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
+        super.drop(inventory);
     }
 
     /**
@@ -53,6 +54,15 @@ public class Bandage extends UsableItem {
     @Override
     public Texture getIcon() {
         return new Texture("images/items/bandage.png");
+    }
+
+    /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_green.png");
     }
 
     /**

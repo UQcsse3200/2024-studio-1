@@ -66,7 +66,6 @@ public class NPCFactory extends LoadedFactory {
    */
   public Entity create(String specification, Entity target) {
     return switch (specification) {
-      case "Dragon" -> this.createDragon(target);
       case "Rat" -> this.createRat(target);
       case "Bear" -> this.createBear(target);
       case "Snake" -> this.createSnake(target);
@@ -76,9 +75,11 @@ public class NPCFactory extends LoadedFactory {
       case "Minotaur" -> this.createMinotaur(target);
       case "Werewolf" -> this.createWerewolf(target);
       case "Birdman" -> this.createBirdman(target);
+      case "Dragon" -> this.createDragon(target);
       default -> throw new IllegalArgumentException("Unknown animal: " + specification);
     };
   }
+
   /**
    * Creates a rat entity with predefined components and behaviour.
    *
@@ -88,24 +89,9 @@ public class NPCFactory extends LoadedFactory {
   public Entity createRat(Entity target) {
     NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/rat.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
     Entity rat = createBaseNPC(target, aiComponent, config, animator);
     return rat;
-  }
-
-  /**
-   * Creates a rat entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created rat entity
-   */
-  public Entity createDragon(Entity target) {
-    NPCConfigs.NPCConfig config = configs.dragon;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
-    Entity dragon = createBaseNPC(target, aiComponent, config, animator);
-
-    return dragon;
   }
 
   /**
@@ -147,7 +133,7 @@ public class NPCFactory extends LoadedFactory {
   public Entity createDino(Entity target) {
     NPCConfigs.NPCConfig config = configs.dino;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/dino.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/dino/dino.atlas", config.animations);
     Entity dino = createBaseNPC(target, aiComponent, config, animator);
 
     return dino;
@@ -162,25 +148,10 @@ public class NPCFactory extends LoadedFactory {
   public Entity createBat(Entity target) {
     NPCConfigs.NPCConfig config = configs.bat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/bat.atlas", config.animations);
+    AnimationRenderComponent animator = createAnimator("images/npc/bat/bat.atlas", config.animations);
     Entity bat = createBaseNPC(target, aiComponent, config, animator);
 
     return bat;
-  }
-
-  /**
-   * Creates a Minotaur entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createMinotaur(Entity target) {
-    NPCConfigs.NPCConfig config = configs.minotaur;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/minotaur.atlas", config.animations);
-    Entity minotaur = createBaseNPC(target, aiComponent, config, animator);
-
-    return minotaur;
   }
 
   /**
@@ -199,6 +170,21 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
+   * Creates a Minotaur entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public Entity createMinotaur(Entity target) {
+    NPCConfigs.NPCConfig config = configs.minotaur;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/minotaur/minotaur.atlas", config.animations);
+    Entity minotaur = createBaseNPC(target, aiComponent, config, animator);
+
+    return minotaur;
+  }
+
+  /**
    * Creates a Birdman entity.
    *
    * @param target entity to chase
@@ -209,6 +195,7 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
     Entity birdman = createBaseNPC(target, aiComponent, config, animator);
+
     return birdman;
   }
 
@@ -223,8 +210,25 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
+
     return werewolf;
   }
+
+  /**
+   * Creates a dragon entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the created dragon entity
+   */
+  public Entity createDragon(Entity target) {
+    NPCConfigs.NPCConfig config = configs.dragon;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
+    Entity dragon = createBaseNPC(target, aiComponent, config, animator);
+
+    return dragon;
+  }
+
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
@@ -232,7 +236,6 @@ public class NPCFactory extends LoadedFactory {
    * @param aiComponent The AI component to be added to the NPC.
    * @param config The configuration for the NPC.
    * @param animator The animator component for the NPC.
-   *
    * @return The created NPC entity.
    */
   private static Entity createBaseNPC(Entity target, AITaskComponent aiComponent, NPCConfigs.NPCConfig config,
@@ -323,15 +326,12 @@ public class NPCFactory extends LoadedFactory {
   @Override
   protected String[] getTextureAtlasFilepaths() {
     return new String[] {
-            "images/ghost.atlas",
-            "images/ghostKing.atlas",
-            "images/rat.atlas",
+            "images/npc/rat/rat.atlas",
             "images/npc/dragon/dragon.atlas",
             "images/npc/snake/snake.atlas",
-            "images/minotaur.atlas",
-            "images/bear.atlas",
-            "images/dino.atlas",
-            "images/bat.atlas",
+            "images/npc/minotaur/minotaur.atlas",
+            "images/npc/dino/dino.atlas",
+            "images/npc/bat/bat.atlas",
             "images/npc/bear/bear.atlas",
             "images/npc/dog/dog.atlas",
             "images/npc/werewolf/werewolf.atlas",
@@ -342,16 +342,14 @@ public class NPCFactory extends LoadedFactory {
   @Override
   protected String[] getTextureFilepaths() {
     return new String[]{
-            "images/ghost_1.png",
-            "images/ghost_king.png",
-            "images/rat.png",
+            "images/npc/rat/rat.png",
             "images/npc/dragon/dragon.png",
-            "images/minotaur.png",
-            "images/npc/dog/dog.png",
+            "images/npc/minotaur/minotaur.png",
             "images/npc/snake/snake.png",
-            "images/dino.png",
+            "images/npc/dino/dino.png",
+            "images/npc/bat/bat.png",
             "images/npc/bear/bear.png",
-            "images/bear.png",
+            "images/npc/dog/dog.png",
             "images/npc/werewolf/werewolf.png",
             "images/npc/birdman/birdman.png"
     };

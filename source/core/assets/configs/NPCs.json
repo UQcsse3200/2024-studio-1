@@ -421,8 +421,6 @@
       {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "run_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "run_right", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
       {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
       {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},

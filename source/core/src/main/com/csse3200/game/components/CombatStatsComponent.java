@@ -1,5 +1,6 @@
 package com.csse3200.game.components;
 
+import com.csse3200.game.rendering.AnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +19,6 @@ public class CombatStatsComponent extends Component {
     private final int maxHealth;
     private int health;
     private int baseAttack;
-    private int maxDamage = 200;
     private int armor;
     private int buff;
 
@@ -28,7 +28,6 @@ public class CombatStatsComponent extends Component {
     private static final int timeFlash = 250;
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
-    private static int buffedAttack;
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
@@ -66,9 +65,10 @@ public class CombatStatsComponent extends Component {
      */
     private class flashSprite extends TimerTask {
         private boolean invisible = false;
+
         @Override
         public void run() {
-            if (this.invisible){
+            if (this.invisible) {
                 entity.getComponent(AnimationRenderComponent.class).setOpacity(0);
             } else {
                 entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
@@ -143,7 +143,6 @@ public class CombatStatsComponent extends Component {
      *
      * @param buffedAttack increased Damage
      */
-
     public void addAttack(int buffedAttack) {
         buff = (buff + buffedAttack);
     }
@@ -153,7 +152,7 @@ public class CombatStatsComponent extends Component {
     }
 
     public int getMaxDamage() {
-        return maxDamage;
+        return 200;
     }
 
     public void increaseArmor(int additionalArmor) {
@@ -218,7 +217,7 @@ public class CombatStatsComponent extends Component {
     }
 
     /**
-     *Returns if the entity can be invincible
+     * Returns if the entity can be invincible
      *
      * @return boolean canbeInvincible
      */

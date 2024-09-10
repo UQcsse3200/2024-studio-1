@@ -97,7 +97,6 @@ public abstract class BaseRoom implements Room {
 
     protected abstract List<List<String>> getItemSpecifications();
 
-
     protected List<Entity> createEnemyEntities(List<String> animals, Entity player) {
         enemies = new ArrayList<>();
         for (String animal : animals) {

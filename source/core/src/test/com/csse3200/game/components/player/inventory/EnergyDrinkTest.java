@@ -14,7 +14,7 @@ public class EnergyDrinkTest {
     EnergyDrink energyDrink = new EnergyDrink("Low", true);
     Entity entity = new Entity()
             .addComponent(new PlayerActions())
-            .addComponent(new CombatStatsComponent(1, 1, true, 1));
+            .addComponent(new CombatStatsComponent(1, 1, true, 1, 0));
 
     @Test
     public void getNameTest() {

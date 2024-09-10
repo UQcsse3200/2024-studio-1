@@ -28,6 +28,7 @@ public class WeaponFactory extends LoadedFactory {
      *
      * @param specification the specification of the weapon.
      * @return MeleeWeapon the newly created collectible of type melee weapon.
+     * @throws IllegalArgumentException if the specification is invalid.
      */
     private MeleeWeapon createMelee(String specification) throws IllegalArgumentException {
         return switch (specification) {
@@ -42,6 +43,7 @@ public class WeaponFactory extends LoadedFactory {
      *
      * @param specification the specification of the weapon.
      * @return RangedWeapon the newly created collectible of type ranged weapon.
+     * @throws IllegalArgumentException if the specification is invalid.
      */
     private RangedWeapon createRanged(String specification) throws IllegalArgumentException {
         return switch (specification) {
@@ -56,8 +58,9 @@ public class WeaponFactory extends LoadedFactory {
      * @param type          the type of the weapon (melee or ranged)
      * @param specification the specification of the weapon.
      * @return The newly constructed collectible.
+     * @throws IllegalArgumentException if the weapon type is invalid.
      */
-    public Collectible create(Collectible.Type type, String specification) {
+    public Collectible create(Collectible.Type type, String specification) throws IllegalArgumentException {
         return switch (type) {
             case MELEE_WEAPON -> createMelee(specification);
             case RANGED_WEAPON -> createRanged(specification);
@@ -71,13 +74,19 @@ public class WeaponFactory extends LoadedFactory {
      *
      * @param collectible the item to convert
      * @return the final entity containing the collectible.
+     * @throws IllegalArgumentException if the collectible is invalid.
      */
-    public Entity createWeaponEntity(Collectible collectible) {
-        if (collectible.getType() == Collectible.Type.MELEE_WEAPON) {
-            return createMeleeEntity((MeleeWeapon) collectible);
+    public Entity createWeaponEntity(Collectible collectible) throws IllegalArgumentException {
+        try {
+            if (collectible.getType() == Collectible.Type.MELEE_WEAPON) {
+                return createMeleeEntity((MeleeWeapon) collectible);
+            }
+            return createRangeEntity((RangedWeapon) collectible);
         }
-
-        return createRangeEntity((RangedWeapon) collectible);
+        catch (Exception e) {
+            logger.error("Failed to create weapon entity");
+            throw new IllegalArgumentException("Invalid collectible");
+        }
     }
 
     /**
@@ -86,7 +95,7 @@ public class WeaponFactory extends LoadedFactory {
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      */
-    private Entity createMeleeEntity(MeleeWeapon collectible) {
+    private Entity createMeleeEntity(MeleeWeapon collectible) throws IllegalArgumentException {
 
         TextureAtlas atlas = new TextureAtlas(getTextureAtlasFilepaths()[0]);
         TextureRegion defaultTexture = atlas.findRegion("idle");

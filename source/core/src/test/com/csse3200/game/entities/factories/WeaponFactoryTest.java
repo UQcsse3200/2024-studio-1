@@ -94,4 +94,28 @@ public class WeaponFactoryTest {
         assert entity2 != null;
         assert entity2 instanceof Entity;
     }
+
+    @org.junit.jupiter.api.Test
+    public void testCreateEntityInvalid() {
+        try {
+            Entity entity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.MELEE_WEAPON, "invalid"));
+        } catch (IllegalArgumentException e) {
+            assert e.getMessage().equals("Invalid melee weapon specification: invalid");
+        }
+
+        try {
+            Entity entity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.RANGED_WEAPON, "invalid"));
+        } catch (IllegalArgumentException e) {
+            assert e.getMessage().equals("Invalid ranged weapon specification: invalid");
+        }
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testCreateEntityInvalidCollectible() {
+        try {
+            Entity entity = weaponFactory.createWeaponEntity(null);
+        } catch (IllegalArgumentException e) {
+            assert e.getMessage().equals("Invalid collectible");
+        }
+    }
 }

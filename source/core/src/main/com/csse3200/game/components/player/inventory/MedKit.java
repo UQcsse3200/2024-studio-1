@@ -34,6 +34,8 @@ public class MedKit extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
+        super.drop(inventory);
+
     }
 
     /**

@@ -28,8 +28,13 @@ public class PlayerAnimationController extends Component {
         entity.getEvents().addListener("walkStop", this::stationaryAnimation);
         entity.getEvents().addListener("death", this::deathAnimation);
         entity.getEvents().addListener("playerHit", this::damageAnimation);
+        entity.getEvents().addListener("attackMelee", this::attackMelee);
         entity.getEvents().addListener("stopAnimation", this::stopAnimation);
         animationController.startAnimation("idle");
+    }
+
+    void attackMelee() {
+        //
     }
 
     /**

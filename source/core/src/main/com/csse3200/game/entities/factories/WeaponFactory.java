@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.CollectibleComponent;
+import com.csse3200.game.components.player.WeaponAnimationController;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -107,7 +108,8 @@ public class WeaponFactory extends LoadedFactory {
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
-                .addComponent(animator);
+                .addComponent(animator)
+                .addComponent(new WeaponAnimationController());
 
         PhysicsUtils.setScaledCollider(meleeEntity, -1f, -1f); //  this affect player movement!!!
         // set the collider to 0
@@ -138,7 +140,8 @@ public class WeaponFactory extends LoadedFactory {
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
-                .addComponent(animator);
+                .addComponent(animator)
+                .addComponent(new WeaponAnimationController());
 
         PhysicsUtils.setScaledCollider(rangedEntity, -1f, -1f); //  this affect player movement!!!
         // set the collider to 0

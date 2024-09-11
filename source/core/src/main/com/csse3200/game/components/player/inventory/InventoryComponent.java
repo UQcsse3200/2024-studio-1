@@ -85,5 +85,4 @@ public class InventoryComponent extends Component {
     public int getRangedWeaponCount(){
         return rangedWeaponCount;
     }
-
 }

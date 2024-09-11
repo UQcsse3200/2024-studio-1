@@ -311,6 +311,7 @@ public class WeaponComponent extends Component {
             this.attackInterval = (1000L / this.fireRate);
         }
         this.rangedItemEntity = itemEntity;
+        this.rangedItemEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
     }
 
     /**

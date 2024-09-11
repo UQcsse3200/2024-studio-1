@@ -251,7 +251,7 @@ public abstract class BaseRoom implements Room {
             createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
         }
-        makeAllAnimalDead();
+        //makeAllAnimalDead();
     }
 
     /**

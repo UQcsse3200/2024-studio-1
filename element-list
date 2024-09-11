@@ -15,6 +15,7 @@ com.csse3200.game.components.npc.attack.attackeffects
 com.csse3200.game.components.player
 com.csse3200.game.components.player.inventory
 com.csse3200.game.components.projectile
+com.csse3200.game.components.screendisplay
 com.csse3200.game.components.settingsmenu
 com.csse3200.game.components.tasks
 com.csse3200.game.concurrency

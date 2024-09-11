@@ -113,8 +113,13 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static enum&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="GdxGame.ScreenType.html" class="type-name-link" title="enum class in com.csse3200.game">GdxGame.ScreenType</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-second even-row-color"><code><a href="GdxGame.ScreenColour.html" class="type-name-link" title="enum class in com.csse3200.game">GdxGame.ScreenColour</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Possible background colours for the game window.</div>
+</div>
+<div class="col-first odd-row-color"><code>static enum&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="GdxGame.ScreenType.html" class="type-name-link" title="enum class in com.csse3200.game">GdxGame.ScreenType</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -127,7 +132,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code><a href="options/GameOptions.html" title="class in com.csse3200.game.options">GameOptions</a></code></div>
+<div class="col-first even-row-color"><code>final <a href="options/GameOptions.html" title="class in com.csse3200.game.options">GameOptions</a></code></div>
 <div class="col-second even-row-color"><code><a href="#gameOptions" class="member-name-link">gameOptions</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
@@ -176,6 +181,11 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the game's screen to a new screen of the provided type.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setScreenColour(com.csse3200.game.GdxGame.ScreenColour)" class="member-name-link">setScreenColour</a><wbr>(<a href="GdxGame.ScreenColour.html" title="enum class in com.csse3200.game">GdxGame.ScreenColour</a>&nbsp;colour)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Set background colour of the game window.</div>
+</div>
 </div>
 </div>
 </div>
@@ -199,7 +209,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="gameOptions">
 <h3>gameOptions</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="options/GameOptions.html" title="class in com.csse3200.game.options">GameOptions</a></span>&nbsp;<span class="element-name">gameOptions</span></div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="options/GameOptions.html" title="class in com.csse3200.game.options">GameOptions</a></span>&nbsp;<span class="element-name">gameOptions</span></div>
 </section>
 </li>
 </ul>
@@ -250,6 +260,18 @@ loadScripts(document, 'script');</script>
 <dd><code>dispose</code>&nbsp;in interface&nbsp;<code>com.badlogic.gdx.ApplicationListener</code></dd>
 <dt>Overrides:</dt>
 <dd><code>dispose</code>&nbsp;in class&nbsp;<code>com.badlogic.gdx.Game</code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setScreenColour(com.csse3200.game.GdxGame.ScreenColour)">
+<h3>setScreenColour</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setScreenColour</span><wbr><span class="parameters">(<a href="GdxGame.ScreenColour.html" title="enum class in com.csse3200.game">GdxGame.ScreenColour</a>&nbsp;colour)</span></div>
+<div class="block">Set background colour of the game window. I'm pretty sure setting a bg image will override
+ this.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>colour</code> - The colour to set as the bg colour.</dd>
 </dl>
 </section>
 </li>

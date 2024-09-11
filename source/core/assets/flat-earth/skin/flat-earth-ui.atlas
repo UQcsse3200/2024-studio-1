@@ -232,7 +232,7 @@ white
 window
   rotate: false
   xy: 181, 418
-  size: 76, 67
+  size: 76, 33
   split: 2, 2, 32, 2
   pad: 2, 2, 34, 2
   orig: 76, 67

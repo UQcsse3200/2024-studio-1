@@ -9,7 +9,6 @@ import com.csse3200.game.entities.Entity;
  * by a large health boost of 100.
  */
 public class MedKit extends UsableItem {
-
     private static final int Large_Health_Boost = 100;
 
     /**
@@ -21,6 +20,11 @@ public class MedKit extends UsableItem {
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
     }
+
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        super.pickup(inventory);
+    }
+
 
 
     @Override
@@ -75,6 +79,8 @@ public class MedKit extends UsableItem {
      */
     public void increaseLargeBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-        combatStats.addHealth(Large_Health_Boost);
+        int currentHealth = combatStats.getHealth();
+        int newHealth = Math.min(currentHealth + Large_Health_Boost,100);
+        combatStats.setHealth(newHealth);
     }
 }

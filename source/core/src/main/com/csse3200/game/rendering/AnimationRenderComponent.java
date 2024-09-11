@@ -1,5 +1,6 @@
 package com.csse3200.game.rendering;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -41,16 +42,20 @@ public class AnimationRenderComponent extends RenderComponent {
   private Animation<TextureRegion> currentAnimation;
   private String currentAnimationName;
   private float animationPlayTime;
+  private float opacity;
+
 
   /**
    * Create the component for a given texture atlas.
    * @param atlas libGDX-supported texture atlas containing desired animations
    */
-  public AnimationRenderComponent(TextureAtlas atlas) {
+  public AnimationRenderComponent(TextureAtlas atlas){
     this.atlas = atlas;
     this.animations = new HashMap<>(4);
     timeSource = ServiceLocator.getTimeSource();
+    this.opacity = 1f;
   }
+
 
   /**
    * Register an animation from the texture atlas. Will play once when called with startAnimation()
@@ -164,22 +169,47 @@ public class AnimationRenderComponent extends RenderComponent {
   public boolean isFinished() {
     return currentAnimation != null && currentAnimation.isAnimationFinished(animationPlayTime);
   }
+  public void setOpacity(float opacity){
+    this.opacity = opacity;
+  }
 
   @Override
   protected void draw(SpriteBatch batch) {
+    // Don't draw anything if no animation is playing.
     if (currentAnimation == null) {
       return;
     }
+
+    // Get the current frame of the animation.
     TextureRegion region = currentAnimation.getKeyFrame(animationPlayTime);
     Vector2 pos = entity.getPosition();
     Vector2 scale = entity.getScale();
-    batch.draw(region, pos.x, pos.y, scale.x, scale.y);
+
+    float textureWidth = region.getRegionWidth();
+    float textureHeight = region.getRegionHeight();
+    float aspectRatio =  textureWidth / textureHeight;
+
+    // Set default scale for drawing the animation.
+    float scaleX = 0.5f;
+    float scaleY = 0.5f * aspectRatio;
+
+
+    batch.setColor(1f, 1f, 1f, this.opacity);
+    // Check if the current frame is a rotated AtlasRegion
+    // If true, rotate it by 180 degrees when rendering
+    if (region instanceof TextureAtlas.AtlasRegion && ((TextureAtlas.AtlasRegion) region).rotate) {
+      batch.draw(region, pos.x, pos.y, scaleX, scaleY, 1f, aspectRatio, 1f, 1f, 180, false);
+    } else {
+      batch.draw(region, pos.x, pos.y, scale.x, scale.y);
+    }
+    batch.setColor(1f, 1f, 1f, 1);
+
     animationPlayTime += timeSource.getDeltaTime();
   }
 
   @Override
   public void dispose() {
-    atlas.dispose();
+    //atlas.dispose();
     super.dispose();
   }
 }

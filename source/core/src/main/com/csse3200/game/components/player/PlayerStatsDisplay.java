@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A UI component for displaying player stats, e.g. health.
+ * A ui component for displaying player stats, e.g. health.
  */
 public class PlayerStatsDisplay extends UIComponent {
     Table table;
@@ -25,6 +26,7 @@ public class PlayerStatsDisplay extends UIComponent {
     private Label healthLabel;
     private Label pickaxeLabel;
     private Label shotgunLabel;
+
     private Texture ammoTexture;
     private List<Image> ammoImages;
     private int currentAmmo;
@@ -32,9 +34,18 @@ public class PlayerStatsDisplay extends UIComponent {
     private static final int RELOAD_TIME = 3;
     float screenWidth = Gdx.graphics.getWidth();
 
+    private Image speedImage;
+    private Label speedLabelText;
+
+    private ProgressBar speedProgressBar;
+
+    private Image damageImage;
+    private ProgressBar damageProgressBar;
+
+
 
     /**
-     * Creates reusable UI styles and adds actors to the stage.
+     * Creates reusable ui styles and adds actors to the stage.
      */
     @Override
     public void create() {
@@ -49,6 +60,8 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateRangedWeaponCount", this::updateRangedWeaponCountUI);
         entity.getEvents().addListener("RANGED_ATTACK", this::onPlayerAttack);
         entity.getEvents().addListener("RELOAD", this::startReload);
+        entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
+        entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
     }
 
     /**
@@ -79,12 +92,48 @@ public class PlayerStatsDisplay extends UIComponent {
         CharSequence healthText = String.format("Health: %d", health);
         healthLabel = new Label(healthText, skin, "small");
 
-        // Weapon text
-        pickaxeLabel = new Label("Knife x 0", skin, "small");
-        shotgunLabel = new Label("Shotgun x 0", skin, "small");
+        //Speed image
+        float speedSideLength = 30f;
+        speedImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+
+        //Speed text
+        speedProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        speedProgressBar.setWidth(200f);
+        speedProgressBar.setAnimateDuration(2.0f);
+        /*
+        //Temporarily commented out in case design team prefers text instead of progress bar
+        float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+        CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
+        speedLabelText = new Label(speedText, skin, "small");
+         */
+
+        //Damage Progress bar
+        //Will need to check values
+        float damageSideLength = 30f;
+        damageImage = new Image(
+                ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        damageProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        damageProgressBar.setWidth(200f);
+        damageProgressBar.setAnimateDuration(2.0f);
+
+        //Weapon text, like the name of weapon
+        //entity.getComponent(WeaponComponent.class).getWeaponType();
+        pickaxeLabel = new Label("Pickaxe: 0", skin, "large");
+        shotgunLabel = new Label("Shotgun: 0", skin, "large");
+
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
+
+        table.row().padTop(10);
+        table.add(speedImage).size(speedSideLength).pad(5);
+        table.add(speedProgressBar).padLeft(10).left().width(200);
+
+        //Don't know if values are correct, may overlap
+        table.row().padTop(10);
+        table.add(damageImage).size(damageSideLength).pad(5);
+        table.add(damageProgressBar).padLeft(10).left().width(200);
+
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
         table.row().padTop(10);
@@ -95,14 +144,13 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
 
-
     @Override
     public void draw(SpriteBatch batch) {
-        // Draw is handled by the stage
+
     }
 
     /**
-     * Updates the player's health on the UI.
+     * Updates the player's health on the ui.
      *
      * @param health player health
      */
@@ -112,7 +160,7 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
     public void updateMeleeWeaponCountUI(int weaponCount) {
-        CharSequence text = String.format("Knife x %d", weaponCount);
+        CharSequence text = String.format("Pickaxe x %d", weaponCount);
         pickaxeLabel.setText(text);
     }
 
@@ -202,6 +250,22 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
     /**
+     * Updates the player's speed on the ui.
+     *
+     * @param speedPercentage the player's new speed percentage to update the UI to
+     */
+    public void updateSpeedPercentageUI(float speedPercentage) {
+        //Temporarily commented out in case design team prefers text over a progress bar
+//        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
+//        speedLabelText.setText(text);
+        speedProgressBar.setValue(speedPercentage);
+    }
+
+    public void updateDamageUI(float damage) {
+        damageProgressBar.setValue(damage);
+    }
+
+    /**
 
     /**
      * Resets the ammo count to 20 when reloading.
@@ -217,11 +281,5 @@ public class PlayerStatsDisplay extends UIComponent {
         super.dispose();
         heartImage.remove();
         healthLabel.remove();
-        pickaxeLabel.remove();
-        shotgunLabel.remove();
-        for (Image ammoImage : ammoImages) {
-            ammoImage.remove();
-        }
-        ammoTable.clear();
     }
 }

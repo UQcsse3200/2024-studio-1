@@ -1,8 +1,12 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.components.Component;
+import com.csse3200.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -30,17 +34,32 @@ public class InventoryComponent extends Component {
      * @param item The item to add to your inventory
      */
     public void pickup(Collectible item) {
+        item.pickup(inventory);
+        getEntity().getEvents().trigger("updateInventory");
+    }
+
+    /**
+     * Add a weapon collectible and its entity wrapper to your inventory.
+     *
+     * @param item The item to add to your inventory
+     */
+    public void pickup(Collectible item, Entity itemEntity) {
         if(item instanceof MeleeWeapon){
-            meleeWeaponCount = meleeWeaponCount + 1;
+            meleeWeaponCount = 1;
             System.out.println("Melee Weapon picked up. Total Melee weapons are: " + meleeWeaponCount);
             entity.getEvents().trigger("updateMeleeWeaponCount", meleeWeaponCount);
+            item.pickup(inventory, itemEntity);
         }
         if(item instanceof RangedWeapon){
-            rangedWeaponCount = rangedWeaponCount + 1;
+            rangedWeaponCount = 1;
             System.out.println("Ranged Weapon picked up. Total Ranged weapons are: " + rangedWeaponCount);
             entity.getEvents().trigger("updateRangedWeaponCount", rangedWeaponCount);
+            item.pickup(inventory, itemEntity);
         }
-        item.pickup(inventory);
+        else {
+            // Should never go here
+            item.pickup(inventory);
+        }
         getEntity().getEvents().trigger("updateInventory");
     }
 
@@ -63,4 +82,7 @@ public class InventoryComponent extends Component {
         return inventory;
     }
 
+    public int getRangedWeaponCount(){
+        return rangedWeaponCount;
+    }
 }

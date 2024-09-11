@@ -29,7 +29,7 @@ public class PlayerConfigGeneratorTest {
     public void setUp() {
         player = new Entity();
         inventoryComponent = new InventoryComponent();
-        statsComponent = new CombatStatsComponent(100, 30, true);
+        statsComponent = new CombatStatsComponent(100, 30, true, 0, 0);
         player.addComponent(inventoryComponent).addComponent(statsComponent);
         player.addComponent(new PlayerConfigComponent(new PlayerConfig()));
     }
@@ -158,6 +158,11 @@ public class PlayerConfigGeneratorTest {
             }
 
             @Override
+            public void pickup(Inventory inventory, Entity entity) {
+
+            }
+
+            @Override
             public void drop(Inventory inventory) {
 
             }
@@ -200,6 +205,11 @@ public class PlayerConfigGeneratorTest {
             }
 
             @Override
+            public void pickup(Inventory inventory, Entity entity) {
+
+            }
+
+            @Override
             public void drop(Inventory inventory) {
 
             }
@@ -227,6 +237,11 @@ public class PlayerConfigGeneratorTest {
 
             @Override
             public void pickup(Inventory inventory) {
+
+            }
+
+            @Override
+            public void pickup(Inventory inventory, Entity entity) {
 
             }
 

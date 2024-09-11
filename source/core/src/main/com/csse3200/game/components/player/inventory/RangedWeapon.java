@@ -2,8 +2,13 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.WeaponComponent;
+import com.csse3200.game.entities.Entity;
+
+import java.util.logging.Logger;
 
 public abstract class RangedWeapon implements Collectible {
+
+    private static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
 
     private int damage;
     private int range;
@@ -19,11 +24,28 @@ public abstract class RangedWeapon implements Collectible {
 
     @Override
     public void pickup(Inventory inventory) {
+        logger.info("Picking up ranged weapon - no entity");
         inventory.setRanged(this);
 
         // Add a Weapon Component
         if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
             inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this);
+        } else {
+            logger.warning("Inventory entity or WeaponComponent is null");
+        }
+    }
+
+    @Override
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        logger.info("Picking up ranged weapon - with entity");
+        inventory.setRanged(this);
+
+        // Add a Weapon Component
+        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
+            logger.info("Setting ranged weapon in inventory");
+            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this, itemEntity);
+        } else {
+            logger.info("Inventory entity or WeaponComponent is null");
         }
     }
 

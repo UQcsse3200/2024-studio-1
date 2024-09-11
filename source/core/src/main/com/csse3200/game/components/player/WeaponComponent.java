@@ -2,56 +2,64 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.RangedWeapon;
+import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.entities.factories.Door;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 public class WeaponComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
     private Collectible.Type weaponType; // type of weapon
+    private ProjectileFactory projectileFactory = new ProjectileFactory();
 
-    // Ranged
+    // Ranged --------------------------------------------
     private int damage; // weapon damage
-    private int range; // range of weapon
+    private float range; // range of weapon
     private int fireRate; // fire rate of weapon (round per second)
-
 
     private ProjectileConfig bulletConfig; // Config file for this weapon's projectile
     private int ammo; // current ammo for shotgun only
     private int maxAmmo; // max ammo for shotgun only
     private int reloadTime; // reload time for shotgun only
+
     // variable for storing sprite of weapon
     // Note: this should have default sprite (not holding weapon) and sprite for each
     // weapon type with hand holding it
     private Sprite weaponSprite;
-
     // Tracking weapon state
-    private long lastAttack;
-    private long attackInterval;
+    private long lastAttack; // Time of last ranged weapon activation, in seconds
+    private long attackInterval; // Interval between ranged weapon activation, in seconds
 
-    // Melee
-    private int swingDamge; // Damage of each swing for melee weapon
-    private int swingRange; // Range of melee weapon
+
+    // Melee ---------------------------------------------
+    private int swingDamage; // Damage of each swing for melee weapon
+    private float swingRange; // Range of melee weapon
     private int swingRate; // swing rate for melee weapon (swing per second
 
-    private Sprite meleeSprite;
 
     // Tracking weapon state
-    private long lastSwing;
-    private long swingInterval;
+    private long lastSwing; // Time of last melee weapon activation, in seconds
+    private long swingInterval; // Interval between melee weapon activation, in seconds
+
+    Vector2 lastPos; // last position of the weapon entity, used to determine direction
+
+    Entity rangedItemEntity; // the ranged weapon entity
+    Entity meleeItemEntity; // the melee weapon entity
 
     /**
      * Constructor for WeaponComponent
@@ -65,14 +73,14 @@ public class WeaponComponent extends Component {
      * @param maxAmmo      max ammo for shotgun only
      * @param reloadTime   reload time for shotgun only
      */
-    public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, int range,
+    public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType, int damage, float range,
                            int fireRate, int ammo, int maxAmmo, int reloadTime) {
 //        System.out.println("WeaponComponent created");
         if (weaponType == Collectible.Type.MELEE_WEAPON) {
-            this.swingDamge = damage;
+            this.swingDamage = damage;
             this.swingRate = fireRate;
             this.swingRange = range;
-            this.meleeSprite = weaponSprite;
+            this.weaponSprite = weaponSprite;
 
             // Setup variables to track weapon state
             this.lastAttack = 0L;
@@ -86,7 +94,6 @@ public class WeaponComponent extends Component {
             this.damage = damage;
             this.range = range;
             this.fireRate = fireRate;
-
             this.weaponSprite = weaponSprite;
 
             // Setup variables to track weapon state
@@ -104,6 +111,7 @@ public class WeaponComponent extends Component {
         // Currently has only 1 projectile config
         this.bulletConfig = new ProjectileConfig();
 
+        this.rangedItemEntity = null;
     }
 
     /**
@@ -115,9 +123,9 @@ public class WeaponComponent extends Component {
      */
     public WeaponComponent(Sprite weaponSprite, Collectible.Type weaponType) {
         if (weaponType == Collectible.Type.MELEE_WEAPON) {
-            new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 0, 0, 0);
+            new WeaponComponent(weaponSprite, weaponType, 600, 3f, 1, 0, 0, 0);
         } else {
-            new WeaponComponent(weaponSprite, weaponType, 1, 1, 1, 1, 1, 1);
+            new WeaponComponent(weaponSprite, weaponType, 600, 3f, 1, 1, 1, 1);
         }
     }
 
@@ -163,7 +171,7 @@ public class WeaponComponent extends Component {
      *
      * @return range of weapon
      */
-    public int getRange() {
+    public float getRange() {
         return range;
     }
 
@@ -172,7 +180,7 @@ public class WeaponComponent extends Component {
      *
      * @param range the new ranged to set the weapon to.
      */
-    public void setRange(int range) {
+    public void setRange(float range) {
         this.range = range;
     }
 
@@ -261,11 +269,34 @@ public class WeaponComponent extends Component {
     }
 
     /**
-     * Update the weapon with new values (ranged only)
-     *
-     * @param rangedWeapon ranged weapon
+     * Update the weapon with new ranged weapon
+     * @param rangedWeapon new ranged weapon
      */
     public void updateWeapon(RangedWeapon rangedWeapon) {
+        logger.debug("Updating weapon - no item entity");
+        this.damage = rangedWeapon.getDamage();
+        this.range = rangedWeapon.getRange();
+        this.fireRate = rangedWeapon.getFireRate();
+        this.ammo = rangedWeapon.getAmmo();
+        this.maxAmmo = rangedWeapon.getMaxAmmo();
+        this.reloadTime = rangedWeapon.getReloadTime();
+        this.lastAttack = 0L;
+        this.getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(600);
+        if (this.fireRate == 0) {
+            this.attackInterval = 0L;
+        } else {
+            this.attackInterval = (1000L / this.fireRate);
+        }
+    }
+
+    /**
+     * Update the weapon with new values (range only) and the weapon entity
+     *
+     * @param rangedWeapon new melee weapon
+     * @param itemEntity new ranged weapon entity
+     */
+    public void updateWeapon(RangedWeapon rangedWeapon, Entity itemEntity) {
+        logger.info("Updating weapon - with item entity");
         this.damage = rangedWeapon.getDamage();
         this.range = rangedWeapon.getRange();
         this.fireRate = rangedWeapon.getFireRate();
@@ -279,6 +310,8 @@ public class WeaponComponent extends Component {
         } else {
             this.attackInterval = (1000L / this.fireRate);
         }
+        this.rangedItemEntity = itemEntity;
+        this.rangedItemEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
     }
 
     /**
@@ -287,7 +320,25 @@ public class WeaponComponent extends Component {
      * @param meleeWeapon new melee weapon
      */
     public void updateWeapon(MeleeWeapon meleeWeapon) {
-        this.swingDamge = meleeWeapon.getDamage();
+        this.swingDamage = meleeWeapon.getDamage();
+        this.swingRange = meleeWeapon.getRange();
+        this.swingRate = meleeWeapon.getFireRate();
+        this.lastSwing = 0L; // 1000 means 1 second ago
+        if (this.swingRate == 0) {
+            this.swingInterval = 0L;
+        } else {
+            this.swingInterval = (1000L / this.swingRate);
+        }
+    }
+
+    /**
+     * Update the weapon with new values (melee only) and the weapon entity
+     *
+     * @param meleeWeapon new melee weapon
+     * @param itemEntity new melee weapon entity
+     */
+    public void updateWeapon(MeleeWeapon meleeWeapon, Entity itemEntity) {
+        this.swingDamage = meleeWeapon.getDamage();
         this.swingRange = meleeWeapon.getRange();
         this.swingRate = meleeWeapon.getFireRate();
         this.lastSwing = 0L;
@@ -296,8 +347,46 @@ public class WeaponComponent extends Component {
         } else {
             this.swingInterval = (1000L / this.swingRate);
         }
+        this.meleeItemEntity = itemEntity;
+        getEntity().getComponent(RangeDetectionComponent.class).updateWeaponEntity(itemEntity);
+        getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
     }
 
+    @Override
+    public void update() {
+        if (this.entity != null) {
+            if (this.lastPos == null) {
+                this.lastPos = entity.getPosition();
+            }
+            Vector2 newPos = this.entity.getPosition();
+            float dx = newPos.x - this.lastPos.x;
+            float dy = newPos.y - this.lastPos.y;
+            if (this.meleeItemEntity != null) {
+                this.meleeItemEntity.setPosition(this.entity.getPosition());
+            }
+            if (this.rangedItemEntity != null) {
+                if (dx == 0 && dy > 0) {
+                    logger.info("Range weapon point up");
+                }
+                else if (dx == 0 && dy < 0) {
+                    logger.info("Range weapon point down");
+                }
+                else if (dx > 0 && dy == 0) {
+                    logger.info("Range weapon point right");
+                }
+                else if (dx < 0 && dy == 0) {
+                    logger.info("Range weapon point left");
+                }
+                this.rangedItemEntity.setPosition(this.entity.getPosition());
+                this.lastPos = newPos;
+            }
+        }
+    }
+
+
+    /**
+     * Drop range weapon, set all related properties to default
+     */
     public void dropRangeWeapon() {
         // Update range weapon to bare hand
         this.damage = 1;
@@ -307,15 +396,27 @@ public class WeaponComponent extends Component {
         this.maxAmmo = -1; // -1 means no ammo
         this.reloadTime = -1; // -1 means no reload time
     }
+    /**
+     * Drop melee weapon, set all related properties to default
+     */
     public void dropMeleeWeapon() {
         // Update melee weapon to bare hand
-        this.swingDamge = 1;
+        this.swingDamage = 1;
         this.swingRange = 1;
         this.swingRate = 1;
     }
 
+    /**
+     * Use the melee weapon in the walk direction of the player
+     * The weapon will only activate if the time from last activation is longer than
+     * specified
+     *
+     */
     public void attack() {
-//        logger.info("WeaponComponent attack");
+        if (this.meleeItemEntity == null) {
+            logger.info("No weapon");
+            return;
+        }
         Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
         if (entity != null) {
@@ -327,16 +428,28 @@ public class WeaponComponent extends Component {
             // Render attack here using
             this.lastSwing = currentTime;
             ServiceLocator.getResourceService()
-                    .getAsset("sounds/Impact4.ogg", Sound.class)
+                    .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
-            // get list of entities in range
-            // for each entity in range, apply damage
+            ArrayList<Entity> entities = this.getEntity().getComponent(RangeDetectionComponent.class).getEntities();
+            for (Entity e : entities) {
+                CombatStatsComponent targetStats = e.getComponent(CombatStatsComponent.class);
+                if (targetStats != null) {
+                    targetStats.hit(this.getEntity().getComponent(CombatStatsComponent.class));
+                }
+            }
         } else {
             logger.info("No melee weapon");
         }
     }
 
+    /**
+     * Shoot the ranged weapon in the given direction
+     * The weapon will only shoot if it has ammo left and the time from last shoot is longer than
+     * specified
+     *
+     * @param direction direction to shoot
+     */
     public void shoot(Vector2 direction) {
         Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
@@ -351,25 +464,21 @@ public class WeaponComponent extends Component {
                 this.setAmmo(-2);
                 // Offset time so that the weapon must wait extra long for reload time
                 currentTime += this.getReloadTime() * 1000L - this.attackInterval;
-                ServiceLocator.getResourceService()
-                        .getAsset("sounds/shotgun1_r.ogg", Sound.class)
-                        .play();
 
                 logger.info("Ranged weapon reloading");
                 entity.getEvents().trigger("RELOAD");
             } else {
                 // Shooting
                 this.setAmmo(-1);
-                // Spawn projectile
-                ServiceLocator.getResourceService()
-                        .getAsset("sounds/shotgun1_f.ogg", Sound.class)
-                        .play();
-                ProjectileFactory.createProjectile(this.bulletConfig, direction);
+
+                Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
+                projectile.getComponent(ProjectileAttackComponent.class).create();
+                ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
                 logger.info("Ranged weapon shoot");
                 entity.getEvents().trigger("RANGED_ATTACK");
 
             }
-            // Reset lastAtttack time
+            // Reset last Attack time
             this.lastAttack = currentTime;
         } else {
             logger.info("No ranged weapon");

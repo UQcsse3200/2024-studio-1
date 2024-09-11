@@ -1,7 +1,9 @@
 package com.csse3200.game.components.player.inventory;
-
 import com.badlogic.gdx.graphics.Texture;
+import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.entities.Entity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The ShieldPotion class represents a shield potion item within the game.
@@ -12,6 +14,7 @@ import com.csse3200.game.entities.Entity;
 public class ShieldPotion extends UsableItem {
 
 
+    private static final Logger log = LoggerFactory.getLogger(ShieldPotion.class);
     /**
      * The number of hits the shield can negate before being depleted (initially inactive).
      */
@@ -25,6 +28,9 @@ public class ShieldPotion extends UsableItem {
     @Override
     public void apply(Entity entity) {
         charges = 2; // Activate the shield with full charges
+        entity.getEvents().trigger("shieldActivated");
+         entity.getEvents().addListener("hit", () -> negateHit(entity));
+        entity.getComponent(ShieldComponent.class).activateShield();
         entity.getEvents().addListener("hit", () -> negateHit(entity));
     }
 
@@ -37,10 +43,11 @@ public class ShieldPotion extends UsableItem {
     public void negateHit(Entity entity) {
         if (charges > 0) {
             charges--;
-            System.out.println("Negated a hit! Remaining charges: " + charges);
+            log.info("Negated a hit! Remaining charges: {}", charges);
             if (charges == 0) {
-                System.out.println("Shield depleted");
-                removeShield(entity);
+                log.info("Shield depleted");
+                entity.getEvents().trigger("shieldDeactivated");
+                entity.getComponent(ShieldComponent.class).deactivateShield();
             }
         }
     }
@@ -64,6 +71,10 @@ public class ShieldPotion extends UsableItem {
         super.pickup(inventory);
     }
 
+    @Override
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        super.pickup(inventory);
+    }
     /**
      * Handles dropping the shield potion from the player's inventory after being used.
      *
@@ -71,6 +82,7 @@ public class ShieldPotion extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
+        super.drop(inventory);
     }
 
     /**
@@ -83,6 +95,15 @@ public class ShieldPotion extends UsableItem {
         return new Texture("images/items/shield_potion.png");
     }
 
+    /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_red.png");
+    }
+    
     /**
      * Returns the name of the item.
      *
@@ -104,6 +125,7 @@ public class ShieldPotion extends UsableItem {
      * @param entity the entity from which the shield is removed.
      */
     public void removeShield(Entity entity) {
-        //entity.getEvents().removeListener();
+        entity.getEvents().trigger("shieldDeactivated");
     }
 }
+

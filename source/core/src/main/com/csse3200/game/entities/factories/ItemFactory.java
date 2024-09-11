@@ -14,11 +14,46 @@ public class ItemFactory {
      * @return the specified entity
      */
     public Collectible create(String specification) {
+        String type = null;
+        if (specification.contains(":")) {
+            //This code if mainly for the speed boost item, however, could be used for other items that have a
+            //"Low", "Medium" or "High" type
+            String[] split = specification.split(":", 2);
+            specification = split[0];
+            if (specification.equals("energydrink")) {
+                // If split contains mystery disregard it and get correct item type
+                if (split[1].contains(":")) {
+                    String[] secondSplit = split[1].split(":", 2);
+                    type = secondSplit[0];
+                } else {
+                    type = split[1];
+                }
+                //Check for valid item type
+                switch (type) {
+                    case "Low":
+                        break;
+                    case "Medium":
+                        break;
+                    case "High":
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid item type specification: " + type);
+                }
+            }
+        }
+        if (specification.contains("energydrink") && type == null) {
+            //Throw an error if energy drink item does not have an associated type
+            throw new IllegalArgumentException("Energy drink must have a type. Choose: Low, Medium, High");
+        }
+
         return switch (specification){
             case "medkit" -> createMedKit();
             case "bandage" -> createBandage();
-            case "energydrink" -> createEnergyDrink();
+            case "energydrink" -> createEnergyDrink(type);
             case "shieldpotion" -> createShieldPotion();
+            case "syringe" -> createSyringe();
+            case "armor" -> createArmor();
+            case "damagebuff" -> createDamageBuff();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -43,8 +78,8 @@ public class ItemFactory {
      * Creates an EnergyDrink that permanently increases the players movement speed.
      * @return EnergyDrink item
      */
-    private Collectible createEnergyDrink() {
-        return new EnergyDrink();
+    private Collectible createEnergyDrink(String speedType) {
+        return new EnergyDrink(speedType);
     }
 
     /**
@@ -54,6 +89,22 @@ public class ItemFactory {
     private Collectible createShieldPotion() {
         return new ShieldPotion();
     }
+
+    /**
+     * Creates a Syringe that provides player with an edge by exceeding their maximum health.
+     * @return Syringe item
+     */
+    private Collectible createSyringe() {
+        return new Syringe();
+    }
+
+    /**
+     * Creates an Armor item that increases the armor statistics of the player.
+     * @return Armor item
+     */
+    private Collectible createArmor() { return new Armor();}
+
+    private Collectible createDamageBuff() { return new DamageBuff();}
 
 }
 

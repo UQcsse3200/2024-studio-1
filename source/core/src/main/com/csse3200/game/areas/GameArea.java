@@ -31,7 +31,7 @@ public abstract class GameArea extends LoadedFactory {
     /**
      * Create the game area in the world.
      */
-    public abstract void create(Entity player);
+    public abstract void create();
 
     /**
      * Dispose of all internal entities in the area
@@ -76,13 +76,15 @@ public abstract class GameArea extends LoadedFactory {
         spawnEntity(entity);
     }
 
-    public void remove_room() {
-        log.info("Removing room");
+    public void disposeEntity(Entity entity) {
         if (areaEntities != null && !areaEntities.isEmpty()) {
-            for (Entity entity : areaEntities) {
-                ServiceLocator.getEntityService().markEntityForRemoval(entity);
+            for (int i = 0; i < areaEntities.size(); i++) {
+                if (areaEntities.get(i).equals(entity)) {
+                    ServiceLocator.getEntityService().markEntityForRemoval(entity);
+                    areaEntities.remove(i);
+                    break;
+                }
             }
-            areaEntities.clear();
         }
     }
 

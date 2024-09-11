@@ -1,6 +1,7 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.csse3200.game.entities.Entity;
 
 /**
  * An item that can be collected.
@@ -40,6 +41,7 @@ public interface Collectible {
      * @param inventory The inventory to be put in.
      */
     void pickup(Inventory inventory);
+    void pickup(Inventory inventory, Entity itemEntity);
 
     /**
      * Remove this collectible from the entity
@@ -58,4 +60,14 @@ public interface Collectible {
         BUFF_ITEM,
         NONE
     }
+
+    /**
+     * Get the mystery box icon representation of this item
+     *
+     * @return the mystery box icon representation of this item
+     */
+    default Texture getMysteryIcon() {
+        return null;
+    }
+
 }

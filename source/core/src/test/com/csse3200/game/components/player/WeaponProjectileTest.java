@@ -1,14 +1,21 @@
 package com.csse3200.game.components.player;
 
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.areas.GameAreaService;
+import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.ResourceService;
@@ -19,8 +26,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 
 @ExtendWith(GameExtension.class)
@@ -37,10 +44,18 @@ class WeaponProjectileTest {
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
         ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerGameAreaService(new GameAreaService(mock(MainGameArea.class)));
+
+        ServiceLocator.getGameAreaService().getGameArea()
+                .setTerrain(new TerrainComponent(
+                        mock(OrthographicCamera.class),
+                        mock(TiledMap.class),
+                        mock(TiledMapRenderer.class),
+                        3f));
 
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(new String []{new ProjectileConfig().projectileTexturePath});
+        resourceService.loadTextureAtlases(new String []{new ProjectileConfig().projectileAtlasPath});
         // load in sound asset
         WeaponFactory weaponFactory = new WeaponFactory();
         weaponFactory.load();
@@ -57,10 +72,11 @@ class WeaponProjectileTest {
         int maxAmmo = 10;
         // create a weapon component
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
-                Collectible.Type.RANGED_WEAPON, 10, 5, 1, maxAmmo, maxAmmo, 2);
+                Collectible.Type.RANGED_WEAPON, 10, 5f, 1, maxAmmo, maxAmmo, 2);
         // Create test entity to attach weaponComponent
         Entity testEntity = new Entity();
-        testEntity.addComponent(weaponComponent);
+        testEntity.addComponent(weaponComponent)
+                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC));
         // Shot in default direction with ammo at 0
         weaponComponent.shoot(new Vector2());
         try {
@@ -84,10 +100,11 @@ class WeaponProjectileTest {
         int maxAmmo = 10;
         // create a weapon component
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
-                Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, maxAmmo, 1);
+                Collectible.Type.RANGED_WEAPON, 10, 5f, 1, 0, maxAmmo, 1);
         // Create test entity to attach weaponComponent
         Entity testEntity = new Entity();
-        testEntity.addComponent(weaponComponent);
+        testEntity.addComponent(weaponComponent)
+                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC));
         // Ammo is 0
         assertEquals(0, weaponComponent.getAmmo());
         // Shot in default direction with ammo at 0

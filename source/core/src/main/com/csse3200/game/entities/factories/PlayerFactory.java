@@ -71,10 +71,6 @@ public class PlayerFactory extends LoadedFactory {
         TextureRegion defaultTexture = atlas.findRegion("idle");
 
         InventoryComponent inventoryComponent = new InventoryComponent();
-        WeaponAnimationRenderComponent animatorWeapon =
-                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/shotgun4.atlas"));
-        animatorWeapon.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
-        animatorWeapon.addAnimation("left", 0.2f, Animation.PlayMode.LOOP);
 
         Entity player = new Entity()
                 .addComponent(new PlayerConfigComponent(config))
@@ -89,8 +85,6 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController())
-                .addComponent(animatorWeapon)
-                .addComponent(new WeaponAnimationController())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
                 .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC))

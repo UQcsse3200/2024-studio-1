@@ -46,6 +46,7 @@ public class WinScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
+        // See assets/images/player/player_asset_citation.txt
         Image playerHappy = new Image(
                 ServiceLocator.getResourceService().getAsset(WinScreen.PLAYER_HAPPY, Texture.class)
         );

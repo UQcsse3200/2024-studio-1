@@ -45,6 +45,7 @@ public class LoseScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
+        // See assets/images/player/player_asset_citation.txt
         Image playerDead = new Image(
                 ServiceLocator.getResourceService().getAsset(PLAYER_DEAD, Texture.class)
         );

@@ -29,6 +29,7 @@ public abstract class BaseRoom implements Room {
     private static final Logger logger = LoggerFactory.getLogger(BaseRoom.class);
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
+    private final DoorFactory doorFactory = new DoorFactory();
     private final TerrainFactory terrainFactory;
     private final List<String> roomConnections;
     /**
@@ -245,9 +246,15 @@ public abstract class BaseRoom implements Room {
      * @param area   the game area to spawn the room in
      */
     public void spawn(Entity player, MainGameArea area) {
+        ServiceLocator.getPhysicsService().getPhysics().update();
+        logger.info("spawning terrain");
         this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
+
+        logger.info("spawning doors");
         this.spawnDoors(area, player);
+
         if (!isRoomCompleted) {
+            logger.info("spawning enemies");
             createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
         }
@@ -377,13 +384,14 @@ public abstract class BaseRoom implements Room {
         String connectW = connections.get(1);
         String connectE = connections.get(2);
         String connectN = connections.get(3);
-        System.out.println("[" + connectN + ", " + connectE + ", " + connectW + ", " + connectS + "]XD");
+        logger.info("[{}, {}, {}, {}]XD", connectN, connectE, connectW, connectS);
         Entity[] doors = {
-                new Door('h', player.getId(), connectS), // bottom
-                new Door('v', player.getId(), connectW), // left
-                new Door('v', player.getId(), connectE), // right
-                new Door('h', player.getId(), connectN)  // top
+                doorFactory.create('h', player.getId(), connectS), // bottom
+                doorFactory.create('v', player.getId(), connectW), // left
+                doorFactory.create('v', player.getId(), connectE), // right
+                doorFactory.create('h', player.getId(), connectN)  // top
         };
+        logger.info("doors created");
 
         Vector2 doorvScale = doors[1].getScale();
         Vector2 doorhScale = doors[0].getScale();

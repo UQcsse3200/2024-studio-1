@@ -69,6 +69,10 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
     }
+
+    tasks.withType(Jar) {
+       duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
 }
 
 project(":core") {

@@ -113,3 +113,9 @@ Thumbs.db
 /ios/xcode/native/
 /ios/IOSLauncher.app
 /ios/IOSLauncher.app.dSYM
+
+## Auto-generated .log files
+*.log
+
+## save file, shouldn't be tracked in repo
+save.json

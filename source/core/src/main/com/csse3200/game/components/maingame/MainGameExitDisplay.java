@@ -1,13 +1,20 @@
 package com.csse3200.game.components.maingame;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -19,7 +26,10 @@ import org.slf4j.LoggerFactory;
 public class MainGameExitDisplay extends UIComponent {
   private static final Logger logger = LoggerFactory.getLogger(MainGameExitDisplay.class);
   private static final float Z_INDEX = 2f;
+  private static final float BTN_SPACING = 15f;
   private Table table;
+  private ImageButton pauseBtn;
+  private Table pauseTable;
 
   @Override
   public void create() {
@@ -46,28 +56,137 @@ public class MainGameExitDisplay extends UIComponent {
     iconDownSheet.getWidth() / 6,
     iconDownSheet.getHeight() / 6);
 
+    /*TextureAtlas atlas = ServiceLocator.getResourceService()
+                .getAsset("flat-earth/skin/flat-earth-ui.atlas", TextureAtlas.class);
+    TextureRegion windowTexture = atlas.findRegion("list");*/
+    Texture blackDotTrans = ServiceLocator.getResourceService()
+                .getAsset("images/black_dot_transparent.png", Texture.class);
+
     table = new Table();
     table.top().right();
     table.setFillParent(true);
 
-    ImageButton mainMenuBtn = new ImageButton(skin);
-    mainMenuBtn.getStyle().imageUp = new TextureRegionDrawable(icons[0][0]);
-    mainMenuBtn.getStyle().imageOver = new TextureRegionDrawable(iconsOver[0][0]);
-    mainMenuBtn.getStyle().imageDown = new TextureRegionDrawable(iconsDown[0][0]);
+    pauseTable = new Table();
+    pauseTable.setFillParent(true);
+    pauseTable.setBackground(new TextureRegionDrawable(new TextureRegion(blackDotTrans)));
+
+    pauseBtn = new ImageButton(skin);
+    pauseBtn.getStyle().imageUp = new TextureRegionDrawable(icons[1][1]);
+    pauseBtn.getStyle().imageOver = new TextureRegionDrawable(iconsOver[1][1]);
+    pauseBtn.getStyle().imageDown = new TextureRegionDrawable(iconsDown[1][1]);
+
+    TextButton resumeBtn = new TextButton("Resume", skin);
+    TextButton saveBtn = new TextButton("Save", skin);
+    TextButton restartBtn = new TextButton("Restart", skin);
+    TextButton exitBtn = new TextButton("Exit", skin);
+
+
+
+    //window = new Image(windowTexture);
 
     // Triggers an event when the button is pressed.
-    mainMenuBtn.addListener(
+    pauseBtn.addListener(
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
-          logger.debug("Exit button clicked");
-          entity.getEvents().trigger("exit");
+          pauseGame();
         }
       });
+    resumeBtn.addListener(
+      new ChangeListener() {
+          @Override
+          public void changed(ChangeEvent changeEvent, Actor actor) {
+             unpause();
+          }
+      });
+    exitBtn.addListener(
+      new ChangeListener() {
+          @Override
+          public void changed(ChangeEvent changeEvent, Actor actor) {
+             unpause();
+              logger.debug("Exit button clicked");
+              entity.getEvents().trigger("exit");
+          }
+      });
+    saveBtn.addListener(
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                System.out.println("Save button clicked");
+                Label saveLabel = new Label("Game saved!", skin);
+                pauseTable.add(saveLabel).padTop(BTN_SPACING);
+                pauseTable.row();
+                saveGame();
+              }});
 
-    table.add(mainMenuBtn).padTop(10f).padRight(10f);
+    table.add(pauseBtn).padTop(10f).padRight(10f);
+
+    pauseTable.add(resumeBtn).padTop(BTN_SPACING);
+    pauseTable.row();
+    pauseTable.add(saveBtn).padTop(BTN_SPACING);
+    pauseTable.row();
+    pauseTable.add(restartBtn).padTop(BTN_SPACING);
+    pauseTable.row();
+    pauseTable.add(exitBtn).padTop(BTN_SPACING);
+    pauseTable.row();
 
     stage.addActor(table);
+  }
+
+  // todo refactor pausing to use events instead of public methods/fields
+
+  /**
+   * Pause the game, show the pause menu.
+   */
+  public void pauseGame() {
+    MainGameScreen.isPaused = true;
+    stage.addActor(pauseTable);
+    table.remove();
+  }
+
+  /**
+   * Unpause the game, remove the pause menu.
+   */
+  public void unpause() {
+    MainGameScreen.isPaused = false;
+    pauseTable.remove();
+    stage.addActor(table);
+  }
+
+  public class EntityCoordinates {
+    private float x;
+    private float y;
+
+    public EntityCoordinates(float x, float y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    public float getX() {
+      return x;
+    }
+
+    public float getY() {
+      return y;
+    }
+  }
+
+  public void saveGame() {
+    Array<EntityCoordinates> entities = new Array<>();
+    for (Entity entity : ServiceLocator.getEntityService().getEntities()) {
+       Vector2 pos = entity.getPosition();
+       float x = pos.x;
+       float y = pos.y;
+       EntityCoordinates coordinates = new EntityCoordinates(x, y);
+       entities.add(coordinates);
+    }
+    String filePath = "configs/save.json";
+    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
+    logger.debug("Game saved to: " + filePath);
+  }
+
+  public void resize(int width, int height){
+    //window.setSize(width/4, height/4);
   }
 
   @Override

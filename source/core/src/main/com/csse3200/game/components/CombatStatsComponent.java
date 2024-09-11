@@ -23,7 +23,8 @@ public class CombatStatsComponent extends Component {
     private int buff;
 
     private boolean isInvincible;
-    private static final int timeInvincible = 150;
+    // change requested by character team
+    private static final int timeInvincible = 2000;
     private final Timer timerIFrames;
     private static final int timeFlash = 250;
     private final Timer timerFlashSprite;

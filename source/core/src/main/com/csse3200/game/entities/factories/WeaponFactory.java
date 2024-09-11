@@ -133,21 +133,21 @@ public class WeaponFactory extends LoadedFactory {
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("left", 0.2f, Animation.PlayMode.LOOP);
 
-        Entity meleeEntity = new Entity()
+        Entity rangedEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(animator);
 
-        PhysicsUtils.setScaledCollider(meleeEntity, -1f, -1f); //  this affect player movement!!!
+        PhysicsUtils.setScaledCollider(rangedEntity, -1f, -1f); //  this affect player movement!!!
         // set the collider to 0
-        meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
-        meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        meleeEntity.getComponent(HitboxComponent.class).setSize(new Vector2(1f, 1f));
+        rangedEntity.getComponent(ColliderComponent.class).setSensor(true);
+        rangedEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
+        rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(1f, 1f));
         logger.info("Created range weapon entity: " + collectible);
 
-        return meleeEntity;
+        return rangedEntity;
     }
 
     /**

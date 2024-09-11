@@ -21,6 +21,11 @@ public class MedKit extends UsableItem {
         super.pickup(inventory);
     }
 
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        super.pickup(inventory);
+    }
+
+
 
     @Override
     public String getItemSpecification() {

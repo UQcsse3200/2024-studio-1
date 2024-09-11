@@ -158,6 +158,11 @@ public class PlayerConfigGeneratorTest {
             }
 
             @Override
+            public void pickup(Inventory inventory, Entity entity) {
+
+            }
+
+            @Override
             public void drop(Inventory inventory) {
 
             }
@@ -200,6 +205,11 @@ public class PlayerConfigGeneratorTest {
             }
 
             @Override
+            public void pickup(Inventory inventory, Entity entity) {
+
+            }
+
+            @Override
             public void drop(Inventory inventory) {
 
             }
@@ -227,6 +237,11 @@ public class PlayerConfigGeneratorTest {
 
             @Override
             public void pickup(Inventory inventory) {
+
+            }
+
+            @Override
+            public void pickup(Inventory inventory, Entity entity) {
 
             }
 

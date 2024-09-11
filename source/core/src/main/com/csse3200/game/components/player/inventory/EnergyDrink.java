@@ -100,6 +100,10 @@ public class EnergyDrink extends BuffItem {
 
     }
 
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        super.pickup(inventory);
+    }
+
     /**
      * A method that applies the effect of this specific energy drink to the player. This method handles the
      * effect upon the player's speed, as well as updates to the UI of the speed percentage stats

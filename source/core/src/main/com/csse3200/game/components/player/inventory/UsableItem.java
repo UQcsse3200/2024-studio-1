@@ -23,6 +23,11 @@ public abstract class UsableItem implements Collectible {
         //inventory.getEntity().getEvents().addListener("use", () -> this.apply(inventory.getEntity()));
         // Add anything needed to add to the user upon pickup.
     }
+    @Override
+    public void pickup(Inventory inventory, Entity entity) {
+
+        pickup(inventory);
+    }
 
     @Override
     public void drop(Inventory inventory) {

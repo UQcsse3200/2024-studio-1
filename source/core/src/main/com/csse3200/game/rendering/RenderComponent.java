@@ -22,6 +22,7 @@ public abstract class RenderComponent extends Component implements Renderable, D
     ServiceLocator.getRenderService().unregister(this);
   }
 
+
   @Override
   public void render(SpriteBatch batch) {
     draw(batch);
@@ -42,6 +43,7 @@ public abstract class RenderComponent extends Component implements Renderable, D
     // The smaller the Y value, the higher the Z index, so that closer entities are drawn in front
     return -entity.getPosition().y;
   }
+
 
   /**
    * Draw the renderable. Should be called only by the renderer, not manually.

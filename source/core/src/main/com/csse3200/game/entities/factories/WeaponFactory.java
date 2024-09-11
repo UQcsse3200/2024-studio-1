@@ -97,13 +97,8 @@ public class WeaponFactory extends LoadedFactory {
      */
     private Entity createMeleeEntity(MeleeWeapon collectible) throws IllegalArgumentException {
 
-        TextureAtlas atlas = new TextureAtlas(getTextureAtlasFilepaths()[0]);
-        TextureRegion defaultTexture = atlas.findRegion("idle");
-
         WeaponAnimationRenderComponent animator =
-                new WeaponAnimationRenderComponent(
-                        ServiceLocator.getResourceService().getAsset("images/Weapons/sword1.atlas",
-                                TextureAtlas.class));
+                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/sword1.atlas"));
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         animator.addAnimation("slash", 0.2f, Animation.PlayMode.LOOP);
 
@@ -133,15 +128,10 @@ public class WeaponFactory extends LoadedFactory {
      */
     private Entity createRangeEntity(RangedWeapon collectible) {
 
-        TextureAtlas atlas = new TextureAtlas(this.getTextureAtlasFilepaths()[1]);
-        TextureRegion defaultTexture = atlas.findRegion("idle");
-
         WeaponAnimationRenderComponent animator =
-                new WeaponAnimationRenderComponent(
-                        ServiceLocator.getResourceService().getAsset("images/Weapons/shotgun4" +
-                                        ".atlas",
-                                TextureAtlas.class));
+                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/shotgun4.atlas"));
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("left", 0.2f, Animation.PlayMode.LOOP);
 
         Entity meleeEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))

@@ -94,7 +94,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="ConcreteMeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">ConcreteMeleeWeapon</a></code>, <code><a href="Knife.html" title="class in com.csse3200.game.components.player.inventory">Knife</a></code>, <code><a href="Pickaxe.html" title="class in com.csse3200.game.components.player.inventory">Pickaxe</a></code></dd>
+<dd><code><a href="Knife.html" title="class in com.csse3200.game.components.player.inventory">Knife</a></code>, <code><a href="Pickaxe.html" title="class in com.csse3200.game.components.player.inventory">Pickaxe</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">MeleeWeapon</span>
@@ -170,6 +170,19 @@ implements <a href="Collectible.html" title="interface in com.csse3200.game.comp
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Make the entity pick us up, and apply any effects to them.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pickup(com.csse3200.game.components.player.inventory.Inventory,com.csse3200.game.entities.Entity)" class="member-name-link">pickup</a><wbr>(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory,
+ <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;itemEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDamage(int)" class="member-name-link">setDamage</a><wbr>(int&nbsp;damage)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setFireRate(int)" class="member-name-link">setFireRate</a><wbr>(int&nbsp;fireRate)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setRange(int)" class="member-name-link">setRange</a><wbr>(int&nbsp;range)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -233,6 +246,17 @@ implements <a href="Collectible.html" title="interface in com.csse3200.game.comp
 </section>
 </li>
 <li>
+<section class="detail" id="pickup(com.csse3200.game.components.player.inventory.Inventory,com.csse3200.game.entities.Entity)">
+<h3>pickup</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">pickup</span><wbr><span class="parameters">(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory,
+ <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;itemEntity)</span></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="Collectible.html#pickup(com.csse3200.game.components.player.inventory.Inventory,com.csse3200.game.entities.Entity)">pickup</a></code>&nbsp;in interface&nbsp;<code><a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="drop(com.csse3200.game.components.player.inventory.Inventory)">
 <h3>drop</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">drop</span><wbr><span class="parameters">(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory)</span></div>
@@ -287,6 +311,24 @@ implements <a href="Collectible.html" title="interface in com.csse3200.game.comp
 <section class="detail" id="getFireRate()">
 <h3>getFireRate</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getFireRate</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="setDamage(int)">
+<h3>setDamage</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDamage</span><wbr><span class="parameters">(int&nbsp;damage)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="setRange(int)">
+<h3>setRange</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setRange</span><wbr><span class="parameters">(int&nbsp;range)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="setFireRate(int)">
+<h3>setFireRate</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setFireRate</span><wbr><span class="parameters">(int&nbsp;fireRate)</span></div>
 </section>
 </li>
 </ul>

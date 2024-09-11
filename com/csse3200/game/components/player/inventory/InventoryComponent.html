@@ -145,10 +145,19 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get the underlying inventory model.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pickup(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">pickup</a><wbr>(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRangedWeaponCount()" class="member-name-link">getRangedWeaponCount</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pickup(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">pickup</a><wbr>(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Add an item to your inventory.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pickup(com.csse3200.game.components.player.inventory.Collectible,com.csse3200.game.entities.Entity)" class="member-name-link">pickup</a><wbr>(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item,
+ <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;itemEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Add a weapon collectible and its entity wrapper to your inventory.</div>
 </div>
 </div>
 </div>
@@ -197,6 +206,18 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="pickup(com.csse3200.game.components.player.inventory.Collectible,com.csse3200.game.entities.Entity)">
+<h3>pickup</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">pickup</span><wbr><span class="parameters">(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item,
+ <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;itemEntity)</span></div>
+<div class="block">Add a weapon collectible and its entity wrapper to your inventory.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>item</code> - The item to add to your inventory</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="drop(com.csse3200.game.components.player.inventory.Collectible)">
 <h3>drop</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">drop</span><wbr><span class="parameters">(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item)</span></div>
@@ -216,6 +237,12 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>the inventory</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getRangedWeaponCount()">
+<h3>getRangedWeaponCount</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getRangedWeaponCount</span>()</div>
 </section>
 </li>
 </ul>

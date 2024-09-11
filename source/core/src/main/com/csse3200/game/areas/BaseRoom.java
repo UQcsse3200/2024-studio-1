@@ -346,9 +346,11 @@ public abstract class BaseRoom implements Room {
             enemy.getEvents().addListener("checkAnimalsDead", () -> {
                 if (this.isAllAnimalDead()) {
                     this.isRoomCompleted = true;
-                    this.spawnItems();
+                    
                 }
+                
             });
+            this.spawnItems();
         }
         //this will make all animals commit suicide 
         //makeAllAnimalDead();

@@ -413,6 +413,10 @@ public class WeaponComponent extends Component {
      *
      */
     public void attack() {
+        if (this.meleeItemEntity == null) {
+            logger.info("No weapon");
+            return;
+        }
         Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
         if (entity != null) {

@@ -2,11 +2,23 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.services.ServiceLocator;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.*;
 
+
 public class WeaponComponentTest {
+
+    @Before
+    public void beforeEach(){
+        ServiceLocator.registerResourceService(new ResourceService());
+    }
+
+
     @Test
     public void testWeaponComponent() {
         // create a weapon component

@@ -1,7 +1,6 @@
 package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.files.UserSettings;
@@ -11,6 +10,10 @@ import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
  */
@@ -18,31 +21,33 @@ public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
 
-    private Entity player;
+    private final Entity player;
 
     private final LevelFactory levelFactory;
     private Level currentLevel;
     private Room currentRoom;
     private boolean spawnRoom = true;
+    private final List<Room> roomsVisited = new ArrayList<>();
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
      *
      * @param levelFactory the provided levelFactory.
      */
-    public MainGameArea(LevelFactory levelFactory) {
+    public MainGameArea(LevelFactory levelFactory, Entity player) {
         super();
+        this.player = player;
         this.levelFactory = levelFactory;
+        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
+        create();
     }
 
     /**
      * Create the game area, including terrain, static entities (trees), dynamic entities (player)
      */
     @Override
-    public void create(Entity player) {
-        this.player = player;
-
+    public void create() {
         load(logger);
         logger.error("loaded all assets");
 
@@ -53,13 +58,38 @@ public class MainGameArea extends GameArea {
         playMusic();
     }
 
-    public void changeRooms(String roomKey){
-        logger.info("Changing rooms!");
-        //this.remove_room();
-        this.currentRoom.removeRoom();
-        //ServiceLocator.getPhysicsService().getPhysics().destroyAllBodies();
-        this.currentRoom = this.currentLevel.getRoom(roomKey);
+    /**
+     * Get the main player of this game area.
+     *
+     * @return the player entity.
+     */
+    public Entity getPlayer() {
+        return player;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    private void selectRoom(String roomKey) {
+        logger.info("Changing to room: {}", roomKey);
+        Room newRoom = this.currentLevel.getRoom(roomKey);
+        if (newRoom == null) {
+            logger.error("Room \"{}\" not found!", roomKey);
+            return;
+        }
+        this.currentRoom = newRoom;
         this.spawnRoom = true;
+    }
+
+
+    public void changeRooms(String roomKey) {
+        this.currentRoom.removeRoom();
+        selectRoom(roomKey);
+
+        if (!this.currentRoom.getIsRoomComplete()) {
+            this.currentLevel.roomTraversals++;
+        }
     }
 
     public void spawnCurrentRoom() {
@@ -67,18 +97,34 @@ public class MainGameArea extends GameArea {
             return;
         }
         logger.info("spawning: new room");
+        if (currentLevel.roomTraversals == 8 ) {
+            this.currentRoom = currentLevel.getRoom("BOSS");
+        }
         this.currentRoom.spawn(player, this);
-        spawnEntityAt(player, new GridPoint2(10, 10), true, true);
+        logger.info("spawned: new room");
+        logger.info("spawning: player");
 
+        // int player_x = (int) (15 - player.getPosition().x);
+        // int player_y = (int) (9 - player.getPosition().y);
+
+
+        int player_x = 7;
+        int player_y = 5;
+
+        player.setPosition(player_x, player_y);
+        spawnEntity(player);
+        logger.info("spawned: player");
         spawnRoom = false;
     }
 
-    public void changeLevel(int levelNumber){
+    public void changeLevel(int levelNumber) {
+        logger.info("Changing to level: {}", levelNumber);
+
+        // TODO: Save player progress or game state here, create a save manager
+
+        // Create and load the new level
         this.currentLevel = this.levelFactory.create(levelNumber);
-        this.currentRoom = this.currentLevel.getRoom(this.currentLevel.getStartingRoomKey());
-        spawnRoom = true;
-//        this.currentRoom.spawn(player, this);
-//        spawnEntityAt(player, new GridPoint2(10, 10), true, true);
+        selectRoom(this.currentLevel.getStartingRoomKey());
     }
 
     private void displayUI() {
@@ -89,7 +135,7 @@ public class MainGameArea extends GameArea {
 
     private void playMusic() {
         ResourceService resourceService = ServiceLocator.getResourceService();
-        if (!resourceService.containsAsset(BACKGROUND_MUSIC, Music.class)){
+        if (!resourceService.containsAsset(BACKGROUND_MUSIC, Music.class)) {
             logger.error("Music not loaded");
             return;
         }
@@ -103,6 +149,10 @@ public class MainGameArea extends GameArea {
         music.play();
     }
 
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+
     @Override
     protected String[] getSoundFilepaths() {
         return new String[]{
@@ -114,14 +164,21 @@ public class MainGameArea extends GameArea {
     protected String[] getTextureAtlasFilepaths() {
         return new String[]{
                 "images/terrain_iso_grass.atlas",
-                "images/ghost.atlas",
-                "images/ghostKing.atlas"
         };
     }
 
+    /**
+     * Gets the file paths for all textures used in the game area.
+     *
+     * @return An array of String paths for textures, including:
+     *         - Common textures (player, doors, etc.)
+     *         - Tile textures for levels 1-3
+     */
     @Override
     protected String[] getTextureFilepaths() {
-        return new String[]{
+
+        List<String> filepaths = new ArrayList<>();
+        String[] commonTextures = {
                 "images/box_boy_leaf.png",
                 "images/tile_1.png",
                 "images/tile_2.png",
@@ -140,8 +197,30 @@ public class MainGameArea extends GameArea {
                 "images/tile_staircase_down.png",
                 "images/tile_blood.png",
                 "images/rounded_door_v.png",
-                "images/rounded_door_h.png"
+                "images/rounded_door_h.png",
+                "images/staircase.png"
         };
+        Collections.addAll(filepaths, commonTextures);
+
+        for (int level = 1; level <= 3; level++) {
+            filepaths.add("images/tile_1_level" + level + ".png");
+            filepaths.add("images/tile_2_level" + level + ".png");
+            filepaths.add("images/tile_3_level" + level + ".png");
+            filepaths.add("images/tile_4_level" + level + ".png");
+            filepaths.add("images/tile_5_level" + level + ".png");
+            filepaths.add("images/tile_6_level" + level + ".png");
+            filepaths.add("images/tile_7_level" + level + ".png");
+            filepaths.add("images/tile_8_level" + level + ".png");
+            filepaths.add("images/tile_middle_level" + level + ".png");
+            filepaths.add("images/tile_broken1_level" + level + ".png");
+            filepaths.add("images/tile_broken2_level" + level + ".png");
+            filepaths.add("images/tile_broken3_level" + level + ".png");
+            filepaths.add("images/tile_blood_level" + level + ".png");
+            filepaths.add("images/tile_staircase_level" + level + ".png");
+        }
+
+        // Convert the list to an array and return
+        return filepaths.toArray(new String[0]);
     }
 
     @Override

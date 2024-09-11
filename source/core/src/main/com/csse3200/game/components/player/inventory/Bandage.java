@@ -20,9 +20,6 @@ public class Bandage extends UsableItem {
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
     }
-    public void pickup(Inventory inventory, Entity itemEntity) {
-        super.pickup(inventory);
-    }
 
     @Override
     public String getItemSpecification() {
@@ -36,6 +33,7 @@ public class Bandage extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
+        super.drop(inventory);
     }
 
     /**
@@ -56,6 +54,15 @@ public class Bandage extends UsableItem {
     @Override
     public Texture getIcon() {
         return new Texture("images/items/bandage.png");
+    }
+
+    /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_green.png");
     }
 
     /**

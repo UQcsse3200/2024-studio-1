@@ -29,7 +29,7 @@ public class PlayerConfigGeneratorTest {
     public void setUp() {
         player = new Entity();
         inventoryComponent = new InventoryComponent();
-        statsComponent = new CombatStatsComponent(100, 30, true);
+        statsComponent = new CombatStatsComponent(100, 30, true, 0, 0);
         player.addComponent(inventoryComponent).addComponent(statsComponent);
         player.addComponent(new PlayerConfigComponent(new PlayerConfig()));
     }

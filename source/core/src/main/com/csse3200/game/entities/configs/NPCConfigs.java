@@ -10,18 +10,19 @@ public class NPCConfigs {
   public NPCConfig bear = new NPCConfig();
   public NPCConfig bat = new NPCConfig();
   public NPCConfig dog = new NPCConfig();
-  public NPCConfig croc = new NPCConfig();
-  public NPCConfig gorilla = new NPCConfig();
   public NPCConfig snake = new NPCConfig();
   public NPCConfig dino = new NPCConfig();
   public NPCConfig minotaur = new NPCConfig();
+  public NPCConfig werewolf = new NPCConfig();
+  public NPCConfig dragon = new NPCConfig();
+  public NPCConfig birdman = new NPCConfig();
+  public NPCConfig kitsune = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
     public TaskConfig tasks = new TaskConfig();
-    public EffectConfig[] effects;
+    public AttackConfig attacks = new AttackConfig();
     public AnimationData[] animations = new AnimationData[0];
-    public float attackRange;
-    public float attackRate;
+    public boolean isDirectional;
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;
@@ -65,12 +66,30 @@ public class NPCConfigs {
         public float waitTime;
       }
 
-      public static class RunAwayTaskConfig {
+      public static class RunAwayTaskConfig extends ChargeTaskConfig{
         public int priority;
         public float viewDistance;
         public float maxRunDistance;
         public float runSpeed;
         public float waitTime;
+      }
+    }
+
+    public static class AttackConfig {
+      public MeleeAttack melee = null;
+      public RangeAttack ranged = null;
+
+      public static class MeleeAttack {
+        public float range;
+        public float rate;
+        public EffectConfig[] effects = new EffectConfig[0];
+      }
+
+      public static class RangeAttack {
+        public float range;
+        public float rate;
+        public int type;
+        public EffectConfig[] effects = new EffectConfig[0];
       }
     }
 

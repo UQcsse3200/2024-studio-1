@@ -14,6 +14,7 @@ import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
+//import com.csse3200.game.physics.components.PlayerHitboxComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
@@ -78,9 +79,10 @@ public class PlayerFactory extends LoadedFactory {
                 .addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new PlayerActions())
-                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true))
+                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0))
                 .addComponent(inventoryComponent)
                 .addComponent(new ItemPickupComponent())
+                .addComponent(new ShieldComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))

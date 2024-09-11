@@ -2,17 +2,21 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.RangedWeapon;
+import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.entities.factories.Door;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +25,7 @@ import java.util.ArrayList;
 public class WeaponComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
     private Collectible.Type weaponType; // type of weapon
+    private ProjectileFactory projectileFactory = new ProjectileFactory();
 
     // Ranged --------------------------------------------
     private int damage; // weapon damage
@@ -455,25 +460,21 @@ public class WeaponComponent extends Component {
                 this.setAmmo(-2);
                 // Offset time so that the weapon must wait extra long for reload time
                 currentTime += this.getReloadTime() * 1000L - this.attackInterval;
-                ServiceLocator.getResourceService()
-                        .getAsset("sounds/shotgun1_r.ogg", Sound.class)
-                        .play();
 
                 logger.info("Ranged weapon reloading");
                 entity.getEvents().trigger("RELOAD");
             } else {
                 // Shooting
                 this.setAmmo(-1);
-                // Spawn projectile
-                ServiceLocator.getResourceService()
-                        .getAsset("sounds/shotgun1_f.ogg", Sound.class)
-                        .play();
-                ProjectileFactory.createProjectile(this.bulletConfig, direction);
+
+                Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
+                projectile.getComponent(ProjectileAttackComponent.class).create();
+                ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
                 logger.info("Ranged weapon shoot");
                 entity.getEvents().trigger("RANGED_ATTACK");
 
             }
-            // Reset lastAtttack time
+            // Reset last Attack time
             this.lastAttack = currentTime;
         } else {
             logger.info("No ranged weapon");

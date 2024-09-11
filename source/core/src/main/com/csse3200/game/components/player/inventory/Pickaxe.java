@@ -43,7 +43,7 @@ public class Pickaxe extends MeleeWeapon {
 
     @Override
     public Texture getIcon() {
-        return new Texture("/images/Weapons/pickaxe.png");
+        return new Texture("images/Weapons/pickaxe.png");
     }
 }
 

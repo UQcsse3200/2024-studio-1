@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.CollectibleComponent;
+//import com.csse3200.game.components.player.RangeDetectionComponent;
 import com.csse3200.game.components.player.WeaponAnimationController;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
@@ -137,17 +138,18 @@ public class WeaponFactory extends LoadedFactory {
 
         Entity rangedEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(animator)
+//                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC))
                 .addComponent(new WeaponAnimationController());
 
         PhysicsUtils.setScaledCollider(rangedEntity, -1f, -1f); //  this affect player movement!!!
         // set the collider to 0
         rangedEntity.getComponent(ColliderComponent.class).setSensor(true);
         rangedEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(1f, 1f));
+        rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(3f, 3f));
         logger.info("Created range weapon entity: " + collectible);
 
         return rangedEntity;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
@@ -14,13 +15,16 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.entities.factories.WeaponFactory;
+import com.csse3200.game.physics.BodyUserData;
+import com.csse3200.game.physics.PhysicsLayer;
+import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.factories.Door;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class WeaponComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
@@ -50,6 +54,12 @@ public class WeaponComponent extends Component {
     private int swingDamage; // Damage of each swing for melee weapon
     private float swingRange; // Range of melee weapon
     private int swingRate; // swing rate for melee weapon (swing per second
+    private short targetLayer;
+    /**
+     * The hit box component 2 of the entity that has the RangeDetectionComponent
+     */
+    private HitboxComponent hitboxComponent;
+    private ArrayList<Entity> entities; // List of entities that within the range of the attack
 
 
     // Tracking weapon state
@@ -89,6 +99,7 @@ public class WeaponComponent extends Component {
             } else {
                 this.swingInterval = (1000L / this.swingRate);
             }
+            this.targetLayer = PhysicsLayer.NPC;
         }
         else if (weaponType == Collectible.Type.RANGED_WEAPON) {
             this.damage = damage;
@@ -348,7 +359,8 @@ public class WeaponComponent extends Component {
             this.swingInterval = (1000L / this.swingRate);
         }
         this.meleeItemEntity = itemEntity;
-        getEntity().getComponent(RangeDetectionComponent.class).updateWeaponEntity(itemEntity);
+        this.hitboxComponent = this.meleeItemEntity.getComponent(HitboxComponent.class);
+        this.targetLayer = PhysicsLayer.NPC;
         getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
     }
 
@@ -413,6 +425,7 @@ public class WeaponComponent extends Component {
      *
      */
     public void attack() {
+        logger.info("Melee weapon attack triggered");
         if (this.meleeItemEntity == null) {
             logger.info("No weapon");
             return;
@@ -431,7 +444,7 @@ public class WeaponComponent extends Component {
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
-            ArrayList<Entity> entities = this.getEntity().getComponent(RangeDetectionComponent.class).getEntities();
+            ArrayList<Entity> entities = this.getEntities();
             for (Entity e : entities) {
                 CombatStatsComponent targetStats = e.getComponent(CombatStatsComponent.class);
                 if (targetStats != null) {
@@ -451,6 +464,7 @@ public class WeaponComponent extends Component {
      * @param direction direction to shoot
      */
     public void shoot(Vector2 direction) {
+        logger.info("Ranged weapon attack triggered");
         Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
         if (entity != null) {
@@ -491,5 +505,81 @@ public class WeaponComponent extends Component {
 
     public void setWeaponSprite(Sprite sprite) {
         this.weaponSprite = sprite;
+    }
+
+
+    /**
+     * Create the component.
+     */
+    @Override
+    public void create() {
+        entity.getEvents().addListener("collisionStart", this::onCollisionStart);
+        //entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
+        hitboxComponent = null;
+        if (meleeItemEntity != null) {
+            //  update to meleeItemEntity later
+            hitboxComponent = meleeItemEntity.getComponent(HitboxComponent.class);
+        } else {
+            logger.warn("itemEntity is null at creation");
+        }
+        entities = new ArrayList<>();
+    }
+
+    /**
+     * Update the hit box component.
+     * IMPORTANT: CALL THIS BEFORE USING THE LIST OF ENTITIES
+     * @param entity The entity the that hit box component attached to.
+     */
+    public void updateWeaponEntity(Entity entity) {
+        if (entity.getComponent(HitboxComponent.class) != null) {
+            hitboxComponent = meleeItemEntity.getComponent(HitboxComponent.class);
+        } else {
+            logger.warn("itemEntity is null at update");
+        }
+    }
+
+    /**
+     * When the entity starts colliding with another entity.
+     * @param me The entity that is colliding.
+     * @param other The entity that is being collided with.
+     */
+    private void onCollisionStart(Fixture me, Fixture other) {
+        logger.info("Collision start detected");
+        if (hitboxComponent == null) {
+            logger.warn("hitboxComponent is null");
+            return;
+        }
+
+        // if the hitboxComponent is equal to me (the entity that has the RangeDetectionComponent)
+        if (hitboxComponent.getFixture() == me) {
+            // Not triggered by hitbox, ignore
+            return;
+        }
+
+        if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
+            // Doesn't match our target layer, ignore
+            logger.warn("Doesn't match our target layer, ignore" + targetLayer + " " + other.getFilterData().categoryBits );
+            return;
+        }
+        // Try to attack target.
+        Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
+
+        //add the entity to the list of entities that are within the range of the attack
+        entities.add(target);
+        // make list unique
+        entities = new ArrayList<>(new HashSet<>(entities));
+        logger.info("The list is now: " + entities);
+
+    }
+
+    /**
+     * Get the list of entities that are within the range of the attack
+     * @return the list of entities that are within the range of the attack
+     */
+    public ArrayList<Entity> getEntities() {
+        if (entities == null) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(entities);  // Return a copy of the list
     }
 }

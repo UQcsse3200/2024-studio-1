@@ -31,7 +31,7 @@ public class PlayerActions extends Component {
         inventoryComponent = entity.getComponent(InventoryComponent.class);
         entity.getEvents().addListener("walk", this::walk);
         entity.getEvents().addListener("walkStop", this::stopWalking);
-        entity.getEvents().addListener("attack", this::attack);
+        entity.getEvents().addListener("attackMelee", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
         entity.getEvents().addListener("use1", () -> use(new MedKit()));
         entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
@@ -114,6 +114,7 @@ public class PlayerActions extends Component {
      * Makes the player attack.
      */
     private void attack() {
+        System.out.println("Player melee attacked (delete later)");
         ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
         entity.getComponent(WeaponComponent.class).attack();
     }

@@ -3,6 +3,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.csse3200.game.components.player.CollectibleComponent;
 //import com.csse3200.game.components.player.RangeDetectionComponent;
 import com.csse3200.game.components.player.WeaponAnimationController;
@@ -114,9 +115,11 @@ public class WeaponFactory extends LoadedFactory {
 
         PhysicsUtils.setScaledCollider(meleeEntity, -1f, -1f); //  this affect player movement!!!
         // set the collider to 0
-        meleeEntity.getComponent(ColliderComponent.class).setSensor(false);
+        meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
         meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        meleeEntity.getComponent(HitboxComponent.class).setSize(new Vector2(1f, 1f));
+        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(1f, 1f));
+        meleeEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+        //meleeEntity.getComponent(HitboxComponent.class).setSize(new Vector2(1f, 1f));
 
         logger.info("Created melee weapon entity: " + collectible);
 

@@ -114,7 +114,6 @@ public class PlayerActions extends Component {
      * Makes the player attack.
      */
     private void attack() {
-        System.out.println("Player melee attacked (delete later)");
         ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
         entity.getComponent(WeaponComponent.class).attack();
     }

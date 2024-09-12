@@ -2,7 +2,6 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.csse3200.game.areas.Level;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.*;
@@ -115,7 +114,7 @@ public class PlayerActions extends Component {
      */
     private void attack() {
         ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
-        entity.getComponent(WeaponComponent.class).attack();
+        entity.getComponent(WeaponComponent.class).attackMelee();
     }
 
     /**

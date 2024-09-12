@@ -16,9 +16,7 @@ import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 
 import org.slf4j.Logger;
@@ -415,9 +413,8 @@ public class WeaponComponent extends Component {
      * Use the melee weapon in the walk direction of the player
      * The weapon will only activate if the time from last activation is longer than
      * specified
-     *
      */
-    public void attack() {
+    public void attackMelee() {
         logger.info("Melee weapon attack triggered");
         if (this.meleeItemEntity == null) {
             logger.info("No weapon");
@@ -440,25 +437,43 @@ public class WeaponComponent extends Component {
             // get all NPC entities in a map by accessing game area
             List<Entity> mapEntities = ServiceLocator.getGameAreaService().getGameArea().getListOfEntities();
             logger.info("Entities in map: " + mapEntities);
-            for (Entity e : mapEntities) {
-                // if entity is not null, and is NPC, then attack
-                logger.info("Entity in consideration: " + e + "with distance: " + e.getPosition().dst(this.entity.getPosition()) + " and swing range: " + this.swingRange);
-                if (e != null && e.getPosition().dst(this.entity.getPosition()) < this.swingRange) {
-                    logger.info("Entity in range: " + e);
-                    if (e.getComponent(HitboxComponent.class) != null && e.getComponent(HitboxComponent.class).getLayer() == targetLayer) {
-                        logger.info("Entity is NPC");
-                        CombatStatsComponent targetStats = e.getComponent(CombatStatsComponent.class);
-                        if (targetStats != null && e.getId() != this.entity.getId()) {
-                            logger.info("Entity has combat stats");
-                            targetStats.hit(this.getEntity().getComponent(CombatStatsComponent.class));
-                        }
-
-                    }
-                }
-            }
+            applyFilteredDamage(mapEntities);
         } else {
             logger.info("No melee weapon");
         }
+    }
+
+    /**
+     * Apply damage to entities in the map such that
+     * - The entity is not the current entity
+     * - The entity is within the swing range
+     * - The entity has a hitbox component
+     * - The entity is in the target layer
+     * - The entity has combat stats component
+     * @param mapEntities list of entities in the map
+     */
+    private void applyFilteredDamage(List<Entity> mapEntities) {
+        for (Entity e : mapEntities) {
+            if (e == null || e.getId() == this.entity.getId()) {
+                continue; // Skip null entities and the current entity
+            }
+
+            float distance = e.getPosition().dst(this.entity.getPosition());
+            if (distance >= this.swingRange) {
+                continue; // Skip entities outside swing range
+            }
+
+            HitboxComponent hitbox = e.getComponent(HitboxComponent.class);
+            if (hitbox == null || hitbox.getLayer() != targetLayer) {
+                continue; // Skip if no hitbox or wrong layer
+            }
+
+            CombatStatsComponent targetStats = e.getComponent(CombatStatsComponent.class);
+            if (targetStats != null) {
+                targetStats.hit(this.entity.getComponent(CombatStatsComponent.class));
+            }
+        }
+
     }
 
     /**
@@ -504,15 +519,21 @@ public class WeaponComponent extends Component {
         }
     }
 
+    /**
+     * Get the sprite of the weapon
+     * @return the sprite of the weapon
+     */
     public Sprite getWeaponSprite() {
         return weaponSprite;
     }
 
+    /**
+     * Set the sprite of the weapon
+     * @param sprite the sprite to set
+     */
     public void setWeaponSprite(Sprite sprite) {
         this.weaponSprite = sprite;
     }
-
-
 
     /**
      * Update the hit box component.

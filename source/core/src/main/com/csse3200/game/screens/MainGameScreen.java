@@ -32,7 +32,7 @@ import com.csse3200.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.util.Arrays;
 
 import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
@@ -124,9 +124,7 @@ public class MainGameScreen extends ScreenAdapter {
          * If Player choose Load, then create
          */
         // todo confirm which players should be passed into PlayerFactory
-        this.playerFactory = new PlayerFactory(List.of(
-                PLAYERS
-        ));
+        this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         Entity player = playerFactory.createPlayer(
                 FileLoader.readClass(PlayerConfig.class, chosenPlayer).name);
 

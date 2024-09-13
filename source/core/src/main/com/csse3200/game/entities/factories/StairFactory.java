@@ -6,7 +6,7 @@ import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
-import com.csse3200.game.services.AlertBoxService;
+
 import com.csse3200.game.services.ServiceLocator;
 
 /**
@@ -38,9 +38,7 @@ public class StairFactory {
         stair.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
             Entity entity2 = (Entity) fixture2.getUserData();
             if (entity2.getId() == playerId) {
-                alertGoToNextLevel(
-                        ServiceLocator.getGameAreaService().getGameArea().getCurrentLevel().getLevelNumber()
-                );
+                moveToNextLevel();
             }
         });
     }
@@ -59,7 +57,7 @@ public class StairFactory {
     /**
      * checks if the player wants to move to next level
      */
-    private static void alertGoToNextLevel(int currentLevel) {
+   /* private static void alertGoToNextLevel(int currentLevel) {
         ServiceLocator.getAlertBoxService().showConfirmationDialog("Confirm", "Do you want to proceed to the next level?", new AlertBoxService.ConfirmationListener() {
             @Override
             public void onYes() {
@@ -74,5 +72,15 @@ public class StairFactory {
                 ServiceLocator.getGameAreaService().getGameArea().changeLevel(currentLevel);
             }
         });
+    }*/
+
+    /**
+     * Moves the player to the next level
+     */
+
+    private static void moveToNextLevel() {
+        int currentLevel = ServiceLocator.getGameAreaService().getGameArea().getCurrentLevel().getLevelNumber();
+        ServiceLocator.getEntityService().markEntityForRemoval(stair);
+        ServiceLocator.getGameAreaService().getGameArea().changeLevel(currentLevel + 1);
     }
 }

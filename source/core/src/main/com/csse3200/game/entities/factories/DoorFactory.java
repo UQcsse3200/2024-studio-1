@@ -2,6 +2,7 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
@@ -31,12 +32,10 @@ public class DoorFactory {
         log.info("Creating Door {}, {}", orientation, next_Room);
 
         Entity door = new Entity();
+        door.addComponent(new NameComponent("Door to \"" + next_Room + "\""));
         door.addComponent(new TextureRenderComponent(format("images/rounded_door_%c.png", orientation)));
-        log.info("render component created/added");
         PhysicsComponent physicsComponent = new PhysicsComponent();
-        log.info("physics component created");
         door.addComponent(physicsComponent);
-        log.info("physics component added");
         door.addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
         // door config can be implemented later if deigned necessary

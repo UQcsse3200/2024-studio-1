@@ -13,9 +13,7 @@ import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
-import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.entities.factories.Door;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
 public class WeaponComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
     private Collectible.Type weaponType; // type of weapon
-    private ProjectileFactory projectileFactory = new ProjectileFactory();
+    private final ProjectileFactory projectileFactory = new ProjectileFactory();
 
     // Ranged --------------------------------------------
     private int damage; // weapon damage
@@ -348,7 +346,7 @@ public class WeaponComponent extends Component {
             this.swingInterval = (1000L / this.swingRate);
         }
         this.meleeItemEntity = itemEntity;
-        getEntity().getComponent(RangeDetectionComponent.class).updateWeaponEntity(itemEntity);
+//        getEntity().getComponent(RangeDetectionComponent.class).updateWeaponEntity(itemEntity);
         getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
     }
 
@@ -382,7 +380,6 @@ public class WeaponComponent extends Component {
             }
         }
     }
-
 
     /**
      * Drop range weapon, set all related properties to default

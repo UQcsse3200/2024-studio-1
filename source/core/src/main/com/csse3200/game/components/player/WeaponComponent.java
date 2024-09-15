@@ -463,6 +463,14 @@ public class WeaponComponent extends Component {
                 continue; // Skip entities outside swing range
             }
 
+            // if the target in front of the player
+            // (1/4 of the circle, ex. if player face right, target in front is from 45 to 135 degree)
+            Vector2 direction = e.getPosition().sub(this.entity.getPosition()).nor();
+            Vector2 playerDirection = this.entity.getComponent(PlayerActions.class).getWalkDirection();
+            if (direction.angleDeg(playerDirection) > 45 ) {
+                continue; // Skip entities not in front of the player
+            }
+
             HitboxComponent hitbox = e.getComponent(HitboxComponent.class);
             if (hitbox == null || hitbox.getLayer() != targetLayer) {
                 continue; // Skip if no hitbox or wrong layer

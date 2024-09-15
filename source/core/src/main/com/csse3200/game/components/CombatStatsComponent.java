@@ -1,5 +1,6 @@
 package com.csse3200.game.components;
 
+import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -212,7 +213,11 @@ public class CombatStatsComponent extends Component {
         if (getIsInvincible()) {
             return;
         }
-
+        ShieldComponent shield = entity.getComponent(ShieldComponent.class);
+        if (shield != null && shield.isActive()) {
+            entity.getEvents().trigger("hit");
+            return;
+        }
         if (getCanBeInvincible()) {
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) (attacker.getBaseAttack() * (1 - damageReduction));

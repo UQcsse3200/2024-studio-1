@@ -5,6 +5,7 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
+import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -41,15 +42,9 @@ public class NPCDeathHandler extends Component {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());
-
-            // Play death animation if available
-            if (animator != null && animator.hasAnimation("death")) {
-                animator.startAnimation("death");
-            }
-
-            // Disable physics and AI components to prevent further interaction
-            //entity.getComponent(PhysicsComponent.class).setEnabled(false);
-            //entity.getComponent(AITaskComponent.class).setEnabled(false);
+            // disable AI component to prevent further interaction
+            entity.getComponent(AITaskComponent.class).setEnabled(false);
+            entity.getComponent(PhysicsMovementComponent.class).setEnabled(false);
 
             // Schedule entity removal after the death animation completes
             Timer.schedule(new Timer.Task() {

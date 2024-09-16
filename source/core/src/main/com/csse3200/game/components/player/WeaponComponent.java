@@ -351,6 +351,7 @@ public class WeaponComponent extends Component {
             this.swingInterval = (1000L / this.swingRate);
         }
         this.meleeItemEntity = itemEntity;
+        this.meleeItemEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
         updateTargetLayer(this.meleeItemEntity);
         getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
     }
@@ -358,29 +359,12 @@ public class WeaponComponent extends Component {
     @Override
     public void update() {
         if (this.entity != null) {
-            if (this.lastPos == null) {
-                this.lastPos = entity.getPosition();
-            }
             Vector2 newPos = this.entity.getPosition();
-            float dx = newPos.x - this.lastPos.x;
-            float dy = newPos.y - this.lastPos.y;
             if (this.meleeItemEntity != null) {
                 this.meleeItemEntity.setPosition(this.entity.getPosition());
             }
             if (this.rangedItemEntity != null) {
-                if (dx == 0 && dy > 0) {
-                    logger.info("Range weapon point up");
-                }
-                else if (dx == 0 && dy < 0) {
-                    logger.info("Range weapon point down");
-                }
-                else if (dx > 0 && dy == 0) {
-                    logger.info("Range weapon point right");
-                }
-                else if (dx < 0 && dy == 0) {
-                    logger.info("Range weapon point left");
-                }
-                this.rangedItemEntity.setPosition(this.entity.getPosition());
+                this.rangedItemEntity.setPosition(newPos);
                 this.lastPos = newPos;
             }
         }
@@ -434,6 +418,7 @@ public class WeaponComponent extends Component {
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
+            this.meleeItemEntity.getEvents().trigger("attackMelee");
             // get all NPC entities in a map by accessing game area
             List<Entity> mapEntities = ServiceLocator.getGameAreaService().getGameArea().getListOfEntities();
             logger.info("Entities in map: " + mapEntities);
@@ -500,6 +485,7 @@ public class WeaponComponent extends Component {
                 currentTime += this.getReloadTime() * 1000L - this.attackInterval;
 
                 logger.info("Ranged weapon reloading");
+                ServiceLocator.getResourceService().playSound("sounds/shotgun1_r.ogg");
                 entity.getEvents().trigger("RELOAD");
             } else {
                 // Shooting
@@ -508,6 +494,9 @@ public class WeaponComponent extends Component {
                 Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
                 projectile.getComponent(ProjectileAttackComponent.class).create();
                 ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
+                ServiceLocator.getResourceService().playSound("sounds/shotgun1_f.ogg");
+                // Trigger event for animation controller
+                triggerEvent(rangedItemEntity, direction);
                 logger.info("Ranged weapon shoot");
                 entity.getEvents().trigger("RANGED_ATTACK");
 
@@ -545,6 +534,27 @@ public class WeaponComponent extends Component {
             this.targetLayer = PhysicsLayer.NPC;
         } else {
             logger.warn("itemEntity is null after update");
+        }
+    }
+
+    /**
+     * Trigger shoot event base on shooting direction
+     * @param direction The direction to shoot in
+     */
+    private void triggerEvent(Entity weaponEntity, Vector2 direction) {
+        if (weaponEntity == null) {
+            return;
+        }
+        if (direction.x == 0.0) {
+            if (direction.y > 0.0) {
+                weaponEntity.getEvents().trigger("shootUp");
+            } else {
+                weaponEntity.getEvents().trigger("shootDown");
+            }
+        } else if (direction.x == 1.0) {
+            weaponEntity.getEvents().trigger("shootRight");
+        } else if (direction.x == -1.0) {
+            weaponEntity.getEvents().trigger("shootLeft");
         }
     }
 }

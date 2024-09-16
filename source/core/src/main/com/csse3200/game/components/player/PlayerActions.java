@@ -144,6 +144,14 @@ public class PlayerActions extends Component {
         moving = true;
     }
 
+    /**
+     * Gets the direction the player is walking in.
+     * @return the direction the player is walking in
+     */
+    public Vector2 getWalkDirection() {
+        return walkDirection;
+    }
+
     private void use(UsableItem item) {
         Inventory inventory = inventoryComponent.getInventory();
         for (Collectible collectedItem : inventory.getItems()) {

@@ -1,0 +1,180 @@
+slash_1.png
+size: 256, 1664
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shootRight
+  rotate: false
+  xy: 0, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+shootRight
+  rotate: false
+  xy: 128, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+shootRight
+  rotate: false
+  xy: 0, 128
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+shootRight
+  rotate: false
+  xy: 128, 128
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 4
+shootRight
+  rotate: false
+  xy: 0, 256
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
+shootRight
+  rotate: false
+  xy: 128, 256
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 6
+shootLeft
+  rotate: false
+  xy: 0, 384
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 7
+shootLeft
+  rotate: false
+  xy: 128, 384
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 8
+shootLeft
+  rotate: false
+  xy: 0, 512
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 9
+shootLeft
+  rotate: false
+  xy: 128, 512
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 10
+shootLeft
+  rotate: false
+  xy: 0, 640
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 11
+shootLeft
+  rotate: false
+  xy: 128, 640
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 12
+shootUp
+  rotate: false
+  xy: 0, 768
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 13
+shootUp
+  rotate: false
+  xy: 128, 768
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 14
+shootUp
+  rotate: false
+  xy: 0, 896
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 15
+shootUp
+  rotate: false
+  xy: 128, 896
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 16
+shootUp
+  rotate: false
+  xy: 0, 1024
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 17
+shootUp
+  rotate: false
+  xy: 128, 1024
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 18
+shootDown
+  rotate: false
+  xy: 0, 1152
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 19
+shootDown
+  rotate: false
+  xy: 128, 1152
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 20
+shootDown
+  rotate: false
+  xy: 0, 1280
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 21
+shootDown
+  rotate: false
+  xy: 128, 1280
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 22
+shootDown
+  rotate: false
+  xy: 0, 1408
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 23
+shootDown
+  rotate: false
+  xy: 128, 1408
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 24
+idle
+  rotate: false
+  xy: 0, 1536
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 25

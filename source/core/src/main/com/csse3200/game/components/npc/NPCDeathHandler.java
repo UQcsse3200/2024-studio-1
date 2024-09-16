@@ -6,6 +6,8 @@ import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
+import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -45,6 +47,8 @@ public class NPCDeathHandler extends Component {
             // disable AI component to prevent further interaction
             entity.getComponent(AITaskComponent.class).setEnabled(false);
             entity.getComponent(PhysicsMovementComponent.class).setEnabled(false);
+            entity.getComponent(HitboxComponent.class).setEnabled(false);
+            entity.getComponent(ColliderComponent.class).setEnabled(false);
 
             // Schedule entity removal after the death animation completes
             Timer.schedule(new Timer.Task() {

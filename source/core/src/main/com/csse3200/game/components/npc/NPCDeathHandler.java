@@ -22,8 +22,6 @@ public class NPCDeathHandler extends Component {
     public static final float DEATH_ANIMATION_DURATION = 1.0f;
     public static final List<Integer> deadEntities = new ArrayList<>();
 
-    private AnimationRenderComponent animator;
-    private CombatStatsComponent combatStats;
     private boolean isDead = false;
 
     /**
@@ -31,8 +29,8 @@ public class NPCDeathHandler extends Component {
      */
     @Override
     public void create() {
-        animator = entity.getComponent(AnimationRenderComponent.class);
-        combatStats = entity.getComponent(CombatStatsComponent.class);
+        AnimationRenderComponent animator = entity.getComponent(AnimationRenderComponent.class);
+        CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         entity.getEvents().addListener("died", this::onDeath);
     }
 

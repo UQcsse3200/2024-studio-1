@@ -2,7 +2,7 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.ai.tasks.AITaskComponent;
-import com.csse3200.game.ai.tasks.BossAITaskComponent;
+import com.csse3200.game.ai.BossAIComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
@@ -227,10 +227,7 @@ public class NPCFactory extends LoadedFactory {
    */
   public Entity createWerewolf(Entity target) {
     NPCConfigs.NPCConfig config = configs.werewolf;
-    BossAITaskComponent aiComponent = new BossAITaskComponent();
-    aiComponent.addTask(new ChaseTask(target, config.tasks.chase));
-    aiComponent.addTask(new ChargeTask(target, config.tasks.charge));
-    aiComponent.addTask(new WanderTask(config.tasks.wander));
+    BossAIComponent aiComponent = new BossAIComponent(target, config);
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
 

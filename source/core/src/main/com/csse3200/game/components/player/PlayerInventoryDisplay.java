@@ -40,7 +40,7 @@ public class PlayerInventoryDisplay extends UIComponent {
         itemLabels = new HashMap<>();
         itemIcons = new HashMap<>();
         addActors();
-
+        updateInventoryUI();
         if (entity.getEvents() != null) {
             entity.getEvents().addListener("updateInventory", this::updateInventoryUI);
         }

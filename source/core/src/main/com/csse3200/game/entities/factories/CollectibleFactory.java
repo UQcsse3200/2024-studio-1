@@ -70,13 +70,7 @@ public class CollectibleFactory extends LoadedFactory {
      * @return the final entity containing the collectible.
      */
     public Entity createCollectibleEntity(String specification) {
-        Collectible collectible = create(specification);
-
-        return switch (collectible.getType()) {
-            case MELEE_WEAPON, RANGED_WEAPON -> weaponFactory.createWeaponEntity(collectible);
-            case ITEM, BUFF_ITEM -> createCollectibleEntity(specification, collectible);
-            default -> throw new IllegalStateException("Unexpected type: " + collectible.getType());
-        };
+        return createCollectibleEntity(specification, create(specification));
     }
 }
 

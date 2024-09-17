@@ -1,9 +1,18 @@
 package com.csse3200.game.entities.factories;
 
+import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.*;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.LoadPlayer;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.physics.PhysicsLayer;
+import com.csse3200.game.physics.components.ColliderComponent;
+import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.physics.components.PhysicsComponent;
+import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
@@ -37,11 +46,22 @@ public class PlayerFactory extends LoadedFactory {
      *
      * @return entity
      */
-    public Entity createPlayer(){
+    public Entity createPlayer() {
         LoadPlayer loader = new LoadPlayer();
         PlayerConfig config = options.get("default");
+
+        InventoryComponent inventoryComponent = new InventoryComponent();
+
+        Entity player = new Entity()
+
+
+                .addComponent(inventoryComponent)
+                .addComponent(new PlayerStatsDisplay())
+                .addComponent(new PlayerInventoryDisplay(inventoryComponent))
+                .addComponent(new PlayerHealthDisplay());
         return loader.createPlayer(config);
     }
+
 
     /**
      * Create a player.

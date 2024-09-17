@@ -1,10 +1,14 @@
 package com.csse3200.game.components.player;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.ui.UIComponent;
 
@@ -18,6 +22,8 @@ public class PlayerInventoryDisplay extends UIComponent {
     private Table inventoryTable;
     private final InventoryComponent inventoryComponent;
     private Label heading;
+    private ShapeRenderer shapeRenderer;
+    private int start_pos;
     private Map<String, Label> itemLabels;  // To store labels for each item for easy updating
     private Map<String, Image> itemIcons;   // To store images for each item for easy updating
 
@@ -28,6 +34,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     public PlayerInventoryDisplay(InventoryComponent inventoryComponent) {
         this.inventoryComponent = inventoryComponent;
+        shapeRenderer = new ShapeRenderer();
     }
 
     /**
@@ -54,7 +61,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     private void addActors() {
         inventoryTable = new Table();
-        inventoryTable.bottom().left();
+        inventoryTable.bottom();
         inventoryTable.setFillParent(true);
         inventoryTable.padTop(50f).padLeft(5f);
         setHeading();
@@ -67,11 +74,11 @@ public class PlayerInventoryDisplay extends UIComponent {
      * for the items listed below.
      */
     void setHeading() {
-        CharSequence headingText = "Collected:";
-        heading = new Label(headingText, skin, "small");
-        inventoryTable.add(heading);
+        //CharSequence headingText = "Collected:";
+        //heading = new Label(headingText, skin, "small");
+        //inventoryTable.add(heading);
         stage.addActor(inventoryTable);
-        inventoryTable.row();
+        //inventoryTable.row();
     }
 
     /**
@@ -80,7 +87,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     private void addItems() {
         addItem("Medkit", new MedKit().getIcon());
-        addItem("Shield Potion", new ShieldPotion().getIcon());
+        addItem("Shield", new ShieldPotion().getIcon());
         addItem("Bandage", new Bandage().getIcon());
     }
 
@@ -94,12 +101,15 @@ public class PlayerInventoryDisplay extends UIComponent {
         // initialise the image, the name and the quantity as Label
         Image icon = new Image(itemIcon);
         Label nameLabel = new Label(itemName, skin, "small");
+        nameLabel.setColor(Color.WHITE);
         Label quantityLabel = new Label(" x0", skin, "small");
+        quantityLabel.setColor(Color.WHITE);
+
 
         inventoryTable.add(icon).bottom().left();
         inventoryTable.add(nameLabel).left();
-        inventoryTable.add(quantityLabel).left();
-        inventoryTable.row();
+        inventoryTable.add(quantityLabel).left().padRight(60f);
+        // inventoryTable.row();
 
         itemIcons.put(itemName, icon);
         itemLabels.put(itemName, quantityLabel);
@@ -139,6 +149,7 @@ public class PlayerInventoryDisplay extends UIComponent {
             if (quantityLabel != null) {
                 int quantity = entry.getValue();
                 quantityLabel.setText(" x" + quantity);
+                quantityLabel.setColor(Color.WHITE);
             }
         }
     }
@@ -146,7 +157,8 @@ public class PlayerInventoryDisplay extends UIComponent {
 
     @Override
     public void draw(SpriteBatch batch) {
-        // draw is handled by the stage
+
+
     }
 
     /**

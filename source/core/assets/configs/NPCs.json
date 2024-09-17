@@ -393,22 +393,29 @@
       },
       "chase": {
         "priority": 10,
-        "chaseSpeed": 1.5,
-        "viewDistance": 1.5,
-        "chaseDistance": 2
+        "chaseSpeed": 3,
+        "viewDistance": 7,
+        "chaseDistance": 7
       },
       "charge": {
         "priority": 5,
-        "viewDistance": 4,
-        "chaseDistance": 5,
-        "chaseSpeed": 3,
-        "waitTime": 2
+        "viewDistance": 10,
+        "chaseDistance": 10,
+        "chaseSpeed": 6,
+        "waitTime": 0
+      },
+      "runAway": {
+        "priority": 5,
+        "viewDistance": 6,
+        "chaseDistance": 6,
+        "chaseSpeed": 5,
+        "waitTime": 0
       }
     },
     "attacks": {
       "melee": {
-        "range": 1,
-        "rate": 0.5
+        "range": 2,
+        "rate": 1.5
       },
       "ranged": {
         "range": 10,

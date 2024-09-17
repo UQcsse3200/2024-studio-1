@@ -242,7 +242,7 @@ public class NPCFactory extends LoadedFactory {
    */
   public Entity createDragon(Entity target) {
     NPCConfigs.NPCConfig config = configs.dragon;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    BossAIComponent aiComponent = new BossAIComponent(target, config);
     AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
     Entity dragon = createBaseNPC(target, aiComponent, config, animator);
 

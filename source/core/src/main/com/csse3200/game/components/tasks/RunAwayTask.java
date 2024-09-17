@@ -44,6 +44,7 @@ public class RunAwayTask extends ChargeTask {
         Vector2 runAwayDirection = calculateRunAwayDirection();
         movementTask.setTarget(runAwayDirection);
         movementTask.start();
+        currentTask = movementTask;
     }
 
     /**

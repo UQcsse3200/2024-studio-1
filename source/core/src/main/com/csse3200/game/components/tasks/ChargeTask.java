@@ -23,8 +23,8 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(ChargeTask.class);
   protected final Entity target;
   protected int priority;
-  private final int basePriority;
-  private final int triggerPriority = 15;
+  protected int chargeNum = -1;
+  protected int chargeCount = 0;
   private final float viewDistance;
   protected final float maxChaseDistance;
   private final float chaseSpeed;
@@ -33,8 +33,8 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
   protected MovementTask movementTask;
-  WaitTask waitTask;
-  private Task currentTask;
+  private WaitTask waitTask;
+  protected Task currentTask;
 
   /**
    * Creates a ChargeTask.
@@ -45,7 +45,6 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   public ChargeTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config) {
     this.target = target;
     this.priority = config.priority;
-    this.basePriority = config.priority;
     this.viewDistance = config.viewDistance;
     this.maxChaseDistance = config.chaseDistance;
     this.chaseSpeed = config.chaseSpeed;
@@ -75,8 +74,10 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
       if (currentTask == movementTask && waitTime > 0) {
         startWaiting(); // After moving, start waiting if waitTime is set.
       } else {
-        if (priority == triggerPriority) {
-          resetPriority();
+        chargeCount++;
+        if (chargeCount >= chargeNum) {
+          chargeNum = -1;
+          this.stop(); // Stop charging after the specified number of charges.
         } else {
           startMoving();
         }
@@ -192,15 +193,15 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     return -1;
   }
 
-  private void resetPriority() {
-    this.priority = basePriority;
-  }
-
   /**
-   * Triggers the charge task to start charging towards the target once.
+   * Triggers the charge task to start charging towards the target.
+   *
+   * @param chargeNum The number of charges to perform.
    */
-  public void triggerCharge() {
-    this.priority = triggerPriority;
+  public void triggerCharge(int chargeNum) {
+    this.chargeNum = chargeNum;
+    chargeCount = 0;
+    start();
   }
 
   protected boolean isTargetVisible() {

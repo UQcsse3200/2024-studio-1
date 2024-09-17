@@ -89,25 +89,6 @@ class ChargeTaskTest {
     }
 
     @Test
-    void shouldTriggerChargeAndEventuallyResetPriority() {
-        chargeTask.start();
-        int initialPriority = chargeTask.getPriority();
-
-        chargeTask.triggerCharge();
-        assertEquals(15, chargeTask.getPriority(), "Priority should be set to trigger priority");
-
-        chargeTask.movementTask.stop();
-        chargeTask.update();
-
-        if (chargeTask.waitTask != null) {
-            chargeTask.waitTask.stop();
-            chargeTask.update();
-        }
-
-        assertEquals(initialPriority, chargeTask.getPriority(), "Priority should reset to initial value after movement and wait tasks completion");
-    }
-
-    @Test
     void shouldUpdateBehaviorOnMovement() {
         chargeTask.start();
         Vector2 initialPosition = new Vector2(chargingEntity.getPosition());

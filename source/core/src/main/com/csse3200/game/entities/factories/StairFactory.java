@@ -1,6 +1,7 @@
 package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -51,6 +52,7 @@ public class StairFactory {
      */
     public static Entity createBaseStair() {
         return new Entity()
+                .addComponent(new NameComponent("stairs to next level"))
                 .addComponent(new TextureRenderComponent("images/staircase.png"))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));

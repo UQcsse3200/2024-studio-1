@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
@@ -209,6 +210,8 @@ public abstract class BaseRoom implements Room {
      * This includes doors and items, and clears the respective lists.
      */
     public void removeRoom() {
+        List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
+        logger.info("Removing room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
         for (Entity data : doors) {
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         }
@@ -231,7 +234,9 @@ public abstract class BaseRoom implements Room {
         // Background terrain
         TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1, isBossRoom);
         area.setTerrain(terrain);
-        area.spawnEntity(new Entity().addComponent(terrain));
+        area.spawnEntity(new Entity()
+                .addComponent(terrain)
+                .addComponent(new NameComponent("terrain")));
         // Terrain walls
         float tileSize = terrain.getTileSize();
         GridPoint2 tileBounds = terrain.getMapBounds(0);
@@ -310,13 +315,8 @@ public abstract class BaseRoom implements Room {
     protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
         item.getEvents().addListener("pickedUp", () -> {
-            for (Entity curItem : this.items) {
-                if (curItem != item) {
-                    ServiceLocator.getEntityService().unregister(curItem);
-                    ServiceLocator.getEntityService().markEntityForRemoval(curItem);
-                }
-            }
-            this.items.clear();
+            ServiceLocator.getEntityService().markEntityForRemoval(item);
+            this.items.remove(item);
         });
         this.items.add(item);
         area.spawnEntityAt(item, pos, true, true);
@@ -353,9 +353,7 @@ public abstract class BaseRoom implements Room {
             enemy.getEvents().addListener("checkAnimalsDead", () -> {
                 if (this.isAllAnimalDead()) {
                     this.isRoomCompleted = true;
-                    
                 }
-                
             });
             this.spawnItems();
         }

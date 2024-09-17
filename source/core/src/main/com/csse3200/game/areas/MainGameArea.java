@@ -1,6 +1,7 @@
 package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.files.UserSettings;
@@ -96,24 +97,18 @@ public class MainGameArea extends GameArea {
         if (!spawnRoom) {
             return;
         }
-        logger.info("spawning: new room");
+        var entityNames = ServiceLocator.getEntityService().getEntityNames();
+        logger.info("Spawning new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
         if (currentLevel.roomTraversals == 8 ) {
             this.currentRoom = currentLevel.getRoom("BOSS");
         }
         this.currentRoom.spawn(player, this);
-        logger.info("spawned: new room");
-        logger.info("spawning: player");
 
-        // int player_x = (int) (15 - player.getPosition().x);
-        // int player_y = (int) (9 - player.getPosition().y);
-
-
-        int player_x = 7;
-        int player_y = 5;
-
-        player.setPosition(player_x, player_y);
+        player.setPosition(7, 5);
         spawnEntity(player);
-        logger.info("spawned: player");
+
+        entityNames = ServiceLocator.getEntityService().getEntityNames();
+        logger.info("Spawned new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
         spawnRoom = false;
     }
 
@@ -130,6 +125,7 @@ public class MainGameArea extends GameArea {
     private void displayUI() {
         Entity ui = new Entity();
         ui.addComponent(new GameAreaDisplay("BEAST BREAKOUT FACILITY"));
+        ui.addComponent(new NameComponent("Main Game Area UI"));
         spawnEntity(ui);
     }
 

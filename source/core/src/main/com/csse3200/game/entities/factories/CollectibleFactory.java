@@ -1,6 +1,7 @@
 package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
@@ -47,19 +48,16 @@ public class CollectibleFactory extends LoadedFactory {
      */
     public Entity createCollectibleEntity(String specification, Collectible collectible) {
         Entity collectibleEntity = new Entity()
+                .addComponent(new NameComponent("Collectible: " + collectible.getName()))
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new CollectibleHitboxComponent())
                 .addComponent(new PhysicsComponent());
 
         Texture texture = collectible.getIcon();
-        if (specification.contains("mystery")) {
-            if (collectible.getMysteryIcon() != null) {
-                texture = collectible.getMysteryIcon();
-            }
-            collectibleEntity.addComponent(new TextureRenderComponent(texture));
-        } else {
-            collectibleEntity.addComponent(new TextureRenderComponent(texture));
+        if (specification.contains("mystery") && collectible.getMysteryIcon() != null) {
+            texture = collectible.getMysteryIcon();
         }
+        collectibleEntity.addComponent(new TextureRenderComponent(texture));
 
         collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();
         return collectibleEntity;
@@ -73,7 +71,12 @@ public class CollectibleFactory extends LoadedFactory {
      */
     public Entity createCollectibleEntity(String specification) {
         Collectible collectible = create(specification);
-        return createCollectibleEntity(specification, collectible);
+
+        return switch (collectible.getType()) {
+            case MELEE_WEAPON, RANGED_WEAPON -> weaponFactory.createWeaponEntity(collectible);
+            case ITEM, BUFF_ITEM -> createCollectibleEntity(specification, collectible);
+            default -> throw new IllegalStateException("Unexpected type: " + collectible.getType());
+        };
     }
 }
 

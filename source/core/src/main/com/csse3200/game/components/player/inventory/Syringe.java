@@ -78,5 +78,6 @@ public class Syringe extends BuffItem {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         combatStats.addHealth(syringeBoost);
     }
+
 }
 

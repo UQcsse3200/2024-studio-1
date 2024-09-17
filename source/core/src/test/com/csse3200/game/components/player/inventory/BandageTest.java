@@ -47,29 +47,29 @@ public class BandageTest {
         assertEquals("item:bandage", bandage.getSpecification());
     }
 
-//    @Test
-//    public void testGetIcon() {
-//        // Test getIcon method
-//        Texture icon = bandage.getIcon();
-//        assertNotNull(icon,"icon should not be null");
-//
-//        // Ensure the correct path is used
-//        assertEquals("images/items/bandage.png", icon.toString());
-//    }
-
     @Test
     public void testApplyIncreasesHealth() {
         // Initialize initial health and expected health
-        int initialHealth = 50;
-        int expectedHealth = initialHealth + 20;
+        int initialHealth = 90;
+        int expectedHealth = 100; // Health should cap at 100
 
-        // Setup the getHealth method to return initial health
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
 
-        // Apply the bandage
         bandage.apply(entity);
 
-        // Verify that addHealth was called with the correct amount
-        verify(combatStatsComponent).addHealth(20);
+        verify(combatStatsComponent).setHealth(expectedHealth);
+    }
+
+    @Test
+    public void testApplyIncreasesHealthFromZero() {
+        // Initialize initial health as 0 and expected health after applying Medkit
+        int initialHealth = 0;
+        int expectedHealth = 20;
+
+        when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
+
+        bandage.apply(entity);
+
+        verify(combatStatsComponent).setHealth(expectedHealth);
     }
 }

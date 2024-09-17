@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.ui.UIComponent;
@@ -63,7 +64,8 @@ public class PlayerInventoryDisplay extends UIComponent {
         inventoryTable = new Table();
         inventoryTable.bottom();
         inventoryTable.setFillParent(true);
-        inventoryTable.padTop(50f).padLeft(5f);
+        //inventoryTable.align(Align.bottom);
+        //inventoryTable.padTop(50f).padLeft(5f);
         setHeading();
         addItems();
     }
@@ -157,6 +159,22 @@ public class PlayerInventoryDisplay extends UIComponent {
 
     @Override
     public void draw(SpriteBatch batch) {
+
+        batch.end();
+
+        // temporarily estimated the dimensions for the box through trial and error
+        float x = 500f;
+        float y = 17f;
+        float width = 1000f;
+        float height = 55f;
+
+        // Draw the white background box just behind the inventory items
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.LIGHT_GRAY);
+        shapeRenderer.rect(x , y,  width, height );
+        shapeRenderer.end();
+
+        batch.begin();
 
 
     }

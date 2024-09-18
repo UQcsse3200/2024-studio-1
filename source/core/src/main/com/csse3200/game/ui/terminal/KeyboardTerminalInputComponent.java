@@ -3,6 +3,7 @@ package com.csse3200.game.ui.terminal;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.csse3200.game.input.InputComponent;
+import com.csse3200.game.components.maingame.MainGameExitDisplay;
 
 /**
  * Input handler for the debug terminal for keyboard and touch (mouse) input.
@@ -13,7 +14,9 @@ import com.csse3200.game.input.InputComponent;
  */
 public class KeyboardTerminalInputComponent extends InputComponent {
   private static final int TOGGLE_OPEN_KEY = Input.Keys.F1;
+  private static final int TOGGLE_PAUSE = Input.Keys.ESCAPE;
   private Terminal terminal;
+  private MainGameExitDisplay mainGameExitDisplay;
 
   public KeyboardTerminalInputComponent() {
     super(10);
@@ -29,6 +32,7 @@ public class KeyboardTerminalInputComponent extends InputComponent {
   public void create() {
     super.create();
     terminal = entity.getComponent(Terminal.class);
+    mainGameExitDisplay = entity.getComponent(MainGameExitDisplay.class);
   }
 
   /**
@@ -74,7 +78,7 @@ public class KeyboardTerminalInputComponent extends InputComponent {
       }
       terminal.setEnteredMessage("");
       return true;
-    } else if(Character.isLetterOrDigit(character) || character == ' ') {
+    } else if(Character.isLetterOrDigit(character) || character == ' ' || character == '_') {
       // append character to message
       terminal.appendToMessage(character);
       return true;
@@ -92,6 +96,10 @@ public class KeyboardTerminalInputComponent extends InputComponent {
    */
   @Override
   public boolean keyUp(int keycode) {
+    if (keycode == TOGGLE_PAUSE) {
+      mainGameExitDisplay.pauseGame();
+      return true;
+    }
     return terminal.isOpen();
   }
 }

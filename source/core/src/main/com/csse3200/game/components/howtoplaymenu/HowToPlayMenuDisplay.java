@@ -8,23 +8,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.files.UserSettings;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Display for the how to play screen e.g. labels for game description.
+ */
 public class HowToPlayMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(HowToPlayMenuDisplay.class);
     private final GdxGame game;
 
     private Table rootTable;
-    private TextField fpsText;
-    private CheckBox fullScreenCheck;
-    private CheckBox vsyncCheck;
-    private Slider uiScaleSlider;
-    private SelectBox<StringDecorator<Graphics.DisplayMode>> displayModeSelect;
 
     public HowToPlayMenuDisplay(GdxGame game) {
         super();
@@ -57,7 +53,7 @@ public class HowToPlayMenuDisplay extends UIComponent {
     }
 
     private Table makeHowToPlayTable() {
-        Label instruction = new Label("Instructions: ", skin);
+        Label instruction = new Label("User Guide: ", skin);
 
         String[][] paragraphs = {{
                 "Beast Breakout is a top-down dungeon crawler game, presented using "
@@ -81,6 +77,26 @@ public class HowToPlayMenuDisplay extends UIComponent {
                         + "must defeat before continuing to the next level."
             }
         };
+        TextButton animalBtn = new TextButton("About Animals", skin);
+
+        animalBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Animals button clicked");
+                        animalMenu();
+                    }
+                });
+        TextButton weaponBtn = new TextButton("About Weapons", skin);
+
+        weaponBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Weapons button clicked");
+                        weaponMenu();
+                    }
+                });
 
         // Position components on the table
         Table table = new Table();
@@ -98,6 +114,10 @@ public class HowToPlayMenuDisplay extends UIComponent {
                 table.row().padTop(lastLine ? 40f : 10f);
             }
         }
+        table.add(animalBtn).left().expandX();
+        table.row().padTop(10f);
+        table.add(weaponBtn).left().expandX();
+
 
         // todo look into word wrap so we don't need this many labels
 
@@ -150,23 +170,14 @@ public class HowToPlayMenuDisplay extends UIComponent {
         return table;
     }
 
-    private void applyChanges() {
-        UserSettings.Settings settings = UserSettings.get();
-
-        Integer fpsVal = parseOrNull(fpsText.getText());
-        if (fpsVal != null) {
-            settings.fps = fpsVal;
-        }
-        settings.fullscreen = fullScreenCheck.isChecked();
-        settings.uiScale = uiScaleSlider.getValue();
-        settings.displayMode = new UserSettings.DisplaySettings(displayModeSelect.getSelected().object);
-        settings.vsync = vsyncCheck.isChecked();
-
-        UserSettings.set(settings, true);
-    }
-
     private void exitMenu() {
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    }
+    private void animalMenu() {
+        game.setScreen(GdxGame.ScreenType.ANIMALS);
+    }
+    private void weaponMenu() {
+        game.setScreen(GdxGame.ScreenType.WEAPONS);
     }
 
     private Integer parseOrNull(String num) {
@@ -180,11 +191,6 @@ public class HowToPlayMenuDisplay extends UIComponent {
     @Override
     protected void draw(SpriteBatch batch) {
         // draw is handled by the stage
-    }
-
-    @Override
-    public void update() {
-        stage.act(ServiceLocator.getTimeSource().getDeltaTime());
     }
 
     @Override

@@ -1,105 +1,48 @@
 package com.csse3200.game.screens;
 
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.components.mainmenu.MainMenuActions;
 import com.csse3200.game.components.mainmenu.MainMenuDisplay;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.factories.RenderFactory;
 import com.csse3200.game.input.InputDecorator;
-import com.csse3200.game.input.InputService;
-import com.csse3200.game.rendering.RenderService;
-import com.csse3200.game.rendering.Renderer;
-import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * The game screen containing the main menu.
  */
-public class MainMenuScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
-    private static final String[] mainMenuTextures = {"images/box_boy_title.png", "images/bg_logo.png"};
-    private final GdxGame game;
-    private final Renderer renderer;
+public class MainMenuScreen extends StaticScreen {
 
+    private static final String[] mainMenuTextures = {
+            "images/box_boy_title.png", "images/bg_logo.png"
+    };
+    private MainMenuDisplay mainMenuDisplay;
+
+    /**
+     * Make the screen.
+     * @param game the overarching game.
+     */
     public MainMenuScreen(GdxGame game) {
-        this.game = game;
-
-        logger.debug("Initialising main menu screen services");
-        ServiceLocator.registerInputService(new InputService());
-        ServiceLocator.registerResourceService(new ResourceService());
-        ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerRenderService(new RenderService());
-
-        renderer = RenderFactory.createRenderer();
-
-        loadAssets();
-        createUI();
-    }
-
-    @Override
-    public void render(float delta) {
-        ServiceLocator.getEntityService().update();
-        renderer.render();
+        super(game, mainMenuTextures, getLogger(MainMenuScreen.class), DEFAULT);
     }
 
     @Override
     public void resize(int width, int height) {
-        renderer.resize(width, height);
-        logger.trace("Resized renderer: ({} x {})", width, height);
+        mainMenuDisplay.resize(width, height);
+        super.resize(width, height);
     }
 
     @Override
-    public void pause() {
-        logger.info("Game paused");
-    }
-
-    @Override
-    public void resume() {
-        logger.info("Game resumed");
-    }
-
-    @Override
-    public void dispose() {
-        logger.debug("Disposing main menu screen");
-
-        renderer.dispose();
-        unloadAssets();
-        ServiceLocator.getRenderService().dispose();
-        ServiceLocator.getEntityService().dispose();
-
-        ServiceLocator.clear();
-    }
-
-    private void loadAssets() {
-        logger.debug("Loading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(mainMenuTextures);
-        ServiceLocator.getResourceService().loadAll();
-    }
-
-    private void unloadAssets() {
-        logger.debug("Unloading assets");
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(mainMenuTextures);
-    }
-
-    /**
-     * Creates the main menu's ui including components for rendering ui elements to the screen and
-     * capturing and handling ui input.
-     */
-    private void createUI() {
-        logger.debug("Creating ui");
+    protected Entity getUI() {
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new MainMenuDisplay())
+        mainMenuDisplay = new MainMenuDisplay();
+        ui.addComponent(mainMenuDisplay)
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new MainMenuActions(game));
-        ServiceLocator.getEntityService().register(ui);
+        return ui;
     }
 }

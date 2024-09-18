@@ -21,6 +21,11 @@ public class MedKit extends UsableItem {
         super.pickup(inventory);
     }
 
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        super.pickup(inventory);
+    }
+
+
 
     @Override
     public String getItemSpecification() {
@@ -34,6 +39,8 @@ public class MedKit extends UsableItem {
      */
     @Override
     public void drop(Inventory inventory) {
+        super.drop(inventory);
+
     }
 
     /**
@@ -54,6 +61,15 @@ public class MedKit extends UsableItem {
     @Override
     public Texture getIcon() {
         return new Texture("images/items/med_kit.png");
+    }
+
+    /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_green.png");
     }
 
     /**

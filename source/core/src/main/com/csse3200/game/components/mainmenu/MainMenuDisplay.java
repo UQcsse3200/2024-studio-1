@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.options.GameOptions.Difficulty;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -35,6 +34,8 @@ public class MainMenuDisplay extends UIComponent {
      */
     private Table diffBtnsTable;
 
+    private Image bg_logo;
+
     @Override
     public void create() {
         super.create();
@@ -51,7 +52,7 @@ public class MainMenuDisplay extends UIComponent {
                         "images/box_boy_title.png", Texture.class
                 )
         );
-        Image bg_logo =
+        bg_logo =
             new Image(
                 ServiceLocator.getResourceService()
                     .getAsset("images/bg_logo.png", Texture.class));
@@ -71,26 +72,19 @@ public class MainMenuDisplay extends UIComponent {
         if (settings.displayMode == null) {
             settings.displayMode = new UserSettings.DisplaySettings(Gdx.graphics.getDisplayMode());
         }
-        bg_logo.setSize(settings.displayMode.width, settings.displayMode.height);
+
+        bg_logo.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         bg_logo.setPosition(0, 0);
 
         // Triggers an event when the button is pressed
-        startBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Start button clicked");
-                        entity.getEvents().trigger("start");
-                    }
-                });
 
         difficultyBtns.forEach((difficulty, btn) -> btn.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        GameOptions options = new GameOptions(difficulty);
                         logger.debug("{} difficulty button clicked", difficulty.toString());
-                        entity.getEvents().trigger("start", options);
+                        ServiceLocator.getResourceService().loadAll();
+                        entity.getEvents().trigger("player_select", difficulty);
                     }
                 }
         ));
@@ -131,8 +125,6 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
-        /*table.add(title);
-        table.row();*/
         table.add(startBtn).padTop(BTN_SPACING * 2);
         table.row();
         for (TextButton btn : difficultyBtns.values()) {
@@ -169,4 +161,7 @@ public class MainMenuDisplay extends UIComponent {
         super.dispose();
     }
 
+    public void resize(int width, int height) {
+        bg_logo.setSize(width, height);
+    }
 }

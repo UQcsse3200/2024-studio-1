@@ -43,6 +43,11 @@ public class PlayerFactory extends LoadedFactory {
         return loader.createPlayer(config);
     }
 
+    /**
+     * Create a player.
+     * @param player the name of the player (name attribute).
+     * @return the player entity.
+     */
     public Entity createPlayer(String player) {
         LoadPlayer loader = new LoadPlayer();
         PlayerConfig config = options.get(player);

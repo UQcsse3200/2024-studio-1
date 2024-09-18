@@ -24,6 +24,7 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.nio.file.*;
 
 /**
  * Factory for producing entities with a projectile themed component configuration.
@@ -31,10 +32,16 @@ import org.slf4j.LoggerFactory;
 public class ProjectileFactory extends LoadedFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(ProjectileFactory.class);
-    private static final ProjectileConfigs configs = loadConfigs();
+    //private static final ProjectileConfigs configs = loadConfigs();
 
     public static ProjectileConfigs loadConfigs() {
-        ProjectileConfigs configs = FileLoader.readClass(ProjectileConfigs.class, "configs/projectiles.json");
+        Path path = Paths.get("configs/projectiles.json");
+        ProjectileConfigs configs;
+        if (Files.exists(path)) {
+            configs = FileLoader.readClass(ProjectileConfigs.class, "configs/projectiles.json");
+        } else {
+            configs = new ProjectileConfigs();
+        }
         return configs;
     }
 
@@ -67,6 +74,7 @@ public class ProjectileFactory extends LoadedFactory {
     }
 
     public Entity createDragonProjectile(Vector2 direction, Vector2 parentPosition) {
+        ProjectileConfigs configs = loadConfigs();
         ProjectileConfigs.BaseProjectileConfig config = configs.dragonProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
         animator.addAnimation("fire_attack_left", 0.1f, Animation.PlayMode.LOOP);

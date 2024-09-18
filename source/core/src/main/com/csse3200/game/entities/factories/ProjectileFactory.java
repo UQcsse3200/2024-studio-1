@@ -9,6 +9,7 @@ import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.components.projectile.ProjectileActions;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
+import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
@@ -49,7 +50,7 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
                         .addComponent(new ColliderComponent())
-                        .addComponent(new HitboxComponent().setLayer(stats.Layer))
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
                         .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
                         .addComponent(new ProjectileActions())

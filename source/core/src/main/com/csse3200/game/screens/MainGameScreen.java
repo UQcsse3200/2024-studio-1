@@ -125,7 +125,6 @@ public class MainGameScreen extends ScreenAdapter {
          * based on the characters selected, changed the link
          * If Player choose Load, then create
          */
-        // todo confirm which players should be passed into PlayerFactory
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         Entity player = playerFactory.createPlayer(
                 FileLoader.readClass(PlayerConfig.class, chosenPlayer).name);

@@ -5,18 +5,20 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
+import com.csse3200.game.actors.StatBar;
 import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -27,8 +29,10 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(PlayerSelectDisplay.class);
     private static final float Z_INDEX = 2f;
     private final GdxGame game;
-    private Table table;
-    private static final float X_PADDING = 10f;
+    private Table rootTable;
+    private static final float ROOT_PADDING = 10f;
+    private static final float STAT_TABLE_PADDING = 2f;
+    private static final float BAR_HEIGHT = 20;
 
     /**
      * Make the component.
@@ -49,22 +53,32 @@ public class PlayerSelectDisplay extends UIComponent {
      * Populate the stage with player images and buttons to select them.
      */
     private void addActors() {
-        table = new Table();
-        table.setFillParent(true);
+        rootTable = new Table();
+        rootTable.setFillParent(true);
+        rootTable.defaults().pad(ROOT_PADDING);
 
         Map<String, PlayerConfig> configs =
-                PlayerSelection.getPlayerConfigs(List.of(PlayerSelection.PLAYERS));
+                PlayerSelection.getPlayerConfigs(Arrays.stream(PlayerSelection.PLAYERS).toList());
 
         // Add images for each player
         configs.forEach((filename, config) -> {
             TextureRegion idleTexture = new TextureAtlas(config.textureAtlasFilename)
                     .findRegion("idle");
             Image playerImage = new Image(idleTexture);
-            table.add(playerImage).padLeft(X_PADDING).padRight(X_PADDING);
+            rootTable.add(playerImage);
+        });
+
+        // Add stat bars
+        rootTable.row().fill().uniform();
+        configs.forEach((filename, config) -> {
+            Table statTable = new Table();
+            statTable.defaults().pad(STAT_TABLE_PADDING);
+            addStat(statTable, "HLTH", (float) config.health / PlayerConfig.MAX_HEALTH);
+            rootTable.add(statTable);
         });
 
         // Add buttons to choose each player
-        table.row();
+        rootTable.row().fillX();
         configs.forEach((filename, config) -> {
             TextButton button = new TextButton("Choose %s".formatted(config.name), skin, "action");
             button.addListener(new ChangeListener() {
@@ -74,10 +88,26 @@ public class PlayerSelectDisplay extends UIComponent {
                     playerSelected(filename);
                 }
             });
-            table.add(button).padLeft(X_PADDING).padRight(X_PADDING);
+            rootTable.add(button);
         });
 
-        stage.addActor(table);
+        stage.addActor(rootTable);
+    }
+
+    /**
+     * Add a row in the stat table (has stat name and stat bar).
+     * @param table The stat table to add the stat to.
+     * @param name The name of the stat (short and capitalised).
+     * @param proportion The proportion of the max value (shown on the bar).
+     */
+    private void addStat(Table table, String name, float proportion) {
+        Label statName = new Label(name, skin);
+        table.add(statName).pad(STAT_TABLE_PADDING);
+
+        StatBar statBar = new StatBar(proportion);
+        table.add(statBar).pad(STAT_TABLE_PADDING).expandX().fillX().height(BAR_HEIGHT);
+
+        table.row();
     }
 
     private void playerSelected(String filename) {
@@ -88,7 +118,7 @@ public class PlayerSelectDisplay extends UIComponent {
 
     @Override
     public void dispose() {
-        table.clear();
+        rootTable.clear();
         super.dispose();
     }
 

@@ -26,6 +26,8 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String textureFilename;
   /** The texture atlas this player uses*/
   public String textureAtlasFilename;
+  /** The highest possible initial health a player can have. */
+  public static final int MAX_HEALTH = 100;
 
   /**
    * Checks if two players are the same based on their attributes

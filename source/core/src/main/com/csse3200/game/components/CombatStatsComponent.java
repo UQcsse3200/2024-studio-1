@@ -1,8 +1,10 @@
 package com.csse3200.game.components;
 
+import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.csse3200.game.ai.tasks.AITaskComponent;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -180,19 +182,6 @@ public class CombatStatsComponent extends Component {
     }
 
     /**
-     * Applies damage to the entity by reducing its health. If health drops to 0, triggers a "died" event.
-     *
-     * @param damage The amount of damage to apply to the entity.
-     */
-    public void takeDamage(int damage) {
-        health = Math.max(0, health - damage);
-        entity.getEvents().trigger("healthChanged", health);
-        if (health == 0) {
-            entity.getEvents().trigger("died");
-        }
-    }
-
-    /**
      * Returns the entity's maximum health.
      *
      * @return maximum health
@@ -212,6 +201,11 @@ public class CombatStatsComponent extends Component {
         if (getIsInvincible()) {
             return;
         }
+        ShieldComponent shield = entity.getComponent(ShieldComponent.class);
+        if (shield != null && shield.isActive()) {
+            entity.getEvents().trigger("hit");
+            return;
+        }
 
         if (getCanBeInvincible()) {
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
@@ -226,7 +220,9 @@ public class CombatStatsComponent extends Component {
         } else {
             int newHealth = getHealth() - (attacker.getBaseAttack() + attacker.buff);
             setHealth(newHealth);
+            //add animationcontroller
             if (health <= 0) {
+                entity.getEvents().trigger("death");
                 entity.getEvents().trigger("died");
                 entity.getEvents().trigger("checkAnimalsDead");
             }

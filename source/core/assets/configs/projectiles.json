@@ -1,0 +1,17 @@
+{
+  "dragonProjectile": {
+    "health": 0,
+    "baseAttack": 5,
+    "isDirectional": true,
+    "speed": {
+      "x": 10,
+      "y": 10
+    },
+    "Layer": 2,
+    "scaleX": 0.5,
+    "scaleY": 0.5,
+    "animations": [
+      {"name": "fire_attack", "frameDuration": 0.1, "playMode": "LOOP"}
+    ]
+  }
+}

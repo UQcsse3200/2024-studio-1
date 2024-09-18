@@ -3,12 +3,17 @@ package com.csse3200.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
+import com.csse3200.game.components.projectile.ProjectileAnimationController;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.components.projectile.ProjectileActions;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
+import com.csse3200.game.entities.configs.ProjectileConfigs;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -26,10 +31,85 @@ import org.slf4j.LoggerFactory;
 public class ProjectileFactory extends LoadedFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(ProjectileFactory.class);
+    private static final ProjectileConfigs configs = loadConfigs();
+
+    public static ProjectileConfigs loadConfigs() {
+        ProjectileConfigs configs = FileLoader.readClass(ProjectileConfigs.class, "configs/projectiles.json");
+        return configs;
+    }
+
     public ProjectileFactory() {
         super(logger);
     }
 
+    /**
+     * Helper method to create an AnimationRenderComponent for an NPC.
+     *
+     * @param atlasPath The path to the texture atlas for the NPC
+     * @param animations An array of animations for the NPC
+     * @return The created AnimationRenderComponent
+     */
+    private static AnimationRenderComponent createAnimator(String atlasPath,
+                                                           ProjectileConfigs.BaseProjectileConfig.ProjectileAnimations[] animations) {
+        AnimationRenderComponent animator = new AnimationRenderComponent(
+                ServiceLocator.getResourceService().getAsset(atlasPath, TextureAtlas.class));
+        for (ProjectileConfigs.BaseProjectileConfig.ProjectileAnimations animation : animations) {
+            animator.addAnimation(animation.name, animation.frameDuration, animation.playMode);
+        }
+        return animator;
+    }
+
+    public Entity create(String specification, Vector2 direction, Vector2 parentPosition) {
+        return switch (specification) {
+            case "dragonProjectile" -> this.createDragonProjectile(direction, parentPosition);
+            default -> throw new IllegalArgumentException("Unknown animal: " + specification);
+        };
+    }
+
+    public Entity createDragonProjectile(Vector2 direction, Vector2 parentPosition) {
+        ProjectileConfigs.BaseProjectileConfig config = configs.dragonProjectile;
+        AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
+        animator.addAnimation("fire_attack_left", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("fire_attack_right", 0.1f, Animation.PlayMode.LOOP);
+        Entity dragonProjectile = createProjectile("Dragon Projectile", config, direction,
+                parentPosition, animator);
+
+        return dragonProjectile;
+    }
+
+    /**
+     * Makes a new Entity with projectile components.
+     *
+     * @param stats     Contains all the re-usable projectile configurations. See ProjectileConfig.
+     * @param direction Direction of shot projectile.
+     */
+    public Entity createProjectile(String name, ProjectileConfigs.BaseProjectileConfig stats,
+                                   Vector2 direction, Vector2 parentPosition,
+                                   AnimationRenderComponent animator) {
+
+        Entity projectile =
+                new Entity()
+                        .addComponent(new NameComponent(name))
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new PhysicsMovementComponent())
+                        .addComponent(new ColliderComponent())
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
+                        .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
+                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
+                        .addComponent(new DirectionalNPCComponent(stats.isDirectional))
+                        .addComponent(new ProjectileActions())
+                        .addComponent(new ProjectileAnimationController())
+                        .addComponent(animator);
+
+        projectile.getComponent(AnimationRenderComponent.class).startAnimation("Shoot");
+        projectile.getComponent(ColliderComponent.class).setSensor(true);
+        PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
+        projectile.setScale(stats.scaleX, stats.scaleY);
+        projectile.getComponent(ColliderComponent.class).setDensity(1.5f);
+
+
+        return projectile;
+    }
 
     /**
      * Makes a new Entity with projectile components.
@@ -71,6 +151,7 @@ public class ProjectileFactory extends LoadedFactory {
     protected String[] getTextureAtlasFilepaths() {
         return new String[] {
                 "images/Projectiles/GreenShoot.atlas",
+                "images/npc/dragon/dragon.atlas"
         };
     }
 
@@ -78,8 +159,11 @@ public class ProjectileFactory extends LoadedFactory {
     protected String[] getTextureFilepaths() {
         return new String[]{
                 "images/Projectiles/GreenShoot.png",
+                "images/npc/dragon/dragon.png"
         };
     }
+
+
 }
 
 

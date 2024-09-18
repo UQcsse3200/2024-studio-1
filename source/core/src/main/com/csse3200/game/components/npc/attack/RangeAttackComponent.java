@@ -93,7 +93,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param direction The direction to shoot at
      */
     private void singleShoot(Vector2 direction) {
-        Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, entity.getPosition());
+        Entity projectile = projectileFactory.create("dragonProjectile", direction, entity.getPosition());
         projectile.getComponent(com.csse3200.game.components.projectile.ProjectileAttackComponent.class).create();
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9),
                 true, true);

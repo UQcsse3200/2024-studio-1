@@ -340,10 +340,6 @@ public abstract class BaseRoom implements Room {
      */
     protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
-        item.getEvents().addListener("pickedUp", () -> {
-            ServiceLocator.getEntityService().markEntityForRemoval(item);
-            this.items.remove(item);
-        });
         this.items.add(item);
         area.spawnEntityAt(item, pos, true, true);
     }

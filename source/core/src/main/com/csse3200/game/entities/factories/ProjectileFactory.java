@@ -42,7 +42,7 @@ public class ProjectileFactory extends LoadedFactory {
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
                         ServiceLocator.getResourceService().getAsset(stats.projectileAtlasPath, TextureAtlas.class));
-        animator.addAnimation("GreenShoot", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("Shoot", 0.1f, Animation.PlayMode.LOOP);
 
         Entity projectile =
                 new Entity()
@@ -56,6 +56,7 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new ProjectileActions())
                         .addComponent(animator);
 
+        projectile.getComponent(AnimationRenderComponent.class).startAnimation("Shoot");
         projectile.getComponent(ColliderComponent.class).setSensor(true);
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
         projectile.setScale(stats.scaleX, stats.scaleY);
@@ -64,6 +65,7 @@ public class ProjectileFactory extends LoadedFactory {
 
         return projectile;
     }
+
 
     @Override
     protected String[] getTextureAtlasFilepaths() {

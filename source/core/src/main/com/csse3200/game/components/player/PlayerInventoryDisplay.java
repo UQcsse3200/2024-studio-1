@@ -102,14 +102,14 @@ public class PlayerInventoryDisplay extends UIComponent {
     private void addItem(String itemName, Texture itemIcon) {
         // initialise the image, the name and the quantity as Label
         Image icon = new Image(itemIcon);
-        Label nameLabel = new Label(itemName, skin, "small");
-        nameLabel.setColor(Color.WHITE);
+        //Label nameLabel = new Label(itemName, skin, "small");
+        //nameLabel.setColor(Color.WHITE);
         Label quantityLabel = new Label(" x0", skin, "small");
         quantityLabel.setColor(Color.WHITE);
 
 
         inventoryTable.add(icon).bottom().left();
-        inventoryTable.add(nameLabel).left();
+        //inventoryTable.add(nameLabel).left();
         inventoryTable.add(quantityLabel).left().padRight(60f);
         // inventoryTable.row();
 

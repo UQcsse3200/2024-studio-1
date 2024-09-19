@@ -75,10 +75,6 @@ changeLevel(0);
         return currentRoom;
     }
 
-    public void getCurrentRoomName() {
-        this.currentRoomName = this.currentRoom.getRoomName();
-    }
-
     public void exportPosition() {
         FileLoader.writeClass(currentRoomName, "./playerRoom.json");
     }

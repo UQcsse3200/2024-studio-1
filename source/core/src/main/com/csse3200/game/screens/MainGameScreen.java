@@ -135,10 +135,12 @@ public class MainGameScreen extends ScreenAdapter {
 
         logger.debug("Initialising main game screen entities");
         MainGameLevelFactory levelFactory = new MainGameLevelFactory();
+
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
-            new MainGameArea(levelFactory, player);
+            MainGameArea area = new MainGameArea(levelFactory, player);
+            area.exportPosition();
         }
         levelFactory.exportToJson("./dummy.json");
     }

@@ -50,8 +50,9 @@ public class BossRoom extends BaseRoom {
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
                     List<String> roomConnections,
-                    String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
+                    String specification,
+                    String roomName) {
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification, roomName);
     }
 
     @Override

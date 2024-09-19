@@ -35,6 +35,7 @@ public abstract class BaseRoom implements Room {
     private final DoorFactory doorFactory = new DoorFactory();
     private final TerrainFactory terrainFactory;
     private final List<String> roomConnections;
+    public String roomName = "";
     /**
      * The list of door entities in the room.
      */
@@ -125,7 +126,8 @@ public abstract class BaseRoom implements Room {
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
             List<String> roomConnections,
-            String specification) {
+            String specification,
+            String roomName) {
         this.npcFactory = npcFactory;
         this.collectibleFactory = collectibleFactory;
         this.terrainFactory = terrainFactory;
@@ -136,6 +138,7 @@ public abstract class BaseRoom implements Room {
         this.items = new ArrayList<>();
         this.animalSpecifications = getAnimalSpecifications();
         this.itemSpecifications = getItemSpecifications();
+        this.roomName = roomName;
 
         List<String> split = Arrays.stream(specification.split(",")).toList();
 
@@ -311,6 +314,10 @@ public abstract class BaseRoom implements Room {
      */
     public boolean getIsRoomComplete() {
         return this.isRoomCompleted;
+    }
+
+    public String getRoomName() {
+        return this.roomName;
     }
 
     /**

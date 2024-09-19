@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
@@ -29,6 +31,7 @@ public class MainGameArea extends GameArea {
     private Room currentRoom;
     private boolean spawnRoom = true;
     private final List<Room> roomsVisited = new ArrayList<>();
+    public String currentRoomName;
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -54,7 +57,7 @@ public class MainGameArea extends GameArea {
 
         displayUI();
 
-        changeLevel(0);
+changeLevel(0);
 
         playMusic();
     }
@@ -72,6 +75,14 @@ public class MainGameArea extends GameArea {
         return currentRoom;
     }
 
+    public void getCurrentRoomName() {
+        this.currentRoomName = this.currentRoom.getRoomName();
+    }
+
+    public void exportPosition() {
+        FileLoader.writeClass(currentRoomName, "./playerRoom.json");
+    }
+
     private void selectRoom(String roomKey) {
         logger.info("Changing to room: {}", roomKey);
         Room newRoom = this.currentLevel.getRoom(roomKey);
@@ -80,6 +91,8 @@ public class MainGameArea extends GameArea {
             return;
         }
         this.currentRoom = newRoom;
+        this.currentRoomName = this.currentRoom.getRoomName();
+
         this.spawnRoom = true;
     }
 

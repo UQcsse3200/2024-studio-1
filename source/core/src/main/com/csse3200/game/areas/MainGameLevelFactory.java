@@ -36,12 +36,12 @@ public class MainGameLevelFactory implements LevelFactory {
             int animalIndex = map.mapData.getRoomDetails().get(room_key).get("animal_index");
             rooms.put(room_key, roomFactory.createRoom(
                     map.mapData.getPositions().get(room_key),
-                    "0,0,14,10," + animalIndex + "," + itemIndex));
+                    "0,0,14,10," + animalIndex + "," + itemIndex, room_key));
         }
         //creating and adding a boss room instance into the Map containing the rooms for
         // the level
         rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
-                "0,0,14,10," + levelNumber + "," + levelNumber));
+                "0,0,14,10," + levelNumber + "," + levelNumber, "BOSS"));
         return new Level(map, levelNumber, rooms);
     }
     /**
@@ -51,11 +51,9 @@ public class MainGameLevelFactory implements LevelFactory {
      */
     public void exportToJson(String filePath) {
         FileLoader.writeClass(rooms, filePath);
-    }
 
+    }
     public int getCurrentLevel() {
         return levelNum;
     }
-
-
 }

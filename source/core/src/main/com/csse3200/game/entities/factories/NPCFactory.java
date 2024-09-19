@@ -275,7 +275,7 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler(target))
+            .addComponent(new NPCDeathHandler(target, config.baseAttack))
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController());
     if (config.attacks.melee != null) {

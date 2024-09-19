@@ -5,6 +5,7 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
@@ -25,9 +26,11 @@ public class NPCDeathHandler extends Component {
 
     private boolean isDead = false;
     private Entity target;
+    private int baseAttack;
 
-    public NPCDeathHandler(Entity target) {
+    public NPCDeathHandler(Entity target, int baseAttack) {
         this.target = target;
+        this.baseAttack = baseAttack;
     }
 
     public NPCDeathHandler() {
@@ -51,6 +54,7 @@ public class NPCDeathHandler extends Component {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());
+
             target.getEvents().trigger("collectCoin");
 
             // Disable physics and AI components to prevent further interaction

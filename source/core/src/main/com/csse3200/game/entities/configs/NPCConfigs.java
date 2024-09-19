@@ -6,19 +6,28 @@ import com.badlogic.gdx.graphics.g2d.Animation;
  * Defines all NPC configs to be loaded by the NPC Factory.
  */
 public class NPCConfigs {
-  public NPCConfig rat = new NPCConfig();
-  public NPCConfig bear = new NPCConfig();
-  public NPCConfig bat = new NPCConfig();
-  public NPCConfig dog = new NPCConfig();
-  public NPCConfig snake = new NPCConfig();
-  public NPCConfig dino = new NPCConfig();
-  public NPCConfig minotaur = new NPCConfig();
-  public NPCConfig werewolf = new NPCConfig();
-  public NPCConfig dragon = new NPCConfig();
-  public NPCConfig birdman = new NPCConfig();
-  public NPCConfig kitsune = new NPCConfig();
+  public NPCConfig rat = new NPCConfig(3);
+  public NPCConfig bear = new NPCConfig(6);
+  public NPCConfig bat = new NPCConfig(3);
+  public NPCConfig dog = new NPCConfig(3);
+  public NPCConfig snake = new NPCConfig(3);
+  public NPCConfig dino = new NPCConfig(6);
+  public NPCConfig minotaur = new NPCConfig(10);
+  public NPCConfig werewolf = new NPCConfig(9);
+  public NPCConfig dragon = new NPCConfig(9);
+  public NPCConfig birdman = new NPCConfig(9);
+  public NPCConfig kitsune = new NPCConfig(9);
 
   public static class NPCConfig extends BaseEntityConfig {
+    public NPCConfig(int baseAttack) {
+      this.baseAttack = baseAttack;
+    }
+    public int baseAttack;
+
+    public int getBaseAttack() {
+      return baseAttack;
+    }
+
     public TaskConfig tasks = new TaskConfig();
     public AttackConfig attacks = new AttackConfig();
     public AnimationData[] animations = new AnimationData[0];

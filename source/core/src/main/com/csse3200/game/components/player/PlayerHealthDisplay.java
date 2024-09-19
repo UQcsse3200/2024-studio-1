@@ -96,6 +96,7 @@ public class PlayerHealthDisplay extends UIComponent{
      */
     public void dispose() {
         super.dispose();
+//        shapeRenderer.dispose();
     }
 
 }

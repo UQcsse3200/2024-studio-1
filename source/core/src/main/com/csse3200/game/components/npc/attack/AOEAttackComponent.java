@@ -2,12 +2,17 @@ package com.csse3200.game.components.npc.attack;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.QueryCallback;
+import com.badlogic.gdx.physics.box2d.World;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.attack.attackeffects.Effect;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.entities.factories.EffectFactory;
+import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -29,6 +34,7 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
     private Vector2 origin;
     private List<Effect> effects;
     private Circle aoeCircle;
+    private PhysicsEngine physicsEngine;
 
     /**
      * Creates an AOE attack component.
@@ -47,6 +53,7 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
         this.origin = new Vector2();
         this.aoeCircle = new Circle(origin, radius);
         this.effects = createEffects(effectConfigs);
+        this.physicsEngine = ServiceLocator.getPhysicsService().getPhysics();
     }
 
     @Override
@@ -60,21 +67,15 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
 
     @Override
     public void performAttack() {
-        // For updating AOE circle position
         aoeCircle.setPosition(origin);
-
-        // Getting all entities within the AOE
         List<Entity> entitiesInRange = getEntitiesInRange();
 
         for (Entity target : entitiesInRange) {
             if (canAttack(entity, target)) {
-                // For applying damange
                 CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
                 if (targetStats != null) {
                     targetStats.addHealth((int) -damage);
                 }
-
-                // for applying effects
                 applyEffects(target);
             }
         }
@@ -82,7 +83,6 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
 
     @Override
     public boolean canAttack(Entity attacker, Entity target) {
-        // Checking if target is within the range or not
         PhysicsComponent targetPhysics = target.getComponent(PhysicsComponent.class);
         return targetPhysics != null && aoeCircle.contains(targetPhysics.getBody().getPosition());
     }
@@ -114,8 +114,32 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
     }
 
     private List<Entity> getEntitiesInRange() {
+        List<Entity> entitiesInRange = new ArrayList<>();
+        World physicsWorld = physicsEngine.getWorld();
 
-        return new ArrayList<>(); // Placeholder
+        physicsWorld.QueryAABB(
+                new QueryCallback() {
+                    @Override
+                    public boolean reportFixture(Fixture fixture) {
+                        Body body = fixture.getBody();
+                        Object userData = body.getUserData();
+                        if (userData instanceof Entity) {
+                            Entity entity = (Entity) userData;
+                            if (entity != AOEAttackComponent.this.entity) {
+                                Vector2 entityPosition = body.getPosition();
+                                if (aoeCircle.contains(entityPosition)) {
+                                    entitiesInRange.add(entity);
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                },
+                origin.x - radius, origin.y - radius,
+                origin.x + radius, origin.y + radius
+        );
+
+        return entitiesInRange;
     }
 
     private List<Effect> createEffects(NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
@@ -127,5 +151,9 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
             }
         }
         return effects;
+    }
+
+    public float getRadius() {
+        return radius;
     }
 }

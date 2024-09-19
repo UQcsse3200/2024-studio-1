@@ -140,6 +140,17 @@
       "melee": {
         "range": 1.5,
         "rate": 1
+      },
+      "aoe": {
+        "radius": 2,
+        "damage": 15,
+        "rate": 0.5,
+        "effects": [
+          {
+            "type": "knockback",
+            "force": 3
+          }
+        ]
       }
     },
     "animations": [
@@ -152,7 +163,8 @@
       {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
       {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
       {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "aoe_attack", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
   "snake": {
@@ -425,6 +437,7 @@
       {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
       {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
       {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
+
     ]
   }
 }

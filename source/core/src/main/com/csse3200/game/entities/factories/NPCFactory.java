@@ -11,6 +11,7 @@ import com.csse3200.game.components.npc.NPCDeathHandler;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
+import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
@@ -110,7 +111,7 @@ public class NPCFactory extends LoadedFactory {
     AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
     Entity kitsune = createBaseNPC(target, aiComponent, config, animator);
 
-    return kitsune; 
+    return kitsune;
   }
 
 
@@ -273,7 +274,7 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler()) 
+            .addComponent(new NPCDeathHandler())
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController());
     if (config.attacks.melee != null) {
@@ -283,6 +284,9 @@ public class NPCFactory extends LoadedFactory {
     if (config.attacks.ranged != null) {
       npc.addComponent(new RangeAttackComponent(target, config.attacks.ranged.range, config.attacks.ranged.rate,
               config.attacks.ranged.type, config.attacks.ranged.effects));
+    }
+    if (config.attacks.aoe != null) {
+      npc.addComponent(new AOEAttackComponent(config.attacks.aoe.radius, config.attacks.aoe.damage, config.attacks.aoe.rate, config.attacks.aoe.effects));
     }
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();

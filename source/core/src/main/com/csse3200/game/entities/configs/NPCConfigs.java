@@ -78,6 +78,7 @@ public class NPCConfigs {
     public static class AttackConfig {
       public MeleeAttack melee = null;
       public RangeAttack ranged = null;
+      public AOEAttack aoe = null;  // New AOE attack configuration
 
       public static class MeleeAttack {
         public float range;
@@ -89,6 +90,13 @@ public class NPCConfigs {
         public float range;
         public float rate;
         public int type;
+        public EffectConfig[] effects = new EffectConfig[0];
+      }
+
+      public static class AOEAttack {
+        public float radius;
+        public float damage;
+        public float rate;
         public EffectConfig[] effects = new EffectConfig[0];
       }
     }

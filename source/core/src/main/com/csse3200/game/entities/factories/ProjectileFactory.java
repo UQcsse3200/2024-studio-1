@@ -73,7 +73,15 @@ public class ProjectileFactory extends LoadedFactory {
         return projectile;
     }
 
-    public void createShotGunProjectile (ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {
+    /**This projectile is a shotgun effect.
+     * Four total projectiles with spread of +-0.07 RAD and Lag speed of 90%.
+     * Shot in format:
+     *                         (+0.07)
+     *  gun(->)      (Lag)     (Norm)
+     *                         (-0.7)
+     * NOTE - Magic numbers should not be tested.
+     **/
+     public void createShotGunProjectile (ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {
         Double polarAngle = atan(direction.y / direction.x);
         float followSpeed = 0.9F;
         float scale = 1;

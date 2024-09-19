@@ -464,8 +464,7 @@ public class WeaponComponent extends Component {
                 // Shooting
                 this.setAmmo(-1);
 
-//                Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
-                projectileFactory.createShotGunProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
+                projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
                 logger.info("Ranged weapon shoot");
                 entity.getEvents().trigger("RANGED_ATTACK");
 

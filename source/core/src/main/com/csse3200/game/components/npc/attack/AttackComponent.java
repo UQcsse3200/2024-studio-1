@@ -54,6 +54,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     public void update() {
         super.update();
         if (target == null || entity == null || !canAttack(entity, target)) {
+            target.getComponent(CombatStatsComponent.class).notTouching(combatStats);
             return;
         }
 

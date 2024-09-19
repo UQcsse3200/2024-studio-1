@@ -1,5 +1,6 @@
 package com.csse3200.game.components;
 
+import com.badlogic.gdx.graphics.g3d.particles.ParticleSorter;
 import com.csse3200.game.components.player.ShieldComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import org.slf4j.Logger;
@@ -31,6 +32,7 @@ public class CombatStatsComponent extends Component {
     private static final int timeFlash = 250;
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
+    private CombatStatsComponent lastHit;
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
@@ -44,6 +46,7 @@ public class CombatStatsComponent extends Component {
         setInvincible(false);
         this.timerIFrames = new Timer();
         this.timerFlashSprite = new Timer();
+        this.lastHit = null;
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
@@ -60,6 +63,9 @@ public class CombatStatsComponent extends Component {
             flashTask.cancel();
             setInvincible(false);
             entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
+            if (lastHit != null){
+                hit(lastHit);
+            }
         }
     }
 
@@ -197,7 +203,7 @@ public class CombatStatsComponent extends Component {
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */
     public void hit(CombatStatsComponent attacker) {
-
+        lastHit = attacker;
         if (getIsInvincible()) {
             return;
         }
@@ -212,6 +218,8 @@ public class CombatStatsComponent extends Component {
             int newHealth = getHealth() - (int) (attacker.getBaseAttack() * (1 - damageReduction));
             setHealth(newHealth);
             entity.getEvents().trigger("playerHit");
+
+
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);
@@ -226,6 +234,13 @@ public class CombatStatsComponent extends Component {
                 entity.getEvents().trigger("died");
                 entity.getEvents().trigger("checkAnimalsDead");
             }
+        }
+    }
+
+    public void notTouching(CombatStatsComponent attacker){
+
+        if (lastHit == attacker){
+            lastHit = null;
         }
     }
 

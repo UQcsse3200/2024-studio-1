@@ -2,6 +2,7 @@ package com.csse3200.game.entities;
 
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +55,14 @@ public class EntityService {
      * @param entity the entity to be marked for removal
      */
     public void markEntityForRemoval(Entity entity) {
+        if (entity == null){
+            return;
+        }
+
+        if (!entities.contains(entity, true)){
+            return;
+        }
+
         if (!entitiesToRemove.contains(entity, true)) {
             entitiesToRemove.add(entity);
         }
@@ -77,11 +86,15 @@ public class EntityService {
      * Dispose all entities marked for removal
      */
     private void disposeMarkedEntities() {
+        Array<Entity> removed = new Array<>();
         for (Entity entity : entitiesToRemove) {
-            unregister(entity);
-            entity.dispose();
+            if (!ServiceLocator.getPhysicsService().getPhysics().getWorld().isLocked()){
+                entity.dispose();
+                unregister(entity);
+                removed.add(entity);
+            }
         }
-        entitiesToRemove.clear();
+        entitiesToRemove.removeAll(removed, true);
     }
 
     private String entityToString(Entity entity) {

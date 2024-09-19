@@ -136,7 +136,6 @@ public class NPCFactory extends LoadedFactory {
    */
   public Entity createSnake(Entity target) {
     NPCConfigs.NPCConfig config = configs.snake;
-    System.out.println("snake is created amd the score is" + config.score);
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/snake/snake.atlas", config.animations);
     Entity snake = createBaseNPC("Snake", target, aiComponent, config, animator);
@@ -274,7 +273,7 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler(target, config.getScore()))
+            .addComponent(new NPCDeathHandler(target, config.getStrength()))
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController());
     if (config.attacks.melee != null) {

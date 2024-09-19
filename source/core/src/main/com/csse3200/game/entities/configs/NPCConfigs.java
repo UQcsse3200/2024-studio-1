@@ -1,37 +1,32 @@
 package com.csse3200.game.entities.configs;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import org.slf4j.ILoggerFactory;
 
 /**
  * Defines all NPC configs to be loaded by the NPC Factory.
  */
 public class NPCConfigs {
-  public NPCConfig rat = new NPCConfig(3);
-  public NPCConfig bear = new NPCConfig(6);
-  public NPCConfig bat = new NPCConfig(3);
-  public NPCConfig dog = new NPCConfig(3);
-  public NPCConfig snake = new NPCConfig(6);
-  public NPCConfig dino = new NPCConfig(6);
-  public NPCConfig minotaur = new NPCConfig(10);
-  public NPCConfig werewolf = new NPCConfig(9);
-  public NPCConfig dragon = new NPCConfig(9);
-  public NPCConfig birdman = new NPCConfig(9);
-  public NPCConfig kitsune = new NPCConfig(9);
+  public NPCConfig rat = new NPCConfig();
+  public NPCConfig bear = new NPCConfig();
+  public NPCConfig bat = new NPCConfig();
+  public NPCConfig dog = new NPCConfig();
+  public NPCConfig snake = new NPCConfig();
+  public NPCConfig dino = new NPCConfig();
+  public NPCConfig minotaur = new NPCConfig();
+  public NPCConfig werewolf = new NPCConfig();
+  public NPCConfig dragon = new NPCConfig();
+  public NPCConfig birdman = new NPCConfig();
+  public NPCConfig kitsune = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
-    public NPCConfig(int score) {
-      this.score = score;
-      System.out.println("score saved");
-    }
+
     public NPCConfig() {
-      System.out.println("got here");
     }
 
-    public int score;
+    public int strength;
 
-    public int getScore() {
-      return score;
+    public int getStrength() {
+      return strength;
     }
 
 

@@ -6,8 +6,6 @@ import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -30,11 +28,11 @@ public class NPCDeathHandler extends Component {
 
     private boolean isDead = false;
     private Entity target;
-    private int npcScore;
+    private int npcStrength;
 
-    public NPCDeathHandler(Entity target, int npcScore) {
+    public NPCDeathHandler(Entity target, int npcStrength) {
         this.target = target;
-        this.npcScore = npcScore;
+        this.npcStrength = npcStrength;
     }
 
     public NPCDeathHandler() {
@@ -52,13 +50,16 @@ public class NPCDeathHandler extends Component {
 
     /**
      * Handles the death of the entity by playing the death animation,
-     * disabling physics and AI components, and scheduling the entity's removal from the game.
+     * triggering event for player to obtain animal's strength as score,
+     * disabling physics and AI components, and scheduling the entity's
+     * removal from the game.
      */
     protected void onDeath() {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());
-            String event = "collectCoin:" + npcScore;
+            // triggering event for player to get animal's strength as coins
+            String event = "collectCoin:" + npcStrength;
             target.getEvents().trigger(event);
             logger.info(event + "   is triggered");
 

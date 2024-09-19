@@ -1,7 +1,7 @@
 {
   "rat": {
     "health": 100,
-    "score": 3,
+    "Strength": 3,
     "baseAttack": 10,
     "tasks": {
       "straightWander": {
@@ -36,7 +36,7 @@
     ]
   },
   "bear": {
-    "score": 6,
+    "Strength": 6,
     "health": 600,
     "baseAttack": 35,
     "isDirectional": true,
@@ -87,7 +87,7 @@
   },
   "bat": {
     "health": 50,
-    "score": 3,
+    "Strength": 3,
     "baseAttack": 10,
     "tasks": {
       "straightWander": {
@@ -123,7 +123,7 @@
   },
   "dog": {
     "health": 300,
-    "score": 3,
+    "Strength": 3,
     "baseAttack": 20,
     "isDirectional": true,
     "tasks": {
@@ -161,7 +161,7 @@
   },
   "snake": {
     "health": 300,
-    "score":6,
+    "Strength":6,
     "baseAttack": 10,
     "isDirectional": true,
     "tasks": {
@@ -202,7 +202,7 @@
   },
   "dino": {
     "health": 300,
-    "score":6,
+    "Strength":6,
     "baseAttack": 10,
     "tasks": {
       "straightWander": {
@@ -238,7 +238,7 @@
   },
   "minotaur": {
     "health": 400,
-    "score":10,
+    "Strength":10,
     "baseAttack": 35,
     "tasks": {
       "wander": {
@@ -282,7 +282,7 @@
   },
   "werewolf": {
     "health": 500,
-    "score":9,
+    "Strength":9,
     "baseAttack": 40,
     "isDirectional": true,
     "tasks": {
@@ -339,7 +339,7 @@
   "birdman": {
     "health": 500,
     "baseAttack": 40,
-    "score":9,
+    "Strength":9,
     "isDirectional": true,
     "tasks": {
       "wander": {
@@ -392,7 +392,7 @@
   },
   "dragon": {
     "health": 200,
-    "score":9,
+    "Strength":9,
     "baseAttack": 15,
     "isDirectional": true,
     "tasks": {

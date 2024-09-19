@@ -145,7 +145,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#attack()" class="member-name-link">attack</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#attackMelee()" class="member-name-link">attackMelee</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Use the melee weapon in the walk direction of the player
  The weapon will only activate if the time from last activation is longer than
@@ -193,7 +193,9 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.graphics.g2d.Sprite</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWeaponSprite()" class="member-name-link">getWeaponSprite</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get the sprite of the weapon</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="inventory/Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWeaponType()" class="member-name-link">getWeaponType</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -233,7 +235,9 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setWeaponSprite(com.badlogic.gdx.graphics.g2d.Sprite)" class="member-name-link">setWeaponSprite</a><wbr>(com.badlogic.gdx.graphics.g2d.Sprite&nbsp;sprite)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Set the sprite of the weapon</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setWeaponType(com.csse3200.game.components.player.inventory.Collectible.Type)" class="member-name-link">setWeaponType</a><wbr>(<a href="inventory/Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a>&nbsp;weaponType)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -252,25 +256,30 @@ loadScripts(document, 'script');</script>
 <div class="block">Called once per frame of the game, and should be used for most component logic.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.MeleeWeapon)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&nbsp;meleeWeapon)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateTargetLayer(com.csse3200.game.entities.Entity)" class="member-name-link">updateTargetLayer</a><wbr>(<a href="../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Update the hit box component.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.MeleeWeapon)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&nbsp;meleeWeapon)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Update the weapon with new values (melee only)</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.MeleeWeapon,com.csse3200.game.entities.Entity)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&nbsp;meleeWeapon,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.MeleeWeapon,com.csse3200.game.entities.Entity)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&nbsp;meleeWeapon,
  <a href="../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;itemEntity)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Update the weapon with new values (melee only) and the weapon entity</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.RangedWeapon)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&nbsp;rangedWeapon)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.RangedWeapon)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&nbsp;rangedWeapon)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Update the weapon with new ranged weapon</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.RangedWeapon,com.csse3200.game.entities.Entity)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&nbsp;rangedWeapon,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateWeapon(com.csse3200.game.components.player.inventory.RangedWeapon,com.csse3200.game.entities.Entity)" class="member-name-link">updateWeapon</a><wbr>(<a href="inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&nbsp;rangedWeapon,
  <a href="../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;itemEntity)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Update the weapon with new values (range only) and the weapon entity</div>
 </div>
 </div>
@@ -572,9 +581,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="attack()">
-<h3>attack</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">attack</span>()</div>
+<section class="detail" id="attackMelee()">
+<h3>attackMelee</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">attackMelee</span>()</div>
 <div class="block">Use the melee weapon in the walk direction of the player
  The weapon will only activate if the time from last activation is longer than
  specified</div>
@@ -597,12 +606,34 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getWeaponSprite()">
 <h3>getWeaponSprite</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.graphics.g2d.Sprite</span>&nbsp;<span class="element-name">getWeaponSprite</span>()</div>
+<div class="block">Get the sprite of the weapon</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the sprite of the weapon</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setWeaponSprite(com.badlogic.gdx.graphics.g2d.Sprite)">
 <h3>setWeaponSprite</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setWeaponSprite</span><wbr><span class="parameters">(com.badlogic.gdx.graphics.g2d.Sprite&nbsp;sprite)</span></div>
+<div class="block">Set the sprite of the weapon</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>sprite</code> - the sprite to set</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="updateTargetLayer(com.csse3200.game.entities.Entity)">
+<h3>updateTargetLayer</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateTargetLayer</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</span></div>
+<div class="block">Update the hit box component.
+ IMPORTANT: CALL THIS BEFORE USING THE LIST OF ENTITIES</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>entity</code> - The entity the that hit box component attached to.</dd>
+</dl>
 </section>
 </li>
 </ul>

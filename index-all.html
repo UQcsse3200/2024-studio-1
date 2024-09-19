@@ -267,12 +267,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Armor.html#%3Cinit%3E()" class="member-name-link">Armor()</a> - Constructor for class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Armor.html" title="class in com.csse3200.game.components.player.inventory">Armor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/components/player/WeaponComponent.html#attack()" class="member-name-link">attack()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
-<dd>
-<div class="block">Use the melee weapon in the walk direction of the player
- The weapon will only activate if the time from last activation is longer than
- specified</div>
-</dd>
 <dt><a href="com/csse3200/game/components/npc/attack/AttackBehaviour.html" class="type-name-link" title="interface in com.csse3200.game.components.npc.attack">AttackBehaviour</a> - Interface in <a href="com/csse3200/game/components/npc/attack/package-summary.html">com.csse3200.game.components.npc.attack</a></dt>
 <dd>
 <div class="block">Interface for attack behaviours for attack components to use.</div>
@@ -289,6 +283,12 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/npc/attack/AttackComponent.html#attackCooldown" class="member-name-link">attackCooldown</a> - Variable in class com.csse3200.game.components.npc.attack.<a href="com/csse3200/game/components/npc/attack/AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/WeaponComponent.html#attackMelee()" class="member-name-link">attackMelee()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
+<dd>
+<div class="block">Use the melee weapon in the walk direction of the player
+ The weapon will only activate if the time from last activation is longer than
+ specified</div>
+</dd>
 <dt><a href="com/csse3200/game/components/npc/attack/AttackComponent.html#attackRange" class="member-name-link">attackRange</a> - Variable in class com.csse3200.game.components.npc.attack.<a href="com/csse3200/game/components/npc/attack/AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.html#attacks" class="member-name-link">attacks</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig</a></dt>
@@ -701,10 +701,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/PlayerStatsDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerStatsDisplay.html" title="class in com.csse3200.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>
 <div class="block">Creates reusable ui styles and adds actors to the stage.</div>
-</dd>
-<dt><a href="com/csse3200/game/components/player/RangeDetectionComponent.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/RangeDetectionComponent.html" title="class in com.csse3200.game.components.player">RangeDetectionComponent</a></dt>
-<dd>
-<div class="block">Create the component.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/WeaponAnimationController.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponAnimationController.html" title="class in com.csse3200.game.components.player">WeaponAnimationController</a></dt>
 <dd>&nbsp;</dd>
@@ -1700,10 +1696,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/ui/terminal/Terminal.html#getEnteredMessage()" class="member-name-link">getEnteredMessage()</a> - Method in class com.csse3200.game.ui.terminal.<a href="com/csse3200/game/ui/terminal/Terminal.html" title="class in com.csse3200.game.ui.terminal">Terminal</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/components/player/RangeDetectionComponent.html#getEntities()" class="member-name-link">getEntities()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/RangeDetectionComponent.html" title="class in com.csse3200.game.components.player">RangeDetectionComponent</a></dt>
-<dd>
-<div class="block">Get the list of entities that are within the range of the attack</div>
-</dd>
 <dt><a href="com/csse3200/game/entities/EntityService.html#getEntities()" class="member-name-link">getEntities()</a> - Method in class com.csse3200.game.entities.<a href="com/csse3200/game/entities/EntityService.html" title="class in com.csse3200.game.entities">EntityService</a></dt>
 <dd>
 <div class="block">Get all the registered entities</div>
@@ -1745,10 +1737,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/CombatStatsComponent.html#getHealth()" class="member-name-link">getHealth()</a> - Method in class com.csse3200.game.components.<a href="com/csse3200/game/components/CombatStatsComponent.html" title="class in com.csse3200.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Returns the entity's health.</div>
-</dd>
-<dt><a href="com/csse3200/game/components/player/RangeDetectionComponent.html#getHitboxComponent()" class="member-name-link">getHitboxComponent()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/RangeDetectionComponent.html" title="class in com.csse3200.game.components.player">RangeDetectionComponent</a></dt>
-<dd>
-<div class="block">Get the hit box component of the entity that has the RangeDetectionComponent</div>
 </dd>
 <dt><a href="com/csse3200/game/physics/raycast/AllHitCallback.html#getHitsAndClear()" class="member-name-link">getHitsAndClear()</a> - Method in class com.csse3200.game.physics.raycast.<a href="com/csse3200/game/physics/raycast/AllHitCallback.html" title="class in com.csse3200.game.physics.raycast">AllHitCallback</a></dt>
 <dd>&nbsp;</dd>
@@ -1877,6 +1865,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/Level.html#getLevelNumber()" class="member-name-link">getLevelNumber()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/Level.html" title="class in com.csse3200.game.areas">Level</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/GameArea.html#getListOfEntities()" class="member-name-link">getListOfEntities()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/GameArea.html" title="class in com.csse3200.game.areas">GameArea</a></dt>
+<dd>
+<div class="block">Get a list of all entities in the area.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#getMap()" class="member-name-link">getMap()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#getMapBounds(int)" class="member-name-link">getMapBounds(int)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
@@ -2296,8 +2288,14 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/screens/WinScreen.html#getUI()" class="member-name-link">getUI()</a> - Method in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/WinScreen.html" title="class in com.csse3200.game.screens">WinScreen</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/PlayerActions.html#getWalkDirection()" class="member-name-link">getWalkDirection()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerActions.html" title="class in com.csse3200.game.components.player">PlayerActions</a></dt>
+<dd>
+<div class="block">Gets the direction the player is walking in.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/WeaponComponent.html#getWeaponSprite()" class="member-name-link">getWeaponSprite()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Get the sprite of the weapon</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/WeaponComponent.html#getWeaponType()" class="member-name-link">getWeaponType()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
 <dd>
 <div class="block">Get the type of weapon</div>
@@ -2859,8 +2857,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/files/FileLoader.Location.html#LOCAL" class="member-name-link">LOCAL</a> - Enum constant in enum class com.csse3200.game.files.<a href="com/csse3200/game/files/FileLoader.Location.html" title="enum class in com.csse3200.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/npc/attack/AttackComponent.html#logger" class="member-name-link">logger</a> - Static variable in class com.csse3200.game.components.npc.attack.<a href="com/csse3200/game/components/npc/attack/AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/components/player/RangeDetectionComponent.html#logger" class="member-name-link">logger</a> - Static variable in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/RangeDetectionComponent.html" title="class in com.csse3200.game.components.player">RangeDetectionComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/screens/StaticScreen.html#logger" class="member-name-link">logger</a> - Variable in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/StaticScreen.html" title="class in com.csse3200.game.screens">StaticScreen</a></dt>
 <dd>&nbsp;</dd>
@@ -3617,12 +3613,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Collectible.Type.html#RANGED_WEAPON" class="member-name-link">RANGED_WEAPON</a> - Enum constant in enum class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/components/player/RangeDetectionComponent.html" class="type-name-link" title="class in com.csse3200.game.components.player">RangeDetectionComponent</a> - Class in <a href="com/csse3200/game/components/player/package-summary.html">com.csse3200.game.components.player</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/components/player/RangeDetectionComponent.html#%3Cinit%3E(short)" class="member-name-link">RangeDetectionComponent(short)</a> - Constructor for class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/RangeDetectionComponent.html" title="class in com.csse3200.game.components.player">RangeDetectionComponent</a></dt>
-<dd>
-<div class="block">Create a component which attacks entities on collision, without knock-back.</div>
-</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/RangedWeapon.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a> - Class in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/RangedWeapon.html#%3Cinit%3E()" class="member-name-link">RangedWeapon()</a> - Constructor for class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a></dt>
@@ -4238,7 +4228,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Set the velocity on an entity.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/WeaponComponent.html#setWeaponSprite(com.badlogic.gdx.graphics.g2d.Sprite)" class="member-name-link">setWeaponSprite(Sprite)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Set the sprite of the weapon</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/WeaponComponent.html#setWeaponType(com.csse3200.game.components.player.inventory.Collectible.Type)" class="member-name-link">setWeaponType(Collectible.Type)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
 <dd>
 <div class="block">Set the type of weapon to new value</div>
@@ -4812,8 +4804,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/PlayerActions.html#update()" class="member-name-link">update()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerActions.html" title="class in com.csse3200.game.components.player">PlayerActions</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/components/player/RangeDetectionComponent.html#update()" class="member-name-link">update()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/RangeDetectionComponent.html" title="class in com.csse3200.game.components.player">RangeDetectionComponent</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/WeaponComponent.html#update()" class="member-name-link">update()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/projectile/ProjectileActions.html#update()" class="member-name-link">update()</a> - Method in class com.csse3200.game.components.projectile.<a href="com/csse3200/game/components/projectile/ProjectileActions.html" title="class in com.csse3200.game.components.projectile">ProjectileActions</a></dt>
@@ -4885,6 +4875,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Updates the player's speed on the ui.</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/WeaponComponent.html#updateTargetLayer(com.csse3200.game.entities.Entity)" class="member-name-link">updateTargetLayer(Entity)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
+<dd>
+<div class="block">Update the hit box component.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/WeaponComponent.html#updateWeapon(com.csse3200.game.components.player.inventory.MeleeWeapon)" class="member-name-link">updateWeapon(MeleeWeapon)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
 <dd>
 <div class="block">Update the weapon with new values (melee only)</div>
@@ -4900,10 +4894,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/WeaponComponent.html#updateWeapon(com.csse3200.game.components.player.inventory.RangedWeapon,com.csse3200.game.entities.Entity)" class="member-name-link">updateWeapon(RangedWeapon, Entity)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
 <dd>
 <div class="block">Update the weapon with new values (range only) and the weapon entity</div>
-</dd>
-<dt><a href="com/csse3200/game/components/player/RangeDetectionComponent.html#updateWeaponEntity(com.csse3200.game.entities.Entity)" class="member-name-link">updateWeaponEntity(Entity)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/RangeDetectionComponent.html" title="class in com.csse3200.game.components.player">RangeDetectionComponent</a></dt>
-<dd>
-<div class="block">Update the hit box component.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/UsableItem.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">UsableItem</a> - Class in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
 <dd>

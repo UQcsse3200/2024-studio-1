@@ -62,7 +62,7 @@ public class BossRoom extends BaseRoom {
 
     private void spawnStairs(Entity player, MainGameArea area) {
         Entity stairs = StairFactory.createStair(player.getId());
-        int x = maxGridPoint.x / 2;
+        int x = maxGridPoint.x;
         int y = maxGridPoint.y;
         GridPoint2 pos = new GridPoint2(x, y);
         area.spawnEntityAt(stairs, pos, true, true);

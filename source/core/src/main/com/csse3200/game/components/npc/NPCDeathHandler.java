@@ -26,11 +26,11 @@ public class NPCDeathHandler extends Component {
 
     private boolean isDead = false;
     private Entity target;
-    private int baseAttack;
+    private int npcScore;
 
-    public NPCDeathHandler(Entity target, int baseAttack) {
+    public NPCDeathHandler(Entity target, int npcScore) {
         this.target = target;
-        this.baseAttack = baseAttack;
+        this.npcScore = npcScore;
     }
 
     public NPCDeathHandler() {
@@ -55,7 +55,7 @@ public class NPCDeathHandler extends Component {
             isDead = true;
             deadEntities.add(entity.getId());
 
-            target.getEvents().trigger("collectCoin");
+            target.getEvents().trigger("collectCoin:"+ npcScore);
 
             // Disable physics and AI components to prevent further interaction
             //entity.getComponent(PhysicsComponent.class).setEnabled(false);

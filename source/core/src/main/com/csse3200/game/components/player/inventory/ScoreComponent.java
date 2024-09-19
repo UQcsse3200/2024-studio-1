@@ -14,7 +14,10 @@ public class ScoreComponent extends Component {
         super();
         this.inventory = inventory;
         this.gold = 0;
-        inventory.getEntity().getEvents().addListener("collectCoin",this::addGold);
+        inventory.getEntity().getEvents().addListener("collectCoin:3", ()->addGold(3));
+        inventory.getEntity().getEvents().addListener("collectCoin:6", ()->addGold(6));
+        inventory.getEntity().getEvents().addListener("collectCoin:9", ()->addGold(9));
+        inventory.getEntity().getEvents().addListener("collectCoin:10", ()->addGold(10));
     }
 
     public int getEnemyAttack(String call) {
@@ -47,8 +50,8 @@ public class ScoreComponent extends Component {
     /**
      * Adds to the player's gold. The amount added can be negative.
      */
-    public void addGold() {
-        setGold(this.gold + 3);
+    public void addGold(int gold) {
+        setGold(this.gold + gold);
         logger.info("added gold, Total Gold is: " + getGold());
     }
 }

@@ -1,6 +1,7 @@
 package com.csse3200.game.entities.configs;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import org.slf4j.ILoggerFactory;
 
 /**
  * Defines all NPC configs to be loaded by the NPC Factory.
@@ -19,13 +20,13 @@ public class NPCConfigs {
   public NPCConfig kitsune = new NPCConfig(9);
 
   public static class NPCConfig extends BaseEntityConfig {
-    public NPCConfig(int baseAttack) {
-      this.baseAttack = baseAttack;
+    public NPCConfig(int score) {
+      this.score = score;
     }
-    public int baseAttack;
+    public int score;
 
-    public int getBaseAttack() {
-      return baseAttack;
+    public int getScore() {
+      return score;
     }
 
     public TaskConfig tasks = new TaskConfig();

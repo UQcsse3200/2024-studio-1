@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
@@ -22,7 +23,15 @@ public class NPCDeathHandler extends Component {
     private AnimationRenderComponent animator;
     private CombatStatsComponent combatStats;
     private boolean isDead = false;
+    private Entity target;
 
+    public NPCDeathHandler(Entity target) {
+        this.target = target;
+    }
+
+    public NPCDeathHandler() {
+
+    }
     /**
      * Called when the entity is created and registered. Sets up components and listeners.
      */
@@ -41,6 +50,7 @@ public class NPCDeathHandler extends Component {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());
+            target.getEvents().trigger("collectCoin");
 
             // Play death animation if available
             if (animator != null && animator.hasAnimation("death")) {

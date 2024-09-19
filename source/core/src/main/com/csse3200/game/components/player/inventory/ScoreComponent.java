@@ -52,6 +52,7 @@ public class ScoreComponent extends Component {
      */
     public void addGold(int gold) {
         setGold(this.gold + gold);
-        logger.info("added gold, Total Gold is: " + getGold());
+        logger.info("added gold" + gold);
+        logger.info("Total Gold is: " + getGold());
     }
 }

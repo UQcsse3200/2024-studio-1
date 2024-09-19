@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.physics.components.PhysicsComponent;
@@ -12,6 +13,8 @@ import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.List;
  */
 public class NPCDeathHandler extends Component {
     public static final float DEATH_ANIMATION_DURATION = 1.0f;
+    private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
     public static final List<Integer> deadEntities = new ArrayList<>();
 
     private boolean isDead = false;
@@ -54,8 +58,9 @@ public class NPCDeathHandler extends Component {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());
-
-            target.getEvents().trigger("collectCoin:"+ npcScore);
+            String event = "collectCoin:" + npcScore;
+            target.getEvents().trigger(event);
+            logger.info(event + "   is triggered");
 
             // Disable physics and AI components to prevent further interaction
             //entity.getComponent(PhysicsComponent.class).setEnabled(false);

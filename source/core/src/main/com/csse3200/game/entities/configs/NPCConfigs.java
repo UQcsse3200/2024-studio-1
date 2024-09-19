@@ -11,7 +11,7 @@ public class NPCConfigs {
   public NPCConfig bear = new NPCConfig(6);
   public NPCConfig bat = new NPCConfig(3);
   public NPCConfig dog = new NPCConfig(3);
-  public NPCConfig snake = new NPCConfig(3);
+  public NPCConfig snake = new NPCConfig(6);
   public NPCConfig dino = new NPCConfig(6);
   public NPCConfig minotaur = new NPCConfig(10);
   public NPCConfig werewolf = new NPCConfig(9);
@@ -22,17 +22,24 @@ public class NPCConfigs {
   public static class NPCConfig extends BaseEntityConfig {
     public NPCConfig(int score) {
       this.score = score;
+      System.out.println("score saved");
     }
+    public NPCConfig() {
+      System.out.println("got here");
+    }
+
     public int score;
 
     public int getScore() {
       return score;
     }
 
+
     public TaskConfig tasks = new TaskConfig();
     public AttackConfig attacks = new AttackConfig();
     public AnimationData[] animations = new AnimationData[0];
     public boolean isDirectional;
+
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;

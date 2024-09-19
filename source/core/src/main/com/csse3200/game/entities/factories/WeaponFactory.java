@@ -1,8 +1,8 @@
 package com.csse3200.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.WeaponAnimationController;
 import com.csse3200.game.components.player.inventory.*;
@@ -13,7 +13,6 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
-import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,6 +103,7 @@ public class WeaponFactory extends LoadedFactory {
         animator.addAnimation("slash", 0.2f, Animation.PlayMode.LOOP);
 
         Entity meleeEntity = new Entity()
+                .addComponent(new NameComponent("Melee: " + collectible.getName()))
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
                 .addComponent(new PhysicsComponent())
@@ -136,6 +136,7 @@ public class WeaponFactory extends LoadedFactory {
         animator.addAnimation("left", 0.2f, Animation.PlayMode.LOOP);
 
         Entity rangedEntity = new Entity()
+                .addComponent(new NameComponent("Ranged: " + collectible.getName()))
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
                 .addComponent(new PhysicsComponent())

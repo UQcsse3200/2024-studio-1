@@ -134,12 +134,13 @@ public class MainGameScreen extends ScreenAdapter {
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
-        LevelFactory levelFactory = new MainGameLevelFactory();
+        MainGameLevelFactory levelFactory = new MainGameLevelFactory();
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
             new MainGameArea(levelFactory, player);
         }
+        levelFactory.exportToJson("./dummy.json");
     }
 
     @Override

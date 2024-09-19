@@ -6,6 +6,7 @@ import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
 import com.csse3200.game.entities.factories.StairFactory;
+import com.csse3200.game.files.FileLoader;
 
 import java.util.*;
 
@@ -15,10 +16,12 @@ import java.util.*;
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
     private int levelNum;
+    Map<String, Room> rooms;
 
     @Override
     public Level create(int levelNumber) {
         LevelMap map = new LevelMap("seed", DEFAULT_MAP_SIZE);
+        rooms = new HashMap<>();
 
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),
@@ -26,7 +29,7 @@ public class MainGameLevelFactory implements LevelFactory {
                 new TerrainFactory(levelNumber)
         );
         // Sprint 4 Switch the MapGenerator to use Rooms
-        Map<String, Room> rooms = new HashMap<>();
+
         Set<String> room_keySet = map.mapData.getPositions().keySet();
         for (String room_key : room_keySet) {
             int itemIndex = map.mapData.getRoomDetails().get(room_key).get("item_index");
@@ -40,6 +43,14 @@ public class MainGameLevelFactory implements LevelFactory {
         rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
                 "0,0,14,10," + levelNumber + "," + levelNumber));
         return new Level(map, levelNumber, rooms);
+    }
+    /**
+     * Exports the map data to a JSON file.
+     *
+     * @param filePath The path of the file to write the JSON data to.
+     */
+    public void exportToJson(String filePath) {
+        FileLoader.writeClass(rooms, filePath);
     }
 
     public int getCurrentLevel() {

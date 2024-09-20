@@ -108,21 +108,21 @@ Hurt
   orig: 128, 128
   offset: 0, 0
   index: 3
-Idle
+idle
   rotate: false
   xy: 384, 384
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 0
-Idle
+idle
   rotate: false
   xy: 0, 512
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 1
-Idle
+idle
   rotate: false
   xy: 128, 512
   size: 128, 128

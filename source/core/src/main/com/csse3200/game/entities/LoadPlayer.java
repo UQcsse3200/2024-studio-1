@@ -19,6 +19,8 @@ import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
+import java.util.Objects;
+
 
 /**
  * Handles the setup of various player components, including animations,
@@ -55,7 +57,6 @@ public class LoadPlayer {
         addAtlas(player, config);
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
-        player.setScale(playerScale, playerScale);
 
         return player;
     }
@@ -69,9 +70,12 @@ public class LoadPlayer {
      */
     public  void addAtlas(Entity player, PlayerConfig config) {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
-        TextureRegion defaultTexture = atlas.findRegion("idle");
-        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
-
+        if (Objects.equals(config.textureAtlasFilename, "images/player/homeless1.atlas")) {
+            TextureRegion defaultTexture = atlas.findRegion("idle");
+            player.setScale(2f, (float) 2f * defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+        } else {
+            player.setScale(playerScale, playerScale);
+        }
     }
 
     /**
@@ -190,17 +194,27 @@ public class LoadPlayer {
     private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
-                        ServiceLocator.getResourceService().getAsset("images/player/player.atlas", TextureAtlas.class));
-        animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("death-up", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("death-left", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
+                        ServiceLocator.getResourceService().getAsset(textureAtlasFilename, TextureAtlas.class));
+
+        switch (textureAtlasFilename) {
+            case ("images/player/player.atlas"):
+                animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("death-up", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("death-left", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
+                break;
+            case ("images/player/homeless1.atlas"):
+                animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Walk", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Dead", 0.35f, Animation.PlayMode.NORMAL);
+                break;
+        }
 
         return animator;
     }

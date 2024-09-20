@@ -59,6 +59,7 @@ public class PlayerFactory extends LoadedFactory {
         if (this.options == null){
             return new String[]{};
         }
+        logger.info("this: {}", (Object) options.values().stream().map(config -> config.textureAtlasFilename).toArray(String[]::new));
         return options.values().stream().map(config -> config.textureAtlasFilename).toArray(String[]::new);
     }
 

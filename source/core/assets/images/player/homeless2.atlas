@@ -1,4 +1,4 @@
-homeless1.png
+homeless2.png
 size: 512, 1792
 format: RGBA8888
 filter: Linear,Linear
@@ -150,21 +150,21 @@ Hurt
   orig: 128, 128
   offset: 0, 0
   index: 2
-Idle
+idle
   rotate: false
   xy: 128, 640
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 0
-Idle
+idle
   rotate: false
   xy: 256, 640
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 1
-Idle
+idle
   rotate: false
   xy: 384, 640
   size: 128, 128

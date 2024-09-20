@@ -99,20 +99,18 @@ public class LoadPlayer {
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
-                .addComponent(new CoinsComponent((inventoryComponent.getInventory())))
-                .addComponent(new PlayerCoinDisplay(new CoinsComponent(inventoryComponent.getInventory())))
                 .addComponent(new WeaponComponent(
                         new Sprite(new Texture("images/Weapons/knife.png")),
                         Collectible.Type.RANGED_WEAPON,
                         10, 1, 1, 10, 10, 0));
 
 
-        /*
+
                 CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
                 player.addComponent(coinsComponent)
                         .addComponent(new PlayerCoinDisplay(coinsComponent));
 
-         */
+
 
     }
 

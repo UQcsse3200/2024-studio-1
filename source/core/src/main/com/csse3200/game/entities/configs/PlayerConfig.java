@@ -10,13 +10,13 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String name;
   /** Player's base attack by default*/
   public int baseAttack = 10;
-  /** Player's favourite colour by default */
-  public String favouriteColour = "none";
+
   /** The items player has collected/picked up during the game */
   public String[] items;
 
   /** Player's current health */
   public int health = 100;
+  public int coins = 0;
   /** The specification of player's equipped melee weapon */
   public String melee;
   /** The specification of player's equipped ranged weapon */
@@ -47,7 +47,7 @@ public class PlayerConfig extends BaseEntityConfig  {
     // check if all the attributes are the same
     return baseAttack == config.baseAttack &&
             health == config.health &&
-            Objects.equals(favouriteColour, config.favouriteColour) &&
+            Objects.equals(coins, config.coins) &&
             Arrays.equals(items, config.items) &&
             Objects.equals(melee, config.melee) &&
             Objects.equals(ranged, config.ranged);
@@ -61,9 +61,9 @@ public class PlayerConfig extends BaseEntityConfig  {
   @Override
   public int hashCode() {
     int result = Objects.hashCode(baseAttack);
-    result = 31 * result + Objects.hashCode(favouriteColour);
     result = 31 * result + Arrays.hashCode(items);
     result = 31 * result + health;
+    result = 31 * result + coins;
     result = 31 * result + Objects.hashCode(melee);
     result = 31 * result + Objects.hashCode(ranged);
     return result;

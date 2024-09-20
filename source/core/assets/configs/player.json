@@ -1,7 +1,7 @@
 {
   "name": "default",
   "health": 100,
-  "favouriteColour": "peach",
+  "coins": 0,
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
   "melee": "pickaxe",

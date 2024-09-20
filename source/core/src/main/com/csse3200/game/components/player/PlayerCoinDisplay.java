@@ -16,6 +16,7 @@ public class PlayerCoinDisplay extends UIComponent {
     public PlayerCoinDisplay(CoinsComponent coinsComponent) {
         this.coinsComponent = coinsComponent;
     }
+
     @Override
     public void create() {
         super.create();
@@ -25,7 +26,7 @@ public class PlayerCoinDisplay extends UIComponent {
         table.top();
         table.setFillParent(true);
 
-        Image coinImage = new Image(coinsComponent.getCoinIcon());
+        Image coinImage = new Image(new Texture("images/items/coin.png"));
         table.add(coinImage).size(40f).padTop(15f).padRight(10f);
         coinLabel = new Label("Coins: x0", skin, "small");
         // FIXME set the colour of the text to white (not rendering white)

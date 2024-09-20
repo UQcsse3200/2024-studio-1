@@ -24,6 +24,7 @@ public class PlayerConfigGeneratorTest {
     PlayerConfigGenerator generator = new PlayerConfigGenerator();
     InventoryComponent inventoryComponent;
     CombatStatsComponent statsComponent;
+    CoinsComponent coinsComponent;
 
     @Before
     public void setUp() {
@@ -31,7 +32,11 @@ public class PlayerConfigGeneratorTest {
         inventoryComponent = new InventoryComponent();
         statsComponent = new CombatStatsComponent(100, 30, true, 0, 0);
         player.addComponent(inventoryComponent).addComponent(statsComponent);
-        player.addComponent(new PlayerConfigComponent(new PlayerConfig()));
+
+        coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
+
+        player.addComponent(new PlayerConfigComponent(new PlayerConfig()))
+                .addComponent(coinsComponent);
     }
 
     /**
@@ -57,6 +62,13 @@ public class PlayerConfigGeneratorTest {
         assertEquals(20, playerConfig.baseAttack);
     }
 
+    @Test
+    public void testCoins() {
+        coinsComponent.setCoins(10);
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(10, playerConfig.coins);
+
+    }
     /**
      * Test saved player's melee weapon
      */
@@ -83,6 +95,8 @@ public class PlayerConfigGeneratorTest {
         PlayerConfig playerConfig = generator.savePlayerState(player);
         assertEquals("melee:test", playerConfig.melee);
     }
+
+
 
 
     /** Test player's saved Ranged weapon */

@@ -26,6 +26,8 @@ public class NPCDeathHandler extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
     public static final List<Integer> deadEntities = new ArrayList<>();
 
+    private AnimationRenderComponent animator;
+    private CombatStatsComponent combatStats;
     private boolean isDead = false;
     private Entity target;
     private int npcStrength;
@@ -43,8 +45,8 @@ public class NPCDeathHandler extends Component {
      */
     @Override
     public void create() {
-        AnimationRenderComponent animator = entity.getComponent(AnimationRenderComponent.class);
-        CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
+        animator = entity.getComponent(AnimationRenderComponent.class);
+        combatStats = entity.getComponent(CombatStatsComponent.class);
         entity.getEvents().addListener("died", this::onDeath);
     }
 
@@ -63,11 +65,16 @@ public class NPCDeathHandler extends Component {
             target.getEvents().trigger(event);
             logger.info(event + "   is triggered");
 
+
+            // Play death animation if available
+            if (animator != null && animator.hasAnimation("death")) {
+                animator.startAnimation("death");
+            }
+
             // Disable physics and AI components to prevent further interaction
             //entity.getComponent(PhysicsComponent.class).setEnabled(false);
-            //entity.getComponent(AITaskComponent.class).setEnabled(false);
-            // disable AI component to prevent further interaction
             entity.getComponent(AITaskComponent.class).setEnabled(false);
+            // disable AI component to prevent further interaction
             entity.getComponent(PhysicsMovementComponent.class).setEnabled(false);
             entity.getComponent(HitboxComponent.class).setEnabled(false);
             entity.getComponent(ColliderComponent.class).setEnabled(false);

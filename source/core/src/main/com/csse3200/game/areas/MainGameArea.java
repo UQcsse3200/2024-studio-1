@@ -74,6 +74,11 @@ public class MainGameArea extends GameArea {
         return currentRoom;
     }
 
+    /**
+     * Exports the current Level number and Room number of the player into a JSON file
+     * which can then be loaded and set as the starting position of the player when player
+     * loads the game.
+     */
     public void exportPosition() {
         String levelNum = "" + currentLevelNumber;
         currentPosition.put("LevelNum", levelNum);

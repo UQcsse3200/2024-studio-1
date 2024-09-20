@@ -12,10 +12,7 @@ import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
@@ -33,6 +30,7 @@ public class MainGameArea extends GameArea {
     private boolean spawnRoom = true;
     private final List<Room> roomsVisited = new ArrayList<>();
     public String currentRoomName;
+    private Map <String, String> currentPosition = new HashMap<>();
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -77,8 +75,10 @@ public class MainGameArea extends GameArea {
     }
 
     public void exportPosition() {
-        FileLoader.writeClass(currentRoomName, "./playerRoom.json");
-        FileLoader.writeClass(currentLevelNumber, "./levelRoom.json");
+        String levelNum = "" + currentLevelNumber;
+        currentPosition.put("LevelNum", levelNum);
+        currentPosition.put("RoomNum", currentRoomName);
+        FileLoader.writeClass(currentPosition, "./PlayerLocationSave.json");
     }
 
     private void selectRoom(String roomKey) {

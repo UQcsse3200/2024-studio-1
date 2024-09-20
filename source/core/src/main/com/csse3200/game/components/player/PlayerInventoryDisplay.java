@@ -151,7 +151,6 @@ public class PlayerInventoryDisplay extends UIComponent {
             if (quantityLabel != null) {
                 int quantity = entry.getValue();
                 quantityLabel.setText(" x" + quantity);
-                quantityLabel.setColor(Color.WHITE);
             }
         }
     }

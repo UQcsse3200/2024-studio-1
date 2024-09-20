@@ -82,6 +82,7 @@ public class LoadPlayer {
      */
     public void addComponents(Entity player, PlayerConfig config) {
 
+
         player.addComponent(new NameComponent("Main Player"))
                 .addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
@@ -99,7 +100,7 @@ public class LoadPlayer {
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
-                .addComponent(new CoinsComponent(inventoryComponent.getInventory()))
+                .addComponent(new PlayerCoinDisplay(new CoinsComponent(inventoryComponent.getInventory())))
                 .addComponent(new WeaponComponent(
                         new Sprite(new Texture("images/Weapons/knife.png")),
                         Collectible.Type.RANGED_WEAPON,

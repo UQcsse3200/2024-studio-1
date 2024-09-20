@@ -1,7 +1,7 @@
 {
   "name": "the other one",
   "health": 70,
-  "favouriteColour": "yellow",
+  "coins": 0,
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas"
 }

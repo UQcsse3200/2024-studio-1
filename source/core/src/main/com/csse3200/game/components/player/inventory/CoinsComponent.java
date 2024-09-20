@@ -5,16 +5,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.csse3200.game.components.Component;
 import com.csse3200.game.ui.UIComponent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CoinsComponent extends UIComponent {
+public class CoinsComponent extends Component {
     private int coins;
+    private Inventory inventory;
     private static final Logger logger = LoggerFactory.getLogger(CoinsComponent.class);
-    private Label coinLabel;
-    private Table table;
+
 
     /**
      * Constructor for CoinComponent
@@ -23,6 +24,7 @@ public class CoinsComponent extends UIComponent {
      */
     public CoinsComponent(Inventory inventory) {
         this.coins = 0;
+        this.inventory = inventory;
         inventory.getEntity().getEvents().addListener("collectCoin:3", () -> addCoins(3));
         inventory.getEntity().getEvents().addListener("collectCoin:6", () -> addCoins(6));
         inventory.getEntity().getEvents().addListener("collectCoin:9", () -> addCoins(9));
@@ -62,20 +64,30 @@ public class CoinsComponent extends UIComponent {
             if (coins < 0) {
                 throw new IllegalArgumentException("Coin value cannot be negative");
             }
+            this.coins = coins;
         } catch (IllegalArgumentException e) {
             System.out.println("coins value cannot be negative...Setting it to 0");
         }
-        this.coins = Math.max(coins, 0);
-        updateCoinLabel();
+        inventory.getEntity().getEvents().trigger("updateCoins");
+
+
     }
 
     /**
      * Adds to the player's coins. The amount added can be negative.
      */
     public void addCoins(int coins) {
-        setCoins(this.coins + coins);
-        logger.info("Added coins: " + coins);
-        logger.info("Total coins: " + getCoins());
+        try {
+            if (coins < 0) {
+                throw new IllegalArgumentException("Coin value cannot be negative");
+            }
+            setCoins(this.coins + coins);
+            logger.info("Added coins: " + coins);
+            logger.info("Total coins: " + getCoins());
+        } catch (IllegalArgumentException e) {
+            logger.error("coins value cannot be negative...Setting it to 0");
+        }
+
     }
 
     /**
@@ -84,43 +96,15 @@ public class CoinsComponent extends UIComponent {
      * @param cost the amount to reduce the coins by
      */
     public void spend(int cost) {
-        this.coins =- cost;
+        try {
+            if (cost >  getCoins()) {
+                throw new IllegalArgumentException();
+            }
+            this.coins = getCoins() - cost;
+            inventory.getEntity().getEvents().trigger("updateCoins");
+        } catch (IllegalArgumentException e) {
+            logger.error("Cannot spend more than you own");
+        }
     }
 
-    @Override
-    public void create() {
-        super.create();
-        // create a table for display and set it to the top of the screen
-        table = new Table();
-        table.top();
-        table.setFillParent(true);
-        // create and add the image of coin followed by the amount
-        Image coinImage = new Image(getCoinIcon());
-        table.add(coinImage).size(40f).padTop(15f).padRight(10f);
-        coinLabel = new Label("Coins: x0", skin, "small");
-        // FIXME set the colour of the text to white (not rendering white)
-        coinLabel.setColor(1,1,1,1);
-
-        table.add(coinLabel).padTop(15f);
-        stage.addActor(table);
-        updateCoinLabel();
-    }
-
-
-    /**
-     * Updates the coin label with the current coin count.
-     */
-    private void updateCoinLabel() {
-        coinLabel.setText("Coins: " + "$" + getCoins());
-    }
-
-    @Override
-    protected void draw(SpriteBatch batch) {
-        // No custom drawing needed for this UI component
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-    }
 }

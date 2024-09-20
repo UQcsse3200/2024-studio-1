@@ -1,19 +1,12 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.ui.UIComponent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CoinsComponent extends Component {
     private int coins;
-    private Inventory inventory;
+    private final Inventory inventory;
     private static final Logger logger = LoggerFactory.getLogger(CoinsComponent.class);
 
 
@@ -40,14 +33,11 @@ public class CoinsComponent extends Component {
         return this.coins;
     }
 
-    public Texture getCoinIcon() {
-        return new Texture("images/items/coin.png");
-    }
-
     /**
      * Returns if the player has a certain amount of coins.
      *
      * @param coins required amount
+     *
      * @return player has greater than or equal to the required amount of coin
      */
     public Boolean hasCoins(int coins) {
@@ -56,6 +46,10 @@ public class CoinsComponent extends Component {
 
     /**
      * Sets the player's coin count. The count has a minimum bound of 0.
+     *
+     * @requires coins >= 0
+     *
+     * @ensures coins >= 0
      *
      * @param coins coins to set the player's coins to
      */
@@ -74,6 +68,10 @@ public class CoinsComponent extends Component {
     }
 
     /**
+     * @requires coins > 0
+     *
+     * @ensures coins > 0
+     *
      * Adds to the player's coins. The amount added can be negative.
      */
     public void addCoins(int coins) {

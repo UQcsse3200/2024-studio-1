@@ -31,6 +31,9 @@ public class MainGameLevelFactory implements LevelFactory {
         // Sprint 4 Switch the MapGenerator to use Rooms
 
         Set<String> room_keySet = map.mapData.getPositions().keySet();
+        //if (loadGame) {
+            // rooms = map from config
+        //else{
         for (String room_key : room_keySet) {
             int itemIndex = map.mapData.getRoomDetails().get(room_key).get("item_index");
             int animalIndex = map.mapData.getRoomDetails().get(room_key).get("animal_index");
@@ -42,6 +45,7 @@ public class MainGameLevelFactory implements LevelFactory {
         // the level
         rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
                 "0,0,14,10," + levelNumber + "," + levelNumber, "BOSS"));
+        //}
         return new Level(map, levelNumber, rooms);
     }
     /**

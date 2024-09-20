@@ -28,6 +28,7 @@ public class MainGameArea extends GameArea {
 
     private final LevelFactory levelFactory;
     private Level currentLevel;
+    private int currentLevelNumber;
     private Room currentRoom;
     private boolean spawnRoom = true;
     private final List<Room> roomsVisited = new ArrayList<>();
@@ -57,7 +58,7 @@ public class MainGameArea extends GameArea {
 
         displayUI();
 
-changeLevel(0);
+        changeLevel(0);
 
         playMusic();
     }
@@ -77,6 +78,7 @@ changeLevel(0);
 
     public void exportPosition() {
         FileLoader.writeClass(currentRoomName, "./playerRoom.json");
+        FileLoader.writeClass(currentLevelNumber, "./levelRoom.json");
     }
 
     private void selectRoom(String roomKey) {
@@ -129,6 +131,7 @@ changeLevel(0);
 
     public void changeLevel(int levelNumber) {
         logger.info("Changing to level: {}", levelNumber);
+        currentLevelNumber = levelNumber;
 
         // TODO: Save player progress or game state here, create a save manager
 

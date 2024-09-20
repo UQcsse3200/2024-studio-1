@@ -28,7 +28,7 @@ public class Level {
     }
 
     public String getStartingRoomKey() {
-        return "0_0";
+        return "0_-1";
     }
 
     public int getLevelNumber() {

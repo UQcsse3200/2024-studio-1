@@ -16,12 +16,11 @@ import java.util.*;
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
     private int levelNum;
-    Map<String, Room> rooms;
+    Map<String, Room> rooms = new HashMap<>();;
 
     @Override
     public Level create(int levelNumber) {
         LevelMap map = new LevelMap("seed", DEFAULT_MAP_SIZE);
-        rooms = new HashMap<>();
 
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),

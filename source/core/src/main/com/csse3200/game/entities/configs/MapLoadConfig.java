@@ -5,5 +5,5 @@ import com.csse3200.game.entities.Room;
 import java.util.Map;
 
 public class MapLoadConfig extends BaseEntityConfig {
-    Map<String, Room> rooms;
+    Map<String, Room> savedMap;
 }

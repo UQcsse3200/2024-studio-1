@@ -142,6 +142,7 @@ public class MainGameScreen extends ScreenAdapter {
             MainGameArea area = new MainGameArea(levelFactory, player);
             area.exportPosition();
         }
+        //exports the rooms and map data into the filePath below after Save button is pressed
         levelFactory.exportToJson("./dummy.json");
     }
 

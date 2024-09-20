@@ -3,6 +3,9 @@ package com.csse3200.game.components.player;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
+import java.util.Objects;
+
+
 /**
  *
  * This class listens to events triggered by the KeyboardPlayerInputComponent
@@ -12,6 +15,23 @@ public class PlayerAnimationController extends Component {
     AnimationRenderComponent animationController;
     private boolean death = false;
     private boolean animationStopped = false;
+    private PlayerType playerType;
+
+    public PlayerAnimationController(String textureAtlas) {
+        switch (textureAtlas) {
+            case ("images/player/player.atlas"):
+                this.playerType = PlayerType.Player1;
+                break;
+            case ("images/player/homeless1.atlas"):
+                this.playerType = PlayerType.Player2;
+                break;
+        }
+    }
+
+    private enum PlayerType {
+        Player1,
+        Player2
+    }
 
     /**
      * Adds the event listener to the character entity to trigger an animation change.
@@ -46,7 +66,10 @@ public class PlayerAnimationController extends Component {
      */
     void walkLeft() {
         if (!death) {
-            animationController.startAnimation("walk-left");
+            switch (playerType) {
+                case Player1 -> animationController.startAnimation("walk-left");
+                case Player2 -> animationController.startAnimation("Walk");
+            }
         }
     }
 
@@ -55,7 +78,10 @@ public class PlayerAnimationController extends Component {
      */
     void walkRight() {
         if (!death) {
-            animationController.startAnimation("walk-right");
+            switch (playerType) {
+                case Player1 -> animationController.startAnimation("walk-right");
+                case Player2 -> animationController.startAnimation("Walk");
+            }
         }
     }
 
@@ -64,7 +90,10 @@ public class PlayerAnimationController extends Component {
      */
     void walkDown() {
         if (!death) {
-            animationController.startAnimation("walk-down");
+            switch (playerType) {
+                case Player1 -> animationController.startAnimation("walk-down");
+                case Player2 -> animationController.startAnimation("Walk");
+            }
         }
     }
 
@@ -73,7 +102,10 @@ public class PlayerAnimationController extends Component {
      */
     void walkUp() {
         if (!death) {
-            animationController.startAnimation("walk-up");
+            switch (playerType) {
+                case Player1 -> animationController.startAnimation("walk-up");
+                case Player2 -> animationController.startAnimation("Walk");
+            }
         }
     }
 
@@ -81,8 +113,11 @@ public class PlayerAnimationController extends Component {
      * Starts the player death animation.
      */
     void deathAnimation() {
+        switch (playerType) {
+            case Player1 -> animationController.startAnimation( "death-down");
+            case Player2 -> animationController.startAnimation( "Dead");
+        }
         death = true;
-        animationController.startAnimation("death-down");
     }
 
     /**
@@ -101,7 +136,10 @@ public class PlayerAnimationController extends Component {
      */
     void damageAnimation() {
         if (!death) {
-            animationController.startAnimation("damage-down");
+            switch (playerType) {
+                case Player1 -> animationController.startAnimation( "damage-down");
+                case Player2 -> animationController.startAnimation( "Hurt");
+            }
         }
     }
 }

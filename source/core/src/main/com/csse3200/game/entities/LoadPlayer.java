@@ -72,7 +72,7 @@ public class LoadPlayer {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         if (Objects.equals(config.textureAtlasFilename, "images/player/homeless1.atlas")) {
             TextureRegion defaultTexture = atlas.findRegion("idle");
-            player.setScale(2f, (float) 2f * defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+            player.setScale(2f, 2f);
         } else {
             player.setScale(playerScale, playerScale);
         }
@@ -99,7 +99,7 @@ public class LoadPlayer {
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))
-                .addComponent(new PlayerAnimationController())
+                .addComponent(new PlayerAnimationController(config.textureAtlasFilename))
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
@@ -212,7 +212,9 @@ public class LoadPlayer {
             case ("images/player/homeless1.atlas"):
                 animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("Walk", 0.2f, Animation.PlayMode.LOOP);
-                animator.addAnimation("Dead", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Dead", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack_1", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Hurt", 0.35f, Animation.PlayMode.NORMAL);
                 break;
         }
 

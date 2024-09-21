@@ -461,9 +461,7 @@ public class WeaponComponent extends Component {
             }
             // Render attack here using
             this.lastSwing = currentTime;
-            ServiceLocator.getResourceService()
-                    .getAsset("sounds/sword1.ogg", Sound.class)
-                    .play();
+            ServiceLocator.getResourceService().playSound("sounds/sword1.ogg");
             logger.info("Melee weapon attack");
             triggerWeaponAnimation(this.meleeEntity,
                     this.entity.getComponent(PlayerActions.class).getWalkDirection());

@@ -5,14 +5,11 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.services.ServiceLocator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -22,7 +19,6 @@ public class AllFiringLogic extends Component {
     private Entity entity;
     private ProjectileFactory projectileFactory;
     private ProjectileConfig bulletConfig;
-    private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
 
     // Ranged Weapon Variables
     private int damage;
@@ -66,11 +62,9 @@ public class AllFiringLogic extends Component {
     public void shoot(Vector2 direction) {
         long currentTime = System.currentTimeMillis();
             if (currentTime - lastAttack <= attackInterval) {
-                logger.info("Ranged weapon not ready");
                 return; // Weapon not ready
             }
             if (ammo == 0) {
-                logger.info("Out of ammo, reloading...");
                 reload(); // Handle reloading
                 return;
             } else {
@@ -79,7 +73,6 @@ public class AllFiringLogic extends Component {
                 Entity projectile = projectileFactory.createProjectile(bulletConfig, direction, entity.getPosition());
                 projectile.getComponent(ProjectileAttackComponent.class).create();
                 ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9, 9), true, true);
-                logger.info("Ranged weapon shoot");
                 entity.getEvents().trigger("RANGED_ATTACK");
                 ServiceLocator.getResourceService().getAsset("sounds/shoot.ogg", Sound.class).play();
             }
@@ -92,7 +85,6 @@ public class AllFiringLogic extends Component {
         long currentTime = System.currentTimeMillis();
             // Check if the melee weapon is ready
             if (currentTime - lastSwing <= swingInterval) {
-                logger.info("Melee weapon not ready");
                 return; // Weapon not ready
             }
 
@@ -100,7 +92,6 @@ public class AllFiringLogic extends Component {
             ServiceLocator.getResourceService()
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
-            logger.info("Melee weapon attack");
                 ArrayList<Entity> entitiesInRange = this.getEntity().getComponent(RangeDetectionComponent.class).getEntities();
                 // Apply damage to each entity in range
                 for (Entity target : entitiesInRange) {

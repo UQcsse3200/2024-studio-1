@@ -103,15 +103,15 @@ public class AllFiringLogic extends Component {
                     .play();
             logger.info("Melee weapon attack");
             rangeDetection = entity.getComponent(RangeDetectionComponent.class);
-            ArrayList<Entity> entitiesInRange = rangeDetection.getEntities();
-                // Apply damage to each entity in range
-                for (Entity target : entitiesInRange) {
-                    CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
-                    if (targetStats != null) {
-                        // Apply melee damage
-                        targetStats.hit(target.getComponent(CombatStatsComponent.class)); // Apply the swing damage directly
-                    }
-                }
+//            ArrayList<Entity> entitiesInRange = rangeDetection.getEntities();
+//                // Apply damage to each entity in range
+//                for (Entity target : entitiesInRange) {
+//                    CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
+//                    if (targetStats != null) {
+//                        // Apply melee damage
+//                        targetStats.hit(target.getComponent(CombatStatsComponent.class)); // Apply the swing damage directly
+//                    }
+//                }
     }
 
 

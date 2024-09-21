@@ -106,12 +106,7 @@ public class AllFiringLogic extends Component {
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
-
-            // Get entities in range
-            RangeDetectionComponent rangeDetection = entity.getComponent(RangeDetectionComponent.class);
-            if (rangeDetection != null) {
-                ArrayList<Entity> entitiesInRange = rangeDetection.getEntities();
-
+                ArrayList<Entity> entitiesInRange = entity.getComponent(RangeDetectionComponent.class).getEntities();
                 // Apply damage to each entity in range
                 for (Entity target : entitiesInRange) {
                     CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
@@ -120,7 +115,6 @@ public class AllFiringLogic extends Component {
                         targetStats.hit(target.getComponent(CombatStatsComponent.class)); // Apply the swing damage directly
                     }
                 }
-            }
         }else {
             logger.info("No melee weapon");
         }

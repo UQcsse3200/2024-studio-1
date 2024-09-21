@@ -78,10 +78,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    private boolean pickupItem() {
+        entity.getEvents().trigger("pickup");
+        return true;
+    }
+
     private boolean bossTeleport() {
         entity.getEvents().trigger("teleportToBoss");
         return true;
     }
+
 
     /*
      * All the player actions that need to respond to key down
@@ -105,6 +111,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_3, (i) -> useItem(3));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
+
+        actionMap.put(PICK_UP, (i) -> pickupItem());
         return actionMap;
     }
 

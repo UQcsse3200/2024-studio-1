@@ -39,7 +39,7 @@ public class WeaponAnimationController extends Component {
         this.getEntity().getEvents().addListener("shootLeft", this::animateShootLeft);
         this.getEntity().getEvents().addListener("shootUp", this::animateShootUp);
         this.getEntity().getEvents().addListener("shootDown", this::animateShootDown);
-        this.getEntity().getEvents().addListener("attackMelee", this::attackMelee);
+//        this.getEntity().getEvents().addListener("attackMelee", this::attackMelee);
     }
 
     private void animateLeft() {
@@ -72,15 +72,15 @@ public class WeaponAnimationController extends Component {
     private void animateShootDown() {
         animationController.startAnimation("shootDown");
     }
-    private void attackMelee() {
-        if (weaponDirection == left) {
-            animateShootLeft();
-        } else if (weaponDirection == right) {
-            animateShootRight();
-        } else if (weaponDirection == up) {
-            animateShootUp();
-        } else {
-            animateShootDown();
-        }
-    }
+//    private void attackMelee() {
+//        if (weaponDirection == left) {
+//            animateShootLeft();
+//        } else if (weaponDirection == right) {
+//            animateShootRight();
+//        } else if (weaponDirection == up) {
+//            animateShootUp();
+//        } else {
+//            animateShootDown();
+//        }
+//    }
 }

@@ -13,6 +13,7 @@ import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
+import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
@@ -27,7 +28,7 @@ import java.util.*;
 public class WeaponComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
     private Collectible.Type weaponType; // type of weapon
-    private ProjectileFactory projectileFactory = new ProjectileFactory();
+    private ProjectileFactory projectileFactory;
 
     // Ranged --------------------------------------------
     private int damage; // weapon damage
@@ -57,11 +58,16 @@ public class WeaponComponent extends Component {
     // Tracking weapon state
     private long lastSwing; // Time of last melee weapon activation, in seconds
     private long swingInterval; // Interval between melee weapon activation, in seconds
+    private Entity rangedEntity; // the ranged weapon entity
+    private Entity oldRangedEntity; // the ranged weapon entity
+    private Entity meleeEntity; // the melee weapon entity
+    private Entity oldMeleeEntity; // the melee weapon entity
+    private Collectible meleeItem; // the melee weapon entity
+    private boolean newMeleeFlag; // True to create a new entity to replace meleeEntity
+    private Collectible rangedItem; // the melee weapon entity
+    private boolean newRangedFlag; // True to create a new entity to replace rangedEntity
 
-    Vector2 lastPos; // last position of the weapon entity, used to determine direction
-
-    Entity rangedItemEntity; // the ranged weapon entity
-    Entity meleeItemEntity; // the melee weapon entity
+    private WeaponFactory weaponFactory;
 
     /**
      * Constructor for WeaponComponent
@@ -114,7 +120,12 @@ public class WeaponComponent extends Component {
         // Currently has only 1 projectile config
         this.bulletConfig = new ProjectileConfig();
 
-        this.rangedItemEntity = null;
+        this.rangedEntity = null;
+        this.meleeEntity = null;
+        this.rangedItem = null;
+        this.meleeEntity = null;
+        this.newMeleeFlag = false;
+        this.newRangedFlag = false;
     }
 
     /**
@@ -129,6 +140,39 @@ public class WeaponComponent extends Component {
             new WeaponComponent(weaponSprite, weaponType, 600, 4f, 1, 0, 0, 0);
         } else {
             new WeaponComponent(weaponSprite, weaponType, 600, 4f, 1, 1, 1, 1);
+        }
+    }
+
+    @Override
+    public void create() {
+        // No action by default.
+        this.projectileFactory = new ProjectileFactory();
+        this.weaponFactory = new WeaponFactory();
+    }
+
+    @Override
+    public void update() {
+        if (this.entity != null) {
+            if (this.newMeleeFlag) {
+                this.oldMeleeEntity = this.meleeEntity;
+                createMeleeEntity();
+                ServiceLocator.getGameAreaService().getGameArea().disposeEntity(this.oldMeleeEntity);
+                this.newMeleeFlag = false;
+            }
+            if (this.newRangedFlag) {
+                this.oldRangedEntity = this.rangedEntity;
+                ServiceLocator.getGameAreaService().getGameArea().disposeEntity(this.oldRangedEntity);
+                createRangedEntity();
+                this.newRangedFlag = false;
+            }
+
+            Vector2 newPos = this.entity.getPosition();
+            if (this.meleeEntity != null) {
+                this.meleeEntity.setPosition(newPos);
+            }
+            if (this.rangedEntity != null) {
+                this.rangedEntity.setPosition(newPos);
+            }
         }
     }
 
@@ -290,6 +334,8 @@ public class WeaponComponent extends Component {
         } else {
             this.attackInterval = (1000L / this.fireRate);
         }
+        this.rangedItem = rangedWeapon;
+        this.newRangedFlag = true;
     }
 
     /**
@@ -316,8 +362,8 @@ public class WeaponComponent extends Component {
 //        if (rangedItemEntity != null) {
 //            ServiceLocator.getGameAreaService().getGameArea().disposeEntity(rangedItemEntity);
 //        }
-        this.rangedItemEntity = itemEntity;
-        this.rangedItemEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
+        this.rangedEntity = itemEntity;
+        this.rangedEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
     }
 
     /**
@@ -335,6 +381,8 @@ public class WeaponComponent extends Component {
         } else {
             this.swingInterval = (1000L / this.swingRate);
         }
+        this.meleeItem = meleeWeapon;
+        this.newMeleeFlag = true;
     }
 
     /**
@@ -353,29 +401,14 @@ public class WeaponComponent extends Component {
         } else {
             this.swingInterval = (1000L / this.swingRate);
         }
-        if (meleeItemEntity != null) {
-            ServiceLocator.getGameAreaService().getGameArea().disposeEntity(meleeItemEntity);
+        if (meleeEntity != null) {
+            ServiceLocator.getGameAreaService().getGameArea().disposeEntity(meleeEntity);
         }
-        this.meleeItemEntity = itemEntity;
-        this.meleeItemEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
-        updateTargetLayer(this.meleeItemEntity);
+        this.meleeEntity = itemEntity;
+        this.meleeEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
+        updateTargetLayer(this.meleeEntity);
         getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
     }
-
-    @Override
-    public void update() {
-        if (this.entity != null) {
-            Vector2 newPos = this.entity.getPosition();
-            if (this.meleeItemEntity != null) {
-                this.meleeItemEntity.setPosition(this.entity.getPosition());
-            }
-            if (this.rangedItemEntity != null) {
-                this.rangedItemEntity.setPosition(newPos);
-                this.lastPos = newPos;
-            }
-        }
-    }
-
 
     /**
      * Drop range weapon, set all related properties to default
@@ -407,7 +440,7 @@ public class WeaponComponent extends Component {
      */
     public void attackMelee() {
         logger.info("Melee weapon attack triggered");
-        if (this.meleeItemEntity == null) {
+        if (this.meleeEntity == null) {
             logger.info("No weapon");
             return;
         }
@@ -425,9 +458,11 @@ public class WeaponComponent extends Component {
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
-            this.meleeItemEntity.getEvents().trigger("attackMelee");
+            triggerWeaponAnimation(this.meleeEntity,
+                    this.entity.getComponent(PlayerActions.class).getWalkDirection());
             // get all NPC entities in a map by accessing game area
-            List<Entity> mapEntities = ServiceLocator.getGameAreaService().getGameArea().getListOfEntities();
+            List<Entity> mapEntities = ServiceLocator.getGameAreaService()
+                                                .getGameArea().getListOfEntities();
             logger.info("Entities in map: " + mapEntities);
             applyFilteredDamage(mapEntities);
         } else {
@@ -515,7 +550,7 @@ public class WeaponComponent extends Component {
                 ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
                 ServiceLocator.getResourceService().playSound("sounds/shotgun1_f.ogg");
                 // Trigger event for animation controller
-                triggerEvent(rangedItemEntity, direction);
+                triggerWeaponAnimation(rangedEntity, direction);
                 logger.info("Ranged weapon shoot");
                 entity.getEvents().trigger("RANGED_ATTACK");
 
@@ -560,7 +595,7 @@ public class WeaponComponent extends Component {
      * Trigger shoot event base on shooting direction
      * @param direction The direction to shoot in
      */
-    private void triggerEvent(Entity weaponEntity, Vector2 direction) {
+    private void triggerWeaponAnimation(Entity weaponEntity, Vector2 direction) {
         if (weaponEntity == null) {
             return;
         }
@@ -575,5 +610,30 @@ public class WeaponComponent extends Component {
         } else if (direction.x == -1.0) {
             weaponEntity.getEvents().trigger("shootLeft");
         }
+    }
+
+    /**
+     * Create a melee weapon entity from the pickup weapon collectible
+     */
+    private void createMeleeEntity() {
+        // Create melee entity if the melee collectible is set
+        this.meleeEntity = weaponFactory.createWeaponForPlayer(this.meleeItem);
+        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(meleeEntity,
+                new GridPoint2(0,0),
+                true, true);
+        this.meleeEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
+        updateTargetLayer(meleeEntity);
+        getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
+    }
+    /**
+     * Create a ranged weapon entity from the pickup weapon collectible
+     */
+    private void createRangedEntity() {
+        // Create melee entity if the melee collectible is set
+        this.rangedEntity = weaponFactory.createWeaponForPlayer(this.rangedItem);
+        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(rangedEntity,
+                new GridPoint2(0,0),
+                true, true);
+        this.rangedEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
     }
 }

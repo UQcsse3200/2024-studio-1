@@ -2,11 +2,9 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
-//import com.csse3200.game.components.player.RangeDetectionComponent;
 import com.csse3200.game.components.player.WeaponAnimationController;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
@@ -16,7 +14,6 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
-import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,7 +69,6 @@ public class WeaponFactory extends LoadedFactory {
         };
     }
 
-
     /**
      * Convert a collectible item into a collectible entity.
      *
@@ -101,14 +97,7 @@ public class WeaponFactory extends LoadedFactory {
      */
     private Entity createMeleeEntity(MeleeWeapon collectible) throws IllegalArgumentException {
 
-        WeaponAnimationRenderComponent animator =
-                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/slash_1" +
-                        ".atlas"));
-        animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
-        animator.addAnimation("shootUp", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootDown", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
+        WeaponAnimationRenderComponent animator = createAnimator("slash_1");
 
         Entity meleeEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
@@ -121,7 +110,7 @@ public class WeaponFactory extends LoadedFactory {
         PhysicsUtils.setScaledCollider(meleeEntity, -1f, -1f); //  this affect player movement!!!
         // set the collider to 0
         meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
-        meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
+        meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("item");
         meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(0f, 0f));
         //meleeEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
 
@@ -129,6 +118,7 @@ public class WeaponFactory extends LoadedFactory {
 
         return meleeEntity;
     }
+
 
     /**
      * Convert a collectible melee weapon into a melee weapon entity.
@@ -139,18 +129,7 @@ public class WeaponFactory extends LoadedFactory {
     private Entity createRangeEntity(RangedWeapon collectible) {
 
         // Load atlas
-        WeaponAnimationRenderComponent animator =
-                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons" +
-                        "/plasma_blaster" +
-                        ".atlas"));
-        animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
-        animator.addAnimation("left", 0.04f, Animation.PlayMode.LOOP);
-        animator.addAnimation("up", 0.04f, Animation.PlayMode.LOOP);
-        animator.addAnimation("down", 0.04f, Animation.PlayMode.LOOP);
-        animator.addAnimation("shootUp", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootDown", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
+        WeaponAnimationRenderComponent animator = createAnimator("plasma_blaster");
 
         Entity rangedEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
@@ -167,6 +146,98 @@ public class WeaponFactory extends LoadedFactory {
         logger.info("Created range weapon entity: " + collectible);
 
         return rangedEntity;
+    }
+
+    /**
+     * Create weapon entity for player to use. Should only be invoke from WeaponComponent
+     * @param collectible the weapon to convert
+     * @return the final entity containing the weapon.
+     * @throws IllegalArgumentException with invalid input collectible
+     */
+    public Entity createWeaponForPlayer(Collectible collectible) throws IllegalArgumentException {
+        try {
+            if (collectible.getType() == Collectible.Type.MELEE_WEAPON) {
+                return createMeleeTest((MeleeWeapon) collectible);
+            }
+            return createRangeTest((RangedWeapon) collectible);
+        }
+        catch (Exception e) {
+            logger.error("Failed to create weapon entity:{}", e.toString());
+            throw new IllegalArgumentException("Invalid collectible");
+        }
+    }
+
+    /**
+     * Create melee for the player to use. This weapon entity will not have the collectible
+     * component
+     * @param collectible the weapon to convert
+     * @return the final entity containing the weapon.
+     * @throws IllegalArgumentException with invalid input collectible
+     */
+    private Entity createMeleeTest(MeleeWeapon collectible) throws IllegalArgumentException {
+
+        WeaponAnimationRenderComponent animator = createAnimator("slash_1");
+
+        Entity meleeEntity = new Entity()
+                .addComponent(new NameComponent("Melee"))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
+                .addComponent(new PhysicsComponent())
+                .addComponent(new ColliderComponent())
+                .addComponent(animator)
+                .addComponent(new WeaponAnimationController());
+
+        // set the collider to 0
+        meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
+        meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
+        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(0f, 0f));
+
+        logger.info("Created melee weapon entity: " + collectible);
+
+        return meleeEntity;
+    }
+
+    /**
+     * Create range weapon for the player to use. This weapon entity will not have the collectible
+     * component
+     * @param collectible the weapon to convert
+     * @return the final entity containing the weapon.
+     * @throws IllegalArgumentException with invalid input collectible
+     */
+    private Entity createRangeTest(RangedWeapon collectible) {
+
+        // Load atlas and animation
+        WeaponAnimationRenderComponent animator = createAnimator("plasma_blaster");
+
+        Entity rangedEntity = new Entity()
+                .addComponent(new NameComponent("Ranged"))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
+                .addComponent(new PhysicsComponent())
+                .addComponent(new ColliderComponent())
+                .addComponent(animator)
+                .addComponent(new WeaponAnimationController());
+
+        rangedEntity.getComponent(ColliderComponent.class).setSensor(true);
+        rangedEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
+        rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(3f, 3f));
+        logger.info("Created range weapon entity: " + collectible);
+
+        return rangedEntity;
+    }
+
+    private WeaponAnimationRenderComponent createAnimator(String weaponName) {
+        WeaponAnimationRenderComponent animator =
+                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/" +
+                        weaponName + ".atlas"));
+        animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("left", 0.04f, Animation.PlayMode.LOOP);
+        animator.addAnimation("up", 0.04f, Animation.PlayMode.LOOP);
+        animator.addAnimation("down", 0.04f, Animation.PlayMode.LOOP);
+        animator.addAnimation("shootUp", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("shootDown", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("item", 0.05f, Animation.PlayMode.NORMAL);
+        return animator;
     }
 
     /**

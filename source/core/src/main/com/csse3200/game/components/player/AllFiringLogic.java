@@ -88,6 +88,7 @@ public class AllFiringLogic extends Component {
 
 
     public void attack() {
+        Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
             // Check if the melee weapon is ready
             if (currentTime - lastSwing <= swingInterval) {
@@ -100,16 +101,15 @@ public class AllFiringLogic extends Component {
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
-//            rangeDetection = entity.getComponent(RangeDetectionComponent.class);
-//            ArrayList<Entity> entitiesInRange = rangeDetection.getEntities();
-//                // Apply damage to each entity in range
-//                for (Entity target : entitiesInRange) {
-//                    CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
-//                    if (targetStats != null) {
-//                        // Apply melee damage
-//                        targetStats.hit(target.getComponent(CombatStatsComponent.class)); // Apply the swing damage directly
-//                    }
-//                }
+                ArrayList<Entity> entitiesInRange = this.getEntity().getComponent(RangeDetectionComponent.class).getEntities();
+                // Apply damage to each entity in range
+                for (Entity target : entitiesInRange) {
+                    CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
+                    if (targetStats != null) {
+                        // Apply melee damage
+                        targetStats.hit(target.getComponent(CombatStatsComponent.class)); // Apply the swing damage directly
+                    }
+                }
     }
 
 

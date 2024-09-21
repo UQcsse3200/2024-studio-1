@@ -29,46 +29,59 @@ public class ItemPickupComponent extends Component {
     }
 
     /**
-     * A method that is called whenever the player collides with another entity. To ensure that the 'pickup'
-     * functionality only occurs when the other entity is a collectible, checks are made to ensure that the
-     * other entity has a CollectibleComponent
+     * Handles player collision with another entity. The pickup functionality only occurs
+     * if the collided entity is a collectible.
      */
     private void onCollisionStart(Fixture me, Fixture other) {
-        //Get the entity attached to thing ('other') that the player collided with
         Entity itemEntity = ((BodyUserData) other.getBody().getUserData()).entity;
-        if (itemEntity.getComponent(CollectibleComponent.class) == null) {
-            //If the other thing does not have a 'CollectibleComponent', then it is not a Collectible entity
-            return;
+        if (!isCollectible(itemEntity) || itemEntity == lastPickedUpEntity) {
+            return; // Not a collectible or already picked up
         }
-        // Avoid picking up the same entity twice
-        if (itemEntity == lastPickedUpEntity) {
-            return;
-        }
-        //Get the Collectible that was passed into this Collectible entity
+
         Collectible item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
-        //Use the 'pickup' method of the InventoryComponent, pass in the item
-        //The 'pickup' method of the InventoryComponent class uses the unique 'pickup' method of the item that
-        // is passed in
-        if (item.getType() == Collectible.Type.MELEE_WEAPON || item.getType() == Collectible.Type.RANGED_WEAPON) {
-            entity.getComponent(InventoryComponent.class).pickup(item, itemEntity);
-        }
-        else {
-            // Pickup items
-            entity.getComponent(InventoryComponent.class).pickup(item);
-            markEntityForRemoval(itemEntity);
-        }
-        System.out.println("It works!"); //Test to see if on collision, it works
+        handleItemPickup(item, itemEntity);
     }
 
     /**
-     * Marks the entity for removal from the game. This method unregisters the entity from the entity service,
-     * scheduling it for later disposal at the end of the games update cycle. This ensures that the entity is
-     * not prematurely removed from the game state.
-     *
+     * Checks if the given entity is collectible
+     * @param entity to check
+     * @return true if entity is collectible, otherwise false
+     */
+    private boolean isCollectible(Entity entity) {
+        return entity.getComponent(CollectibleComponent.class) != null;
+    }
+
+    /**
+     * Handles the logic for picking up the item based on its type
+     * @param item the item to be picked up
+     * @param itemEntity the item entity
+     */
+    private void handleItemPickup(Collectible item, Entity itemEntity) {
+        InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
+        if (isWeapon(item)) {
+            inventory.pickup(item, itemEntity);
+        } else {
+            inventory.pickup(item);
+            markEntityForRemoval(itemEntity);
+        }
+
+        lastPickedUpEntity = itemEntity; //Update the last picked up entity
+    }
+
+    /**
+     * Checks if the item is a weapon
+     * @param item the item to be picked up
+     * @return true if the item is weapon, false otherwise
+     */
+    private boolean isWeapon(Collectible item) {
+        return item.getType() == Collectible.Type.MELEE_WEAPON || item.getType() == Collectible.Type.RANGED_WEAPON;
+    }
+
+    /**
+     * Marks the entity for removal from the game.
      * @param itemEntity the item to be disposed
      */
     private void markEntityForRemoval(Entity itemEntity) {
-        // Perform any last checks or cleanup before actual disposal
         ServiceLocator.getEntityService().markEntityForRemoval(itemEntity);
     }
 }

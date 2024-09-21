@@ -2,6 +2,7 @@ package com.csse3200.game.components.npc.attack;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.AnimalProjectileConfig;
 import com.csse3200.game.entities.configs.NPCConfigs;
@@ -19,6 +20,7 @@ public class RangeAttackComponent extends AttackComponent {
     private ProjectileConfig bulletConfig;
     private final ShootType type;
     private Entity latestProjectile;
+    private DirectionalNPCComponent directionalComponent;
 
     private final ProjectileFactory projectileFactory = new AnimalProjectileFactory();
 
@@ -97,12 +99,19 @@ public class RangeAttackComponent extends AttackComponent {
         projectile.getComponent(com.csse3200.game.components.projectile.ProjectileAttackComponent.class).create();
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9),
                 true, true);
-        if (direction.x >= 0) {
-            projectile.getEvents().trigger("fire_attack_right");
-        } else {
-            projectile.getEvents().trigger("fire_attack_left");
-        }
+        updateDirection(direction);
+        projectile.getEvents().trigger("fire_attack");
         latestProjectile = projectile;
+    }
+
+    private void updateDirection(Vector2 direction) {
+        if (directionalComponent != null) {
+            if (direction.x >= 0) {
+                directionalComponent.setDirection("right");
+            } else {
+                directionalComponent.setDirection("left");
+            }
+        }
     }
 
     /**

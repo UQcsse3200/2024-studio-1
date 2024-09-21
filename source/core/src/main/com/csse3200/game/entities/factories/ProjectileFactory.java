@@ -32,16 +32,11 @@ import java.nio.file.*;
 public class ProjectileFactory extends LoadedFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(ProjectileFactory.class);
-    //private static final ProjectileConfigs configs = loadConfigs();
+    private final ProjectileConfigs configs = loadConfigs();
 
     public static ProjectileConfigs loadConfigs() {
         Path path = Paths.get("configs/projectiles.json");
-        ProjectileConfigs configs;
-        if (Files.exists(path)) {
-            configs = FileLoader.readClass(ProjectileConfigs.class, "configs/projectiles.json");
-        } else {
-            configs = new ProjectileConfigs();
-        }
+        ProjectileConfigs configs = FileLoader.readClass(ProjectileConfigs.class, "configs/projectiles.json");
         return configs;
     }
 
@@ -74,11 +69,9 @@ public class ProjectileFactory extends LoadedFactory {
     }
 
     public Entity createDragonProjectile(Vector2 direction, Vector2 parentPosition) {
-        ProjectileConfigs configs = loadConfigs();
+        //ProjectileConfigs configs = loadConfigs();
         ProjectileConfigs.BaseProjectileConfig config = configs.dragonProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
-        animator.addAnimation("fire_attack_left", 0.1f, Animation.PlayMode.LOOP);
-        animator.addAnimation("fire_attack_right", 0.1f, Animation.PlayMode.LOOP);
         Entity dragonProjectile = createProjectile("Dragon Projectile", config, direction,
                 parentPosition, animator);
 
@@ -109,7 +102,6 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new ProjectileAnimationController())
                         .addComponent(animator);
 
-        projectile.getComponent(AnimationRenderComponent.class).startAnimation("Shoot");
         projectile.getComponent(ColliderComponent.class).setSensor(true);
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
         projectile.setScale(stats.scaleX, stats.scaleY);

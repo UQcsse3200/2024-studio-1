@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class WeaponComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
     private Collectible.Type weaponType; // type of weapon
-    private final ProjectileFactory projectileFactory = new ProjectileFactory();
+    private ProjectileFactory projectileFactory;
 
     // Ranged --------------------------------------------
     private int damage; // weapon damage
@@ -58,6 +58,12 @@ public class WeaponComponent extends Component {
 
     Entity rangedItemEntity; // the ranged weapon entity
     Entity meleeItemEntity; // the melee weapon entity
+
+    @Override
+    public void create() {
+        super.create();
+        projectileFactory = new ProjectileFactory();
+    }
 
     /**
      * Constructor for WeaponComponent

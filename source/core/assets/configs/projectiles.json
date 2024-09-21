@@ -11,7 +11,8 @@
     "scaleX": 0.5,
     "scaleY": 0.5,
     "animations": [
-      {"name": "fire_attack", "frameDuration": 0.1, "playMode": "LOOP"}
+      {"name": "fire_attack_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "fire_attack_right", "frameDuration": 0.1, "playMode": "LOOP"}
     ]
   }
 }

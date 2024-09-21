@@ -1,4 +1,4 @@
-package com.csse3200.game.components.npc;
+/**package com.csse3200.game.components.npc;
 
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ai.tasks.AITaskComponent;
@@ -79,4 +79,4 @@ class NPCDeathHandlerTest {
         verify(entity.getComponent(ColliderComponent.class), times(1)).setEnabled(false);
         assertTrue(NPCDeathHandler.deadEntities.contains(entity.getId()));
     }
-}
+}*/

@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.WeaponComponent;
-import com.csse3200.game.components.player.RangeDetectionComponent;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
@@ -24,7 +23,6 @@ public class AllFiringLogic extends Component {
     private ProjectileFactory projectileFactory;
     private ProjectileConfig bulletConfig;
     private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
-    private RangeDetectionComponent rangeDetection;
 
     // Ranged Weapon Variables
     private int damage;
@@ -102,16 +100,16 @@ public class AllFiringLogic extends Component {
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
-            rangeDetection = entity.getComponent(RangeDetectionComponent.class);
-            ArrayList<Entity> entitiesInRange = rangeDetection.getEntities();
-                // Apply damage to each entity in range
-                for (Entity target : entitiesInRange) {
-                    CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
-                    if (targetStats != null) {
-                        // Apply melee damage
-                        targetStats.hit(target.getComponent(CombatStatsComponent.class)); // Apply the swing damage directly
-                    }
-                }
+//            rangeDetection = entity.getComponent(RangeDetectionComponent.class);
+//            ArrayList<Entity> entitiesInRange = rangeDetection.getEntities();
+//                // Apply damage to each entity in range
+//                for (Entity target : entitiesInRange) {
+//                    CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
+//                    if (targetStats != null) {
+//                        // Apply melee damage
+//                        targetStats.hit(target.getComponent(CombatStatsComponent.class)); // Apply the swing damage directly
+//                    }
+//                }
     }
 
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.RangeDetectionComponent;
 import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.components.projectile.ProjectileAttackComponent;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 
 
-public class AllFiringLogic {
+public class AllFiringLogic extends Component {
     private Entity entity;
     private ProjectileFactory projectileFactory;
     private ProjectileConfig bulletConfig;

@@ -122,8 +122,8 @@ public class WeaponFactory extends LoadedFactory {
         // set the collider to 0
         meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
         meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(1f, 1f));
-        meleeEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(0f, 0f));
+        //meleeEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
 
         logger.info("Created melee weapon entity: " + collectible);
 

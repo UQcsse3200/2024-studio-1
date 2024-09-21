@@ -166,6 +166,10 @@ public class MainGameArea extends GameArea {
     protected String[] getTextureAtlasFilepaths() {
         return new String[]{
                 "images/terrain_iso_grass.atlas",
+                "skins/levels/level1/level1_skin.atlas",
+                "skins/levels/level2/level2_skin.atlas",
+                "skins/levels/level3/level3_skin.atlas"
+
         };
     }
 
@@ -182,25 +186,12 @@ public class MainGameArea extends GameArea {
         List<String> filepaths = new ArrayList<>();
         String[] commonTextures = {
                 "images/box_boy_leaf.png",
-                "images/tile_1.png",
-                "images/tile_2.png",
-                "images/tile_3.png",
-                "images/tile_4.png",
-                "images/tile_5.png",
-                "images/tile_6.png",
-                "images/tile_7.png",
-                "images/tile_8.png",
-                "images/tile_middle.png",
-                "images/tile_general.png",
-                "images/tile_broken1.png",
-                "images/tile_broken2.png",
-                "images/tile_broken3.png",
-                "images/tile_staircase.png",
-                "images/tile_staircase_down.png",
-                "images/tile_blood.png",
                 "images/rounded_door_v.png",
                 "images/rounded_door_h.png",
-                "images/staircase.png"
+                "images/staircase.png",
+                "skins/levels/level1/level1_skin.png",
+                "skins/levels/level2/level2_skin.png",
+                "skins/levels/level3/level3_skin.png"
         };
         Collections.addAll(filepaths, commonTextures);
 

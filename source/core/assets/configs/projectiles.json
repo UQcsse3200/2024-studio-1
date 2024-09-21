@@ -1,7 +1,7 @@
 {
   "dragonProjectile": {
     "health": 0,
-    "baseAttack": 50,
+    "baseAttack": 5,
     "isDirectional": true,
     "speed": {
       "x": 10,

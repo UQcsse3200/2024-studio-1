@@ -32,7 +32,9 @@ public class ProjectileAnimationController extends Component {
     }
 
     private void triggerDirectionalAnimation(String baseAnimation) {
+        System.out.println("BRUH");
         String direction = directionalComponent.getDirection();
+        System.out.println(direction);
         if (direction.equals("right")) {
             animator.startAnimation(baseAnimation + "_right");
         } else {

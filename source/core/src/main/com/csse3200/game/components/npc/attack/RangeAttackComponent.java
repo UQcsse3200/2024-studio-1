@@ -99,18 +99,16 @@ public class RangeAttackComponent extends AttackComponent {
         projectile.getComponent(com.csse3200.game.components.projectile.ProjectileAttackComponent.class).create();
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9),
                 true, true);
-        updateDirection(direction);
+        updateDirection(projectile, direction);
         projectile.getEvents().trigger("fire_attack");
         latestProjectile = projectile;
     }
 
-    private void updateDirection(Vector2 direction) {
-        if (directionalComponent != null) {
-            if (direction.x >= 0) {
-                directionalComponent.setDirection("right");
-            } else {
-                directionalComponent.setDirection("left");
-            }
+    private void updateDirection(Entity projectile, Vector2 direction) {
+        if (direction.x >= 0) {
+            projectile.getComponent(DirectionalNPCComponent.class).setDirection("right");
+        } else {
+            projectile.getComponent(DirectionalNPCComponent.class).setDirection("left");
         }
     }
 

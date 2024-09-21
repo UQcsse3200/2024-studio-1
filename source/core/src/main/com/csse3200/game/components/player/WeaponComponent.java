@@ -143,6 +143,9 @@ public class WeaponComponent extends Component {
         }
     }
 
+    /**
+     * Create the projectile factory and weapon factory
+     */
     @Override
     public void create() {
         // No action by default.
@@ -150,6 +153,10 @@ public class WeaponComponent extends Component {
         this.weaponFactory = new WeaponFactory();
     }
 
+    /**
+     * Continuously update the position of the player to the weapon entities
+     * Replace weapon entity if needed
+     */
     @Override
     public void update() {
         if (this.entity != null) {
@@ -592,7 +599,8 @@ public class WeaponComponent extends Component {
     }
 
     /**
-     * Trigger shoot event base on shooting direction
+     * Trigger shoot event base on shooting direction or walking direction of the player if this
+     * is called for melee weapons
      * @param direction The direction to shoot in
      */
     private void triggerWeaponAnimation(Entity weaponEntity, Vector2 direction) {
@@ -617,11 +625,18 @@ public class WeaponComponent extends Component {
      */
     private void createMeleeEntity() {
         // Create melee entity if the melee collectible is set
+        if (this.meleeItem == null) {
+            // Have not picked up weapon
+            return;
+        }
         this.meleeEntity = weaponFactory.createWeaponForPlayer(this.meleeItem);
+        // Spawn entity in the map, the location should not matter
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(meleeEntity,
                 new GridPoint2(0,0),
                 true, true);
+        // Update the host for the weapon controller
         this.meleeEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
+        // For melee damage
         updateTargetLayer(meleeEntity);
         getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
     }
@@ -630,10 +645,16 @@ public class WeaponComponent extends Component {
      */
     private void createRangedEntity() {
         // Create melee entity if the melee collectible is set
+        if (this.rangedItem == null) {
+            // Have not picked up weapon
+            return;
+        }
         this.rangedEntity = weaponFactory.createWeaponForPlayer(this.rangedItem);
+        // Spawn entity in the map, the location should not matter
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(rangedEntity,
                 new GridPoint2(0,0),
                 true, true);
+        // Update the host for the weapon controller
         this.rangedEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
     }
 }

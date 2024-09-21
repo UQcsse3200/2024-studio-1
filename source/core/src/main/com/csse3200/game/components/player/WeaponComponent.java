@@ -313,6 +313,9 @@ public class WeaponComponent extends Component {
         } else {
             this.attackInterval = (1000L / this.fireRate);
         }
+//        if (rangedItemEntity != null) {
+//            ServiceLocator.getGameAreaService().getGameArea().disposeEntity(rangedItemEntity);
+//        }
         this.rangedItemEntity = itemEntity;
         this.rangedItemEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
     }
@@ -324,7 +327,7 @@ public class WeaponComponent extends Component {
      */
     public void updateWeapon(MeleeWeapon meleeWeapon) {
         this.swingDamage = meleeWeapon.getDamage();
-        this.swingRange = 2;//meleeWeapon.getRange();
+        this.swingRange = 4;//meleeWeapon.getRange();
         this.swingRate = meleeWeapon.getFireRate();
         this.lastSwing = 0L; // 1000 means 1 second ago
         if (this.swingRate == 0) {
@@ -342,13 +345,16 @@ public class WeaponComponent extends Component {
      */
     public void updateWeapon(MeleeWeapon meleeWeapon, Entity itemEntity) {
         this.swingDamage = meleeWeapon.getDamage();
-        this.swingRange = 2; //meleeWeapon.getRange();
+        this.swingRange = 4; //meleeWeapon.getRange();
         this.swingRate = meleeWeapon.getFireRate();
         this.lastSwing = 0L;
         if (this.swingRate == 0) {
             this.swingInterval = 0L;
         } else {
             this.swingInterval = (1000L / this.swingRate);
+        }
+        if (meleeItemEntity != null) {
+            ServiceLocator.getGameAreaService().getGameArea().disposeEntity(meleeItemEntity);
         }
         this.meleeItemEntity = itemEntity;
         this.meleeItemEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
@@ -389,6 +395,7 @@ public class WeaponComponent extends Component {
     public void dropMeleeWeapon() {
         // Update melee weapon to bare hand
         this.swingDamage = 1;
+        this.swingRange = 1;
         this.swingRange = 1;
         this.swingRate = 1;
     }
@@ -438,13 +445,18 @@ public class WeaponComponent extends Component {
      * @param mapEntities list of entities in the map
      */
     private void applyFilteredDamage(List<Entity> mapEntities) {
+        // if player still survive
+        if (this.entity.getComponent(CombatStatsComponent.class).getHealth() <= 0) {
+            return;
+        }
+
         for (Entity e : mapEntities) {
             if (e == null || e.getId() == this.entity.getId()) {
                 continue; // Skip null entities and the current entity
             }
 
             float distance = e.getPosition().dst(this.entity.getPosition());
-            if (distance >= this.swingRange) {
+            if (distance > this.swingRange) {
                 continue; // Skip entities outside swing range
             }
 

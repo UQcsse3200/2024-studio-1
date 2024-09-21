@@ -12,6 +12,9 @@ import com.csse3200.game.services.ServiceLocator;
  */
 public class ItemPickupComponent extends Component {
     private Entity lastPickedUpEntity = null;
+    private boolean contact = false;
+    Collectible item = null;
+    Entity itemEntity = null;
 
     /**
      * Construct a new empty item pickup component
@@ -26,6 +29,8 @@ public class ItemPickupComponent extends Component {
     @Override
     public void create() {
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
+        entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
+        entity.getEvents().addListener("pickup", ()->handleItemPickup(item, itemEntity));
     }
 
     /**
@@ -33,13 +38,22 @@ public class ItemPickupComponent extends Component {
      * if the collided entity is a collectible.
      */
     private void onCollisionStart(Fixture me, Fixture other) {
-        Entity itemEntity = ((BodyUserData) other.getBody().getUserData()).entity;
-        if (!isCollectible(itemEntity) || itemEntity == lastPickedUpEntity) {
+        contact = true;
+        Entity otherEntity = ((BodyUserData) other.getBody().getUserData()).entity;
+
+        if (!isCollectible(otherEntity) || otherEntity == lastPickedUpEntity) {
             return; // Not a collectible or already picked up
         }
 
-        Collectible item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
-        handleItemPickup(item, itemEntity);
+        itemEntity = ((BodyUserData) other.getBody().getUserData()).entity;
+        item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
+    }
+
+    /**
+     * Determine when the player collision has ended
+     */
+    private void onCollisionEnd(Fixture me, Fixture other) {
+        contact = false;
     }
 
     /**
@@ -57,15 +71,23 @@ public class ItemPickupComponent extends Component {
      * @param itemEntity the item entity
      */
     private void handleItemPickup(Collectible item, Entity itemEntity) {
+        if (item == null || itemEntity == null) {
+            return;
+        }
+
         InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
-        if (isWeapon(item)) {
-            inventory.pickup(item, itemEntity);
-        } else {
-            inventory.pickup(item);
-            markEntityForRemoval(itemEntity);
+        if(contact) {
+            if (isWeapon(item)) {
+                inventory.pickup(item, itemEntity);
+            } else {
+                inventory.pickup(item);
+                markEntityForRemoval(itemEntity);
+            }
         }
 
         lastPickedUpEntity = itemEntity; //Update the last picked up entity
+        this.item = null;
+        this.itemEntity = null;
     }
 
     /**

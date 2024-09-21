@@ -92,6 +92,15 @@ public class AllFiringLogic extends Component {
             ServiceLocator.getResourceService()
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
+//        ArrayList<Entity> entitiesInRange = this.getEntity().getComponent(RangeDetectionComponent.class).getEntities();
+////        // Apply damage to each entity in range
+////        for (Entity target : entitiesInRange) {
+////            CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
+////            if (targetStats != null) {
+////                // Apply melee damage
+////                targetStats.hit(target.getComponent(CombatStatsComponent.class)); // Apply the swing damage directly
+////            }
+////        }
     }
 
 

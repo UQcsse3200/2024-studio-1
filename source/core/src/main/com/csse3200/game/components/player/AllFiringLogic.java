@@ -65,7 +65,6 @@ public class AllFiringLogic extends Component {
 
     public void shoot(Vector2 direction) {
         long currentTime = System.currentTimeMillis();
-        if (entity != null) {
             if (currentTime - lastAttack <= attackInterval) {
                 logger.info("Ranged weapon not ready");
                 return; // Weapon not ready
@@ -85,15 +84,12 @@ public class AllFiringLogic extends Component {
                 ServiceLocator.getResourceService().getAsset("sounds/shoot.ogg", Sound.class).play();
             }
             lastAttack = currentTime;
-        }else {
-            logger.info("No ranged weapon");
         }
-        }
+
 
     public void attack() {
+        Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
-
-        if (entity != null) {
             // Check if the melee weapon is ready
             if (currentTime - lastSwing <= swingInterval) {
                 logger.info("Melee weapon not ready");
@@ -105,7 +101,7 @@ public class AllFiringLogic extends Component {
                     .getAsset("sounds/sword1.ogg", Sound.class)
                     .play();
             logger.info("Melee weapon attack");
-                ArrayList<Entity> entitiesInRange = entity.getComponent(RangeDetectionComponent.class).getEntities();
+                ArrayList<Entity> entitiesInRange = this.getEntity().getComponent(RangeDetectionComponent.class).getEntities();
                 // Apply damage to each entity in range
                 for (Entity target : entitiesInRange) {
                     CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
@@ -114,9 +110,6 @@ public class AllFiringLogic extends Component {
                         targetStats.hit(target.getComponent(CombatStatsComponent.class)); // Apply the swing damage directly
                     }
                 }
-        }else {
-            logger.info("No melee weapon");
-        }
     }
 
 

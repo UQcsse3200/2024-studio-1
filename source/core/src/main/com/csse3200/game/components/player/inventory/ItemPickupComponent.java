@@ -89,7 +89,9 @@ public class ItemPickupComponent extends Component {
         GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
         markEntityForRemoval(collisionItemEntity);
 
-        Entity newItem = testCollectibleFactory.createCollectibleEntity("item:shieldpotion");
+        int randomInt = ServiceLocator.getRandomService().getRandomNumberGenerator(ServiceLocator.getGameAreaService().getGameArea().getClass()).getRandomInt(0, 5);
+        Entity newItem = this.randomItemGenerator(randomInt);
+//        Entity newItem = testCollectibleFactory.createCollectibleEntity("item:shieldpotion");
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
 //        area.spawnEntityAt(newItem, itemEntityPosition, true, true);
@@ -139,5 +141,19 @@ public class ItemPickupComponent extends Component {
      */
     private void markEntityForRemoval(Entity itemEntity) {
         ServiceLocator.getEntityService().markEntityForRemoval(itemEntity);
+    }
+
+    private Entity randomItemGenerator(int randomNum) {
+        String specification = null;
+        switch (randomNum) {
+            case 0 -> specification = "item:shieldpotion";
+            case 1 -> specification = "item:bandage";
+            case 2 -> specification = "item:medkit";
+            case 3 -> specification = "buff:energydrink:High";
+            case 4 -> specification = "buff:energydrink:Low";
+            case 5 -> specification = "buff:energydrink:Medium";
+        }
+
+        return testCollectibleFactory.createCollectibleEntity(specification);
     }
 }

@@ -12,10 +12,10 @@ public abstract class RangedWeapon implements Collectible {
 
     private int damage;
     private int range;
-    private int fireRate;
+    private int fireRate; // in shots per second
     private int ammo; // current ammo left
     private int maxAmmo;
-    private int reloadTime;
+    private int reloadTime; // in seconds
 
     @Override
     public Type getType() {

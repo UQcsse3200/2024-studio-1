@@ -29,9 +29,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     private Texture ammoTexture;
     private List<Image> ammoImages;
-    private int currentAmmo;
     private WeaponComponent weaponComponent;
-    private static final int RELOAD_TIME = 3;
     float screenWidth = Gdx.graphics.getWidth();
 
     private Image speedImage;
@@ -58,8 +56,8 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
         entity.getEvents().addListener("updateMeleeWeaponCount", this::updateMeleeWeaponCountUI);
         entity.getEvents().addListener("updateRangedWeaponCount", this::updateRangedWeaponCountUI);
-        entity.getEvents().addListener("RANGED_ATTACK", this::onPlayerAttack);
-        entity.getEvents().addListener("RELOAD", this::startReload);
+        entity.getEvents().addListener("RANGED_ATTACK", this::updateAmmoDisplay);
+        entity.getEvents().addListener("RELOAD", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
     }
@@ -169,7 +167,6 @@ public class PlayerStatsDisplay extends UIComponent {
         shotgunLabel.setText(text);
 
         if (weaponCount > 0) {
-            currentAmmo = weaponComponent.getAmmo(); // Initialize ammo count from WeaponComponent
             displayAllAmmo();
         } else {
             hideAmmo();
@@ -184,21 +181,19 @@ public class PlayerStatsDisplay extends UIComponent {
     private void displayAllAmmo() {
         ammoTable.clear(); // Clear existing ammo from the ammoTable
         ammoTable.top().left(); // Reset alignment
-        int itemsInRow = 0;
+
 
         // Always display ammo up to currentAmmo
-        for (int i = 0; i < 20; i++) {
-            if (itemsInRow == 8) {
+        for (int i = 0; i < weaponComponent.getMaxAmmo(); i++) {
+            if (i%8 == 0) {
                 ammoTable.row().padTop(2f); // Start a new row after 8 ammo items
-                itemsInRow = 0;
             }
-            if (i < currentAmmo) {
+            if (i < weaponComponent.getAmmo()) {
                 ammoImages.get(i).setVisible(true);
             } else {
                 ammoImages.get(i).setVisible(false);
             }
             ammoTable.add(ammoImages.get(i)).size(screenWidth/45f);
-            itemsInRow++;
         }
 
         ammoTable.setVisible(true); // Show ammo table when displaying ammo
@@ -215,13 +210,6 @@ public class PlayerStatsDisplay extends UIComponent {
     /**
      * Handles the player's attack action by reducing the ammo count.
      */
-    private void onPlayerAttack() {
-        if (currentAmmo > 0) {
-            currentAmmo--; // Decrease ammo count
-            weaponComponent.setAmmo(currentAmmo); // Update ammo in WeaponComponent
-            updateAmmoDisplay(); // Update the UI accordingly
-        }
-    }
 
     /**
      * Updates the ammo display based on the current ammo count.
@@ -229,24 +217,12 @@ public class PlayerStatsDisplay extends UIComponent {
      */
     private void updateAmmoDisplay() {
         for (int i = 0; i < ammoImages.size(); i++) {
-            if (i < currentAmmo) {
+            if (i < weaponComponent.getAmmo()) {
                 ammoImages.get(i).setVisible(true); // Show ammo that's still available
             } else {
                 ammoImages.get(i).setVisible(false); // Hide depleted ammo
             }
         }
-    }
-
-    /**
-     * Starts the reload process, which includes a delay before resetting ammo.
-     */
-    private void startReload() {
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                onReload(); // Call onReload after delay
-            }
-        }, RELOAD_TIME); // Set delay time
     }
 
     /**
@@ -265,16 +241,6 @@ public class PlayerStatsDisplay extends UIComponent {
         damageProgressBar.setValue(damage);
     }
 
-    /**
-
-    /**
-     * Resets the ammo count to 20 when reloading.
-     */
-    private void onReload() {
-        currentAmmo = 20; // Reset ammo count
-        weaponComponent.setAmmo(currentAmmo); // Update ammo in WeaponComponent
-        updateAmmoDisplay(); // Update the UI accordingly
-    }
 
     @Override
     public void dispose() {

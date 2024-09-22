@@ -58,6 +58,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
             return;
         }
 
+
         timeSinceLastAttack += ServiceLocator.getTimeSource().getDeltaTime();
         if (timeSinceLastAttack >= attackCooldown) {
             performAttack();
@@ -75,7 +76,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     /**
      * Makes Effects
      *
-     * @param list of effectConfig 
+     * @param effectConfigs list of effectConfig
      * @return List of effects
      */
     private List<Effect> createEffects(NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {

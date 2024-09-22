@@ -120,7 +120,6 @@ public class WeaponComponent extends Component {
             this.reloading = false;
 
             // Setup variables to track weapon state
-            this.lastAttack = 0L;
             if (this.fireRate == 0) {
                 this.attackInterval = 0L;
             } else {
@@ -486,7 +485,6 @@ public class WeaponComponent extends Component {
         if (entity != null) {
             if (getReloading()){
                 logger.info("Ranged weapon reloading");
-                entity.getEvents().trigger("RELOAD");
                 return;
             }
             if (getHasShot()){
@@ -505,6 +503,7 @@ public class WeaponComponent extends Component {
                 setReloading(true);
                 ReloadTimer task = new ReloadTimer();
                 this.shootTimer.schedule(task, getReloadTime());
+                entity.getEvents().trigger("RELOAD");
             } else {
                 setHasShot(true);
                 ShootTimer task = new ShootTimer();

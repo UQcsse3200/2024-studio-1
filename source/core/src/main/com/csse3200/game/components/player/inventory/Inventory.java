@@ -123,4 +123,14 @@ public class Inventory {
     public void removeItem(Collectible item) {
         this.items.removeValue(item, true);
     }
+
+    public int itemCount(String itemName) {
+        int count = 0;
+        for (Collectible element: items) {
+            if (element.getName() == itemName) {
+                count += 1;
+            }
+        }
+        return count;
+    }
 }

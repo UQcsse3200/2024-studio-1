@@ -17,6 +17,7 @@ public class PlayerActions extends Component {
 
     private PhysicsComponent physicsComponent;
     private InventoryComponent inventoryComponent;
+    private ItemPickupComponent itemPickupComponent;
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
@@ -28,6 +29,7 @@ public class PlayerActions extends Component {
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
         inventoryComponent = entity.getComponent(InventoryComponent.class);
+        itemPickupComponent = entity.getComponent(ItemPickupComponent.class);
         entity.getEvents().addListener("walk", this::walk);
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attackMelee", this::attack);
@@ -35,6 +37,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("use1", () -> use(new MedKit()));
         entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
         entity.getEvents().addListener("use3", () -> use(new Bandage()));
+        entity.getEvents().addListener("useReroll", () -> handleReroll(new Reroll()));
         setSpeedPercentage(1.0f);
 
         setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
@@ -150,6 +153,15 @@ public class PlayerActions extends Component {
      */
     public Vector2 getWalkDirection() {
         return walkDirection;
+    }
+
+    private void handleReroll(UsableItem reroll) {
+        if (itemPickupComponent.isContact() && itemPickupComponent.getItem() != null) {
+            use(reroll);
+        }
+        else {
+            return;
+        }
     }
 
     private void use(UsableItem item) {

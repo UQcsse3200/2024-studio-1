@@ -74,6 +74,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case 2 -> entity.getEvents().trigger("use2");
             case 3 -> entity.getEvents().trigger("use3");
             case 4 -> entity.getEvents().trigger("use4");
+            case 5 -> entity.getEvents().trigger("useReroll");
         }
         return true;
     }
@@ -113,6 +114,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
 
         actionMap.put(PICK_UP, (i) -> pickupItem());
+        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Reroll here
         return actionMap;
     }
 

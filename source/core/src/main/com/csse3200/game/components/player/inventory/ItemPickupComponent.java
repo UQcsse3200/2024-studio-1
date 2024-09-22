@@ -3,6 +3,7 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
@@ -31,6 +32,7 @@ public class ItemPickupComponent extends Component {
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
         entity.getEvents().addListener("pickup", ()->handleItemPickup(item, itemEntity));
+        entity.getEvents().addListener("useReroll", ()->rerollItemEffect(item, itemEntity));
     }
 
     /**
@@ -49,6 +51,14 @@ public class ItemPickupComponent extends Component {
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
     }
 
+    public boolean isContact() {
+        return contact;
+    }
+
+    public Collectible getItem() {
+        return item;
+    }
+
     /**
      * Determine when the player collision has ended
      */
@@ -61,8 +71,21 @@ public class ItemPickupComponent extends Component {
      * @param entity to check
      * @return true if entity is collectible, otherwise false
      */
-    private boolean isCollectible(Entity entity) {
+    public boolean isCollectible(Entity entity) {
         return entity.getComponent(CollectibleComponent.class) != null;
+    }
+
+    private void rerollItemEffect(Collectible item, Entity itemEntity) {
+        if (item == null || itemEntity == null) {
+            return;
+        }
+        if (contact) {
+            Inventory inventory = entity.getComponent(InventoryComponent.class).getInventory();
+            if (inventory.itemCount("reroll token") > 1) {
+                System.out.println("Yay");
+            }
+
+        }
     }
 
     /**

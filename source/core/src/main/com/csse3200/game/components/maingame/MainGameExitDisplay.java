@@ -17,6 +17,7 @@ import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
+import com.csse3200.game.entities.SavePlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,8 @@ public class MainGameExitDisplay extends UIComponent {
   private Table table;
   private ImageButton pauseBtn;
   private Table pauseTable;
+
+
 
   @Override
   public void create() {
@@ -118,7 +121,9 @@ public class MainGameExitDisplay extends UIComponent {
                 Label saveLabel = new Label("Game saved!", skin);
                 pauseTable.add(saveLabel).padTop(BTN_SPACING);
                 pauseTable.row();
-                saveGame();
+                SavePlayerService savePlayer = new SavePlayerService();
+                savePlayer.savePlayerState(entity);
+//                saveGame();
               }});
 
     table.add(pauseBtn).padTop(10f).padRight(10f);
@@ -189,6 +194,7 @@ public class MainGameExitDisplay extends UIComponent {
     String filePath = "configs/save.json";
     FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
     logger.debug("Game saved to: " + filePath);
+
   }
 
   public void resize(int width, int height){

@@ -12,7 +12,7 @@ public class Reroll extends UsableItem {
 
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/mystery_box_red.png");
+        return new Texture("images/items/reroll_item.png");
     }
 
 

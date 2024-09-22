@@ -2,9 +2,9 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 //import com.csse3200.game.components.player.RangeDetectionComponent;
 import com.csse3200.game.components.player.WeaponAnimationController;
@@ -16,7 +16,6 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
-import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,6 +110,7 @@ public class WeaponFactory extends LoadedFactory {
         animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
 
         Entity meleeEntity = new Entity()
+                .addComponent(new NameComponent("Melee Weapon: " + collectible.getMeleeSpecification()))
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
                 .addComponent(new PhysicsComponent())
@@ -125,7 +125,7 @@ public class WeaponFactory extends LoadedFactory {
         meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(1f, 1f));
         meleeEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
 
-        logger.info("Created melee weapon entity: " + collectible);
+        logger.info("Created melee weapon entity: {}", collectible);
 
         return meleeEntity;
     }
@@ -153,6 +153,7 @@ public class WeaponFactory extends LoadedFactory {
         animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
 
         Entity rangedEntity = new Entity()
+                .addComponent(new NameComponent("Ranged Weapon: " + collectible.getRangedSpecification()))
                 .addComponent(new CollectibleComponent(collectible))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                 .addComponent(new PhysicsComponent())

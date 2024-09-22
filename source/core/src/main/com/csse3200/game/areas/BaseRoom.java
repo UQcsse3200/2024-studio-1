@@ -181,10 +181,10 @@ public abstract class BaseRoom implements Room {
      */
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
         // Create and spawn walls
-        Entity leftWall = createAndSpawnWall(area, thickness, tileBounds.y, GridPoint2Utils.ZERO);
-        Entity rightWall = createAndSpawnWall(area, thickness, worldBounds.y, new GridPoint2(tileBounds.x, 0));
-        Entity topWall = createAndSpawnWall(area, worldBounds.x, thickness, new GridPoint2(0, tileBounds.y));
-        Entity bottomWall = createAndSpawnWall(area, worldBounds.x, thickness, GridPoint2Utils.ZERO);
+        Entity leftWall = createAndSpawnWall(area, thickness, tileBounds.y, GridPoint2Utils.ZERO, "Western Wall");
+        Entity rightWall = createAndSpawnWall(area, thickness, worldBounds.y, new GridPoint2(tileBounds.x, 0), "Eastern Wall");
+        Entity topWall = createAndSpawnWall(area, worldBounds.x, thickness, new GridPoint2(0, tileBounds.y), "Northern Wall");
+        Entity bottomWall = createAndSpawnWall(area, worldBounds.x, thickness, GridPoint2Utils.ZERO, "Southern Wall");
 
         walls.addAll(List.of(leftWall, rightWall, topWall, bottomWall));
         // Adjust wall positions
@@ -201,8 +201,8 @@ public abstract class BaseRoom implements Room {
      * @param position the grid position of the wall
      * @return the created wall entity
      */
-    private Entity createAndSpawnWall(GameArea area, float width, float height, GridPoint2 position) {
-        Entity wall = ObstacleFactory.createWall(width, height);
+    private Entity createAndSpawnWall(GameArea area, float width, float height, GridPoint2 position, String name) {
+        Entity wall = ObstacleFactory.createWall(name, width, height);
         area.spawnEntityAt(wall, position, false, false);
         return wall;
     }
@@ -313,22 +313,27 @@ public abstract class BaseRoom implements Room {
         return this.isRoomCompleted;
     }
 
+    private boolean isRelevant(Entity animal) {
+        if (animal.getComponent(CombatStatsComponent.class).isDead()){
+            return false;
+        }
+
+        Vector2 playerPos = ServiceLocator.getGameAreaService().getGameArea().getPlayer().getPosition();
+        return Math.abs(animal.getPosition().sub(playerPos).len2()) < 20;
+    }
+
     /**
-     * Checks if all animals in the room are dead.
+     * Checks if all animals in the room are dead, or at least irrelevant.
      * If all animals are dead, the room is marked as complete.
      *
      * @return {@code true} if all animals are dead, {@code false} otherwise
      */
     public boolean isAllAnimalDead() {
-        if (enemies.isEmpty()) {
+        if (enemies.stream().map(this::isRelevant).allMatch(relevant -> relevant.equals(false))){
+            this.isRoomCompleted = true;
             return true;
         }
-        for (Entity animal : enemies) {
-            if (!animal.getComponent(CombatStatsComponent.class).isDead())
-                return false;
-        }
-        this.isRoomCompleted = true;
-        return true;
+        return false;
     }
 
     /**

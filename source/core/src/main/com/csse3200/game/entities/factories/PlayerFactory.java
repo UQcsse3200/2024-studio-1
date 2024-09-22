@@ -33,6 +33,15 @@ public class PlayerFactory extends LoadedFactory {
     }
 
     /**
+     * Get a list of all the options this factory can create.
+     *
+     * @return the configs of each player option.
+     */
+    public List<PlayerConfig> getOptions() {
+        return options.values().stream().toList();
+    }
+
+    /**
      * Create a player entity
      *
      * @return entity

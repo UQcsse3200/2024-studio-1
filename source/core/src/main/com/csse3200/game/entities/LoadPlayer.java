@@ -138,7 +138,6 @@ public class LoadPlayer {
      * @param player the player entity to which the ranged weapon will be added.
      */
     public void createRanged(PlayerConfig config, Entity player) {
-
         Collectible ranged = weaponFactory.create(Collectible.Type.RANGED_WEAPON, config.ranged);
         if (ranged instanceof RangedWeapon rangedWeapon) {
             WeaponComponent rangedWeaponComponent = new WeaponComponent(

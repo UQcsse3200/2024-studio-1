@@ -1,10 +1,22 @@
 package com.csse3200.game.components;
 
+import java.util.function.Supplier;
+
 /**
  * A component to give an entity a name, this is useful for listing out all spawned entities.
  */
 public class NameComponent extends Component {
-    private final String name;
+    private final Supplier<String> nameGetter;
+
+    /**
+     * Construct a new name component.
+     *
+     * @param nameGetter the supplier of this entity's name.
+     */
+    public NameComponent(Supplier<String> nameGetter) {
+        super();
+        this.nameGetter = nameGetter;
+    }
 
     /**
      * Construct a new name component.
@@ -12,8 +24,7 @@ public class NameComponent extends Component {
      * @param name the name this component endows on an entity.
      */
     public NameComponent(String name) {
-        super();
-        this.name = name;
+        this(() -> name);
     }
 
     /**
@@ -22,6 +33,6 @@ public class NameComponent extends Component {
      * @return the name.
      */
     public String getName() {
-        return name;
+        return nameGetter.get();
     }
 }

@@ -4,12 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -22,6 +24,7 @@ import com.csse3200.game.services.ServiceLocator;
  */
 public class ProjectileAttackComponent extends Component {
 
+    private static final Logger log = LoggerFactory.getLogger(ProjectileAttackComponent.class);
     private final short targetLayer;
     private CombatStatsComponent combatStats;
     private HitboxComponent hitboxComponent;
@@ -71,6 +74,13 @@ public class ProjectileAttackComponent extends Component {
         }
 
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
+
+        log.info("projectile hitting: {}, projectile pos: {}, wall pos: {}",
+                target.getComponent(NameComponent.class).getName(),
+                this.entity.getCenterPosition(),
+                target.getCenterPosition()
+        );
+
         CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
 
         if (targetStats != null) {

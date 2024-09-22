@@ -49,7 +49,9 @@ public abstract class GameArea extends LoadedFactory {
      * @param entity Entity (not yet registered)
      */
     public void spawnEntity(Entity entity) {
-        areaEntities.add(entity);
+        if (!areaEntities.contains(entity)) {
+            areaEntities.add(entity);
+        }
         ServiceLocator.getEntityService().register(entity);
     }
 
@@ -79,13 +81,8 @@ public abstract class GameArea extends LoadedFactory {
 
     public void disposeEntity(Entity entity) {
         if (areaEntities != null && !areaEntities.isEmpty()) {
-            for (int i = 0; i < areaEntities.size(); i++) {
-                if (areaEntities.get(i).equals(entity)) {
-                    ServiceLocator.getEntityService().markEntityForRemoval(entity);
-                    areaEntities.remove(i);
-                    break;
-                }
-            }
+            areaEntities.remove(entity);
+            ServiceLocator.getEntityService().markEntityForRemoval(entity);
         }
     }
 

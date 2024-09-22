@@ -1,5 +1,6 @@
 package com.csse3200.game.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.services.ServiceLocator;
@@ -32,9 +33,11 @@ public class EntityService {
      * @param entity new entity.
      */
     public void register(Entity entity) {
-        logger.debug("Registering {} in entity service", entity);
-        entities.add(entity);
-        entity.create();
+        if (!entities.contains(entity, false)){
+            logger.debug("Registering {} in entity service", entity);
+            entities.add(entity);
+            entity.create();
+        }
     }
 
     /**
@@ -45,7 +48,6 @@ public class EntityService {
     public void unregister(Entity entity) {
         logger.debug("Unregistering {} in entity service", entity);
         entities.removeValue(entity, true);
-
     }
 
     /**
@@ -90,7 +92,6 @@ public class EntityService {
         for (Entity entity : entitiesToRemove) {
             if (!ServiceLocator.getPhysicsService().getPhysics().getWorld().isLocked()){
                 entity.dispose();
-                unregister(entity);
                 removed.add(entity);
             }
         }
@@ -102,12 +103,11 @@ public class EntityService {
             return "null";
         }
 
-        NameComponent name = entity.getComponent(NameComponent.class);
-        if (name != null) {
-            return name.getName();
-        }
+        NameComponent nameComponent = entity.getComponent(NameComponent.class);
+        String name = (nameComponent == null) ? "Unknown Entity" : nameComponent.getName();
+        Vector2 pos = entity.getPosition();
 
-        return "Unknown Entity: " + entity;
+        return String.format("%02d\t(%.2f, %.2f)", entity.getId(), pos.x, pos.y) + "\t" + name;
     }
 
     public List<String> getEntityNames() {

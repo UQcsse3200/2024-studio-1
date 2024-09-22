@@ -40,9 +40,10 @@ public class ObstacleFactory {
    * @param height Wall height in world units
    * @return Wall entity of given width and height
    */
-  public static Entity createWall(float width, float height) {
-    Entity wall = new Entity()
-        .addComponent(new NameComponent("wall"))
+  public static Entity createWall(String name, float width, float height) {
+    Entity wall = new Entity();
+    wall.addComponent(new NameComponent(() ->
+                    name + String.format(": width: %.2f, height: %.2f", width, height)))
         .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     wall.setScale(width, height);

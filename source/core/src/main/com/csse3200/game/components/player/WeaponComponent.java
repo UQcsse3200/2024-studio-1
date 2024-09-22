@@ -19,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WeaponComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(WeaponComponent.class);
@@ -42,6 +44,27 @@ public class WeaponComponent extends Component {
     // Tracking weapon state
     private long lastAttack; // Time of last ranged weapon activation, in seconds
     private long attackInterval; // Interval between ranged weapon activation, in seconds
+    private final Timer shootTimer = new Timer(); // Timer for time between shots
+    private boolean hasShot; // If the player has shot recently
+    private boolean reloading; // If the player is reloading
+    private class ShootTimer extends TimerTask{
+        @Override
+        public void run() {
+            setHasShot(false);
+        }
+    }
+
+    private class ReloadTimer extends TimerTask{
+
+        @Override
+        public void run() {
+            setHasShot(false);
+            setReloading(false);
+            setAmmo(getMaxAmmo());
+        }
+    }
+
+
 
 
     // Melee ---------------------------------------------
@@ -93,6 +116,8 @@ public class WeaponComponent extends Component {
             this.range = range;
             this.fireRate = fireRate;
             this.weaponSprite = weaponSprite;
+            this.hasShot = false;
+            this.reloading = false;
 
             // Setup variables to track weapon state
             this.lastAttack = 0L;
@@ -349,6 +374,18 @@ public class WeaponComponent extends Component {
 //        getEntity().getComponent(RangeDetectionComponent.class).updateWeaponEntity(itemEntity);
         getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
     }
+    public boolean getReloading(){
+        return this.reloading;
+    }
+    public void setReloading(boolean reloading){
+        this.reloading = reloading;
+    }
+    public boolean getHasShot(){
+        return this.hasShot;
+    }
+    public void setHasShot(boolean hasShot){
+        this.hasShot = hasShot;
+    }
 
     @Override
     public void update() {
@@ -447,32 +484,59 @@ public class WeaponComponent extends Component {
         Entity entity = this.getEntity();
         long currentTime = System.currentTimeMillis();
         if (entity != null) {
-            if (currentTime - this.lastAttack <= this.attackInterval) {
-                // Weapon not ready
+            if (getReloading()){
+                logger.info("Ranged weapon reloading");
+                entity.getEvents().trigger("RELOAD");
+                return;
+            }
+            if (getHasShot()){
                 logger.info("Ranged weapon not ready");
                 return;
             }
-            if (this.getAmmo() == 0) {
-                // Reloading
-                this.setAmmo(-2);
-                // Offset time so that the weapon must wait extra long for reload time
-                currentTime += this.getReloadTime() * 1000L - this.attackInterval;
-
-                logger.info("Ranged weapon reloading");
-                entity.getEvents().trigger("RELOAD");
+            this.setAmmo(-1);
+            // fix projectile wall interaction here
+            Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
+            projectile.getComponent(ProjectileAttackComponent.class).create();
+            ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
+            logger.info("Ranged weapon shoot");
+            entity.getEvents().trigger("RANGED_ATTACK");
+            if (this.getAmmo() <= 0){
+                setHasShot(true);
+                setReloading(true);
+                ReloadTimer task = new ReloadTimer();
+                this.shootTimer.schedule(task, getReloadTime());
             } else {
-                // Shooting
-                this.setAmmo(-1);
-
-                Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
-                projectile.getComponent(ProjectileAttackComponent.class).create();
-                ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
-                logger.info("Ranged weapon shoot");
-                entity.getEvents().trigger("RANGED_ATTACK");
-
+                setHasShot(true);
+                ShootTimer task = new ShootTimer();
+                this.shootTimer.schedule(task, attackInterval);
             }
-            // Reset last Attack time
-            this.lastAttack = currentTime;
+
+//            if (currentTime - this.lastAttack <= this.attackInterval) {
+//                // Weapon not ready
+//                logger.info("Ranged weapon not ready");
+//                return;
+//            }
+//            if (this.getAmmo() == 0) {
+//                // Reloading
+//                this.setAmmo(-2);
+//                // Offset time so that the weapon must wait extra long for reload time
+//                currentTime += this.getReloadTime() * 1000L - this.attackInterval;
+//
+//                logger.info("Ranged weapon reloading");
+//                entity.getEvents().trigger("RELOAD");
+//            } else {
+//                // Shooting
+//                this.setAmmo(-1);
+//
+//                Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
+//                projectile.getComponent(ProjectileAttackComponent.class).create();
+//                ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
+//                logger.info("Ranged weapon shoot");
+//                entity.getEvents().trigger("RANGED_ATTACK");
+//
+//            }
+//            // Reset last Attack time
+//            this.lastAttack = currentTime;
         } else {
             logger.info("No ranged weapon");
         }

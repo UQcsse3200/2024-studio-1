@@ -156,11 +156,11 @@ public class PlayerActions extends Component {
     }
 
     private void handleReroll(UsableItem reroll) {
-        if (itemPickupComponent.isContact() && itemPickupComponent.getItem() != null) {
-            use(reroll);
+        if (itemPickupComponent.isInContact() && itemPickupComponent.getItem() != null) {
+            use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
         }
         else {
-            return;
+            return; //Otherwise the reroll item cannot be used
         }
     }
 

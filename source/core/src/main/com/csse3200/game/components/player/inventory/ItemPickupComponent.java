@@ -1,10 +1,13 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -16,6 +19,7 @@ public class ItemPickupComponent extends Component {
     private boolean contact = false;
     Collectible item = null;
     Entity itemEntity = null;
+    CollectibleFactory testCollectibleFactory = new CollectibleFactory();
 
     /**
      * Construct a new empty item pickup component
@@ -32,7 +36,7 @@ public class ItemPickupComponent extends Component {
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
         entity.getEvents().addListener("pickup", ()->handleItemPickup(item, itemEntity));
-        entity.getEvents().addListener("useReroll", ()->rerollItemEffect(item, itemEntity));
+        entity.getEvents().addListener("rerollUsed", ()->handleReroll(item, itemEntity));
     }
 
     /**
@@ -51,7 +55,7 @@ public class ItemPickupComponent extends Component {
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
     }
 
-    public boolean isContact() {
+    public boolean isInContact() {
         return contact;
     }
 
@@ -75,17 +79,24 @@ public class ItemPickupComponent extends Component {
         return entity.getComponent(CollectibleComponent.class) != null;
     }
 
-    private void rerollItemEffect(Collectible item, Entity itemEntity) {
-        if (item == null || itemEntity == null) {
+    private void handleReroll(Collectible collisionItem, Entity collisionItemEntity) {
+        if (collisionItem == null || collisionItemEntity == null) {
             return;
         }
-        if (contact) {
-            Inventory inventory = entity.getComponent(InventoryComponent.class).getInventory();
-            if (inventory.itemCount("reroll token") > 1) {
-                System.out.println("Yay");
-            }
+        int xPosition = (int) collisionItemEntity.getPosition().x;
+        int yPosition = (int) collisionItemEntity.getPosition().y;
 
-        }
+        GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
+        markEntityForRemoval(collisionItemEntity);
+
+        Entity newItem = testCollectibleFactory.createCollectibleEntity("item:shieldpotion");
+
+        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
+//        area.spawnEntityAt(newItem, itemEntityPosition, true, true);
+
+        itemEntity = newItem;
+        item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
+
     }
 
     /**

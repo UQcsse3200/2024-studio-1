@@ -1,5 +1,6 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -52,4 +53,5 @@ public abstract class UsableItem implements Collectible {
      * @param entity the entity to apply it to.
      */
     public abstract void apply(Entity entity);
+
 }

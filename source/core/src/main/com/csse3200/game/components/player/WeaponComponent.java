@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Null;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
@@ -47,10 +48,15 @@ public class WeaponComponent extends Component {
     private final Timer shootTimer = new Timer(); // Timer for time between shots
     private boolean hasShot; // If the player has shot recently
     private boolean reloading; // If the player is reloading
+
+    private Vector2 shootDirection;
     private class ShootTimer extends TimerTask{
         @Override
         public void run() {
             setHasShot(false);
+            if (shootDirection != null){
+                shoot(shootDirection);
+            }
         }
     }
 
@@ -61,6 +67,10 @@ public class WeaponComponent extends Component {
             setHasShot(false);
             setReloading(false);
             setAmmo(getMaxAmmo());
+            entity.getEvents().trigger("RELOAD");
+            if (shootDirection != null){
+                shoot(shootDirection);
+            }
         }
     }
 
@@ -480,8 +490,8 @@ public class WeaponComponent extends Component {
      * @param direction direction to shoot
      */
     public void shoot(Vector2 direction) {
+        this.shootDirection = direction;
         Entity entity = this.getEntity();
-        long currentTime = System.currentTimeMillis();
         if (entity != null) {
             if (getReloading()){
                 logger.info("Ranged weapon reloading");
@@ -501,43 +511,19 @@ public class WeaponComponent extends Component {
             if (this.getAmmo() <= 0){
                 setHasShot(true);
                 setReloading(true);
-                ReloadTimer task = new ReloadTimer();
-                this.shootTimer.schedule(task, getReloadTime());
-                entity.getEvents().trigger("RELOAD");
+                this.shootTimer.schedule(new ReloadTimer(), getReloadTime());
             } else {
                 setHasShot(true);
-                ShootTimer task = new ShootTimer();
-                this.shootTimer.schedule(task, attackInterval);
+                this.shootTimer.schedule(new ShootTimer(), attackInterval);
             }
-
-//            if (currentTime - this.lastAttack <= this.attackInterval) {
-//                // Weapon not ready
-//                logger.info("Ranged weapon not ready");
-//                return;
-//            }
-//            if (this.getAmmo() == 0) {
-//                // Reloading
-//                this.setAmmo(-2);
-//                // Offset time so that the weapon must wait extra long for reload time
-//                currentTime += this.getReloadTime() * 1000L - this.attackInterval;
-//
-//                logger.info("Ranged weapon reloading");
-//                entity.getEvents().trigger("RELOAD");
-//            } else {
-//                // Shooting
-//                this.setAmmo(-1);
-//
-//                Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
-//                projectile.getComponent(ProjectileAttackComponent.class).create();
-//                ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
-//                logger.info("Ranged weapon shoot");
-//                entity.getEvents().trigger("RANGED_ATTACK");
-//
-//            }
-//            // Reset last Attack time
-//            this.lastAttack = currentTime;
         } else {
             logger.info("No ranged weapon");
+        }
+    }
+
+    public void unShoot(Vector2 direction) {
+        if (this.shootDirection == direction){
+            this.shootDirection = null;
         }
     }
 

@@ -33,6 +33,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attack", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
+        entity.getEvents().addListener("unShoot", this::unShoot);
         entity.getEvents().addListener("use1", () -> use(new MedKit()));
         entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
         entity.getEvents().addListener("use3", () -> use(new Bandage()));
@@ -124,6 +125,9 @@ public class PlayerActions extends Component {
     private void shoot(Vector2 direction) {
         ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
         entity.getComponent(WeaponComponent.class).shoot(direction);
+    }
+    private void unShoot(Vector2 direction){
+        entity.getComponent(WeaponComponent.class).unShoot(direction);
     }
 
     private void updateSpeed() {

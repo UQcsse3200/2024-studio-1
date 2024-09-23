@@ -62,6 +62,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("shoot", direction);
         return true;
     }
+    private boolean unShoot(Vector2 direction) {
+        entity.getEvents().trigger("unShoot", direction);
+        return true;
+    }
 
     private boolean melee() {
         entity.getEvents().trigger("attack");
@@ -118,6 +122,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(WALK_LEFT,  (i) -> unWalk(Vector2Utils.LEFT));
         actionMap.put(WALK_DOWN,  (i) -> unWalk(Vector2Utils.DOWN));
         actionMap.put(WALK_RIGHT,  (i) -> unWalk(Vector2Utils.RIGHT));
+
+        actionMap.put(SHOOT_UP,  (i) -> unShoot(Vector2Utils.UP));
+        actionMap.put(SHOOT_LEFT,  (i) -> unShoot(Vector2Utils.LEFT));
+        actionMap.put(SHOOT_RIGHT,  (i) -> unShoot(Vector2Utils.RIGHT));
+        actionMap.put(SHOOT_DOWN,  (i) -> unShoot(Vector2Utils.DOWN));
 
         return actionMap;
     }

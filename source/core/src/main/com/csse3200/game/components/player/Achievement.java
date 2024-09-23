@@ -3,7 +3,7 @@ package com.csse3200.game.components.player;
 public class Achievement {
     String icon;
     String name;
-    public Achievement(String icon, String name) {
+    public Achievement(String name, String icon) {
         this.icon = icon;
         this.name = name;
     }

@@ -2,15 +2,8 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.DeployableItemFactory;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.components.ColliderComponent;
-import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
 public class TargetDummy extends UsableItem {
@@ -36,7 +29,7 @@ public class TargetDummy extends UsableItem {
 
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/armor.png");
+        return new Texture("images/items/target_dummy.png");
 
     }
 

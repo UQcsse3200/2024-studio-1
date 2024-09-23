@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.entities.Entity;
@@ -18,7 +19,7 @@ public class DeployableItemFactory extends LoadedFactory {
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new CombatStatsComponent(100,0))
                 .addComponent(new NPCHealthBarComponent())
-                .addComponent(new TextureRenderComponent("images/items/armor.png"))
+                .addComponent(new TextureRenderComponent(new Texture("images/items/target_dummy_deployed.png")))
                 .addComponent(new PhysicsComponent());
 
         targetDummy.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -30,7 +31,7 @@ public class DeployableItemFactory extends LoadedFactory {
         Entity bearTrap = new Entity()
                 .addComponent(new HitboxComponent())
                 .addComponent(new CombatStatsComponent(100,30))
-                .addComponent(new TextureRenderComponent("images/items/damagebuff.png"))
+                .addComponent(new TextureRenderComponent(new Texture("images/items/damagebuff.png")))
                 .addComponent(new PhysicsComponent());
 
         bearTrap.getComponent(TextureRenderComponent.class).scaleEntity();

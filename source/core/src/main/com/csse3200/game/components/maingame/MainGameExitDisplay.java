@@ -198,10 +198,13 @@ public class MainGameExitDisplay extends UIComponent {
     }
     SavePlayerService savePlayerService = new SavePlayerService();
     savePlayerService.savePlayerState(player);
+    player.getEvents().trigger("savePlayerPos");
+    System.out.println("Saved Succesfully");
     /*
-    String filePath = "configs/save.json";
-    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
-    logger.debug("Game saved to: " + filePath);
+//    String filePath = "configs/save.json";
+//    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
+//    logger.debug("Game saved to: " + filePath);
+
      */
   }
 

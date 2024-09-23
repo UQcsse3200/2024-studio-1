@@ -42,6 +42,7 @@ public class MainGameArea extends GameArea {
         this.player = player;
         this.levelFactory = levelFactory;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
+        player.getEvents().addListener("savePlayerPos", this::saveMapLocation);
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
     }
@@ -75,14 +76,18 @@ public class MainGameArea extends GameArea {
     }
 
     /**
-     * Exports the current Level number and Room number of the player into a JSON file
+     * Exports the current Level number and Room number of the player
+     * as well as the complete map details of the current map generated into a JSON file
      * which can then be loaded and set as the starting position of the player when player
      * loads the game.
      */
-    public void exportPosition() {
+    public void saveMapLocation() {
         String levelNum = "" + currentLevelNumber;
         currentPosition.put("LevelNum", levelNum);
         currentPosition.put("RoomNum", currentRoomName);
+        //exports the rooms and map data into the filePath below after Save button is pressed
+        //levelFactory.exportToJson("configs/MapSave.json");
+        //exports the current player location (room and level details into a json).
         FileLoader.writeClass(currentPosition, "configs/PlayerLocationSave.json", FileLoader.Location.LOCAL);
     }
 

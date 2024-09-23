@@ -1,8 +1,12 @@
 {
-  "name": "default",
-  "health": 60,
-  "favouriteColour": "peach",
-  "textureFilename": "images/player/player.png",
-  "textureAtlasFilename": "images/player/player.atlas",
-  "items": ["bandage","energydrink"]
+baseAttack: 100
+name: default
+favouriteColour: peach
+items: [
+	buff:energydrink:High
+]
+melee: melee:knife
+ranged: ranged:shotgun
+textureFilename: images/player/player.png
+textureAtlasFilename: images/player/player.atlas
 }

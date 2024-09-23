@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -143,5 +144,22 @@ class MapGeneratorTest {
                 "Furthest room should be '4_-7' with this seed");
         assertEquals(mapGenerator.calculateDistance(mapGenerator.findFurthestRoom()), 11,
                 "Calculate distance should calculate distance of furthest room");
+    }
+
+    @Test
+    void testSupplementaryRoomCreation() {
+        mapGenerator.createMap();
+        HashMap<String, HashMap<String, Integer>> roomDetails = mapGenerator.getRoomDetails();
+        List<Integer> types = new ArrayList<>();
+        List<String> keys = new ArrayList<>(roomDetails.keySet());
+        for (String key : keys) {
+            types.add(roomDetails.get(key).get("room_type"));
+        }
+        assertEquals(Collections.frequency(types, MapGenerator.BOSSROOM), 1,
+                "Should have only one boss room");
+        assertEquals(Collections.frequency(types, MapGenerator.NPCROOM), 1,
+                "Should have only one NPC room");
+        assertEquals(Collections.frequency(types, MapGenerator.GAMEROOM), 1,
+                "Should have only one Game room");
     }
 }

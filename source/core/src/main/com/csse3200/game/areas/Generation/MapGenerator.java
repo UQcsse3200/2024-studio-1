@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.badlogic.gdx.graphics.g3d.particles.ParticleSorter;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
@@ -12,6 +14,11 @@ import com.csse3200.game.utils.RandomNumberGenerator;
  * It creates rooms, connects them, and provides methods to manipulate and export the map.
  */
 public class MapGenerator {
+    public static final int BASEROOM = 0;
+    public static final int BOSSROOM = 1;
+    public static final int NPCROOM = 2;
+    public static final int GAMEROOM = 3;
+
     public int mapSize;
     public RandomNumberGenerator rng;
     public String player_position;
@@ -205,6 +212,29 @@ public class MapGenerator {
             connectRooms(randomRoomKey, new_Room_key, detlas_index);
             roomCount--;
         }
+    }
+
+    private String findFurthestRoom() {
+        String location = "0_0";
+        int maxDist = 0;
+        for (Map.Entry<String, List<String>> entry : relativePosition.entrySet()) {
+            String key = entry.getKey();
+            int dist = calculateDistance(key);
+            if (maxDist < dist) {
+                maxDist = dist;
+                location = key;
+            }
+        }
+        return location;
+    }
+
+    private int calculateDistance(String key) {
+        String[] parts = key.split("_");
+
+        // Step 2: Convert each part to an integer and get the absolute value
+        int x = Math.abs(Integer.parseInt(parts[0]));
+        int y = Math.abs(Integer.parseInt(parts[1]));
+        return x + y;
     }
 
     /**

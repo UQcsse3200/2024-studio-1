@@ -213,17 +213,53 @@ public class MapGenerator {
             connectRooms(randomRoomKey, new_Room_key, detlas_index);
             roomCount--;
         }
-        setSupplementaryRooms(roomCount);
+        setSupplementaryRooms();
     }
 
-    private void setSupplementaryRooms(int roomCount) {
-        String furthestRoom = findFurthestRoom();
+    /**
+     * Sets boss room and any supplementary rooms (currently just NPC and Gambling room)
+     */
+    private void setSupplementaryRooms() {
+        // Set rooms not to be modified
+        List<String> setRooms = new ArrayList<>();
+        setRooms.add("0_0");
 
         // Boss Room
-        HashMap<String, Integer> details = roomDetails.get(findFurthestRoom());
+        String bossRoom = findFurthestRoom();
+        HashMap<String, Integer> details = roomDetails.get(bossRoom);
         details.put("room_type", BOSSROOM);
+        setRooms.add(bossRoom);
+
+        // More Different Rooms
+        List<String> rooms = new ArrayList<>(roomDetails.keySet());
+
+        // NPC Room
+        setRoom(rooms, setRooms, NPCROOM);
+        // Gambling Room
+        setRoom(rooms, setRooms, GAMEROOM);
     }
 
+    /**
+     * Modular setting of rooms to determined room type based on the current already set rooms. Does not set rooms
+     * if the room is already set with another type
+     * @param rooms - list of room keys
+     * @param setRooms - set rooms that already are modified to a particular room type
+     * @param type - type to set the room to
+     */
+    private void setRoom(List<String> rooms, List<String> setRooms, int type) {
+        String randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
+        while (setRooms.contains(randomRoomKey)) {
+            randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
+        }
+        HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
+        details.put("room_type", type);
+        setRooms.add(randomRoomKey);
+    }
+
+    /**
+     * Find the furthest room from the centre (to be used to spawn boss room)
+     * @return - String representation of the room furthest from centre
+     */
     private String findFurthestRoom() {
         String location = "0_0";
         int maxDist = 0;
@@ -238,10 +274,14 @@ public class MapGenerator {
         return location;
     }
 
+    /**
+     * Calculates distance from centre room to current room key
+     *
+     * @param key - room key
+     * @return - the distance in room traversals from first centre room
+     */
     private int calculateDistance(String key) {
         String[] parts = key.split("_");
-
-        // Step 2: Convert each part to an integer and get the absolute value
         int x = Math.abs(Integer.parseInt(parts[0]));
         int y = Math.abs(Integer.parseInt(parts[1]));
         return x + y;

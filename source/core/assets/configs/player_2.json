@@ -3,5 +3,6 @@
   "health": 70,
   "favouriteColour": "yellow",
   "textureFilename": "images/player/player.png",
-  "textureAtlasFilename": "images/player/player.atlas"
+  "textureAtlasFilename": "images/player/player.atlas",
+  "speed": "(1f, 1f)"
 }

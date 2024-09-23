@@ -21,6 +21,7 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String melee;
   /** The specification of player's equipped ranged weapon */
   public String ranged;
+  public String speed;
 
   /** The texture this player uses*/
   public String textureFilename;

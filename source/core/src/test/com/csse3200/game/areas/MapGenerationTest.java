@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -132,5 +133,15 @@ class MapGeneratorTest {
             assertTrue(roomDetails.containsKey(roomKey), 
                 "Each room in positions should have corresponding details");
         }
+    }
+
+    @Test
+    void testFurthestRoomFind() {
+        mapGenerator.createMap();
+        // 4_-7 is the biggest in this list
+        assertEquals(mapGenerator.findFurthestRoom(), "4_-7",
+                "Furthest room should be '4_-7' with this seed");
+        assertEquals(mapGenerator.calculateDistance(mapGenerator.findFurthestRoom()), 11,
+                "Calculate distance should calculate distance of furthest room");
     }
 }

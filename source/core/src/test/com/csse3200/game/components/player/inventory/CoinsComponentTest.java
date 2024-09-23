@@ -48,7 +48,8 @@ public class CoinsComponentTest {
      */
     @Test
     void testInitialCoinCount() {
-        assertEquals(0, coinsComponent.getCoins(), "Initial coin count should be 0");
+        assertEquals(0, coinsComponent.getCoins(),
+                "Initial coin count should be 0");
     }
 
     /**
@@ -58,7 +59,8 @@ public class CoinsComponentTest {
     void testSpendCoins() {
         coinsComponent.setCoins(10);
         coinsComponent.spend(4);
-        assertEquals(6, coinsComponent.getCoins(), "Coin count should be 6 after spending 4 coins");
+        assertEquals(6, coinsComponent.getCoins(),
+                "Coin count should be 6 after spending 4 coins");
     }
 
     /**
@@ -68,7 +70,8 @@ public class CoinsComponentTest {
     void testSpendEverything() {
         coinsComponent.setCoins(1000000000);
         coinsComponent.spend(1000000000);
-        assertEquals(0,coinsComponent.getCoins(), "Coin should 0 after spedning everything" );
+        assertEquals(0,coinsComponent.getCoins(),
+                "Coin should 0 after spedning everything" );
     }
 
 
@@ -78,7 +81,8 @@ public class CoinsComponentTest {
     @Test
     void testAddCoins() {
         coinsComponent.addCoins(5);
-        assertEquals(5, coinsComponent.getCoins(), "Coin count should be 5 after adding 5 coins");
+        assertEquals(5, coinsComponent.getCoins(),
+                "Coin count should be 5 after adding 5 coins");
     }
 
 
@@ -88,7 +92,8 @@ public class CoinsComponentTest {
     @Test
     void testAddNegativeCoins() {
         coinsComponent.addCoins(-2);
-        assertEquals(0, coinsComponent.getCoins(), "Negetive amount cannot be added");
+        assertEquals(0, coinsComponent.getCoins(),
+                "Negetive amount cannot be added");
     }
 
     /**
@@ -97,7 +102,8 @@ public class CoinsComponentTest {
     @Test
     void testSetCoins() {
         coinsComponent.setCoins(10);
-        assertEquals(10, coinsComponent.getCoins(), "Coin count should be 10 after setting to 10");
+        assertEquals(10, coinsComponent.getCoins(),
+                "Coin count should be 10 after setting to 10");
     }
 
     /**
@@ -106,7 +112,8 @@ public class CoinsComponentTest {
     @Test
     void testSetNegativeCoins() {
         coinsComponent.setCoins(-5);
-        assertEquals(0, coinsComponent.getCoins(), "Coin count should be 0 after setting to -5");
+        assertEquals(0, coinsComponent.getCoins(),
+                "Coin count should be 0 after setting to -5");
     }
 
     /**
@@ -115,7 +122,8 @@ public class CoinsComponentTest {
     @Test
     void testSet0Coin() {
         coinsComponent.setCoins(0);
-        assertEquals(0, coinsComponent.getCoins(), "The amount should 0 after setting to 0");
+        assertEquals(0, coinsComponent.getCoins(),
+                "The amount should 0 after setting to 0");
     }
 
     /**
@@ -135,6 +143,7 @@ public class CoinsComponentTest {
     void testSpendMoreThanAvailableCoins() {
         coinsComponent.setCoins(5);
         coinsComponent.spend(10);
-        assertEquals(5, coinsComponent.getCoins(), "Coin count should be 0 after trying to spend more than available");
+        assertEquals(5, coinsComponent.getCoins(),
+                "Coin count should be 0 after trying to spend more than available");
     }
 }

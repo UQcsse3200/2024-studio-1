@@ -213,6 +213,12 @@ public class MapGenerator {
             connectRooms(randomRoomKey, new_Room_key, detlas_index);
             roomCount--;
         }
+        setBossRoom();
+    }
+
+    private void setBossRoom() {
+        HashMap<String, Integer> details = roomDetails.get(findFurthestRoom());
+        details.put("room_type", BOSSROOM);
     }
 
     private String findFurthestRoom() {

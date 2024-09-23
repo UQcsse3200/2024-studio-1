@@ -2,6 +2,7 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.player.Achievement;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 
@@ -112,7 +113,7 @@ public class EnergyDrink extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        entity.getEvents().trigger("energyDrinkUsed");
+        entity.getEvents().trigger("energyDrinkUsed", new Achievement("images/items/energy_drink_blue.png", "Energy drink achievement"));
         float currSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
         float newSpeedPercentage = currSpeedPercentage + getSpeedPercentage();
         float speedLimit = entity.getComponent(PlayerActions.class).getMaxSpeed();

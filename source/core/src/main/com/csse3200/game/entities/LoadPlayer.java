@@ -90,6 +90,7 @@ public class LoadPlayer {
                 .addComponent(new PlayerActions())
                 .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0))
                 .addComponent(inventoryComponent)
+                .addComponent(new PlayerAchievementComponent())
                 .addComponent(new ItemPickupComponent())
                 .addComponent(new ShieldComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
@@ -99,7 +100,6 @@ public class LoadPlayer {
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
-                .addComponent(new PlayerAchievementComponent())
                 .addComponent(new WeaponComponent(
                         new Sprite(new Texture("images/Weapons/knife.png")),
                         Collectible.Type.RANGED_WEAPON,

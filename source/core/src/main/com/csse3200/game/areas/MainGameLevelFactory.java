@@ -53,7 +53,7 @@ public class MainGameLevelFactory implements LevelFactory {
      * @param filePath The path of the file to write the JSON data to.
      */
     public void exportToJson(String filePath) {
-        FileLoader.writeClass(rooms, filePath);
+        FileLoader.writeClass(rooms, filePath, FileLoader.Location.LOCAL);
 
     }
     public int getCurrentLevel() {

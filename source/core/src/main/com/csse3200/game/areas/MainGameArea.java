@@ -83,7 +83,7 @@ public class MainGameArea extends GameArea {
         String levelNum = "" + currentLevelNumber;
         currentPosition.put("LevelNum", levelNum);
         currentPosition.put("RoomNum", currentRoomName);
-        FileLoader.writeClass(currentPosition, "./PlayerLocationSave.json");
+        FileLoader.writeClass(currentPosition, "configs/PlayerLocationSave.json", FileLoader.Location.LOCAL);
     }
 
     private void selectRoom(String roomKey) {

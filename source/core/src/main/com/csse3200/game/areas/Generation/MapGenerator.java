@@ -46,7 +46,7 @@ public class MapGenerator {
         this.player_position = "0_0"; // Placeholder
 
         // Add the starting room to the relative position map
-        addBlankRoom(this.player_position, 0, 0);
+        addBlankRoom(this.player_position, 0, 0, BASEROOM);
     }
 
     /**
@@ -56,10 +56,11 @@ public class MapGenerator {
      * @param animal_index The index of the animal in the room.
      * @param item_index The index of the item in the room.
      */
-    private void addBlankRoom(String key, int animal_index, int item_index) {
+    private void addBlankRoom(String key, int animal_index, int item_index, int type) {
         HashMap<String, Integer> roomDetails = new HashMap<>();
         roomDetails.put("animal_index", animal_index);
         roomDetails.put("item_index", item_index);
+        roomDetails.put("room_type", type);
 
         List<String> connections = new ArrayList<>(List.of("", "", "", ""));
 
@@ -208,7 +209,7 @@ public class MapGenerator {
             }
             int animal_index = rng.getRandomInt(0, 7);
             int item_index = rng.getRandomInt(0, 6);
-            addBlankRoom(new_Room_key, animal_index, item_index);
+            addBlankRoom(new_Room_key, animal_index, item_index, BASEROOM);
             connectRooms(randomRoomKey, new_Room_key, detlas_index);
             roomCount--;
         }

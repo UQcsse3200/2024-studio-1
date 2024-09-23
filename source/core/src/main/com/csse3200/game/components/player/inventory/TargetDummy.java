@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.factories.DeployableItemFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
@@ -20,13 +21,7 @@ public class TargetDummy extends UsableItem {
     }
 
     private void spawnTargetDummy(Entity entity) {
-        Entity targetDummy  = new Entity()
-            .addComponent(new HitboxComponent())
-            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.PLAYER))
-            .addComponent(new CombatStatsComponent(100,15))
-            .addComponent(new NPCHealthBarComponent())
-            .addComponent(new TextureRenderComponent(getIcon()))
-            .addComponent(new PhysicsComponent());
+        Entity targetDummy = new DeployableItemFactory().createTargetDummy();
 
         int xPos = (int) entity.getPosition().x;
         int yPos = (int) entity.getPosition().y;

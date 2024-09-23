@@ -260,7 +260,7 @@ public class MapGenerator {
      * Find the furthest room from the centre (to be used to spawn boss room)
      * @return - String representation of the room furthest from centre
      */
-    private String findFurthestRoom() {
+    public String findFurthestRoom() {
         String location = "0_0";
         int maxDist = 0;
         for (Map.Entry<String, List<String>> entry : relativePosition.entrySet()) {
@@ -280,7 +280,7 @@ public class MapGenerator {
      * @param key - room key
      * @return - the distance in room traversals from first centre room
      */
-    private int calculateDistance(String key) {
+    public int calculateDistance(String key) {
         String[] parts = key.split("_");
         int x = Math.abs(Integer.parseInt(parts[0]));
         int y = Math.abs(Integer.parseInt(parts[1]));

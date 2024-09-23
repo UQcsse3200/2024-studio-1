@@ -138,13 +138,17 @@ public class MainGameScreen extends ScreenAdapter {
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
-            MainGameArea area = new MainGameArea(levelFactory, player);
-            //area.exportPosition();
+            new MainGameArea(levelFactory, player);
         }
-        //exports the rooms and map data into the filePath below after Save button is pressed
-        levelFactory.exportToJson("configs/MapSave.json");
     }
-
+    // TODO implement loading game.
+    //    public void loadMap(String fileName) {
+//       MapLoadConfig mapLoad = FileLoader.readClass(MapLoadConfig.class, fileName);
+//       List<String> seedRoom = mapLoad.savedMap;
+//       map.mapData.setMapSeed(seedRoom.getFirst());
+//       seedRoom.remove(1);
+//       for (String room : seedRoom) {
+//       }
     @Override
     public void render(float delta) {
 

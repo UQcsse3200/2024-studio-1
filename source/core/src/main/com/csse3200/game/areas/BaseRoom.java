@@ -316,6 +316,14 @@ public abstract class BaseRoom implements Room {
         return this.isRoomCompleted;
     }
 
+    /**
+     * Sets the room as completed when loading the map
+     */
+    public void setIsRoomComplete() {
+        this.isRoomCompleted = true;
+    }
+
+
     public String getRoomName() {
         return this.roomName;
     }

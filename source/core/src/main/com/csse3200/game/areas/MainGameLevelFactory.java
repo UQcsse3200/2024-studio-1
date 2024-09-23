@@ -2,12 +2,14 @@ package com.csse3200.game.areas;
 
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Room;
+import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
 import com.csse3200.game.entities.factories.StairFactory;
 import com.csse3200.game.files.FileLoader;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -16,12 +18,14 @@ import java.util.*;
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
     private int levelNum;
-    Map<String, Room> rooms = new HashMap<>();;
+    Map<String, Room> rooms = new HashMap<>();
+    List<String> completedRooms = new ArrayList();
+    LevelMap map;
+
 
     @Override
     public Level create(int levelNumber) {
-        LevelMap map = new LevelMap("seed", DEFAULT_MAP_SIZE);
-
+        map = new LevelMap("seed", DEFAULT_MAP_SIZE);
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),
                 new CollectibleFactory(),
@@ -30,9 +34,6 @@ public class MainGameLevelFactory implements LevelFactory {
         // Sprint 4 Switch the MapGenerator to use Rooms
 
         Set<String> room_keySet = map.mapData.getPositions().keySet();
-        //if (loadGame) {
-            // rooms = map from config
-        //else{
         for (String room_key : room_keySet) {
             int itemIndex = map.mapData.getRoomDetails().get(room_key).get("item_index");
             int animalIndex = map.mapData.getRoomDetails().get(room_key).get("animal_index");
@@ -44,7 +45,6 @@ public class MainGameLevelFactory implements LevelFactory {
         // the level
         rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
                 "0,0,14,10," + levelNumber + "," + levelNumber, "BOSS"));
-        //}
         return new Level(map, levelNumber, rooms);
     }
     /**
@@ -53,8 +53,25 @@ public class MainGameLevelFactory implements LevelFactory {
      * @param filePath The path of the file to write the JSON data to.
      */
     public void exportToJson(String filePath) {
-        FileLoader.writeClass(rooms, filePath, FileLoader.Location.LOCAL);
+        completedRooms.add(map.mapData.getMapSeed());
+        for (Room room : rooms.values()) {
+            if (room.getIsRoomComplete()) {
+                completedRooms.add(room.getRoomName());
+            }
+        }
+        FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.LOCAL);
+    }
 
+    /**
+     * Sets the rooms that have been completed in the saved game as completed in the loaded
+     * game.
+     * @param roomNames Room keys that have been completed.
+     */
+
+    public void setRoomsComplete( List<String> roomNames) {
+        for (String roomName : roomNames) {
+            rooms.get(roomName).setIsRoomComplete();
+        }
     }
     public int getCurrentLevel() {
         return levelNum;

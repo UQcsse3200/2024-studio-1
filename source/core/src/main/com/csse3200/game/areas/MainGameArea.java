@@ -23,7 +23,7 @@ public class MainGameArea extends GameArea {
 
     private final Entity player;
 
-    private final LevelFactory levelFactory;
+    private final MainGameLevelFactory levelFactory;
     private Level currentLevel;
     private int currentLevelNumber;
     private Room currentRoom;
@@ -37,12 +37,13 @@ public class MainGameArea extends GameArea {
      *
      * @param levelFactory the provided levelFactory.
      */
-    public MainGameArea(LevelFactory levelFactory, Entity player) {
+    public MainGameArea(MainGameLevelFactory levelFactory, Entity player) {
         super();
         this.player = player;
         this.levelFactory = levelFactory;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
         player.getEvents().addListener("savePlayerPos", this::saveMapLocation);
+        player.getEvents().addListener("saveMapData", this::saveMapData);
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
     }
@@ -85,10 +86,12 @@ public class MainGameArea extends GameArea {
         String levelNum = "" + currentLevelNumber;
         currentPosition.put("LevelNum", levelNum);
         currentPosition.put("RoomNum", currentRoomName);
-        //exports the rooms and map data into the filePath below after Save button is pressed
-        //levelFactory.exportToJson("configs/MapSave.json");
         //exports the current player location (room and level details into a json).
         FileLoader.writeClass(currentPosition, "configs/PlayerLocationSave.json", FileLoader.Location.LOCAL);
+    }
+    public void saveMapData() {
+        //exports the rooms and map data into the filePath below after Save button is pressed
+        levelFactory.exportToJson("configs/MapSave.json");
     }
 
     private void selectRoom(String roomKey) {

@@ -363,6 +363,7 @@ public abstract class BaseRoom implements Room {
 
         spawnItem(area, this.itemSpecifications.get(this.itemGroup).get(0), new GridPoint2(8, 8));
         spawnItem(area, this.itemSpecifications.get(this.itemGroup).get(1), new GridPoint2(6, 8));
+        spawnItem(area, this.itemSpecifications.get(1).get(0), new GridPoint2(8, 6));
     }
 
     /**

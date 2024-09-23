@@ -112,6 +112,7 @@ public class EnergyDrink extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
+        entity.getEvents().trigger("energyDrinkUsed");
         float currSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
         float newSpeedPercentage = currSpeedPercentage + getSpeedPercentage();
         float speedLimit = entity.getComponent(PlayerActions.class).getMaxSpeed();

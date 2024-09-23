@@ -261,7 +261,7 @@ public class PlayerStatsDisplay extends UIComponent {
         speedProgressBar.setValue(speedPercentage);
     }
 
-    public void updateDamageUI(float damage) {
+    public void updateDamageUI(int damage) {
         damageProgressBar.setValue(damage);
     }
 

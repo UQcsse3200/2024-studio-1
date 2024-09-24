@@ -4,5 +4,5 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AchievementConfig {
-    public Map<String, String> achievements;
+    public Map<String, String> achievements = new HashMap<>();
 }

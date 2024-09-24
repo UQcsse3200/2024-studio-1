@@ -18,7 +18,22 @@ public class GameOptions {
      * other features in the future.
      */
     public enum Difficulty {
-        EASY, MEDIUM, HARD, TEST;
+        EASY(1f), MEDIUM(0.75f), HARD(0.5f), TEST(1f);
+
+        Difficulty(float multiplier) {
+            this.multiplier = multiplier;
+        }
+
+        private float multiplier;
+
+        /**
+         * Get multiplier associated with this difficulty value. Initial player health and speed
+         * are adjusted based on this multiplier to make the game easier or harder.
+         * @return multiplier associated with this difficulty value.
+         */
+        public float getMultiplier() {
+            return multiplier;
+        }
 
         @Override
         public String toString() {

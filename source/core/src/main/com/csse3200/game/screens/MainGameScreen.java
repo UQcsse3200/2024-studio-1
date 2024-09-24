@@ -127,7 +127,8 @@ public class MainGameScreen extends ScreenAdapter {
          */
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         Entity player = playerFactory.createPlayer(
-                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name);
+                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name,
+                gameOptions.difficulty);
 
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 

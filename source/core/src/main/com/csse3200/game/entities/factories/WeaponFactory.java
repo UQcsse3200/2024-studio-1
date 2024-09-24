@@ -228,14 +228,17 @@ public class WeaponFactory extends LoadedFactory {
         WeaponAnimationRenderComponent animator =
                 new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/" +
                         weaponName + ".atlas"));
+
         animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
-        animator.addAnimation("left", 0.04f, Animation.PlayMode.LOOP);
-        animator.addAnimation("up", 0.04f, Animation.PlayMode.LOOP);
-        animator.addAnimation("down", 0.04f, Animation.PlayMode.LOOP);
         animator.addAnimation("shootUp", 0.05f, Animation.PlayMode.NORMAL);
         animator.addAnimation("shootDown", 0.05f, Animation.PlayMode.NORMAL);
         animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
         animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
+        // Only for shotguns
+        animator.addAnimation("left", 0.04f, Animation.PlayMode.LOOP);
+        animator.addAnimation("up", 0.04f, Animation.PlayMode.LOOP);
+        animator.addAnimation("down", 0.04f, Animation.PlayMode.LOOP);
+        // Only for swords
         animator.addAnimation("item", 0.05f, Animation.PlayMode.NORMAL);
         return animator;
     }

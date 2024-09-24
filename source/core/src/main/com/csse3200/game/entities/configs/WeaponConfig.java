@@ -1,20 +1,5 @@
 package com.csse3200.game.entities.configs;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.WeaponAnimationController;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.PhysicsUtils;
-import com.csse3200.game.physics.components.ColliderComponent;
-import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,61 +24,6 @@ public class WeaponConfig {
     // Method to fetch weapon data by specification
     public static WeaponData getWeaponData(String specification) {
         return weaponConfigs.get(specification);
-    }
-
-    public static Entity createMeleeEntity(MeleeWeapon collectible) throws IllegalArgumentException {
-        WeaponAnimationRenderComponent animator =
-                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/slash_1.atlas"));
-        animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
-        animator.addAnimation("shootUp", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootDown", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
-
-        Entity meleeEntity = new Entity()
-                .addComponent(new CollectibleComponent(collectible))
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
-                .addComponent(new PhysicsComponent())
-                .addComponent(new ColliderComponent())
-                .addComponent(animator)
-                .addComponent(new WeaponAnimationController());
-
-        PhysicsUtils.setScaledCollider(meleeEntity, -1f, -1f);
-        meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
-        meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(1f, 1f));
-        meleeEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-
-        logger.info("Created melee weapon entity: " + collectible);
-        return meleeEntity;
-    }
-
-    public static Entity createRangeEntity(RangedWeapon collectible) {
-        WeaponAnimationRenderComponent animator =
-                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/plasma_blaster.atlas"));
-        animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
-        animator.addAnimation("left", 0.04f, Animation.PlayMode.LOOP);
-        animator.addAnimation("up", 0.04f, Animation.PlayMode.LOOP);
-        animator.addAnimation("down", 0.04f, Animation.PlayMode.LOOP);
-        animator.addAnimation("shootUp", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootDown", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
-
-        Entity rangedEntity = new Entity()
-                .addComponent(new CollectibleComponent(collectible))
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
-                .addComponent(new PhysicsComponent())
-                .addComponent(new ColliderComponent())
-                .addComponent(animator)
-                .addComponent(new WeaponAnimationController());
-
-        PhysicsUtils.setScaledCollider(rangedEntity, -1f, -1f);
-        rangedEntity.getComponent(ColliderComponent.class).setSensor(true);
-        rangedEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(3f, 3f));
-        logger.info("Created range weapon entity: " + collectible);
-        return rangedEntity;
     }
 
     // Define the WeaponData class

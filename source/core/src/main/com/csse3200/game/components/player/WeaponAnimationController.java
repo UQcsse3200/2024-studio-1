@@ -2,9 +2,12 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
+
+import java.util.Objects;
 
 /**
  * This class listens to events triggered by the KeyboardPlayerInputComponent
@@ -31,15 +34,17 @@ public class WeaponAnimationController extends Component {
     }
 
     public void updateHost(Entity hostEntity) {
-        hostEntity.getEvents().addListener("walkLeft", this::animateLeft);
-        hostEntity.getEvents().addListener("walkRight", this::animateIdle);
-        hostEntity.getEvents().addListener("walkUp", this::animateUp);
-        hostEntity.getEvents().addListener("walkDown", this::animateDown);
+        if (Objects.equals(this.getEntity().getComponent(NameComponent.class).getName(),
+                "Ranged")) {
+            hostEntity.getEvents().addListener("walkLeft", this::animateLeft);
+            hostEntity.getEvents().addListener("walkRight", this::animateIdle);
+            hostEntity.getEvents().addListener("walkUp", this::animateUp);
+            hostEntity.getEvents().addListener("walkDown", this::animateDown);
+        }
         this.getEntity().getEvents().addListener("shootRight", this::animateShootRight);
         this.getEntity().getEvents().addListener("shootLeft", this::animateShootLeft);
         this.getEntity().getEvents().addListener("shootUp", this::animateShootUp);
         this.getEntity().getEvents().addListener("shootDown", this::animateShootDown);
-//        this.getEntity().getEvents().addListener("attackMelee", this::attackMelee);
     }
 
     private void animateLeft() {
@@ -72,15 +77,4 @@ public class WeaponAnimationController extends Component {
     private void animateShootDown() {
         animationController.startAnimation("shootDown");
     }
-//    private void attackMelee() {
-//        if (weaponDirection == left) {
-//            animateShootLeft();
-//        } else if (weaponDirection == right) {
-//            animateShootRight();
-//        } else if (weaponDirection == up) {
-//            animateShootUp();
-//        } else {
-//            animateShootDown();
-//        }
-//    }
 }

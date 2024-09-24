@@ -59,7 +59,7 @@ public class MainGameLevelFactory implements LevelFactory {
                 completedRooms.add(room.getRoomName());
             }
         }
-        FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.LOCAL);
+        FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.EXTERNAL);
     }
 
     /**

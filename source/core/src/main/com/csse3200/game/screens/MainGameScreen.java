@@ -53,7 +53,6 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/black_dot_transparent.png"
     };
-
     // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
 
@@ -79,7 +78,6 @@ public class MainGameScreen extends ScreenAdapter {
     private final PhysicsEngine physicsEngine;
     private Entity ui;
     public static boolean isPaused = false;
-
 
     public MainGameScreen(GdxGame game) {
         this.game = game;
@@ -133,6 +131,7 @@ public class MainGameScreen extends ScreenAdapter {
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
+
         MainGameLevelFactory levelFactory = new MainGameLevelFactory();
 
         if (gameOptions.difficulty == TEST) {
@@ -142,7 +141,7 @@ public class MainGameScreen extends ScreenAdapter {
         }
     }
     // TODO implement loading game.
-    //    public void loadMap(String fileName) {
+    //   public void loadMap(String fileName) {
 //       MapLoadConfig mapLoad = FileLoader.readClass(MapLoadConfig.class, fileName);
 //       List<String> seedRoom = mapLoad.savedMap;
 //       map.mapData.setMapSeed(seedRoom.getFirst());

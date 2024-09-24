@@ -1,12 +1,10 @@
 {
-health: 80
+health: 45
 baseAttack: 30
 name: default
 favouriteColour: peach
-items: [
-	item:medkit
-]
-melee: melee:pickaxe
+items: []
+melee: melee:knife
 ranged: ranged:shotgun
 textureFilename: images/player/player.png
 textureAtlasFilename: images/player/player.atlas

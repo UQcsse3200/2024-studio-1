@@ -87,11 +87,16 @@ public class MainGameArea extends GameArea {
         currentPosition.put("LevelNum", levelNum);
         currentPosition.put("RoomNum", currentRoomName);
         //exports the current player location (room and level details into a json).
-        FileLoader.writeClass(currentPosition, "configs/PlayerLocationSave.json", FileLoader.Location.LOCAL);
+        FileLoader.writeClass(currentPosition, "./PlayerLocationSave.json", FileLoader.Location.EXTERNAL);
     }
+
+    /**
+     * Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
+     * which can be loaded when load button is pressed.
+     */
     public void saveMapData() {
         //exports the rooms and map data into the filePath below after Save button is pressed
-        levelFactory.exportToJson("configs/MapSave.json");
+        levelFactory.exportToJson("./MapSave.json");
     }
 
     private void selectRoom(String roomKey) {

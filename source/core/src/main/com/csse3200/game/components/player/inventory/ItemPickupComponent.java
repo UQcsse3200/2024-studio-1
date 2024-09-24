@@ -95,7 +95,7 @@ public class ItemPickupComponent extends Component {
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
 //        area.spawnEntityAt(newItem, itemEntityPosition, true, true);
-
+        entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
         itemEntity = newItem;
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
 

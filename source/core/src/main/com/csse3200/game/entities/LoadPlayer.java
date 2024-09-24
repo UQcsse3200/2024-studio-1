@@ -108,6 +108,7 @@ public class LoadPlayer {
                 player.addComponent(coinsComponent)
                         .addComponent(new PlayerCoinDisplay(coinsComponent));
 
+            player.getComponent(PlayerActions.class).setSpeed(config.speed);
 
 
     }

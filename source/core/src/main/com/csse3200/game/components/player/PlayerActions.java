@@ -6,7 +6,6 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.services.ServiceLocator;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -113,7 +112,6 @@ public class PlayerActions extends Component {
      * Makes the player attack.
      */
     private void attack() {
-        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
         entity.getComponent(WeaponComponent.class).attackMelee();
     }
 
@@ -121,7 +119,6 @@ public class PlayerActions extends Component {
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
         entity.getComponent(WeaponComponent.class).shoot(direction);
     }
 

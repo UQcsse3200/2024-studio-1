@@ -412,6 +412,7 @@ public class WeaponComponent extends Component {
                 logger.info("Melee weapon not ready");
                 return;
             }
+            ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
             // Render attack here using
             this.lastSwing = currentTime;
             ServiceLocator.getResourceService()
@@ -499,6 +500,7 @@ public class WeaponComponent extends Component {
                 // Shooting
                 this.setAmmo(-1);
 
+                ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
                 Entity projectile = projectileFactory.createProjectile(this.bulletConfig, direction, this.getEntity().getPosition());
                 projectile.getComponent(ProjectileAttackComponent.class).create();
                 ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);

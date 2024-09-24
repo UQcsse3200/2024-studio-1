@@ -276,9 +276,12 @@ public class WeaponComponent extends Component {
         if (ammo == -1) {
             this.ammo -= 1;
         } else if (ammo == -2) {
-            this.ammo = maxAmmo;
-        } else {
+            this.ammo = this.getMaxAmmo();
+        } else if (ammo < this.maxAmmo && ammo > 0){
+            // If value is not expected, default to max ammo
             this.ammo = ammo;
+        } else {
+            this.ammo = getMaxAmmo();
         }
     }
 
@@ -366,9 +369,6 @@ public class WeaponComponent extends Component {
         } else {
             this.attackInterval = (1000L / this.fireRate);
         }
-//        if (rangedItemEntity != null) {
-//            ServiceLocator.getGameAreaService().getGameArea().disposeEntity(rangedItemEntity);
-//        }
         this.rangedEntity = itemEntity;
         this.rangedEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
     }
@@ -629,9 +629,7 @@ public class WeaponComponent extends Component {
         }
         this.meleeEntity = weaponFactory.createWeaponForPlayer(this.meleeItem);
         // Spawn entity in the map, the location should not matter
-        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(meleeEntity,
-                new GridPoint2(0,0),
-                true, true);
+        ServiceLocator.getEntityService().register(this.meleeEntity);
         // Update the host for the weapon controller
         this.meleeEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
         // For melee damage
@@ -649,9 +647,10 @@ public class WeaponComponent extends Component {
         }
         this.rangedEntity = weaponFactory.createWeaponForPlayer(this.rangedItem);
         // Spawn entity in the map, the location should not matter
-        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(rangedEntity,
-                new GridPoint2(0,0),
-                true, true);
+//        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(rangedEntity,
+//                new GridPoint2(0,0),
+//                true, true);
+        ServiceLocator.getEntityService().register(this.rangedEntity);
         // Update the host for the weapon controller
         this.rangedEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
     }

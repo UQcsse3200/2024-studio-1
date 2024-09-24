@@ -4,10 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
@@ -33,6 +30,7 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float ROOT_PADDING = 10f;
     private static final float STAT_TABLE_PADDING = 2f;
     private static final float BAR_HEIGHT = 20;
+    private static final float PROPORTION = 0.9f;
 
     /**
      * Make the component.
@@ -88,6 +86,7 @@ public class PlayerSelectDisplay extends UIComponent {
                     playerSelected(filename);
                 }
             });
+            button.getLabel().setWrap(true);
             rootTable.add(button);
         });
 

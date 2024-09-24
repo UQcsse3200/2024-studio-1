@@ -2,14 +2,10 @@ package com.csse3200.game.areas;
 
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Room;
-import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
-import com.csse3200.game.entities.factories.StairFactory;
 import com.csse3200.game.files.FileLoader;
-
-import java.io.File;
 import java.util.*;
 
 /**
@@ -21,7 +17,6 @@ public class MainGameLevelFactory implements LevelFactory {
     Map<String, Room> rooms = new HashMap<>();
     List<String> completedRooms = new ArrayList();
     LevelMap map;
-
 
     @Override
     public Level create(int levelNumber) {

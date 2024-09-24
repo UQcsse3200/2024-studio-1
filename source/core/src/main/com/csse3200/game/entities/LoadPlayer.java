@@ -105,6 +105,13 @@ public class LoadPlayer {
                         Collectible.Type.RANGED_WEAPON,
                         10, 1, 1, 10, 10, 0));
 
+                CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
+                player.addComponent(coinsComponent)
+                        .addComponent(new PlayerCoinDisplay(coinsComponent));
+
+            player.getComponent(PlayerActions.class).setSpeed(config.speed);
+
+
     }
 
     /**

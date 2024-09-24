@@ -3,6 +3,7 @@ package com.csse3200.game.components.projectile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
@@ -22,6 +23,7 @@ public class ProjectileActions extends Component {
     @Override
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
+        System.out.println(entity.getComponent(NameComponent.class));
     }
 
     @Override

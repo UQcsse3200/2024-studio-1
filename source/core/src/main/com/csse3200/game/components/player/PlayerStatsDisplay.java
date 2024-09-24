@@ -57,7 +57,6 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateMeleeWeaponCount", this::updateMeleeWeaponCountUI);
         entity.getEvents().addListener("updateRangedWeaponCount", this::updateRangedWeaponCountUI);
         entity.getEvents().addListener("RANGED_ATTACK", this::updateAmmoDisplay);
-        entity.getEvents().addListener("RELOAD", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
     }
@@ -215,7 +214,7 @@ public class PlayerStatsDisplay extends UIComponent {
      * Updates the ammo display based on the current ammo count.
      * Ammo icons beyond the current count will be hidden.
      */
-    private void updateAmmoDisplay() {
+    public void updateAmmoDisplay() {
         for (int i = 0; i < ammoImages.size(); i++) {
             if (i < weaponComponent.getAmmo()) {
                 ammoImages.get(i).setVisible(true); // Show ammo that's still available

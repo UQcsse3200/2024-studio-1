@@ -50,6 +50,7 @@ public class WeaponComponent extends Component {
     private boolean reloading; // If the player is reloading
 
     private Vector2 shootDirection;
+    //game exception apparently gets thrown inside one of these tasks
     private class ShootTimer extends TimerTask{
         @Override
         public void run() {
@@ -67,7 +68,7 @@ public class WeaponComponent extends Component {
             setHasShot(false);
             setReloading(false);
             setAmmo(getMaxAmmo());
-            entity.getEvents().trigger("RELOAD");
+            entity.getComponent(PlayerStatsDisplay.class).updateAmmoDisplay();
             if (shootDirection != null){
                 shoot(shootDirection);
             }

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -103,7 +104,7 @@ public class MainGameArea extends GameArea {
             return;
         }
 
-        var entityNames = ServiceLocator.getEntityService().getEntityNames();
+        var entityNames = Arrays.stream(ServiceLocator.getEntityService().getEntities()).map(Entity::toString).toList();
         logger.info("Spawning new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
         if (currentLevel.roomTraversals == 8 ) {
             this.currentRoom = currentLevel.getRoom("BOSS");
@@ -113,7 +114,7 @@ public class MainGameArea extends GameArea {
         player.setPosition(7, 5);
         spawnEntity(player);
 
-        entityNames = ServiceLocator.getEntityService().getEntityNames();
+        entityNames = Arrays.stream(ServiceLocator.getEntityService().getEntities()).map(Entity::toString).toList();
         logger.info("Spawned new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
         spawnRoom = false;
     }

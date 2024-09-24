@@ -33,6 +33,7 @@ import com.csse3200.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
@@ -175,7 +176,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     @Override
     public void pause() {
-        List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
+        List<String> entityNames = Arrays.stream(ServiceLocator.getEntityService().getEntities()).map(Entity::toString).toList();
         logger.info("Game paused, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
     }
 

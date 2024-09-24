@@ -51,8 +51,7 @@ public class ItemPickupComponent extends Component {
         // is passed in
         if (item.getType() == Collectible.Type.MELEE_WEAPON || item.getType() == Collectible.Type.RANGED_WEAPON) {
             entity.getComponent(InventoryComponent.class).pickup(item, itemEntity);
-        }
-        else {
+        } else {
             // Pickup items
             entity.getComponent(InventoryComponent.class).pickup(item);
             markEntityForRemoval(itemEntity);

@@ -20,6 +20,7 @@ import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -143,7 +144,9 @@ public class MainGameExitDisplay extends UIComponent {
   public void pauseGame() {
     MainGameScreen.isPaused = true;
 
-    List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
+    List<String> entityNames = Arrays.stream(ServiceLocator.getEntityService().getEntities())
+            .map(Entity::toString)
+            .toList();
     logger.info("Game paused, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
 
     stage.addActor(pauseTable);
@@ -159,23 +162,7 @@ public class MainGameExitDisplay extends UIComponent {
     stage.addActor(table);
   }
 
-  public class EntityCoordinates {
-    private float x;
-    private float y;
-
-    public EntityCoordinates(float x, float y) {
-      this.x = x;
-      this.y = y;
-    }
-
-    public float getX() {
-      return x;
-    }
-
-    public float getY() {
-      return y;
-    }
-  }
+  public record EntityCoordinates(float x, float y) { }
 
   public void saveGame() {
     Array<EntityCoordinates> entities = new Array<>();
@@ -188,7 +175,7 @@ public class MainGameExitDisplay extends UIComponent {
     }
     String filePath = "configs/save.json";
     FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
-    logger.debug("Game saved to: " + filePath);
+    logger.debug("Game saved to: {}", filePath);
   }
 
   public void resize(int width, int height){

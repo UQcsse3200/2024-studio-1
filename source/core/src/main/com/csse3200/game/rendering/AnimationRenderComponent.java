@@ -1,6 +1,5 @@
 package com.csse3200.game.rendering;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -127,8 +126,8 @@ public class AnimationRenderComponent extends RenderComponent {
     Animation<TextureRegion> animation = animations.getOrDefault(name, null);
     if (animation == null) {
       logger.error(
-          "Attempted to play unknown animation {}. Ensure animation is added before playback.",
-          name);
+          "Entity: \"{}\" attempted to play unknown animation {}. Ensure animation is added before playback.",
+          entity.toString(), name);
       return;
     }
 

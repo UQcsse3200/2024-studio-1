@@ -152,7 +152,7 @@ public class PlayerActions extends Component {
     private void use(UsableItem item) {
         Inventory inventory = inventoryComponent.getInventory();
         for (Collectible collectedItem : inventory.getItems()) {
-            if (collectedItem.getClass() == item.getClass()) {
+            if (collectedItem.getClass().equals(item.getClass())) {
                 item.apply(entity);
                 inventoryComponent.drop(collectedItem);
                 break;

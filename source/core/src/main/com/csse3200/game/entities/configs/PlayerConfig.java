@@ -1,5 +1,7 @@
 package com.csse3200.game.entities.configs;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.*;
 
 /**
@@ -13,6 +15,8 @@ public class PlayerConfig extends BaseEntityConfig  {
 
   /** The items player has collected/picked up during the game */
   public String[] items;
+
+  public Vector2 speed;
 
   /** Player's current health */
   public int health = 100;

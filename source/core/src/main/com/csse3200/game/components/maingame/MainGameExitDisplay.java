@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.SavePlayerService;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
@@ -179,13 +180,19 @@ public class MainGameExitDisplay extends UIComponent {
 
   public void saveGame() {
     Array<EntityCoordinates> entities = new Array<>();
+    Entity player = new Entity();
     for (Entity entity : ServiceLocator.getEntityService().getEntities()) {
-       Vector2 pos = entity.getPosition();
+      if (entity.getId() == 8) player = entity;
+      Vector2 pos = entity.getPosition();
        float x = pos.x;
        float y = pos.y;
        EntityCoordinates coordinates = new EntityCoordinates(x, y);
        entities.add(coordinates);
+
     }
+    SavePlayerService savePlayerService = new SavePlayerService();
+    savePlayerService.savePlayerState(player);
+
     String filePath = "configs/save.json";
     FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
     logger.debug("Game saved to: " + filePath);

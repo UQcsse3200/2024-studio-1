@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList; // this list is thread safe
 import java.util.List;
 
 /**
@@ -90,5 +91,14 @@ public abstract class GameArea extends LoadedFactory {
 
     public void setTerrain(TerrainComponent terrain) {
         this.terrain = terrain;
+    }
+
+    /**
+     * Get a list of all entities in the area. This list is a copy and can be modified.
+     * @return list of entities
+     */
+    public CopyOnWriteArrayList<Entity> getListOfEntities() {
+        CopyOnWriteArrayList<Entity> newAreaEntities = new CopyOnWriteArrayList<>(areaEntities);
+        return newAreaEntities;
     }
 }

@@ -69,7 +69,6 @@ public class ItemPickupComponent extends Component {
      */
     private void markEntityForRemoval(Entity itemEntity) {
         // Perform any last checks or cleanup before actual disposal
-        ServiceLocator.getEntityService().unregister(itemEntity);
         ServiceLocator.getEntityService().markEntityForRemoval(itemEntity);
     }
 }

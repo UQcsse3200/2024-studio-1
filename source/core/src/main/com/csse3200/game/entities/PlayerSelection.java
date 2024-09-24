@@ -20,7 +20,8 @@ public class PlayerSelection {
     public static final String[] PLAYERS = {
             "configs/player.json",
             "configs/player_2.json",
-            "configs/player_3.json"
+            "configs/player_3.json",
+            "configs/player_4.json"
     };
 
     /**

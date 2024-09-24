@@ -28,13 +28,17 @@ public class PlayerAnimationController extends Component {
             case ("images/player/homeless2.atlas"):
                 this.playerType = PlayerType.Player3;
                 break;
+            case ("images/player/homeless3.atlas"):
+                this.playerType = PlayerType.Player4;
+                break;
         }
     }
 
     private enum PlayerType {
         Player1,
         Player2,
-        Player3
+        Player3,
+        Player4
     }
 
     /**
@@ -72,7 +76,7 @@ public class PlayerAnimationController extends Component {
         if (!death) {
             switch (playerType) {
                 case Player1 -> animationController.startAnimation("walk-left");
-                case Player2, Player3 -> animationController.startAnimation("Walk");
+                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
         }
     }
@@ -84,7 +88,7 @@ public class PlayerAnimationController extends Component {
         if (!death) {
             switch (playerType) {
                 case Player1 -> animationController.startAnimation("walk-right");
-                case Player2, Player3 -> animationController.startAnimation("Walk");
+                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
         }
     }
@@ -96,7 +100,7 @@ public class PlayerAnimationController extends Component {
         if (!death) {
             switch (playerType) {
                 case Player1 -> animationController.startAnimation("walk-down");
-                case Player2, Player3-> animationController.startAnimation("Walk");
+                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
         }
     }
@@ -108,7 +112,7 @@ public class PlayerAnimationController extends Component {
         if (!death) {
             switch (playerType) {
                 case Player1 -> animationController.startAnimation("walk-up");
-                case Player2, Player3 -> animationController.startAnimation("Walk");
+                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
         }
     }
@@ -119,7 +123,7 @@ public class PlayerAnimationController extends Component {
     void deathAnimation() {
         switch (playerType) {
             case Player1 -> animationController.startAnimation( "death-down");
-            case Player2, Player3 -> animationController.startAnimation( "Dead");
+            case Player2, Player3, Player4 -> animationController.startAnimation( "Dead");
         }
         death = true;
     }
@@ -142,7 +146,7 @@ public class PlayerAnimationController extends Component {
         if (!death) {
             switch (playerType) {
                 case Player1 -> animationController.startAnimation( "damage-down");
-                case Player2, Player3 -> animationController.startAnimation( "Hurt");
+                case Player2, Player3, Player4 -> animationController.startAnimation( "Hurt");
             }
         }
     }

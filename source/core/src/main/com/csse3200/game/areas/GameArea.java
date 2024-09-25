@@ -103,31 +103,6 @@ public abstract class GameArea extends LoadedFactory {
         }
     }
 
-    /**
-     * Updates the enemy entities in the current area by adding tasks for the newly specified target.
-     * The tasks are determined based on the NPC configuration of each entity.
-     * @param target the target entity that enemies will attack
-     */
-    public void updateEnemyTargets(Entity target) {
-        for (Entity entity : areaEntities) {
-            if (entity.getComponent(AITaskComponent.class) != null) {
-                NPCConfigs.NPCConfig config = entity.getComponent(NPCConfigComponent.class).config;
-                NPCConfigs.NPCConfig.TaskConfig tasks = config.tasks;
-
-                // Add chase task
-                if (tasks.chase != null) {
-                    entity.getComponent(AITaskComponent.class).addTask(new ChaseTask(target, tasks.chase));
-                }
-                // Add charge task
-                if (tasks.charge != null) {
-                    entity.getComponent(AITaskComponent.class).addTask(new ChargeTask(target, tasks.charge));
-                }
-
-                entity.getComponent(AITaskComponent.class).update();
-            }
-        }
-    }
-
     public void setTerrain(TerrainComponent terrain) {
         this.terrain = terrain;
     }

@@ -159,6 +159,14 @@ public abstract class BaseRoom implements Room {
     protected abstract List<List<String>> getItemSpecifications();
 
     /**
+     * Gets a copy of the list of enemies
+     * @return a new array list containing the enemies
+     */
+    public List<Entity> getEnemies() {
+        return new ArrayList<>(enemies);
+    }
+
+    /**
      * Creates enemies for the room based on the provided animal specifications.
      *
      * @param animals the list of specifications for the animals

@@ -70,7 +70,7 @@ public class PlayerConfig extends BaseEntityConfig  {
   public void adjustForDifficulty(Difficulty difficulty) {
     float multiplier = difficulty.getMultiplier();
     health = (int) (health * multiplier);
-    // todo adjust speed as well
+    speed.scl(multiplier);
   }
 
   /**

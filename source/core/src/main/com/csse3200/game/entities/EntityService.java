@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Provides a global access point for entities to register themselves. This allows for iterating
@@ -114,12 +114,11 @@ public class EntityService {
 
     @Override
     public String toString() {
-        List<String> entries = Arrays.stream(this.getEntities())
-                .sorted(Comparator.comparingInt(Entity::getId))
-                .map(Entity::toString)
-                .toList();
         return getEntities().length + " Entities\n" +
                 "ID\tPosition\t\tName\n" +
-                String.join("\n", entries);
+                Arrays.stream(this.getEntities()) // For each entity
+                .sorted(Comparator.comparingInt(Entity::getId)) // Sorted by ID
+                .map(Entity::toString) // Get it's string
+                .collect(Collectors.joining("\n")); // and list them on separate lines.
     }
 }

@@ -106,20 +106,26 @@ public class LoadPlayer {
                         new Sprite(new Texture("images/Weapons/knife.png")),
                         Collectible.Type.RANGED_WEAPON,
                         10, 1, 1, 10, 10, 0));
-        Vector2 speed = stringToVector2(config.speed);
+        Vector2 speed = parseSpeedFromJson(config);
         player.getComponent(PlayerActions.class).setSpeed(speed);
 
     }
-    public static Vector2 stringToVector2(String input) {
-        // Remove parentheses and split the string by the comma
-        String[] values = input.replace("(", "").replace(")", "").split(", ");
 
-        // Parse the values as floats
-        float x = Float.parseFloat(values[0].replace("f", ""));
-        float y = Float.parseFloat(values[1].replace("f", ""));
+    /**
+     * Parses the speed from a JSON-like format: {x: 1.0, y: 1.0}.
+     * This method converts the speed to a Vector2 object.
+     *
+     * @param config the PlayerConfig object containing the speed data.
+     * @return a Vector2 object representing the speed.
+     */
+    public Vector2 parseSpeedFromJson(PlayerConfig config) {
+        // Assuming the config's speed field has already been initialized properly from JSON
+        if (config.speed == null) {
+            System.out.println("Speed is missing, setting default speed (1f, 1f)");
+            return new Vector2(1f, 1f);  // Default value
+        }
 
-        // Create and return a new Vector2 with the parsed values
-        return new Vector2(x, y);
+        return new Vector2(config.speed.x, config.speed.y);  // Use the x and y values from the JSON
     }
 
     /**

@@ -1,0 +1,6 @@
+{
+First energy drink: {
+	class: java.lang.String
+	value: images/items/energy_drink_blue.png
+}
+}

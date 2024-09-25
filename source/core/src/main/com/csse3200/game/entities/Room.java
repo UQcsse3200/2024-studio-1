@@ -15,6 +15,8 @@ public interface Room {
      */
     void spawn(Entity player, MainGameArea mainGameArea);
 
+    String getRoomName();
+
     /**
      * Remove all entities that form this room.
      */

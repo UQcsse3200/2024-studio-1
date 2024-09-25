@@ -134,12 +134,16 @@ public class MainGameScreen extends ScreenAdapter {
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
-        LevelFactory levelFactory = new MainGameLevelFactory();
+        MainGameLevelFactory levelFactory = new MainGameLevelFactory();
+
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
-            new MainGameArea(levelFactory, player);
+            MainGameArea area = new MainGameArea(levelFactory, player);
+            area.exportPosition();
         }
+        //exports the rooms and map data into the filePath below after Save button is pressed
+        levelFactory.exportToJson("./MapSave.json");
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.components.player.Achievement;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 

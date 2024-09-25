@@ -4,7 +4,6 @@ package com.csse3200.game.components.player;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.csse3200.game.entities.configs.AchievementConfig;
 import com.csse3200.game.files.FileLoader;
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ui.UIComponent;
@@ -15,8 +14,6 @@ import java.util.HashMap;
 public class PlayerAchievementComponent extends UIComponent {
     public HashMap<String, String> achievements;
     public PlayerAchievementComponent() {
-        super();
-        // read from achievements config
         achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json");
     }
 
@@ -25,7 +22,6 @@ public class PlayerAchievementComponent extends UIComponent {
      * Gets the map of achievements
      * @return
      */
-
     public HashMap<String, String> getAchievements() {
         return achievements;
     }
@@ -52,15 +48,18 @@ public class PlayerAchievementComponent extends UIComponent {
 
     /**
      * A method to handle whether an energy drink achievement has been obtained. It is called any time an energy drink
-     * is used.
-     * @param speedPercentage
      */
     public void energyDrinkAchievement(float speedPercentage) {
         addAchievement("First energy drink", "images/items/energy_drink_blue.png");
     }
 
     /**
-     * Adds the (name, icon) pair of an achievement to the inner achievement list of the AchievementConfig file
+     * Adds the name and the icon of an achievement to a hashMap and
+     * display it on UI
+     *
+     * @param name name of the achievement
+     * @param icon path to image file
+     *
      */
     public void addAchievement(String name, String icon) {
 
@@ -87,12 +86,10 @@ public class PlayerAchievementComponent extends UIComponent {
     }
 
     /**
-     * I'm not sure about this one? Do we need to be constantly updating the AchievementConfig file?
+     * Writes the Hashmap to Json file
      */
     public void updateConfig() {
         FileLoader.writeClass(achievements, "configs/achievements.json", FileLoader.Location.LOCAL);
     }
-
-
 
 }

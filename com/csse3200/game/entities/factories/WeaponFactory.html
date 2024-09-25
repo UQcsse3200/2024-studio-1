@@ -136,19 +136,24 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Convert a collectible item into a collectible entity.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSoundFilepaths()" class="member-name-link">getSoundFilepaths</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createWeaponForPlayer(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">createWeaponForPlayer</a><wbr>(<a href="../../components/player/inventory/Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;collectible)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepath to sounds needed by this Factory</div>
+<div class="block">Create weapon entity for player to use.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSoundFilepaths()" class="member-name-link">getSoundFilepaths</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepath to texture atlases needed by this Factory</div>
+<div class="block">Get all the filepath to sounds needed by this Factory</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get all the filepath to texture atlases needed by this Factory</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get all the filepath to textures needed by this Factory</div>
 </div>
 </div>
@@ -216,6 +221,22 @@ loadScripts(document, 'script');</script>
 <dd>the final entity containing the collectible.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the collectible is invalid.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="createWeaponForPlayer(com.csse3200.game.components.player.inventory.Collectible)">
+<h3>createWeaponForPlayer</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createWeaponForPlayer</span><wbr><span class="parameters">(<a href="../../components/player/inventory/Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;collectible)</span>
+                             throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></span></div>
+<div class="block">Create weapon entity for player to use. Should only be invoke from WeaponComponent</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>collectible</code> - the weapon to convert</dd>
+<dt>Returns:</dt>
+<dd>the final entity containing the weapon.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - with invalid input collectible</dd>
 </dl>
 </section>
 </li>

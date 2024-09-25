@@ -704,6 +704,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/components/player/WeaponAnimationController.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponAnimationController.html" title="class in com.csse3200.game.components.player">WeaponAnimationController</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/WeaponComponent.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
+<dd>
+<div class="block">Create the projectile factory and weapon factory</div>
+</dd>
 <dt><a href="com/csse3200/game/components/projectile/ProjectileActions.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.projectile.<a href="com/csse3200/game/components/projectile/ProjectileActions.html" title="class in com.csse3200.game.components.projectile">ProjectileActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/projectile/ProjectileAnimationController.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.projectile.<a href="com/csse3200/game/components/projectile/ProjectileAnimationController.html" title="class in com.csse3200.game.components.projectile">ProjectileAnimationController</a></dt>
@@ -937,6 +941,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/entities/factories/WeaponFactory.html#createWeaponEntity(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">createWeaponEntity(Collectible)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/WeaponFactory.html" title="class in com.csse3200.game.entities.factories">WeaponFactory</a></dt>
 <dd>
 <div class="block">Convert a collectible item into a collectible entity.</div>
+</dd>
+<dt><a href="com/csse3200/game/entities/factories/WeaponFactory.html#createWeaponForPlayer(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">createWeaponForPlayer(Collectible)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/WeaponFactory.html" title="class in com.csse3200.game.entities.factories">WeaponFactory</a></dt>
+<dd>
+<div class="block">Create weapon entity for player to use.</div>
 </dd>
 <dt><a href="com/csse3200/game/entities/factories/NPCFactory.html#createWerewolf(com.csse3200.game.entities.Entity)" class="member-name-link">createWerewolf(Entity)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/NPCFactory.html" title="class in com.csse3200.game.entities.factories">NPCFactory</a></dt>
 <dd>
@@ -4809,7 +4817,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/PlayerActions.html#update()" class="member-name-link">update()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerActions.html" title="class in com.csse3200.game.components.player">PlayerActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/WeaponComponent.html#update()" class="member-name-link">update()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/WeaponComponent.html" title="class in com.csse3200.game.components.player">WeaponComponent</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Continuously update the position of the player to the weapon entities
+ Replace weapon entity if needed</div>
+</dd>
 <dt><a href="com/csse3200/game/components/projectile/ProjectileActions.html#update()" class="member-name-link">update()</a> - Method in class com.csse3200.game.components.projectile.<a href="com/csse3200/game/components/projectile/ProjectileActions.html" title="class in com.csse3200.game.components.projectile">ProjectileActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/tasks/BossAttackTask.html#update()" class="member-name-link">update()</a> - Method in class com.csse3200.game.components.tasks.<a href="com/csse3200/game/components/tasks/BossAttackTask.html" title="class in com.csse3200.game.components.tasks">BossAttackTask</a></dt>

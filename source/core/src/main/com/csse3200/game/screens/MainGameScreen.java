@@ -119,6 +119,10 @@ public class MainGameScreen extends ScreenAdapter {
         Stage stage = ServiceLocator.getRenderService().getStage();
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
 
+        // todo load based on what the user chose
+        boolean shouldLoad = gameOptions.shouldLoad;
+        logger.info("Should start from save file: {}", shouldLoad);
+
         /**
          * based on the characters selected, changed the link
          * If Player choose Load, then create

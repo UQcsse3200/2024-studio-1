@@ -2,6 +2,7 @@ package com.csse3200.game.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.mainmenu.MainMenuActions;
 import com.csse3200.game.components.mainmenu.MainMenuDisplay;
 import com.csse3200.game.entities.Entity;
@@ -18,6 +19,9 @@ public class MainMenuScreen extends StaticScreen {
 
     private static final String[] mainMenuTextures = {"images/bg_logo.png"};
     private MainMenuDisplay mainMenuDisplay;
+    public static final String[] SAVE_PATHS = {
+            MainGameArea.PLAYER_SAVE_PATH,
+            MainGameArea.MAP_SAVE_PATH};
 
     /**
      * Make the screen.

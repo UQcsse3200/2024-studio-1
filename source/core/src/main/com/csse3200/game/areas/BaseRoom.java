@@ -292,7 +292,7 @@ public abstract class BaseRoom implements Room {
             logger.info("spawning items");
             this.spawnItems();
         }
-        makeAllAnimalDead();
+        //makeAllAnimalDead();
     }
 
     /**

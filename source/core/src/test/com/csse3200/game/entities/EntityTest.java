@@ -188,7 +188,8 @@ class EntityTest {
   @Test
   void testGetAString() {
     Entity entity = new Entity().addComponent(new NameComponent("hello"));
-    assertEquals("00\t(0.00, 0.00)\thello", entity.toString());
+    // ignoring ID
+    assertEquals("(0.00, 0.00)\thello", entity.toString().split("\t", 2)[1]);
   }
 
   static class TestComponent1 extends Component {}

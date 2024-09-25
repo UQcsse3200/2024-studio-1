@@ -1,6 +1,5 @@
 package com.csse3200.game.components.screendisplay;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -46,7 +45,7 @@ public class PlayerSelectDisplay extends UIComponent {
     }
 
     /**
-     * Populate the stage with player images and buttons to select them.
+     * Populate the stage with player animations and buttons to select them.
      */
     private void addActors() {
         table = new Table();
@@ -58,7 +57,7 @@ public class PlayerSelectDisplay extends UIComponent {
         configs.forEach((filename, config) -> {
             String textureAtlasFilename = config.textureAtlasFilename;
 
-            // Create new AnimationRenderComponent to start animations for each player
+            // Create new AnimationRenderComponent to control animations for each player
             AnimationRenderComponent animator =
                     new AnimationRenderComponent(new TextureAtlas(textureAtlasFilename));
 

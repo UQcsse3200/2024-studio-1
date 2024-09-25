@@ -4,10 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.csse3200.game.components.player.PlayerAnimationController;
 import com.csse3200.game.rendering.AnimationRenderComponent;
-
-import java.util.Objects;
 
 public class PlayerSelectAnimation extends Actor {
     private final AnimationRenderComponent animator;
@@ -26,6 +23,7 @@ public class PlayerSelectAnimation extends Actor {
         initializeAnimations();
     }
 
+    // Assign player number to the texture atlas
     private PlayerNum mapTextureAtlasToPlayerNum(String textureAtlas) {
         return switch (textureAtlas) {
             case "images/player/player.atlas" -> PlayerNum.Player1;
@@ -39,13 +37,15 @@ public class PlayerSelectAnimation extends Actor {
     private void initializeAnimations() {
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         switch (player) {
-            case Player4:
-                animator.addAnimation("Attack_1", 0.2f, Animation.PlayMode.LOOP_RANDOM);
-                break;
             case Player2:
                 animator.addAnimation("Special", 0.2f, Animation.PlayMode.LOOP);
                 break;
-            // Add more animations as needed for other players
+            case Player3:
+                animator.addAnimation("Run", 0.2f, Animation.PlayMode.LOOP_PINGPONG);
+                break;
+            case Player4:
+                animator.addAnimation("Attack_1", 0.2f, Animation.PlayMode.LOOP_RANDOM);
+                break;
         }
     }
 
@@ -83,12 +83,9 @@ public class PlayerSelectAnimation extends Actor {
         String animationName = switch (player) {
             case Player4 -> "Attack_1";
             case Player2 -> "Special";
+            case Player3 -> "Run";
             default -> "idle";
         };
         animator.startAnimation(animationName);
-    }
-
-    public void addAnimation(String name, float frameDuration, Animation.PlayMode playMode) {
-        animator.addAnimation(name, frameDuration, playMode);
     }
 }

@@ -15,30 +15,37 @@ public class PlayerAnimationController extends Component {
     AnimationRenderComponent animationController;
     private boolean death = false;
     private boolean animationStopped = false;
-    private PlayerType playerType;
+    private PlayerNum playerNum;
 
-    public PlayerAnimationController(String textureAtlas) {
-        switch (textureAtlas) {
-            case ("images/player/player.atlas"):
-                this.playerType = PlayerType.Player1;
-                break;
-            case ("images/player/homeless1.atlas"):
-                this.playerType = PlayerType.Player2;
-                break;
-            case ("images/player/homeless2.atlas"):
-                this.playerType = PlayerType.Player3;
-                break;
-            case ("images/player/homeless3.atlas"):
-                this.playerType = PlayerType.Player4;
-                break;
-        }
-    }
-
-    private enum PlayerType {
+    /**
+    Indicate the selected player.
+     */
+    private enum PlayerNum {
         Player1,
         Player2,
         Player3,
         Player4
+    }
+
+    /**
+     * Assign the Player Number by the associated texture atlas name.
+     * @param textureAtlas the texture atlas associated with the player.
+     */
+    public PlayerAnimationController(String textureAtlas) {
+        switch (textureAtlas) {
+            case ("images/player/player.atlas"):
+                this.playerNum = PlayerNum.Player1;
+                break;
+            case ("images/player/homeless1.atlas"):
+                this.playerNum = PlayerNum.Player2;
+                break;
+            case ("images/player/homeless2.atlas"):
+                this.playerNum = PlayerNum.Player3;
+                break;
+            case ("images/player/homeless3.atlas"):
+                this.playerNum = PlayerNum.Player4;
+                break;
+        }
     }
 
     /**
@@ -74,7 +81,7 @@ public class PlayerAnimationController extends Component {
      */
     void walkLeft() {
         if (!death) {
-            switch (playerType) {
+            switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-left");
                 case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
@@ -86,7 +93,7 @@ public class PlayerAnimationController extends Component {
      */
     void walkRight() {
         if (!death) {
-            switch (playerType) {
+            switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-right");
                 case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
@@ -98,7 +105,7 @@ public class PlayerAnimationController extends Component {
      */
     void walkDown() {
         if (!death) {
-            switch (playerType) {
+            switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-down");
                 case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
@@ -110,7 +117,7 @@ public class PlayerAnimationController extends Component {
      */
     void walkUp() {
         if (!death) {
-            switch (playerType) {
+            switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-up");
                 case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
@@ -121,7 +128,7 @@ public class PlayerAnimationController extends Component {
      * Starts the player death animation.
      */
     void deathAnimation() {
-        switch (playerType) {
+        switch (playerNum) {
             case Player1 -> animationController.startAnimation( "death-down");
             case Player2, Player3, Player4 -> animationController.startAnimation( "Dead");
         }
@@ -144,7 +151,7 @@ public class PlayerAnimationController extends Component {
      */
     void damageAnimation() {
         if (!death) {
-            switch (playerType) {
+            switch (playerNum) {
                 case Player1 -> animationController.startAnimation( "damage-down");
                 case Player2, Player3, Player4 -> animationController.startAnimation( "Hurt");
             }

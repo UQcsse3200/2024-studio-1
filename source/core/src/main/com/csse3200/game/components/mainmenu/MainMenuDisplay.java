@@ -47,11 +47,6 @@ public class MainMenuDisplay extends UIComponent {
 
         table = new Table();
         table.setFillParent(true);
-        Image title = new Image(
-                ServiceLocator.getResourceService().getAsset(
-                        "images/box_boy_title.png", Texture.class
-                )
-        );
         bg_logo =
             new Image(
                 ServiceLocator.getResourceService()
@@ -83,7 +78,6 @@ public class MainMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         logger.debug("{} difficulty button clicked", difficulty.toString());
-                        ServiceLocator.getResourceService().loadAll();
                         entity.getEvents().trigger("player_select", difficulty);
                     }
                 }

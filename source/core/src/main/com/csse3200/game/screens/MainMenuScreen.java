@@ -16,9 +16,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 public class MainMenuScreen extends StaticScreen {
 
-    private static final String[] mainMenuTextures = {
-            "images/box_boy_title.png", "images/bg_logo.png"
-    };
+    private static final String[] mainMenuTextures = {"images/bg_logo.png"};
     private MainMenuDisplay mainMenuDisplay;
 
     /**

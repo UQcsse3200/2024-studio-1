@@ -1,5 +1,6 @@
 package com.csse3200.game.components.screendisplay;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,6 +18,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Map;
+
+import static com.csse3200.game.screens.PlayerSelectScreen.BG_IMAGE;
+import static com.csse3200.game.services.ServiceLocator.getResourceService;
 
 /**
  * Creates the ui elements and functionality for the player select screen's ui.
@@ -90,6 +94,10 @@ public class PlayerSelectDisplay extends UIComponent {
             rootTable.add(button);
         });
 
+        Image bgImage = new Image(getResourceService().getAsset(BG_IMAGE, Texture.class));
+        bgImage.setFillParent(true);
+
+        stage.addActor(bgImage);
         stage.addActor(rootTable);
     }
 

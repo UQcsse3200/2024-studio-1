@@ -89,7 +89,7 @@ public abstract class StaticScreen extends ScreenAdapter {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(textures);
-        ServiceLocator.getResourceService().loadAll();
+        resourceService.loadAll();
     }
 
     private void unloadAssets() {

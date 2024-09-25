@@ -26,8 +26,9 @@ public abstract class EnemyRoom extends BaseRoom {
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
             List<String> roomConnections,
-            String specification) {
-        super(terrainFactory, collectibleFactory, roomConnections, specification);
+            String specification,
+            String roomName) {
+        super(terrainFactory, collectibleFactory, roomConnections, specification, roomName);
         this.npcFactory = npcFactory;
         this.animalSpecifications = getAnimalSpecifications();
 

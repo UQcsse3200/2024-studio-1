@@ -37,6 +37,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("use1", () -> use(new MedKit()));
         entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
         entity.getEvents().addListener("use3", () -> use(new Bandage()));
+        entity.getEvents().addListener("use4", () -> use(new TargetDummy()));
         entity.getEvents().addListener("useReroll", () -> handleReroll(new Reroll()));
         setSpeedPercentage(1.0f);
 

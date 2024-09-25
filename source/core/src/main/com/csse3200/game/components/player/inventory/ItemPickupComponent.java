@@ -157,26 +157,13 @@ public class ItemPickupComponent extends UIComponent {
 
         InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
         if(contact) {
-            if (isWeapon(item)) {
-                inventory.pickup(item, itemEntity);
-            } else {
-                inventory.pickup(item);
-                markEntityForRemoval(itemEntity);
-            }
+            inventory.pickup(item);
+            markEntityForRemoval(itemEntity);
         }
 
         lastPickedUpEntity = itemEntity; //Update the last picked up entity
         this.item = null;
         this.itemEntity = null;
-    }
-
-    /**
-     * Checks if the item is a weapon
-     * @param item the item to be picked up
-     * @return true if the item is weapon, false otherwise
-     */
-    private boolean isWeapon(Collectible item) {
-        return item.getType() == Collectible.Type.MELEE_WEAPON || item.getType() == Collectible.Type.RANGED_WEAPON;
     }
 
     /**

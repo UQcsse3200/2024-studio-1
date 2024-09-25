@@ -44,7 +44,7 @@ public class MainMenuDisplay extends UIComponent {
 
     private static boolean loadFilesExist() {
         for (String path : MainMenuScreen.SAVE_PATHS) {
-            if (!Gdx.files.external(MainGameArea.PLAYER_SAVE_PATH).exists()) {
+            if (!Gdx.files.external(path).exists()) {
                 logger.info("Save file not found: {}", path);
                 return false;
             }

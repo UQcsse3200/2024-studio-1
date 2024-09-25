@@ -83,6 +83,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+
+    private boolean purchaseCollectible() {
+        entity.getEvents().trigger("collectiblePurchased");
+        return true;
+    }
     /*
      * All the player actions that need to respond to key down
      */
@@ -105,6 +110,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_3, (i) -> useItem(3));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
+        actionMap.put(PURCHASE_COLLECIBLE, (i) -> purchaseCollectible());
         return actionMap;
     }
 
@@ -156,6 +162,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
         return bindings.get(keycode).act(keycode);
     }
+
 
     /**
      * Triggers player events on specific keycodes.

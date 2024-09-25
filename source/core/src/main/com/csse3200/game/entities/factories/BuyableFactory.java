@@ -20,7 +20,7 @@ public class BuyableFactory {
                 .addComponent(new CollectibleHitboxComponent())
                 .addComponent(new PhysicsComponent())
                 .addComponent(new TextureRenderComponent(collectibleTexture))
-                .addComponent(new BuyableComponent(cost));
+                .addComponent(new BuyableComponent(cost, collectible));
         return buyableEntity;
     }
 

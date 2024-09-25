@@ -61,7 +61,11 @@ public class KeyMapping {
         /**
          * The player action to jump to boss room.
          */
-        ENTER_BOSS
+        ENTER_BOSS,
+        /**
+         * The player action to attempt to purchase a collectible from the NPC shop
+         */
+        PURCHASE_COLLECIBLE
     }
 
     /**
@@ -92,6 +96,7 @@ public class KeyMapping {
             keyMap.put(Input.Keys.NUM_2, USE_2);
             keyMap.put(Input.Keys.NUM_3, USE_3);
             keyMap.put(Input.Keys.B, ENTER_BOSS);
+            keyMap.put(Input.Keys.P, PURCHASE_COLLECIBLE);
 
             this.keyMap = keyMap;
 

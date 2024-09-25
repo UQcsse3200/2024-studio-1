@@ -339,7 +339,9 @@ public abstract class BaseRoom implements Room {
      * @param pos           the location to spawn the item at
      */
     protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
-        Entity item = collectibleFactory.createCollectibleEntity(specification);
+//        Entity item = collectibleFactory.createCollectibleEntity(specification);
+        BuyableFactory buyableFactory = new BuyableFactory();
+        Entity item = buyableFactory.createBuyable(specification, 10);
         this.items.add(item);
         area.spawnEntityAt(item, pos, true, true);
     }

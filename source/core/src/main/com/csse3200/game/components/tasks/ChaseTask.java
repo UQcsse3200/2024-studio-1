@@ -165,4 +165,13 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
         Vector2 newPos = new Vector2(newX, newY);
         return newPos;
       }
+
+    /**
+    * Gets the current target
+    * @return the current target
+    */
+    public Entity getTarget() {
+      return target;
+    }
+
 }

@@ -6,7 +6,7 @@ import com.csse3200.game.entities.factories.NPCFactory;
 
 import java.util.List;
 
-public class MainRoom extends BaseRoom {
+public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
@@ -24,7 +24,8 @@ public class MainRoom extends BaseRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
+//                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
+                List.of("item:targetdummy", "item:reroll"),
                 List.of("melee:knife", "ranged:shotgun"),
                 List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High"),
                 List.of("item:shieldpotion", "ranged:shotgun", "melee:knife", "item:medkit", "buff:energydrink:Medium"),

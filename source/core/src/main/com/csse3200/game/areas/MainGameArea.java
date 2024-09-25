@@ -28,6 +28,7 @@ public class MainGameArea extends GameArea {
     private int currentLevelNumber;
     private Room currentRoom;
     private boolean spawnRoom = true;
+
     private final List<Room> roomsVisited = new ArrayList<>();
     public String currentRoomName;
     private Map <String, String> currentPosition = new HashMap<>();

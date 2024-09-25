@@ -23,7 +23,7 @@ public class MainGameLevelFactory implements LevelFactory {
     private final Map<String, Room> rooms;
     private final List<String> completedRooms;
     private LevelMap map;
-    private final boolean shouldLoad;
+    private boolean shouldLoad;
     private String loadedSeed = "";
     private List<String> loadedRooms;
 
@@ -63,6 +63,7 @@ public class MainGameLevelFactory implements LevelFactory {
                     "0,0,14,10," + levelNumber + "," + levelNumber, "BOSS"));
             if (shouldLoad) {
                 setRoomsComplete(loadedRooms);
+                shouldLoad = false;
             }
         return new Level(map, levelNumber, rooms);
     }

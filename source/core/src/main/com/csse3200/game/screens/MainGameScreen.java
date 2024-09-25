@@ -145,14 +145,6 @@ public class MainGameScreen extends ScreenAdapter {
         }
     }
 
-    // TODO implement loading game.
-    //   public void loadMap(String fileName) {
-//       MapLoadConfig mapLoad = FileLoader.readClass(MapLoadConfig.class, fileName);
-//       List<String> seedRoom = mapLoad.savedMap;
-//       map.mapData.setMapSeed(seedRoom.getFirst());
-//       seedRoom.remove(1);
-//       for (String room : seedRoom) {
-//       }
     @Override
     public void render(float delta) {
 

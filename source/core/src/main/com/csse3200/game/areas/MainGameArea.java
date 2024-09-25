@@ -28,7 +28,6 @@ public class MainGameArea extends GameArea {
     private Level currentLevel;
     private Room currentRoom;
     private boolean spawnRoom = true;
-    private final List<Room> roomsVisited = new ArrayList<>();
 
     /**
      * Initialise this Game Area to use the provided levelFactory.

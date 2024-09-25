@@ -6,7 +6,7 @@ import com.csse3200.game.entities.factories.NPCFactory;
 
 import java.util.List;
 
-public class MainRoom extends BaseRoom {
+public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(

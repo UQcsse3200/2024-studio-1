@@ -13,13 +13,12 @@ import com.csse3200.game.services.ServiceLocator;
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-    private static final Vector2 DEFAULT_SPEED = new Vector2(3f, 3f); // Metres per second
 
     private PhysicsComponent physicsComponent;
     private InventoryComponent inventoryComponent;
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
-    private Vector2 speed = DEFAULT_SPEED;
+    private Vector2 speed;
     private boolean dead = false;
     private float maxSpeed = 5.0f;
     private float speedPercentage;

@@ -98,7 +98,7 @@ public class FileLoader {
           case CLASSPATH -> Gdx.files.classpath(filename);
           case INTERNAL -> Gdx.files.internal(filename);
           case LOCAL -> Gdx.files.local(filename);
-          case EXTERNAL -> Gdx.files.external(filename);
+          case EXTERNAL -> Gdx.files.external(saveRootPath + filename);
           case ABSOLUTE -> Gdx.files.absolute(filename);
       };
   }

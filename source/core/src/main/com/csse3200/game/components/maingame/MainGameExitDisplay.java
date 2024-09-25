@@ -174,7 +174,7 @@ public class MainGameExitDisplay extends UIComponent {
        entities.add(coordinates);
     }
     String filePath = "configs/save.json";
-    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
+    FileLoader.writeClass(entities, filePath, FileLoader.Location.EXTERNAL);
     logger.debug("Game saved to: {}", filePath);
   }
 

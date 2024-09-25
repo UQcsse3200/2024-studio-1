@@ -20,8 +20,8 @@ import java.util.*;
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
-    public static final String PLAYER_SAVE_PATH = "./PlayerLocationSave.json";
-    public static final String MAP_SAVE_PATH = "./MapSave.json";
+    public static final String PLAYER_SAVE_PATH = "configs/PlayerLocationSave.json";
+    public static final String MAP_SAVE_PATH = "configs/MapSave.json";
 
     private final Entity player;
 
@@ -33,21 +33,28 @@ public class MainGameArea extends GameArea {
     private final List<Room> roomsVisited = new ArrayList<>();
     public String currentRoomName;
     private Map <String, String> currentPosition = new HashMap<>();
+    private final boolean shouldLoad;
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
      *
      * @param levelFactory the provided levelFactory.
+     *
      */
-    public MainGameArea(LevelFactory levelFactory, Entity player) {
+    public MainGameArea(LevelFactory levelFactory, Entity player, boolean shouldLoad) {
         super();
         this.player = player;
         this.levelFactory = levelFactory;
+        this.shouldLoad = shouldLoad;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
         player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
+    }
+
+    public MainGameArea(LevelFactory levelFactory, Entity player) {
+        this(levelFactory, player, false);
     }
 
     /**
@@ -89,7 +96,7 @@ public class MainGameArea extends GameArea {
         currentPosition.put("LevelNum", levelNum);
         currentPosition.put("RoomNum", currentRoomName);
         //exports the current player location (room and level details into a json).
-        FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
     }
 
     /**

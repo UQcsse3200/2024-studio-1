@@ -292,7 +292,7 @@ public abstract class BaseRoom implements Room {
             logger.info("spawning items");
             this.spawnItems();
         }
-        //makeAllAnimalDead();
+        makeAllAnimalDead();
     }
 
     /**
@@ -322,7 +322,6 @@ public abstract class BaseRoom implements Room {
     public void setIsRoomComplete() {
         this.isRoomCompleted = true;
     }
-
 
     public String getRoomName() {
         return this.roomName;

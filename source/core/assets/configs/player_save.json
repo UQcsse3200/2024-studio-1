@@ -1,0 +1,10 @@
+{
+health: 80
+name: default
+favouriteColour: peach
+items: []
+melee: melee:pickaxe
+ranged: ranged:shotgun
+textureFilename: images/player/player.png
+textureAtlasFilename: images/player/player.atlas
+}

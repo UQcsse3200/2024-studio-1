@@ -209,7 +209,8 @@ public class LoadPlayer {
                 animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
                 animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
                 break;
-            case ("images/player/homeless1.atlas"), ("images/player/homeless2.atlas"), ("images/player/homeless3.atlas"):
+            case ("images/player/homeless1.atlas"), ("images/player/homeless2.atlas"),
+                 ("images/player/homeless3.atlas"):
                 animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("Walk", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("Dead", 0.15f, Animation.PlayMode.NORMAL);

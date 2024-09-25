@@ -61,6 +61,7 @@ public abstract class BaseRoom implements Room {
 
     protected abstract List<List<String>> getItemSpecifications();
 
+
     protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
         TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1, isBossRoom);
         area.setTerrain(terrain);
@@ -99,6 +100,7 @@ public abstract class BaseRoom implements Room {
         wall.setPosition(wallPos.x + offsetX, wallPos.y + offsetY);
     }
 
+team-6-maps
     protected void spawnDoors(GameArea area, Entity player) {
         if (this.roomConnections == null || this.roomConnections.size() < 4) {
             throw new IllegalStateException("Room connections are not properly initialized.");

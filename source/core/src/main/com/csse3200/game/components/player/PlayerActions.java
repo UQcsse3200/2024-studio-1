@@ -2,7 +2,6 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.csse3200.game.areas.Level;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.*;
@@ -18,6 +17,7 @@ public class PlayerActions extends Component {
 
     private PhysicsComponent physicsComponent;
     private InventoryComponent inventoryComponent;
+    private ItemPickupComponent itemPickupComponent;
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
@@ -29,13 +29,16 @@ public class PlayerActions extends Component {
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
         inventoryComponent = entity.getComponent(InventoryComponent.class);
+        itemPickupComponent = entity.getComponent(ItemPickupComponent.class);
         entity.getEvents().addListener("walk", this::walk);
         entity.getEvents().addListener("walkStop", this::stopWalking);
-        entity.getEvents().addListener("attack", this::attack);
+        entity.getEvents().addListener("attackMelee", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
         entity.getEvents().addListener("use1", () -> use(new MedKit()));
         entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
         entity.getEvents().addListener("use3", () -> use(new Bandage()));
+        entity.getEvents().addListener("use4", () -> use(new TargetDummy()));
+        entity.getEvents().addListener("useReroll", () -> handleReroll(new Reroll()));
         setSpeedPercentage(1.0f);
 
         setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
@@ -115,7 +118,7 @@ public class PlayerActions extends Component {
      */
     private void attack() {
         ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
-        entity.getComponent(WeaponComponent.class).attack();
+        entity.getComponent(WeaponComponent.class).attackMelee();
     }
 
     /**
@@ -143,6 +146,23 @@ public class PlayerActions extends Component {
     private void walk(Vector2 direction) {
         this.walkDirection = direction;
         moving = true;
+    }
+
+    /**
+     * Gets the direction the player is walking in.
+     * @return the direction the player is walking in
+     */
+    public Vector2 getWalkDirection() {
+        return walkDirection;
+    }
+
+    private void handleReroll(UsableItem reroll) {
+        if (itemPickupComponent.isInContact() && itemPickupComponent.getItem() != null) {
+            use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
+        }
+        else {
+            return; //Otherwise the reroll item cannot be used
+        }
     }
 
     private void use(UsableItem item) {

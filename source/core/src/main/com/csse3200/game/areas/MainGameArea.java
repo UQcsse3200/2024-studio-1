@@ -20,6 +20,8 @@ import java.util.*;
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
+    public static final String PLAYER_SAVE_PATH = "./PlayerLocationSave.json";
+    public static final String MAP_SAVE_PATH = "./MapSave.json";
 
     private final Entity player;
 
@@ -87,7 +89,7 @@ public class MainGameArea extends GameArea {
         currentPosition.put("LevelNum", levelNum);
         currentPosition.put("RoomNum", currentRoomName);
         //exports the current player location (room and level details into a json).
-        FileLoader.writeClass(currentPosition, "./PlayerLocationSave.json", FileLoader.Location.EXTERNAL);
+        FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
     }
 
     /**
@@ -96,7 +98,7 @@ public class MainGameArea extends GameArea {
      */
     public void saveMapData() {
         //exports the rooms and map data into the filePath below after Save button is pressed
-        levelFactory.exportToJson("./MapSave.json");
+        levelFactory.exportToJson(MAP_SAVE_PATH);
     }
 
     private void selectRoom(String roomKey) {

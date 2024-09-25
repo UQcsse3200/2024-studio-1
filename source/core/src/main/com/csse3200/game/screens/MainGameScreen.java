@@ -119,14 +119,23 @@ public class MainGameScreen extends ScreenAdapter {
         Stage stage = ServiceLocator.getRenderService().getStage();
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
 
-        // todo confirm which players should be passed into PlayerFactory
+        // todo load based on what the user chose
+        boolean shouldLoad = gameOptions.shouldLoad;
+        logger.info("Should start from save file: {}", shouldLoad);
+
+        /**
+         * based on the characters selected, changed the link
+         * If Player choose Load, then create
+         */
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         Entity player = playerFactory.createPlayer(
-                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name);
+                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name,
+                gameOptions.difficulty);
 
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
+
         MainGameLevelFactory levelFactory = new MainGameLevelFactory();
 
         if (gameOptions.difficulty == TEST) {

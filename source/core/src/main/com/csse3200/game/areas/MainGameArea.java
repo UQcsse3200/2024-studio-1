@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
+import com.csse3200.game.entities.configs.PlayerLocationConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
@@ -30,7 +31,6 @@ public class MainGameArea extends GameArea {
     private int currentLevelNumber;
     private Room currentRoom;
     private boolean spawnRoom = true;
-    private final List<Room> roomsVisited = new ArrayList<>();
     public String currentRoomName;
     private Map <String, String> currentPosition = new HashMap<>();
     private final boolean shouldLoad;
@@ -66,9 +66,11 @@ public class MainGameArea extends GameArea {
         logger.error("loaded all assets");
 
         displayUI();
-
-        changeLevel(0);
-
+        if (shouldLoad) {
+            loadMapLocation();
+        } else {
+            changeLevel(0);
+        }
         playMusic();
     }
 
@@ -99,6 +101,12 @@ public class MainGameArea extends GameArea {
         FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
     }
 
+    public void loadMapLocation() {
+        PlayerLocationConfig playerLocationConfig = new PlayerLocationConfig();
+        playerLocationConfig.savedLoc = FileLoader.readClass(HashMap.class, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
+        changeLevel(Integer.parseInt(playerLocationConfig.savedLoc.get("LevelNum")));
+        changeRooms(playerLocationConfig.savedLoc.get("RoomNum"));
+    }
     /**
      * Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
      * which can be loaded when load button is pressed.

@@ -1,9 +1,9 @@
 {
-health: 80
+baseAttack: 100
 name: default
 favouriteColour: peach
 items: []
-melee: melee:pickaxe
+melee: melee:knife
 ranged: ranged:shotgun
 textureFilename: images/player/player.png
 textureAtlasFilename: images/player/player.atlas

@@ -31,6 +31,7 @@ public class NPCDeathHandler extends Component {
     private boolean isDead = false;
     private Entity target;
     private int npcStrength;
+    private static int deadCount;
 
     public NPCDeathHandler(Entity target, int npcStrength) {
         this.target = target;
@@ -60,6 +61,10 @@ public class NPCDeathHandler extends Component {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());
+            deadCount++;
+            if (deadCount == 10) {
+                target.getEvents().trigger("defeated10");
+            }
             // triggering event for player to get animal's strength as coins
             String event = "collectCoin:" + npcStrength;
             target.getEvents().trigger(event);

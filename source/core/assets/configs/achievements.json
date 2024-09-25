@@ -1,6 +1,3 @@
 {
-achievements: {
-	class: java.util.HashMap
-	First energy drink: images/items/energy_drink_blue.png
-}
+
 }

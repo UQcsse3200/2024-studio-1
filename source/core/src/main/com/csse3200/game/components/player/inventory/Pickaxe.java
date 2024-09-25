@@ -11,7 +11,7 @@ import com.csse3200.game.entities.Entity;
 public class Pickaxe extends MeleeWeapon {
 
     public Pickaxe() {
-        this.setDamage(50);
+        this.setDamage(200);
         this.setRange(0);
         this.setFireRate(3);
     }

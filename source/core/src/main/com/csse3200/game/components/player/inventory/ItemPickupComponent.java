@@ -44,15 +44,22 @@ public class ItemPickupComponent extends Component {
      * if the collided entity is a collectible.
      */
     private void onCollisionStart(Fixture me, Fixture other) {
-        contact = true;
-        Entity otherEntity = ((BodyUserData) other.getBody().getUserData()).entity;
-
-        if (!isCollectible(otherEntity) || otherEntity == lastPickedUpEntity) {
-            return; // Not a collectible or already picked up
-        }
-
-        itemEntity = ((BodyUserData) other.getBody().getUserData()).entity;
-        item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
+        //Get the Collectible that was passed into this Collectible entity
+        Collectible item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
+        //Use the 'pickup' method of the InventoryComponent, pass in the item
+        //The 'pickup' method of the InventoryComponent class uses the unique 'pickup' method of the item that
+        // is passed in
+//        if (item.getType() == Collectible.Type.MELEE_WEAPON || item.getType() == Collectible.Type.RANGED_WEAPON) {
+//            entity.getComponent(InventoryComponent.class).pickup(item, itemEntity);
+//        }
+//        else {
+//            // Pickup items
+//            entity.getComponent(InventoryComponent.class).pickup(item);
+//            markEntityForRemoval(itemEntity);
+//        }
+        entity.getComponent(InventoryComponent.class).pickup(item);
+        markEntityForRemoval(itemEntity);
+        System.out.println("It works!"); //Test to see if on collision, it works
     }
 
     public boolean isInContact() {
@@ -83,6 +90,7 @@ public class ItemPickupComponent extends Component {
         if (collisionItem == null || collisionItemEntity == null) {
             return;
         }
+
         int xPosition = (int) collisionItemEntity.getPosition().x;
         int yPosition = (int) collisionItemEntity.getPosition().y;
 
@@ -98,7 +106,6 @@ public class ItemPickupComponent extends Component {
         entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
         itemEntity = newItem;
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
-
     }
 
     /**

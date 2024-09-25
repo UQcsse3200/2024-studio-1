@@ -199,7 +199,7 @@ public class MainGameExitDisplay extends UIComponent {
     SavePlayerService savePlayerService = new SavePlayerService();
     savePlayerService.savePlayerState(player);
     //exports the rooms and map data into the filePath below after Save button is pressed
-    player.getEvents().trigger("savePlayerPos");
+    player.getEvents().trigger("saveMapLocation");
     player.getEvents().trigger("saveMapData");
     System.out.println("Saved Succesfully");
     /*

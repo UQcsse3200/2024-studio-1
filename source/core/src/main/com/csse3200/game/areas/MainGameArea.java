@@ -44,7 +44,7 @@ public class MainGameArea extends GameArea {
         this.player = player;
         this.levelFactory = levelFactory;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
-        player.getEvents().addListener("savePlayerPos", this::saveMapLocation);
+        player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();

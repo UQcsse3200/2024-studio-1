@@ -1,10 +1,8 @@
 package com.csse3200.game.entities.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.WeaponAnimationController;
 import com.csse3200.game.components.player.inventory.*;
@@ -24,8 +22,17 @@ import org.slf4j.LoggerFactory;
  */
 public class WeaponFactory extends LoadedFactory {
 
+    /**
+     * Logger for debugging purposes.
+     */
     private static final Logger logger = LoggerFactory.getLogger(WeaponFactory.class);
 
+    /**
+     * Create a melee weapon from a specification.
+     * @param specification the name of the weapon (ex knife, pickaxe)
+     * @return the melee weapon
+     * @throws IllegalArgumentException if the specification is invalid
+     */
     private MeleeWeapon createMelee(String specification) throws IllegalArgumentException {
         WeaponConfig.WeaponData weaponData = WeaponConfig.getWeaponData(specification);
         if (weaponData == null) {
@@ -37,6 +44,12 @@ public class WeaponFactory extends LoadedFactory {
         return meleeWeapon;
     }
 
+    /**
+     * Create a ranged weapon from a specification.
+     * @param specification the name of the weapon (ex shotgun)
+     * @return the ranged weapon
+     * @throws IllegalArgumentException
+     */
     private RangedWeapon createRanged(String specification) throws IllegalArgumentException {
         WeaponConfig.WeaponData weaponData = WeaponConfig.getWeaponData(specification);
         if (weaponData == null) {
@@ -49,6 +62,13 @@ public class WeaponFactory extends LoadedFactory {
         return rangedWeapon;
     }
 
+    /**
+     * Create a (Collectible) weapon from a type and specification.
+     * @param type the type of weapon
+     * @param specification the name of the weapon
+     * @return the weapon
+     * @throws IllegalArgumentException if the type is invalid
+     */
     public Collectible create(Collectible.Type type, String specification) throws IllegalArgumentException {
         return switch (type) {
             case MELEE_WEAPON -> createMelee(specification);
@@ -57,6 +77,12 @@ public class WeaponFactory extends LoadedFactory {
         };
     }
 
+    /**
+     * Create a melee weapon entity.
+     * @param collectible the melee weapon
+     * @return the entity representing the melee weapon
+     * @throws IllegalArgumentException if the collectible is not a melee weapon
+     */
     public static Entity createMeleeEntity(MeleeWeapon collectible) throws IllegalArgumentException {
         WeaponAnimationRenderComponent animator =
                 new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/slash_1.atlas"));
@@ -84,6 +110,12 @@ public class WeaponFactory extends LoadedFactory {
         return meleeEntity;
     }
 
+
+    /**
+     * Create a ranged weapon entity.
+     * @param collectible the ranged weapon
+     * @return the entity representing the ranged weapon
+     */
     public static Entity createRangeEntity(RangedWeapon collectible) {
         WeaponAnimationRenderComponent animator =
                 new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/plasma_blaster.atlas"));
@@ -112,7 +144,12 @@ public class WeaponFactory extends LoadedFactory {
         return rangedEntity;
     }
 
-
+    /**
+     * Create a weapon entity from a collectible.
+     * @param collectible the collectible
+     * @return the entity representing the weapon
+     * @throws IllegalArgumentException if the collectible is invalid
+     */
     public Entity createWeaponEntity(Collectible collectible) throws IllegalArgumentException {
         try {
             if (collectible.getType() == Collectible.Type.MELEE_WEAPON) {
@@ -124,6 +161,7 @@ public class WeaponFactory extends LoadedFactory {
             throw new IllegalArgumentException("Invalid collectible");
         }
     }
+
     /**
      * Get all the filepath to textures needed by this Factory
      *

@@ -7,18 +7,24 @@ import com.csse3200.game.entities.Entity;
 
 import java.util.logging.Logger;
 
+/**
+ * A ranged weapon that can be picked up by the player.
+ */
 public class RangedWeapon implements Collectible {
 
+    /**
+     * Logger for debugging purposes.
+     */
     private static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
 
-    private String name;
-    private String iconPath;
-    private int damage;
-    private int range;
-    private int fireRate;
-    private int ammo; // current ammo left
-    private int maxAmmo;
-    private int reloadTime;
+    private String name;        // name of the weapon
+    private String iconPath;    // path to the icon of the weapon
+    private int damage;         // weapon damage
+    private int range;          // range of the weapon
+    private int fireRate;       // fire rate of the weapon
+    private int ammo;           // current ammo left
+    private int maxAmmo;        // maximum ammo
+    private int reloadTime;     // reload time
 
     /**
      * Constructor for ranged weapons.
@@ -42,20 +48,36 @@ public class RangedWeapon implements Collectible {
         this.reloadTime = reloadTime;
     }
 
+    /**
+     * Constructor for ranged weapons.
+     * @return The name of the weapon.
+     */
     @Override
     public Type getType() {
         return Type.RANGED_WEAPON;
     }
 
+    /**
+     * Get the name of the weapon.
+     * @return The name of the weapon.
+     */
     @Override
     public String getName() {
         return null;
     }
 
+    /**
+     * Set the name of the weapon.
+     * @param name The name of the weapon.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the icon path of the weapon.
+     * @return The icon path of the weapon.
+     */
     @Override
     public void pickup(Inventory inventory) {
         logger.info("Picking up ranged weapon - no entity");
@@ -69,6 +91,11 @@ public class RangedWeapon implements Collectible {
         }
     }
 
+    /**
+     * Pick up the ranged weapon and put it in the inventory.
+     * @param inventory The inventory to be put in.
+     * @param itemEntity The entity of the item to be picked up.
+     */
     @Override
     public void pickup(Inventory inventory, Entity itemEntity) {
         logger.info("Picking up ranged weapon - with entity");
@@ -83,6 +110,10 @@ public class RangedWeapon implements Collectible {
         }
     }
 
+    /**
+     * Drop the ranged weapon from the inventory.
+     * @param inventory The inventory to drop from.
+     */
     @Override
     public void drop(Inventory inventory) {
         inventory.resetRanged();
@@ -93,62 +124,118 @@ public class RangedWeapon implements Collectible {
         }
     }
 
+    /**
+     * Get the ranged weapon icon.
+     * @return The ranged weapon icon.
+     */
+    @Override
+    public Texture getIcon() {
+        return new Texture(iconPath);
+    }
+
+    /**
+     * Get the specification of the ranged weapon.
+     * @return The specification of the ranged weapon.
+     */
     @Override
     public String getSpecification() {
         return "ranged:" + getName();
     }
 
+    /**
+     * Get the ranged weapon damage.
+     * @return The ranged weapon damage.
+     */
     public int getDamage() {
         return damage;
     }
 
+    /**
+     * Set the ranged weapon damage.
+     * @param damage The ranged weapon damage.
+     */
     public void setDamage(int damage) {
         this.damage = damage;
     }
 
+    /**
+     * Get the ranged weapon range.
+     * @return The ranged weapon range.
+     */
     public int getRange() {
         return range;
     }
 
+    /**
+     * Set the ranged weapon range.
+     * @param range The ranged weapon range.
+     */
     public void setRange(int range) {
         this.range = range;
     }
 
+    /**
+     * Get the ranged weapon fire rate.
+     * @return The ranged weapon fire rate.
+     */
     public int getFireRate() {
         return fireRate;
     }
 
+    /**
+     * Set the ranged weapon fire rate.
+     * @param fireRate The ranged weapon fire rate.
+     */
     public void setFireRate(int fireRate) {
         this.fireRate = fireRate;
     }
 
+    /**
+     * Get the ranged weapon ammo.
+     * @return The ranged weapon ammo.
+     */
     public int getAmmo() {
         return ammo;
     }
 
+    /**
+     * Set the ranged weapon ammo.
+     * @param ammo The ranged weapon ammo.
+     */
     public void setAmmo(int ammo) {
         this.ammo = ammo;
     }
 
+    /**
+     * Get the ranged weapon maximum ammo.
+     * @return The ranged weapon maximum ammo.
+     */
     public int getMaxAmmo() {
         return maxAmmo;
     }
 
+    /**
+     * Set the ranged weapon maximum ammo.
+     * @param maxAmmo The ranged weapon maximum ammo.
+     */
     public void setMaxAmmo(int maxAmmo) {
         this.maxAmmo = maxAmmo;
     }
 
+    /**
+     * Get the ranged weapon reload time.
+     * @return The ranged weapon reload time.
+     */
     public int getReloadTime() {
         return reloadTime;
     }
 
+    /**
+     * Set the ranged weapon reload time.
+     * @param reloadTime The ranged weapon reload time.
+     */
     public void setReloadTime(int reloadTime) {
         this.reloadTime = reloadTime;
-    }
-
-    @Override
-    public Texture getIcon() {
-        return new Texture(iconPath);
     }
 
     public void shoot(Vector2 direction) {

@@ -13,7 +13,7 @@
 }
 {
 	class: java.lang.String
-	value: 2_-2
+	value: -1_-2
 }
 {
 	class: java.lang.String
@@ -22,9 +22,5 @@
 {
 	class: java.lang.String
 	value: 1_-2
-}
-{
-	class: java.lang.String
-	value: 1_-1
 }
 ]

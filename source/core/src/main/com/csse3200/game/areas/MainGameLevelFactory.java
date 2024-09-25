@@ -84,8 +84,6 @@ public class MainGameLevelFactory implements LevelFactory {
     public void loadFromJson (String filePath) {
         MapLoadConfig mapLoadConfig = new MapLoadConfig();
         mapLoadConfig.savedMap = FileLoader.readClass(ArrayList.class, filePath, FileLoader.Location.LOCAL);
-        //MapLoadConfig mapLoad = FileLoader.readClass(MapLoadConfig.class, filePath, FileLoader.Location.LOCAL);
-        //List<String> seedRoom = mapLoad.savedMap;
         loadedSeed = mapLoadConfig.savedMap.getFirst();
         mapLoadConfig.savedMap.remove(0);
         loadedRooms.addAll(mapLoadConfig.savedMap);

@@ -36,19 +36,19 @@ public class RoomFactory {
      * Constructs room
      * @return room
      */
-    public Room createRoom(List<String> roomConnections, String specification) {
+    public Room createRoom(List<String> roomConnections, String specification, String roomName) {
         return new MainRoom(this.npcFactory, this.collectibleFactory, 
-                             this.terrainFactory, roomConnections, specification);
+                             this.terrainFactory, roomConnections, specification, roomName);
     }
 
     /**
      * Constructs boss room
      * @return room
      */
-    public Room createBossRoom(List<String> roomConnections, String specification) {
+    public Room createBossRoom(List<String> roomConnections, String specification, String roomName) {
         // add connections to boss Room
         return new BossRoom(this.npcFactory, this.collectibleFactory,
-                            this.terrainFactory, roomConnections, specification);
+                            this.terrainFactory, roomConnections, specification, roomName);
     }
 
 //    /**

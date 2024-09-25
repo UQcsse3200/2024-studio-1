@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
@@ -11,9 +12,7 @@ import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
@@ -24,22 +23,27 @@ public class MainGameArea extends GameArea {
 
     private final Entity player;
 
-    private final LevelFactory levelFactory;
+    private final MainGameLevelFactory levelFactory;
     private Level currentLevel;
+    private int currentLevelNumber;
     private Room currentRoom;
     private boolean spawnRoom = true;
     private final List<Room> roomsVisited = new ArrayList<>();
+    public String currentRoomName;
+    private Map <String, String> currentPosition = new HashMap<>();
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
      *
      * @param levelFactory the provided levelFactory.
      */
-    public MainGameArea(LevelFactory levelFactory, Entity player) {
+    public MainGameArea(MainGameLevelFactory levelFactory, Entity player) {
         super();
         this.player = player;
         this.levelFactory = levelFactory;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
+        player.getEvents().addListener("savePlayerPos", this::saveMapLocation);
+        player.getEvents().addListener("saveMapData", this::saveMapData);
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
     }
@@ -72,6 +76,29 @@ public class MainGameArea extends GameArea {
         return currentRoom;
     }
 
+    /**
+     * Exports the current Level number and Room number of the player
+     * as well as the complete map details of the current map generated into a JSON file
+     * which can then be loaded and set as the starting position of the player when player
+     * loads the game.
+     */
+    public void saveMapLocation() {
+        String levelNum = "" + currentLevelNumber;
+        currentPosition.put("LevelNum", levelNum);
+        currentPosition.put("RoomNum", currentRoomName);
+        //exports the current player location (room and level details into a json).
+        FileLoader.writeClass(currentPosition, "./PlayerLocationSave.json", FileLoader.Location.EXTERNAL);
+    }
+
+    /**
+     * Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
+     * which can be loaded when load button is pressed.
+     */
+    public void saveMapData() {
+        //exports the rooms and map data into the filePath below after Save button is pressed
+        levelFactory.exportToJson("./MapSave.json");
+    }
+
     private void selectRoom(String roomKey) {
         logger.info("Changing to room: {}", roomKey);
         Room newRoom = this.currentLevel.getRoom(roomKey);
@@ -80,6 +107,8 @@ public class MainGameArea extends GameArea {
             return;
         }
         this.currentRoom = newRoom;
+        this.currentRoomName = this.currentRoom.getRoomName();
+
         this.spawnRoom = true;
     }
 
@@ -120,6 +149,7 @@ public class MainGameArea extends GameArea {
 
     public void changeLevel(int levelNumber) {
         logger.info("Changing to level: {}", levelNumber);
+        currentLevelNumber = levelNumber;
 
         // TODO: Save player progress or game state here, create a save manager
 

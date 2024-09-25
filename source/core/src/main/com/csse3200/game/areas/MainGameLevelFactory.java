@@ -5,8 +5,7 @@ import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
-import com.csse3200.game.entities.factories.StairFactory;
-
+import com.csse3200.game.files.FileLoader;
 import java.util.*;
 
 /**
@@ -15,36 +14,61 @@ import java.util.*;
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
     private int levelNum;
+    Map<String, Room> rooms = new HashMap<>();
+    List<String> completedRooms = new ArrayList();
+    LevelMap map;
 
     @Override
     public Level create(int levelNumber) {
-        LevelMap map = new LevelMap("seed", DEFAULT_MAP_SIZE);
-
+        map = new LevelMap("seed", DEFAULT_MAP_SIZE);
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),
                 new CollectibleFactory(),
                 new TerrainFactory(levelNumber)
         );
         // Sprint 4 Switch the MapGenerator to use Rooms
-        Map<String, Room> rooms = new HashMap<>();
+
         Set<String> room_keySet = map.mapData.getPositions().keySet();
         for (String room_key : room_keySet) {
             int itemIndex = map.mapData.getRoomDetails().get(room_key).get("item_index");
             int animalIndex = map.mapData.getRoomDetails().get(room_key).get("animal_index");
             rooms.put(room_key, roomFactory.createRoom(
                     map.mapData.getPositions().get(room_key),
-                    "0,0,14,10," + animalIndex + "," + itemIndex));
+                    "0,0,14,10," + animalIndex + "," + itemIndex, room_key));
         }
         //creating and adding a boss room instance into the Map containing the rooms for
         // the level
         rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
-                "0,0,14,10," + levelNumber + "," + levelNumber));
+                "0,0,14,10," + levelNumber + "," + levelNumber, "BOSS"));
         return new Level(map, levelNumber, rooms);
     }
+    /**
+     * Exports the map data to a JSON file.
+     *
+     * @param filePath The path of the file to write the JSON data to.
+     */
+    public void exportToJson(String filePath) {
+        completedRooms.add(map.mapData.getMapSeed());
+        for (Room room : rooms.values()) {
+            if (room.getIsRoomComplete()) {
+                completedRooms.add(room.getRoomName());
+            }
+        }
+        FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.EXTERNAL);
+    }
 
+    /**
+     * Sets the rooms that have been completed in the saved game as completed in the loaded
+     * game.
+     * @param roomNames Room keys that have been completed.
+     */
+
+    public void setRoomsComplete( List<String> roomNames) {
+        for (String roomName : roomNames) {
+            rooms.get(roomName).setIsRoomComplete();
+        }
+    }
     public int getCurrentLevel() {
         return levelNum;
     }
-
-
 }

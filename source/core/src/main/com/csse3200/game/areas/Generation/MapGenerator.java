@@ -246,16 +246,6 @@ public class MapGenerator {
             }
         }
     }
-
-    /**
-     * Exports the map data to a JSON file.
-     *
-     * @param filePath The path of the file to write the JSON data to.
-     */
-    public void exportToJson(String filePath) {
-        FileLoader.writeClass(this, filePath);
-    }
-
     /**
      * Gets the size of the map.
      *
@@ -273,6 +263,12 @@ public class MapGenerator {
     public String getMapSeed() {
         return rng.getSeed();
     }
+
+    /**
+     * Sets the seed when map is loaded
+     * @param seed: the seed to be set.
+     */
+    public void setMapSeed(String seed) {rng.setSeed(seed);}
 
     public String get_player_position() {
         return this.player_position;

@@ -15,6 +15,8 @@ public interface Room {
      */
     void spawn(Entity player, MainGameArea mainGameArea);
 
+    String getRoomName();
+
     /**
      * Remove all entities that form this room.
      */
@@ -23,6 +25,8 @@ public interface Room {
     public boolean isAllAnimalDead();
 
     public boolean getIsRoomComplete();
+
+    public void setIsRoomComplete();
 }
 
 

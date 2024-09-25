@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
-import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
@@ -26,6 +25,7 @@ public abstract class BaseRoom implements Room {
     protected final CollectibleFactory collectibleFactory;
     protected final List<String> roomConnections;
     protected List<Entity> entities;  // Unified list for all entities
+
     protected final String specification;
     protected final GridPoint2 minGridPoint;
     protected final GridPoint2 maxGridPoint;
@@ -109,7 +109,7 @@ public abstract class BaseRoom implements Room {
         String connectW = connections.get(1);
         String connectE = connections.get(2);
         String connectN = connections.get(3);
-        logger.info("[{}, {}, {}, {}]XD", connectN, connectE, connectW, connectS);
+        logger.info("[{}, {}, {}, {}]", connectN, connectE, connectW, connectS);
         Entity[] doors = {
                 doorFactory.create('h', player.getId(), connectS),
                 doorFactory.create('v', player.getId(), connectW),
@@ -151,7 +151,6 @@ public abstract class BaseRoom implements Room {
 
     protected void spawnAnimalEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
         area.spawnEntityAt(enemy, position, true, true);
-        
     }
 
     protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
@@ -180,7 +179,6 @@ public abstract class BaseRoom implements Room {
         for (Entity entity : entities) {
             ServiceLocator.getEntityService().markEntityForRemoval(entity);
         }
-
         entities.clear();
     }
 }

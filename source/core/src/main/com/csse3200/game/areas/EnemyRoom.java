@@ -19,6 +19,7 @@ public abstract class EnemyRoom extends BaseRoom {
     protected final int animalGroup;
     protected List<List<String>> animalSpecifications;
     protected boolean isBossRoom = false;
+    private List<Entity> enemies = new ArrayList<>();
 
     public EnemyRoom(
             NPCFactory npcFactory,
@@ -32,6 +33,10 @@ public abstract class EnemyRoom extends BaseRoom {
 
         List<String> split = List.of(specification.split(","));
         this.animalGroup = Integer.parseInt(split.get(4));
+    }
+
+    public List<Entity> getEnemies() {
+        return enemies;
     }
 
     protected abstract List<List<String>> getAnimalSpecifications();
@@ -87,7 +92,7 @@ public abstract class EnemyRoom extends BaseRoom {
                         ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
                         ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
                     );
-                    spawnAnimalEntity(area, enemy, randomPos);
+                    SpawnEnemyEntity(area, enemy, randomPos);
                 }
             }
         }
@@ -109,5 +114,11 @@ public abstract class EnemyRoom extends BaseRoom {
     @Override
     public void removeRoom() {
         super.removeRoom();
+        enemies.clear();
+    }
+
+    protected void SpawnEnemyEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
+        this.spawnAnimalEntity(area, enemy, position);
+        enemies.add(enemy);
     }
 }

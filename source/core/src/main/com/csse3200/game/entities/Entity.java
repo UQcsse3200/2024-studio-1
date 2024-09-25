@@ -283,6 +283,7 @@ public class Entity {
 
   /**
    * Get the name of this entity if it has one.
+   *
    * @return the name of the entity or "Unknown Entity".
    */
   public String getName() {

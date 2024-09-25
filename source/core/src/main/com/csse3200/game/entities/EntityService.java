@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * Provides a global access point for entities to register themselves. This allows for iterating
@@ -23,7 +23,6 @@ public class EntityService {
     private final Array<Entity> entities = new Array<>(false, INITIAL_CAPACITY);
 
     private final Array<Entity> entitiesToRemove = new Array<>();
-    private final Array<Supplier<Entity>> entitiesToCreate = new Array<>();
 
     /**
      * Register a new entity with the entity service. The entity will be created and start updating.
@@ -96,13 +95,6 @@ public class EntityService {
         entitiesToRemove.removeAll(removed, true);
     }
 
-    private void createQueuedEntities() {
-        for (Supplier<Entity> entitySupplier : entitiesToCreate) {
-            register(entitySupplier.get());
-        }
-        entitiesToCreate.clear();
-    }
-
     /**
      * Dispose all entities.
      */
@@ -123,6 +115,7 @@ public class EntityService {
     @Override
     public String toString() {
         List<String> entries = Arrays.stream(this.getEntities())
+                .sorted(Comparator.comparingInt(Entity::getId))
                 .map(Entity::toString)
                 .toList();
         return getEntities().length + " Entities\n" +

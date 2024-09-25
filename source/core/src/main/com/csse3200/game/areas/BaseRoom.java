@@ -100,7 +100,6 @@ public abstract class BaseRoom implements Room {
         wall.setPosition(wallPos.x + offsetX, wallPos.y + offsetY);
     }
 
-team-6-maps
     protected void spawnDoors(GameArea area, Entity player) {
         if (this.roomConnections == null || this.roomConnections.size() < 4) {
             throw new IllegalStateException("Room connections are not properly initialized.");

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.areas.BaseRoom;
+import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.npc.NPCConfigComponent;
 import com.csse3200.game.components.tasks.ChargeTask;
 import com.csse3200.game.components.tasks.ChaseTask;
@@ -46,7 +47,7 @@ public class TargetDummy extends UsableItem {
         int yPos = (int) entity.getPosition().y;
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(targetDummy, new GridPoint2(xPos, yPos), true, true);
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof BaseRoom room) {
+        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
             List<Entity> enemies = room.getEnemies();
             updateEnemyTargets(enemies, targetDummy);
         }

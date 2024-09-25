@@ -1,7 +1,12 @@
 package com.csse3200.game.components;
 
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.entities.Entity;
+
 import com.csse3200.game.components.player.ShieldComponent;
+
 import com.csse3200.game.rendering.AnimationRenderComponent;
+import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.csse3200.game.ai.tasks.AITaskComponent;
@@ -166,6 +171,14 @@ public class CombatStatsComponent extends Component {
     }
 
     /**
+     * Set the damage buff of the entity
+     * @param damage the new buff damage
+     */
+    public void setBuff(int damage) {
+        this.buff = damage;
+    }
+
+    /**
      * increases total armor to reduce additional damage
      * @param additionalArmor increases total armor
      */
@@ -209,7 +222,7 @@ public class CombatStatsComponent extends Component {
 
         if (getCanBeInvincible()) {
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
-            int newHealth = getHealth() - (int) (attacker.getBaseAttack() * (1 - damageReduction));
+            int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
             entity.getEvents().trigger("playerHit");
             setInvincible(true);
@@ -218,7 +231,9 @@ public class CombatStatsComponent extends Component {
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         } else {
-            int newHealth = getHealth() - (attacker.getBaseAttack() + attacker.buff);
+            Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+            int damage = attacker.getBaseAttack() + player.getComponent(CombatStatsComponent.class).buff;
+            int newHealth = getHealth() - damage;
             setHealth(newHealth);
             //add animationcontroller
             if (health <= 0) {

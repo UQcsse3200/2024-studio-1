@@ -96,6 +96,7 @@ public class LoadPlayer {
                 .addComponent(new PlayerActions())
                 .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0))
                 .addComponent(inventoryComponent)
+                .addComponent(new PlayerAchievementComponent())
                 .addComponent(new ItemPickupComponent())
                 .addComponent(new ShieldComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())

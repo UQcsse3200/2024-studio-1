@@ -119,10 +119,6 @@ public class MainGameScreen extends ScreenAdapter {
         Stage stage = ServiceLocator.getRenderService().getStage();
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
 
-        /**
-         * based on the characters selected, changed the link
-         * If Player choose Load, then create
-         */
         // todo confirm which players should be passed into PlayerFactory
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         Entity player = playerFactory.createPlayer(
@@ -131,7 +127,6 @@ public class MainGameScreen extends ScreenAdapter {
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
-
         MainGameLevelFactory levelFactory = new MainGameLevelFactory();
 
         if (gameOptions.difficulty == TEST) {
@@ -140,6 +135,7 @@ public class MainGameScreen extends ScreenAdapter {
             new MainGameArea(levelFactory, player);
         }
     }
+
     // TODO implement loading game.
     //   public void loadMap(String fileName) {
 //       MapLoadConfig mapLoad = FileLoader.readClass(MapLoadConfig.class, fileName);

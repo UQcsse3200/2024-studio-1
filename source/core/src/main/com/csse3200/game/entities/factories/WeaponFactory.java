@@ -1,9 +1,12 @@
 package com.csse3200.game.entities.factories;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.csse3200.game.components.player.CollectibleComponent;
+//import com.csse3200.game.components.player.RangeDetectionComponent;
 import com.csse3200.game.components.player.WeaponAnimationController;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
@@ -85,7 +88,7 @@ public class WeaponFactory extends LoadedFactory {
             return createRangeEntity((RangedWeapon) collectible);
         }
         catch (Exception e) {
-            logger.error("Failed to create weapon entity");
+            logger.error("Failed to create weapon entity:{}", e.toString());
             throw new IllegalArgumentException("Invalid collectible");
         }
     }
@@ -99,9 +102,13 @@ public class WeaponFactory extends LoadedFactory {
     private Entity createMeleeEntity(MeleeWeapon collectible) throws IllegalArgumentException {
 
         WeaponAnimationRenderComponent animator =
-                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/sword1.atlas"));
-        animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("slash", 0.2f, Animation.PlayMode.LOOP);
+                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/slash_1" +
+                        ".atlas"));
+        animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("shootUp", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("shootDown", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
 
         Entity meleeEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
@@ -113,9 +120,10 @@ public class WeaponFactory extends LoadedFactory {
 
         PhysicsUtils.setScaledCollider(meleeEntity, -1f, -1f); //  this affect player movement!!!
         // set the collider to 0
-        meleeEntity.getComponent(ColliderComponent.class).setSensor(false);
+        meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
         meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        meleeEntity.getComponent(HitboxComponent.class).setSize(new Vector2(1f, 1f));
+        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(1f, 1f));
+        meleeEntity.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
 
         logger.info("Created melee weapon entity: " + collectible);
 
@@ -130,24 +138,32 @@ public class WeaponFactory extends LoadedFactory {
      */
     private Entity createRangeEntity(RangedWeapon collectible) {
 
+        // Load atlas
         WeaponAnimationRenderComponent animator =
-                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons/shotgun4.atlas"));
-        animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("left", 0.2f, Animation.PlayMode.LOOP);
+                new WeaponAnimationRenderComponent(new TextureAtlas("images/Weapons" +
+                        "/plasma_blaster" +
+                        ".atlas"));
+        animator.addAnimation("idle", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("left", 0.04f, Animation.PlayMode.LOOP);
+        animator.addAnimation("up", 0.04f, Animation.PlayMode.LOOP);
+        animator.addAnimation("down", 0.04f, Animation.PlayMode.LOOP);
+        animator.addAnimation("shootUp", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("shootDown", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
 
         Entity rangedEntity = new Entity()
                 .addComponent(new CollectibleComponent(collectible))
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.ITEM))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(animator)
                 .addComponent(new WeaponAnimationController());
 
         PhysicsUtils.setScaledCollider(rangedEntity, -1f, -1f); //  this affect player movement!!!
-        // set the collider to 0
         rangedEntity.getComponent(ColliderComponent.class).setSensor(true);
         rangedEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(1f, 1f));
+        rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(3f, 3f));
         logger.info("Created range weapon entity: " + collectible);
 
         return rangedEntity;
@@ -162,7 +178,10 @@ public class WeaponFactory extends LoadedFactory {
     protected String[] getTextureFilepaths() {
         return new String[]{
                 "images/Weapons/sword1.png",
-                "images/Weapons/shotgun4.png"
+                "images/Weapons/shotgun4.png",
+                "images/Weapons/shotgun_1.png",
+                "images/Weapons/shotgun_2.png",
+                "images/Weapons/winchester.png"
         };
     }
 
@@ -189,7 +208,15 @@ public class WeaponFactory extends LoadedFactory {
     protected String[] getTextureAtlasFilepaths(){
         return new String[]{
                 "images/Weapons/sword1.atlas",
-                "images/Weapons/shotgun4.atlas"
+                "images/Weapons/shotgun4.atlas",
+                "images/Weapons/shotgun_1.atlas",
+                "images/Weapons/shotgun_2.atlas",
+                "images/Weapons/shotgun_3.atlas",
+                "images/Weapons/50_cal.atlas",
+                "images/Weapons/ak.atlas",
+                "images/Weapons/fn_scar.atlas",
+                "images/Weapons/super_soaker.atlas",
+                "images/Weapons/winchester.atlas"
         };
     }
 }

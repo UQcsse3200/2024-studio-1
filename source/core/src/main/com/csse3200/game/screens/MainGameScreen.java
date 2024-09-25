@@ -136,7 +136,7 @@ public class MainGameScreen extends ScreenAdapter {
 
         logger.debug("Initialising main game screen entities");
 
-        MainGameLevelFactory levelFactory = new MainGameLevelFactory();
+        LevelFactory levelFactory = new MainGameLevelFactory();
 
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);

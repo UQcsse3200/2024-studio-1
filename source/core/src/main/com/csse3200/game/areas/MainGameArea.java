@@ -25,7 +25,7 @@ public class MainGameArea extends GameArea {
 
     private final Entity player;
 
-    private final MainGameLevelFactory levelFactory;
+    private final LevelFactory levelFactory;
     private Level currentLevel;
     private int currentLevelNumber;
     private Room currentRoom;
@@ -39,7 +39,7 @@ public class MainGameArea extends GameArea {
      *
      * @param levelFactory the provided levelFactory.
      */
-    public MainGameArea(MainGameLevelFactory levelFactory, Entity player) {
+    public MainGameArea(LevelFactory levelFactory, Entity player) {
         super();
         this.player = player;
         this.levelFactory = levelFactory;

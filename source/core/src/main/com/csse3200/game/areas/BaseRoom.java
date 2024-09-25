@@ -33,17 +33,21 @@ public abstract class BaseRoom implements Room {
     protected List<List<String>> itemSpecifications;
     protected boolean isRoomCompleted = false;
     protected static final float WALL_THICKNESS = 0.15f;
+    protected final String roomName;
 
     public BaseRoom(
             TerrainFactory terrainFactory,
             CollectibleFactory collectibleFactory,
             List<String> roomConnections,
-            String specification) {
+            String specification,
+            String roomName) {
         this.terrainFactory = terrainFactory;
         this.collectibleFactory = collectibleFactory;
         this.roomConnections = roomConnections;
         this.entities = new ArrayList<>();
         this.itemSpecifications = getItemSpecifications();
+
+        this.roomName = roomName;
 
         List<String> split = Arrays.stream(specification.split(",")).toList();
 
@@ -57,6 +61,10 @@ public abstract class BaseRoom implements Room {
         );
         this.itemGroup = Integer.parseInt(split.get(5));
         this.specification = specification;
+    }
+
+    public String getRoomName() {
+        return this.roomName;
     }
 
     protected abstract List<List<String>> getItemSpecifications();

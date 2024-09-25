@@ -1,7 +1,11 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
@@ -10,11 +14,12 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.ui.UIComponent;
 
 /**
  * A component that allows a player to interact with items
  */
-public class ItemPickupComponent extends Component {
+public class ItemPickupComponent extends UIComponent {
     private Entity lastPickedUpEntity = null;
     private boolean contact = false;
     Collectible item = null;
@@ -33,10 +38,17 @@ public class ItemPickupComponent extends Component {
      */
     @Override
     public void create() {
+        super.create();
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
         entity.getEvents().addListener("pickup", ()->handleItemPickup(item, itemEntity));
         entity.getEvents().addListener("rerollUsed", ()->handleReroll(item, itemEntity));
+        entity.getEvents().addListener("purchaseItem", ()->checkItemPurchase(item,itemEntity));
+    }
+
+    @Override
+    protected void draw(SpriteBatch batch) {
+        //
     }
 
     /**
@@ -98,7 +110,39 @@ public class ItemPickupComponent extends Component {
         entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
         itemEntity = newItem;
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
+    }
 
+    public int getTestFunds() {
+        return 10;
+    }
+    private void checkItemPurchase(Collectible item, Entity itemEntity) {
+        int testFunds = getTestFunds();
+        if (item == null || itemEntity == null) {
+            return;
+        }
+        if ((itemEntity.getComponent(BuyableComponent.class) != null) && contact) {
+            int cost = itemEntity.getComponent(BuyableComponent.class).getCost();
+            if (testFunds >= cost) {
+                entity.getComponent(InventoryComponent.class).pickup(item);
+                markEntityForRemoval(itemEntity);
+            }
+            else {
+                String text = String.format("Sorry! Insufficient funds.");
+                Label insufficientFundsLabel = new Label(text, skin, "small");
+                Table table = new Table();
+                table.center();
+                table.setFillParent(true);
+                table.add(insufficientFundsLabel).padTop(5f);
+                stage.addActor(table);
+                // unrender the label after 1 second of display
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        table.remove(); // Remove the label from the screen
+                    }
+                }, 2);
+            }
+        }
     }
 
     /**
@@ -107,7 +151,7 @@ public class ItemPickupComponent extends Component {
      * @param itemEntity the item entity
      */
     private void handleItemPickup(Collectible item, Entity itemEntity) {
-        if (item == null || itemEntity == null) {
+        if (item == null || itemEntity == null || itemEntity.getComponent(BuyableComponent.class) != null) {
             return;
         }
 

@@ -57,6 +57,11 @@ public class CollectibleFactory extends LoadedFactory {
         if (specification.contains("mystery") && collectible.getMysteryIcon() != null) {
             texture = collectible.getMysteryIcon();
         }
+        if (specification.contains("buyable")) {
+            collectibleEntity.addComponent(new BuyableComponent(10));
+        }
+
+
         collectibleEntity.addComponent(new TextureRenderComponent(texture));
 
         collectibleEntity.getComponent(TextureRenderComponent.class).scaleEntity();

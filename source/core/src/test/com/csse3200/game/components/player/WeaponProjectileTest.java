@@ -13,7 +13,9 @@ import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
+import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.ResourceService;
@@ -55,8 +57,8 @@ class WeaponProjectileTest {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextureAtlases(new String []{new ProjectileConfig().projectileAtlasPath});
         // load in sound asset
-        resourceService.loadSounds(new String []{"sounds/shotgun1_f.ogg"});
-        resourceService.loadSounds(new String []{"sounds/shotgun1_r.ogg"});
+        WeaponFactory weaponFactory = new WeaponFactory();
+        weaponFactory.load();
         while (!resourceService.loadForMillis(1000)) {
             // wait for assets to load.
         }
@@ -70,10 +72,11 @@ class WeaponProjectileTest {
         int maxAmmo = 10;
         // create a weapon component
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
-                Collectible.Type.RANGED_WEAPON, 10, 5, 1, maxAmmo, maxAmmo, 2);
+                Collectible.Type.RANGED_WEAPON, 10, 5f, 1, maxAmmo, maxAmmo, 2);
         // Create test entity to attach weaponComponent
         Entity testEntity = new Entity();
-        testEntity.addComponent(weaponComponent);
+        testEntity.addComponent(weaponComponent)
+                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC));
         // Shot in default direction with ammo at 0
         weaponComponent.shoot(new Vector2());
         try {
@@ -97,10 +100,11 @@ class WeaponProjectileTest {
         int maxAmmo = 10;
         // create a weapon component
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
-                Collectible.Type.RANGED_WEAPON, 10, 5, 1, 0, maxAmmo, 1);
+                Collectible.Type.RANGED_WEAPON, 10, 5f, 1, 0, maxAmmo, 1);
         // Create test entity to attach weaponComponent
         Entity testEntity = new Entity();
-        testEntity.addComponent(weaponComponent);
+        testEntity.addComponent(weaponComponent)
+                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC));
         // Ammo is 0
         assertEquals(0, weaponComponent.getAmmo());
         // Shot in default direction with ammo at 0

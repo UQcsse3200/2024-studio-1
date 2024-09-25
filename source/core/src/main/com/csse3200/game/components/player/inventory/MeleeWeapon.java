@@ -1,6 +1,7 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.components.player.WeaponComponent;
+import com.csse3200.game.entities.Entity;
 
 public abstract class MeleeWeapon implements Collectible {
 
@@ -20,6 +21,17 @@ public abstract class MeleeWeapon implements Collectible {
         // Add a Weapon Component
         if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
             inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this); // update existing weapon
+        }
+    }
+    @Override
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        inventory.setMelee(this);
+
+        // Add a Weapon Component
+        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
+            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this,
+                    itemEntity);
+            // update existing weapon
         }
     }
 
@@ -54,5 +66,17 @@ public abstract class MeleeWeapon implements Collectible {
 
     public int getFireRate() {
         return fireRate;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public void setFireRate(int fireRate) {
+        this.fireRate = fireRate;
     }
 }

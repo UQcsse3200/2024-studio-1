@@ -1,13 +1,24 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.entities.Entity;
 
-public abstract class MeleeWeapon implements Collectible {
+public class MeleeWeapon implements Collectible {
 
+    private String name;
+    private String iconPath;
     private int damage;
     private int range;
     private int fireRate;
+
+    public MeleeWeapon(String name, String iconPath, int damage, int range, int fireRate) {
+        this.name = name;
+        this.iconPath = iconPath;
+        this.damage = damage;
+        this.range = range;
+        this.fireRate = fireRate;
+    }
 
     @Override
     public Type getType() {
@@ -46,15 +57,8 @@ public abstract class MeleeWeapon implements Collectible {
 
     @Override
     public String getSpecification() {
-        return "melee:" + getMeleeSpecification();
+        return "melee:" + name;
     }
-
-    /**
-     * Get the specification of this melee weapon.
-     *
-     * @return the string representation of this melee weapon.
-     */
-    public abstract String getMeleeSpecification();
 
     public int getDamage() {
         return damage;
@@ -79,4 +83,14 @@ public abstract class MeleeWeapon implements Collectible {
     public void setFireRate(int fireRate) {
         this.fireRate = fireRate;
     }
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public Texture getIcon() {
+        return new Texture(iconPath);
+    }
+
 }

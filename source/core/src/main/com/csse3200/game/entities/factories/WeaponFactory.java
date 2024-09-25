@@ -32,28 +32,8 @@ public class WeaponFactory extends LoadedFactory {
             throw new IllegalArgumentException("Invalid melee weapon specification: " + specification);
         }
 
-        MeleeWeapon meleeWeapon = new MeleeWeapon() {
-            {
-                setDamage(weaponData.getDamage());
-                setRange(weaponData.getRange());
-                setFireRate(weaponData.getFireRate());
-            }
-
-            @Override
-            public String getName() {
-                return specification;
-            }
-
-            @Override
-            public String getMeleeSpecification() {
-                return specification;
-            }
-
-            @Override
-            public Texture getIcon() {
-                return new Texture(weaponData.getIconPath());  // Fetch icon from config
-            }
-        };
+        MeleeWeapon meleeWeapon = new MeleeWeapon(weaponData.getName(), weaponData.getIconPath(),
+                weaponData.getDamage(), weaponData.getRange(), weaponData.getFireRate());
         return meleeWeapon;
     }
 
@@ -63,41 +43,9 @@ public class WeaponFactory extends LoadedFactory {
             throw new IllegalArgumentException("Invalid ranged weapon specification: " + specification);
         }
 
-        RangedWeapon rangedWeapon = new RangedWeapon() {
-            {
-                setDamage(weaponData.getDamage());
-                setRange(weaponData.getRange());
-                setFireRate(weaponData.getFireRate());
-                setAmmo(weaponData.getAmmo());
-                setMaxAmmo(weaponData.getMaxAmmo());
-                setReloadTime(weaponData.getReloadTime());
-            }
-
-            @Override
-            public String getName() {
-                return specification;
-            }
-
-            @Override
-            public Texture getIcon() {
-                return new Texture(weaponData.getIconPath());  // Fetch icon from config
-            }
-
-            @Override
-            public String getRangedSpecification() {
-                return specification;
-            }
-
-            @Override
-            public void shoot(Vector2 direction) {
-                if (getAmmo() > 0) {
-                    System.out.println(specification + " fired in direction: " + direction);
-                    setAmmo(getAmmo() - 1);
-                } else {
-                    System.out.println("Out of ammo! Need to reload.");
-                }
-            }
-        };
+        RangedWeapon rangedWeapon = new RangedWeapon(weaponData.getName(), weaponData.getIconPath(),
+                weaponData.getDamage(), weaponData.getRange(), weaponData.getFireRate(),
+                weaponData.getAmmo(), weaponData.getMaxAmmo(), weaponData.getReloadTime());
         return rangedWeapon;
     }
 

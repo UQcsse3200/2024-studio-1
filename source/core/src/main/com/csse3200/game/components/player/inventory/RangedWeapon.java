@@ -1,15 +1,18 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.entities.Entity;
 
 import java.util.logging.Logger;
 
-public abstract class RangedWeapon implements Collectible {
+public class RangedWeapon implements Collectible {
 
     private static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
 
+    private String name;
+    private String iconPath;
     private int damage;
     private int range;
     private int fireRate;
@@ -17,9 +20,40 @@ public abstract class RangedWeapon implements Collectible {
     private int maxAmmo;
     private int reloadTime;
 
+    /**
+     * Constructor for ranged weapons.
+     * @param name The name of the weapon.
+     * @param iconPath The path to the icon of the weapon.
+     * @param damage The damage of the weapon.
+     * @param range The range of the weapon.
+     * @param fireRate The fire rate of the weapon.
+     * @param ammo The current ammo of the weapon.
+     * @param maxAmmo The maximum ammo of the weapon.
+     * @param reloadTime The reload time of the weapon.
+     */
+    public RangedWeapon(String name, String iconPath, int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime) {
+        this.name = name;
+        this.iconPath = iconPath;
+        this.damage = damage;
+        this.range = range;
+        this.fireRate = fireRate;
+        this.ammo = ammo;
+        this.maxAmmo = maxAmmo;
+        this.reloadTime = reloadTime;
+    }
+
     @Override
     public Type getType() {
         return Type.RANGED_WEAPON;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -61,22 +95,8 @@ public abstract class RangedWeapon implements Collectible {
 
     @Override
     public String getSpecification() {
-        return "ranged:" + getRangedSpecification();
+        return "ranged:" + getName();
     }
-
-    /**
-     * Get the specification of this ranged weapon.
-     *
-     * @return the string representation of this ranged weapon.
-     */
-    public abstract String getRangedSpecification();
-
-    /**
-     * Fire this weapon.
-     *
-     * @param direction The direction to fire it.
-     */
-    public abstract void shoot(Vector2 direction);
 
     public int getDamage() {
         return damage;
@@ -124,5 +144,19 @@ public abstract class RangedWeapon implements Collectible {
 
     public void setReloadTime(int reloadTime) {
         this.reloadTime = reloadTime;
+    }
+
+    @Override
+    public Texture getIcon() {
+        return new Texture(iconPath);
+    }
+
+    public void shoot(Vector2 direction) {
+        if (getAmmo() > 0) {
+            System.out.println(name + " fired in direction: " + direction);
+            setAmmo(getAmmo() - 1);
+        } else {
+            System.out.println("Out of ammo! Need to reload.");
+        }
     }
 }

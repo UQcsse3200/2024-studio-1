@@ -39,19 +39,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static final NPCConfigs configs =
-          loadConfigs();
-
-  public static NPCConfigs loadConfigs() {
-    NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
-    System.out.println("Loaded configs: " + configs); // Add debug printout
-    if (configs.rat.attacks == null) {
-      System.out.println("Rat attacks are null!"); // Check if attacks are being loaded
-    } else {
-      System.out.println("Rat melee attack range: " + configs.rat.attacks.melee.range); // Log specific fields
-    }
-    return configs;
-  }
+  private static final NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
    * Construct a new NPC Factory.

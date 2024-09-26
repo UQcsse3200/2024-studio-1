@@ -5,5 +5,9 @@
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
   "melee": "pickaxe",
-  "ranged": "shotgun"
+  "ranged": "shotgun",
+  "speed": {
+    "x": 1.0,
+    "y": 1.0
+  }
 }

@@ -3,5 +3,9 @@
   "health": 70,
   "favouriteColour": "yellow",
   "textureFilename": "images/player/homeless1.png",
-  "textureAtlasFilename": "images/player/homeless1.atlas"
+  "textureAtlasFilename": "images/player/homeless1.atlas",
+  "speed": {
+    "x": 1.0,
+    "y": 1.0
+  }
 }

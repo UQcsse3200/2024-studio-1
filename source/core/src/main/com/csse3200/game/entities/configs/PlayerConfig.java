@@ -1,5 +1,7 @@
 package com.csse3200.game.entities.configs;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.*;
 
 /**
@@ -21,6 +23,7 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String melee;
   /** The specification of player's equipped ranged weapon */
   public String ranged;
+  public Vector2 speed;
 
   /** The texture this player uses*/
   public String textureFilename;

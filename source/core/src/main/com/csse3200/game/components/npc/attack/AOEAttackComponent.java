@@ -1,5 +1,7 @@
 package com.csse3200.game.components.npc.attack;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -21,9 +23,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Component for handling Area of Effect (AOE) attacks.
- */
 public class AOEAttackComponent extends Component implements AttackBehaviour {
     private static final Logger logger = LoggerFactory.getLogger(AOEAttackComponent.class);
 
@@ -36,14 +35,11 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
     private Circle aoeCircle;
     private PhysicsEngine physicsEngine;
 
-    /**
-     * Creates an AOE attack component.
-     *
-     * @param radius The radius of the AOE attack
-     * @param damage The damage dealt by the AOE attack
-     * @param attackRate The rate of attacks per second
-     * @param effectConfigs The configurations for additional effects
-     */
+    private ShapeRenderer shapeRenderer;
+    private boolean drawAOECircle = false;
+    private float circleDrawDuration = 0.5f;
+    private float circleDrawTimer = 0f;
+
     public AOEAttackComponent(float radius, float damage, float attackRate,
                               NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
         this.radius = radius;
@@ -54,6 +50,7 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
         this.aoeCircle = new Circle(origin, radius);
         this.effects = createEffects(effectConfigs);
         this.physicsEngine = ServiceLocator.getPhysicsService().getPhysics();
+        this.shapeRenderer = new ShapeRenderer();
     }
 
     @Override
@@ -62,6 +59,14 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
         if (timeSinceLastAttack >= attackCooldown) {
             performAttack();
             timeSinceLastAttack = 0;
+        }
+
+        if (drawAOECircle) {
+            circleDrawTimer += ServiceLocator.getTimeSource().getDeltaTime();
+            if (circleDrawTimer >= circleDrawDuration) {
+                drawAOECircle = false;
+                circleDrawTimer = 0f;
+            }
         }
     }
 
@@ -79,6 +84,9 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
                 applyEffects(target);
             }
         }
+
+        drawAOECircle = true;
+        circleDrawTimer = 0f;
     }
 
     @Override
@@ -94,21 +102,10 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
         }
     }
 
-    /**
-     * Sets the origin point of the AOE attack.
-     *
-     * @param x The x-coordinate of the origin
-     * @param y The y-coordinate of the origin
-     */
     public void setOrigin(float x, float y) {
         this.origin.set(x, y);
     }
 
-    /**
-     * Sets the origin point of the AOE attack.
-     *
-     * @param origin The origin point as a Vector2
-     */
     public void setOrigin(Vector2 origin) {
         this.origin.set(origin);
     }
@@ -155,5 +152,19 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
 
     public float getRadius() {
         return radius;
+    }
+
+    public void render() {
+        if (drawAOECircle) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.circle(origin.x, origin.y, radius);
+            shapeRenderer.end();
+        }
+    }
+
+    @Override
+    public void dispose() {
+        shapeRenderer.dispose();
     }
 }

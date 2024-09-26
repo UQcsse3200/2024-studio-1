@@ -84,6 +84,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    private boolean purchaseItem() {
+        entity.getEvents().trigger("purchaseItem");
+        return true;
+    }
+
     private boolean bossTeleport() {
         entity.getEvents().trigger("teleportToBoss");
         return true;
@@ -115,7 +120,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
 
         actionMap.put(PICK_UP, (i) -> pickupItem());
-        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Reroll here
+        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Rerol here
+        actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());
         return actionMap;
     }
 

@@ -63,7 +63,8 @@ public class KeyMapping {
          */
         ENTER_BOSS,
         PICK_UP,
-        RE_ROLL
+        RE_ROLL,
+        PURCHASE_ITEM
     }
 
     /**
@@ -97,6 +98,7 @@ public class KeyMapping {
             keyMap.put(Input.Keys.B, ENTER_BOSS);
             keyMap.put(Input.Keys.E, PICK_UP);
             keyMap.put(Input.Keys.R, RE_ROLL);
+            keyMap.put(Input.Keys.P, PURCHASE_ITEM);
             this.keyMap = keyMap;
 
     }

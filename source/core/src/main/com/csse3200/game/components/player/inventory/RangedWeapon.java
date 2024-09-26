@@ -20,7 +20,6 @@ public class RangedWeapon implements Collectible {
      * Logger for debugging purposes.
      */
     private static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
-    private final WeaponFactory weaponFactory;
 
     private String name;        // name of the weapon
     private String iconPath;    // path to the icon of the weapon
@@ -31,7 +30,8 @@ public class RangedWeapon implements Collectible {
     private int maxAmmo;        // maximum ammo
     private int reloadTime;     // reload time
 
-    private final Entity weaponEntity;
+    private Entity weaponEntity;
+    private WeaponFactory weaponFactory;
 
     /**
      * Constructor for ranged weapons.
@@ -54,9 +54,6 @@ public class RangedWeapon implements Collectible {
         this.maxAmmo = maxAmmo;
         this.reloadTime = reloadTime;
 
-        weaponFactory = new WeaponFactory();
-        // Create weapon entity
-        this.weaponEntity = weaponFactory.createWeaponForPlayer(this);
     }
 
     /**
@@ -102,6 +99,9 @@ public class RangedWeapon implements Collectible {
             logger.warning("Inventory entity or WeaponComponent is null");
         }
 
+        this.weaponFactory = new WeaponFactory();
+        // Create weapon entity
+        this.weaponEntity = weaponFactory.createWeaponForPlayer(this);
         // Set weapon entity
         // Update weapon entity to link with player
         this.weaponEntity.getComponent(FiringController.class).connectPlayer(player);

@@ -370,7 +370,7 @@ public class WeaponComponent extends Component {
             this.attackInterval = (1000L / this.fireRate);
         }
         this.rangedEntity = itemEntity;
-        this.rangedEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
+        this.rangedEntity.getComponent(WeaponAnimationController.class).connectPlayer(this.entity);
     }
 
     /**
@@ -412,7 +412,7 @@ public class WeaponComponent extends Component {
             ServiceLocator.getGameAreaService().getGameArea().disposeEntity(meleeEntity);
         }
         this.meleeEntity = itemEntity;
-        this.meleeEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
+        this.meleeEntity.getComponent(WeaponAnimationController.class).connectPlayer(this.entity);
         updateTargetLayer(this.meleeEntity);
         getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
     }
@@ -631,7 +631,7 @@ public class WeaponComponent extends Component {
         // Spawn entity in the map, the location should not matter
         ServiceLocator.getEntityService().register(this.meleeEntity);
         // Update the host for the weapon controller
-        this.meleeEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
+        this.meleeEntity.getComponent(WeaponAnimationController.class).connectPlayer(this.entity);
         // For melee damage
         updateTargetLayer(meleeEntity);
         getEntity().getComponent(CombatStatsComponent.class).setBaseAttack(this.swingDamage);
@@ -652,6 +652,6 @@ public class WeaponComponent extends Component {
 //                true, true);
         ServiceLocator.getEntityService().register(this.rangedEntity);
         // Update the host for the weapon controller
-        this.rangedEntity.getComponent(WeaponAnimationController.class).updateHost(this.entity);
+        this.rangedEntity.getComponent(WeaponAnimationController.class).connectPlayer(this.entity);
     }
 }

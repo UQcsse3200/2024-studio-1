@@ -1,13 +1,16 @@
 package com.csse3200.game.areas;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
@@ -29,12 +32,23 @@ public abstract class BaseRoom implements Room {
     private static final Logger logger = LoggerFactory.getLogger(BaseRoom.class);
     private final NPCFactory npcFactory;
     private final CollectibleFactory collectibleFactory;
+    private final DoorFactory doorFactory = new DoorFactory();
     private final TerrainFactory terrainFactory;
     private final List<String> roomConnections;
     /**
      * The list of door entities in the room.
      */
     protected List<Entity> doors;
+
+    /**
+     * The list of wall entities in the room.
+     */
+    protected List<Entity> walls;
+
+    /**
+     * The terrain in this room.
+     */
+    protected Entity terrain;
 
     /**
      * The list of enemy entities in the room.
@@ -117,6 +131,7 @@ public abstract class BaseRoom implements Room {
         this.terrainFactory = terrainFactory;
         this.roomConnections = roomConnections;
         this.doors = new ArrayList<>();
+        this.walls = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.items = new ArrayList<>();
         this.animalSpecifications = getAnimalSpecifications();
@@ -171,6 +186,7 @@ public abstract class BaseRoom implements Room {
         Entity topWall = createAndSpawnWall(area, worldBounds.x, thickness, new GridPoint2(0, tileBounds.y));
         Entity bottomWall = createAndSpawnWall(area, worldBounds.x, thickness, GridPoint2Utils.ZERO);
 
+        walls.addAll(List.of(leftWall, rightWall, topWall, bottomWall));
         // Adjust wall positions
         adjustWallPosition(rightWall, -thickness, 0);
         adjustWallPosition(topWall, 0, -thickness);
@@ -208,14 +224,23 @@ public abstract class BaseRoom implements Room {
      * This includes doors and items, and clears the respective lists.
      */
     public void removeRoom() {
-        for (Entity data : doors) {
+        List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
+        logger.info("Removing room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+
+        List<Entity> entitiesToRemove = Stream.of(doors, walls, items)
+                .flatMap(Collection::stream)
+                .toList();
+
+        for (Entity data : entitiesToRemove){
             ServiceLocator.getEntityService().markEntityForRemoval(data);
         }
 
-        for (Entity item : items) {
-            ServiceLocator.getEntityService().markEntityForRemoval(item);
-        }
+        ServiceLocator.getEntityService().markEntityForRemoval(this.terrain);
+
+//        this.terrain = null;
         this.items.clear();
+        this.doors.clear();
+        this.walls.clear();
         this.enemies.clear();
     }
 
@@ -230,7 +255,11 @@ public abstract class BaseRoom implements Room {
         // Background terrain
         TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1, isBossRoom);
         area.setTerrain(terrain);
-        area.spawnEntity(new Entity().addComponent(terrain));
+        this.terrain = new Entity()
+                .addComponent(terrain)
+                .addComponent(new NameComponent("terrain"));
+
+        area.spawnEntity(this.terrain);
         // Terrain walls
         float tileSize = terrain.getTileSize();
         GridPoint2 tileBounds = terrain.getMapBounds(0);
@@ -245,11 +274,20 @@ public abstract class BaseRoom implements Room {
      * @param area   the game area to spawn the room in
      */
     public void spawn(Entity player, MainGameArea area) {
+        ServiceLocator.getPhysicsService().getPhysics().update();
+        logger.info("spawning terrain");
         this.spawnTerrain(area, WALL_THICKNESS, isBossRoom);
+
+        logger.info("spawning doors");
         this.spawnDoors(area, player);
+
         if (!isRoomCompleted) {
+            logger.info("spawning enemies");
             createEnemyEntities(this.animalSpecifications.get(this.animalGroup), player);
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
+
+            logger.info("spawning items");
+            this.spawnItems();
         }
         //makeAllAnimalDead();
     }
@@ -302,15 +340,6 @@ public abstract class BaseRoom implements Room {
      */
     protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
-        item.getEvents().addListener("pickedUp", () -> {
-            for (Entity curItem : this.items) {
-                if (curItem != item) {
-                    ServiceLocator.getEntityService().unregister(curItem);
-                    ServiceLocator.getEntityService().markEntityForRemoval(curItem);
-                }
-            }
-            this.items.clear();
-        });
         this.items.add(item);
         area.spawnEntityAt(item, pos, true, true);
     }
@@ -327,6 +356,7 @@ public abstract class BaseRoom implements Room {
 
         spawnItem(area, this.itemSpecifications.get(this.itemGroup).get(0), new GridPoint2(8, 8));
         spawnItem(area, this.itemSpecifications.get(this.itemGroup).get(1), new GridPoint2(6, 8));
+        spawnItem(area, this.itemSpecifications.get(1).get(0), new GridPoint2(8, 6));
     }
 
     /**
@@ -346,11 +376,8 @@ public abstract class BaseRoom implements Room {
             enemy.getEvents().addListener("checkAnimalsDead", () -> {
                 if (this.isAllAnimalDead()) {
                     this.isRoomCompleted = true;
-                    
                 }
-                
             });
-            this.spawnItems();
         }
         //this will make all animals commit suicide 
         //makeAllAnimalDead();
@@ -377,13 +404,14 @@ public abstract class BaseRoom implements Room {
         String connectW = connections.get(1);
         String connectE = connections.get(2);
         String connectN = connections.get(3);
-        System.out.println("[" + connectN + ", " + connectE + ", " + connectW + ", " + connectS + "]XD");
+        logger.info("[{}, {}, {}, {}]XD", connectN, connectE, connectW, connectS);
         Entity[] doors = {
-                new Door('h', player.getId(), connectS), // bottom
-                new Door('v', player.getId(), connectW), // left
-                new Door('v', player.getId(), connectE), // right
-                new Door('h', player.getId(), connectN)  // top
+                doorFactory.create('h', player.getId(), connectS), // bottom
+                doorFactory.create('v', player.getId(), connectW), // left
+                doorFactory.create('v', player.getId(), connectE), // right
+                doorFactory.create('h', player.getId(), connectN)  // top
         };
+        logger.info("doors created");
 
         Vector2 doorvScale = doors[1].getScale();
         Vector2 doorhScale = doors[0].getScale();

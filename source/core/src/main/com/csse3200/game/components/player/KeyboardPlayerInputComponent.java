@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.csse3200.game.components.player.KeyMapping.KeyBinding.*;
 
@@ -21,6 +23,26 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private final Map<Integer, Action> downBindings;
     private final Map<Integer, Action> upBindings;
+    private Vector2 directionShooting = null;
+    private Timer heldButton = new Timer();
+    private HeldInput task;
+    private static int inputDelay = 15;
+
+    private class HeldInput extends TimerTask{
+        private Vector2 directionShooting;
+        public HeldInput(Vector2 direction){
+            this.directionShooting = direction;
+        }
+        @Override
+        public void run() {
+            shoot(this.directionShooting);
+        }
+
+//        @Override
+//        public boolean cancel(){
+//            return super.cancel();
+//        }
+    }
 
     /**
      * Something the player does.
@@ -57,9 +79,26 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
     }
+    private boolean holdShoot(Vector2 direction){
+        if (this.task != null) {
+            this.task.cancel();
+        }
+        this.directionShooting = direction;
+        this.task = new HeldInput(direction);
+        this.heldButton.scheduleAtFixedRate(task, inputDelay, inputDelay);
+        return true;
+    }
 
     private boolean shoot(Vector2 direction) {
         entity.getEvents().trigger("shoot", direction);
+        return true;
+    }
+
+    private boolean unShoot(Vector2 direction) {
+        if (this.directionShooting == direction){
+            this.task.cancel();
+            this.directionShooting = null;
+        }
         return true;
     }
 
@@ -94,10 +133,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(WALK_DOWN,  (i) -> walk(Vector2Utils.DOWN));
         actionMap.put(WALK_RIGHT,  (i) -> walk(Vector2Utils.RIGHT));
 
-        actionMap.put(SHOOT_UP,  (i) -> shoot(Vector2Utils.UP));
-        actionMap.put(SHOOT_LEFT,  (i) -> shoot(Vector2Utils.LEFT));
-        actionMap.put(SHOOT_RIGHT,  (i) -> shoot(Vector2Utils.RIGHT));
-        actionMap.put(SHOOT_DOWN,  (i) -> shoot(Vector2Utils.DOWN));
+        actionMap.put(SHOOT_UP,  (i) -> holdShoot(Vector2Utils.UP));
+        actionMap.put(SHOOT_LEFT,  (i) -> holdShoot(Vector2Utils.LEFT));
+        actionMap.put(SHOOT_RIGHT,  (i) -> holdShoot(Vector2Utils.RIGHT));
+        actionMap.put(SHOOT_DOWN,  (i) -> holdShoot(Vector2Utils.DOWN));
 
         actionMap.put(MELEE,  (i) -> melee());
         actionMap.put(USE_1, (i) -> useItem(1));
@@ -118,6 +157,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(WALK_LEFT,  (i) -> unWalk(Vector2Utils.LEFT));
         actionMap.put(WALK_DOWN,  (i) -> unWalk(Vector2Utils.DOWN));
         actionMap.put(WALK_RIGHT,  (i) -> unWalk(Vector2Utils.RIGHT));
+
+        actionMap.put(SHOOT_UP,  (i) -> unShoot(Vector2Utils.UP));
+        actionMap.put(SHOOT_LEFT,  (i) -> unShoot(Vector2Utils.LEFT));
+        actionMap.put(SHOOT_RIGHT,  (i) -> unShoot(Vector2Utils.RIGHT));
+        actionMap.put(SHOOT_DOWN,  (i) -> unShoot(Vector2Utils.DOWN));
 
         return actionMap;
     }

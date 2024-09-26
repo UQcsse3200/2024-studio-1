@@ -1,0 +1,97 @@
+
+level2_skin.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+tile_1_level2
+  rotate: false
+  xy: 1, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_2_level2
+  rotate: false
+  xy: 1, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_3_level2
+  rotate: false
+  xy: 143, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_4_level2
+  rotate: false
+  xy: 1, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_5_level2
+  rotate: false
+  xy: 143, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_6_level2
+  rotate: false
+  xy: 285, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_7_level2
+  rotate: false
+  xy: 1, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_8_level2
+  rotate: false
+  xy: 143, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_blood_level2
+  rotate: false
+  xy: 285, 427
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_broken1_level2
+  rotate: false
+  xy: 427, 569
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_broken2_level2
+  rotate: false
+  xy: 1, 1
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_broken3_level2
+  rotate: false
+  xy: 143, 143
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+tile_middle_level2
+  rotate: false
+  xy: 285, 285
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1

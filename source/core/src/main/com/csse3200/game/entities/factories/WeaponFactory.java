@@ -8,6 +8,7 @@ import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.WeaponAnimationController;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.WeaponConfig;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -32,11 +33,14 @@ public class WeaponFactory extends LoadedFactory {
      * @throws IllegalArgumentException if the specification is invalid.
      */
     private MeleeWeapon createMelee(String specification) throws IllegalArgumentException {
-        return switch (specification) {
-            case "knife" -> new Knife();
-            case "pickaxe" -> new Pickaxe();
-            default -> throw new IllegalArgumentException("Invalid melee weapon specification: " + specification);
-        };
+        WeaponConfig.WeaponData weaponData = WeaponConfig.getWeaponData(specification);
+        if (weaponData == null) {
+            throw new IllegalArgumentException("Invalid melee weapon specification: " + specification);
+        }
+
+        MeleeWeapon meleeWeapon = new MeleeWeapon(weaponData.getName(), weaponData.getIconPath(),
+                weaponData.getDamage(), weaponData.getRange(), weaponData.getFireRate());
+        return meleeWeapon;
     }
 
     /**
@@ -47,10 +51,15 @@ public class WeaponFactory extends LoadedFactory {
      * @throws IllegalArgumentException if the specification is invalid.
      */
     private RangedWeapon createRanged(String specification) throws IllegalArgumentException {
-        return switch (specification) {
-            case "shotgun" -> new Shotgun();
-            default -> throw new IllegalArgumentException("Invalid ranged weapon specification: " + specification);
-        };
+        WeaponConfig.WeaponData weaponData = WeaponConfig.getWeaponData(specification);
+        if (weaponData == null) {
+            throw new IllegalArgumentException("Invalid ranged weapon specification: " + specification);
+        }
+
+        RangedWeapon rangedWeapon = new RangedWeapon(weaponData.getName(), weaponData.getIconPath(),
+                weaponData.getDamage(), weaponData.getRange(), weaponData.getFireRate(),
+                weaponData.getAmmo(), weaponData.getMaxAmmo(), weaponData.getReloadTime());
+        return rangedWeapon;
     }
 
     /**

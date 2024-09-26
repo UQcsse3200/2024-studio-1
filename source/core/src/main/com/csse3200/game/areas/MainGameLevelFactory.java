@@ -61,8 +61,6 @@ public class MainGameLevelFactory implements LevelFactory {
         }
         //creating and adding a boss room instance into the Map containing the rooms for
         // the level
-        rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
-                "0,0,14,10," + levelNumber + "," + levelNumber));
         return new Level(map, levelNumber, rooms);
     }
     /**

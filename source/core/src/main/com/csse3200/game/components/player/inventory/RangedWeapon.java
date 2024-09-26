@@ -3,8 +3,11 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.WeaponComponent;
+import com.csse3200.game.components.weapon.FiringController;
+import com.csse3200.game.components.weapon.WeaponAnimationController;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.WeaponFactory;
+import com.csse3200.game.services.ServiceLocator;
 
 import java.util.logging.Logger;
 
@@ -28,7 +31,7 @@ public class RangedWeapon implements Collectible {
     private int maxAmmo;        // maximum ammo
     private int reloadTime;     // reload time
 
-    private Entity weaponEntity;
+    private final Entity weaponEntity;
 
     /**
      * Constructor for ranged weapons.
@@ -89,16 +92,22 @@ public class RangedWeapon implements Collectible {
     @Override
     public void pickup(Inventory inventory) {
         logger.info("Picking up ranged weapon - no entity");
+        Entity player = inventory.getEntity();
         inventory.setRanged(this);
 
         // Add a Weapon Component
-        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this);
+        if (player != null && player.getComponent(WeaponComponent.class) != null) {
+            player.getComponent(WeaponComponent.class).updateWeapon(this);
         } else {
             logger.warning("Inventory entity or WeaponComponent is null");
         }
-        // Update weapon entity to link with player
 
+        // Set weapon entity
+        // Update weapon entity to link with player
+        this.weaponEntity.getComponent(FiringController.class).connectPlayer(player);
+        this.weaponEntity.getComponent(WeaponAnimationController.class).connectPlayer(player);
+        // Register weapon entity
+        ServiceLocator.getEntityService().register(this.weaponEntity);
     }
 
     /**
@@ -126,12 +135,20 @@ public class RangedWeapon implements Collectible {
      */
     @Override
     public void drop(Inventory inventory) {
+        Entity player = inventory.getEntity();
         inventory.resetRanged();
 
         // Switch to default weapon (bare hands)
-        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            inventory.getEntity().getComponent(WeaponComponent.class).dropRangeWeapon();
+        if (player != null
+                && player.getComponent(WeaponComponent.class) != null) {
+            player.getComponent(WeaponComponent.class).dropRangeWeapon();
         }
+
+        // Reset weapon entity
+        // Update weapon entity to disconnect from player
+        this.weaponEntity.getComponent(FiringController.class).disconnectPlayer();
+        // unregister weapon entity
+        ServiceLocator.getEntityService().unregister(this.weaponEntity);
     }
 
     /**
@@ -249,11 +266,10 @@ public class RangedWeapon implements Collectible {
     }
 
     public void shoot(Vector2 direction) {
-        if (getAmmo() > 0) {
-            System.out.println(name + " fired in direction: " + direction);
-            setAmmo(getAmmo() - 1);
-        } else {
-            System.out.println("Out of ammo! Need to reload.");
-        }
+        this.weaponEntity.getComponent(FiringController.class).activate(direction);
+    }
+
+    public void attack() {
+        this.weaponEntity.getComponent(FiringController.class).activate(null);
     }
 }

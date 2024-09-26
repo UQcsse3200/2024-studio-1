@@ -69,4 +69,11 @@ public class PlayerFactory extends LoadedFactory {
         }
         return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
     }
+
+    @Override
+    protected String[] getSoundFilepaths() {
+        return new String[]{
+                "sounds/gethit.ogg"
+        };
+    }
 }

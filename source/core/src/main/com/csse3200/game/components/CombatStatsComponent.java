@@ -224,6 +224,7 @@ public class CombatStatsComponent extends Component {
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
+            ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
             entity.getEvents().trigger("playerHit");
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();

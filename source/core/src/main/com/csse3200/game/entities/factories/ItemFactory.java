@@ -54,6 +54,8 @@ public class ItemFactory {
             case "syringe" -> createSyringe();
             case "armor" -> createArmor();
             case "damagebuff" -> createDamageBuff();
+            case "reroll" -> createReroll();
+            case "targetdummy" -> createTargetDummy();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -64,6 +66,10 @@ public class ItemFactory {
      */
     private Collectible createMedKit() {
         return new MedKit();
+    }
+
+    private Collectible createReroll() {
+        return new Reroll();
     }
 
     /**
@@ -105,6 +111,10 @@ public class ItemFactory {
     private Collectible createArmor() { return new Armor();}
 
     private Collectible createDamageBuff() { return new DamageBuff();}
+
+    private Collectible createTargetDummy() {
+        return new TargetDummy();
+    }
 
 }
 

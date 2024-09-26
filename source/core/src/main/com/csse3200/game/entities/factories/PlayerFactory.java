@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.csse3200.game.components.player.PlayerStatsDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.LoadPlayer;
 import com.csse3200.game.entities.configs.PlayerConfig;
@@ -8,6 +9,7 @@ import com.csse3200.game.options.GameOptions.Difficulty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -71,6 +73,10 @@ public class PlayerFactory extends LoadedFactory {
         if (this.options == null){
             return new String[]{};
         }
-        return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
+        List<String> result = new ArrayList<>(options.values().stream().map(config -> config.textureFilename).toList());
+        result.add(PlayerStatsDisplay.DAMAGE_BUFF_TEXTURE);
+        result.add(PlayerStatsDisplay.SPEED_TEXTURE);
+        return result.toArray(String[]::new);
+//        return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
     }
 }

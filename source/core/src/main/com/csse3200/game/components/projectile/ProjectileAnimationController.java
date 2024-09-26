@@ -19,6 +19,7 @@ public class ProjectileAnimationController extends Component {
         directionalComponent = this.entity.getComponent(DirectionalNPCComponent.class);
 
         entity.getEvents().addListener("fire_attack", this::animateFire);
+        entity.getEvents().addListener("fire1", this::animateFireKitsune);
     }
 
     void animateFire() {
@@ -31,10 +32,18 @@ public class ProjectileAnimationController extends Component {
         }
     }
 
+    void animateFireKitsune() {
+        if (animator.hasAnimation("fire1_right") && animator.hasAnimation("fire1_left")) {
+            triggerDirectionalAnimation("fire1");
+        } else if (animator.hasAnimation("fire1")) {
+            animator.startAnimation("fire1");
+        } else {
+            throw new IllegalStateException("No fire_attack animation found");
+        }
+    }
+
     private void triggerDirectionalAnimation(String baseAnimation) {
-        System.out.println("BRUH");
         String direction = directionalComponent.getDirection();
-        System.out.println(direction);
         if (direction.equals("right")) {
             animator.startAnimation(baseAnimation + "_right");
         } else {

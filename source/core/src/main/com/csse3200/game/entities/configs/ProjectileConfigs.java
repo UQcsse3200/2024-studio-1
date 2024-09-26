@@ -7,6 +7,7 @@ import com.csse3200.game.physics.PhysicsLayer;
 public class ProjectileConfigs {
     //public ProjectileConfig baseProjectile = new BaseProjectileConfig();
     public BaseProjectileConfig dragonProjectile = new BaseProjectileConfig();
+    public BaseProjectileConfig kitsuneProjectile = new BaseProjectileConfig();
 
     public static class BaseProjectileConfig extends BaseEntityConfig {
         public short Layer = PhysicsLayer.PLAYER;

@@ -37,6 +37,7 @@ public class ProjectileFactory extends LoadedFactory {
     public static ProjectileConfigs loadConfigs() {
         Path path = Paths.get("configs/projectiles.json");
         ProjectileConfigs configs = FileLoader.readClass(ProjectileConfigs.class, "configs/projectiles.json");
+        System.out.println("BRUHHH");
         return configs;
     }
 
@@ -64,18 +65,27 @@ public class ProjectileFactory extends LoadedFactory {
     public Entity create(String specification, Vector2 direction, Vector2 parentPosition) {
         return switch (specification) {
             case "dragonProjectile" -> this.createDragonProjectile(direction, parentPosition);
+            case "kitsuneProjectile" -> this.createKitsuneProjectile(direction, parentPosition);
             default -> throw new IllegalArgumentException("Unknown animal: " + specification);
         };
     }
 
     public Entity createDragonProjectile(Vector2 direction, Vector2 parentPosition) {
-        //ProjectileConfigs configs = loadConfigs();
         ProjectileConfigs.BaseProjectileConfig config = configs.dragonProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
         Entity dragonProjectile = createProjectile("Dragon Projectile", config, direction,
                 parentPosition, animator);
 
         return dragonProjectile;
+    }
+
+    public Entity createKitsuneProjectile(Vector2 direction, Vector2 parentPosition) {
+        ProjectileConfigs.BaseProjectileConfig config = configs.kitsuneProjectile;
+        AnimationRenderComponent animator = createAnimator("images/npc/kitsune/fire1.atlas", config.animations);
+        Entity kitsuneProjectile = createProjectile("Kitsune Projectile", config, direction,
+                parentPosition, animator);
+
+        return kitsuneProjectile;
     }
 
     /**
@@ -104,6 +114,7 @@ public class ProjectileFactory extends LoadedFactory {
 
         projectile.getComponent(ColliderComponent.class).setSensor(true);
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
+        projectile.getComponent(AnimationRenderComponent.class).scaleEntity();
         projectile.setScale(stats.scaleX, stats.scaleY);
         projectile.getComponent(ColliderComponent.class).setDensity(1.5f);
 
@@ -151,7 +162,9 @@ public class ProjectileFactory extends LoadedFactory {
     protected String[] getTextureAtlasFilepaths() {
         return new String[] {
                 "images/Projectiles/GreenShoot.atlas",
-                "images/npc/dragon/dragon.atlas"
+                "images/npc/dragon/dragon.atlas",
+                "images/npc/kitsune/fire1.atlas",
+                "images/npc/kitsune/fire2.atlas"
         };
     }
 
@@ -159,7 +172,9 @@ public class ProjectileFactory extends LoadedFactory {
     protected String[] getTextureFilepaths() {
         return new String[]{
                 "images/Projectiles/GreenShoot.png",
-                "images/npc/dragon/dragon.png"
+                "images/npc/dragon/dragon.png",
+                "images/npc/kitsune/fire1.png",
+                "images/npc/kitsune/fire2.png"
         };
     }
 

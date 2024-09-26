@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
@@ -11,9 +12,7 @@ import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
@@ -26,9 +25,13 @@ public class MainGameArea extends GameArea {
 
     private final LevelFactory levelFactory;
     private Level currentLevel;
+    private int currentLevelNumber;
     private Room currentRoom;
     private boolean spawnRoom = true;
+
     private final List<Room> roomsVisited = new ArrayList<>();
+    public String currentRoomName;
+    private Map <String, String> currentPosition = new HashMap<>();
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -72,6 +75,18 @@ public class MainGameArea extends GameArea {
         return currentRoom;
     }
 
+    /**
+     * Exports the current Level number and Room number of the player into a JSON file
+     * which can then be loaded and set as the starting position of the player when player
+     * loads the game.
+     */
+    public void exportPosition() {
+        String levelNum = "" + currentLevelNumber;
+        currentPosition.put("LevelNum", levelNum);
+        currentPosition.put("RoomNum", currentRoomName);
+        FileLoader.writeClass(currentPosition, "./PlayerLocationSave.json");
+    }
+
     private void selectRoom(String roomKey) {
         logger.info("Changing to room: {}", roomKey);
         Room newRoom = this.currentLevel.getRoom(roomKey);
@@ -80,6 +95,8 @@ public class MainGameArea extends GameArea {
             return;
         }
         this.currentRoom = newRoom;
+        this.currentRoomName = this.currentRoom.getRoomName();
+
         this.spawnRoom = true;
     }
 
@@ -120,6 +137,7 @@ public class MainGameArea extends GameArea {
 
     public void changeLevel(int levelNumber) {
         logger.info("Changing to level: {}", levelNumber);
+        currentLevelNumber = levelNumber;
 
         // TODO: Save player progress or game state here, create a save manager
 
@@ -166,6 +184,10 @@ public class MainGameArea extends GameArea {
     protected String[] getTextureAtlasFilepaths() {
         return new String[]{
                 "images/terrain_iso_grass.atlas",
+                "skins/levels/level1/level1_skin.atlas",
+                "skins/levels/level2/level2_skin.atlas",
+                "skins/levels/level3/level3_skin.atlas"
+
         };
     }
 
@@ -182,25 +204,12 @@ public class MainGameArea extends GameArea {
         List<String> filepaths = new ArrayList<>();
         String[] commonTextures = {
                 "images/box_boy_leaf.png",
-                "images/tile_1.png",
-                "images/tile_2.png",
-                "images/tile_3.png",
-                "images/tile_4.png",
-                "images/tile_5.png",
-                "images/tile_6.png",
-                "images/tile_7.png",
-                "images/tile_8.png",
-                "images/tile_middle.png",
-                "images/tile_general.png",
-                "images/tile_broken1.png",
-                "images/tile_broken2.png",
-                "images/tile_broken3.png",
-                "images/tile_staircase.png",
-                "images/tile_staircase_down.png",
-                "images/tile_blood.png",
                 "images/rounded_door_v.png",
                 "images/rounded_door_h.png",
-                "images/staircase.png"
+                "images/staircase.png",
+                "skins/levels/level1/level1_skin.png",
+                "skins/levels/level2/level2_skin.png",
+                "skins/levels/level3/level3_skin.png"
         };
         Collections.addAll(filepaths, commonTextures);
 

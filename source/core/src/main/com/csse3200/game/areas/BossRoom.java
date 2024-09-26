@@ -14,7 +14,7 @@ import com.csse3200.game.entities.factories.StairFactory;
  * A boss room of the game,
  * these often have unique animals and rewards.
  */
-public class BossRoom extends BaseRoom {
+public class BossRoom extends EnemyRoom {
 
     @Override
     protected List<List<String>> getAnimalSpecifications() {
@@ -50,8 +50,9 @@ public class BossRoom extends BaseRoom {
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
                     List<String> roomConnections,
-                    String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
+                    String specification,
+                    String roomName) {
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification, roomName);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class BossRoom extends BaseRoom {
 
     private void spawnStairs(Entity player, MainGameArea area) {
         Entity stairs = StairFactory.createStair(player.getId());
-        int x = maxGridPoint.x / 2;
+        int x = maxGridPoint.x;
         int y = maxGridPoint.y;
         GridPoint2 pos = new GridPoint2(x, y);
         area.spawnEntityAt(stairs, pos, true, true);

@@ -7,6 +7,7 @@ import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
 import com.csse3200.game.entities.factories.StairFactory;
+import com.csse3200.game.files.FileLoader;
 
 import java.util.*;
 
@@ -16,6 +17,7 @@ import java.util.*;
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
     private int levelNum;
+    Map<String, Room> rooms = new HashMap<>();;
 
     @Override
     public Level create(int levelNumber) {
@@ -27,8 +29,10 @@ public class MainGameLevelFactory implements LevelFactory {
                 new TerrainFactory(levelNumber)
         );
         // Sprint 4 Switch the MapGenerator to use Rooms
-        Map<String, Room> rooms = new HashMap<>();
         Set<String> room_keySet = map.mapData.getPositions().keySet();
+        //if (loadGame) {
+            // rooms = map from config
+        //else{
         for (String room_key : room_keySet) {
             int itemIndex = map.mapData.getRoomDetails().get(room_key).get("item_index");
             int animalIndex = map.mapData.getRoomDetails().get(room_key).get("animal_index");
@@ -37,7 +41,7 @@ public class MainGameLevelFactory implements LevelFactory {
                 case MapGenerator.BOSSROOM:
                     rooms.put(room_key, roomFactory.createBossRoom(
                             map.mapData.getPositions().get(room_key),
-                            "0,0,14,10," + levelNumber + "," + levelNumber));
+                            "0,0,14,10," + levelNumber + "," + levelNumber, "BOSS"));
                     // Not sure whether "boss" or key should be used here
 //                    rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
 //                            "0,0,14,10," + levelNumber + "," + levelNumber));
@@ -51,13 +55,25 @@ public class MainGameLevelFactory implements LevelFactory {
                 default:
                     rooms.put(room_key, roomFactory.createRoom(
                             map.mapData.getPositions().get(room_key),
-                            "0,0,14,10," + animalIndex + "," + itemIndex));
+                            "0,0,14,10," + animalIndex + "," + itemIndex, room_key));
                     break;
             }
         }
+        //creating and adding a boss room instance into the Map containing the rooms for
+        // the level
+        rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
+                "0,0,14,10," + levelNumber + "," + levelNumber));
         return new Level(map, levelNumber, rooms);
     }
+    /**
+     * Exports the map data to a JSON file.
+     *
+     * @param filePath The path of the file to write the JSON data to.
+     */
+    public void exportToJson(String filePath) {
+        FileLoader.writeClass(rooms, filePath);
 
+    }
     public int getCurrentLevel() {
         return levelNum;
     }

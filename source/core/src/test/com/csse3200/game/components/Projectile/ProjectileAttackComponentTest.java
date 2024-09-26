@@ -7,9 +7,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.RangeDetectionComponent;
-import com.csse3200.game.components.player.WeaponComponent;
-import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
@@ -26,14 +23,24 @@ import com.csse3200.game.utils.math.Vector2Utils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(GameExtension.class)
 class ProjectileAttackComponentTest {
+
+    @Mock
+    private GameAreaService gameAreaService;
+
+    @Mock
+    private MainGameArea mainGameArea;
+
+    @Mock
+    private Entity player;
 
     /**
      * Services are made.
@@ -43,12 +50,22 @@ class ProjectileAttackComponentTest {
     @BeforeEach
     void beforeEach() {
 
+        // Mock GameAreaService and MainGameArea
+        gameAreaService = mock(GameAreaService.class);
+        mainGameArea = mock(MainGameArea.class);
+        player = new Entity().addComponent(new CombatStatsComponent(100, 10));
+
+        // Register the mocked services with ServiceLocator
+        ServiceLocator.registerGameAreaService(gameAreaService);
+
+        // Mock the behavior of gameAreaService and mainGameArea
+        when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
+        when(mainGameArea.getPlayer()).thenReturn(player);
+
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
         ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerGameAreaService(new GameAreaService(mock(MainGameArea.class)));
-
 
         //load in the current default texture.
         ResourceService resourceService = ServiceLocator.getResourceService();

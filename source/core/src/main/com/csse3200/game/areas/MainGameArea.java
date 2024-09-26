@@ -21,8 +21,8 @@ import java.util.*;
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
-    public static final String PLAYER_SAVE_PATH = "configs/PlayerLocationSave.json";
-    public static final String MAP_SAVE_PATH = "configs/MapSave.json";
+    public static final String PLAYER_SAVE_PATH = "saves/PlayerLocationSave.json";
+    public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
     private final Entity player;
 
@@ -68,6 +68,7 @@ public class MainGameArea extends GameArea {
         displayUI();
         if (shouldLoad) {
             loadMapLocation();
+
         } else {
             changeLevel(0);
         }

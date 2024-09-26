@@ -18,7 +18,7 @@ import java.util.*;
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
     private static final Logger log = LoggerFactory.getLogger(MainGameLevelFactory.class);
-    public static final String MAP_SAVE_PATH = "configs/MapSave.json";
+    public static final String MAP_SAVE_PATH = "saves/MapSave.json";
     private int levelNum;
     private final Map<String, Room> rooms;
     private final List<String> completedRooms;

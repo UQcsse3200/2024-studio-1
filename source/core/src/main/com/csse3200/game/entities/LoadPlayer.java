@@ -112,6 +112,13 @@ public class LoadPlayer {
                         10, 1, 1, 10, 10, 0));
         player.getComponent(PlayerActions.class).setSpeed(config.speed);
 
+                CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
+                player.addComponent(coinsComponent)
+                        .addComponent(new PlayerCoinDisplay(coinsComponent));
+
+            player.getComponent(PlayerActions.class).setSpeed(config.speed);
+
+
     }
 
     /**

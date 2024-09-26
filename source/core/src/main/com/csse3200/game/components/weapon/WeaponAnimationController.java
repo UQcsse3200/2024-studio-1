@@ -33,13 +33,13 @@ public class WeaponAnimationController extends Component {
         right = new Vector2(-1.0f, 0.0f);
     }
 
-    public void updateHost(Entity hostEntity) {
+    public void connectPlayer(Entity player) {
         if (Objects.equals(this.getEntity().getComponent(NameComponent.class).getName(),
                 "Ranged")) {
-            hostEntity.getEvents().addListener("walkLeft", this::animateLeft);
-            hostEntity.getEvents().addListener("walkRight", this::animateIdle);
-            hostEntity.getEvents().addListener("walkUp", this::animateUp);
-            hostEntity.getEvents().addListener("walkDown", this::animateDown);
+            player.getEvents().addListener("walkLeft", this::animateLeft);
+            player.getEvents().addListener("walkRight", this::animateIdle);
+            player.getEvents().addListener("walkUp", this::animateUp);
+            player.getEvents().addListener("walkDown", this::animateDown);
         }
         this.getEntity().getEvents().addListener("shootRight", this::animateShootRight);
         this.getEntity().getEvents().addListener("shootLeft", this::animateShootLeft);

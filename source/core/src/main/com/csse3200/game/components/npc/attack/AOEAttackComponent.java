@@ -28,6 +28,7 @@ import java.util.List;
  */
 public class AOEAttackComponent extends Component implements AttackBehaviour {
     private static final Logger logger = LoggerFactory.getLogger(AOEAttackComponent.class);
+    private Entity target;
 
     private float radius;
     private float damage;
@@ -52,6 +53,7 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
      */
     public AOEAttackComponent(float radius, float damage, float attackRate,
                               NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
+        this.target = target;
         this.radius = radius;
         this.damage = damage;
         this.attackCooldown = 1 / attackRate;
@@ -61,9 +63,16 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
         this.effects = createEffects(effectConfigs);
         this.physicsEngine = ServiceLocator.getPhysicsService().getPhysics();
     }
+    @Override
+    public void create() {
+        super.create();
+        shapeRenderer = new ShapeRenderer(); // New: Initialize ShapeRenderer
+    }
 
     @Override
     public void update() {
+        super.update();
+        origin.set(entity.getPosition());
         timeSinceLastAttack += ServiceLocator.getTimeSource().getDeltaTime();
         if (timeSinceLastAttack >= attackCooldown) {
             performAttack();
@@ -85,6 +94,8 @@ public class AOEAttackComponent extends Component implements AttackBehaviour {
                 applyEffects(target);
             }
         }
+        drawAOECircle = true;
+        circleDrawTimer = circleDrawDuration;
     }
 
     @Override

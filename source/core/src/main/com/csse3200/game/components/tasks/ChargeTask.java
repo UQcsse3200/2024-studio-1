@@ -11,7 +11,6 @@ import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
 import com.csse3200.game.rendering.DebugRenderer;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,6 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   protected MovementTask movementTask;
   WaitTask waitTask;
   private Task currentTask;
-  private AOEAttackComponent aoeAttackComponent;
 
   /**
    * Creates a ChargeTask.
@@ -65,7 +63,6 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     if (movementTask == null) {
       initialiseTasks();
     }
-    aoeAttackComponent = owner.getEntity().getComponent(AOEAttackComponent.class);
     startMoving(); // Begin charging towards the target.
   }
 
@@ -86,11 +83,6 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
       }
     }
     currentTask.update(); // Continue updating the active task.
-
-    // Perform AOE attack if close to target
-    if (canPerformAOEAttack()) {
-      aoeAttackComponent.performAttack();
-    }
   }
 
   /**
@@ -138,11 +130,6 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     movementTask.setVelocity(chaseSpeed);
     swapTask(movementTask);
     this.owner.getEntity().getEvents().trigger("run");
-
-    // Set the AOE attack origin to the current position
-    if (aoeAttackComponent != null) {
-      aoeAttackComponent.setOrigin(owner.getEntity().getPosition());
-    }
   }
 
   /**
@@ -189,9 +176,6 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     if (dst > maxChaseDistance || !isTargetVisible()) {
       return -1; // Too far or not visible, stop charging.
     }
-    if (canPerformAOEAttack()) {
-      return priority + 1; // Increase priority if can perform AOE attack
-    }
     return priority;
   }
 
@@ -230,9 +214,5 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     }
     debugRenderer.drawLine(from, to); // Draw line directly to the target for debugging.
     return true; // No obstacle, target is visible.
-  }
-
-  private boolean canPerformAOEAttack() {
-    return aoeAttackComponent != null && getDistanceToTarget() <= aoeAttackComponent.getRadius();
   }
 }

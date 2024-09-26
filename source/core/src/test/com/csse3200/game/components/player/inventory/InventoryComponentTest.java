@@ -2,7 +2,12 @@ package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.physics.PhysicsService;
+import com.csse3200.game.rendering.RenderService;
+import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.services.ServiceLocator;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -56,6 +61,12 @@ class InventoryComponentTest {
 
     @Test
     public void testPickupRanged() {
+        // Register the necessary service for creating the weapon entity when picking up weapon
+        ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRenderService(new RenderService());
+
         InventoryComponent inventoryComponent = new InventoryComponent();
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
@@ -69,6 +80,12 @@ class InventoryComponentTest {
 
     @Test
     public void testRangedDrop() {
+        // Register the necessary service for creating the weapon entity when picking up weapon
+        ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRenderService(new RenderService());
+
         InventoryComponent inventoryComponent = new InventoryComponent();
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();

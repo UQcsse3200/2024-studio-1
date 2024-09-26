@@ -46,7 +46,8 @@ class InventoryComponentTest {
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        Knife knife = new Knife();
+        //Knife knife = new Knife();
+        MeleeWeapon knife = new MeleeWeapon("Knife", "images/Weapons/knife.png", 10, 10, 10);
         inventory.setMelee(knife);
 
         assertTrue(inventory.getMelee().isPresent());
@@ -59,7 +60,7 @@ class InventoryComponentTest {
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        RangedWeapon shotgun = new Shotgun();
+        RangedWeapon shotgun = new RangedWeapon( "Shotgun", "images/Weapons/shotgun.png", 10, 10, 10, 10, 10, 10);
         inventoryComponent.pickup(shotgun);
 
         assertTrue(inventory.getRanged().isPresent());
@@ -72,7 +73,7 @@ class InventoryComponentTest {
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        RangedWeapon shotgun = new Shotgun() {
+        RangedWeapon shotgun = new RangedWeapon( "Shotgun", "images/Weapons/shotgun.png", 10, 10, 10, 10, 10, 10) {
             @Override
             public void drop(Inventory inventory) {
                 super.drop(inventory);
@@ -92,7 +93,7 @@ class InventoryComponentTest {
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        MeleeWeapon knife = new Knife() {
+        MeleeWeapon knife = new MeleeWeapon("Knife", "images/Weapons/knife.png", 10, 10, 10) {
             @Override
             public void drop(Inventory inventory) {
                 super.drop(inventory);

@@ -15,9 +15,9 @@ public class WeaponConfig {
 
     static {
         // Load weapon data (can be from JSON or hardcoded for now)
-        weaponConfigs.put("shotgun", new WeaponData(30, 5, 5, 20, 20, 3, "images/Weapons/Shotgun.png"));
-        weaponConfigs.put("knife", new WeaponData(10, 1, 2, "images/Weapons/Knife.png"));
-        weaponConfigs.put("pickaxe", new WeaponData(50,0,3,"images/Weapons/pickaxe.png"));
+        weaponConfigs.put("shotgun", new WeaponData("shotgun", 10, 10, 5, 20, 20, 3, "images/Weapons/Shotgun.png"));
+        weaponConfigs.put("knife", new WeaponData("knife", 30, 4, 0, "images/Weapons/Knife.png"));
+        weaponConfigs.put("pickaxe", new WeaponData("pickaxe",50,4,1,"images/Weapons/pickaxe.png"));
 
     }
 
@@ -28,6 +28,8 @@ public class WeaponConfig {
 
     // Define the WeaponData class
     public static class WeaponData {
+
+        private final String name;
         private final int damage;
         private final int range;
         private final int fireRate;
@@ -37,7 +39,8 @@ public class WeaponConfig {
         private final String iconPath;
 
         // Constructor for ranged weapons
-        public WeaponData(int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime, String iconPath) {
+        public WeaponData(String name, int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime, String iconPath) {
+            this.name = name;
             this.damage = damage;
             this.range = range;
             this.fireRate = fireRate;
@@ -48,8 +51,12 @@ public class WeaponConfig {
         }
 
         // Constructor for melee weapons
-        public WeaponData(int damage, int range, int fireRate, String iconPath) {
-            this(damage, range, fireRate, 0, 0, 0, iconPath);
+        public WeaponData(String name, int damage, int range, int fireRate, String iconPath) {
+            this(name, damage, range, fireRate, 0, 0, 0, iconPath);
+        }
+
+        public String getName() {
+            return name;
         }
 
         public int getDamage() {

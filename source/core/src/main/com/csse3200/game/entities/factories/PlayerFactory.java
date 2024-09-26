@@ -73,7 +73,10 @@ public class PlayerFactory extends LoadedFactory {
     @Override
     protected String[] getSoundFilepaths() {
         return new String[]{
-                "sounds/gethit.ogg"
+//                "sounds/hit.ogg"
+                // "sounds/gethit.ogg"
+                // "sounds/hit2.ogg"
+                 "sounds/hit3.ogg"
         };
     }
 }

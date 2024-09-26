@@ -1,7 +1,7 @@
 {
   "name": "Player 2",
   "health": 70,
-  "favouriteColour": "yellow",
+  "coins": 0,
   "textureFilename": "images/player/homeless1.png",
   "textureAtlasFilename": "images/player/homeless1.atlas"
 }

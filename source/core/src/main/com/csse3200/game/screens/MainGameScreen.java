@@ -82,7 +82,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     public MainGameScreen(GdxGame game) {
         this.game = game;
-        game.setScreenColour(DEFAULT);
+        game.setScreenColour(GdxGame.ScreenColour.GREY);
         isPaused = false;
 
         GameOptions gameOptions = game.gameOptions;

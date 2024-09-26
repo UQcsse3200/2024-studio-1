@@ -5,9 +5,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
+import com.csse3200.game.components.weapon.FiringController;
+import com.csse3200.game.components.weapon.PositionTracker;
 import com.csse3200.game.components.weapon.WeaponAnimationController;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.configs.WeaponConfig;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
@@ -223,6 +226,8 @@ public class WeaponFactory extends LoadedFactory {
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(animator)
+                .addComponent(new FiringController(collectible, new ProjectileConfig()))
+                .addComponent(new PositionTracker())
                 .addComponent(new WeaponAnimationController());
 
         rangedEntity.getComponent(ColliderComponent.class).setSensor(true);

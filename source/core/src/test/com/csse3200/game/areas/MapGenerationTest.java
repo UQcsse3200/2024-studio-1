@@ -1,10 +1,11 @@
 package com.csse3200.game.areas;
 
 
-import com.csse3200.game.areas.Generation.MapGenerator;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.csse3200.game.areas.Generation.MapGenerator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;

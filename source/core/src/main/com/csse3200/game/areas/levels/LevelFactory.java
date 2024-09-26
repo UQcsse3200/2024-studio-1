@@ -1,4 +1,4 @@
-package com.csse3200.game.areas;
+package com.csse3200.game.areas.levels;
 
 /**
  * A level factory is essentially a "game mode",

@@ -1,4 +1,4 @@
-package com.csse3200.game.areas;
+package com.csse3200.game.areas.rooms;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.CombatStatsComponent;
 

@@ -1,6 +1,8 @@
 package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.csse3200.game.areas.levels.Level;
+import com.csse3200.game.areas.levels.LevelFactory;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;

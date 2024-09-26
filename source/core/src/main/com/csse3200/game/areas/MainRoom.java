@@ -10,7 +10,7 @@ public class MainRoom extends BaseRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                List.of("Snake", "Dog", "Dragon"),
+                List.of("Kitsune", "Snake", "Dog", "Dragon"),
                 List.of("Bear", "Snake", "Dino"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),

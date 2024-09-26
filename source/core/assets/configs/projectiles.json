@@ -24,8 +24,8 @@
       "y": 10
     },
     "Layer": 2,
-    "scaleX": 0.5,
-    "scaleY": 0.5,
+    "scaleX": 1.5,
+    "scaleY": 1.5,
     "animations": [
       {"name": "fire1_left", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "fire1_right", "frameDuration": 0.1, "playMode": "LOOP"},

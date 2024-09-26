@@ -56,6 +56,7 @@ public class ItemFactory {
             case "damagebuff" -> createDamageBuff();
             case "reroll" -> createReroll();
             case "targetdummy" -> createTargetDummy();
+            case "beartrap" -> createBearTrap();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -116,5 +117,8 @@ public class ItemFactory {
         return new TargetDummy();
     }
 
+    private Collectible createBearTrap() {
+        return new BearTrap();
+    }
 }
 

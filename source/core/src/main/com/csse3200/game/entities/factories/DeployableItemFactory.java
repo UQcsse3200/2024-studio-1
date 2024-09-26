@@ -6,6 +6,7 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
 import com.csse3200.game.components.player.PlayerHealthDisplay;
+import com.csse3200.game.components.player.inventory.TrapComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -36,8 +37,9 @@ public class DeployableItemFactory extends LoadedFactory {
         Entity bearTrap = new Entity()
                 .addComponent(new HitboxComponent())
                 .addComponent(new CombatStatsComponent(100,30))
-                .addComponent(new TextureRenderComponent(new Texture("images/items/damagebuff.png")))
-                .addComponent(new PhysicsComponent());
+                .addComponent(new TextureRenderComponent(new Texture("images/items/damage_buff.png")))
+                .addComponent(new PhysicsComponent())
+                .addComponent(new TrapComponent());
 
         bearTrap.getComponent(TextureRenderComponent.class).scaleEntity();
 

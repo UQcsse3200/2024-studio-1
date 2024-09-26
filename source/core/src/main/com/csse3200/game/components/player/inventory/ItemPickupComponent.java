@@ -19,7 +19,7 @@ import com.csse3200.game.ui.UIComponent;
 /**
  * A component that allows a player to interact with items
  */
-public class ItemPickupComponent extends UIComponent {
+public class ItemPickupComponent extends Component {
     private Entity lastPickedUpEntity = null;
     private boolean contact = false;
     Collectible item = null;
@@ -46,10 +46,6 @@ public class ItemPickupComponent extends UIComponent {
         entity.getEvents().addListener("purchaseItem", ()->checkItemPurchase(item,itemEntity));
     }
 
-    @Override
-    protected void draw(SpriteBatch batch) {
-        //
-    }
 
     /**
      * Handles player collision with another entity. The pickup functionality only occurs
@@ -127,20 +123,7 @@ public class ItemPickupComponent extends UIComponent {
                 markEntityForRemoval(itemEntity);
             }
             else {
-                String text = String.format("Sorry! Insufficient funds.");
-                Label insufficientFundsLabel = new Label(text, skin, "small");
-                Table table = new Table();
-                table.center();
-                table.setFillParent(true);
-                table.add(insufficientFundsLabel).padTop(5f);
-                stage.addActor(table);
-                // unrender the label after 1 second of display
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        table.remove(); // Remove the label from the screen
-                    }
-                }, 2);
+                entity.getEvents().trigger("insufficientFunds");
             }
         }
     }

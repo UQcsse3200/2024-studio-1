@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.factories.WeaponFactory;
 
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ public class RangedWeapon implements Collectible {
      * Logger for debugging purposes.
      */
     private static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
+    private final WeaponFactory weaponFactory;
 
     private String name;        // name of the weapon
     private String iconPath;    // path to the icon of the weapon
@@ -25,6 +27,8 @@ public class RangedWeapon implements Collectible {
     private int ammo;           // current ammo left
     private int maxAmmo;        // maximum ammo
     private int reloadTime;     // reload time
+
+    private Entity weaponEntity;
 
     /**
      * Constructor for ranged weapons.
@@ -46,6 +50,10 @@ public class RangedWeapon implements Collectible {
         this.ammo = ammo;
         this.maxAmmo = maxAmmo;
         this.reloadTime = reloadTime;
+
+        weaponFactory = new WeaponFactory();
+        // Create weapon entity
+        this.weaponEntity = weaponFactory.createWeaponForPlayer(this);
     }
 
     /**
@@ -89,6 +97,8 @@ public class RangedWeapon implements Collectible {
         } else {
             logger.warning("Inventory entity or WeaponComponent is null");
         }
+        // Update weapon entity to link with player
+
     }
 
     /**

@@ -13,10 +13,10 @@ public class NPCConfigs {
   public NPCConfig snake = new NPCConfig();
   public NPCConfig dino = new NPCConfig();
   public NPCConfig minotaur = new NPCConfig();
-  public NPCConfig werewolf = new NPCConfig();
   public NPCConfig dragon = new NPCConfig();
-  public NPCConfig birdman = new NPCConfig();
-  public NPCConfig kitsune = new NPCConfig();
+  public BossConfig werewolf = new BossConfig();
+  public BossConfig birdman = new BossConfig();
+  public BossConfig kitsune = new BossConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
     public TaskConfig tasks = new TaskConfig();

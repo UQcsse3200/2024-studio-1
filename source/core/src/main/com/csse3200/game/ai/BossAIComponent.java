@@ -41,7 +41,7 @@ public class BossAIComponent extends Component implements TaskRunner {
   // Components for attack and movement
   private MeleeAttackComponent meleeAttackComponent;
   private RangeAttackComponent rangeAttackComponent;
-  //private AOEAttackComponent aoeAttackComponent;
+  // private AOEAttackComponent aoeAttackComponent;
 
   // Movement tasks
   private ChargeTask chargeTask;
@@ -73,12 +73,19 @@ public class BossAIComponent extends Component implements TaskRunner {
     wanderTask.create(this);
 
     // Initialize attack components
+    if (config.attacks.melee == null) {
+      logger.error("Melee attack component is required for boss entities");
+    }
     meleeAttackComponent = getEntity().getComponent(MeleeAttackComponent.class);
-    rangeAttackComponent = getEntity().getComponent(RangeAttackComponent.class);
-    //aoeAttackComponent = getEntity().getComponent(AOEAttackComponent.class);
     meleeAttackComponent.setEnabled(false);
-    rangeAttackComponent.setEnabled(false);
-    //aoeAttackComponent.setEnabled(false);
+    if (config.attacks.ranged != null) {
+      rangeAttackComponent = getEntity().getComponent(RangeAttackComponent.class);
+      rangeAttackComponent.setEnabled(false);
+    }
+//    if (config.attacks.aoe != null) {
+//      aoeAttackComponent = getEntity().getComponent(AOEAttackComponent.class);
+//      aoeAttackComponent.setEnabled(false);
+//    }
 
     setState(State.IDLE);
   }
@@ -209,8 +216,6 @@ public class BossAIComponent extends Component implements TaskRunner {
     currentState = newState;
     // Disable attacks
     meleeAttackComponent.setEnabled(false);
-    rangeAttackComponent.setEnabled(false);
-    //aoeAttackComponent.setEnabled(false);
 
     logger.info("{} Changing state to {}", this, newState);
 
@@ -245,8 +250,12 @@ public class BossAIComponent extends Component implements TaskRunner {
         //aoeAttackComponent.enableForNumAttacks(1);
         break;
       case RANGE_ATTACK:
-        changeTask(waitTask);
-        rangeAttackComponent.enableForNumAttacks(10);
+        if (rangeAttackComponent == null) {
+          setState(State.IDLE);
+        } else {
+          changeTask(waitTask);
+          rangeAttackComponent.enableForNumAttacks(10);
+        }
         break;
     }
   }

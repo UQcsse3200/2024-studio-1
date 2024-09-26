@@ -279,22 +279,15 @@
     "isDirectional": true,
     "tasks": {
       "wander": {
-        "wanderRadius": 1,
-        "waitTime": 3,
-        "wanderSpeed": 1
       },
       "chase": {
-        "priority": 10,
-        "chaseSpeed": 3,
-        "viewDistance": 6,
-        "chaseDistance": 8
+        "chaseSpeed": 3
       },
       "charge": {
-        "priority": 5,
-        "viewDistance": 4,
-        "chaseDistance": 5,
-        "chaseSpeed": 4,
-        "waitTime": 1
+        "chaseSpeed": 4
+      },
+      "runAway": {
+        "chaseSpeed": 5
       }
     },
     "attacks": {
@@ -314,8 +307,8 @@
       {"name": "idle_right", "frameDuration": 0.125, "playMode": "LOOP"},
       {"name": "walk_left", "frameDuration": 0.09, "playMode": "LOOP"},
       {"name": "walk_right", "frameDuration": 0.09, "playMode": "LOOP"},
-      {"name": "run_left", "frameDuration": 0.11, "playMode": "NORMAL"},
-      {"name": "run_right", "frameDuration": 0.11, "playMode": "NORMAL"},
+      {"name": "run_left", "frameDuration": 0.11, "playMode": "LOOP"},
+      {"name": "run_right", "frameDuration": 0.11, "playMode": "LOOP"},
       {"name": "attack_left", "frameDuration": 0.33, "playMode": "NORMAL"},
       {"name": "attack_right", "frameDuration": 0.33, "playMode": "NORMAL"},
       {"name": "run+attack_left", "frameDuration": 0.14, "playMode": "NORMAL"},

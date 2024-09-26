@@ -1,8 +1,8 @@
 package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.ai.BossAIComponent;
+import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
@@ -14,6 +14,7 @@ import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.BossConfig;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -200,8 +201,9 @@ public class NPCFactory extends LoadedFactory {
    * @return entity
    */
   public Entity createBirdman(Entity target) {
-    NPCConfigs.NPCConfig config = configs.birdman;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    BossConfig config = configs.birdman;
+    config.setDefaults();
+    BossAIComponent aiComponent = new BossAIComponent(target, config);
     AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
     Entity birdman = createBaseNPC("Birdman", target, aiComponent, config, animator);
 
@@ -215,7 +217,8 @@ public class NPCFactory extends LoadedFactory {
    * @return entity
    */
   public Entity createWerewolf(Entity target) {
-    NPCConfigs.NPCConfig config = configs.werewolf;
+    BossConfig config = configs.werewolf;
+    config.setDefaults();
     BossAIComponent aiComponent = new BossAIComponent(target, config);
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
@@ -231,7 +234,7 @@ public class NPCFactory extends LoadedFactory {
    */
   public Entity createDragon(Entity target) {
     NPCConfigs.NPCConfig config = configs.dragon;
-    BossAIComponent aiComponent = new BossAIComponent(target, config);
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
     Entity dragon = createBaseNPC("Dragon", target, aiComponent, config, animator);
 

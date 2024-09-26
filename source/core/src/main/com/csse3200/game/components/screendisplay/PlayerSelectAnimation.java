@@ -6,6 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
+/**
+ * This class is sued to control the animation rendering for each
+ * player on the Select Screen.
+ */
 public class PlayerSelectAnimation extends Actor {
     private final AnimationRenderComponent animator;
     private final PlayerNum player;
@@ -34,6 +38,7 @@ public class PlayerSelectAnimation extends Actor {
         };
     }
 
+    // Add texture region relative to each player
     private void initializeAnimations() {
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         switch (player) {

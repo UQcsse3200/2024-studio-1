@@ -240,6 +240,7 @@ public class CombatStatsComponent extends Component {
                 entity.getEvents().trigger("death");
                 entity.getEvents().trigger("died");
                 entity.getEvents().trigger("checkAnimalsDead");
+                entity.getEvents().trigger("dummyDestroyed");
             }
         }
     }

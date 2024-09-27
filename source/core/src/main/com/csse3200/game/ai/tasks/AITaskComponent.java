@@ -1,6 +1,7 @@
 package com.csse3200.game.ai.tasks;
 
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.ChargeTask;
@@ -118,6 +119,10 @@ public class AITaskComponent extends Component implements TaskRunner {
     if (entity.getComponent(RangeAttackComponent.class) != null) {
       entity.getComponent(RangeAttackComponent.class).updateTarget(currentTarget);
     }
+    if (entity.getComponent(AOEAttackComponent.class) != null) {
+      entity.getComponent(AOEAttackComponent.class).setOrigin(entity.getPosition());
+    }
+
   }
 
 }

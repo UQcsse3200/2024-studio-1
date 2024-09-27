@@ -7,6 +7,7 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.*;
+import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
@@ -285,6 +286,10 @@ public class NPCFactory extends LoadedFactory {
       npc.addComponent(new RangeAttackComponent(target, config.attacks.ranged.range, config.attacks.ranged.rate,
               config.attacks.ranged.type, config.attacks.ranged.effects));
     }
+    if (config.attacks.aoe != null) {
+      npc.addComponent(new AOEAttackComponent(target, config.attacks.aoe.range, config.attacks.aoe.rate, config.attacks.aoe.effects, config.attacks.aoe.radius));
+    }
+
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
     return npc;

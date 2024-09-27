@@ -137,9 +137,16 @@
       }
     },
     "attacks": {
-      "melee": {
-        "range": 1.5,
-        "rate": 1
+      "aoe": {
+        "range": 3,
+        "rate": 1,
+        "radius": 2,
+        "effects": [
+          {
+            "type": "knockback",
+            "force": 1
+          }
+        ]
       }
     },
     "animations": [

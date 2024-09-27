@@ -14,8 +14,16 @@ import java.util.HashMap;
 public class PlayerAchievementComponent extends UIComponent {
     public HashMap<String, String> achievements;
     public PlayerAchievementComponent() {
-        achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
-                FileLoader.Location.EXTERNAL);
+        if (FileLoader.readClass(HashMap.class, "configs/achievements.json",
+                FileLoader.Location.EXTERNAL) == null) {
+            achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
+                    FileLoader.Location.LOCAL);
+        }
+        else {
+            achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
+                    FileLoader.Location.EXTERNAL);
+        }
+
     }
 
 

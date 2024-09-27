@@ -33,6 +33,7 @@ public class PlayerAchievementComponent extends UIComponent {
 
         //Add event handling
         entity.getEvents().addListener("updateSpeedPercentage", this::energyDrinkAchievement);
+        entity.getEvents().addListener("defeatedEnemy", this::defeatedEnemy);
         entity.getEvents().addListener("defeated10", this::defeated10);
     }
 
@@ -42,7 +43,9 @@ public class PlayerAchievementComponent extends UIComponent {
         // handled by superclass
     }
 
-
+    public void defeatedEnemy() {
+        addAchievement("First animal defeated", "images/npc/birdman.png");
+    }
     public void defeated10() {
         addAchievement("Defeated 10 Animals", "images/npc/birdman.png");
     }

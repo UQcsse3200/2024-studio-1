@@ -4,16 +4,21 @@ package com.csse3200.game.components.player;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.csse3200.game.components.player.inventory.CoinsComponent;
 import com.csse3200.game.files.FileLoader;
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ui.UIComponent;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 
 public class PlayerAchievementComponent extends UIComponent {
     public HashMap<String, String> achievements;
+    public ArrayList<String> energyDrinksCollected;
     public PlayerAchievementComponent() {
+        energyDrinksCollected = new ArrayList<>();
         if (FileLoader.readClass(HashMap.class, "configs/achievements.json",
                 FileLoader.Location.EXTERNAL) == null) {
             achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
@@ -35,14 +40,15 @@ public class PlayerAchievementComponent extends UIComponent {
         return achievements;
     }
 
-    @Override
     public void create() {
         super.create();
 
         //Add event handling
-        entity.getEvents().addListener("updateSpeedPercentage", this::energyDrinkAchievement);
-        entity.getEvents().addListener("defeatedEnemy", this::defeatedEnemy);
-        entity.getEvents().addListener("defeated10", this::defeated10);
+        entity.getEvents().addListener("updateSpeedPercentage", this::handleEnergyDrinkAchievement);
+        entity.getEvents().addListener("defeatedEnemy",  this::handleDefeatedEnemyAchievement);
+        entity.getEvents().addListener("addToInventory", ()-> addAchievement("First inventory collectible", "images/npc/birdman.png"));
+        entity.getEvents().addListener("itemUsed", () -> addAchievement("First item used", "images/npc/birdman.png"));
+        entity.getEvents().addListener("updateCoins", this::handleCoinsAchievement);
     }
 
 
@@ -51,18 +57,35 @@ public class PlayerAchievementComponent extends UIComponent {
         // handled by superclass
     }
 
-    public void defeatedEnemy() {
-        addAchievement("First animal defeated", "images/npc/birdman.png");
-    }
-    public void defeated10() {
-        addAchievement("Defeated 10 Animals", "images/npc/birdman.png");
-    }
 
     /**
      * A method to handle whether an energy drink achievement has been obtained. It is called any time an energy drink
      */
-    public void energyDrinkAchievement(float speedPercentage) {
-        addAchievement("First energy drink", "images/items/energy_drink_blue.png");
+    public void handleEnergyDrinkAchievement(float speedPercentage, String speedType) {
+        if (energyDrinksCollected.contains(speedType)) {
+            return;
+        }
+        else {
+            energyDrinksCollected.add(speedType);
+        }
+        if (energyDrinksCollected.size() == 3) {
+            addAchievement("All three energy drink types collected", "images/items/energy_drink_blue.png");
+        }
+    }
+
+    public void handleDefeatedEnemyAchievement(int deadCount) {
+        if (deadCount == 1) {
+            addAchievement("First defeated enemey", "images/items/energy_drink_blue.png");
+        } else if (deadCount == 10) {
+            addAchievement("10 enemies defeated", "images/items/energy_drink_blue.png");
+        }
+    }
+
+    public void handleCoinsAchievement() {
+        int numCoins = entity.getComponent(CoinsComponent.class).getCoins();
+        if (numCoins >= 100) {
+            addAchievement("Scored 100 points", "images/npc/birdman.png");
+        }
     }
 
     /**

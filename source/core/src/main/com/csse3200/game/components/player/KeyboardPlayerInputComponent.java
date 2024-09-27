@@ -24,24 +24,32 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private final Map<Integer, Action> downBindings;
     private final Map<Integer, Action> upBindings;
     private Vector2 directionShooting = null;
-    private Timer heldButton = new Timer();
-    private HeldInput task;
-    private static int inputDelay = 15;
+    // Timer and task for holding down a shoot button
+    private final Timer holdShoot = new Timer();
+    private RepeatShoot taskShoot;
+    private final Timer holdMelee = new Timer();
+    private RepeatMelee taskMelee;
+    private static final int inputDelay = 15; // time between 'button held' method calls in milliseconds
 
-    private class HeldInput extends TimerTask{
-        private Vector2 directionShooting;
-        public HeldInput(Vector2 direction){
+    /**
+     * TimerTask used to repeatedly shoot in a direction
+     */
+    private class RepeatShoot extends TimerTask{
+        private final Vector2 directionShooting;
+        public RepeatShoot(Vector2 direction){
             this.directionShooting = direction;
         }
         @Override
         public void run() {
             shoot(this.directionShooting);
         }
+    }
 
-//        @Override
-//        public boolean cancel(){
-//            return super.cancel();
-//        }
+    private class RepeatMelee extends TimerTask{
+        @Override
+        public void run() {
+            melee();
+        }
     }
 
     /**
@@ -79,13 +87,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
     }
+
+    /**
+     * Method used to setup the timer to hold the shoot button
+     * triggered whenever the player inputs to shoot (default is arrow keys)
+     * @param direction The direction to shoot in
+     */
     private boolean holdShoot(Vector2 direction){
-        if (this.task != null) {
-            this.task.cancel();
+        if (this.taskShoot != null) {
+            this.taskShoot.cancel();
         }
         this.directionShooting = direction;
-        this.task = new HeldInput(direction);
-        this.heldButton.scheduleAtFixedRate(task, inputDelay, inputDelay);
+        this.taskShoot = new RepeatShoot(direction);
+        this.holdShoot.scheduleAtFixedRate(taskShoot, inputDelay, inputDelay);
         return true;
     }
 
@@ -94,9 +108,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    /**
+     * Method used to stop calling the 'shoot' method
+     * Called when the player releases the input to shoot (default is arrow keys)
+     * @param direction
+     * @return (not sure why this needs to return)
+     */
     private boolean unShoot(Vector2 direction) {
         if (this.directionShooting == direction){
-            this.task.cancel();
+            this.taskShoot.cancel();
             this.directionShooting = null;
         }
         return true;
@@ -106,6 +126,23 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("attackMelee");
         return true;
     }
+
+    private boolean holdMelee(){
+        if (this.taskMelee != null) {
+            this.taskMelee.cancel();
+        }
+        this.taskMelee = new RepeatMelee();
+        this.holdMelee.scheduleAtFixedRate(taskMelee, inputDelay, inputDelay);
+        return true;
+    }
+
+    private boolean unMelee() {
+        if (this.taskMelee != null) {
+            this.taskMelee.cancel();
+        }
+        return true;
+    }
+
 
     private boolean useItem(Integer num) {
         switch (num) {
@@ -138,7 +175,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(SHOOT_RIGHT,  (i) -> holdShoot(Vector2Utils.RIGHT));
         actionMap.put(SHOOT_DOWN,  (i) -> holdShoot(Vector2Utils.DOWN));
 
-        actionMap.put(MELEE,  (i) -> melee());
+        actionMap.put(MELEE,  (i) -> holdMelee());
+
         actionMap.put(USE_1, (i) -> useItem(1));
         actionMap.put(USE_2, (i) -> useItem(2));
         actionMap.put(USE_3, (i) -> useItem(3));
@@ -162,6 +200,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(SHOOT_LEFT,  (i) -> unShoot(Vector2Utils.LEFT));
         actionMap.put(SHOOT_RIGHT,  (i) -> unShoot(Vector2Utils.RIGHT));
         actionMap.put(SHOOT_DOWN,  (i) -> unShoot(Vector2Utils.DOWN));
+
+        actionMap.put(MELEE,  (i) -> unMelee());
 
         return actionMap;
     }

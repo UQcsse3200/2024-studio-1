@@ -232,9 +232,7 @@ public class CombatStatsComponent extends Component {
             ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
            //ServiceLocator.getResourceService().playSound("sounds/hit.ogg");
             entity.getEvents().trigger("playerHit");
-            if (isDead()){
-                return;
-            }
+            if (isDead()){ return; }
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);

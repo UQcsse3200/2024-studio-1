@@ -127,7 +127,6 @@ public class PlayerActions extends Component {
      */
     private void shoot(Vector2 direction) {
         if (!dead) {
-            ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
             entity.getComponent(WeaponComponent.class).shoot(direction);
         }
     }

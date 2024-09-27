@@ -15,6 +15,8 @@ import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
+import com.csse3200.game.utils.RandomNumberGenerator;
+import java.util.Random;
 
 /**
  * A component that allows a player to interact with items
@@ -24,7 +26,8 @@ public class ItemPickupComponent extends Component {
     private boolean contact = false;
     Collectible item = null;
     Entity itemEntity = null;
-    CollectibleFactory testCollectibleFactory = new CollectibleFactory();
+    CollectibleFactory collectibleFactory = new CollectibleFactory();
+    Random random;
 
     /**
      * Construct a new empty item pickup component
@@ -39,6 +42,7 @@ public class ItemPickupComponent extends Component {
     @Override
     public void create() {
         super.create();
+        this.random = new Random();
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
         entity.getEvents().addListener("pickup", ()->handleItemPickup(item, itemEntity));
@@ -97,12 +101,10 @@ public class ItemPickupComponent extends Component {
         GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
         markEntityForRemoval(collisionItemEntity);
 
-        int randomInt = ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(0, 5);
+        int randomInt = this.random.nextInt(5);
         Entity newItem = this.randomItemGenerator(randomInt);
-//        Entity newItem = testCollectibleFactory.createCollectibleEntity("item:shieldpotion");
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
-//        area.spawnEntityAt(newItem, itemEntityPosition, true, true);
         entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
         itemEntity = newItem;
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
@@ -112,13 +114,13 @@ public class ItemPickupComponent extends Component {
         return 9;
     }
     private void checkItemPurchase(Collectible item, Entity itemEntity) {
-        int testFunds = getTestFunds();
+        int playerFunds = getTestFunds();
         if (item == null || itemEntity == null) {
             return;
         }
         if ((itemEntity.getComponent(BuyableComponent.class) != null) && contact) {
             int cost = itemEntity.getComponent(BuyableComponent.class).getCost();
-            if (testFunds >= cost) {
+            if (playerFunds >= cost) {
                 entity.getComponent(InventoryComponent.class).pickup(item);
                 markEntityForRemoval(itemEntity);
             }
@@ -168,6 +170,6 @@ public class ItemPickupComponent extends Component {
             case 5 -> specification = "buff:energydrink:Medium";
         }
 
-        return testCollectibleFactory.createCollectibleEntity(specification);
+        return collectibleFactory.createCollectibleEntity(specification);
     }
 }

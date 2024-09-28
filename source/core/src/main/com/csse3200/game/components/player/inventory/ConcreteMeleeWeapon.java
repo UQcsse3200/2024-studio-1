@@ -50,6 +50,14 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
     }
 
     /**
+     * Get the weaponEntity
+     * @return The entity that contains this weapon
+     */
+    public Entity getWeaponEntity() {
+        return this.weaponEntity;
+    }
+
+    /**
      * Pick up the melee weapon and put it in the inventory.
      * @param inventory The inventory to be put in.
      */
@@ -59,8 +67,11 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
         Entity player = inventory.getEntity();
         inventory.setMelee(this);
 
-        connectPlayer(player);
-        this.weaponEntity.setEnabled(true);
+        if (this.weaponEntity == null) {
+            logger.info("Weapon entity is null");
+            connectPlayer(player);
+            this.weaponEntity.setEnabled(true);
+        }
     }
 
     /**
@@ -70,9 +81,13 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
     private void connectPlayer(Entity player) {
         // Set weapon entity
         // Update weapon entity to link with player
-        this.weaponEntity.getComponent(FiringController.class).connectPlayer(player);
-        this.weaponEntity.getComponent(WeaponAnimationController.class).connectPlayer(player);
-        this.weaponEntity.getComponent(PositionTracker.class).connectPlayer(player);
+        if (weaponEntity != null) {
+            this.weaponEntity.getComponent(FiringController.class).connectPlayer(player);
+            this.weaponEntity.getComponent(PositionTracker.class).connectPlayer(player);
+            this.weaponEntity.getComponent(WeaponAnimationController.class).connectPlayer(player);
+        } else {
+            logger.info("Weapon entity is null");
+        }
     }
 
     /**
@@ -81,9 +96,13 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
     private void disconnectPlayer() {
         // Reset weapon entity
         // Update weapon entity to disconnect from player
-        this.weaponEntity.getComponent(FiringController.class).disconnectPlayer();
-        this.weaponEntity.getComponent(PositionTracker.class).disconnectPlayer();
-        this.weaponEntity.getComponent(WeaponAnimationController.class).disconnectPlayer();
+        try {
+            this.weaponEntity.getComponent(FiringController.class).disconnectPlayer();
+            this.weaponEntity.getComponent(PositionTracker.class).disconnectPlayer();
+            this.weaponEntity.getComponent(WeaponAnimationController.class).disconnectPlayer();
+        } catch (NullPointerException e) {
+            logger.info("Weapon entity is null or components not found");
+        }
     }
     /**
      * Pick up the ranged weapon and put it in the inventory.
@@ -112,8 +131,10 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
     public void drop(Inventory inventory) {
         Entity player = inventory.getEntity();
         inventory.resetMelee();
-        disconnectPlayer();
-        this.weaponEntity.setEnabled(false);
+        if (this.weaponEntity != null) {
+            disconnectPlayer();
+            this.weaponEntity.setEnabled(false);
+        }
     }
 
     /**

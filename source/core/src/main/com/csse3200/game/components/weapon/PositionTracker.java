@@ -7,8 +7,11 @@ import com.csse3200.game.entities.Entity;
  * Component to track the player's position and set it to the weapon entity.
  */
 public class PositionTracker extends Component {
-    private Entity player;
+    private Entity player; // The player entity
 
+    /**
+     * Update the position of the weapon entity to the player's position.
+     */
     @Override
     public void update() {
         // No action by default.
@@ -17,6 +20,10 @@ public class PositionTracker extends Component {
         }
     }
 
+    /**
+     * Set the player entity
+     * @param player the player entity
+     */
     private void setPlayer(Entity player) {
         this.player = player;
     }

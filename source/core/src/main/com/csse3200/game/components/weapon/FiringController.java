@@ -23,32 +23,38 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+/**
+ * Controller for firing weapons (predecessor: WeaponComponent)
+ */
 public class FiringController extends Component {
+
+    /**
+     * Logger for debugging purposes.
+     */
     private static final Logger logger = LoggerFactory.getLogger(FiringController.class);
 
     private Collectible weaponCollectible;
     private ProjectileFactory projectileFactory;
 
-    // Ranged --------------------------------------------
-    private int damage; // weapon damage
-    private float range; // range of weapon
-    private int fireRate; // fire rate of weapon (round per second)
+    private int damage;                                 // weapon damage
+    private float range;                                // range of weapon
+    private int fireRate;                               // fire rate of weapon (round per second)
 
-    private ProjectileConfig projectileConfig; // Config file for this weapon's projectile
-    private int ammo; // current ammo for shotgun only
-    private int maxAmmo; // max ammo for shotgun only
-    private int reloadTime; // reload time for shotgun only
+    private ProjectileConfig projectileConfig;          // Config file for this weapon's projectile
+    private int ammo;                                   // current ammo for ranged only
+    private int maxAmmo;                                // max ammo for ranged only
+    private int reloadTime;                             // reload time for ranged only
 
     // variable for storing sprite of weapon
     // Note: this should have default sprite (not holding weapon) and sprite for each
     // weapon type with hand holding it
     private Sprite weaponSprite;
     // Tracking weapon state
-    private long lastActivation; // Time of last ranged weapon activation, in seconds
-    private final long activationInterval; // Interval between ranged weapon activation, in seconds
+    private long lastActivation;                        // Time of last ranged weapon activation, in seconds
+    private final long activationInterval;              // Interval between ranged weapon activation, in seconds
 
     private Entity player;
-    private short targetLayer; // Layer to target for melee weapon
+    private short targetLayer;                          // Layer to target for melee weapon
     private final boolean isMelee;
 
     /**
@@ -62,6 +68,7 @@ public class FiringController extends Component {
         this.damage = collectible.getDamage();
         this.range = collectible.getRange();
         this.fireRate = collectible.getFireRate();
+
         // Setup variables to track weapon state
         this.lastActivation = 0L;
         this.activationInterval = this.fireRate == 0 ? 0 : (1000L / this.fireRate);
@@ -71,7 +78,6 @@ public class FiringController extends Component {
 
         // Type of projectile
         this.projectileConfig = projectileConfig;
-
         this.weaponCollectible = collectible;
     }
 
@@ -125,13 +131,16 @@ public class FiringController extends Component {
     }
 
     /**
-     * Activate weapon on the direction
-     *
+     * Activate weapon on the direction specified
+     * If the weapon is ranged, it will shoot in the direction specified (direction not null)
+     * If the weapon is melee, it will attack in the direction the player is walking
      * @param direction direction to shoot in, set to null for melees
+     * @return message to indicate the weapon attack
      */
-    public void activate(Vector2 direction) {
+    public String activate(Vector2 direction) {
         if (this.isMelee) {
             attackMelee();
+            return "Melee weapon attack triggered";
         } else {
             try {
                 if (direction == null) {
@@ -140,7 +149,9 @@ public class FiringController extends Component {
                 shoot(direction);
             } catch (NullPointerException e) {
                 logger.info("No direction specified for ranged weapon");
+                return "No direction specified for ranged weapon";
             }
+            return "Ranged weapon attack triggered";
         }
     }
 
@@ -303,7 +314,6 @@ public class FiringController extends Component {
         return damage;
     }
 
-
     /**
      * Set the weapon damage to new value (upgradable, buff,...)
      *
@@ -355,7 +365,11 @@ public class FiringController extends Component {
      * @return ammo of weapon
      */
     public int getAmmo() {
-        return ammo;
+        if (this.isMelee) {
+            return 0;
+        } else {
+            return ammo;
+        }
     }
 
     /**
@@ -384,7 +398,11 @@ public class FiringController extends Component {
      * @return max ammo of weapon
      */
     public int getMaxAmmo() {
-        return maxAmmo;
+        if (this.isMelee) {
+            return 0;
+        } else {
+            return maxAmmo;
+        }
     }
 
     /**
@@ -393,7 +411,9 @@ public class FiringController extends Component {
      * @param maxAmmo new max ammo of weapon
      */
     public void setMaxAmmo(int maxAmmo) {
-        this.maxAmmo = maxAmmo;
+        if (!this.isMelee) {
+            this.maxAmmo = maxAmmo;
+        }
     }
 
     /**
@@ -402,7 +422,11 @@ public class FiringController extends Component {
      * @return reload time of weapon
      */
     public int getReloadTime() {
-        return reloadTime;
+        if (this.isMelee) {
+            return 0;
+        } else {
+            return reloadTime;
+        }
     }
 
     /**
@@ -411,7 +435,7 @@ public class FiringController extends Component {
      * @param reloadTime new reload time of weapon
      */
     public void setReloadTime(int reloadTime) {
-        if (reloadTime < 0) {
+        if (reloadTime < 0 && !this.isMelee) {
             throw new IllegalArgumentException("Reload time must be greater than 0");
         } else {
             this.reloadTime = reloadTime;
@@ -436,4 +460,24 @@ public class FiringController extends Component {
         this.weaponSprite = sprite;
     }
 
+    public ProjectileFactory getProjectileFactory() {
+        // return the projectile factory
+        return this.projectileFactory;
+    }
+
+    /**
+     * Get the player that is using this weapon
+     * @return the player entity
+     */
+    public Entity getPlayer() {
+        return this.player;
+    }
+
+    /**
+     * Get the target layer of the weapon
+     * @return the target layer
+     */
+    public short getTargetLayer() {
+        return this.targetLayer;
+    }
 }

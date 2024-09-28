@@ -2,7 +2,6 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;

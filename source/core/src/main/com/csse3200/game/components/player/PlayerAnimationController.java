@@ -3,7 +3,6 @@ package com.csse3200.game.components.player;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
-import java.util.Objects;
 
 
 /**
@@ -24,6 +23,7 @@ public class PlayerAnimationController extends Component {
         Player1,
         Player2,
         Player3,
+        Bear,
         Player4
     }
 
@@ -39,6 +39,8 @@ public class PlayerAnimationController extends Component {
             case ("images/player/homeless1.atlas"):
                 this.playerNum = PlayerNum.Player2;
                 break;
+            case "images/npc/bear/bear.atlas":
+                this.playerNum = PlayerNum.Bear;
             case ("images/player/homeless2.atlas"):
                 this.playerNum = PlayerNum.Player3;
                 break;
@@ -64,7 +66,7 @@ public class PlayerAnimationController extends Component {
         entity.getEvents().addListener("death", this::deathAnimation);
         entity.getEvents().addListener("playerHit", this::damageAnimation);
         entity.getEvents().addListener("stopAnimation", this::stopAnimation);
-        animationController.startAnimation("idle");
+        stationaryAnimation();
     }
 
     /**
@@ -72,7 +74,10 @@ public class PlayerAnimationController extends Component {
      */
     void stationaryAnimation() {
         if (!death) {
-            animationController.startAnimation("idle");
+            switch (playerNum) {
+                case Bear -> animationController.startAnimation("idle_bottom");
+                case Player1, Player2, Player3, Player4-> animationController.startAnimation("idle");
+            }
         }
     }
 
@@ -83,6 +88,7 @@ public class PlayerAnimationController extends Component {
         if (!death) {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-left");
+                case Bear -> animationController.startAnimation("walk_left");
                 case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
         }
@@ -95,6 +101,7 @@ public class PlayerAnimationController extends Component {
         if (!death) {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-right");
+                case Bear -> animationController.startAnimation("walk_right");
                 case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
         }
@@ -107,6 +114,7 @@ public class PlayerAnimationController extends Component {
         if (!death) {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-down");
+                case Bear -> animationController.startAnimation("walk_bottom");
                 case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
             }
         }
@@ -120,6 +128,7 @@ public class PlayerAnimationController extends Component {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-up");
                 case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
+                case Bear -> animationController.startAnimation("walk_top");
             }
         }
     }
@@ -131,6 +140,7 @@ public class PlayerAnimationController extends Component {
         switch (playerNum) {
             case Player1 -> animationController.startAnimation( "death-down");
             case Player2, Player3, Player4 -> animationController.startAnimation( "Dead");
+            case Bear -> animationController.startAnimation("death_left");
         }
         death = true;
     }
@@ -154,6 +164,7 @@ public class PlayerAnimationController extends Component {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation( "damage-down");
                 case Player2, Player3, Player4 -> animationController.startAnimation( "Hurt");
+                case Bear -> animationController.startAnimation("walk_top");
             }
         }
     }

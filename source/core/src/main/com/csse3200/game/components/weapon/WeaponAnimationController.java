@@ -16,6 +16,7 @@ import java.util.Objects;
 public class WeaponAnimationController extends Component {
     WeaponAnimationRenderComponent animationController;
 
+    Boolean conencted;
     Vector2 weaponDirection;
     Vector2 up;
     Vector2 down;
@@ -31,9 +32,19 @@ public class WeaponAnimationController extends Component {
         down = new Vector2(0.0f, -1.0f);
         left = new Vector2(1.0f, 0.0f);
         right = new Vector2(-1.0f, 0.0f);
+        this.getEntity().getEvents().addListener("shootRight", this::animateShootRight);
+        this.getEntity().getEvents().addListener("shootLeft", this::animateShootLeft);
+        this.getEntity().getEvents().addListener("shootUp", this::animateShootUp);
+        this.getEntity().getEvents().addListener("shootDown", this::animateShootDown);
     }
 
+    /**
+     * Connect this component to the player who is using the weapon to get the events from the
+     * player
+     * @param player the player entity
+     */
     public void connectPlayer(Entity player) {
+        conencted = true;
         if (Objects.equals(this.getEntity().getComponent(NameComponent.class).getName(),
                 "Ranged")) {
             player.getEvents().addListener("walkLeft", this::animateLeft);
@@ -41,40 +52,69 @@ public class WeaponAnimationController extends Component {
             player.getEvents().addListener("walkUp", this::animateUp);
             player.getEvents().addListener("walkDown", this::animateDown);
         }
-        this.getEntity().getEvents().addListener("shootRight", this::animateShootRight);
-        this.getEntity().getEvents().addListener("shootLeft", this::animateShootLeft);
-        this.getEntity().getEvents().addListener("shootUp", this::animateShootUp);
-        this.getEntity().getEvents().addListener("shootDown", this::animateShootDown);
+    }
+
+    /**
+     * Remove the player from this weapon
+     * Will not play directional animation and set the animation to idle
+     */
+    public void disconnectPlayer() {
+        this.conencted = false;
+        animationController.startAnimation("idle");
     }
 
     private void animateLeft() {
+        if (!this.conencted) {
+            return;
+        }
         animationController.startAnimation("left");
         weaponDirection = left;
     }
 
     private void animateIdle() {
+        if (!this.conencted) {
+            return;
+        }
         animationController.startAnimation("idle");
         weaponDirection = right;
     }
 
     private void animateUp() {
+        if (!this.conencted) {
+            return;
+        }
         animationController.startAnimation("up");
         weaponDirection = up;
     }
     private void animateDown() {
+        if (!this.conencted) {
+            return;
+        }
         animationController.startAnimation("down");
         weaponDirection = down;
     }
     private void animateShootRight() {
+        if (!this.conencted) {
+            return;
+        }
         animationController.startAnimation("shootRight");
     }
     private void animateShootLeft() {
+        if (!this.conencted) {
+            return;
+        }
         animationController.startAnimation("shootLeft");
     }
     private void animateShootUp() {
+        if (!this.conencted) {
+            return;
+        }
         animationController.startAnimation("shootUp");
     }
     private void animateShootDown() {
+        if (!this.conencted) {
+            return;
+        }
         animationController.startAnimation("shootDown");
     }
 }

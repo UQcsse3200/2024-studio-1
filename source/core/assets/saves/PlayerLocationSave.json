@@ -1,10 +1,10 @@
-[
 {
-	class: java.lang.String
-	value: seed
-}
-{
+RoomNum: {
 	class: java.lang.String
 	value: 0_0
 }
-]
+LevelNum: {
+	class: java.lang.String
+	value: 0
+}
+}

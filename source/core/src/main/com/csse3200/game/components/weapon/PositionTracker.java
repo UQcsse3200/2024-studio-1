@@ -8,6 +8,7 @@ import com.csse3200.game.entities.Entity;
  */
 public class PositionTracker extends Component {
     private Entity player;
+
     @Override
     public void update() {
         // No action by default.
@@ -16,11 +17,22 @@ public class PositionTracker extends Component {
         }
     }
 
-    public Entity getPlayer() {
-        return player;
+    private void setPlayer(Entity player) {
+        this.player = player;
     }
 
-    public void setPlayer(Entity player) {
-        this.player = player;
+    /**
+     * Connect this component to the player who is using the weapon to get the position
+     * @param player the player entity
+     */
+    public void connectPlayer(Entity player) {
+        setPlayer(player);
+    }
+
+    /**
+     * Remove player from this weapon
+     */
+    public void disconnectPlayer() {
+        setPlayer(null);
     }
 }

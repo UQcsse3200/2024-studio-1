@@ -67,7 +67,7 @@ public class DoorFactory {
             if (fixture2.getUserData() instanceof Entity entity2 &&
                     entity2.getId() == playerId) {
                 log.info("this is the room {}", room);
-                if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().isAllAnimalDead()) {
+                if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getIsRoomComplete()) {
                     ServiceLocator.getGameAreaService().getGameArea().changeRooms(room);
                 }
             }

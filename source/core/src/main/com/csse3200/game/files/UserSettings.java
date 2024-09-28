@@ -23,13 +23,19 @@ public class UserSettings {
 
   /**
    * Get the stored user settings
-   * @return Copy of the current settings
+   * @return Copy of the current settings or default settings if there was an error reading files
    */
   public static Settings get() {
+    Settings defaultSettings = new Settings();
+    if (Gdx.files == null) {
+      // Likely means Gdx environment hasn't been set up yet (e.g. during unit tests), just use
+      // defaults
+      return defaultSettings;
+    }
     String path = ROOT_DIR + File.separator + SETTINGS_FILE;
     Settings fileSettings = FileLoader.readClass(Settings.class, path, Location.EXTERNAL);
     // Use default values if file doesn't exist
-    return fileSettings != null ? fileSettings : new Settings();
+    return fileSettings != null ? fileSettings : defaultSettings;
   }
 
   /**

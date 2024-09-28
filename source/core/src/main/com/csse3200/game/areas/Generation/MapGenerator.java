@@ -344,6 +344,12 @@ public class MapGenerator {
         return rng.getSeed();
     }
 
+    /**
+     * Sets the seed when map is loaded
+     * @param seed: the seed to be set.
+     */
+    public void setMapSeed(String seed) {rng.setSeed(seed);}
+
     public String get_player_position() {
         return this.player_position;
     }

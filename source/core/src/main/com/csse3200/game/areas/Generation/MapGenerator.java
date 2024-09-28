@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.badlogic.gdx.graphics.g3d.particles.ParticleSorter;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
@@ -12,6 +14,11 @@ import com.csse3200.game.utils.RandomNumberGenerator;
  * It creates rooms, connects them, and provides methods to manipulate and export the map.
  */
 public class MapGenerator {
+    public static final int BASEROOM = 0;
+    public static final int BOSSROOM = 1;
+    public static final int NPCROOM = 2;
+    public static final int GAMEROOM = 3;
+
     public int mapSize;
     public RandomNumberGenerator rng;
     public String player_position;
@@ -39,7 +46,7 @@ public class MapGenerator {
         this.player_position = "0_0"; // Placeholder
 
         // Add the starting room to the relative position map
-        addBlankRoom(this.player_position, 0, 0);
+        addBlankRoom(this.player_position, 0, 0, BASEROOM);
     }
 
     /**
@@ -49,10 +56,11 @@ public class MapGenerator {
      * @param animal_index The index of the animal in the room.
      * @param item_index The index of the item in the room.
      */
-    private void addBlankRoom(String key, int animal_index, int item_index) {
+    private void addBlankRoom(String key, int animal_index, int item_index, int type) {
         HashMap<String, Integer> roomDetails = new HashMap<>();
         roomDetails.put("animal_index", animal_index);
         roomDetails.put("item_index", item_index);
+        roomDetails.put("room_type", type);
 
         List<String> connections = new ArrayList<>(List.of("", "", "", ""));
 
@@ -201,10 +209,82 @@ public class MapGenerator {
             }
             int animal_index = rng.getRandomInt(0, 7);
             int item_index = rng.getRandomInt(0, 6);
-            addBlankRoom(new_Room_key, animal_index, item_index);
+            addBlankRoom(new_Room_key, animal_index, item_index, BASEROOM);
             connectRooms(randomRoomKey, new_Room_key, detlas_index);
             roomCount--;
         }
+        setSupplementaryRooms();
+    }
+
+    /**
+     * Sets boss room and any supplementary rooms (currently just NPC and Gambling room)
+     */
+    private void setSupplementaryRooms() {
+        // Set rooms not to be modified
+        List<String> setRooms = new ArrayList<>();
+        setRooms.add("0_0");
+
+        // Boss Room
+        String bossRoom = findFurthestRoom();
+        HashMap<String, Integer> details = roomDetails.get(bossRoom);
+        details.put("room_type", BOSSROOM);
+        setRooms.add(bossRoom);
+
+        // More Different Rooms
+        List<String> rooms = new ArrayList<>(roomDetails.keySet());
+
+        // NPC Room
+        setRoom(rooms, setRooms, NPCROOM);
+        // Gambling Room
+        setRoom(rooms, setRooms, GAMEROOM);
+    }
+
+    /**
+     * Modular setting of rooms to determined room type based on the current already set rooms. Does not set rooms
+     * if the room is already set with another type
+     * @param rooms - list of room keys
+     * @param setRooms - set rooms that already are modified to a particular room type
+     * @param type - type to set the room to
+     */
+    private void setRoom(List<String> rooms, List<String> setRooms, int type) {
+        String randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
+        while (setRooms.contains(randomRoomKey)) {
+            randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
+        }
+        HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
+        details.put("room_type", type);
+        setRooms.add(randomRoomKey);
+    }
+
+    /**
+     * Find the furthest room from the centre (to be used to spawn boss room)
+     * @return - String representation of the room furthest from centre
+     */
+    public String findFurthestRoom() {
+        String location = "0_0";
+        int maxDist = 0;
+        for (Map.Entry<String, List<String>> entry : relativePosition.entrySet()) {
+            String key = entry.getKey();
+            int dist = calculateDistance(key);
+            if (maxDist < dist) {
+                maxDist = dist;
+                location = key;
+            }
+        }
+        return location;
+    }
+
+    /**
+     * Calculates distance from centre room to current room key
+     *
+     * @param key - room key
+     * @return - the distance in room traversals from first centre room
+     */
+    public int calculateDistance(String key) {
+        String[] parts = key.split("_");
+        int x = Math.abs(Integer.parseInt(parts[0]));
+        int y = Math.abs(Integer.parseInt(parts[1]));
+        return x + y;
     }
 
     /**

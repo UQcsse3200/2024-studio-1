@@ -133,7 +133,14 @@ public class FiringController extends Component {
         if (this.isMelee) {
             attackMelee();
         } else {
-            shoot(direction);
+            try {
+                if (direction == null) {
+                    throw new NullPointerException();
+                }
+                shoot(direction);
+            } catch (NullPointerException e) {
+                logger.info("No direction specified for ranged weapon");
+            }
         }
     }
 

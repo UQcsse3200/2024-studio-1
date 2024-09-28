@@ -59,8 +59,10 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         Entity player = inventory.getEntity();
         inventory.setRanged(this);
 
-        connectPlayer(player);
-        this.weaponEntity.setEnabled(true);
+        if (this.weaponEntity != null) {
+            connectPlayer(player);
+            this.weaponEntity.setEnabled(true);
+        }
     }
 
     /**
@@ -92,8 +94,10 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         Entity player = inventory.getEntity();
         inventory.resetRanged();
 
-        disconnectPlayer();
-        this.weaponEntity.setEnabled(false);
+        if (this.weaponEntity != null) {
+            disconnectPlayer();
+            this.weaponEntity.setEnabled(false);
+        }
     }
 
     /**
@@ -103,9 +107,13 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     private void connectPlayer(Entity player) {
         // Set weapon entity
         // Update weapon entity to link with player
-        this.weaponEntity.getComponent(FiringController.class).connectPlayer(player);
-        this.weaponEntity.getComponent(WeaponAnimationController.class).connectPlayer(player);
-        this.weaponEntity.getComponent(PositionTracker.class).connectPlayer(player);
+        try {
+            this.weaponEntity.getComponent(FiringController.class).connectPlayer(player);
+            this.weaponEntity.getComponent(WeaponAnimationController.class).connectPlayer(player);
+            this.weaponEntity.getComponent(PositionTracker.class).connectPlayer(player);
+        } catch (NullPointerException e) {
+            logger.info("Weapon entity is null or components not found");
+        }
     }
 
     /**
@@ -114,9 +122,13 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     private void disconnectPlayer() {
         // Reset weapon entity
         // Update weapon entity to disconnect from player
-        this.weaponEntity.getComponent(FiringController.class).disconnectPlayer();
-        this.weaponEntity.getComponent(PositionTracker.class).disconnectPlayer();
-        this.weaponEntity.getComponent(WeaponAnimationController.class).disconnectPlayer();
+        try {
+            this.weaponEntity.getComponent(FiringController.class).disconnectPlayer();
+            this.weaponEntity.getComponent(PositionTracker.class).disconnectPlayer();
+            this.weaponEntity.getComponent(WeaponAnimationController.class).disconnectPlayer();
+        } catch (NullPointerException e) {
+            logger.info("Weapon entity is null or components not found");
+        }
     }
 
     /**
@@ -126,5 +138,20 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     @Override
     public void shoot(Vector2 direction) {
         this.weaponEntity.getComponent(FiringController.class).activate(direction);
+    }
+
+    /**
+     * Reload the weapon
+     */
+    public Entity getWeaponEntity() {
+        return this.weaponEntity;
+    }
+
+    public int getClipSize() {
+        return this.maxAmmo;
+    }
+
+    public void setClipSize(int i) {
+        this.maxAmmo = i;
     }
 }

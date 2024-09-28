@@ -1,6 +1,24 @@
 package com.csse3200.game.entities.configs;
 
 public class BossConfig extends NPCConfigs.NPCConfig {
+    public float waitTime;
+    public float chaseTime;
+    public float wanderMinRange;
+    public float chaseMinRange;
+    public float chaseMaxRange;
+    public float chargeMinRange;
+    public float chargeMaxRange;
+    public float retreatMinRange;
+    public float retreatMaxRange;
+    public float jumpMinRange;
+    public float jumpMaxRange;
+    public float aoeMinRange;
+    public float aoeMaxRange;
+    public float rangedMinRange;
+    public float rangedMaxRange;
+    public int rangedAttackNum;
+    public String fallbackState;
+
     public void setDefaults() {
         // Default task values specific to bosses
         this.tasks.wander.wanderRadius = 3.0f;

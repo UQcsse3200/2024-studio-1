@@ -277,14 +277,31 @@
     "health": 500,
     "baseAttack": 40,
     "isDirectional": true,
+    "waitTime": 1.5,
+    "chaseTime": 7,
+    "wanderMinRange": 10,
+    "chaseMinRange": 2,
+    "chaseMaxRange": 5,
+    "chargeMinRange": 5,
+    "chargeMaxRange": 10,
+    "jumpMinRange": 4,
+    "jumpMaxRange": 7,
+    "retreatMinRange": 0,
+    "retreatMaxRange": 2,
+    "aoeMinRange": 0,
+    "aoeMaxRange": 2,
+    "rangedMinRange": 0,
+    "rangedMaxRange": 0,
+    "rangedAttackNum": 0,
+    "fallbackState": "CHARGE",
     "tasks": {
       "wander": {
       },
       "chase": {
-        "chaseSpeed": 3
+        "chaseSpeed": 2
       },
       "charge": {
-        "chaseSpeed": 4
+        "chaseSpeed": 5
       },
       "runAway": {
         "chaseSpeed": 5
@@ -322,27 +339,37 @@
     ]
   },
   "birdman": {
-    "health": 500,
+    "health": 1500,
     "baseAttack": 40,
     "isDirectional": true,
+    "waitTime": 3,
+    "chaseTime": 7,
+    "wanderMinRange": 10,
+    "chaseMinRange": 2,
+    "chaseMaxRange": 4,
+    "chargeMinRange": 5,
+    "chargeMaxRange": 10,
+    "jumpMinRange": 3,
+    "jumpMaxRange": 6,
+    "retreatMinRange": 0,
+    "retreatMaxRange": 2,
+    "aoeMinRange": 0,
+    "aoeMaxRange": 2,
+    "rangedMinRange": 4,
+    "rangedMaxRange": 5,
+    "rangedAttackNum": 4,
+    "fallbackState": "RANGE_ATTACK",
     "tasks": {
       "wander": {
-        "wanderRadius": 5,
-        "waitTime": 3,
-        "wanderSpeed": 1
       },
       "chase": {
-        "priority": 10,
-        "chaseSpeed": 2,
-        "viewDistance": 6,
-        "chaseDistance": 8
+        "chaseSpeed": 3
       },
       "charge": {
-        "priority": 5,
-        "viewDistance": 4,
-        "chaseDistance": 5,
-        "chaseSpeed": 3,
-        "waitTime": 1
+        "chaseSpeed": 6
+      },
+      "runAway": {
+          "chaseSpeed": 5
       }
     },
     "attacks": {
@@ -355,6 +382,11 @@
             "force": 2
           }
         ]
+      },
+      "ranged": {
+          "range": 10,
+          "rate": 1,
+          "type": 0
       }
     },
     "animations": [

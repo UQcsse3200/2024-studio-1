@@ -9,7 +9,7 @@ import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.BossConfig;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -32,10 +32,9 @@ public class BossAIComponent extends Component implements TaskRunner {
   private State currentState = State.IDLE;
   private State previousState = State.IDLE;
   private final Entity target;
-  private final NPCConfigs.NPCConfig config;
+  private final BossConfig config;
   private GameTime timeSource;
   private long endTime;
-  private float chaseTime = 7;
 
 
   // Components for attack and movement
@@ -51,7 +50,7 @@ public class BossAIComponent extends Component implements TaskRunner {
   private WanderTask wanderTask;
   private PriorityTask currentTask;
 
-  public BossAIComponent(Entity target, NPCConfigs.NPCConfig config) {
+  public BossAIComponent(Entity target, BossConfig config) {
     this.target = target;
     this.config = config;
   }
@@ -64,7 +63,7 @@ public class BossAIComponent extends Component implements TaskRunner {
     chargeTask = new ChargeTask(target, config.tasks.charge);
     chaseTask = new ChaseTask(target, config.tasks.chase);
     runAwayTask = new RunAwayTask(target, config.tasks.runAway);
-    waitTask = new WaitTask(3,1);
+    waitTask = new WaitTask(config.waitTime,1);
     wanderTask = new WanderTask(config.tasks.wander);
     chargeTask.create(this);
     chaseTask.create(this);
@@ -133,27 +132,36 @@ public class BossAIComponent extends Component implements TaskRunner {
   }
 
   private void handleIdleState(float distanceToTarget) {
-    if (distanceToTarget > 10) {
+    if (distanceToTarget > config.wanderMinRange) {
       setState(State.WANDER);
       previousState = State.WANDER;
-    } else if (distanceToTarget > 5 && distanceToTarget < 10 && previousState != State.CHARGE) {
+    } else if (distanceToTarget > config.chargeMinRange && distanceToTarget < config.chargeMaxRange
+            && previousState != State.CHARGE) {
       setState(State.CHARGE);
       previousState = State.CHARGE;
-    } else if (distanceToTarget > 2 && distanceToTarget < 5 && previousState != State.CHASE) {
+    } else if (distanceToTarget > config.chaseMinRange && distanceToTarget < config.chaseMaxRange
+            && previousState != State.CHASE) {
       setState(State.CHASE);
       previousState = State.CHASE;
-    } else if (distanceToTarget > 4 && distanceToTarget < 7) {
+    } else if (distanceToTarget > config.jumpMinRange && distanceToTarget < config.jumpMaxRange
+            && previousState != State.JUMP) {
       setState(State.JUMP);
       previousState = State.JUMP;
-    } else if (distanceToTarget < 2 && previousState != State.RETREAT) {
+    } else if (distanceToTarget > config.retreatMinRange && distanceToTarget < config.retreatMaxRange
+            && previousState != State.RETREAT) {
       setState(State.RETREAT);
       previousState = State.RETREAT;
-    } else if (distanceToTarget < 2) {
+    } else if (distanceToTarget > config.rangedMinRange && distanceToTarget < config.rangedMaxRange
+            && previousState != State.RANGE_ATTACK) {
+      setState(State.RANGE_ATTACK);
+      previousState = State.RANGE_ATTACK;
+    } else if (distanceToTarget > config.aoeMinRange && distanceToTarget < config.aoeMaxRange) {
       setState(State.AOE_ATTACK);
       previousState = State.AOE_ATTACK;
     } else {
-      setState(State.RANGE_ATTACK);
-      previousState = State.RANGE_ATTACK;
+      State fallback = getFallbackState(config.fallbackState);
+      setState(fallback);
+      previousState = fallback;
     }
   }
 
@@ -231,7 +239,7 @@ public class BossAIComponent extends Component implements TaskRunner {
         break;
       case CHASE:
         changeTask(chaseTask);
-        endTime = timeSource.getTime() + (int)(chaseTime * 1000);
+        endTime = timeSource.getTime() + (int)(config.chaseTime * 1000);
         meleeAttackComponent.setEnabled(true);
         break;
       case JUMP:
@@ -254,7 +262,7 @@ public class BossAIComponent extends Component implements TaskRunner {
           setState(State.IDLE);
         } else {
           changeTask(waitTask);
-          rangeAttackComponent.enableForNumAttacks(10);
+          rangeAttackComponent.enableForNumAttacks(config.rangedAttackNum);
         }
         break;
     }
@@ -268,6 +276,30 @@ public class BossAIComponent extends Component implements TaskRunner {
     currentTask = desiredTask;
     if (desiredTask != null) {
       desiredTask.start();
+    }
+  }
+
+  private State getFallbackState(String fallbackStateStr) {
+    switch (fallbackStateStr.toUpperCase()) {
+      case "WANDER":
+        return State.WANDER;
+      case "CHARGE":
+        return State.CHARGE;
+      case "CHASE":
+        return State.CHASE;
+      case "JUMP":
+        return State.JUMP;
+      case "RETREAT":
+        return State.RETREAT;
+      case "AOE_ATTACK":
+        return State.AOE_ATTACK;
+      case "RANGE_ATTACK":
+        return State.RANGE_ATTACK;
+      case "WAIT":
+        return State.WAIT;
+      default:
+        // If the string is invalid or null, return IDLE as a fallback.
+        return State.IDLE;
     }
   }
 }

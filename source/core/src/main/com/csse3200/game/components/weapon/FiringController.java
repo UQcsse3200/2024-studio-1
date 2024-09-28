@@ -51,6 +51,12 @@ public class FiringController extends Component {
     private short targetLayer; // Layer to target for melee weapon
     private final boolean isMelee;
 
+    /**
+     * Initialize the firing controller for ranged weapon
+     *
+     * @param collectible      the weapon to get the specification from
+     * @param projectileConfig
+     */
     public FiringController(RangedWeapon collectible, ProjectileConfig projectileConfig) {
         this.isMelee = false;
         this.damage = collectible.getDamage();
@@ -58,7 +64,7 @@ public class FiringController extends Component {
         this.fireRate = collectible.getFireRate();
         // Setup variables to track weapon state
         this.lastActivation = 0L;
-        this.activationInterval = this.fireRate == 0?0 : (1000L / this.fireRate);
+        this.activationInterval = this.fireRate == 0 ? 0 : (1000L / this.fireRate);
         this.ammo = collectible.getAmmo();
         this.maxAmmo = collectible.getMaxAmmo();
         this.reloadTime = collectible.getReloadTime();
@@ -69,14 +75,19 @@ public class FiringController extends Component {
         this.weaponCollectible = collectible;
     }
 
+    /**
+     * Initialize the firing controller for melee weapon
+     *
+     * @param collectible the weapon to get the specification from
+     */
     public FiringController(MeleeWeapon collectible) {
-        this.isMelee = false;
+        this.isMelee = true;
         this.damage = collectible.getDamage();
         this.range = collectible.getRange();
         this.fireRate = collectible.getFireRate();
         // Setup variables to track weapon state
         this.lastActivation = 0L;
-        this.activationInterval = this.fireRate == 0?0 : (1000L / this.fireRate);
+        this.activationInterval = this.fireRate == 0 ? 0 : (1000L / this.fireRate);
         this.ammo = 0;
         this.maxAmmo = 0;
         this.reloadTime = 0;
@@ -88,7 +99,7 @@ public class FiringController extends Component {
     }
 
     /**
-     * Create the projectile factory and weapon factory
+     * Create the projectile factory
      */
     @Override
     public void create() {
@@ -96,22 +107,33 @@ public class FiringController extends Component {
         this.projectileFactory = new ProjectileFactory();
     }
 
+    /**
+     * Store the player that are using this weapon
+     *
+     * @param player
+     */
     public void connectPlayer(Entity player) {
         this.player = player;
+        this.targetLayer = PhysicsLayer.NPC;
     }
+
+    /**
+     * Remove player from this weapon
+     */
     public void disconnectPlayer() {
         this.player = null;
     }
 
     /**
      * Activate weapon on the direction
+     *
      * @param direction direction to shoot in, set to null for melees
      */
     public void activate(Vector2 direction) {
         if (this.isMelee) {
-            shoot(direction);
-        } else {
             attackMelee();
+        } else {
+            shoot(direction);
         }
     }
 
@@ -211,7 +233,7 @@ public class FiringController extends Component {
      */
     private void applyFilteredDamage(List<Entity> mapEntities) {
         // if player still survive
-        if (this.entity.getComponent(CombatStatsComponent.class).getHealth() <= 0) {
+        if (this.player.getComponent(CombatStatsComponent.class).getHealth() <= 0) {
             return;
         }
 
@@ -239,7 +261,7 @@ public class FiringController extends Component {
 
             CombatStatsComponent targetStats = e.getComponent(CombatStatsComponent.class);
             if (targetStats != null) {
-                targetStats.hit(this.player.getComponent(CombatStatsComponent.class));
+                targetStats.hit(this.entity.getComponent(CombatStatsComponent.class));
             }
         }
 

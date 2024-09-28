@@ -1,4 +1,4 @@
-package com.csse3200.game.areas;
+package com.csse3200.game.areas.Levels;
 
 import com.csse3200.game.areas.Generation.MapGenerator;
 import com.csse3200.game.files.FileLoader;

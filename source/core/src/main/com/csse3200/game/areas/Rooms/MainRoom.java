@@ -1,4 +1,4 @@
-package com.csse3200.game.areas;
+package com.csse3200.game.areas.Rooms;
 
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;

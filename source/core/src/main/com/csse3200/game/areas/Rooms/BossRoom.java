@@ -1,8 +1,9 @@
-package com.csse3200.game.areas;
+package com.csse3200.game.areas.Rooms;
 
 import java.util.List;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;

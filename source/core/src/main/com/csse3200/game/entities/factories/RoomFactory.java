@@ -2,9 +2,8 @@ package com.csse3200.game.entities.factories;
 
 import java.util.List;
 
-
-import com.csse3200.game.areas.BossRoom;
-import com.csse3200.game.areas.MainRoom;
+import com.csse3200.game.areas.Rooms.BossRoom;
+import com.csse3200.game.areas.Rooms.MainRoom;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Room;
 

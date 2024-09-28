@@ -1,5 +1,6 @@
 package com.csse3200.game.areas;
 
+import com.csse3200.game.areas.Levels.LevelFactory;
 import com.csse3200.game.entities.Entity;
 
 /**

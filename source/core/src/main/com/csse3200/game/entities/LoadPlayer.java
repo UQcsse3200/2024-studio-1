@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.*;
@@ -72,9 +71,7 @@ public class LoadPlayer {
      * @param config the config file that contain the texture atlas filename.
      */
     public  void addAtlas(Entity player, PlayerConfig config) {
-        TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         if (!Objects.equals(config.textureAtlasFilename, "images/player/player.atlas")) {
-            TextureRegion defaultTexture = atlas.findRegion("idle");
             player.setScale(2f, 2f);
         } else {
             player.setScale(playerScale, playerScale);
@@ -112,13 +109,11 @@ public class LoadPlayer {
                         10, 1, 1, 10, 10, 0));
         player.getComponent(PlayerActions.class).setSpeed(config.speed);
 
-                CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
-                player.addComponent(coinsComponent)
+        CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
+        player.addComponent(coinsComponent)
                         .addComponent(new PlayerCoinDisplay(coinsComponent));
 
-            player.getComponent(PlayerActions.class).setSpeed(config.speed);
-
-
+        player.getComponent(PlayerActions.class).setSpeed(config.speed);
     }
 
     /**

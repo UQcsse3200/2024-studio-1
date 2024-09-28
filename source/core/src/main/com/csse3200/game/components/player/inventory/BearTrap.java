@@ -29,7 +29,7 @@ public class BearTrap extends UsableItem {
 
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/armor.png");
+        return new Texture("images/items/trap_open.png");
     }
 
     @Override

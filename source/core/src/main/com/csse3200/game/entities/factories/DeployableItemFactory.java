@@ -39,9 +39,10 @@ public class DeployableItemFactory extends LoadedFactory {
         Entity bearTrap = new Entity()
                 .addComponent(new HitboxComponent())
                 .addComponent(new CombatStatsComponent(100,30))
-                .addComponent(new TextureRenderComponent(new Texture("images/items/damage_buff.png")))
+                .addComponent(new TextureRenderComponent(new Texture("images/items/trap_close.png")))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new TrapComponent());
+
 
         bearTrap.getComponent(TextureRenderComponent.class).scaleEntity();
 

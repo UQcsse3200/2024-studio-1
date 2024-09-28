@@ -33,7 +33,7 @@ public class Heart extends BuffItem{
 
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/syringe.png");
+        return new Texture("images/items/Heart.png");
     }
 
 

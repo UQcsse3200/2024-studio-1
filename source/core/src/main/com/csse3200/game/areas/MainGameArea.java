@@ -103,6 +103,7 @@ public class MainGameArea extends GameArea {
         currentPosition.put("LevelNum", levelNum);
         currentPosition.put("RoomNum", currentRoomName);
         //exports the current player location (room and level details into a json).
+        System.out.println("roomComplete?:" + currentRoom.getIsRoomComplete());
         FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
     }
 

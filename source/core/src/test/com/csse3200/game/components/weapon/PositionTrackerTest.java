@@ -1,6 +1,7 @@
 package com.csse3200.game.components.weapon;
 
 
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
@@ -63,9 +65,28 @@ public class PositionTrackerTest {
     }
 
     @org.junit.jupiter.api.Test
-    public void testGetAndSetPlayer() {
+    public void testConnectAndDisconnectPlayer() {
         PositionTracker positionTracker = new PositionTracker();
         positionTracker.connectPlayer(player);
-        assert positionTracker.getPlayer() == player;
+        assertEquals(positionTracker.getPlayer(), player);
+
+        positionTracker.disconnectPlayer();
+        assertEquals(positionTracker.getPlayer(), null);
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testUpdate() {
+        PositionTracker positionTracker = new PositionTracker();
+
+        Entity weaponEntity = new Entity().addComponent(positionTracker);
+        player.setPosition(new Vector2(10, 10));
+        positionTracker.connectPlayer(player);
+        positionTracker.update();
+        assertEquals(weaponEntity.getPosition(), player.getPosition());
+
+        // change player position
+        player.setPosition(new Vector2(20, 20));
+        positionTracker.update();
+        assertEquals(weaponEntity.getPosition(), new Vector2(20, 20));
     }
 }

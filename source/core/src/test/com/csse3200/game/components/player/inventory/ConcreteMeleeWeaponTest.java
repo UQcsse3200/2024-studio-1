@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
@@ -68,7 +69,7 @@ public class ConcreteMeleeWeaponTest {
         Entity weaponEntity = new Entity();
         meleeWeapon.setWeaponEntity(weaponEntity);
 
-        assert meleeWeapon.getWeaponEntity() == weaponEntity;
+        assert meleeWeapon.getWeaponEntity().equals(weaponEntity);
     }
 
     @org.junit.jupiter.api.Test
@@ -117,9 +118,9 @@ public class ConcreteMeleeWeaponTest {
     @org.junit.jupiter.api.Test
     public void testGetters() {
         ConcreteMeleeWeapon meleeWeapon = new ConcreteMeleeWeapon("knife", "knife.png", 10, 10, 10);
-        assert meleeWeapon.getDamage() == 10;
-        assert meleeWeapon.getRange() == 10;
-        assert meleeWeapon.getFireRate() == 10;
+        assertEquals(meleeWeapon.getDamage(), 10);
+        assertEquals(meleeWeapon.getRange(), 10);
+        assertEquals(meleeWeapon.getFireRate(), 10);
     }
 
     @org.junit.jupiter.api.Test
@@ -128,9 +129,9 @@ public class ConcreteMeleeWeaponTest {
         meleeWeapon.setDamage(20);
         meleeWeapon.setRange(20);
         meleeWeapon.setFireRate(20);
-        assert meleeWeapon.getDamage() == 20;
-        assert meleeWeapon.getRange() == 20;
-        assert meleeWeapon.getFireRate() == 20;
+        assertEquals(meleeWeapon.getDamage(), 20);
+        assertEquals(meleeWeapon.getRange(), 20);
+        assertEquals(meleeWeapon.getFireRate(), 20);
     }
 
     @org.junit.jupiter.api.Test

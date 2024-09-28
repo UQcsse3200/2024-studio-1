@@ -18,6 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
@@ -78,7 +79,7 @@ public class ConcreteRangedWeaponTest {
         Entity weaponEntity = new Entity();
         rangeWeapon.setWeaponEntity(weaponEntity);
 
-        assert rangeWeapon.getWeaponEntity() == weaponEntity;
+        assert rangeWeapon.getWeaponEntity().equals(weaponEntity);
     }
 
     @org.junit.jupiter.api.Test
@@ -88,7 +89,7 @@ public class ConcreteRangedWeaponTest {
         Entity weaponEntity = new Entity();
         rangeWeapon.setWeaponEntity(weaponEntity);
 
-        assert rangeWeapon.getWeaponEntity() == weaponEntity;
+        assert rangeWeapon.getWeaponEntity().equals(weaponEntity);
     }
 
     @org.junit.jupiter.api.Test
@@ -136,12 +137,12 @@ public class ConcreteRangedWeaponTest {
     public void testGettersAndSetters() {
         ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
                 10, 10, 10, 10, 10);
-        assert rangeWeapon.getDamage() == 10;
-        assert rangeWeapon.getRange() == 10;
-        assert rangeWeapon.getFireRate() == 10;
-        assert rangeWeapon.getReloadTime() == 10;
-        assert rangeWeapon.getClipSize() == 10;
-        assert rangeWeapon.getAmmo() == 10;
+        assertEquals(rangeWeapon.getDamage(), 10);
+        assertEquals(rangeWeapon.getRange(), 10);
+        assertEquals(rangeWeapon.getFireRate(), 10);
+        assertEquals(rangeWeapon.getReloadTime(), 10);
+        assertEquals(rangeWeapon.getClipSize(), 10);
+        assertEquals(rangeWeapon.getAmmo(), 10);
 
         rangeWeapon.setDamage(20);
         rangeWeapon.setRange(20);
@@ -150,12 +151,12 @@ public class ConcreteRangedWeaponTest {
         rangeWeapon.setClipSize(20);
         rangeWeapon.setAmmo(20);
 
-        assert rangeWeapon.getDamage() == 20;
-        assert rangeWeapon.getRange() == 20;
-        assert rangeWeapon.getFireRate() == 20;
-        assert rangeWeapon.getReloadTime() == 20;
-        assert rangeWeapon.getClipSize() == 20;
-        assert rangeWeapon.getAmmo() == 20;
+        assertEquals(rangeWeapon.getDamage(), 20);
+        assertEquals(rangeWeapon.getRange(), 20);
+        assertEquals(rangeWeapon.getFireRate(), 20);
+        assertEquals(rangeWeapon.getReloadTime(), 20);
+        assertEquals(rangeWeapon.getClipSize(), 20);
+        assertEquals(rangeWeapon.getAmmo(), 20);
 
     }
 

@@ -1,0 +1,9 @@
+{
+  "name": "necromancer",
+  "health": 100,
+  "favouriteColour": "animals",
+  "textureFilename": "images/player/player.png",
+  "textureAtlasFilename": "images/player/player.atlas",
+  "melee": "pickaxe",
+  "ranged": "shotgun"
+}

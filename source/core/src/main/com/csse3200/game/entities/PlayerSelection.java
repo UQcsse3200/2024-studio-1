@@ -12,11 +12,15 @@ import java.util.stream.Collectors;
 public class PlayerSelection {
     private PlayerFactory playerFactory1;
     private PlayerFactory playerFactory2;
+    private PlayerFactory playerFactory3;
 
     /**
      * List of player json files.
      */
-    public static final String[] PLAYERS = {"configs/player.json", "configs/player_2.json"};
+    public static final String[] PLAYERS = {"configs/player.json", 
+        "configs/player_2.json",
+        "configs/necromancer.json"
+    };
 
     /**
      * Get all player configs from the given filenames.
@@ -36,9 +40,12 @@ public class PlayerSelection {
         Entity player1 = playerFactory1.createPlayer();
         this.playerFactory2 = new PlayerFactory(List.of("configs/player_2.json"));
         Entity player2 = playerFactory2.createPlayer();
+        this.playerFactory3 = new PlayerFactory(List.of("configs/necromancer.json"));
+        Entity player3 = playerFactory3.createPlayer();
         List<Entity> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
+        players.add(player3);
         return players;
     }
 }

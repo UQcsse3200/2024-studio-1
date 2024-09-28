@@ -66,7 +66,7 @@ public class PlayerSelectDisplay extends UIComponent {
         // Add buttons to choose each player
         table.row();
         configs.forEach((filename, config) -> {
-            TextButton button = new TextButton("Choose %s".formatted(config.name), skin, "action");
+            TextButton button = new TextButton("%s".formatted(config.name), skin, "action");
             button.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {

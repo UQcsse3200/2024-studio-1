@@ -76,7 +76,7 @@ public abstract class BaseRoom implements Room {
         Entity terrainEntity = new Entity()
                 .addComponent(terrain)
                 .addComponent(new NameComponent("terrain"));
-
+                
         area.spawnEntity(terrainEntity);
         entities.add(terrainEntity);
         

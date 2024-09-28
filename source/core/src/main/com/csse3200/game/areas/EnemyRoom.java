@@ -74,6 +74,8 @@ public abstract class EnemyRoom extends BaseRoom {
         return !anyAlive;
     }
 
+    
+
     private void spawnItems() {
         MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
         List<String> itemGroup = this.itemSpecifications.get(this.itemGroup);

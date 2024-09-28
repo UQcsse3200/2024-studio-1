@@ -29,33 +29,32 @@ public class MainGameLevelFactory implements LevelFactory {
                 new TerrainFactory(levelNumber)
         );
         // Sprint 4 Switch the MapGenerator to use Rooms
-        Set<String> room_keySet = map.mapData.getPositions().keySet();
+        Set<String> roomKeySet = map.mapData.getPositions().keySet();
         //if (loadGame) {
             // rooms = map from config
         //else{
-        for (String room_key : room_keySet) {
-            int itemIndex = map.mapData.getRoomDetails().get(room_key).get("item_index");
-            int animalIndex = map.mapData.getRoomDetails().get(room_key).get("animal_index");
-            int roomType = map.mapData.getRoomDetails().get(room_key).get("room_type");
+        for (String roomKey : roomKeySet) {
+            int itemIndex = map.mapData.getRoomDetails().get(roomKey).get("item_index");
+            int animalIndex = map.mapData.getRoomDetails().get(roomKey).get("animal_index");
+            int roomType = map.mapData.getRoomDetails().get(roomKey).get("room_type");
             switch (roomType) {
                 case MapGenerator.BOSSROOM:
-                    rooms.put(room_key, roomFactory.createBossRoom(
-                            map.mapData.getPositions().get(room_key),
-                            "0,0,14,10," + levelNumber + "," + levelNumber, "BOSS"));
-                    // Not sure whether "boss" or key should be used here
-//                    rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
-//                            "0,0,14,10," + levelNumber + "," + levelNumber));
+                    rooms.put(roomKey, roomFactory.createBossRoom(
+                            map.mapData.getPositions().get(roomKey),
+                            "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
+
+                    System.out.println("THIS IS THE BOSS_ROOM LOCATION " +  roomKey);
                     break;
                 case MapGenerator.NPCROOM:
-                    System.out.print("NPCRoom at " + room_key);
+                    System.out.print("NPCRoom at " + roomKey);
                     break;
                 case MapGenerator.GAMEROOM:
-                    System.out.print("Gameroom at " + room_key);
+                    System.out.print("Gameroom at " + roomKey);
                     break;
                 default:
-                    rooms.put(room_key, roomFactory.createRoom(
-                            map.mapData.getPositions().get(room_key),
-                            "0,0,14,10," + animalIndex + "," + itemIndex, room_key));
+                    rooms.put(roomKey, roomFactory.createRoom(
+                            map.mapData.getPositions().get(roomKey),
+                            "0,0,14,10," + animalIndex + "," + itemIndex, roomKey));
                     break;
             }
         }

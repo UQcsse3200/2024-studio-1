@@ -2,7 +2,7 @@
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
 	x: 7.5
-	y: 7.5
+	y: 5.5
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
@@ -13,6 +13,11 @@
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
 	x: 0
 	y: 0
+}
+{
+	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
+	x: 7.174486
+	y: 8.412349
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
@@ -41,82 +46,12 @@
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: -0.019607872
-	y: 5
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 14.633987
-	y: 5
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
 	x: 7
-	y: -0.019607872
+	y: 10.633987
 }
 {
 	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 10.033818
-	y: 9.085236
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 5.3182087
-	y: 3.5410612
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 12.5025835
-	y: 1.6646504
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 11.345397
-	y: 2.8943348
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 7.109114
-	y: 8.844974
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 13.704161
-	y: 8.181984
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 13.885002
-	y: 2.0751429
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 0
-	y: 4
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 7
-	y: 8
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 9
-	y: 2
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 9
-	y: 2
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 10
-	y: 2
-}
-{
-	class: com.csse3200.game.components.maingame.MainGameExitDisplay$EntityCoordinates
-	x: 10.349999
-	y: 10.533482
+	x: 7.174486
+	y: 8.412349
 }
 ]

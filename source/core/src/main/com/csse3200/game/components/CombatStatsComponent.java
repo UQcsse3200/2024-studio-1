@@ -214,17 +214,25 @@ public class CombatStatsComponent extends Component {
         if (getIsInvincible()) {
             return;
         }
+        if (isDead()){
+            return;
+        }
         ShieldComponent shield = entity.getComponent(ShieldComponent.class);
         if (shield != null && shield.isActive()) {
             entity.getEvents().trigger("hit");
             return;
         }
 
-        if (getCanBeInvincible()) {
+        if (getCanBeInvincible()) { // Only player currently
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
+            //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
+            //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
+            ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
+           //ServiceLocator.getResourceService().playSound("sounds/hit.ogg");
             entity.getEvents().trigger("playerHit");
+            if (isDead()){ return; }
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);
@@ -236,7 +244,7 @@ public class CombatStatsComponent extends Component {
             int newHealth = getHealth() - damage;
             setHealth(newHealth);
             //add animationcontroller
-            if (health <= 0) {
+            if (isDead()) {
                 entity.getEvents().trigger("death");
                 entity.getEvents().trigger("died");
                 entity.getEvents().trigger("checkAnimalsDead");

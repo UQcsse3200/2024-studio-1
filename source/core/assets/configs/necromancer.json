@@ -1,7 +1,11 @@
 {
   "name": "necromancer",
   "health": 100,
-  "favouriteColour": "animals",
+  "coins": 0,
+  "speed": {
+    "x": 3,
+    "y": 3
+  },
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
   "melee": "pickaxe",

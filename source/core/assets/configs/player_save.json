@@ -1,7 +1,7 @@
 {
   "name": "default",
   "health": 60,
-  "favouriteColour": "peach",
+  "coins": 0,
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
   "items": ["bandage","energydrink"]

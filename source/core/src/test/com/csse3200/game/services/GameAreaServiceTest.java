@@ -1,4 +1,4 @@
-package com.csse3200.game.areas;
+package com.csse3200.game.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

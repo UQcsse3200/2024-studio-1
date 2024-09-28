@@ -1,13 +1,9 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.extensions.GameExtension;
-import com.csse3200.game.physics.PhysicsService;
-import com.csse3200.game.rendering.RenderService;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -52,7 +48,12 @@ class InventoryComponentTest {
         Inventory inventory = inventoryComponent.getInventory();
 
         //Knife knife = new Knife();
-        MeleeWeapon knife = new MeleeWeapon("Knife", "images/Weapons/knife.png", 10, 10, 10);
+        MeleeWeapon knife = new MeleeWeapon(){
+            @Override
+            public void attack() {
+
+            }
+        };
         inventory.setMelee(knife);
 
         assertTrue(inventory.getMelee().isPresent());
@@ -61,17 +62,19 @@ class InventoryComponentTest {
 
     @Test
     public void testPickupRanged() {
-        // Register the necessary service for creating the weapon entity when picking up weapon
-        ServiceLocator.registerResourceService(new ResourceService());
-        ServiceLocator.registerPhysicsService(new PhysicsService());
-        ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerRenderService(new RenderService());
-
         InventoryComponent inventoryComponent = new InventoryComponent();
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        RangedWeapon shotgun = new RangedWeapon( "Shotgun", "images/Weapons/shotgun.png", 10, 10, 10, 10, 10, 10);
+        RangedWeapon shotgun = new RangedWeapon() {
+            @Override
+            public void drop(Inventory inventory) {
+                super.drop(inventory);
+                throw new TestException();
+            }
+            @Override
+            public void shoot(Vector2 direction) {}
+        };
         inventoryComponent.pickup(shotgun);
 
         assertTrue(inventory.getRanged().isPresent());
@@ -80,22 +83,20 @@ class InventoryComponentTest {
 
     @Test
     public void testRangedDrop() {
-        // Register the necessary service for creating the weapon entity when picking up weapon
-        ServiceLocator.registerResourceService(new ResourceService());
-        ServiceLocator.registerPhysicsService(new PhysicsService());
-        ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerRenderService(new RenderService());
+
 
         InventoryComponent inventoryComponent = new InventoryComponent();
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        RangedWeapon shotgun = new RangedWeapon( "Shotgun", "images/Weapons/shotgun.png", 10, 10, 10, 10, 10, 10) {
+        RangedWeapon shotgun = new RangedWeapon() {
             @Override
             public void drop(Inventory inventory) {
                 super.drop(inventory);
                 throw new TestException();
             }
+            @Override
+            public void shoot(Vector2 direction) {}
         };
 
         inventoryComponent.pickup(shotgun);
@@ -110,12 +111,15 @@ class InventoryComponentTest {
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        MeleeWeapon knife = new MeleeWeapon("Knife", "images/Weapons/knife.png", 10, 10, 10) {
+        MeleeWeapon knife = new MeleeWeapon() {
             @Override
             public void drop(Inventory inventory) {
                 super.drop(inventory);
                 throw new TestException();
             }
+
+            @Override
+            public void attack() {}
         };
 
         inventoryComponent.pickup(knife);

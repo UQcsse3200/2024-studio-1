@@ -27,4 +27,9 @@ public class ShopRoom extends BaseRoom {
         super.spawn(player, area);
     }
 
+
+    public void checkIfRoomComplete() {
+        setIsRoomComplete();
+    }
+
 }

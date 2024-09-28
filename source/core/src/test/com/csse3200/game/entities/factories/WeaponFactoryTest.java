@@ -27,7 +27,6 @@ public class WeaponFactoryTest {
     @Mock
     WeaponFactory weaponFactory;
 
-
     @BeforeEach
     public void beforeEach() {
         RenderService renderService = new RenderService();
@@ -114,6 +113,16 @@ public class WeaponFactoryTest {
     public void testCreateEntityInvalidCollectible() {
         try {
             Entity entity = weaponFactory.createWeaponEntity(null);
+        } catch (IllegalArgumentException e) {
+            assert e.getMessage().equals("Invalid collectible");
+        }
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testCreateEntityInvalidCollectibleType() {
+        try {
+            Collectible invalidCollectible = mock(Collectible.class);
+            Entity entity = weaponFactory.createWeaponEntity(invalidCollectible);
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("Invalid collectible");
         }

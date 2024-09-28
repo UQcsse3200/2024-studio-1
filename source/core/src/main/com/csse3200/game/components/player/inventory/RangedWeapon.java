@@ -238,6 +238,10 @@ public class RangedWeapon implements Collectible {
         this.reloadTime = reloadTime;
     }
 
+    /**
+     * Shoot the ranged weapon in a direction.
+     * @param direction The direction to shoot in.
+     */
     public void shoot(Vector2 direction) {
         if (getAmmo() > 0) {
             System.out.println(name + " fired in direction: " + direction);

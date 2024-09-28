@@ -141,17 +141,6 @@ public class LoadPlayer {
 
         Collectible ranged = weaponFactory.create(Collectible.Type.RANGED_WEAPON, config.ranged);
         if (ranged instanceof RangedWeapon rangedWeapon) {
-            WeaponComponent rangedWeaponComponent = new WeaponComponent(
-                    new Sprite(rangedWeapon.getIcon()),
-                    Collectible.Type.RANGED_WEAPON,
-                    rangedWeapon.getDamage(),
-                    rangedWeapon.getRange(),
-                    rangedWeapon.getFireRate(),
-                    rangedWeapon.getAmmo(),
-                    rangedWeapon.getMaxAmmo(),
-                    rangedWeapon.getReloadTime()
-            );
-            player.addComponent(rangedWeaponComponent); // Add melee weapon component to the player
             inventoryComponent.getInventory().setRanged(rangedWeapon); // Set melee weapon in the inventory
         }
     }

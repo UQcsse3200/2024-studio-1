@@ -29,7 +29,6 @@ public class PlayerStatsDisplay extends UIComponent {
     private Texture ammoTexture;
     private List<Image> ammoImages;
     private int currentAmmo;
-    private WeaponComponent weaponComponent;
     private static final int RELOAD_TIME = 3;
     float screenWidth = Gdx.graphics.getWidth();
 
@@ -51,8 +50,6 @@ public class PlayerStatsDisplay extends UIComponent {
         super.create();
         ammoImages = new ArrayList<>();
         addActors();
-
-        weaponComponent = entity.getComponent(WeaponComponent.class);
 
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
         entity.getEvents().addListener("melee_pickup", this::updateMeleeWeaponUI);

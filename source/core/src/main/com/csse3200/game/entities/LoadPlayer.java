@@ -98,11 +98,7 @@ public class LoadPlayer {
                 .addComponent(new PlayerAnimationController())
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay())
-                .addComponent(new WeaponComponent(
-                        new Sprite(new Texture("images/Weapons/knife.png")),
-                        Collectible.Type.RANGED_WEAPON,
-                        10, 1, 1, 10, 10, 0));
+                .addComponent(new PlayerHealthDisplay());
 
     }
 
@@ -117,16 +113,7 @@ public class LoadPlayer {
         // calls create method in weapon factory to initialise a weapon
         Collectible melee = weaponFactory.create(Collectible.Type.MELEE_WEAPON, config.melee);
         if (melee instanceof MeleeWeapon meleeWeapon) {
-            WeaponComponent meleeWeaponComponent = new WeaponComponent(
-                    new Sprite(meleeWeapon.getIcon()),  // Use texture from the melee weapon class
-                    Collectible.Type.MELEE_WEAPON,
-                    meleeWeapon.getDamage(),
-                    meleeWeapon.getRange(),
-                    meleeWeapon.getFireRate(),
-                    0, 0, 0
-            );
             inventoryComponent.getInventory().setMelee(meleeWeapon); // Set melee weapon in the inventory
-            player.addComponent(meleeWeaponComponent);
         }
     }
 

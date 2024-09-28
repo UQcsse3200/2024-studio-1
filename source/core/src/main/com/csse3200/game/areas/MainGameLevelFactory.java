@@ -51,11 +51,11 @@ public class MainGameLevelFactory implements LevelFactory {
                     new TerrainFactory(levelNumber)
             );
             // Sprint 4 Switch the MapGenerator to use Rooms
-        Set<String> room_keySet = map.mapData.getPositions().keySet();
-            for (String room_key : room_keySet) {
-                int itemIndex = map.mapData.getRoomDetails().get(room_key).get("item_index");
-                int animalIndex = map.mapData.getRoomDetails().get(room_key).get("animal_index");
-            int roomType = map.mapData.getRoomDetails().get(room_key).get("room_type");
+        Set<String> roomKeySet = map.mapData.getPositions().keySet();
+            for (String roomKey : roomKeySet) {
+                int itemIndex = map.mapData.getRoomDetails().get(roomKey).get("item_index");
+                int animalIndex = map.mapData.getRoomDetails().get(roomKey).get("animal_index");
+            int roomType = map.mapData.getRoomDetails().get(roomKey).get("room_type");
             switch (roomType) {
                 case MapGenerator.BOSSROOM:
                     rooms.put(roomKey, roomFactory.createBossRoom(
@@ -65,10 +65,14 @@ public class MainGameLevelFactory implements LevelFactory {
                     System.out.println("THIS IS THE BOSS_ROOM LOCATION " +  roomKey);
                     break;
                 case MapGenerator.NPCROOM:
-                    System.out.print("NPCRoom at " + roomKey);
+                rooms.put(roomKey, roomFactory.createShopRoom(
+                    map.mapData.getPositions().get(roomKey),
+                    "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.GAMEROOM:
-                    System.out.print("Gameroom at " + roomKey);
+                rooms.put(roomKey, roomFactory.createGambleRoom(
+                    map.mapData.getPositions().get(roomKey),
+                    "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 default:
                     rooms.put(roomKey, roomFactory.createRoom(

@@ -61,6 +61,8 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         try {
             connectPlayer(player);
             this.weaponEntity.setEnabled(true);
+            // Trigger weapon pick up event for UI
+            player.getEvents().trigger("ranged_pickup", this.maxAmmo);
         } catch (NullPointerException e) {
             logger.info("Weapon entity is null or components not found");
         }

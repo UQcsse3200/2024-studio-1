@@ -57,6 +57,8 @@ public class FiringController extends Component {
     private short targetLayer;                          // Layer to target for melee weapon
     private final boolean isMelee;
 
+    private Timer timer;                                // Used for trigger reload event
+
     /**
      * Initialize the firing controller for ranged weapon
      *
@@ -111,6 +113,7 @@ public class FiringController extends Component {
     public void create() {
         // No action by default.
         this.projectileFactory = new ProjectileFactory();
+        this.timer  = new Timer();
     }
 
     /**
@@ -186,10 +189,14 @@ public class FiringController extends Component {
                 this.setAmmo(-2);
                 // Offset time so that the weapon must wait extra long for reload time
                 currentTime += this.getReloadTime() * 1000L - this.activationInterval;
-
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        getPlayer().getEvents().trigger("ranged_activate", getMaxAmmo());
+                    }
+                }, this.reloadTime*1000);
                 logger.info("Ranged weapon reloading");
                 ServiceLocator.getResourceService().playSound("sounds/shotgun1_r.ogg");
-                entity.getEvents().trigger("RELOAD");
             } else {
                 // Shooting
                 this.setAmmo(-1);
@@ -307,6 +314,10 @@ public class FiringController extends Component {
             this.entity.getEvents().trigger("shootRight");
         } else if (direction.x == -1.0) {
             this.entity.getEvents().trigger("shootLeft");
+        }
+        // Trigger event for weapon UI
+        if (this.player != null) {
+            this.player.getEvents().trigger("ranged_activate", this.ammo);
         }
     }
 

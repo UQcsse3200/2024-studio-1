@@ -69,6 +69,8 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
         try {
             connectPlayer(player);
             this.weaponEntity.setEnabled(true);
+            // Trigger weapon pick up event for UI
+            player.getEvents().trigger("melee_pickup");
         } catch (NullPointerException e) {
             logger.info("Weapon entity is null or components not found");
         }

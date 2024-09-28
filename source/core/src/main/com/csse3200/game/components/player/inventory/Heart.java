@@ -9,6 +9,13 @@ public class Heart extends BuffItem{
     private static final int maxHealthIncrease = 50;
     private static final int maxHealthLimit = 150;
 
+
+    @Override
+    public void pickup(Inventory inventory) {
+        super.pickup(inventory);
+        effect(inventory.getEntity());
+    }
+
     @Override
     public String getName() {
         return "Heart";

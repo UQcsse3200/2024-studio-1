@@ -3,3 +3,8 @@
 ### Gradle ###
 .gradle/
 .DS_Store
+
+
+
+.core/assets/saves/*
+

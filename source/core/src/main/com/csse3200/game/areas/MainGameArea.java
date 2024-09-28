@@ -1,6 +1,7 @@
 package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.csse3200.game.GdxGame;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
@@ -34,6 +35,7 @@ public class MainGameArea extends GameArea {
     public String currentRoomName;
     private Map <String, String> currentPosition = new HashMap<>();
     private final boolean shouldLoad;
+    
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -49,6 +51,8 @@ public class MainGameArea extends GameArea {
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
         player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
+
+        player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkIfRoomComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
     }

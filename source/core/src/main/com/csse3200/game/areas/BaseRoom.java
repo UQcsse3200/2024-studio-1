@@ -69,6 +69,8 @@ public abstract class BaseRoom implements Room {
 
     protected abstract List<List<String>> getItemSpecifications();
 
+
+    public abstract void checkIfRoomComplete();
   /**
      * Spawns the terrain for the room, including walls and background.
      *

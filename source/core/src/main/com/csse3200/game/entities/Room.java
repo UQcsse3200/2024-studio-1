@@ -27,6 +27,8 @@ public interface Room {
     public boolean getIsRoomComplete();
 
     public void setIsRoomComplete();
+
+    public void checkIfRoomComplete();
 }
 
 

@@ -24,11 +24,13 @@ import static org.mockito.Mockito.*;
 class NPCDeathHandlerTest {
 
     private Entity entity;
+    private Entity target;
 
     @BeforeEach
     void setUp() {
         entity = new Entity();
-        NPCDeathHandler npcDeathHandler = new NPCDeathHandler();
+        target = new Entity();
+        NPCDeathHandler npcDeathHandler = new NPCDeathHandler(target, 9);
         CombatStatsComponent combatStats = mock(CombatStatsComponent.class);
         AnimationRenderComponent animationRender = mock(AnimationRenderComponent.class);
         AITaskComponent aiTaskComponent = mock(AITaskComponent.class);

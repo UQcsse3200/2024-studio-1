@@ -2,8 +2,8 @@ package com.csse3200.game.entities.configs;
 
 import com.csse3200.game.entities.Room;
 
-import java.util.Map;
+import java.util.List;
 
 public class MapLoadConfig extends BaseEntityConfig {
-    Map<String, Room> savedMap;
+    public List<String> savedMap;
 }

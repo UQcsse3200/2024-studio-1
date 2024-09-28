@@ -21,6 +21,7 @@ public abstract class StaticScreen extends ScreenAdapter {
     protected final String[] textures;
     protected final GdxGame game;
     private final Renderer renderer;
+    protected Entity ui;
 
     /**
      * Create a new static screen.
@@ -88,7 +89,7 @@ public abstract class StaticScreen extends ScreenAdapter {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(textures);
-        ServiceLocator.getResourceService().loadAll();
+        resourceService.loadAll();
     }
 
     private void unloadAssets() {
@@ -110,7 +111,7 @@ public abstract class StaticScreen extends ScreenAdapter {
      */
     private void createUI() {
         logger.debug("Creating ui");
-        Entity ui = getUI();
+        ui = getUI();
         ServiceLocator.getEntityService().register(ui);
     }
 

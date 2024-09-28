@@ -23,6 +23,10 @@ public interface Room {
     void removeRoom();
 
     public boolean getIsRoomComplete();
+
+    public void setIsRoomComplete();
+
+    public void checkIfRoomComplete();
 }
 
 

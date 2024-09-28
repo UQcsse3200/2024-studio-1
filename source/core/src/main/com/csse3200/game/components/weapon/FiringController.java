@@ -63,7 +63,7 @@ public class FiringController extends Component {
      * Initialize the firing controller for ranged weapon
      *
      * @param collectible      the weapon to get the specification from
-     * @param projectileConfig
+     * @param projectileConfig the projectile configuration for this weapon
      */
     public FiringController(RangedWeapon collectible, ProjectileConfig projectileConfig) {
         this.isMelee = false;

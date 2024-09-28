@@ -3,6 +3,7 @@ package com.csse3200.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.weapon.FiringController;
@@ -41,8 +42,9 @@ public class WeaponFactory extends LoadedFactory {
             throw new IllegalArgumentException("Invalid melee weapon specification: " + specification);
         }
 
-        MeleeWeapon meleeWeapon = new MeleeWeapon(weaponData.getName(), weaponData.getIconPath(),
+        ConcreteMeleeWeapon meleeWeapon = new ConcreteMeleeWeapon(weaponData.getName(), weaponData.getIconPath(),
                 weaponData.getDamage(), weaponData.getRange(), weaponData.getFireRate());
+        meleeWeapon.setWeaponEntity(createWeaponForPlayer(meleeWeapon));
         return meleeWeapon;
     }
 
@@ -59,9 +61,10 @@ public class WeaponFactory extends LoadedFactory {
             throw new IllegalArgumentException("Invalid ranged weapon specification: " + specification);
         }
 
-        RangedWeapon rangedWeapon = new RangedWeapon(weaponData.getName(), weaponData.getIconPath(),
+        ConcreteRangedWeapon rangedWeapon = new ConcreteRangedWeapon(weaponData.getName(), weaponData.getIconPath(),
                 weaponData.getDamage(), weaponData.getRange(), weaponData.getFireRate(),
                 weaponData.getAmmo(), weaponData.getMaxAmmo(), weaponData.getReloadTime());
+        rangedWeapon.setWeaponEntity(createWeaponForPlayer(rangedWeapon));
         return rangedWeapon;
     }
 
@@ -173,7 +176,7 @@ public class WeaponFactory extends LoadedFactory {
             }
             return createRangeTest((RangedWeapon) collectible);
         }
-        catch (Exception e) {
+        catch (IllegalArgumentException e) {
             logger.error("Failed to create weapon entity:{}", e.toString());
             throw new IllegalArgumentException("Invalid collectible");
         }
@@ -196,6 +199,9 @@ public class WeaponFactory extends LoadedFactory {
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(animator)
+                .addComponent(new FiringController(collectible))
+                .addComponent(new CombatStatsComponent(1, collectible.getDamage(), true, 0, 0))
+                .addComponent(new PositionTracker())
                 .addComponent(new WeaponAnimationController());
 
         // set the collider to 0
@@ -257,21 +263,21 @@ public class WeaponFactory extends LoadedFactory {
         return animator;
     }
 
-    /**
-     * Get all the filepath to textures needed by this Factory
-     *
-     * @return the filepath needed.
-     */
-    @Override
-    protected String[] getTextureFilepaths() {
-        return new String[]{
-                "images/Weapons/sword1.png",
-                "images/Weapons/shotgun4.png",
-                "images/Weapons/shotgun_1.png",
-                "images/Weapons/shotgun_2.png",
-                "images/Weapons/winchester.png"
-        };
-    }
+//    /**
+//     * Get all the filepath to textures needed by this Factory
+//     *
+//     * @return the filepath needed.
+//     */
+//    @Override
+//    protected String[] getTextureFilepaths() {
+//        return new String[]{
+//                "images/Weapons/sword1.png",
+//                "images/Weapons/shotgun4.png",
+//                "images/Weapons/shotgun_1.png",
+//                "images/Weapons/shotgun_2.png",
+//                "images/Weapons/winchester.png"
+//        };
+//    }
 
     /**
      * Get all the filepath to sounds needed by this Factory
@@ -304,6 +310,8 @@ public class WeaponFactory extends LoadedFactory {
                 "images/Weapons/ak.atlas",
                 "images/Weapons/fn_scar.atlas",
                 "images/Weapons/super_soaker.atlas",
+                "images/Weapons/slash_1.atlas",
+                "images/Weapons/plasma_blaster.atlas",
                 "images/Weapons/winchester.atlas"
         };
     }

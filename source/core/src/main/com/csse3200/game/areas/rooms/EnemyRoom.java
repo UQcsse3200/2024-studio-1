@@ -35,10 +35,23 @@ public abstract class EnemyRoom extends BaseRoom {
 
         List<String> split = List.of(specification.split(","));
         this.animalGroup = Integer.parseInt(split.get(4));
+
+
+
+
+        
     }
 
     public List<Entity> getEnemies() {
         return enemies;
+    }
+
+
+    public void checkIfRoomComplete() {
+        if (isAllAnimalDead()) {
+            System.out.println("room is complete");
+            setIsRoomComplete();
+        }
     }
 
     protected abstract List<List<String>> getAnimalSpecifications();
@@ -51,7 +64,7 @@ public abstract class EnemyRoom extends BaseRoom {
     }
 
     protected void makeAllAnimalDead() {
-        for (Entity entity : entities) {
+        for (Entity entity : enemies) {
             CombatStatsComponent combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
             if (combatStatsComponent != null) {
                 combatStatsComponent.setHealth(0);
@@ -61,18 +74,16 @@ public abstract class EnemyRoom extends BaseRoom {
     }
 
     public boolean isAllAnimalDead() {
-        boolean anyAlive = false;
-        for (Entity entity : entities) {
+        for (Entity entity : enemies) {
             CombatStatsComponent combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
             if (combatStatsComponent != null && !combatStatsComponent.isDead()) {
-                anyAlive = true;
-                break;
+                return false;
             }
         }
-        if (!anyAlive) {
-            this.isRoomCompleted = true;
-        }
-        return !anyAlive;
+
+        return true;
+        
+        
     }
 
     private void spawnItems() {
@@ -120,6 +131,7 @@ public abstract class EnemyRoom extends BaseRoom {
     }
 
     protected void SpawnEnemyEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
+        enemy.getEvents().addListener("checkAnimalsDead", () -> checkIfRoomComplete());
         this.spawnAnimalEntity(area, enemy, position);
         enemies.add(enemy);
     }

@@ -72,6 +72,15 @@ public abstract class BaseRoom implements Room {
     protected abstract List<List<String>> getItemSpecifications();
 
 
+    public abstract void checkIfRoomComplete();
+  /**
+     * Spawns the terrain for the room, including walls and background.
+     *
+     * @param area          the game area to spawn the terrain in
+     * @param wallThickness the thickness of the walls
+     * @param isBossRoom    whether the room is a boss room
+     */
+
     protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
         TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1, isBossRoom);
         area.setTerrain(terrain);
@@ -88,6 +97,14 @@ public abstract class BaseRoom implements Room {
         createWalls(area, wallThickness, tileBounds, worldBounds);
     }
 
+   /**
+     * Creates and spawns walls around the room.
+     *
+     * @param area         the game area to spawn the walls in
+     * @param thickness    the thickness of the walls
+     * @param tileBounds   the bounds of the tile map
+     * @param worldBounds  the world bounds of the room
+     */
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
         Entity leftWall = createAndSpawnWall(area, thickness, tileBounds.y, GridPoint2Utils.ZERO);
         Entity rightWall = createAndSpawnWall(area, thickness, worldBounds.y, new GridPoint2(tileBounds.x, 0));
@@ -99,11 +116,27 @@ public abstract class BaseRoom implements Room {
         adjustWallPosition(topWall, 0, -thickness);
     }
 
+ /**
+     * Creates and spawns a wall entity at the specified position.
+     *
+     * @param area     the game area to spawn the wall in
+     * @param width    the width of the wall
+     * @param height   the height of the wall
+     * @param position the grid position of the wall
+     * @return the created wall entity
+     */
     private Entity createAndSpawnWall(GameArea area, float width, float height, GridPoint2 position) {
         Entity wall = ObstacleFactory.createWall(width, height);
         area.spawnEntityAt(wall, position, false, false);
         return wall;
     }
+ /**
+     * Adjusts the position of a wall entity.
+     *
+     * @param wall      the wall entity to adjust
+     * @param offsetX   the offset in the X direction
+     * @param offsetY   the offset in the Y direction
+     */
 
     private void adjustWallPosition(Entity wall, float offsetX, float offsetY) {
         Vector2 wallPos = wall.getPosition();
@@ -170,9 +203,20 @@ public abstract class BaseRoom implements Room {
         entities.add(item);
         area.spawnEntityAt(item, pos, true, true);
     }
-
+   /**
+     * Checks if the room is complete.
+     *
+     * @return {@code true} if the room is complete, {@code false} otherwise
+     */
     public boolean getIsRoomComplete() {
         return this.isRoomCompleted;
+    }
+
+    /**
+     * Sets the room as completed when loading the map
+     */
+    public void setIsRoomComplete() {
+        this.isRoomCompleted = true;
     }
 
     public void spawn(Entity player, MainGameArea area) {

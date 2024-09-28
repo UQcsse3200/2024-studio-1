@@ -216,4 +216,13 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     debugRenderer.drawLine(from, to); // Draw line directly to the target for debugging.
     return true; // No obstacle, target is visible.
   }
+
+  /**
+   * Gets the current target
+   * @return the current target
+   */
+  public Entity getTarget() {
+    return target;
+  }
+
 }

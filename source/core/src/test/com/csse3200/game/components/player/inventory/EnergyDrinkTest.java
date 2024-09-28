@@ -5,13 +5,16 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 
+import com.csse3200.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(GameExtension.class)
 public class EnergyDrinkTest {
 
-    EnergyDrink energyDrink = new EnergyDrink("Low", true);
+    EnergyDrink energyDrink = new EnergyDrink("Low");
     Entity entity = new Entity()
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(1, 1, true, 1, 0));

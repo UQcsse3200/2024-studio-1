@@ -1,6 +1,11 @@
 package com.csse3200.game.ai.tasks;
 
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
+import com.csse3200.game.components.npc.attack.RangeAttackComponent;
+import com.csse3200.game.components.tasks.ChargeTask;
+import com.csse3200.game.components.tasks.ChaseTask;
+import com.csse3200.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +24,8 @@ public class AITaskComponent extends Component implements TaskRunner {
 
   private final List<PriorityTask> priorityTasks = new ArrayList<>(2);
   private PriorityTask currentTask;
+
+  private Entity currentTarget;
 
   /**
    * Add a priority task to the list of tasks. This task will be run only when it has the highest
@@ -72,9 +79,45 @@ public class AITaskComponent extends Component implements TaskRunner {
     if (currentTask != null) {
       currentTask.stop();
     }
+
+    updateTarget(desiredTask);
+
     currentTask = desiredTask;
     if (desiredTask != null) {
       desiredTask.start();
     }
   }
+
+  /**
+   * If the desiredTask has a new target, update the target for MeleeAttackComponent/RangeAttackComponent
+   * @param desiredTask the desired task for AI entity to perform
+   */
+  private void updateTarget(PriorityTask desiredTask) {
+    if (desiredTask instanceof ChaseTask) {
+      Entity newTarget = ((ChaseTask) desiredTask).getTarget();
+      if (newTarget != currentTarget) {
+        currentTarget = newTarget;
+        updateAttackTarget();
+      }
+    } else if (desiredTask instanceof ChargeTask) {
+      Entity newTarget = ((ChargeTask) desiredTask).getTarget();
+      if (newTarget != currentTarget) {
+        currentTarget = newTarget;
+        updateAttackTarget();
+      }
+    }
+  }
+
+  /**
+   * Updates the AttackComponentTarget for the AI entity
+   */
+  private void updateAttackTarget() {
+    if (entity.getComponent(MeleeAttackComponent.class) != null) {
+      entity.getComponent(MeleeAttackComponent.class).updateTarget(currentTarget);
+    }
+    if (entity.getComponent(RangeAttackComponent.class) != null) {
+      entity.getComponent(RangeAttackComponent.class).updateTarget(currentTarget);
+    }
+  }
+
 }

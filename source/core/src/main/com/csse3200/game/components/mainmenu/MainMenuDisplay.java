@@ -27,7 +27,7 @@ public class MainMenuDisplay extends UIComponent {
     /**
      * Spacing between UI buttons.
      */
-    private static final float BTN_SPACING = 10f;
+    private static final float BTN_SPACING = 8f;
     private Table table;
     /**
      * A nested table that contains the buttons for difficulty selection
@@ -72,7 +72,7 @@ public class MainMenuDisplay extends UIComponent {
         TextButton settingsBtn = new TextButton("Settings", skin);
         TextButton exitBtn = new TextButton("Exit", skin);
 
-        CheckBox shouldLoadBtn = new CheckBox("Load from save file", skin);
+        CheckBox shouldLoadBtn = new CheckBox("Load from save file", skin, "load-btn");
         boolean canLoad = loadFilesExist();
         shouldLoadBtn.setChecked(true);
 

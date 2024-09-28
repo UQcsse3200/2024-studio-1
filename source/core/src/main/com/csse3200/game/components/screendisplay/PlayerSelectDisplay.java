@@ -75,7 +75,8 @@ public class PlayerSelectDisplay extends UIComponent {
         configs.forEach((filename, config) -> {
             Table statTable = new Table();
             statTable.defaults().pad(STAT_TABLE_PADDING);
-            addStat(statTable, "HLTH", (float) config.health / PlayerConfig.MAX_HEALTH);
+            addStat(statTable, "HLTH", config.health, PlayerConfig.MAX_HEALTH);
+            addStat(statTable, "SPD", config.speed.len(), PlayerConfig.MAX_SPEED.len());
             rootTable.add(statTable);
         });
 
@@ -105,9 +106,11 @@ public class PlayerSelectDisplay extends UIComponent {
      * Add a row in the stat table (has stat name and stat bar).
      * @param table The stat table to add the stat to.
      * @param name The name of the stat (short and capitalised).
-     * @param proportion The proportion of the max value (shown on the bar).
+     * @param value The value of this stat.
+     * @param maxValue The max possible value of this stat.
      */
-    private void addStat(Table table, String name, float proportion) {
+    private void addStat(Table table, String name, float value, float maxValue) {
+        float proportion = value / maxValue;
         Label statName = new Label(name, skin);
         table.add(statName).pad(STAT_TABLE_PADDING);
 

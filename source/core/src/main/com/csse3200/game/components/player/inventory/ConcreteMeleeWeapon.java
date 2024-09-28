@@ -66,11 +66,11 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
         logger.info("Picking up melee weapon - no entity");
         Entity player = inventory.getEntity();
         inventory.setMelee(this);
-
-        if (this.weaponEntity == null) {
-            logger.info("Weapon entity is null");
+        try {
             connectPlayer(player);
             this.weaponEntity.setEnabled(true);
+        } catch (NullPointerException e) {
+            logger.info("Weapon entity is null or components not found");
         }
     }
 
@@ -81,12 +81,12 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
     private void connectPlayer(Entity player) {
         // Set weapon entity
         // Update weapon entity to link with player
-        if (weaponEntity != null) {
+        try {
             this.weaponEntity.getComponent(FiringController.class).connectPlayer(player);
             this.weaponEntity.getComponent(PositionTracker.class).connectPlayer(player);
             this.weaponEntity.getComponent(WeaponAnimationController.class).connectPlayer(player);
-        } else {
-            logger.info("Weapon entity is null");
+        } catch (NullPointerException e) {
+            logger.info("Weapon entity is null or components not found");
         }
     }
 
@@ -131,9 +131,11 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
     public void drop(Inventory inventory) {
         Entity player = inventory.getEntity();
         inventory.resetMelee();
-        if (this.weaponEntity != null) {
+        try {
             disconnectPlayer();
             this.weaponEntity.setEnabled(false);
+        } catch (NullPointerException e) {
+            logger.info("Weapon entity is null or components not found");
         }
     }
 

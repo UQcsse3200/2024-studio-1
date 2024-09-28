@@ -21,6 +21,14 @@ public class PositionTracker extends Component {
     }
 
     /**
+     * Get the player entity
+     * @return the player entity
+     */
+    public Entity getPlayer() {
+        return player;
+    }
+
+    /**
      * Set the player entity
      * @param player the player entity
      */

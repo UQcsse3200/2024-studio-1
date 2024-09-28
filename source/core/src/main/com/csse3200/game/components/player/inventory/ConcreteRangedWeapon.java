@@ -58,10 +58,11 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         logger.info("Picking up ranged weapon - no entity");
         Entity player = inventory.getEntity();
         inventory.setRanged(this);
-
-        if (this.weaponEntity != null) {
+        try {
             connectPlayer(player);
             this.weaponEntity.setEnabled(true);
+        } catch (NullPointerException e) {
+            logger.info("Weapon entity is null or components not found");
         }
     }
 
@@ -93,10 +94,11 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         logger.info("Dropping ranged weapon - " + this.name);
         Entity player = inventory.getEntity();
         inventory.resetRanged();
-
-        if (this.weaponEntity != null) {
+        try {
             disconnectPlayer();
             this.weaponEntity.setEnabled(false);
+        } catch (NullPointerException e) {
+            logger.info("Weapon entity is null or components not found");
         }
     }
 

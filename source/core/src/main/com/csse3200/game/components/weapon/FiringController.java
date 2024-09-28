@@ -139,7 +139,12 @@ public class FiringController extends Component {
      */
     public String activate(Vector2 direction) {
         if (this.isMelee) {
-            attackMelee();
+            try {
+                attackMelee();
+            } catch (Exception e) {
+                logger.info(e.getMessage());
+                return "Melee weapon attack failed";
+            }
             return "Melee weapon attack triggered";
         } else {
             try {

@@ -58,20 +58,23 @@ public class ConcreteRangedWeaponTest {
         //create gameArea
 
 
-        rangedWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        rangedWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10,
+                10, 10, 10);
         weaponEntity = new Entity().addComponent(new FiringController(rangedWeapon, new ProjectileConfig()));
     }
 
     @org.junit.jupiter.api.Test
     public void testCreateCollectibleRange() {
-        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
+                10, 10, 10, 10, 10);
 
         assert rangeWeapon instanceof RangedWeapon;
     }
 
     @org.junit.jupiter.api.Test
     public void testSetWeaponEntity() {
-        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
+                10, 10, 10, 10, 10);
         Entity weaponEntity = new Entity();
         rangeWeapon.setWeaponEntity(weaponEntity);
 
@@ -80,7 +83,8 @@ public class ConcreteRangedWeaponTest {
 
     @org.junit.jupiter.api.Test
     public void testGetWeaponEntity() {
-        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
+                10, 10, 10, 10, 10);
         Entity weaponEntity = new Entity();
         rangeWeapon.setWeaponEntity(weaponEntity);
 
@@ -90,7 +94,8 @@ public class ConcreteRangedWeaponTest {
     @org.junit.jupiter.api.Test
     public void testPickup() {
         InventoryComponent inventoryComponent = new InventoryComponent();
-        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
+                10, 10, 10, 10, 10);
         rangeWeapon.setWeaponEntity(weaponEntity);
 
         Inventory inventory = new Inventory(inventoryComponent);
@@ -101,7 +106,8 @@ public class ConcreteRangedWeaponTest {
     @org.junit.jupiter.api.Test
     public void testDrop() {
 
-        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
+                10, 10, 10, 10, 10);
         rangeWeapon.setWeaponEntity(weaponEntity);
         InventoryComponent inventoryComponent = new InventoryComponent();
 
@@ -114,19 +120,22 @@ public class ConcreteRangedWeaponTest {
 
     @org.junit.jupiter.api.Test
     public void testGetSpecification() {
-        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
+                10, 10, 10, 10, 10);
         assert rangeWeapon.getSpecification().equals("ranged:gun");
     }
 
     @org.junit.jupiter.api.Test
     public void testGetName() {
-        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
+                10, 10, 10, 10, 10);
         assert rangeWeapon.getName().equals("gun");
     }
 
     @org.junit.jupiter.api.Test
     public void testGettersAndSetters() {
-        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
+                10, 10, 10, 10, 10);
         assert rangeWeapon.getDamage() == 10;
         assert rangeWeapon.getRange() == 10;
         assert rangeWeapon.getFireRate() == 10;
@@ -152,7 +161,8 @@ public class ConcreteRangedWeaponTest {
 
     @org.junit.jupiter.api.Test
     public void testShoot() {
-        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10, 10, 10, 10, 10, 10);
+        ConcreteRangedWeapon rangeWeapon = new ConcreteRangedWeapon("gun", "gun.png", 10,
+                10, 10, 10, 10, 10);
         rangeWeapon.setWeaponEntity(weaponEntity);
         InventoryComponent inventoryComponent = new InventoryComponent();
 

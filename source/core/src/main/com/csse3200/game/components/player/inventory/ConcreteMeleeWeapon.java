@@ -1,17 +1,10 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.components.player.WeaponComponent;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.components.weapon.PositionTracker;
 import com.csse3200.game.components.weapon.WeaponAnimationController;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.factories.WeaponFactory;
-import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
-
-import java.util.logging.Logger;
 
 /**
  * A ranged weapon that can be picked up by the player.
@@ -104,24 +97,6 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
             this.weaponEntity.getComponent(WeaponAnimationController.class).disconnectPlayer();
         } catch (NullPointerException e) {
             logger.info("Weapon entity is null or components not found");
-        }
-    }
-    /**
-     * Pick up the ranged weapon and put it in the inventory.
-     * @param inventory The inventory to be put in.
-     * @param itemEntity The entity of the item to be picked up.
-     */
-    @Override
-    public void pickup(Inventory inventory, Entity itemEntity) {
-        logger.info("Picking up ranged weapon - with entity");
-        inventory.setMelee(this);
-
-        // Add a Weapon Component
-        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            logger.info("Setting ranged weapon in inventory");
-            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this, itemEntity);
-        } else {
-            logger.info("Inventory entity or WeaponComponent is null");
         }
     }
 

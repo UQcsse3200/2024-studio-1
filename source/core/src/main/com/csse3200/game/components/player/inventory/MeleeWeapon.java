@@ -1,8 +1,6 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.csse3200.game.components.player.WeaponComponent;
-import com.csse3200.game.entities.Entity;
 
 import java.util.logging.Logger;
 
@@ -34,18 +32,6 @@ public abstract class MeleeWeapon implements Collectible {
     @Override
     public void pickup(Inventory inventory) {
         inventory.setMelee(this);
-    }
-
-    @Override
-    public void pickup(Inventory inventory, Entity itemEntity) {
-        inventory.setMelee(this);
-
-        // Add a Weapon Component
-        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this,
-                    itemEntity);
-            // update existing weapon
-        }
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
@@ -14,9 +16,11 @@ import java.util.Objects;
  * and starts the relevant shotgun animation based on the current event.
  */
 public class WeaponAnimationController extends Component {
+
+    Logger logger = LoggerFactory.getLogger(WeaponAnimationController.class);
     WeaponAnimationRenderComponent animationController;
 
-    Boolean conencted;
+    Boolean connected;
     Vector2 weaponDirection;
     Vector2 up;
     Vector2 down;
@@ -44,7 +48,7 @@ public class WeaponAnimationController extends Component {
      * @param player the player entity
      */
     public void connectPlayer(Entity player) {
-        conencted = true;
+        connected = true;
         if (Objects.equals(this.getEntity().getComponent(NameComponent.class).getName(),
                 "Ranged")) {
             player.getEvents().addListener("walkLeft", this::animateLeft);
@@ -59,12 +63,16 @@ public class WeaponAnimationController extends Component {
      * Will not play directional animation and set the animation to idle
      */
     public void disconnectPlayer() {
-        this.conencted = false;
-        animationController.startAnimation("idle");
+        this.connected = false;
+        try {
+            animationController.startAnimation("idle");
+        } catch (Exception e) {
+            logger.error("Error disconnecting player from weapon", e);
+        }
     }
 
     private void animateLeft() {
-        if (!this.conencted) {
+        if (!this.connected) {
             return;
         }
         animationController.startAnimation("left");
@@ -72,7 +80,7 @@ public class WeaponAnimationController extends Component {
     }
 
     private void animateIdle() {
-        if (!this.conencted) {
+        if (!this.connected) {
             return;
         }
         animationController.startAnimation("idle");
@@ -80,39 +88,39 @@ public class WeaponAnimationController extends Component {
     }
 
     private void animateUp() {
-        if (!this.conencted) {
+        if (!this.connected) {
             return;
         }
         animationController.startAnimation("up");
         weaponDirection = up;
     }
     private void animateDown() {
-        if (!this.conencted) {
+        if (!this.connected) {
             return;
         }
         animationController.startAnimation("down");
         weaponDirection = down;
     }
     private void animateShootRight() {
-        if (!this.conencted) {
+        if (!this.connected) {
             return;
         }
         animationController.startAnimation("shootRight");
     }
     private void animateShootLeft() {
-        if (!this.conencted) {
+        if (!this.connected) {
             return;
         }
         animationController.startAnimation("shootLeft");
     }
     private void animateShootUp() {
-        if (!this.conencted) {
+        if (!this.connected) {
             return;
         }
         animationController.startAnimation("shootUp");
     }
     private void animateShootDown() {
-        if (!this.conencted) {
+        if (!this.connected) {
             return;
         }
         animationController.startAnimation("shootDown");

@@ -44,7 +44,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     public static final String HEART_TEXTURE = "images/heart.png";
     public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
-    public static final String DAMAGE_BUFF_TEXTURE = "images/items/armor.png";
+    public static final String DAMAGE_BUFF_TEXTURE = "images/items/damage_buff.png";
 
 
 

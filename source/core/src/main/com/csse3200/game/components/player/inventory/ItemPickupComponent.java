@@ -168,6 +168,7 @@ public class ItemPickupComponent extends Component {
             case 3 -> specification = "buff:energydrink:High";
             case 4 -> specification = "buff:energydrink:Low";
             case 5 -> specification = "buff:energydrink:Medium";
+            //case 6 -> specification = "buff:damagebuff";
         }
 
         return collectibleFactory.createCollectibleEntity(specification);

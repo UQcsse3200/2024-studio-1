@@ -121,6 +121,7 @@ public class AITaskComponent extends Component implements TaskRunner {
     }
     if (entity.getComponent(AOEAttackComponent.class) != null) {
       entity.getComponent(AOEAttackComponent.class).setOrigin(entity.getPosition());
+
     }
 
   }

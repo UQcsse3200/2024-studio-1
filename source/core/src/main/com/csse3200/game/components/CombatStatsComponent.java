@@ -23,7 +23,7 @@ public class CombatStatsComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
     private final boolean canBeInvincible;
-    private final int maxHealth;
+    private int maxHealth;
     private int health;
     private int baseAttack;
     private int armor;
@@ -201,6 +201,17 @@ public class CombatStatsComponent extends Component {
      */
     public int getMaxHealth() {
         return maxHealth;
+    }
+
+    /**
+     * Sets the entity's maximum health
+     *
+     * @param newMaxHealth updated maximum health
+     */
+    public void setMaxHealth(int newMaxHealth) {
+        if (newMaxHealth > 0){
+            this.maxHealth = newMaxHealth;
+        }
     }
 
     /**

@@ -62,8 +62,9 @@ public class PlayerConfigGeneratorTest {
      */
     @Test
     public void testMeleeWeapon() {
-        inventoryComponent.getInventory().setMelee(new MeleeWeapon("Knife", "images/Weapons/knife.png", 10, 10, 10) {
-
+        inventoryComponent.getInventory().setMelee(new MeleeWeapon() {
+            @Override
+            public void attack(){}
             @Override
             public String getName() {
                 return "Knife";
@@ -83,7 +84,7 @@ public class PlayerConfigGeneratorTest {
     /** Test player's saved Ranged weapon */
     @Test
     public void testRangedWeapon() {
-        inventoryComponent.getInventory().setRanged(new RangedWeapon( "Shotgun", "images/Weapons/shotgun.png", 10, 10, 10, 10, 10, 10) {
+        inventoryComponent.getInventory().setRanged(new RangedWeapon() {
 
             @Override
             public void shoot(Vector2 direction) {

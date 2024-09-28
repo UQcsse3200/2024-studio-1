@@ -627,7 +627,7 @@ public class WeaponComponent extends Component {
             // Have not picked up weapon
             return;
         }
-        this.meleeEntity = weaponFactory.createWeaponForPlayer(this.meleeItem);
+        this.meleeEntity = weaponFactory.createWeaponEntity(this.meleeItem);
         // Spawn entity in the map, the location should not matter
         ServiceLocator.getEntityService().register(this.meleeEntity);
         // Update the host for the weapon controller
@@ -645,7 +645,7 @@ public class WeaponComponent extends Component {
             // Have not picked up weapon
             return;
         }
-        this.rangedEntity = weaponFactory.createWeaponForPlayer(this.rangedItem);
+        this.rangedEntity = weaponFactory.createWeaponEntity(this.rangedItem);
         // Spawn entity in the map, the location should not matter
 //        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(rangedEntity,
 //                new GridPoint2(0,0),

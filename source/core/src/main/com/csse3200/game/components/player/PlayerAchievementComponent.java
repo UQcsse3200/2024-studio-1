@@ -84,7 +84,7 @@ public class PlayerAchievementComponent extends UIComponent {
     public void handleCoinsAchievement() {
         int numCoins = entity.getComponent(CoinsComponent.class).getCoins();
         if (numCoins >= 100) {
-            addAchievement("Scored 100 points", "images/npc/birdman.png");
+            addAchievement("Scored 100 points", "images/items/coin.png");
         }
     }
 

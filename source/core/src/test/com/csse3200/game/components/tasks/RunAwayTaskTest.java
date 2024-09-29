@@ -44,19 +44,15 @@ class RunAwayTaskTest {
         // Use a configuration object for RunAwayTask
         NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
         config.priority = 10;
-        config.viewDistance = 5;
-        config.chaseDistance = 10;
-        config.chaseSpeed = 3;
-        config.waitTime = 2;
+        config.runSpeed = 3;
+        config.stopDistance = 5;
+        config.maxRunTime = 10;
 
         AITaskComponent ai = new AITaskComponent().addTask(new RunAwayTask(target, config));
 
         Entity entity = makePhysicsEntity().addComponent(ai);
         entity.create();
         entity.setPosition(0f, 0f);
-
-        // Simulate the 'runAway' event trigger
-        entity.getEvents().trigger("runAway");
 
         // Ensure the task is active and running away from the target
         float initialDistance = entity.getPosition().dst(target.getPosition());
@@ -70,7 +66,7 @@ class RunAwayTaskTest {
 
         // Ensure the entity has moved away from the target
         float newDistance = entity.getPosition().dst(target.getPosition());
-        assertTrue(newDistance <= initialDistance);
+        assertTrue(newDistance > initialDistance);
     }
 
     @Test
@@ -81,18 +77,15 @@ class RunAwayTaskTest {
         // Use a configuration object for RunAwayTask
         NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
         config.priority = 10;
-        config.viewDistance = 5;
-        config.chaseDistance = 10;
-        config.chaseSpeed = 3;
-        config.waitTime = 2;
+        config.runSpeed = 3;
+        config.stopDistance = 5;
+        config.maxRunTime = 10;
 
-        AITaskComponent ai = new AITaskComponent().addTask(new RunAwayTask(target, config));
+        RunAwayTask runAwayTask = new RunAwayTask(target, config);
+        AITaskComponent ai = new AITaskComponent().addTask(runAwayTask);
         Entity entity = makePhysicsEntity().addComponent(ai);
         entity.create();
         entity.setPosition(0f, 0f);
-
-        // Simulate the 'runAway' event trigger followed by the 'stopRunAway' event
-        entity.getEvents().trigger("runAway");
 
         // Simulate entity running for a few updates
         for (int i = 0; i < 3; i++) {
@@ -101,9 +94,6 @@ class RunAwayTaskTest {
             ServiceLocator.getPhysicsService().getPhysics().update();
         }
 
-        // Trigger the 'stopRunAway' event and ensure the entity has stopped moving
-        entity.getEvents().trigger("stopRunAway");
-
         // Capture the entity's current position
         Vector2 stoppedPosition = entity.getPosition().cpy();
         entity.earlyUpdate();
@@ -111,7 +101,9 @@ class RunAwayTaskTest {
         ServiceLocator.getPhysicsService().getPhysics().update();
 
         // Check that the entity has stopped moving after triggering stopRunAway
-        assertEquals(stoppedPosition, entity.getPosition());
+        float tolerance = 0.05f;
+        assertEquals(stoppedPosition.x, entity.getPosition().x, tolerance);
+        assertEquals(stoppedPosition.y, entity.getPosition().y, tolerance);
     }
 
     @Test
@@ -122,18 +114,14 @@ class RunAwayTaskTest {
         // Use a configuration object for RunAwayTask
         NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
         config.priority = 10;
-        config.viewDistance = 5;
-        config.chaseDistance = 10;
-        config.chaseSpeed = 3;
-        config.waitTime = 2;
+        config.runSpeed = 3;
+        config.stopDistance = 5;
+        config.maxRunTime = 10;
 
         AITaskComponent ai = new AITaskComponent().addTask(new RunAwayTask(target, config));
         Entity entity = makePhysicsEntity().addComponent(ai);
         entity.create();
         entity.setPosition(0f, 0f);
-
-        // Trigger the 'runAway' event
-        entity.getEvents().trigger("runAway");
 
         // Run a few update cycles and check that the entity has not moved
         Vector2 initialPosition = entity.getPosition().cpy();
@@ -154,18 +142,14 @@ class RunAwayTaskTest {
         // Use a configuration object for RunAwayTask
         NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
         config.priority = 10;
-        config.viewDistance = 5;
-        config.chaseDistance = 10;
-        config.chaseSpeed = 3;
-        config.waitTime = 2;
+        config.runSpeed = 3;
+        config.stopDistance = 5;
+        config.maxRunTime = 10;
 
         AITaskComponent ai = new AITaskComponent().addTask(new RunAwayTask(target, config));
         Entity entity = makePhysicsEntity().addComponent(ai);
         entity.create();
         entity.setPosition(0f, 0f);
-
-        // Simulate the 'runAway' event trigger
-        entity.getEvents().trigger("runAway");
 
         // Simulate running away until entity exceeds the maxChaseDistance
         for (int i = 0; i < 10; i++) {

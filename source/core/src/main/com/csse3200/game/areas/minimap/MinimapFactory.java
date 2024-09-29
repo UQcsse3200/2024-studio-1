@@ -63,6 +63,26 @@ public class MinimapFactory {
                 minimapSkin.getRegion("0001"),
                 minimapSkin.getRegion("1011"),
                 minimapSkin.getRegion("0000"),
+                minimapSkin.getRegion("1000_gambling"),
+                minimapSkin.getRegion("1100_gambling"),
+                minimapSkin.getRegion("1010_gambling"),
+                minimapSkin.getRegion("1001_gambling"),
+                minimapSkin.getRegion("1110_gambling"),
+                minimapSkin.getRegion("1101_gambling"),
+                minimapSkin.getRegion("1111_gambling"),
+                minimapSkin.getRegion("0100_gambling"),
+                minimapSkin.getRegion("0110_gambling"),
+                minimapSkin.getRegion("0111_gambling"),
+                minimapSkin.getRegion("0101_gambling"),
+                minimapSkin.getRegion("0010_gambling"),
+                minimapSkin.getRegion("0011_gambling"),
+                minimapSkin.getRegion("0001_gambling"),
+                minimapSkin.getRegion("1011_gambling"),
+                minimapSkin.getRegion("1000_boss"),
+                minimapSkin.getRegion("0100_boss"),
+                minimapSkin.getRegion("0010_boss"),
+                minimapSkin.getRegion("0001_boss")
+
         };
     }
 
@@ -199,6 +219,25 @@ public class MinimapFactory {
             case "0011": return 12;
             case "0001": return 13;
             case "1011": return 14;
+            case "1000_gambling": return 16;
+            case "1100_gambling": return 17;
+            case "1010_gambling": return 18;
+            case "1001_gambling": return 19;
+            case "1110_gambling": return 20;
+            case "1101_gambling": return 21;
+            case "1111_gambling": return 22;
+            case "0100_gambling": return 23;
+            case "0110_gambling": return 24;
+            case "0111_gambling": return 25;
+            case "0101_gambling": return 26;
+            case "0010_gambling": return 27;
+            case "0011_gambling": return 28;
+            case "0001_gambling": return 29;
+            case "1011_gambling": return 30;
+            case "1000_boss": return 31;
+            case "0100_boss": return 32;
+            case "0010_boss": return 33;
+            case "0001_boss": return 34;
             default: return 15; // 0000 (no connections)
         }
     }

@@ -66,6 +66,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("RELOAD", this::startReload);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
+        entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
     }
 
     /**

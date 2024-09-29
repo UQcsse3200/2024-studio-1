@@ -53,6 +53,7 @@ public class PlayerActions extends Component {
             entity.getEvents().trigger("stopAnimation");
             if (!dead) {
                 entity.getEvents().trigger("death");
+                stopWalking();
                 dead = true;
             }
         }
@@ -108,25 +109,30 @@ public class PlayerActions extends Component {
      * Stops the player from walking.
      */
     private void stopWalking() {
-        this.walkDirection = Vector2.Zero.cpy();
-        updateSpeed();
-        moving = false;
+        if (!dead) {
+            this.walkDirection = Vector2.Zero.cpy();
+            updateSpeed();
+            moving = false;
+        }
     }
 
     /**
      * Makes the player attack.
      */
     private void attack() {
-        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
-        entity.getComponent(WeaponComponent.class).attackMelee();
+        if (!dead) {
+            ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
+            entity.getComponent(WeaponComponent.class).attackMelee();
+        }
     }
 
     /**
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
-        entity.getComponent(WeaponComponent.class).shoot(direction);
+        if (!dead) {
+            entity.getComponent(WeaponComponent.class).shoot(direction);
+        }
     }
 
     private void updateSpeed() {
@@ -144,8 +150,10 @@ public class PlayerActions extends Component {
      * @param direction direction to move in
      */
     private void walk(Vector2 direction) {
-        this.walkDirection = direction;
-        moving = true;
+        if (!dead) {
+            this.walkDirection = direction;
+            moving = true;
+        }
     }
 
     /**
@@ -166,12 +174,14 @@ public class PlayerActions extends Component {
     }
 
     private void use(UsableItem item) {
-        Inventory inventory = inventoryComponent.getInventory();
-        for (Collectible collectedItem : inventory.getItems()) {
-            if (collectedItem.getClass() == item.getClass()) {
-                item.apply(entity);
-                inventoryComponent.drop(collectedItem);
-                break;
+        if (!dead) {
+            Inventory inventory = inventoryComponent.getInventory();
+            for (Collectible collectedItem : inventory.getItems()) {
+                if (collectedItem.getClass() == item.getClass()) {
+                    item.apply(entity);
+                    inventoryComponent.drop(collectedItem);
+                    break;
+                }
             }
         }
     }

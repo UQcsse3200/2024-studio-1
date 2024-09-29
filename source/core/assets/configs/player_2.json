@@ -1,7 +1,12 @@
 {
-  "name": "the other one",
+  "name": "Player 2",
   "health": 70,
-  "favouriteColour": "yellow",
-  "textureFilename": "images/player/player.png",
-  "textureAtlasFilename": "images/player/player.atlas"
+  "coins": 0,
+  "speed": {
+    "x": 3,
+    "y": 3
+  },
+  "textureFilename": "images/player/homeless1.png",
+  "textureAtlasFilename": "images/player/homeless1.atlas"
+
 }

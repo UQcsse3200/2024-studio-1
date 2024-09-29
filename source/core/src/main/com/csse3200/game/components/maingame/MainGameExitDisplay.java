@@ -179,13 +179,16 @@ public class MainGameExitDisplay extends UIComponent {
 
   public void saveGame() {
     Array<EntityCoordinates> entities = new Array<>();
+    Entity player;
     for (Entity entity : ServiceLocator.getEntityService().getEntities()) {
-       Vector2 pos = entity.getPosition();
+      if (entity.getId() == 8) player = entity;
+      Vector2 pos = entity.getPosition();
        float x = pos.x;
        float y = pos.y;
        EntityCoordinates coordinates = new EntityCoordinates(x, y);
        entities.add(coordinates);
     }
+
     String filePath = "configs/save.json";
     FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
     logger.debug("Game saved to: " + filePath);

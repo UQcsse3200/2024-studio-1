@@ -95,6 +95,7 @@ public class ItemPickupComponent extends Component {
         if (collisionItem == null || collisionItemEntity == null) {
             return;
         }
+
         int xPosition = (int) collisionItemEntity.getPosition().x;
         int yPosition = (int) collisionItemEntity.getPosition().y;
 
@@ -103,8 +104,10 @@ public class ItemPickupComponent extends Component {
 
         int randomInt = this.random.nextInt(5);
         Entity newItem = this.randomItemGenerator(randomInt);
+//        Entity newItem = testCollectibleFactory.createCollectibleEntity("item:shieldpotion");
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
+//        area.spawnEntityAt(newItem, itemEntityPosition, true, true);
         entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
         itemEntity = newItem;
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
@@ -168,7 +171,6 @@ public class ItemPickupComponent extends Component {
             case 3 -> specification = "buff:energydrink:High";
             case 4 -> specification = "buff:energydrink:Low";
             case 5 -> specification = "buff:energydrink:Medium";
-            //case 6 -> specification = "buff:damagebuff";
         }
 
         return collectibleFactory.createCollectibleEntity(specification);

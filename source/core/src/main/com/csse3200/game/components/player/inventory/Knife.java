@@ -9,7 +9,7 @@ import com.csse3200.game.entities.Entity;
 public class Knife extends MeleeWeapon {
 
     public Knife() {
-        this.setDamage(100);
+        this.setDamage(200);
         this.setRange(0);
         this.setFireRate(10);
     }

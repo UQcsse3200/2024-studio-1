@@ -82,6 +82,7 @@ public class EntityService {
         disposeMarkedEntities();
     }
 
+
     /**
      * Dispose all entities marked for removal
      */
@@ -136,5 +137,19 @@ public class EntityService {
      */
     public Entity[] getEntities() {
         return entities.toArray(Entity.class);
+    }
+    /**
+     * Gets the player entity in the EntityService
+     *
+     * @return Entity - the player entity, if none exists return null 
+     */
+    public Entity getPlayer() {
+        for (int i = 0; i < entities.size; i++) {
+            Entity entity = entities.get(i);
+            if (entity.getComponent(NameComponent.class).getName().equals("player")) {
+                return entity;
+            }
+        }
+        return null;
     }
 }

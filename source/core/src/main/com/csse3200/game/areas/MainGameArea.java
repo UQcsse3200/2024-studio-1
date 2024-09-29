@@ -2,6 +2,8 @@ package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.areas.minimap.MinimapComponent;
+import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
@@ -35,6 +37,7 @@ public class MainGameArea extends GameArea {
     public String currentRoomName;
     private Map <String, String> currentPosition = new HashMap<>();
     private final boolean shouldLoad;
+    private MinimapFactory minimapFactory;
     
 
     /**
@@ -143,6 +146,8 @@ public class MainGameArea extends GameArea {
         if (!this.currentRoom.getIsRoomComplete()) {
             this.currentLevel.roomTraversals++;
         }
+
+        minimapFactory.updateMinimap(roomKey);
     }
 
     public void spawnCurrentRoom() {
@@ -179,6 +184,11 @@ public class MainGameArea extends GameArea {
         // Create and load the new level
         this.currentLevel = this.levelFactory.create(levelNumber);
         selectRoom(this.currentLevel.getStartingRoomKey());
+
+        // // initialize minimap
+        MinimapComponent minimapComponent = minimapFactory.createMinimap();
+        this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
+
     }
 
     private void displayUI() {

@@ -156,7 +156,7 @@ public class PlayerActions extends Component {
         return walkDirection;
     }
 
-    private void handleReroll(UsableItem reroll) {
+    public void handleReroll(UsableItem reroll) {
         if (itemPickupComponent.isInContact() && itemPickupComponent.getItem() != null) {
             use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
         }

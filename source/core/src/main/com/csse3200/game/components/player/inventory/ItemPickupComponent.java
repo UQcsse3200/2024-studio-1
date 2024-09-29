@@ -26,7 +26,7 @@ public class ItemPickupComponent extends Component {
     private boolean contact = false;
     Collectible item = null;
     Entity itemEntity = null;
-    CollectibleFactory collectibleFactory = new CollectibleFactory();
+    CollectibleFactory collectibleFactory;
     Random random;
 
     /**
@@ -43,6 +43,7 @@ public class ItemPickupComponent extends Component {
     public void create() {
         super.create();
         this.random = new Random();
+        this.collectibleFactory = new CollectibleFactory();
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
         entity.getEvents().addListener("pickup", ()->handleItemPickup(item, itemEntity));
@@ -75,6 +76,10 @@ public class ItemPickupComponent extends Component {
         return item;
     }
 
+    public void setContact(boolean contact) {
+        this.contact = contact;
+    }
+
     /**
      * Determine when the player collision has ended
      */
@@ -91,7 +96,7 @@ public class ItemPickupComponent extends Component {
         return entity.getComponent(CollectibleComponent.class) != null;
     }
 
-    private void handleReroll(Collectible collisionItem, Entity collisionItemEntity) {
+    public void handleReroll(Collectible collisionItem, Entity collisionItemEntity) {
         if (collisionItem == null || collisionItemEntity == null) {
             return;
         }
@@ -170,6 +175,6 @@ public class ItemPickupComponent extends Component {
             case 5 -> specification = "buff:energydrink:Medium";
         }
 
-        return collectibleFactory.createCollectibleEntity(specification);
+        return this.collectibleFactory.createCollectibleEntity(specification);
     }
 }

@@ -118,7 +118,7 @@ public class PlayerActions extends Component {
      */
     private void attack() {
         ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
-        entity.getComponent(WeaponComponent.class).attackMelee();
+        entity.getComponent(WeaponComponent.class).attack();
     }
 
     /**

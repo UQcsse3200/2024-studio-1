@@ -57,11 +57,14 @@ public class MinimapComponent extends RenderComponent {
 
     @Override
     public void draw(SpriteBatch batch) {
+        batch.end();
         // Render the minimap
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 
         drawPlayerLocator();
+
+        batch.begin();
     }
 
     private void drawPlayerLocator() {

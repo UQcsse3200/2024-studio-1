@@ -235,4 +235,8 @@ public abstract class BaseRoom implements Room {
         }
         entities.clear();
     }
+
+    public List<String> getRoomConnections() {
+        return roomConnections;
+    }
 }

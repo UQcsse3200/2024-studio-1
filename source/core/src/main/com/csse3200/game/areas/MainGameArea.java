@@ -221,7 +221,8 @@ public class MainGameArea extends GameArea {
                 "images/terrain_iso_grass.atlas",
                 "skins/levels/level1/level1_skin.atlas",
                 "skins/levels/level2/level2_skin.atlas",
-                "skins/levels/level3/level3_skin.atlas"
+                "skins/levels/level3/level3_skin.atlas",
+                "skins/minimap/minimap.atlas"
 
         };
     }
@@ -244,7 +245,8 @@ public class MainGameArea extends GameArea {
                 "images/staircase.png",
                 "skins/levels/level1/level1_skin.png",
                 "skins/levels/level2/level2_skin.png",
-                "skins/levels/level3/level3_skin.png"
+                "skins/levels/level3/level3_skin.png",
+                "skins/minimap/minimap.png"
         };
         Collections.addAll(filepaths, commonTextures);
 

@@ -58,6 +58,7 @@ public class ItemFactory {
             case "targetdummy" -> createTargetDummy();
             case "beartrap" -> createBearTrap();
             case "heart" -> createHeart();
+            case "divinepotion" -> createDivinePotion();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -132,6 +133,14 @@ public class ItemFactory {
      */
     private Collectible createHeart() {
         return new Heart();
+    }
+
+    /**
+     * Creates a divine potion item that increases the player's health and speed
+     * @return divine potion item
+     */
+    private Collectible createDivinePotion() {
+        return new DivinePotion();
     }
 }
 

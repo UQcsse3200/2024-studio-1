@@ -2,7 +2,9 @@ package com.csse3200.game.components.player;
 
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.CoinsComponent;
 import com.csse3200.game.files.FileLoader;
@@ -23,6 +25,8 @@ public class PlayerAchievementComponent extends UIComponent {
      */
     public HashMap<String, String> achievements;
     public ArrayList<String> energyDrinksCollected;
+    public Skin skin;
+    public Stage stage;
 
     /**
      * Constructs an Achievement component to an Entity by reading the achievements
@@ -42,7 +46,18 @@ public class PlayerAchievementComponent extends UIComponent {
 
     }
 
+    // Existing code...
 
+    /**
+     * Setter for skin (for testing purposes)
+     */
+    public void setSkin(Skin skin) {
+        this.skin = skin;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
     /**
      * Gets the map of achievements
      * @return a map containing the achievement

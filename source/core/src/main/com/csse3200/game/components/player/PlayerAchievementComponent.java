@@ -18,6 +18,12 @@ import java.util.HashMap;
  * informs the users through a text display for 1 second on the screen.
  */
 public class PlayerAchievementComponent extends UIComponent {
+
+    /**
+     * File where achievement information is stored (map of name to image path).
+     */
+    public static final String ACHIEVEMENTS_PATH = "configs/achievements.json";
+
     /**
      * Contains the name and the image of achievement collected
      */
@@ -30,13 +36,13 @@ public class PlayerAchievementComponent extends UIComponent {
      */
     public PlayerAchievementComponent() {
         energyDrinksCollected = new ArrayList<>();
-        if (FileLoader.readClass(HashMap.class, "configs/achievements.json",
+        if (FileLoader.readClass(HashMap.class, ACHIEVEMENTS_PATH,
                 FileLoader.Location.EXTERNAL) == null) {
-            achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
+            achievements = FileLoader.readClass(HashMap.class, ACHIEVEMENTS_PATH,
                     FileLoader.Location.LOCAL);
         }
         else {
-            achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
+            achievements = FileLoader.readClass(HashMap.class, ACHIEVEMENTS_PATH,
                     FileLoader.Location.EXTERNAL);
         }
 
@@ -57,9 +63,9 @@ public class PlayerAchievementComponent extends UIComponent {
         entity.getEvents().addListener("updateSpeedPercentage", this::handleEnergyDrinkAchievement);
         entity.getEvents().addListener("defeatedEnemy",  this::handleDefeatedEnemyAchievement);
         entity.getEvents().addListener("addToInventory", () ->
-                addAchievement("First inventory collectible", "images/mystery_box_blue.png"));
+                addAchievement("First inventory collectible", "images/items/mystery_box_blue.png"));
         entity.getEvents().addListener("itemUsed", () ->
-                addAchievement("First item used", "images/mystery_box_blue.png"));
+                addAchievement("First item used", "images/items/mystery_box_blue.png"));
         entity.getEvents().addListener("updateCoins", this::handleCoinsAchievement);
     }
 
@@ -166,7 +172,7 @@ public class PlayerAchievementComponent extends UIComponent {
      * Writes the Hashmap to Json file
      */
     public void updateConfig() {
-        FileLoader.writeClass(achievements, "configs/achievements.json", FileLoader.Location.EXTERNAL);
+        FileLoader.writeClass(achievements, ACHIEVEMENTS_PATH, FileLoader.Location.EXTERNAL);
     }
 
 }

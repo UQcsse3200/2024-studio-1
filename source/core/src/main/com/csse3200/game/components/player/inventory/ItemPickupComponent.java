@@ -115,6 +115,7 @@ public class ItemPickupComponent extends Component {
         if(contact) {
             inventory.pickup(item);
             markEntityForRemoval(itemEntity);
+            this.itemEntity.getEvents().trigger("itemChose");
         }
 
         lastPickedUpEntity = itemEntity; //Update the last picked up entity

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
@@ -198,8 +199,17 @@ public abstract class BaseRoom implements Room {
 
     protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
+        item.getEvents().addListener("itemChose",()->deleteRemainingItems(item));
         entities.add(item);
         area.spawnEntityAt(item, pos, true, true);
+    }
+    private void deleteRemainingItems(Entity item){
+        for(Entity entity: entities) {
+            CollectibleComponent itemComponent = entity.getComponent(CollectibleComponent.class);
+            if(itemComponent != null && entity != item ) {
+                ServiceLocator.getEntityService().markEntityForRemoval(entity);
+            }
+        }
     }
    /**
      * Checks if the room is complete.

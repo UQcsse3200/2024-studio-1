@@ -68,6 +68,7 @@ public class GdxGame extends Game {
           case MAIN_MENU -> new MainMenuScreen(this);
           case MAIN_GAME -> new MainGameScreen(this);
           case SETTINGS -> new SettingsScreen(this);
+          case ACHIEVEMENTS -> new AchievementsScreen(this);
           case HOW_TO_PLAY -> new HowToPlayScreen(this);
           case PLAYER_SELECT -> new PlayerSelectScreen(this);
           case CUTSCENE -> new IntroCutsceneScreen(this);
@@ -79,7 +80,10 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, PLAYER_SELECT, CUTSCENE, WIN, LOSE, ANIMALS, WEAPONS
+    MAIN_MENU, MAIN_GAME,
+    SETTINGS, HOW_TO_PLAY, ANIMALS, WEAPONS, ACHIEVEMENTS,
+    PLAYER_SELECT, CUTSCENE,
+    WIN, LOSE
   }
 
   /**

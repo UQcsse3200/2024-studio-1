@@ -41,6 +41,7 @@ public class PlayerAnimationController extends Component {
                 break;
             case "images/npc/bear/bear.atlas":
                 this.playerNum = PlayerNum.Bear;
+                break;
             case ("images/player/homeless2.atlas"):
                 this.playerNum = PlayerNum.Player3;
                 break;
@@ -128,7 +129,7 @@ public class PlayerAnimationController extends Component {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-up");
                 case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
-                case Bear -> animationController.startAnimation("walk_top");
+                case Bear -> animationController.startAnimation("walk_bottom");
             }
         }
     }
@@ -164,7 +165,7 @@ public class PlayerAnimationController extends Component {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation( "damage-down");
                 case Player2, Player3, Player4 -> animationController.startAnimation( "Hurt");
-                case Bear -> animationController.startAnimation("walk_top");
+                case Bear -> animationController.startAnimation("atack_right");
             }
         }
     }

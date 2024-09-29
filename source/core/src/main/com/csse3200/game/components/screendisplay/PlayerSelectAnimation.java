@@ -55,6 +55,7 @@ public class PlayerSelectAnimation extends Actor {
                 break;
             case Bear:
                 animator.addAnimation("idle_right", 0.5f, Animation.PlayMode.LOOP);
+                animator.addAnimation("attack_right", 0.5f, Animation.PlayMode.LOOP);
                 break;
         }
     }

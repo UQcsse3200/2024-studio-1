@@ -15,28 +15,34 @@ public class AOEAttackComponent extends AttackComponent {
 
     public AOEAttackComponent(Entity target, float attackRange, float attackRate,
                               NPCConfigs.NPCConfig.EffectConfig[] effectConfigs, float aoeRadius) {
+
         super(target, attackRange, attackRate, effectConfigs);
+        this.target = target;
         this.aoeRadius = aoeRadius;
         this.origin = new Vector2();
     }
 
     @Override
     public void performAttack() {
-        logger.info("{} performs AOE attack at {}", entity, origin);
+        if (canAttack(entity, target)) {
+            entity.getEvents().trigger("aoe_attack");
+            logger.info("{} performs AOE attack at {}", entity, origin);
+            Circle aoeCircle = new Circle(entity.getCenterPosition(), aoeRadius);
+            List<Entity> entitiesInRange = ServiceLocator.getGameAreaService().getGameArea().getListOfEntities();
 
-        Circle aoeCircle = new Circle(origin, aoeRadius);
-        List<Entity> entitiesInRange = ServiceLocator.getGameAreaService().getGameArea().getListOfEntities();
-
-        for (Entity targetEntity : entitiesInRange) {
-            if (targetEntity.getComponent(CombatStatsComponent.class) != null
-                    && aoeCircle.contains(targetEntity.getPosition())) {
-                logger.info("AOE attack hits {} for {} damage", targetEntity, combatStats.getBaseAttack());
-                targetEntity.getComponent(CombatStatsComponent.class).hit(combatStats);
-                applyEffects(targetEntity);
+            for (Entity targetEntity : entitiesInRange) {
+                if(entity != targetEntity) {
+                    //entity.getEvents().trigger("updateCircle");
+                    if (targetEntity.getComponent(CombatStatsComponent.class) != null
+                            && aoeCircle.contains(targetEntity.getPosition())) {
+                        logger.info("AOE attack hits {} for {} damage", targetEntity, combatStats.getBaseAttack());
+                        targetEntity.getComponent(CombatStatsComponent.class).hit(combatStats);
+                        applyEffects(targetEntity);
+                    }
+                }
             }
         }
 
-        entity.getEvents().trigger("aoe_attack");
     }
 
     public void setOrigin(Vector2 newOrigin) {
@@ -45,7 +51,6 @@ public class AOEAttackComponent extends AttackComponent {
 
     @Override
     public boolean canAttack(Entity attacker, Entity target) {
-        float distanceToTarget = origin.dst(target.getPosition());
-        return distanceToTarget <= aoeRadius;
+        return target.getPosition().dst(entity.getCenterPosition()) <= aoeRadius;
     }
 }

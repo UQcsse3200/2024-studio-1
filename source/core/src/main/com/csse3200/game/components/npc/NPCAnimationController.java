@@ -1,7 +1,13 @@
 package com.csse3200.game.components.npc;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.rendering.AnimationRenderComponent;
+import com.csse3200.game.services.ServiceLocator;
 
 /**
  * This class listens to events relevant to a entity's state and plays the animation when one
@@ -12,12 +18,22 @@ public class NPCAnimationController extends Component {
     DirectionalNPCComponent directionalComponent;
     Boolean dead;
 
+    Image circle;
+    Table table;
+    Stage stage;
+
+
     @Override
     public void create() {
         super.create();
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         directionalComponent = this.entity.getComponent(DirectionalNPCComponent.class);
         dead = false;
+        circle = new Image(new Texture("images/npc/glowCircle.png"));
+        table = new Table();
+        stage = ServiceLocator.getRenderService().getStage();
+        stage.addActor(table);
+
         entity.getEvents().addListener("idle", this::animateIdle);
         entity.getEvents().addListener("gesture", this::animateGesture);
         entity.getEvents().addListener("walk", this::animateWalk);
@@ -26,7 +42,40 @@ public class NPCAnimationController extends Component {
         entity.getEvents().addListener("death", this::animateDeath);
         entity.getEvents().addListener("hurt", this::animateHurt);
         entity.getEvents().addListener("jump", this::animateJump);
+        entity.getEvents().addListener("updateCircle", this::update);
+        entity.getEvents().addListener("aoe_attack", this::aoe_animation);
     }
+
+    void aoe_animation() {
+        if(!dead) {
+            table.clear();
+            circle.setPosition(circle.getWidth() - entity.getCenterPosition().x / 2,
+                    circle.getHeight() - entity.getCenterPosition().y / 2);
+
+            System.out.println(entity.getCenterPosition().x + " hello " + entity.getCenterPosition().y);
+            System.out.println(circle.getX() + "hello" + circle.getY());
+            table.add(circle);
+            /*
+            new Timer().scheduleTask(new Timer.Task() {
+                @Override
+                public void run() {
+                    table.clear();
+                }
+            }, 2);
+
+             */
+        }
+    }
+
+    @Override
+    public void update() {
+        if (!dead) {
+            // Update the circle position every frame to follow the entity
+            circle.setPosition((circle.getWidth() - entity.getCenterPosition().x),
+                    (circle.getHeight() - entity.getCenterPosition().y ));
+        }
+    }
+
 
     void animateIdle() {
         if (!dead){

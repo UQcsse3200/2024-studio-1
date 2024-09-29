@@ -17,9 +17,10 @@ import static com.badlogic.gdx.math.MathUtils.lerp;
  * Task for an NPC to "jump" toward a target, bypassing obstacles and simulating a jump arc in the y direction.
  */
 public class JumpTask extends DefaultTask implements PriorityTask {
+    private static final float JUMP_DURATION = 1.5f * 1000;
+    private static final float JUMP_HEIGHT_SCALAR = 0.3f;
     private final Entity target;
-    private final float jumpHeight;
-    private final float jumpDuration;
+    private float jumpHeight;
     private Vector2 startPos;
     private Vector2 targetPos;
     private PhysicsComponent physicsComponent;
@@ -31,24 +32,21 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      * Creates a JumpTask towards the target with a specified jump height and duration.
      *
      * @param target Entity to jump towards.
-     * @param jumpHeight Maximum height of the jump arc.
-     * @param jumpDuration Duration for the entire jump (in milliseconds).
      */
-    public JumpTask(Entity target, float jumpHeight, float jumpDuration) {
+    public JumpTask(Entity target) {
         this.target = target;
-        this.jumpHeight = jumpHeight;
-        this.jumpDuration = jumpDuration * 1000;
     }
 
     @Override
     public void start() {
-        logger.info("Starting jump towards {}", target);
+        logger.debug("Starting jump towards {}", target);
         super.start();
         this.physicsComponent = owner.getEntity().getComponent(PhysicsComponent.class);
         this.gameTime = ServiceLocator.getTimeSource();
 
         startPos = owner.getEntity().getPosition();
         targetPos = target.getPosition();
+        jumpHeight = JUMP_HEIGHT_SCALAR * startPos.dst(targetPos);
 
         startTime = gameTime.getTime();
         this.owner.getEntity().getEvents().trigger("jump");
@@ -57,7 +55,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     @Override
     public void update() {
         long elapsedTime = gameTime.getTimeSince(startTime);
-        float t = Math.min((float)elapsedTime / jumpDuration, 1);  // Time ratio from 0 to 1
+        float t = Math.min((float)elapsedTime / JUMP_DURATION, 1);  // Time ratio from 0 to 1
 
         // Calculate the new position and jump height
         float newX = lerp(startPos.x, targetPos.x, t);

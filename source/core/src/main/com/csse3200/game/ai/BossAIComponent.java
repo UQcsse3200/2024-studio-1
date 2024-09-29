@@ -64,7 +64,7 @@ public class BossAIComponent extends Component implements TaskRunner {
     chargeTask = new ChargeTask(target, config.tasks.charge);
     chaseTask = new ChaseTask(target, config.tasks.chase);
     runAwayTask = new RunAwayTask(target, config.tasks.runAway);
-    jumpTask = new JumpTask(target, 2, 1.5f);
+    jumpTask = new JumpTask(target);
     waitTask = new WaitTask(config.waitTime,1);
     wanderTask = new WanderTask(config.tasks.wander);
     chargeTask.create(this);

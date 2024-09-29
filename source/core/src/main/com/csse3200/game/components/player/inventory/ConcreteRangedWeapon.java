@@ -18,13 +18,14 @@ public class ConcreteRangedWeapon extends RangedWeapon {
 
     /**
      * Constructor for ranged weapons.
-     * @param name The name of the weapon.
-     * @param iconPath The path to the icon of the weapon.
-     * @param damage The damage of the weapon.
-     * @param range The range of the weapon.
-     * @param fireRate The fire rate of the weapon.
-     * @param ammo The current ammo of the weapon.
-     * @param maxAmmo The maximum ammo of the weapon.
+     *
+     * @param name       The name of the weapon.
+     * @param iconPath   The path to the icon of the weapon.
+     * @param damage     The damage of the weapon.
+     * @param range      The range of the weapon.
+     * @param fireRate   The fire rate of the weapon.
+     * @param ammo       The current ammo of the weapon.
+     * @param maxAmmo    The maximum ammo of the weapon.
      * @param reloadTime The reload time of the weapon.
      */
     public ConcreteRangedWeapon(String name, String iconPath, int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime) {
@@ -39,10 +40,10 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     }
 
     /**
-     * Set the entity which is created for this weapon. The weapon entity should contain all the
-     * required functionalities to be used by the player.
+     * Set the weaponEntity, which will activate when the player pick up this weapon
      * Should only be called by the WeaponFactory
-     * @param weaponEntity the entity created for this weapon
+     *
+     * @param weaponEntity The entity that contains this weapon
      */
     public void setWeaponEntity(Entity weaponEntity) {
         this.weaponEntity = weaponEntity;
@@ -51,7 +52,17 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     }
 
     /**
+     * Get the weaponEntity
+     *
+     * @return The entity that contains this weapon
+     */
+    public Entity getWeaponEntity() {
+        return this.weaponEntity;
+    }
+
+    /**
      * Pick up the ranged weapon and put it in the inventory.
+     *
      * @param inventory The inventory to be put in.
      */
     @Override
@@ -71,6 +82,7 @@ public class ConcreteRangedWeapon extends RangedWeapon {
 
     /**
      * Drop the ranged weapon from the inventory.
+     *
      * @param inventory The inventory to drop from.
      */
     @Override
@@ -88,6 +100,7 @@ public class ConcreteRangedWeapon extends RangedWeapon {
 
     /**
      * Set up the weapon components to connect with the player
+     *
      * @param player the player who holds this weapon
      */
     private void connectPlayer(Entity player) {
@@ -119,6 +132,7 @@ public class ConcreteRangedWeapon extends RangedWeapon {
 
     /**
      * Create a projectile and launch it in the direction specified
+     *
      * @param direction direction to shoot in
      */
     @Override
@@ -126,17 +140,11 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         this.weaponEntity.getComponent(FiringController.class).activate(direction);
     }
 
-    /**
-     * Get the entity of this weapon
-     * @return the entity of this weapon
-     */
-    public Entity getWeaponEntity() {
-        return this.weaponEntity;
-    }
 
     /**
      * Get the clip size of this weapon
      * i.e how many shots it can fire before reloading
+     *
      * @return integer represent the clip size
      */
     public int getClipSize() {
@@ -146,6 +154,7 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     /**
      * Set the clip size of this weapon
      * i.e how many shots it can fire before reloading
+     *
      * @param i the desired clip size
      */
     public void setClipSize(int i) {

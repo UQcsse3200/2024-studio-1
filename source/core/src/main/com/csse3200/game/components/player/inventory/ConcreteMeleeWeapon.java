@@ -106,7 +106,6 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
      */
     @Override
     public void drop(Inventory inventory) {
-        Entity player = inventory.getEntity();
         inventory.resetMelee();
         try {
             disconnectPlayer();

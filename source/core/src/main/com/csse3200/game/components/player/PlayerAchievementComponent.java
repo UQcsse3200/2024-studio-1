@@ -2,37 +2,81 @@ package com.csse3200.game.components.player;
 
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.csse3200.game.components.player.inventory.CoinsComponent;
 import com.csse3200.game.files.FileLoader;
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ui.UIComponent;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
-
+/**
+ * Handles achievements accomplished by player throughout the game and
+ * informs the users through a text display for 1 second on the screen.
+ */
 public class PlayerAchievementComponent extends UIComponent {
+    /**
+     * Contains the name and the image of achievement collected
+     */
     public HashMap<String, String> achievements;
-    public PlayerAchievementComponent() {
-        achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json");
-    }
-
+    public ArrayList<String> energyDrinksCollected;
+    public Skin skin;
+    public Stage stage;
 
     /**
+     * Constructs an Achievement component to an Entity by reading the achievements
+     * gained through previous games
+     */
+    public PlayerAchievementComponent() {
+        energyDrinksCollected = new ArrayList<>();
+        if (FileLoader.readClass(HashMap.class, "configs/achievements.json",
+                FileLoader.Location.EXTERNAL) == null) {
+            achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
+                    FileLoader.Location.LOCAL);
+        }
+        else {
+            achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
+                    FileLoader.Location.EXTERNAL);
+        }
+
+    }
+
+    // Existing code...
+
+    /**
+     * Setter for skin (for testing purposes)
+     */
+    public void setSkin(Skin skin) {
+        this.skin = skin;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    /**
      * Gets the map of achievements
-     * @return
+     * @return a map containing the achievement
      */
     public HashMap<String, String> getAchievements() {
         return achievements;
     }
 
-    @Override
     public void create() {
         super.create();
 
         //Add event handling
-        entity.getEvents().addListener("updateSpeedPercentage", this::energyDrinkAchievement);
-        entity.getEvents().addListener("defeated10", this::defeated10);
+        entity.getEvents().addListener("updateSpeedPercentage", this::handleEnergyDrinkAchievement);
+        entity.getEvents().addListener("defeatedEnemy",  this::handleDefeatedEnemyAchievement);
+        entity.getEvents().addListener("addToInventory", () ->
+                addAchievement("First inventory collectible", "images/mystery_box_blue.png"));
+        entity.getEvents().addListener("itemUsed", () ->
+                addAchievement("First item used", "images/mystery_box_blue.png"));
+        entity.getEvents().addListener("updateCoins", this::handleCoinsAchievement);
     }
 
 
@@ -42,15 +86,64 @@ public class PlayerAchievementComponent extends UIComponent {
     }
 
 
-    public void defeated10() {
-        addAchievement("Defeated 10 Animals", "images/npc/birdman.png");
+    /**
+     * Handles whether an energy drink achievement has been obtained. It is called any time an energy drink
+     */
+    public void handleEnergyDrinkAchievement(float speedPercentage, String speedType) {
+        if (energyDrinksCollected.contains(speedType)) {
+            return;
+        }
+        else {
+            energyDrinksCollected.add(speedType);
+        }
+        if (energyDrinksCollected.size() == 3) {
+            addAchievement("All three energy drink types collected", "images/items/energy_drink_blue.png");
+        }
     }
 
     /**
-     * A method to handle whether an energy drink achievement has been obtained. It is called any time an energy drink
+     * Handles achievements for when an enemy is defeated.
+     * @param deadCount the amount of animals defeated
      */
-    public void energyDrinkAchievement(float speedPercentage) {
-        addAchievement("First energy drink", "images/items/energy_drink_blue.png");
+    public void handleDefeatedEnemyAchievement(int deadCount) {
+
+        switch (deadCount) {
+            case 1:
+                addAchievement("First defeated enemy", "images/items/energy_drink_blue.png");
+                break;
+            case 10:
+                addAchievement("10 enemies defeated", "images/items/energy_drink_blue.png");
+                break;
+            case 100:
+                addAchievement("100 enemies defeated", "images/items/mystery_box_green.png");
+                break;
+            case 1000:
+                addAchievement("1000 enemies defeated", "images/items/mystery_box_green.png");
+                break;
+            default:
+                // Handle other cases or do nothing
+                break;
+        }
+    }
+
+    /**
+     * Handles achievements for coins collected throught a game
+     */
+    public void handleCoinsAchievement() {
+        int numCoins = entity.getComponent(CoinsComponent.class).getCoins();
+        switch (numCoins) {
+            case 100:
+                addAchievement("Scored 100 coins", "images/items/coin.png");
+                break;
+            case 1000:
+                addAchievement("scored 1000 coins", "images/items/coin.png");
+                break;
+            case 10000:
+                addAchievement("scored 10000 coins", "images/items/coin.png");
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -89,7 +182,7 @@ public class PlayerAchievementComponent extends UIComponent {
      * Writes the Hashmap to Json file
      */
     public void updateConfig() {
-        FileLoader.writeClass(achievements, "configs/achievements.json", FileLoader.Location.LOCAL);
+        FileLoader.writeClass(achievements, "configs/achievements.json", FileLoader.Location.EXTERNAL);
     }
 
 }

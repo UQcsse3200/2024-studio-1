@@ -342,24 +342,34 @@
     "health": 500,
     "baseAttack": 40,
     "isDirectional": true,
+    "waitTime": 1.5,
+    "chaseTime": 5,
+    "wanderMinRange": 8,
+    "chaseMinRange": 5,
+    "chaseMaxRange": 8,
+    "chargeMinRange": 0,
+    "chargeMaxRange": 0,
+    "jumpMinRange": 0,
+    "jumpMaxRange": 0,
+    "retreatMinRange": 0,
+    "retreatMaxRange": 3,
+    "aoeMinRange": 0,
+    "aoeMaxRange": 0,
+    "rangedMinRange": 3,
+    "rangedMaxRange": 5,
+    "rangedAttackNum": 8,
+    "fallbackState": "RANGE_ATTACK",
     "tasks": {
       "wander": {
-        "wanderRadius": 1,
-        "waitTime": 3,
-        "wanderSpeed": 1
       },
       "chase": {
-        "priority": 10,
-        "chaseSpeed": 1,
-        "viewDistance": 6,
-        "chaseDistance": 8
+        "chaseSpeed": 1
       },
       "charge": {
-        "priority": 5,
-        "viewDistance": 4,
-        "chaseDistance": 5,
-        "chaseSpeed": 2,
-        "waitTime": 1
+        "chaseSpeed": 2
+      },
+      "runAway": {
+        "chaseSpeed": 3
       }
     },
     "attacks": {

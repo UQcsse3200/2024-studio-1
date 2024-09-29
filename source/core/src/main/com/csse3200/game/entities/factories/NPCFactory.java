@@ -86,22 +86,6 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
-   * Creates a kitsune boss entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the kitsune entity
-   */
-  public Entity createKitsune(Entity target) {
-    NPCConfigs.NPCConfig config = configs.kitsune;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
-    Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
-
-    return kitsune; 
-  }
-
-
-  /**
    * Creates a bear entity.
    *
    * @param target entity to chase
@@ -192,6 +176,21 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
+   * Creates a dragon entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the created dragon entity
+   */
+  public Entity createDragon(Entity target) {
+    NPCConfigs.NPCConfig config = configs.dragon;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
+    Entity dragon = createBaseNPC("Dragon", target, aiComponent, config, animator);
+
+    return dragon;
+  }
+
+  /**
    * Creates a Birdman entity.
    *
    * @param target entity to chase
@@ -224,21 +223,6 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
-   * Creates a dragon entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created dragon entity
-   */
-  public Entity createDragon(Entity target) {
-    NPCConfigs.NPCConfig config = configs.dragon;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
-    Entity dragon = createBaseNPC("Dragon", target, aiComponent, config, animator);
-
-    return dragon;
-  }
-
-  /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
    * @param name
@@ -248,6 +232,23 @@ public class NPCFactory extends LoadedFactory {
    * @param animator    The animator component for the NPC.
    * @return The created NPC entity.
    */
+
+  /**
+   * Creates a kitsune boss entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the kitsune entity
+   */
+  public Entity createKitsune(Entity target) {
+    BossConfig config = configs.kitsune;
+    config.setDefaults();
+    BossAIComponent aiComponent = new BossAIComponent(target, config);
+    AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
+    Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
+
+    return kitsune;
+  }
+
   private static Entity createBaseNPC(String name, Entity target, Component aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
     Entity npc = new Entity()

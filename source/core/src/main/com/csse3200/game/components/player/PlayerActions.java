@@ -22,7 +22,7 @@ public class PlayerActions extends Component {
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
     private boolean dead = false;
-    private float maxSpeed = 5.0f;
+    private float maxSpeed = 3.0f;
     private float speedPercentage;
 
     @Override

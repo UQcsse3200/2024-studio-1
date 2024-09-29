@@ -168,7 +168,7 @@ public class FiringControllerTest {
         assert firingController.getAmmo() == 0; // ammo is not set for melee weapon
 
         assert firingController.getWeaponSprite() == null;
-        firingController.setWeaponSprite(new Sprite(new Texture("images/Weapons/sword1.png")));
+        firingController.setWeaponSprite(new Sprite(new Texture("images/Weapons/Knife.png")));
         assert firingController.getWeaponSprite() != null;
     }
 
@@ -205,7 +205,7 @@ public class FiringControllerTest {
         assert firingController.getAmmo() == 20;
 
         assert firingController.getWeaponSprite() == null;
-        firingController.setWeaponSprite(new Sprite(new Texture("images/Weapons/sword1.png")));
+        firingController.setWeaponSprite(new Sprite(new Texture("images/Weapons/Shotgun.png")));
         assert firingController.getWeaponSprite() != null;
     }
 }

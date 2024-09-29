@@ -229,18 +229,12 @@ public class WeaponFactory extends LoadedFactory {
     @Override
     protected String[] getTextureAtlasFilepaths(){
         return new String[]{
-                "images/Weapons/sword1.atlas",
-                "images/Weapons/shotgun4.atlas",
-                "images/Weapons/shotgun_1.atlas",
-                "images/Weapons/shotgun_2.atlas",
-                "images/Weapons/shotgun_3.atlas",
-                "images/Weapons/50_cal.atlas",
-                "images/Weapons/ak.atlas",
-                "images/Weapons/fn_scar.atlas",
-                "images/Weapons/super_soaker.atlas",
-                "images/Weapons/slash_1.atlas",
-                "images/Weapons/plasma_blaster.atlas",
-                "images/Weapons/winchester.atlas"
+                "images/Weapons/Knife.atlas",
+                "images/Weapons/Axe.atlas",
+                "images/Weapons/Shotgun.atlas",
+                "images/Weapons/FnScar.atlas",
+                "images/Weapons/SuperSoaker.atlas",
+                "images/Weapons/PlasmaBlaster.atlas"
         };
     }
 }

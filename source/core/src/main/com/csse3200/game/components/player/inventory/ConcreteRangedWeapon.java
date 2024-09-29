@@ -38,6 +38,12 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         this.reloadTime = reloadTime;
     }
 
+    /**
+     * Set the entity which is created for this weapon. The weapon entity should contain all the
+     * required functionalities to be used by the player.
+     * Should only be called by the WeaponFactory
+     * @param weaponEntity the entity created for this weapon
+     */
     public void setWeaponEntity(Entity weaponEntity) {
         this.weaponEntity = weaponEntity;
         ServiceLocator.getEntityService().register(this.weaponEntity);
@@ -81,7 +87,7 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     }
 
     /**
-     * Set up the components to connect with the player
+     * Set up the weapon components to connect with the player
      * @param player the player who holds this weapon
      */
     private void connectPlayer(Entity player) {
@@ -121,16 +127,27 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     }
 
     /**
-     * Reload the weapon
+     * Get the entity of this weapon
+     * @return the entity of this weapon
      */
     public Entity getWeaponEntity() {
         return this.weaponEntity;
     }
 
+    /**
+     * Get the clip size of this weapon
+     * i.e how many shots it can fire before reloading
+     * @return integer represent the clip size
+     */
     public int getClipSize() {
         return this.maxAmmo;
     }
 
+    /**
+     * Set the clip size of this weapon
+     * i.e how many shots it can fire before reloading
+     * @param i the desired clip size
+     */
     public void setClipSize(int i) {
         this.maxAmmo = i;
     }

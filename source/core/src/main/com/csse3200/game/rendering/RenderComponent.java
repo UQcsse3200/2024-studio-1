@@ -14,6 +14,8 @@ import com.csse3200.game.services.ServiceLocator;
 public abstract class RenderComponent extends Component implements Renderable, Disposable {
   private static final int DEFAULT_LAYER = 1;
   protected static final BitmapFont fnt_16 = new BitmapFont(Gdx.files.internal("flat-earth/skin/fonts/pixel_16.fnt"), false);
+  protected static final BitmapFont fnt_18 = new BitmapFont(Gdx.files.internal("flat-earth/skin/fonts/pixel_18.fnt"), false);
+  protected static final float projectionFactor = 0.020f;
 
   @Override
   public void create() {

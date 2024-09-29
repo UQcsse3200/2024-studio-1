@@ -15,7 +15,7 @@ import com.csse3200.game.rendering.RenderComponent;
 public class NPCHealthBarComponent extends RenderComponent {
     public static final float WIDTH = 1f;
     public static final float HEIGHT = 0.1f;
-    public static final float OFFSET_Y = 1.2f;
+    public static final float OFFSET_Y = 1f;
 
     private CombatStatsComponent combatStats;
     private NameComponent nameComponent;
@@ -66,8 +66,8 @@ public class NPCHealthBarComponent extends RenderComponent {
         shapeRenderer.end();
 
         batch.begin();
-        batch.setProjectionMatrix(projectionMatrix.cpy().scale(0.025f, 0.025f, 1));
-        fnt_16.draw(batch, nameComponent.getName(), x/0.025f,y/0.025f+fnt_16.getCapHeight()*2);
+        batch.setProjectionMatrix(projectionMatrix.cpy().scale(projectionFactor, projectionFactor, 1));
+        fnt_16.draw(batch, nameComponent.getName(), x/projectionFactor,y/projectionFactor+fnt_16.getCapHeight()*2);
         batch.setProjectionMatrix(projectionMatrix);
     }
 

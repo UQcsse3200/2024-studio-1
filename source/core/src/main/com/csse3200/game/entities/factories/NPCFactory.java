@@ -6,6 +6,7 @@ import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.DialogComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
@@ -274,10 +275,12 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
+            .addComponent(new DialogComponent())
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDeathHandler()) 
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController());
+            
     if (config.attacks.melee != null) {
       npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee.range, config.attacks.melee.rate,
               config.attacks.melee.effects));

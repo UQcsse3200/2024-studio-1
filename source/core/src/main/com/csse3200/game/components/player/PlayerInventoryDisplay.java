@@ -87,6 +87,12 @@ public class PlayerInventoryDisplay extends UIComponent {
         addItem("Medkit", new MedKit().getIcon());
         addItem("Shield", new ShieldPotion().getIcon());
         addItem("Bandage", new Bandage().getIcon());
+        addItem("Bear Trap", new BearTrap().getIcon());
+        addItem("Big Red Button", new BigRedButton().getIcon());
+        addItem("ReRoll", new Reroll().getIcon());
+        addItem("Target Dummy", new TeleporterItem().getIcon());
+        addItem("Teleport Item", new TeleporterItem().getIcon());
+
     }
 
     /**
@@ -156,10 +162,10 @@ public class PlayerInventoryDisplay extends UIComponent {
         batch.end();
 
         // temporarily estimated the dimensions for the box through trial and error
-        float x = 500f;
+        float x = 0f;
         float y = 17f;
-        float width = 1000f;
-        float height = 55f;
+        float width = 10000f;
+        float height = 53f;
 
         // Draw the white background box just behind the inventory items
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

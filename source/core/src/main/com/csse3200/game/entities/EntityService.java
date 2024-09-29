@@ -138,6 +138,7 @@ public class EntityService {
     public Entity[] getEntities() {
         return entities.toArray(Entity.class);
     }
+
     /**
      * Gets the player entity in the EntityService
      *

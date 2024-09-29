@@ -257,7 +257,6 @@ public class BossAIComponent extends Component implements TaskRunner {
         break;
       case RETREAT:
         changeTask(runAwayTask);
-        runAwayTask.triggerCharge(1);
         break;
       case WAIT:
         changeTask(waitTask);

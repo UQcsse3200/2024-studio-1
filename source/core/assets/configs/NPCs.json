@@ -304,7 +304,7 @@
         "chaseSpeed": 5
       },
       "runAway": {
-        "chaseSpeed": 5
+        "runSpeed": 5
       }
     },
     "attacks": {
@@ -366,7 +366,7 @@
         "chaseSpeed": 2
       },
       "runAway": {
-        "chaseSpeed": 3
+        "runSpeed": 3
       }
     },
     "attacks": {
@@ -434,7 +434,7 @@
         "chaseSpeed": 6
       },
       "runAway": {
-          "chaseSpeed": 5
+          "runSpeed": 5
       }
     },
     "attacks": {
@@ -486,13 +486,6 @@
         "viewDistance": 5,
         "chaseDistance": 5,
         "chaseSpeed": 6,
-        "waitTime": 0.5
-      },
-      "runAway": {
-        "priority": 10,
-        "viewDistance": 2,
-        "chaseDistance": 4,
-        "chaseSpeed": 3,
         "waitTime": 0.5
       }
     },

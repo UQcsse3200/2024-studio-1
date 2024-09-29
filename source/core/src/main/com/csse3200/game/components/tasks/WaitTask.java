@@ -34,6 +34,7 @@ public class WaitTask extends DefaultTask implements PriorityTask {
   public void start() {
     super.start();
     endTime = timeSource.getTime() + (int)(duration * 1000); // Convert duration to milliseconds.
+    owner.getEntity().getEvents().trigger("idle");
   }
 
   /**

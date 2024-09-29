@@ -25,8 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
@@ -116,6 +115,76 @@ class ProjectileAttackComponentTest {
 
         //check the health is unchanged
         assertEquals(10, target.getComponent(CombatStatsComponent.class).getHealth());
+    }
+
+    @Test
+    void shouldDispose() {
+
+        // make a projectile on the player layer.
+        ProjectileConfig config = new ProjectileConfig();
+        config.Layer = PhysicsLayer.NPC;
+        Entity projectile = new ProjectileFactory().createProjectile(config, Vector2Utils.LEFT, new Vector2(0,0));
+        projectile.create();
+
+        ServiceLocator.getEntityService().register(projectile);
+
+        //target on the NPC layer - not PLAYER
+        Entity target =
+                new Entity()
+                        .addComponent(new PhysicsComponent())
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                        .addComponent(new CombatStatsComponent(10, 0));
+        target.create();
+
+        Fixture entityFixture = projectile.getComponent(HitboxComponent.class).getFixture();
+        Fixture targetFixture = target.getComponent(HitboxComponent.class).getFixture();
+        projectile.getEvents().trigger("collisionStart", entityFixture, targetFixture);
+
+        //this should process the disposal of the entity marked on collision.
+        ServiceLocator.getEntityService().update();
+        Entity projectile2 = new Entity();
+
+        //let the disposal cycle in entity service run for a while.
+        for (int i = 0; i < 5; i++) {
+            ServiceLocator.getEntityService().update();
+        }
+
+        //should have unregistered after - disposal is much more than unregistering.
+        //However, unregistering is the last step
+        assertEquals(0, ServiceLocator.getEntityService().getEntities().length);
+
+    }
+
+
+    @Test
+    void shouldNotAttackAnotherProjectileOnSameLayer() {
+
+        // make two projectile on the same layer.
+        Entity projectile1 = new ProjectileFactory().createProjectile(new ProjectileConfig(), Vector2Utils.LEFT, new Vector2(0,0));
+        Entity projectile2 =  new ProjectileFactory().createProjectile(new ProjectileConfig(), Vector2Utils.LEFT, new Vector2(0,0));
+        projectile1.create();
+        projectile2.create();
+
+        //Add these puppies to the entity service.
+        ServiceLocator.getEntityService().register(projectile1);
+        ServiceLocator.getEntityService().register(projectile2);
+
+        Fixture entityFixture = projectile1.getComponent(HitboxComponent.class).getFixture();
+        Fixture targetFixture = projectile2.getComponent(HitboxComponent.class).getFixture();
+        projectile1.getEvents().trigger("collisionStart", entityFixture, targetFixture);
+
+        //check that the projectile has not been disposed.
+        projectile2.earlyUpdate();
+        assertNotNull(projectile2.getComponent(CombatStatsComponent.class));
+
+        //run that service to flush down a potential disposal.
+        for (int i = 0; i < 5; i++) {
+            ServiceLocator.getEntityService().update();
+        }
+
+        // they should not have 'hit' each other
+        assertEquals(2, ServiceLocator.getEntityService().getEntities().length);
+
     }
 
     @Test

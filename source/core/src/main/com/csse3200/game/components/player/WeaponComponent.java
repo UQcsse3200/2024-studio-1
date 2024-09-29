@@ -69,6 +69,12 @@ public class WeaponComponent extends Component {
 
     private WeaponFactory weaponFactory;
 
+    @Override
+    public void create() {
+        super.create();
+        projectileFactory = new ProjectileFactory();
+    }
+
     /**
      * Constructor for WeaponComponent
      *

@@ -18,15 +18,36 @@ public class ProjectileAnimationController extends Component {
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         directionalComponent = this.entity.getComponent(DirectionalNPCComponent.class);
 
-        entity.getEvents().addListener("fire_attack_left", this::animateFireLeft);
-        entity.getEvents().addListener("fire_attack_right", this::animateFireRight);
+        entity.getEvents().addListener("fire_attack", this::animateFire);
+        entity.getEvents().addListener("fire1", this::animateFireKitsune);
     }
 
-    void animateFireLeft() {
-        animator.startAnimation("fire_attack_left");
+    void animateFire() {
+        if (animator.hasAnimation("fire_attack_right") && animator.hasAnimation("fire_attack_left")) {
+            triggerDirectionalAnimation("fire_attack");
+        } else if (animator.hasAnimation("fire_attack")) {
+            animator.startAnimation("fire_attack");
+        } else {
+            throw new IllegalStateException("No fire_attack animation found");
+        }
     }
 
-    void animateFireRight() {
-        animator.startAnimation("fire_attack_right");
+    void animateFireKitsune() {
+        if (animator.hasAnimation("fire1_right") && animator.hasAnimation("fire1_left")) {
+            triggerDirectionalAnimation("fire1");
+        } else if (animator.hasAnimation("fire1")) {
+            animator.startAnimation("fire1");
+        } else {
+            throw new IllegalStateException("No fire_attack animation found");
+        }
+    }
+
+    private void triggerDirectionalAnimation(String baseAnimation) {
+        String direction = directionalComponent.getDirection();
+        if (direction.equals("right")) {
+            animator.startAnimation(baseAnimation + "_right");
+        } else {
+            animator.startAnimation(baseAnimation + "_left");
+        }
     }
 }

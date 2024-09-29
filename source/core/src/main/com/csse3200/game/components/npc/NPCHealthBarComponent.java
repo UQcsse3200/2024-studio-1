@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.rendering.RenderComponent;
 
 /**
@@ -17,6 +18,7 @@ public class NPCHealthBarComponent extends RenderComponent {
     public static final float OFFSET_Y = 1.2f;
 
     private CombatStatsComponent combatStats;
+    private NameComponent nameComponent;
     ShapeRenderer shapeRenderer;
 
     /**
@@ -27,7 +29,10 @@ public class NPCHealthBarComponent extends RenderComponent {
         super.create();
         // Get the CombatStatsComponent and initialize the ShapeRenderer
         combatStats = entity.getComponent(CombatStatsComponent.class);
+        nameComponent = entity.getComponent(NameComponent.class);
         shapeRenderer = new ShapeRenderer();
+
+        fnt_16.setColor(Color.BLACK);
     }
 
     /**
@@ -61,6 +66,9 @@ public class NPCHealthBarComponent extends RenderComponent {
         shapeRenderer.end();
 
         batch.begin();
+        batch.setProjectionMatrix(projectionMatrix.cpy().scale(0.025f, 0.025f, 1));
+        fnt_16.draw(batch, nameComponent.getName(), x/0.025f,y/0.025f+fnt_16.getCapHeight()*2);
+        batch.setProjectionMatrix(projectionMatrix);
     }
 
     /**

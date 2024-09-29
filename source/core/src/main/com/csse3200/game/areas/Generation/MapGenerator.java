@@ -19,6 +19,7 @@ public class MapGenerator {
     public static final int NPCROOM = 2;
     public static final int GAMEROOM = 3;
 
+    
     public int mapSize;
     public RandomNumberGenerator rng;
     public String player_position;

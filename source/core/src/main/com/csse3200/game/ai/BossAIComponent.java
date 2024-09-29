@@ -46,6 +46,7 @@ public class BossAIComponent extends Component implements TaskRunner {
   private ChargeTask chargeTask;
   private ChaseTask chaseTask;
   private RunAwayTask runAwayTask;
+  private JumpTask jumpTask;
   private WaitTask waitTask;
   private WanderTask wanderTask;
   private PriorityTask currentTask;
@@ -63,11 +64,13 @@ public class BossAIComponent extends Component implements TaskRunner {
     chargeTask = new ChargeTask(target, config.tasks.charge);
     chaseTask = new ChaseTask(target, config.tasks.chase);
     runAwayTask = new RunAwayTask(target, config.tasks.runAway);
+    jumpTask = new JumpTask(target, 2, 1.5f);
     waitTask = new WaitTask(config.waitTime,1);
     wanderTask = new WanderTask(config.tasks.wander);
     chargeTask.create(this);
     chaseTask.create(this);
     runAwayTask.create(this);
+    jumpTask.create(this);
     waitTask.create(this);
     wanderTask.create(this);
 
@@ -182,7 +185,9 @@ public class BossAIComponent extends Component implements TaskRunner {
   }
 
   private void handleJumpState() {
-    setState(State.AOE_ATTACK);
+    if (jumpTask.getStatus() != PriorityTask.Status.ACTIVE) {
+      setState(State.AOE_ATTACK);
+    }
   }
 
   private void handleChaseState(float distanceToTarget) {
@@ -247,7 +252,7 @@ public class BossAIComponent extends Component implements TaskRunner {
         meleeAttackComponent.setEnabled(true);
         break;
       case JUMP:
-        //changeTask(jumpTask);
+        changeTask(jumpTask);
         //aoeAttackComponent.enableForNumAttacks(1);
         break;
       case RETREAT:
@@ -263,7 +268,7 @@ public class BossAIComponent extends Component implements TaskRunner {
         break;
       case RANGE_ATTACK:
         if (rangeAttackComponent == null) {
-          setState(State.IDLE);
+          setState(State.WAIT);
         } else {
           changeTask(waitTask);
           rangeAttackComponent.setType("single");
@@ -272,7 +277,7 @@ public class BossAIComponent extends Component implements TaskRunner {
         break;
       case RANGE_ATTACK_2:
         if (rangeAttackComponent == null) {
-          setState(State.IDLE);
+          setState(State.WAIT);
         } else {
           changeTask(waitTask);
           rangeAttackComponent.setType("spread");

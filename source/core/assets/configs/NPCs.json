@@ -285,7 +285,7 @@
     "chargeMinRange": 5,
     "chargeMaxRange": 10,
     "jumpMinRange": 4,
-    "jumpMaxRange": 7,
+    "jumpMaxRange": 6,
     "retreatMinRange": 0,
     "retreatMaxRange": 2,
     "aoeMinRange": 0,
@@ -293,7 +293,7 @@
     "rangedMinRange": 0,
     "rangedMaxRange": 0,
     "rangedAttackNum": 0,
-    "fallbackState": "CHARGE",
+    "fallbackState": "JUMP",
     "tasks": {
       "wander": {
       },
@@ -334,8 +334,8 @@
       {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
       {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
       {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "jump_left", "frameDuration": 0.09, "playMode": "NORMAL"},
-      {"name": "jump_right", "frameDuration": 0.09, "playMode": "NORMAL"}
+      {"name": "jump_left", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "jump_right", "frameDuration": 0.15, "playMode": "NORMAL"}
     ]
   },
   "kitsune": {

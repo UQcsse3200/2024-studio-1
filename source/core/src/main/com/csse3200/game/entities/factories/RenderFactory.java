@@ -1,7 +1,6 @@
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.CameraComponent;
-import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.rendering.Renderer;
 import com.csse3200.game.services.ServiceLocator;
@@ -9,9 +8,7 @@ import com.csse3200.game.services.ServiceLocator;
 public class RenderFactory {
 
   public static Entity createCamera() {
-    return new Entity()
-            .addComponent(new CameraComponent())
-            .addComponent(new NameComponent("Camera"));
+    return new Entity().addComponent(new CameraComponent());
   }
 
   public static Renderer createRenderer() {

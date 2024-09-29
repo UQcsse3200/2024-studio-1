@@ -1,13 +1,10 @@
 package com.csse3200.game.entities;
 
 import com.badlogic.gdx.utils.Array;
-import com.csse3200.game.components.NameComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * Provides a global access point for entities to register themselves. This allows for iterating
@@ -82,23 +79,6 @@ public class EntityService {
             entity.dispose();
         }
         entitiesToRemove.clear();
-    }
-
-    private String entityToString(Entity entity) {
-        if (entity == null) {
-            return "null";
-        }
-
-        NameComponent name = entity.getComponent(NameComponent.class);
-        if (name != null) {
-            return name.getName();
-        }
-
-        return "Unknown Entity: " + entity;
-    }
-
-    public List<String> getEntityNames() {
-        return Stream.of(getEntities()).map(this::entityToString).toList();
     }
 
     private void createQueuedEntities() {

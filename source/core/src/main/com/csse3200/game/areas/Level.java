@@ -1,8 +1,6 @@
 package com.csse3200.game.areas;
 
 import com.csse3200.game.entities.Room;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -10,7 +8,6 @@ import java.util.Map;
  * A layer of the game consisting of a number of rooms for the player to overcome.
  */
 public class Level {
-    private static final Logger log = LoggerFactory.getLogger(Level.class);
     private final LevelMap map;
     private final int levelNumber;
     private final Map<String, Room> rooms;
@@ -23,7 +20,7 @@ public class Level {
         this.roomTraversals = 0;
     }
     public Room getRoom(String roomKey) {
-        log.info("event recognised");
+        System.out.println("event recognised \n\n\n\n");
         return rooms.get(roomKey);
     }
 

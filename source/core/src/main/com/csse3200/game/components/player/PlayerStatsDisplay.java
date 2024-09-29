@@ -1,38 +1,26 @@
 package com.csse3200.game.components.player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A ui component for displaying player stats, e.g. health.
  */
 public class PlayerStatsDisplay extends UIComponent {
     Table table;
-    Table ammoTable;
     private Image heartImage;
     private Label healthLabel;
     private Label pickaxeLabel;
     private Label shotgunLabel;
-
-    private Texture ammoTexture;
-    private List<Image> ammoImages;
-    private int currentAmmo;
-    private WeaponComponent weaponComponent;
-    private static final int RELOAD_TIME = 3;
-    float screenWidth = Gdx.graphics.getWidth();
 
     private Image speedImage;
     private Label speedLabelText;
@@ -42,6 +30,7 @@ public class PlayerStatsDisplay extends UIComponent {
     private Image damageImage;
     private ProgressBar damageProgressBar;
 
+    private ArrayList<Label> labels;
 
 
     /**
@@ -50,16 +39,11 @@ public class PlayerStatsDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
-        ammoImages = new ArrayList<>();
         addActors();
-
-        weaponComponent = entity.getComponent(WeaponComponent.class);
 
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
         entity.getEvents().addListener("updateMeleeWeaponCount", this::updateMeleeWeaponCountUI);
         entity.getEvents().addListener("updateRangedWeaponCount", this::updateRangedWeaponCountUI);
-        entity.getEvents().addListener("RANGED_ATTACK", this::onPlayerAttack);
-        entity.getEvents().addListener("RELOAD", this::startReload);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
     }
@@ -70,8 +54,9 @@ public class PlayerStatsDisplay extends UIComponent {
      * @see Table for positioning options
      */
     private void addActors() {
+        labels = new ArrayList<Label>();
+
         table = new Table();
-        ammoTable = new Table();
         table.top().left();
         table.setFillParent(true);
         table.padTop(45f).padLeft(5f);
@@ -79,13 +64,6 @@ public class PlayerStatsDisplay extends UIComponent {
         // Heart image
         float heartSideLength = 30f;
         heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
-
-        // Ammo image
-        ammoTexture = new Texture(Gdx.files.internal("images/Weapons/ammo.png")); // Load ammo texture
-        for (int i = 0; i < 20; i++) {
-            Image ammoImage = new Image(ammoTexture);
-            ammoImages.add(ammoImage);
-        }
 
         // Health text
         int health = entity.getComponent(CombatStatsComponent.class).getHealth();
@@ -118,12 +96,14 @@ public class PlayerStatsDisplay extends UIComponent {
 
         //Weapon text, like the name of weapon
         //entity.getComponent(WeaponComponent.class).getWeaponType();
-        pickaxeLabel = new Label("Pickaxe: 0", skin, "large");
-        shotgunLabel = new Label("Shotgun: 0", skin, "large");
+        pickaxeLabel = new Label("Pickaxe: 0", skin, "small");
+        shotgunLabel = new Label("Shotgun: 0", skin, "small");
 
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
+        labels.add(healthLabel);
+
 
         table.row().padTop(10);
         table.add(speedImage).size(speedSideLength).pad(5);
@@ -136,14 +116,20 @@ public class PlayerStatsDisplay extends UIComponent {
 
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
+        labels.add(pickaxeLabel);
         table.row().padTop(10);
         table.add(shotgunLabel).colspan(2).padLeft(10).left();
-        table.row().padTop(10);
-        table.add(ammoTable).colspan(2).left().padLeft(2);
+        labels.add(shotgunLabel);
+
         stage.addActor(table);
+
     }
-
-
+    public void resize(int width, int height)
+    {
+        if (labels != null)
+            for(Label label : labels)
+                label.setFontScale(width/1100f);
+    }
     @Override
     public void draw(SpriteBatch batch) {
 
@@ -167,86 +153,6 @@ public class PlayerStatsDisplay extends UIComponent {
     public void updateRangedWeaponCountUI(int weaponCount) {
         CharSequence text = String.format("Shotgun x %d", weaponCount);
         shotgunLabel.setText(text);
-
-        if (weaponCount > 0) {
-            currentAmmo = weaponComponent.getAmmo(); // Initialize ammo count from WeaponComponent
-            displayAllAmmo();
-        } else {
-            hideAmmo();
-        }
-    }
-
-    /**
-     * Displays ammo based on the count of the shotgun or other ranged weapon.
-     * This method is called when the shotgun count is greater than 0.
-     * Displays ammo in rows of 8 within a separate ammo table.
-     */
-    private void displayAllAmmo() {
-        ammoTable.clear(); // Clear existing ammo from the ammoTable
-        ammoTable.top().left(); // Reset alignment
-        int itemsInRow = 0;
-
-        // Always display ammo up to currentAmmo
-        for (int i = 0; i < 20; i++) {
-            if (itemsInRow == 8) {
-                ammoTable.row().padTop(2f); // Start a new row after 8 ammo items
-                itemsInRow = 0;
-            }
-            if (i < currentAmmo) {
-                ammoImages.get(i).setVisible(true);
-            } else {
-                ammoImages.get(i).setVisible(false);
-            }
-            ammoTable.add(ammoImages.get(i)).size(screenWidth/45f);
-            itemsInRow++;
-        }
-
-        ammoTable.setVisible(true); // Show ammo table when displaying ammo
-    }
-
-    /**
-     * Hides all the ammo icons by clearing the ammoTable.
-     */
-    private void hideAmmo() {
-        ammoTable.clear(); // Clear all items from the ammo table
-        ammoTable.setVisible(false); // Hide the ammo table
-    }
-
-    /**
-     * Handles the player's attack action by reducing the ammo count.
-     */
-    private void onPlayerAttack() {
-        if (currentAmmo > 0) {
-            currentAmmo--; // Decrease ammo count
-            weaponComponent.setAmmo(currentAmmo); // Update ammo in WeaponComponent
-            updateAmmoDisplay(); // Update the UI accordingly
-        }
-    }
-
-    /**
-     * Updates the ammo display based on the current ammo count.
-     * Ammo icons beyond the current count will be hidden.
-     */
-    private void updateAmmoDisplay() {
-        for (int i = 0; i < ammoImages.size(); i++) {
-            if (i < currentAmmo) {
-                ammoImages.get(i).setVisible(true); // Show ammo that's still available
-            } else {
-                ammoImages.get(i).setVisible(false); // Hide depleted ammo
-            }
-        }
-    }
-
-    /**
-     * Starts the reload process, which includes a delay before resetting ammo.
-     */
-    private void startReload() {
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                onReload(); // Call onReload after delay
-            }
-        }, RELOAD_TIME); // Set delay time
     }
 
     /**
@@ -263,17 +169,6 @@ public class PlayerStatsDisplay extends UIComponent {
 
     public void updateDamageUI(float damage) {
         damageProgressBar.setValue(damage);
-    }
-
-    /**
-
-    /**
-     * Resets the ammo count to 20 when reloading.
-     */
-    private void onReload() {
-        currentAmmo = 20; // Reset ammo count
-        weaponComponent.setAmmo(currentAmmo); // Update ammo in WeaponComponent
-        updateAmmoDisplay(); // Update the UI accordingly
     }
 
     @Override

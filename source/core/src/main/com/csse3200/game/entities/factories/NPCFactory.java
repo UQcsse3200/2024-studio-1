@@ -5,7 +5,6 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.NPCAnimationController;
 import com.csse3200.game.components.npc.NPCDeathHandler;
@@ -94,7 +93,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
-    Entity rat = createBaseNPC("Rat", target, aiComponent, config, animator);
+    Entity rat = createBaseNPC(target, aiComponent, config, animator);
 
     return rat;
   }
@@ -109,7 +108,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.kitsune;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
-    Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
+    Entity kitsune = createBaseNPC(target, aiComponent, config, animator);
 
     return kitsune; 
   }
@@ -125,7 +124,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.bear;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
-    Entity bear = createBaseNPC("Bear", target, aiComponent, config, animator);
+    Entity bear = createBaseNPC(target, aiComponent, config, animator);
 
     return bear;
   }
@@ -140,7 +139,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.snake;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/snake/snake.atlas", config.animations);
-    Entity snake = createBaseNPC("Snake", target, aiComponent, config, animator);
+    Entity snake = createBaseNPC(target, aiComponent, config, animator);
 
     return snake;
   }
@@ -155,7 +154,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.dino;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dino/dino.atlas", config.animations);
-    Entity dino = createBaseNPC("Dino", target, aiComponent, config, animator);
+    Entity dino = createBaseNPC(target, aiComponent, config, animator);
 
     return dino;
   }
@@ -170,7 +169,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.bat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bat/bat.atlas", config.animations);
-    Entity bat = createBaseNPC("Bat", target, aiComponent, config, animator);
+    Entity bat = createBaseNPC(target, aiComponent, config, animator);
 
     return bat;
   }
@@ -185,7 +184,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.dog;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
-    Entity dog = createBaseNPC("Dog", target, aiComponent, config, animator);
+    Entity dog = createBaseNPC(target, aiComponent, config, animator);
 
     return dog;
   }
@@ -200,7 +199,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.minotaur;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/minotaur/minotaur.atlas", config.animations);
-    Entity minotaur = createBaseNPC("Minotaur", target, aiComponent, config, animator);
+    Entity minotaur = createBaseNPC(target, aiComponent, config, animator);
 
     return minotaur;
   }
@@ -215,7 +214,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.birdman;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
-    Entity birdman = createBaseNPC("Birdman", target, aiComponent, config, animator);
+    Entity birdman = createBaseNPC(target, aiComponent, config, animator);
 
     return birdman;
   }
@@ -233,7 +232,7 @@ public class NPCFactory extends LoadedFactory {
     aiComponent.addTask(new ChargeTask(target, config.tasks.charge));
     aiComponent.addTask(new WanderTask(config.tasks.wander));
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
-    Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
+    Entity werewolf = createBaseNPC(target, aiComponent, config, animator);
 
     return werewolf;
   }
@@ -248,7 +247,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.dragon;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
-    Entity dragon = createBaseNPC("Dragon", target, aiComponent, config, animator);
+    Entity dragon = createBaseNPC(target, aiComponent, config, animator);
 
     return dragon;
   }
@@ -256,17 +255,16 @@ public class NPCFactory extends LoadedFactory {
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
-   * @param name
-   * @param target      The target entity for the NPC to chase.
+   * @param target The target entity for the NPC to chase.
    * @param aiComponent The AI component to be added to the NPC.
-   * @param config      The configuration for the NPC.
-   * @param animator    The animator component for the NPC.
+   * @param config The configuration for the NPC.
+   * @param animator The animator component for the NPC.
+   *
    * @return The created NPC entity.
    */
-  private static Entity createBaseNPC(String name, Entity target, Component aiComponent, NPCConfigs.NPCConfig config,
+  private static Entity createBaseNPC(Entity target, Component aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
     Entity npc = new Entity()
-            .addComponent(new NameComponent(name))
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())

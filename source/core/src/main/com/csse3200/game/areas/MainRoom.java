@@ -10,7 +10,7 @@ public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                List.of("Snake", "Dog"),
+                List.of("Snake", "Dog", "Bear"),
                 List.of("Bear", "Snake", "Dino"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),
@@ -40,7 +40,8 @@ public class MainRoom extends EnemyRoom {
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
                     List<String> roomConnections,
-                    String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
+                    String specification,
+                    String roomName) {
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification, roomName);
     }
 }

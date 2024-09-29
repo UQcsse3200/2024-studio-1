@@ -54,6 +54,7 @@ public class FollowTask extends DefaultTask implements PriorityTask {
     waitTask = new WaitTask(waitTime, 0);
     waitTask.create(owner);
     movementTask = new MovementTask(getRandomPosInRange()); // Move to a random position within the range 
+    movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(followSpeed);
     currentTask = movementTask;

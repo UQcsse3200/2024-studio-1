@@ -147,7 +147,7 @@ public class EntityService {
     public Entity getPlayer() {
         for (int i = 0; i < entities.size; i++) {
             Entity entity = entities.get(i);
-            if (entity.getComponent(NameComponent.class).getName().equals("player")) {
+            if (entity.getComponent(NameComponent.class).getName().equals("Main Player")) {
                 return entity;
             }
         }

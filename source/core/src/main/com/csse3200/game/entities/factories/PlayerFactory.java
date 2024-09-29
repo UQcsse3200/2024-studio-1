@@ -5,13 +5,13 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.LoadPlayer;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.options.GameOptions.Difficulty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 
 /**
@@ -49,11 +49,13 @@ public class PlayerFactory extends LoadedFactory {
     /**
      * Create a player.
      * @param player the name of the player (name attribute).
+     * @param difficulty difficulty chosen by the player, affects player attributes
      * @return the player entity.
      */
-    public Entity createPlayer(String player) {
+    public Entity createPlayer(String player, Difficulty difficulty) {
         LoadPlayer loader = new LoadPlayer();
         PlayerConfig config = options.get(player);
+        config.adjustForDifficulty(difficulty);
         return loader.createPlayer(config);
     }
 

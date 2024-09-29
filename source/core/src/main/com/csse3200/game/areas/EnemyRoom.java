@@ -3,6 +3,7 @@ package com.csse3200.game.areas;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.*;
@@ -45,10 +46,15 @@ public abstract class EnemyRoom extends BaseRoom {
         return enemies;
     }
 
-
     public void checkIfRoomComplete() {
         if (isAllAnimalDead()) {
             System.out.println("room is complete");
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    spawnItems();
+                }
+            }, 1.0f);
             setIsRoomComplete();
         }
     }
@@ -85,14 +91,6 @@ public abstract class EnemyRoom extends BaseRoom {
         
     }
 
-    private void spawnItems() {
-        MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
-        List<String> itemGroup = this.itemSpecifications.get(this.itemGroup);
-        if (itemGroup != null && itemGroup.size() >= 2) {
-            spawnItem(area, itemGroup.get(0), new GridPoint2(8, 8));
-            spawnItem(area, itemGroup.get(1), new GridPoint2(6, 8));
-        }
-    }
 
     protected void spawnAnimals(MainGameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
         List<String> animalGroup = this.animalSpecifications.get(this.animalGroup);
@@ -110,6 +108,15 @@ public abstract class EnemyRoom extends BaseRoom {
         }
     }
 
+    private void spawnItems() {
+        MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
+        List<String> itemGroup = this.itemSpecifications.get(this.itemGroup);
+        if (itemGroup != null && itemGroup.size() >= 2) {
+            spawnItem(area, itemGroup.get(0), new GridPoint2(8, 8));
+            spawnItem(area, itemGroup.get(1), new GridPoint2(6, 8));
+        }
+    }
+
     @Override
     public void spawn(Entity player, MainGameArea area) {
         super.spawn(player, area);
@@ -118,8 +125,8 @@ public abstract class EnemyRoom extends BaseRoom {
             logger.info("spawning enemies");
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
 
-            logger.info("spawning items");
-            this.spawnItems();
+            //logger.info("spawning items");
+            //this.spawnItems();
         }
     }
 

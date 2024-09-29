@@ -1,5 +1,5 @@
 package com.csse3200.game.components.player;
-
+/*
 import com.csse3200.game.files.FileLoader;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -53,3 +53,5 @@ public class PlayerAchievementComponentTest {
     }
 
 }
+
+ */

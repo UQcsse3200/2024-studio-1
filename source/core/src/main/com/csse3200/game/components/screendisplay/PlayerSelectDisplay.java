@@ -2,9 +2,7 @@ package com.csse3200.game.components.screendisplay;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -12,6 +10,7 @@ import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
 import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +45,7 @@ public class PlayerSelectDisplay extends UIComponent {
     }
 
     /**
-     * Populate the stage with player images and buttons to select them.
+     * Populate the stage with player animations and buttons to select them.
      */
     private void addActors() {
         table = new Table();
@@ -55,12 +54,17 @@ public class PlayerSelectDisplay extends UIComponent {
         Map<String, PlayerConfig> configs =
                 PlayerSelection.getPlayerConfigs(List.of(PlayerSelection.PLAYERS));
 
-        // Add images for each player
         configs.forEach((filename, config) -> {
-            TextureRegion idleTexture = new TextureAtlas(config.textureAtlasFilename)
-                    .findRegion("idle");
-            Image playerImage = new Image(idleTexture);
-            table.add(playerImage).padLeft(X_PADDING).padRight(X_PADDING);
+            String textureAtlasFilename = config.textureAtlasFilename;
+
+            // Create new AnimationRenderComponent to control animations for each player
+            AnimationRenderComponent animator =
+                    new AnimationRenderComponent(new TextureAtlas(textureAtlasFilename));
+
+            PlayerSelectAnimation animatedImage = new PlayerSelectAnimation(animator, config.textureAtlasFilename);
+            animatedImage.startAnimation();
+
+            table.add(animatedImage).padLeft(X_PADDING).padRight(X_PADDING);
         });
 
         // Add buttons to choose each player

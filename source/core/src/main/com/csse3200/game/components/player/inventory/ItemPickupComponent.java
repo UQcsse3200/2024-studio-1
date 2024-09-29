@@ -49,8 +49,6 @@ public class ItemPickupComponent extends Component {
         entity.getEvents().addListener("rerollUsed", ()->handleReroll(item, itemEntity));
         entity.getEvents().addListener("purchaseItem", ()->checkItemPurchase(item,itemEntity));
     }
-
-
     /**
      * Handles player collision with another entity. The pickup functionality only occurs
      * if the collided entity is a collectible.

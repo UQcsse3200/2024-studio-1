@@ -147,6 +147,7 @@ public class MainGameArea extends GameArea {
             this.currentLevel.roomTraversals++;
         }
 
+        // update minimap
         minimapFactory.updateMinimap(roomKey);
     }
 
@@ -186,8 +187,13 @@ public class MainGameArea extends GameArea {
         selectRoom(this.currentLevel.getStartingRoomKey());
 
         // // initialize minimap
-        MinimapComponent minimapComponent = minimapFactory.createMinimap();
+
         this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
+        MinimapComponent minimapComponent = minimapFactory.createMinimap();
+
+        Entity minimap = new Entity();
+        minimap.addComponent(minimapComponent);
+        spawnEntity(minimap);
 
     }
 

@@ -45,7 +45,7 @@ public class PlayerAchievementComponent extends UIComponent {
 
     /**
      * Gets the map of achievements
-     * @return
+     * @return a map containing the achievement
      */
     public HashMap<String, String> getAchievements() {
         return achievements;
@@ -88,7 +88,7 @@ public class PlayerAchievementComponent extends UIComponent {
 
     /**
      * Handles achievements for when an enemy is defeated.
-     * @param deadCount
+     * @param deadCount the amount of animals defeated
      */
     public void handleDefeatedEnemyAchievement(int deadCount) {
 

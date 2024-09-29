@@ -166,11 +166,20 @@ public class WeaponComponentTest {
     @Test
     public void testWeaponComponentSetAmmo() {
         // create a weapon component
-        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(), Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 0, 0);
+        WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
+                Collectible.Type.MELEE_WEAPON, 10, 5, 1, 0, 5, 0);
         // set weapon ammo to 10
         weaponComponent.setAmmo(10);
-        // check if weapon component ammo is correct
-        assertEquals(10, weaponComponent.getAmmo());
+        // Ammo is larger than maxAmmo, should get maxAmmo
+        assertEquals(weaponComponent.getAmmo(), weaponComponent.getMaxAmmo());
+        // Ammo is less than maxAmmo, should get 2
+        weaponComponent.setAmmo(2);
+        assertEquals(2, weaponComponent.getAmmo());
+        // Negative ammo which is not -1, should return maxAmmo
+        weaponComponent.setAmmo(-3);
+        // Ammo is larger than maxAmmo, should get maxAmmo
+        assertEquals(weaponComponent.getAmmo(), weaponComponent.getMaxAmmo());
+
     }
 
     @Test

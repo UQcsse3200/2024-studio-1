@@ -14,7 +14,7 @@ import com.csse3200.game.entities.factories.StairFactory;
  * A boss room of the game,
  * these often have unique animals and rewards.
  */
-public class BossRoom extends BaseRoom {
+public class BossRoom extends EnemyRoom {
 
     @Override
     protected List<List<String>> getAnimalSpecifications() {

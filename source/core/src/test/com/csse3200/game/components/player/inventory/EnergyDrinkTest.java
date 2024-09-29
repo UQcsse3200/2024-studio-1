@@ -5,13 +5,16 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 
+import com.csse3200.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(GameExtension.class)
 public class EnergyDrinkTest {
 
-    EnergyDrink energyDrink = new EnergyDrink("Low", true);
+    EnergyDrink energyDrink = new EnergyDrink("Low");
     Entity entity = new Entity()
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(1, 1, true, 1, 0));
@@ -24,7 +27,7 @@ public class EnergyDrinkTest {
     @Test
     public void getSpeedTest() {
         Vector2 baseSpeed = new Vector2(3f, 3f);
-        Vector2 speed = baseSpeed.scl(0.3f); //0.3% of the base speed
+        Vector2 speed = baseSpeed.scl(0.03f); //0.3% of the base speed
         assertEquals(speed, energyDrink.getSpeed());
     }
 
@@ -61,17 +64,17 @@ public class EnergyDrinkTest {
         energyDrink.effect(entity);
 
         Vector2 newSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
-        Vector2 expectedNewSpeed = new Vector2(3.9f, 3.9f);
+        Vector2 expectedNewSpeed = new Vector2(3.09f, 3.09f);
         assertEquals(expectedNewSpeed, newSpeed);
         float newSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
-        float expectednewPercentage = 0.3f;
+        float expectednewPercentage = 0.03f;
         assertEquals(expectednewPercentage, newSpeedPercentage);
     }
 
     @Test
     public void maxSpeedTest() {
         float speedLimit = entity.getComponent(PlayerActions.class).getMaxSpeed();
-        assertEquals(5.0f, speedLimit);
+        assertEquals(3.0f, speedLimit);
     }
 
     @Test
@@ -80,10 +83,10 @@ public class EnergyDrinkTest {
         entity.getComponent(PlayerActions.class).setSpeedPercentage(speedLimit);
         energyDrink.effect(entity);
         Vector2 newSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
-        Vector2 expectedNewSpeed = new Vector2(8.0f, 8.0f);
+        Vector2 expectedNewSpeed = new Vector2(6.0f, 6.0f);
         assertEquals(expectedNewSpeed, newSpeed);
         float newSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
-        float expectednewPercentage = 5.0f;
+        float expectednewPercentage = 3.0f;
         assertEquals(expectednewPercentage, newSpeedPercentage);
     }
 

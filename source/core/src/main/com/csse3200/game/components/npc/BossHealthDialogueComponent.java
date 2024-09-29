@@ -34,7 +34,7 @@ public class BossHealthDialogueComponent extends Component {
         MainGameScreen.isPaused = true;
         String message = getBossDialogue(currentThresholdIndex);
 
-        ServiceLocator.getAlertBoxService().showConfirmationDialog(
+        ServiceLocator.getAlertBoxService().confirmDialog(
                 "Boss Battle",
                 message,
                 new AlertBoxService.ConfirmationListener() {

@@ -1,15 +1,13 @@
 package com.csse3200.game.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
-import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.ui.UIComponent;
 
@@ -20,13 +18,49 @@ import java.util.Map;
  * A UI component for displaying the player's inventory (items and weapons).
  */
 public class PlayerInventoryDisplay extends UIComponent {
+    /**
+     * Table for laying out inventory items in the UI.
+     */
     private Table inventoryTable;
+
+    /**
+     * The inventory component of the player, which contains all the items
+     * to be displayed.
+     */
     private final InventoryComponent inventoryComponent;
-    private Label heading;
-    private ShapeRenderer shapeRenderer;
-    private int start_pos;
+
+    /**
+     * Renderer used to draw shapes (in this case, the background of the inventory).
+     */
+    private final ShapeRenderer shapeRenderer;
+
+    /**
+     * Starting x-position for the background box drawn behind the inventory items.
+     */
+    private static final float START_X = 0f;
+
+    /**
+     * Starting y-position for the background box drawn behind the inventory items.
+     */
+    private static final float START_Y = 15f;
+
+    /**
+     * Width of the background box, dynamically set to the width of the screen.
+     */
+    private static final float WIDTH = Gdx.graphics.getWidth();
+
+    /**
+     * Height of the background box drawn behind the inventory items.
+     * Estimated through trial and error
+     */
+    private static final float HEIGHT = 55f;
+
+    /**
+     * Map for storing labels associated with each item for easy access and
+     * updating the quantity. Estimated through trial and error.
+     */
     private Map<String, Label> itemLabels;  // To store labels for each item for easy updating
-    private Map<String, Image> itemIcons;   // To store images for each item for easy updating
+
 
     /**
      * Constructor to initialise the inventory component of Player that needs to be displayed
@@ -46,7 +80,7 @@ public class PlayerInventoryDisplay extends UIComponent {
     public void create() {
         super.create();
         itemLabels = new HashMap<>();
-        itemIcons = new HashMap<>();
+       //itemIcons = new HashMap<>();
         addActors();
         updateInventoryUI();
         if (entity.getEvents() != null) {
@@ -64,19 +98,8 @@ public class PlayerInventoryDisplay extends UIComponent {
         inventoryTable = new Table();
         inventoryTable.bottom();
         inventoryTable.setFillParent(true);
-        //inventoryTable.align(Align.bottom);
-        //inventoryTable.padTop(50f).padLeft(5f);
-        setHeading();
-        addItems();
-    }
-
-    /**
-     * Sets and displays the heading text for the inventory list.
-     * The heading is displayed at the top of inventory and provides a title
-     * for the items listed below.
-     */
-    void setHeading() {
         stage.addActor(inventoryTable);
+        addItems();
     }
 
     /**
@@ -89,10 +112,9 @@ public class PlayerInventoryDisplay extends UIComponent {
         addItem("Bandage", new Bandage().getIcon());
         addItem("Bear Trap", new BearTrap().getIcon());
         addItem("Big Red Button", new BigRedButton().getIcon());
-        addItem("ReRoll", new Reroll().getIcon());
         addItem("Target Dummy", new TeleporterItem().getIcon());
         addItem("Teleport Item", new TeleporterItem().getIcon());
-
+        addItem("ReRoll", new Reroll().getIcon());
     }
 
     /**
@@ -107,13 +129,9 @@ public class PlayerInventoryDisplay extends UIComponent {
         Label quantityLabel = new Label(" x0", skin, "small");
         quantityLabel.setColor(Color.WHITE);
 
-
         inventoryTable.add(icon).bottom().left();
-        //inventoryTable.add(nameLabel).left();
         inventoryTable.add(quantityLabel).left().padRight(60f);
-        // inventoryTable.row();
 
-        itemIcons.put(itemName, icon);
         itemLabels.put(itemName, quantityLabel);
     }
 
@@ -155,22 +173,16 @@ public class PlayerInventoryDisplay extends UIComponent {
         }
     }
 
-
+    /**
+     * Draws white background behind inventory
+     * @param batch Batch to render to.
+     */
     @Override
     public void draw(SpriteBatch batch) {
-
         batch.end();
-
-        // temporarily estimated the dimensions for the box through trial and error
-        float x = 0f;
-        float y = 17f;
-        float width = 10000f;
-        float height = 53f;
-
-        // Draw the white background box just behind the inventory items
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.LIGHT_GRAY);
-        shapeRenderer.rect(x , y,  width, height );
+        shapeRenderer.rect(START_X , START_Y,  WIDTH, HEIGHT);
         shapeRenderer.end();
 
         batch.begin();
@@ -185,9 +197,7 @@ public class PlayerInventoryDisplay extends UIComponent {
     @Override
     public void dispose() {
         super.dispose();
-        if (heading != null) {
-            heading.remove();
-        }
+
         if (inventoryTable != null) {
             inventoryTable.remove();
         }

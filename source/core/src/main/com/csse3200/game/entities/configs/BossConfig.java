@@ -17,6 +17,9 @@ public class BossConfig extends NPCConfigs.NPCConfig {
     public float rangedMinRange;
     public float rangedMaxRange;
     public int rangedAttackNum;
+    public float ranged2MinRange;
+    public float ranged2MaxRange;
+    public int ranged2AttackNum;
     public String fallbackState;
 
     public void setDefaults() {

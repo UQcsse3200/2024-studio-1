@@ -27,7 +27,7 @@ public class BossAIComponent extends Component implements TaskRunner {
   private static final Logger logger = LoggerFactory.getLogger(AITaskComponent.class);
 
   private enum State {
-    IDLE, WANDER, CHARGE, JUMP, CHASE, RETREAT, AOE_ATTACK, RANGE_ATTACK, WAIT
+    IDLE, WANDER, CHARGE, JUMP, CHASE, RETREAT, AOE_ATTACK, RANGE_ATTACK, RANGE_ATTACK_2, WAIT
   }
   private State currentState = State.IDLE;
   private State previousState = State.IDLE;
@@ -90,7 +90,7 @@ public class BossAIComponent extends Component implements TaskRunner {
   }
 
   /**
-   * On update, run random task. 
+   * On update, update current state.
    */
   @Override
   public void update() {
@@ -121,7 +121,7 @@ public class BossAIComponent extends Component implements TaskRunner {
       case AOE_ATTACK:
         handleAOEAttackState();
         break;
-      case RANGE_ATTACK:
+      case RANGE_ATTACK, RANGE_ATTACK_2:
         handleRangeAttackState();
         break;
       case WAIT:
@@ -154,6 +154,10 @@ public class BossAIComponent extends Component implements TaskRunner {
     } else if (distanceToTarget > config.rangedMinRange && distanceToTarget < config.rangedMaxRange
             && previousState != State.RANGE_ATTACK) {
       setState(State.RANGE_ATTACK);
+      previousState = State.RANGE_ATTACK;
+    } else if (distanceToTarget > config.ranged2MinRange && distanceToTarget < config.ranged2MaxRange
+            && previousState != State.RANGE_ATTACK_2) {
+      setState(State.RANGE_ATTACK_2);
       previousState = State.RANGE_ATTACK;
     } else if (distanceToTarget > config.aoeMinRange && distanceToTarget < config.aoeMaxRange) {
       setState(State.AOE_ATTACK);
@@ -262,7 +266,17 @@ public class BossAIComponent extends Component implements TaskRunner {
           setState(State.IDLE);
         } else {
           changeTask(waitTask);
+          rangeAttackComponent.setType("single");
           rangeAttackComponent.enableForNumAttacks(config.rangedAttackNum);
+        }
+        break;
+      case RANGE_ATTACK_2:
+        if (rangeAttackComponent == null) {
+          setState(State.IDLE);
+        } else {
+          changeTask(waitTask);
+          rangeAttackComponent.setType("spread");
+          rangeAttackComponent.enableForNumAttacks(config.ranged2AttackNum);
         }
         break;
     }
@@ -280,26 +294,16 @@ public class BossAIComponent extends Component implements TaskRunner {
   }
 
   private State getFallbackState(String fallbackStateStr) {
-    switch (fallbackStateStr.toUpperCase()) {
-      case "WANDER":
-        return State.WANDER;
-      case "CHARGE":
-        return State.CHARGE;
-      case "CHASE":
-        return State.CHASE;
-      case "JUMP":
-        return State.JUMP;
-      case "RETREAT":
-        return State.RETREAT;
-      case "AOE_ATTACK":
-        return State.AOE_ATTACK;
-      case "RANGE_ATTACK":
-        return State.RANGE_ATTACK;
-      case "WAIT":
-        return State.WAIT;
-      default:
-        // If the string is invalid or null, return IDLE as a fallback.
-        return State.IDLE;
-    }
+      return switch (fallbackStateStr.toUpperCase()) {
+          case "WANDER" -> State.WANDER;
+          case "CHARGE" -> State.CHARGE;
+          case "CHASE" -> State.CHASE;
+          case "JUMP" -> State.JUMP;
+          case "RETREAT" -> State.RETREAT;
+          case "AOE_ATTACK" -> State.AOE_ATTACK;
+          case "RANGE_ATTACK" -> State.RANGE_ATTACK;
+          case "WAIT" -> State.WAIT;
+          default -> State.IDLE;
+      };
   }
 }

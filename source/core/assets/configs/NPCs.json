@@ -345,19 +345,16 @@
     "waitTime": 1.5,
     "chaseTime": 5,
     "wanderMinRange": 8,
-    "chaseMinRange": 5,
+    "chaseMinRange": 6,
     "chaseMaxRange": 8,
-    "chargeMinRange": 0,
-    "chargeMaxRange": 0,
-    "jumpMinRange": 0,
-    "jumpMaxRange": 0,
     "retreatMinRange": 0,
-    "retreatMaxRange": 3,
-    "aoeMinRange": 0,
-    "aoeMaxRange": 0,
-    "rangedMinRange": 3,
-    "rangedMaxRange": 5,
+    "retreatMaxRange": 2,
+    "rangedMinRange": 2,
+    "rangedMaxRange": 4,
     "rangedAttackNum": 8,
+    "ranged2MinRange": 4,
+    "ranged2MaxRange": 6,
+    "ranged2AttackNum": 4,
     "fallbackState": "RANGE_ATTACK",
     "tasks": {
       "wander": {
@@ -386,7 +383,7 @@
       "ranged": {
         "range": 10,
         "rate": 2,
-        "type": 0
+        "type": 1
       }
     },
     "animations": [

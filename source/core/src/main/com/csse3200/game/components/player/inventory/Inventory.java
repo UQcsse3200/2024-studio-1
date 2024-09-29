@@ -123,4 +123,5 @@ public class Inventory {
     public void removeItem(Collectible item) {
         this.items.removeValue(item, true);
     }
+
 }

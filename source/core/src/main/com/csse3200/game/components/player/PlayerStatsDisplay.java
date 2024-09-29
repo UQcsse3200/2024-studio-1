@@ -42,6 +42,10 @@ public class PlayerStatsDisplay extends UIComponent {
     private Image damageImage;
     private ProgressBar damageProgressBar;
 
+    public static final String HEART_TEXTURE = "images/heart.png";
+    public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
+    public static final String DAMAGE_BUFF_TEXTURE = "images/items/armor.png";
+
 
 
     /**
@@ -78,7 +82,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
         // Heart image
         float heartSideLength = 30f;
-        heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        heartImage = new Image(ServiceLocator.getResourceService().getAsset(HEART_TEXTURE, Texture.class));
 
         // Ammo image
         ammoTexture = new Texture(Gdx.files.internal("images/Weapons/ammo.png")); // Load ammo texture
@@ -93,11 +97,11 @@ public class PlayerStatsDisplay extends UIComponent {
         healthLabel = new Label(healthText, skin, "small");
 
         //Speed image
-        float speedSideLength = 30f;
-        speedImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        float speedSideLength = 100f;
+        speedImage = new Image(ServiceLocator.getResourceService().getAsset(SPEED_TEXTURE, Texture.class));
 
         //Speed text
-        speedProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        speedProgressBar = new ProgressBar(0f, 3.0f, 0.1f, false, skin);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
         /*
@@ -109,9 +113,10 @@ public class PlayerStatsDisplay extends UIComponent {
 
         //Damage Progress bar
         //Will need to check values
-        float damageSideLength = 30f;
-        damageImage = new Image(
-                ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        float damageSideLength = 50f;
+//        damageImage = new Image(
+//                ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        damageImage = new Image(ServiceLocator.getResourceService().getAsset(DAMAGE_BUFF_TEXTURE, Texture.class));
         damageProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
         damageProgressBar.setWidth(200f);
         damageProgressBar.setAnimateDuration(2.0f);

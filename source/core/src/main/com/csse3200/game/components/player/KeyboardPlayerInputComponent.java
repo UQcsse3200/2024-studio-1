@@ -150,7 +150,18 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case 2 -> entity.getEvents().trigger("use2");
             case 3 -> entity.getEvents().trigger("use3");
             case 4 -> entity.getEvents().trigger("use4");
+            case 5 -> entity.getEvents().trigger("useReroll");
         }
+        return true;
+    }
+
+    private boolean pickupItem() {
+        entity.getEvents().trigger("pickup");
+        return true;
+    }
+
+    private boolean purchaseItem() {
+        entity.getEvents().trigger("purchaseItem");
         return true;
     }
 
@@ -158,6 +169,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("teleportToBoss");
         return true;
     }
+
 
     /*
      * All the player actions that need to respond to key down
@@ -180,8 +192,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_1, (i) -> useItem(1));
         actionMap.put(USE_2, (i) -> useItem(2));
         actionMap.put(USE_3, (i) -> useItem(3));
+        actionMap.put(USE_4, (i) -> useItem(4));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
+
+        actionMap.put(PICK_UP, (i) -> pickupItem());
+        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Rerol here
+        actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());
         return actionMap;
     }
 

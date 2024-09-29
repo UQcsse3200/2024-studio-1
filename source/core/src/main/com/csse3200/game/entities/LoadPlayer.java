@@ -95,6 +95,7 @@ public class LoadPlayer {
                 .addComponent(inventoryComponent)
                 .addComponent(playerActions)
                 .addComponent(new ItemPickupComponent())
+                .addComponent(new FundsDisplayComponent())
                 .addComponent(new ShieldComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())

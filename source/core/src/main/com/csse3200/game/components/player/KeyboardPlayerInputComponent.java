@@ -2,7 +2,11 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.areas.EnemyRoom;
+import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.entities.Room;
 import com.csse3200.game.input.InputComponent;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,6 +93,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    private boolean killAllAnimals() {
+        MainGameArea gameArea = ServiceLocator.getGameAreaService().getGameArea();
+        Room currentRoom = gameArea.getCurrentRoom();
+        if (currentRoom instanceof EnemyRoom) {
+            ((EnemyRoom) currentRoom).makeAllAnimalDead();
+            return true;
+        }
+        return false;
+    }
+
 
     /*
      * All the player actions that need to respond to key down
@@ -116,6 +130,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
         actionMap.put(PICK_UP, (i) -> pickupItem());
         actionMap.put(RE_ROLL, (i) -> useItem(5)); //Reroll here
+
+        actionMap.put(KILL_ALL_ANIMALS, (i) -> killAllAnimals());
         return actionMap;
     }
 

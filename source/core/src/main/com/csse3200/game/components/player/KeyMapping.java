@@ -63,7 +63,13 @@ public class KeyMapping {
          */
         ENTER_BOSS,
         PICK_UP,
-        RE_ROLL
+        RE_ROLL,
+
+        /**
+         * for tetsing purposes added a kill animals keybinder - k
+         */
+        KILL_ALL_ANIMALS
+
     }
 
     /**
@@ -97,6 +103,7 @@ public class KeyMapping {
             keyMap.put(Input.Keys.B, ENTER_BOSS);
             keyMap.put(Input.Keys.E, PICK_UP);
             keyMap.put(Input.Keys.R, RE_ROLL);
+            keyMap.put(Input.Keys.K, KILL_ALL_ANIMALS);
             this.keyMap = keyMap;
 
     }

@@ -109,7 +109,7 @@ public class ConcreteMeleeWeapon extends MeleeWeapon {
         inventory.resetMelee();
         try {
             disconnectPlayer();
-            this.weaponEntity.setEnabled(false);
+            ServiceLocator.getEntityService().markEntityForRemoval(this.weaponEntity);
         } catch (NullPointerException e) {
             logger.info("Weapon entity is null or components not found");
         }

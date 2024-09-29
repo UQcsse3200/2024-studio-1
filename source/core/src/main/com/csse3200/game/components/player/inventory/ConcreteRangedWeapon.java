@@ -88,11 +88,10 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     @Override
     public void drop(Inventory inventory) {
         logger.info("Dropping ranged weapon - " + this.name);
-        Entity player = inventory.getEntity();
         inventory.resetRanged();
         try {
             disconnectPlayer();
-            this.weaponEntity.setEnabled(false);
+            ServiceLocator.getEntityService().markEntityForRemoval(this.weaponEntity);
         } catch (NullPointerException e) {
             logger.info("Weapon entity is null or components not found");
         }

@@ -5,6 +5,7 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
@@ -24,6 +25,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private Vector2 startPos;
     private Vector2 targetPos;
     private PhysicsComponent physicsComponent;
+    private ColliderComponent colliderComponent;
     private GameTime gameTime;
     private long startTime;
     private static final Logger logger = LoggerFactory.getLogger(AITaskComponent.class);
@@ -42,6 +44,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         logger.debug("Starting jump towards {}", target);
         super.start();
         this.physicsComponent = owner.getEntity().getComponent(PhysicsComponent.class);
+        colliderComponent = owner.getEntity().getComponent(ColliderComponent.class);
         this.gameTime = ServiceLocator.getTimeSource();
 
         startPos = owner.getEntity().getPosition();
@@ -50,6 +53,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
 
         startTime = gameTime.getTime();
         this.owner.getEntity().getEvents().trigger("jump");
+        colliderComponent.setSensor(true);
     }
 
     @Override
@@ -86,6 +90,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     public void stop() {
         super.stop();
         physicsComponent.getBody().setLinearVelocity(Vector2.Zero);
+        colliderComponent.setSensor(false);
     }
 
     @Override

@@ -7,7 +7,7 @@ speed: {
 	y: 3
 }
 coins: 12
-melee: melee:pickaxe
+melee: melee:axe
 ranged: ranged:shotgun
 textureFilename: images/player/player.png
 textureAtlasFilename: images/player/player.atlas

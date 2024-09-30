@@ -1,6 +1,7 @@
 package com.csse3200.game.components.npc;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -28,6 +29,8 @@ public class NPCAnimationController extends Component {
     private Stage stage;
     private OrthographicCamera orthographicCamera;
 
+    private Color circleColor;
+
     @Override
     public void create() {
         super.create();
@@ -45,6 +48,8 @@ public class NPCAnimationController extends Component {
         circle = new Image(new Texture("images/npc/glowCircle.png"));
         circle.setSize(300f, 300);
         circle.setVisible(false);
+        circleColor = new Color(0, 0, 1, 1); // Initial blue color for preparation phase
+        circle.setColor(circleColor);
         // Get the stage to display the circle
         stage = ServiceLocator.getRenderService().getStage();
         stage.addActor(circle); // Add circle to stage so it's rendered
@@ -61,11 +66,14 @@ public class NPCAnimationController extends Component {
         entity.getEvents().addListener("jump", this::animateJump);
         entity.getEvents().addListener("updateCircle", this::update);
         entity.getEvents().addListener("aoe_attack", this::aoeAnimation);
+        entity.getEvents().addListener("aoe_preparation", this::prepareAOEAnimation);
     }
     /**
      * Displays and animates the circle around the player when an AOE attack occurs.
      */
     private void aoeAnimation() {
+        circleColor.set(1, 0, 0, 1); // Red color when AOE attack starts
+        circle.setColor(circleColor);
         circle.setVisible(true);
         update();
         // Hide the circle after 1 seconds
@@ -76,6 +84,16 @@ public class NPCAnimationController extends Component {
             }
         }, 1f);
 
+    }
+
+    /**
+     * Displays and animates the circle around the player when an AOE attack is being prepared.
+     */
+    private void prepareAOEAnimation() {
+        circleColor.set(0, 0, 1, 1); // Blue color during preparation phase
+        circle.setColor(circleColor);
+        circle.setVisible(true);
+        update();
     }
 
     /**

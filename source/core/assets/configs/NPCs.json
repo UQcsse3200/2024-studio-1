@@ -373,7 +373,7 @@
         "effects": [
           {
             "type": "knockback",
-            "force": 2
+            "force": 4
           }
         ]
       }

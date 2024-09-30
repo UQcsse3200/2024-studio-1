@@ -174,8 +174,7 @@ public abstract class BaseRoom implements Room {
     }
 
     public void removeRoom() {
-        List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Removing room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+        logger.info("Removing room, {}", ServiceLocator.getEntityService());
 
         for (Entity entity : entities) {
             ServiceLocator.getEntityService().markEntityForRemoval(entity);

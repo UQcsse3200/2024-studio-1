@@ -1,4 +1,10 @@
 package com.csse3200.game.components.player;
+
+
+public class PlayerAchievementComponentTest {
+
+}
+
 /*
 import com.csse3200.game.files.FileLoader;
 import com.badlogic.gdx.scenes.scene2d.Stage;

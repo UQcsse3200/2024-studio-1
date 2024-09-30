@@ -3,6 +3,7 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.CoinsComponent;
 import com.csse3200.game.files.FileLoader;
@@ -23,6 +24,7 @@ public class PlayerAchievementComponent extends UIComponent {
      */
     public HashMap<String, String> achievements;
     public ArrayList<String> energyDrinksCollected;
+    public Table table;
 
     /**
      * Constructs an Achievement component to an Entity by reading the achievements
@@ -39,6 +41,11 @@ public class PlayerAchievementComponent extends UIComponent {
             achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
                     FileLoader.Location.EXTERNAL);
         }
+
+        this.table = new Table();
+        this.table.center();
+        this.table.setFillParent(true);
+
     }
 
     /**
@@ -49,6 +56,9 @@ public class PlayerAchievementComponent extends UIComponent {
         return achievements;
     }
 
+    /**
+     * Called upon creation of this component
+     */
     public void create() {
         super.create();
 
@@ -62,7 +72,10 @@ public class PlayerAchievementComponent extends UIComponent {
         entity.getEvents().addListener("updateCoins", this::handleCoinsAchievement);
     }
 
-
+    /**
+     * Method inherited from superclass
+     * @param batch Batch to render to.
+     */
     @Override
     protected void draw(SpriteBatch batch) {
         // handled by superclass
@@ -70,7 +83,10 @@ public class PlayerAchievementComponent extends UIComponent {
 
 
     /**
-     * Handles whether an energy drink achievement has been obtained. It is called any time an energy drink
+     * Handles whether an energy drink achievement has been obtained. It is called any time an energy drink has
+     * been collected.
+     * @param speedPercentage the speedPercentage which is used in the PlayerStatesDisplay
+     * @param speedType the speed type of the energy drink collected (High, Medium or Low)
      */
     public void handleEnergyDrinkAchievement(float speedPercentage, String speedType) {
         if (energyDrinksCollected.contains(speedType)) {
@@ -145,20 +161,29 @@ public class PlayerAchievementComponent extends UIComponent {
             // Create a Label to display the achievement message
             String text = String.format("Congratulations, you have achieved the '%s' achievement!", name);
             Label achievementLabel = new Label(text, skin, "small");
-            Table table = new Table();
-            table.center();
-            table.setFillParent(true);
-            table.add(achievementLabel).padTop(5f);
+//            Table table = new Table();
+//            table.center();
+//            table.setFillParent(true);
+            this.table.row().padTop(5f);
+            this.table.add(achievementLabel).padTop(5f);
             stage.addActor(table);
             // unrender the label after 1 second of display
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    table.remove(); // Remove the label from the screen
+                    achievementLabel.remove(); // Remove the label from the screen
                 }
-            }, 1);
+            }, 3);
             updateConfig();
         }
+    }
+
+    /**
+     * Resets the list of achievements to an empty list
+     */
+    public void resetAchievements() {
+        achievements = new HashMap<>();
+        FileLoader.writeClass(achievements, "configs/achievements.json", FileLoader.Location.EXTERNAL);
     }
 
     /**

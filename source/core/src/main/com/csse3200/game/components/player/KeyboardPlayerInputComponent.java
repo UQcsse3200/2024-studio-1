@@ -93,15 +93,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
-    private boolean killAllAnimals() {
-        MainGameArea gameArea = ServiceLocator.getGameAreaService().getGameArea();
-        Room currentRoom = gameArea.getCurrentRoom();
-        if (currentRoom instanceof EnemyRoom) {
-            ((EnemyRoom) currentRoom).makeAllAnimalDead();
-            return true;
-        }
-        return false;
-    }
+
 
 
     /*
@@ -131,7 +123,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(PICK_UP, (i) -> pickupItem());
         actionMap.put(RE_ROLL, (i) -> useItem(5)); //Reroll here
 
-        actionMap.put(KILL_ALL_ANIMALS, (i) -> killAllAnimals());
+
         return actionMap;
     }
 

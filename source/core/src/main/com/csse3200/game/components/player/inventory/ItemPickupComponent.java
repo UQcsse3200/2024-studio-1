@@ -57,7 +57,7 @@ public class ItemPickupComponent extends Component {
      * if the collided entity is a collectible.
      */
     private void onCollisionStart(Fixture me, Fixture other) {
-        contact = true;
+        this.setContact(true);
         Entity otherEntity = ((BodyUserData) other.getBody().getUserData()).entity;
 
         if (!isCollectible(otherEntity) || otherEntity == lastPickedUpEntity) {
@@ -68,14 +68,25 @@ public class ItemPickupComponent extends Component {
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
     }
 
+    /**
+     * A method that returns whether 'contact' flag
+     * @return boolean value of the contact flag
+     */
     public boolean isInContact() {
         return contact;
     }
 
+    /**
+     * Gets the collectible item in collision
+     * @return the collectible item (null if no item is in collision)
+     */
     public Collectible getItem() {
         return item;
     }
 
+    /**
+     * Sets the 'contact' flag to a specified boolean value
+     */
     public void setContact(boolean contact) {
         this.contact = contact;
     }
@@ -84,7 +95,7 @@ public class ItemPickupComponent extends Component {
      * Determine when the player collision has ended
      */
     private void onCollisionEnd(Fixture me, Fixture other) {
-        contact = false;
+        this.setContact(false);
     }
 
     /**
@@ -96,6 +107,10 @@ public class ItemPickupComponent extends Component {
         return entity.getComponent(CollectibleComponent.class) != null;
     }
 
+    /**
+     * Handles the reroll item effect. When the reroll item is applied to another item in collision,
+     * a new item spawns in place of the original item.
+     */
     public void handleReroll(Collectible collisionItem, Entity collisionItemEntity) {
         if (collisionItem == null || collisionItemEntity == null) {
             return;
@@ -115,9 +130,19 @@ public class ItemPickupComponent extends Component {
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
     }
 
+    /**
+     * A method temporarily used to represent the 'funds' of the player
+     * @return an integer value representing the player's funds
+     */
     public int getTestFunds() {
         return 9;
     }
+
+    /**
+     * Handles the event where the player attempts to purchase a buyable item
+     * @param item the collectible item that the player is attempting to purchase
+     * @param itemEntity the entity representation of the item that the player is attempting to purhase
+     */
     public void checkItemPurchase(Collectible item, Entity itemEntity) {
         int playerFunds = getTestFunds();
         if (item == null || itemEntity == null) {
@@ -164,6 +189,11 @@ public class ItemPickupComponent extends Component {
         ServiceLocator.getEntityService().markEntityForRemoval(itemEntity);
     }
 
+    /**
+     * Randomly generates a new item to spawn, based on the random integer passed in
+     * @param randomNum an integer representing a random number passed in
+     * @return an entity representation of a new collectible item
+     */
     private Entity randomItemGenerator(int randomNum) {
         String specification = null;
         switch (randomNum) {

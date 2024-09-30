@@ -22,7 +22,7 @@ public class PlayerActions extends Component {
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
     private boolean dead = false;
-    private float maxSpeed = 3.0f;
+    private float maxSpeed = 1.5f;
     private float speedPercentage;
 
     @Override
@@ -156,10 +156,12 @@ public class PlayerActions extends Component {
         return walkDirection;
     }
 
-    public ItemPickupComponent getItemPickupComponent() {
-        return this.itemPickupComponent;
-    }
 
+    /**
+     * Detects whether a reroll item is allowed to be used or not. The only valid scenario is when
+     * the player is in contact with another entity, and that entity is valid (not null)
+     * @param reroll the reroll item instance
+     */
     public void handleReroll(UsableItem reroll) {
         if (entity.getComponent(ItemPickupComponent.class).isInContact() && entity.getComponent(ItemPickupComponent.class).getItem() != null) {
             use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item

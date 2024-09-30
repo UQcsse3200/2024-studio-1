@@ -45,7 +45,7 @@ public class Tombstone extends BuffItem {
      * @return creates pet entity
      */
     private Entity randomPetGenerator(int randomNum) {
-        String specification = 1;
+        String specification = "Rat";
         Entity player = ServiceLocator.getEntityService().getPlayer();
         switch (randomNum) {
             case 1 -> specification = "Rat";

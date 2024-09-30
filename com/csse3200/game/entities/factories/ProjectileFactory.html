@@ -136,14 +136,21 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Makes a new Entity with projectile components.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createShotGunProjectile(com.csse3200.game.entities.configs.ProjectileConfig,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)" class="member-name-link">createShotGunProjectile</a><wbr>(<a href="../configs/ProjectileConfig.html" title="class in com.csse3200.game.entities.configs">ProjectileConfig</a>&nbsp;stats,
+ com.badlogic.gdx.math.Vector2&nbsp;direction,
+ com.badlogic.gdx.math.Vector2&nbsp;parentPosition)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
+<div class="block">This projectile is a shotgun effect.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get all the filepaths to textures needed by this Factory</div>
 </div>
 </div>
@@ -192,6 +199,21 @@ loadScripts(document, 'script');</script>
 <dd><code>stats</code> - Contains all the re-usable projectile configurations. See ProjectileConfig.</dd>
 <dd><code>direction</code> - Direction of shot projectile.</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="createShotGunProjectile(com.csse3200.game.entities.configs.ProjectileConfig,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)">
+<h3>createShotGunProjectile</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">createShotGunProjectile</span><wbr><span class="parameters">(<a href="../configs/ProjectileConfig.html" title="class in com.csse3200.game.entities.configs">ProjectileConfig</a>&nbsp;stats,
+ com.badlogic.gdx.math.Vector2&nbsp;direction,
+ com.badlogic.gdx.math.Vector2&nbsp;parentPosition)</span></div>
+<div class="block">This projectile is a shotgun effect.
+ Four total projectiles with spread of +-0.07 RAD and Lag speed of 90%.
+ Shot in format:
+                         (+0.07)
+  gun(-&gt;)      (Lag)     (Norm)
+                         (-0.7)
+ NOTE - Magic numbers should not be tested.</div>
 </section>
 </li>
 <li>

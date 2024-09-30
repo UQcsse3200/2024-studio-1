@@ -28,7 +28,6 @@ public class PlayerAchievementComponent extends UIComponent {
             achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
                     FileLoader.Location.EXTERNAL);
         }
-
     }
 
 

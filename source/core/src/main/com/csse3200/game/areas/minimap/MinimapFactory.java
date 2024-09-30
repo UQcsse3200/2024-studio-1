@@ -13,11 +13,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.areas.Level;
 import com.csse3200.game.services.ServiceLocator;
 
+import com.csse3200.game.areas.BossRoom;
+import com.csse3200.game.areas.EnemyRoom;
+import com.csse3200.game.areas.GambleRoom;
+
+import com.csse3200.game.entities.Room;
+
 import java.util.List;
 
 public class MinimapFactory {
 
-    private static final GridPoint2 MINIMAP_SIZE = new GridPoint2(5, 5);
+    private static final int MINIMAP_COL = 5;
+    private static final int MINIMAP_ROW = 5;
 
     private final Level level;
     private final float mapScale;
@@ -31,7 +38,7 @@ public class MinimapFactory {
     /**
      * Constructor for minimap display.
      *
-     * @param level The game level containing the map and room information.
+     * @param level    The game level containing the map and room information.
      * @param mapScale The scale of the minimap.
      */
     public MinimapFactory(Level level, float mapScale) {
@@ -39,7 +46,7 @@ public class MinimapFactory {
         this.currentRoomKey = level.getStartingRoomKey();
         this.currentRoomLoc = parseRoomKey(currentRoomKey);
         this.mapScale = mapScale;
-        this.camera = (OrthographicCamera) ServiceLocator.getRenderService().getCamera().getCamera();
+        this.camera = (OrthographicCamera) ServiceLocator.getRenderService().getSecondaryCamera().getCamera();
 
         // Load skin for minimap
         this.minimapSkin = new Skin(Gdx.files.internal("skins/minimap/minimap.json"),
@@ -64,25 +71,17 @@ public class MinimapFactory {
                 minimapSkin.getRegion("1011"),
                 minimapSkin.getRegion("0000"),
                 minimapSkin.getRegion("1000_gambling"),
-                minimapSkin.getRegion("1100_gambling"),
-                minimapSkin.getRegion("1010_gambling"),
-                minimapSkin.getRegion("1001_gambling"),
-                minimapSkin.getRegion("1110_gambling"),
-                minimapSkin.getRegion("1101_gambling"),
-                minimapSkin.getRegion("1111_gambling"),
                 minimapSkin.getRegion("0100_gambling"),
-                minimapSkin.getRegion("0110_gambling"),
-                minimapSkin.getRegion("0111_gambling"),
-                minimapSkin.getRegion("0101_gambling"),
                 minimapSkin.getRegion("0010_gambling"),
-                minimapSkin.getRegion("0011_gambling"),
                 minimapSkin.getRegion("0001_gambling"),
-                minimapSkin.getRegion("1011_gambling"),
                 minimapSkin.getRegion("1000_boss"),
                 minimapSkin.getRegion("0100_boss"),
                 minimapSkin.getRegion("0010_boss"),
-                minimapSkin.getRegion("0001_boss")
-
+                minimapSkin.getRegion("0001_boss"),
+                minimapSkin.getRegion("1000_npc"),
+                minimapSkin.getRegion("0100_npc"),
+                minimapSkin.getRegion("0010_npc"),
+                minimapSkin.getRegion("0001_npc")
         };
     }
 
@@ -93,14 +92,14 @@ public class MinimapFactory {
     private MinimapComponent createMinimapGrid() {
         GridPoint2 tilePixelSize = new GridPoint2(tileTextures[0].getRegionWidth(), tileTextures[0].getRegionHeight());
         TiledMap tiledMap = createRoomTiles(tilePixelSize);
-        TiledMapRenderer renderer = createRenderer(tiledMap, mapScale/tilePixelSize.x);
+        TiledMapRenderer renderer = createRenderer(tiledMap, mapScale / tilePixelSize.x);
         return new MinimapComponent(camera, tiledMap, renderer, mapScale);
     }
 
     private TiledMap createRoomTiles(GridPoint2 tileSize) {
         TiledMap tiledMap = new TiledMap();
 
-        this.layer = new TiledMapTileLayer(MINIMAP_SIZE.x, MINIMAP_SIZE.y, tileSize.x, tileSize.y);
+        this.layer = new TiledMapTileLayer(MINIMAP_COL, MINIMAP_ROW, tileSize.x, tileSize.y);
 
         // fill room tile
         fillRooms(layer);
@@ -117,37 +116,46 @@ public class MinimapFactory {
      */
     private void fillRooms(TiledMapTileLayer tiledMapTileLayer) {
         // Central room (player's current room) is at (2, 2) on the minimap
-        int centerX = MINIMAP_SIZE.x / 2;
-        int centerY = MINIMAP_SIZE.y / 2;
+        int centerRow = MINIMAP_ROW / 2;
+        int centerCol = MINIMAP_COL / 2;
 
         // Loop over the 5x5 minimap grid
-        for (int i = 0; i < MINIMAP_SIZE.x; i++) {
-            for (int j = 0; j < MINIMAP_SIZE.y; j++) {
+        for (int i = 0; i < MINIMAP_ROW; i++) {
+            for (int j = 0; j < MINIMAP_COL; j++) {
                 // Calculate the actual room location relative to the player's current room
-                int roomX = currentRoomLoc[0] + (i - centerX);
-                int roomY = currentRoomLoc[1] + (j - centerY);
+                int roomRowIndex = currentRoomLoc[0] + (i - centerRow);
+                int roomColIndex = currentRoomLoc[1] + (j - centerCol);
 
-                String roomKey = roomX + "_" + roomY;
+                String roomKey = roomRowIndex + "_" + roomColIndex;
 
                 // Check if the room exists and get its connections
                 List<String> connections;
 
                 try {
                     connections = level.getMap().getRoomConnections(roomKey);
+                    Gdx.app.log(roomKey, connections.toString());
                 } catch (IllegalArgumentException e) {
                     connections = null;
                 }
 
                 if (connections != null) {
                     // Determine which directions the room has connections
-                    String connectionCode = getConnectionCode(connections);
+                    String connectionCode = getConnectionCode(roomKey, connections);
+
+                    Room tempRoom = level.getRoom(roomKey);
+
+                    if (tempRoom instanceof BossRoom) {
+                        connectionCode += "_boss";
+                    } else if (tempRoom instanceof GambleRoom) {
+                        connectionCode += "_gambling";
+                    }
 
                     // Assign the correct tile based on the connection code
                     int tileIndex = getTileIndexForConnections(connectionCode);
-                    tiledMapTileLayer.setCell(i, j, new TiledMapTileLayer.Cell().setTile(new MinimapTile(tileTextures[tileIndex])));
+                    tiledMapTileLayer.setCell(j, (MINIMAP_ROW - 1) - i, new TiledMapTileLayer.Cell().setTile(new MinimapTile(tileTextures[tileIndex])));
                 } else {
                     // If no room exists, set an empty tile
-                    tiledMapTileLayer.setCell(i, j, new TiledMapTileLayer.Cell().setTile(new MinimapTile(tileTextures[15]))); // 0000
+                    tiledMapTileLayer.setCell(j, (MINIMAP_ROW - 1) - i, new TiledMapTileLayer.Cell().setTile(new MinimapTile(tileTextures[15]))); // 0000
                 }
             }
         }
@@ -155,7 +163,8 @@ public class MinimapFactory {
 
     /**
      * fills the renderer
-     * @param tiledMap tiled map
+     *
+     * @param tiledMap  tiled map
      * @param tileScale tile scale
      * @return tiled map renderer
      */
@@ -164,36 +173,58 @@ public class MinimapFactory {
     }
 
     /**
-     * Parses a room key (formatted as "x_y") into integer coordinates.
+     * Parses a room key (formatted as "row_col") into integer coordinates.
      *
      * @param roomKey The key of the room.
-     * @return An array containing the x and y coordinates of the room.
+     * @return An array containing the row and col coordinates of the room.
      */
     private int[] parseRoomKey(String roomKey) {
         String[] parts = roomKey.split("_");
-        int x = Integer.parseInt(parts[0]);
-        int y = Integer.parseInt(parts[1]);
-        return new int[]{x, y};
+        int row = Integer.parseInt(parts[0]);
+        int col = Integer.parseInt(parts[1]);
+        return new int[]{row, col};
     }
 
     /**
      * Generates a connection code based on which directions have connected rooms.
+     * <p>
+     * The connections list contains other room keys which are connected to the current room.
+     * The key format for each room is "row_col", where row and col are the room's coordinates on the map.
      *
-     * @param connections List of connected rooms in the order: up, right, down, left.
-     * @return A string representing the connection code (e.g., "1101" for north, east, and west).
+     * @param currentRoomKey The current room's key (e.g., "0_0").
+     * @param connections    List of connected room keys.
+     * @return A string representing the connection code (e.g., "1101" for north, south, and west).
      */
-    private String getConnectionCode(List<String> connections) {
-        // North connection (up)
-        return (connections.get(0).isEmpty() ? "0" : "1") +
+    private String getConnectionCode(String currentRoomKey, List<String> connections) {
+        int[] currentCoords = parseRoomKey(currentRoomKey);
+        int currentRow = currentCoords[0];
+        int currentCol = currentCoords[1];
 
-                // East connection (right)
-                (connections.get(1).isEmpty() ? "0" : "1") +
+        // Initialize connection codes for up, down, right, left
+        String[] connectionCodes = {"0", "0", "0", "0"};
 
-                // South connection (down)
-                (connections.get(2).isEmpty() ? "0" : "1") +
+        // Check for connections in each direction
+        for (String connection : connections) {
+            if (connection.isEmpty()) continue;
 
-                // West connection (left)
-                (connections.get(3).isEmpty() ? "0" : "1");
+            int[] connectedCoords = parseRoomKey(connection);
+            int connectedRow = connectedCoords[0];
+            int connectedCol = connectedCoords[1];
+
+            // Check the direction of the connected room
+            if (connectedRow == currentRow - 1 && connectedCol == currentCol) {
+                connectionCodes[0] = "1"; // Up (North)
+            } else if (connectedRow == currentRow + 1 && connectedCol == currentCol) {
+                connectionCodes[1] = "1"; // Down (South)
+            } else if (connectedRow == currentRow && connectedCol == currentCol + 1) {
+                connectionCodes[2] = "1"; // Right (East)
+            } else if (connectedRow == currentRow && connectedCol == currentCol - 1) {
+                connectionCodes[3] = "1"; // Left (West)
+            }
+        }
+
+        // Return the connection code as a string (e.g., "1101" for north, south, and west)
+        return String.join("", connectionCodes);
     }
 
     /**
@@ -204,41 +235,62 @@ public class MinimapFactory {
      */
     private int getTileIndexForConnections(String connectionCode) {
         switch (connectionCode) {
-            case "1000": return 0;
-            case "1100": return 1;
-            case "1010": return 2;
-            case "1001": return 3;
-            case "1110": return 4;
-            case "1101": return 5;
-            case "1111": return 6;
-            case "0100": return 7;
-            case "0110": return 8;
-            case "0111": return 9;
-            case "0101": return 10;
-            case "0010": return 11;
-            case "0011": return 12;
-            case "0001": return 13;
-            case "1011": return 14;
-            case "1000_gambling": return 16;
-            case "1100_gambling": return 17;
-            case "1010_gambling": return 18;
-            case "1001_gambling": return 19;
-            case "1110_gambling": return 20;
-            case "1101_gambling": return 21;
-            case "1111_gambling": return 22;
-            case "0100_gambling": return 23;
-            case "0110_gambling": return 24;
-            case "0111_gambling": return 25;
-            case "0101_gambling": return 26;
-            case "0010_gambling": return 27;
-            case "0011_gambling": return 28;
-            case "0001_gambling": return 29;
-            case "1011_gambling": return 30;
-            case "1000_boss": return 31;
-            case "0100_boss": return 32;
-            case "0010_boss": return 33;
-            case "0001_boss": return 34;
-            default: return 15; // 0000 (no connections)
+            case "1000":
+                return 0;
+            case "1100":
+                return 1;
+            case "1010":
+                return 2;
+            case "1001":
+                return 3;
+            case "1110":
+                return 4;
+            case "1101":
+                return 5;
+            case "1111":
+                return 6;
+            case "0100":
+                return 7;
+            case "0110":
+                return 8;
+            case "0111":
+                return 9;
+            case "0101":
+                return 10;
+            case "0010":
+                return 11;
+            case "0011":
+                return 12;
+            case "0001":
+                return 13;
+            case "1011":
+                return 14;
+            case "1000_gambling":
+                return 16;
+            case "0100_gambling":
+                return 17;
+            case "0010_gambling":
+                return 18;
+            case "0001_gambling":
+                return 19;
+            case "1000_boss":
+                return 20;
+            case "0100_boss":
+                return 21;
+            case "0010_boss":
+                return 22;
+            case "0001_boss":
+                return 23;
+            case "1000_npc":
+                return 24;
+            case "0100_npc":
+                return 25;
+            case "0010_npc":
+                return 26;
+            case "0001_npc":
+                return 27;
+            default:
+                return 15; // 0000 (no connections)
         }
     }
 

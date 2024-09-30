@@ -16,7 +16,7 @@ public class DivinePotion extends BuffItem{
      */
     @Override
     public void pickup(Inventory inventory) {
-        inventory.addItem(this); // FIXME
+        inventory.addItem(this);
         effect(inventory.getEntity());
     }
 

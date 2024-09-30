@@ -1,0 +1,10 @@
+{
+10 enemies defeated: {
+	class: java.lang.String
+	value: images/items/energy_drink_blue.png
+}
+First inventory collectible: {
+	class: java.lang.String
+	value: images/items/mystery_box_blue.png
+}
+}

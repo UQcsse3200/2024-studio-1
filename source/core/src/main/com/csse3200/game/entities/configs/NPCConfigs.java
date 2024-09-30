@@ -15,7 +15,7 @@ public class NPCConfigs {
   public NPCConfig minotaur = new NPCConfig();
   public NPCConfig dragon = new NPCConfig();
   public NPCConfig werewolf = new NPCConfig();
-  public BossConfig birdman = new BossConfig();
+  public NPCConfig birdman = new NPCConfig();
   public NPCConfig kitsune = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
@@ -62,6 +62,7 @@ public class NPCConfigs {
       public static class JumpTaskConfig {
         public float activationMinRange;
         public float activationMaxRange;
+        public float jumpDuration;
         public float waitTime;
         public float cooldownTime;
       }

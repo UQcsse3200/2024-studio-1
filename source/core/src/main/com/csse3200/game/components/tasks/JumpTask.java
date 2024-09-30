@@ -22,11 +22,11 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(JumpTask.class);
     private static final int ACTIVE_PRIORITY = 10;
     private static final int INACTIVE_PRIORITY = 7;
-    private static final float JUMP_DURATION = 1.5f * 1000;
     private static final float JUMP_HEIGHT_SCALAR = 0.3f;
     private final Entity target;
     private final float activationMinRange;
     private final float activationMaxRange;
+    private final float jumpDuration;
     private final float waitTime;
     private final float cooldownTime;
     private float jumpHeight;
@@ -49,6 +49,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         this.target = target;
         this.activationMinRange = config.activationMinRange;
         this.activationMaxRange = config.activationMaxRange;
+        this.jumpDuration = config.jumpDuration;
         this.waitTime = config.waitTime;
         this.cooldownTime = config.cooldownTime;
         gameTime = ServiceLocator.getTimeSource();
@@ -98,7 +99,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         }
 
         long elapsedTime = gameTime.getTimeSince(startTime);
-        float t = Math.min((float)elapsedTime / JUMP_DURATION, 1);  // Time ratio from 0 to 1
+        float t = Math.min((float)elapsedTime / (jumpDuration * 1000), 1);  // Time ratio from 0 to 1
 
         // Calculate the new position and jump height
         float newX = lerp(startPos.x, targetPos.x, t);

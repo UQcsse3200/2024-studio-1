@@ -261,7 +261,7 @@
     ]
   },
   "werewolf": {
-    "health": 500,
+    "health": 1000,
     "baseAttack": 40,
     "isDirectional": true,
     "tasks": {
@@ -271,7 +271,7 @@
         "wanderSpeed": 0.4
       },
       "chase": {
-        "chaseSpeed": 2,
+        "chaseSpeed": 2.5,
         "viewDistance": 9,
         "chaseDistance": 9.5,
         "maxTime": 5
@@ -286,6 +286,7 @@
       "jump": {
         "activationMinRange": 4,
         "activationMaxRange": 6,
+        "jumpDuration": 1.5,
         "waitTime": 1,
         "cooldownTime": 4
       },
@@ -306,7 +307,7 @@
         "effects": [
           {
             "type": "knockback",
-            "force": 2
+            "force": 3
           }
         ]
       }
@@ -331,7 +332,7 @@
     ]
   },
   "kitsune": {
-    "health": 500,
+    "health": 1000,
     "baseAttack": 40,
     "isDirectional": true,
     "tasks": {
@@ -413,51 +414,52 @@
     "health": 1500,
     "baseAttack": 40,
     "isDirectional": true,
-    "waitTime": 3,
-    "chaseTime": 7,
-    "wanderMinRange": 10,
-    "chaseMinRange": 2,
-    "chaseMaxRange": 4,
-    "chargeMinRange": 5,
-    "chargeMaxRange": 10,
-    "jumpMinRange": 3,
-    "jumpMaxRange": 6,
-    "retreatMinRange": 0,
-    "retreatMaxRange": 2,
-    "aoeMinRange": 0,
-    "aoeMaxRange": 2,
-    "rangedMinRange": 4,
-    "rangedMaxRange": 5,
-    "rangedAttackNum": 4,
-    "fallbackState": "RANGE_ATTACK",
     "tasks": {
       "wander": {
+        "wanderRadius": 4,
+        "waitTime": 4,
+        "wanderSpeed": 0.4
       },
       "chase": {
-        "chaseSpeed": 3
+        "chaseSpeed": 2,
+        "viewDistance": 10,
+        "chaseDistance": 10.5,
+        "maxTime": 5
       },
       "charge": {
-        "chaseSpeed": 6
+        "activationMinRange": 5,
+        "activationMaxRange": 10,
+        "chaseSpeed": 6,
+        "waitTime": 1,
+        "cooldownTime": 5
+      },
+      "jump": {
+        "activationMinRange": 2,
+        "activationMaxRange": 6,
+        "jumpDuration": 0.8,
+        "waitTime": 1,
+        "cooldownTime": 3
       },
       "runAway": {
-          "runSpeed": 5
+        "activationMinRange": 0,
+        "activationMaxRange": 2,
+        "activationHealth": 0.5,
+        "runSpeed": 5,
+        "stopDistance": 4,
+        "maxRunTime": 3,
+        "cooldownTime": 10
       }
     },
     "attacks": {
       "melee": {
         "range": 1.2,
-        "rate": 0.8,
+        "rate": 0.5,
         "effects": [
           {
             "type": "knockback",
             "force": 2
           }
         ]
-      },
-      "ranged": {
-          "range": 10,
-          "rate": 1,
-          "type": 0
       }
     },
     "animations": [

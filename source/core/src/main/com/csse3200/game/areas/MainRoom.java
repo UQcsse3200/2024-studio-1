@@ -10,14 +10,14 @@ public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                List.of("Kitsune", "Snake", "Dog", "Dragon"),
-                List.of("Bear", "Snake", "Dino"),
+                List.of("Snake", "Dog"),
+                List.of("Bear", "Snake", "Dino", "Dragon"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),
                 List.of("Bat", "Bat", "Bat"),
                 List.of("Minotaur", "Minotaur", "Minotaur"),
                 List.of("Rat", "Bat", "Bear"),
-                List.of("Werewolf", "Werewolf", "Bear")
+                List.of("Werewolf", "Kitsune", "Bear")
         );
     }
 

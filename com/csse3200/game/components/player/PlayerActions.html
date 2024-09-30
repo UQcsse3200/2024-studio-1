@@ -157,20 +157,28 @@ loadScripts(document, 'script');</script>
 <div class="block">Gets the direction the player is walking in.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSpeed(com.badlogic.gdx.math.Vector2)" class="member-name-link">setSpeed</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;speed)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleReroll(com.csse3200.game.components.player.inventory.UsableItem)" class="member-name-link">handleReroll</a><wbr>(<a href="inventory/UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a>&nbsp;reroll)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Set the player speed</div>
+<div class="block">Detects whether a reroll item is allowed to be used or not.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSpeedPercentage(float)" class="member-name-link">setSpeedPercentage</a><wbr>(float&nbsp;speedPercentage)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSpeed(com.badlogic.gdx.math.Vector2)" class="member-name-link">setSpeed</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;speed)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the current speed percentage stat to a new value</div>
+<div class="block">Set the player speed</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSpeedPercentage(float)" class="member-name-link">setSpeedPercentage</a><wbr>(float&nbsp;speedPercentage)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the current speed percentage stat to a new value</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Called once per frame of the game, and should be used for most component logic.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#use(com.csse3200.game.components.player.inventory.UsableItem)" class="member-name-link">use</a><wbr>(<a href="inventory/UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a>&nbsp;item)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -295,6 +303,24 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>the direction the player is walking in</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="handleReroll(com.csse3200.game.components.player.inventory.UsableItem)">
+<h3>handleReroll</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">handleReroll</span><wbr><span class="parameters">(<a href="inventory/UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a>&nbsp;reroll)</span></div>
+<div class="block">Detects whether a reroll item is allowed to be used or not. The only valid scenario is when
+ the player is in contact with another entity, and that entity is valid (not null)</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>reroll</code> - the reroll item instance</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="use(com.csse3200.game.components.player.inventory.UsableItem)">
+<h3>use</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">use</span><wbr><span class="parameters">(<a href="inventory/UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a>&nbsp;item)</span></div>
 </section>
 </li>
 </ul>

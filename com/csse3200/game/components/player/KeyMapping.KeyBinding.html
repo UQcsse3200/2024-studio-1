@@ -130,44 +130,56 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">The player action to make a melee attack.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="#SHOOT_DOWN" class="member-name-link">SHOOT_DOWN</a></code></div>
+<div class="col-first even-row-color"><code><a href="#PICK_UP" class="member-name-link">PICK_UP</a></code></div>
 <div class="col-last even-row-color">
+<div class="block">The player action to pick up an item</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#PURCHASE_ITEM" class="member-name-link">PURCHASE_ITEM</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">The player action to attempt to purchase a buyable item</div>
+</div>
+<div class="col-first even-row-color"><code><a href="#RE_ROLL" class="member-name-link">RE_ROLL</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The player action to use a reroll item</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="#SHOOT_DOWN" class="member-name-link">SHOOT_DOWN</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">The player action to shoot down.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#SHOOT_LEFT" class="member-name-link">SHOOT_LEFT</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="#SHOOT_LEFT" class="member-name-link">SHOOT_LEFT</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">The player action to shoot left.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="#SHOOT_RIGHT" class="member-name-link">SHOOT_RIGHT</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code><a href="#SHOOT_RIGHT" class="member-name-link">SHOOT_RIGHT</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">The player action to shoot right.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#SHOOT_UP" class="member-name-link">SHOOT_UP</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="#SHOOT_UP" class="member-name-link">SHOOT_UP</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">The player action to shoot up.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="#USE_1" class="member-name-link">USE_1</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="#USE_2" class="member-name-link">USE_2</a></code></div>
+<div class="col-first odd-row-color"><code><a href="#USE_1" class="member-name-link">USE_1</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="#USE_3" class="member-name-link">USE_3</a></code></div>
+<div class="col-first even-row-color"><code><a href="#USE_2" class="member-name-link">USE_2</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="#USE_4" class="member-name-link">USE_4</a></code></div>
+<div class="col-first odd-row-color"><code><a href="#USE_3" class="member-name-link">USE_3</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="#WALK_DOWN" class="member-name-link">WALK_DOWN</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first even-row-color"><code><a href="#USE_4" class="member-name-link">USE_4</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="#WALK_DOWN" class="member-name-link">WALK_DOWN</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">The player action to walk down.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#WALK_LEFT" class="member-name-link">WALK_LEFT</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="#WALK_LEFT" class="member-name-link">WALK_LEFT</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">The player action to walk left.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="#WALK_RIGHT" class="member-name-link">WALK_RIGHT</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code><a href="#WALK_RIGHT" class="member-name-link">WALK_RIGHT</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">The player action to walk right.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="#WALK_UP" class="member-name-link">WALK_UP</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code><a href="#WALK_UP" class="member-name-link">WALK_UP</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">The player action to walk up.</div>
 </div>
 </div>
@@ -307,6 +319,27 @@ the order they are declared.</div>
 <h3>ENTER_BOSS</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></span>&nbsp;<span class="element-name">ENTER_BOSS</span></div>
 <div class="block">The player action to jump to boss room.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="PICK_UP">
+<h3>PICK_UP</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></span>&nbsp;<span class="element-name">PICK_UP</span></div>
+<div class="block">The player action to pick up an item</div>
+</section>
+</li>
+<li>
+<section class="detail" id="RE_ROLL">
+<h3>RE_ROLL</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></span>&nbsp;<span class="element-name">RE_ROLL</span></div>
+<div class="block">The player action to use a reroll item</div>
+</section>
+</li>
+<li>
+<section class="detail" id="PURCHASE_ITEM">
+<h3>PURCHASE_ITEM</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></span>&nbsp;<span class="element-name">PURCHASE_ITEM</span></div>
+<div class="block">The player action to attempt to purchase a buyable item</div>
 </section>
 </li>
 </ul>

@@ -86,7 +86,9 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="BaseRoom.html" title="class in com.csse3200.game.areas">com.csse3200.game.areas.BaseRoom</a>
+<div class="inheritance"><a href="EnemyRoom.html" title="class in com.csse3200.game.areas">com.csse3200.game.areas.EnemyRoom</a>
 <div class="inheritance">com.csse3200.game.areas.BossRoom</div>
+</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
@@ -96,7 +98,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">BossRoom</span>
-<span class="extends-implements">extends <a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></span></div>
+<span class="extends-implements">extends <a href="EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></span></div>
 <div class="block">A boss room of the game,
  these often have unique animals and rewards.</div>
 </section>
@@ -107,8 +109,11 @@ loadScripts(document, 'script');</script>
 <section class="field-summary" id="field-summary">
 <h2>Field Summary</h2>
 <div class="inherited-list">
+<h3 id="fields-inherited-from-class-com.csse3200.game.areas.EnemyRoom">Fields inherited from class&nbsp;com.csse3200.game.areas.<a href="EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></h3>
+<code><a href="EnemyRoom.html#animalGroup">animalGroup</a>, <a href="EnemyRoom.html#animalSpecifications">animalSpecifications</a>, <a href="EnemyRoom.html#isBossRoom">isBossRoom</a>, <a href="EnemyRoom.html#npcFactory">npcFactory</a></code></div>
+<div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.areas.BaseRoom">Fields inherited from class&nbsp;com.csse3200.game.areas.<a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></h3>
-<code><a href="BaseRoom.html#animalGroup">animalGroup</a>, <a href="BaseRoom.html#animalSpecifications">animalSpecifications</a>, <a href="BaseRoom.html#doors">doors</a>, <a href="BaseRoom.html#enemies">enemies</a>, <a href="BaseRoom.html#isBossRoom">isBossRoom</a>, <a href="BaseRoom.html#isRoomFresh">isRoomFresh</a>, <a href="BaseRoom.html#itemGroup">itemGroup</a>, <a href="BaseRoom.html#items">items</a>, <a href="BaseRoom.html#itemSpecifications">itemSpecifications</a>, <a href="BaseRoom.html#maxGridPoint">maxGridPoint</a>, <a href="BaseRoom.html#minGridPoint">minGridPoint</a>, <a href="BaseRoom.html#specification">specification</a>, <a href="BaseRoom.html#terrain">terrain</a>, <a href="BaseRoom.html#walls">walls</a></code></div>
+<code><a href="BaseRoom.html#collectibleFactory">collectibleFactory</a>, <a href="BaseRoom.html#doorFactory">doorFactory</a>, <a href="BaseRoom.html#entities">entities</a>, <a href="BaseRoom.html#isRoomCompleted">isRoomCompleted</a>, <a href="BaseRoom.html#itemGroup">itemGroup</a>, <a href="BaseRoom.html#itemSpecifications">itemSpecifications</a>, <a href="BaseRoom.html#maxGridPoint">maxGridPoint</a>, <a href="BaseRoom.html#minGridPoint">minGridPoint</a>, <a href="BaseRoom.html#roomConnections">roomConnections</a>, <a href="BaseRoom.html#specification">specification</a>, <a href="BaseRoom.html#terrainFactory">terrainFactory</a>, <a href="BaseRoom.html#WALL_THICKNESS">WALL_THICKNESS</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -151,14 +156,17 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)" class="member-name-link">spawn</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
  <a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a>&nbsp;area)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Spawns the room with terrain, doors, enemies, and items.</div>
+<div class="block">Spawn all entities that form this room.</div>
 </div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
+<h3 id="methods-inherited-from-class-com.csse3200.game.areas.EnemyRoom">Methods inherited from class&nbsp;com.csse3200.game.areas.<a href="EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></h3>
+<code><a href="EnemyRoom.html#createEnemyEntities(java.util.List,com.csse3200.game.entities.Entity)">createEnemyEntities</a>, <a href="EnemyRoom.html#getEnemies()">getEnemies</a>, <a href="EnemyRoom.html#isAllAnimalDead()">isAllAnimalDead</a>, <a href="EnemyRoom.html#makeAllAnimalDead()">makeAllAnimalDead</a>, <a href="EnemyRoom.html#removeRoom()">removeRoom</a>, <a href="EnemyRoom.html#spawnAnimals(com.csse3200.game.areas.MainGameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,com.badlogic.gdx.math.GridPoint2)">spawnAnimals</a>, <a href="EnemyRoom.html#SpawnEnemyEntity(com.csse3200.game.areas.MainGameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)">SpawnEnemyEntity</a></code></div>
+<div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.areas.BaseRoom">Methods inherited from class&nbsp;com.csse3200.game.areas.<a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></h3>
-<code><a href="BaseRoom.html#createEnemyEntities(java.util.List,com.csse3200.game.entities.Entity)">createEnemyEntities</a>, <a href="BaseRoom.html#getIsRoomComplete()">getIsRoomComplete</a>, <a href="BaseRoom.html#isAllAnimalDead()">isAllAnimalDead</a>, <a href="BaseRoom.html#makeAllAnimalDead()">makeAllAnimalDead</a>, <a href="BaseRoom.html#removeRoom()">removeRoom</a>, <a href="BaseRoom.html#spawnAnimals(com.csse3200.game.areas.MainGameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,com.badlogic.gdx.math.GridPoint2)">spawnAnimals</a>, <a href="BaseRoom.html#spawnDoors(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity)">spawnDoors</a>, <a href="BaseRoom.html#spawnItem(com.csse3200.game.areas.MainGameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">spawnItem</a>, <a href="BaseRoom.html#spawnItems()">spawnItems</a>, <a href="BaseRoom.html#spawnTerrain(com.csse3200.game.areas.GameArea,float,boolean)">spawnTerrain</a></code></div>
+<code><a href="BaseRoom.html#getIsRoomComplete()">getIsRoomComplete</a>, <a href="BaseRoom.html#spawnAnimalEntity(com.csse3200.game.areas.MainGameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)">spawnAnimalEntity</a>, <a href="BaseRoom.html#spawnDoors(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity)">spawnDoors</a>, <a href="BaseRoom.html#spawnItem(com.csse3200.game.areas.MainGameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">spawnItem</a>, <a href="BaseRoom.html#spawnTerrain(com.csse3200.game.areas.GameArea,float,boolean)">spawnTerrain</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -206,7 +214,7 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</span>&nbsp;<span class="element-name">getAnimalSpecifications</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="BaseRoom.html#getAnimalSpecifications()">getAnimalSpecifications</a></code>&nbsp;in class&nbsp;<code><a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></code></dd>
+<dd><code><a href="EnemyRoom.html#getAnimalSpecifications()">getAnimalSpecifications</a></code>&nbsp;in class&nbsp;<code><a href="EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></code></dd>
 </dl>
 </section>
 </li>
@@ -225,16 +233,16 @@ loadScripts(document, 'script');</script>
 <h3>spawn</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawn</span><wbr><span class="parameters">(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
  <a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a>&nbsp;area)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="BaseRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)">BaseRoom</a></code></span></div>
-<div class="block">Spawns the room with terrain, doors, enemies, and items.</div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../entities/Room.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)">Room</a></code></span></div>
+<div class="block">Spawn all entities that form this room.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../entities/Room.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)">spawn</a></code>&nbsp;in interface&nbsp;<code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></dd>
 <dt>Overrides:</dt>
-<dd><code><a href="BaseRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)">spawn</a></code>&nbsp;in class&nbsp;<code><a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></code></dd>
+<dd><code><a href="EnemyRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)">spawn</a></code>&nbsp;in class&nbsp;<code><a href="EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>player</code> - the main player character for the room</dd>
-<dd><code>area</code> - the game area to spawn the room in</dd>
+<dd><code>player</code> - the player that will play this room.</dd>
+<dd><code>area</code> - the game area to spawn this room into.</dd>
 </dl>
 </section>
 </li>

@@ -133,9 +133,46 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#checkItemPurchase(com.csse3200.game.components.player.inventory.Collectible,com.csse3200.game.entities.Entity)" class="member-name-link">checkItemPurchase</a><wbr>(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item,
+ <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;itemEntity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Handles the event where the player attempts to purchase a buyable item</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The create method that is called when the entity is created</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItem()" class="member-name-link">getItem</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the collectible item in collision</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTestFunds()" class="member-name-link">getTestFunds</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">A method temporarily used to represent the 'funds' of the player</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleReroll(com.csse3200.game.components.player.inventory.Collectible,com.csse3200.game.entities.Entity)" class="member-name-link">handleReroll</a><wbr>(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;collisionItem,
+ <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;collisionItemEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Handles the reroll item effect.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isCollectible(com.csse3200.game.entities.Entity)" class="member-name-link">isCollectible</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if the given entity is collectible</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isInContact()" class="member-name-link">isInContact</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">A method that returns whether 'contact' flag</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setContact(boolean)" class="member-name-link">setContact</a><wbr>(boolean&nbsp;contact)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the 'contact' flag to a specified boolean value</div>
 </div>
 </div>
 </div>
@@ -180,6 +217,81 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="../../Component.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../../Component.html" title="class in com.csse3200.game.components">Component</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="isInContact()">
+<h3>isInContact</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isInContact</span>()</div>
+<div class="block">A method that returns whether 'contact' flag</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>boolean value of the contact flag</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getItem()">
+<h3>getItem</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></span>&nbsp;<span class="element-name">getItem</span>()</div>
+<div class="block">Gets the collectible item in collision</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the collectible item (null if no item is in collision)</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setContact(boolean)">
+<h3>setContact</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setContact</span><wbr><span class="parameters">(boolean&nbsp;contact)</span></div>
+<div class="block">Sets the 'contact' flag to a specified boolean value</div>
+</section>
+</li>
+<li>
+<section class="detail" id="isCollectible(com.csse3200.game.entities.Entity)">
+<h3>isCollectible</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isCollectible</span><wbr><span class="parameters">(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</span></div>
+<div class="block">Checks if the given entity is collectible</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>entity</code> - to check</dd>
+<dt>Returns:</dt>
+<dd>true if entity is collectible, otherwise false</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="handleReroll(com.csse3200.game.components.player.inventory.Collectible,com.csse3200.game.entities.Entity)">
+<h3>handleReroll</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">handleReroll</span><wbr><span class="parameters">(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;collisionItem,
+ <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;collisionItemEntity)</span></div>
+<div class="block">Handles the reroll item effect. When the reroll item is applied to another item in collision,
+ a new item spawns in place of the original item.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getTestFunds()">
+<h3>getTestFunds</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getTestFunds</span>()</div>
+<div class="block">A method temporarily used to represent the 'funds' of the player</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>an integer value representing the player's funds</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="checkItemPurchase(com.csse3200.game.components.player.inventory.Collectible,com.csse3200.game.entities.Entity)">
+<h3>checkItemPurchase</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">checkItemPurchase</span><wbr><span class="parameters">(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item,
+ <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;itemEntity)</span></div>
+<div class="block">Handles the event where the player attempts to purchase a buyable item</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>item</code> - the collectible item that the player is attempting to purchase</dd>
+<dd><code>itemEntity</code> - the entity representation of the item that the player is attempting to purhase</dd>
 </dl>
 </section>
 </li>

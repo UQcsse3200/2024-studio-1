@@ -1,8 +1,12 @@
 {
-health: 70
+health: 25
 name: default
-favouriteColour: peach
 items: []
+speed: {
+	x: 3
+	y: 3
+}
+coins: 9
 melee: melee:pickaxe
 ranged: ranged:shotgun
 textureFilename: images/player/player.png

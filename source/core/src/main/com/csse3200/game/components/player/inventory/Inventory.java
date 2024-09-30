@@ -14,6 +14,7 @@ import java.util.Optional;
 public class Inventory {
     private final InventoryComponent component;
     private final Array<Collectible> items = new Array<>();
+    private final Array<Entity> pets = new Array<>();
 
     private Optional<MeleeWeapon> meleeWeapon = Optional.empty();
     private Optional<RangedWeapon> rangedWeapon = Optional.empty();
@@ -110,6 +111,7 @@ public class Inventory {
         return new Array<>(items);
     }
 
+
     /**
      * Add to the list of items.
      *
@@ -124,4 +126,31 @@ public class Inventory {
         this.items.removeValue(item, true);
     }
 
+    /**
+     * Get the current list of pets.
+     *
+     * @return current list of pets 
+     */
+    public Array<Entity> getPets() {
+        return new Array<>(pets);
+    }
+
+    /**
+     * Add to the list of pets.
+     *
+     * @param item The pet to add.
+     */
+    public void addPet(Entity addPet ) {
+        this.pets.add(addPet);
+    }
+
+
+    /**
+     * Remove from the list of pets
+     *
+     * @param The pet to remove
+     */
+    public void removePet(Entity removePet) {
+        this.pets.removeValue(removePet, true);
+    }
 }

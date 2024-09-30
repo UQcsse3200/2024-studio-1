@@ -110,10 +110,10 @@ public abstract class EnemyRoom extends BaseRoom {
 
     private void spawnItems() {
         MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
-        List<String> itemGroup = this.itemSpecifications.get(this.itemGroup);
-        if (itemGroup != null && itemGroup.size() >= 2) {
-            spawnItem(area, itemGroup.get(0), new GridPoint2(8, 8));
-            spawnItem(area, itemGroup.get(1), new GridPoint2(6, 8));
+        List<String> items = this.itemSpecifications.get(this.itemGroup);
+        if (items != null && items.size() >= 2) {
+            spawnItem(area, items.get(0), new GridPoint2(8, 8));
+            spawnItem(area, items.get(1), new GridPoint2(6, 8));
         }
     }
 

@@ -7,7 +7,6 @@
         "wanderSpeed": 2
       },
       "chase": {
-        "priority": 5,
         "viewDistance": 4,
         "chaseDistance": 5,
         "chaseSpeed": 2
@@ -44,7 +43,6 @@
         "wanderSpeed": 0.5
       },
       "chase": {
-        "priority": 5,
         "chaseSpeed": 1.5,
         "viewDistance": 3,
         "chaseDistance": 4
@@ -89,7 +87,6 @@
         "wanderSpeed": 1.5
       },
       "chase": {
-        "priority": 5,
         "chaseSpeed": 1.5,
         "viewDistance": 3,
         "chaseDistance": 4
@@ -162,7 +159,6 @@
         "wanderSpeed": 0.5
       },
       "chase": {
-        "priority": 5,
         "chaseSpeed": 0.8,
         "viewDistance": 4,
         "chaseDistance": 5
@@ -198,7 +194,6 @@
         "wanderSpeed": 1.5
       },
       "chase": {
-        "priority": 5,
         "chaseSpeed": 2.5,
         "viewDistance": 4,
         "chaseDistance": 5
@@ -234,7 +229,6 @@
         "wanderSpeed": 0.4
       },
       "chase": {
-        "priority": 5,
         "chaseSpeed": 1.5,
         "viewDistance": 3,
         "chaseDistance": 4

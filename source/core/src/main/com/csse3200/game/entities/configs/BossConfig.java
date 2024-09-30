@@ -28,7 +28,6 @@ public class BossConfig extends NPCConfigs.NPCConfig {
         this.tasks.wander.waitTime = 2.0f;
         this.tasks.wander.wanderSpeed = 1.0f;
 
-        this.tasks.chase.priority = 10;
         this.tasks.chase.viewDistance = 20.0f;
         this.tasks.chase.chaseDistance = 20.0f;
 

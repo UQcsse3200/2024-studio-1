@@ -62,7 +62,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
 
     // Initialise tasks
     if (waitTask == null) {
-      waitTask = new WaitTask(waitTime, 1);
+      waitTask = new WaitTask(waitTime);
       waitTask.create(owner);
     }
     if (movementTask == null) {

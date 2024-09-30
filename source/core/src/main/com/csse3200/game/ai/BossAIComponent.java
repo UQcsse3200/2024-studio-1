@@ -65,7 +65,7 @@ public class BossAIComponent extends Component implements TaskRunner {
     chaseTask = new ChaseTask(target, config.tasks.chase);
     runAwayTask = new RunAwayTask(target, config.tasks.runAway);
     jumpTask = new JumpTask(target);
-    waitTask = new WaitTask(config.waitTime,1);
+    waitTask = new WaitTask(config.waitTime);
     wanderTask = new WanderTask(config.tasks.wander);
     chargeTask.create(this);
     chaseTask.create(this);
@@ -258,7 +258,6 @@ public class BossAIComponent extends Component implements TaskRunner {
         changeTask(runAwayTask);
         break;
       case WAIT:
-        changeTask(waitTask);
         break;
       case AOE_ATTACK:
         //changeTask(waitTask);
@@ -268,7 +267,6 @@ public class BossAIComponent extends Component implements TaskRunner {
         if (rangeAttackComponent == null) {
           setState(State.WAIT);
         } else {
-          changeTask(waitTask);
           rangeAttackComponent.setType("single");
           rangeAttackComponent.enableForNumAttacks(config.rangedAttackNum);
         }
@@ -277,7 +275,6 @@ public class BossAIComponent extends Component implements TaskRunner {
         if (rangeAttackComponent == null) {
           setState(State.WAIT);
         } else {
-          changeTask(waitTask);
           rangeAttackComponent.setType("spread");
           rangeAttackComponent.enableForNumAttacks(config.ranged2AttackNum);
         }

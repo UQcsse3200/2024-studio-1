@@ -17,8 +17,8 @@ import com.csse3200.game.services.ServiceLocator;
  * Requires an entity with a PhysicsMovementComponent to function.
  */
 public class ChaseTask extends DefaultTask implements PriorityTask {
+  private static final int PRIORITY = 5;
   private final Entity target;
-  private final int priority;
   private final float viewDistance;
   private final float maxChaseDistance;
   private final float chaseSpeed;
@@ -36,7 +36,6 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    */
   public ChaseTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config) {
     this.target = target;
-    this.priority = config.priority;
     this.viewDistance = config.viewDistance;
     this.maxChaseDistance = config.chaseDistance;
     this.chaseSpeed = config.chaseSpeed;
@@ -114,7 +113,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     if (dst > maxChaseDistance || !isTargetVisible()) {
       return -1; // Too far or not visible, stop chasing.
     }
-    return priority;
+    return PRIORITY;
   }
 
   /**
@@ -125,7 +124,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private int getInactivePriority() {
     float dst = getDistanceToTarget();
     if (dst < viewDistance && isTargetVisible()) {
-      return priority;
+      return PRIORITY;
     }
     return -1;
   }

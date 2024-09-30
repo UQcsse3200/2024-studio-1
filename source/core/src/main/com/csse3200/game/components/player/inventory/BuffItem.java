@@ -62,4 +62,6 @@ public abstract class BuffItem implements Collectible {
      * @param entity The player entity
      */
     public abstract void effect(Entity entity);
+
+
 }

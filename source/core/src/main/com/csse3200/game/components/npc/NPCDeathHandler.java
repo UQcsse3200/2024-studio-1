@@ -43,7 +43,7 @@ public class NPCDeathHandler extends Component {
             isDead = true;
             deadEntities.add(entity.getId());
             // disable AI component to prevent further interaction
-            entity.getComponent(AITaskComponent.class).setEnabled(false);
+            // entity.getComponent(AITaskComponent.class).setEnabled(false);
             entity.getComponent(PhysicsMovementComponent.class).setEnabled(false);
             entity.getComponent(HitboxComponent.class).setEnabled(false);
             entity.getComponent(ColliderComponent.class).setEnabled(false);

@@ -28,7 +28,6 @@ public class MainGameArea extends GameArea {
     private Level currentLevel;
     private Room currentRoom;
     private boolean spawnRoom = true;
-    private final List<Room> roomsVisited = new ArrayList<>();
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -97,6 +96,12 @@ public class MainGameArea extends GameArea {
         if (!spawnRoom) {
             return;
         }
+
+        if (ServiceLocator.getPhysicsService().getPhysics().getWorld().isLocked()){
+            logger.error("Physics is locked!");
+            return;
+        }
+
         var entityNames = ServiceLocator.getEntityService().getEntityNames();
         logger.info("Spawning new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
         if (currentLevel.roomTraversals == 8 ) {

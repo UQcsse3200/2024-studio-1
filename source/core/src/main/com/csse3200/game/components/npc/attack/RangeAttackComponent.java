@@ -113,6 +113,14 @@ public class RangeAttackComponent extends AttackComponent {
     }
 
     /**
+     * Updates the attack target
+     * @param newTarget the new target
+     */
+    public void updateTarget(Entity newTarget) {
+        this.target = newTarget;
+    }
+
+    /**
      * Return the direction from this entity towards its target
      * @param target The target entity
      * @return direction from this entity towards its target

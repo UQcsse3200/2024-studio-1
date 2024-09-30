@@ -218,6 +218,7 @@ public class CombatStatsComponent extends Component {
         }
     }
 
+
     /**
      * Handles a hit from another entity by reducing the entity's health based on the attacker's base attack value.
      * Gives them invincibility frames if they can have any
@@ -250,8 +251,8 @@ public class CombatStatsComponent extends Component {
             CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);
 
             int damage = attacker.getBaseAttack() + playerStats.buff;
-            if (playerStats.critAbility) {
-                damage = applyCrit(damage, playerStats.critChance);
+            if (playerStats.getCanCrit()) {
+                damage = applyCrit(damage, playerStats.getCritChance());
             }
 
             int newHealth = getHealth() - damage;
@@ -264,6 +265,50 @@ public class CombatStatsComponent extends Component {
                 entity.getEvents().trigger("dummyDestroyed");
             }
         }
+    }
+
+
+    /**
+     *Returns if the entity can be invincible
+     *
+     * @return boolean can be Invincible
+     */
+    public boolean getCanBeInvincible() {
+        return this.canBeInvincible;
+    }
+
+    /**
+     * Sets the state of the entity's invincibility
+     *
+     * @param invincible invincibility state
+     */
+    public void setInvincible(boolean invincible) {
+        isInvincible = invincible;
+    }
+
+    /**
+     * returns the state of the entity's invincibility
+     *
+     * @return invincibility state
+     */
+    public boolean getIsInvincible() {
+        return isInvincible;
+    }
+
+    /**
+     * Returns a boolean value based on if the entity can crit or not
+     * @return true if the entity can crit, false otherwise
+     */
+    public boolean getCanCrit() {
+        return critAbility;
+    }
+
+    /**
+     * Returns the entities crit chance
+     * @return the crit chance value
+     */
+    public double getCritChance() {
+        return critChance;
     }
 
     /**
@@ -292,32 +337,5 @@ public class CombatStatsComponent extends Component {
             newDamage *= 2;
         }
         return newDamage;
-    }
-
-    /**
-     *Returns if the entity can be invincible
-     *
-     * @return boolean can be Invincible
-     */
-    public boolean getCanBeInvincible() {
-        return this.canBeInvincible;
-    }
-
-    /**
-     * Sets the state of the entity's invincibility
-     *
-     * @param invincible invincibility state
-     */
-    public void setInvincible(boolean invincible) {
-        isInvincible = invincible;
-    }
-
-    /**
-     * returns the state of the entity's invincibility
-     *
-     * @return invincibility state
-     */
-    public boolean getIsInvincible() {
-        return isInvincible;
     }
 }

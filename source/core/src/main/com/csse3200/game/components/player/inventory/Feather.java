@@ -20,7 +20,6 @@ public class Feather extends BuffItem {
         entity.getComponent(CombatStatsComponent.class).updateCritChance(0.2);
     }
 
-
     /**
      * Returns a string that specifies the type of buff
      * @return the buff specification

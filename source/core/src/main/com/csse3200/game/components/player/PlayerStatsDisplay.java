@@ -96,7 +96,7 @@ public class PlayerStatsDisplay extends UIComponent {
         speedImage = new Image(ServiceLocator.getResourceService().getAsset(SPEED_TEXTURE, Texture.class));
 
         //Speed text
-        speedProgressBar = new ProgressBar(0f, 3.0f, 0.1f, false, skin);
+        speedProgressBar = new ProgressBar(0f, 1.5f, 0.1f, false, skin);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
         /*

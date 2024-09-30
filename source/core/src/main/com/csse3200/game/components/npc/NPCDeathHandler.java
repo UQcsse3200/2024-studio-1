@@ -61,8 +61,8 @@ public class NPCDeathHandler extends Component {
             isDead = true;
             deadEntities.add(entity.getId());
             // triggering event for player to get animal's strength as coins
-            String event = "collectCoin";
-            target.getEvents().trigger(event, npcStrength);
+            String event = "collectCoin:" + npcStrength;
+            target.getEvents().trigger(event);
             logger.info(event + "   is triggered");
 
 
@@ -70,7 +70,6 @@ public class NPCDeathHandler extends Component {
             if (animator != null && animator.hasAnimation("death")) {
                 animator.startAnimation("death");
             }
-
             // disable AI component to prevent further interaction
             for (var componentClass : List.of(AITaskComponent.class, PhysicsMovementComponent.class, HitboxComponent.class, ColliderComponent.class)) {
                 var component = entity.getComponent(componentClass);

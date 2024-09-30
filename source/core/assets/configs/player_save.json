@@ -1,8 +1,14 @@
 {
-  "name": "default",
-  "health": 60,
-  "coins": 0,
-  "textureFilename": "images/player/player.png",
-  "textureAtlasFilename": "images/player/player.atlas",
-  "items": ["bandage","energydrink"]
+health: 90
+name: default
+items: []
+speed: {
+	x: 3
+	y: 3
+}
+coins: 12
+melee: melee:pickaxe
+ranged: ranged:shotgun
+textureFilename: images/player/player.png
+textureAtlasFilename: images/player/player.atlas
 }

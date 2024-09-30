@@ -1,10 +1,8 @@
 package com.csse3200.game.areas;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -28,40 +26,28 @@ public abstract class BaseRoom implements Room {
     protected final List<String> roomConnections;
     protected List<Entity> entities;  // Unified list for all entities
 
-    /**
-     * The list of collectible item entities in the room.
-     */
-    protected List<Entity> items;
-
-    /**
-     * The specification for the room, including grid points and indices.
-     */
     protected final String specification;
-
-    /**
-     * The minimum grid point of the room.
-     */
     protected final GridPoint2 minGridPoint;
-
-    /**
-     * The maximum grid point of the room.
-     */
     protected final GridPoint2 maxGridPoint;
     protected final int itemGroup;
     protected List<List<String>> itemSpecifications;
     protected boolean isRoomCompleted = false;
     protected static final float WALL_THICKNESS = 0.15f;
+    protected final String roomName;
 
     public BaseRoom(
             TerrainFactory terrainFactory,
             CollectibleFactory collectibleFactory,
             List<String> roomConnections,
-            String specification) {
+            String specification,
+            String roomName) {
         this.terrainFactory = terrainFactory;
         this.collectibleFactory = collectibleFactory;
         this.roomConnections = roomConnections;
         this.entities = new ArrayList<>();
         this.itemSpecifications = getItemSpecifications();
+
+        this.roomName = roomName;
 
         List<String> split = Arrays.stream(specification.split(",")).toList();
 
@@ -77,8 +63,21 @@ public abstract class BaseRoom implements Room {
         this.specification = specification;
     }
 
+    public String getRoomName() {
+        return this.roomName;
+    }
+
     protected abstract List<List<String>> getItemSpecifications();
 
+
+    public abstract void checkIfRoomComplete();
+  /**
+     * Spawns the terrain for the room, including walls and background.
+     *
+     * @param area          the game area to spawn the terrain in
+     * @param wallThickness the thickness of the walls
+     * @param isBossRoom    whether the room is a boss room
+     */
 
     protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
         TerrainComponent terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.ROOM1, isBossRoom);
@@ -86,16 +85,24 @@ public abstract class BaseRoom implements Room {
         Entity terrainEntity = new Entity()
                 .addComponent(terrain)
                 .addComponent(new NameComponent("terrain"));
-
+                
         area.spawnEntity(terrainEntity);
         entities.add(terrainEntity);
-
+        
         float tileSize = terrain.getTileSize();
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
         createWalls(area, wallThickness, tileBounds, worldBounds);
     }
 
+   /**
+     * Creates and spawns walls around the room.
+     *
+     * @param area         the game area to spawn the walls in
+     * @param thickness    the thickness of the walls
+     * @param tileBounds   the bounds of the tile map
+     * @param worldBounds  the world bounds of the room
+     */
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
         Entity leftWall = createAndSpawnWall(area, thickness, tileBounds.y, GridPoint2Utils.ZERO);
         Entity rightWall = createAndSpawnWall(area, thickness, worldBounds.y, new GridPoint2(tileBounds.x, 0));
@@ -107,16 +114,33 @@ public abstract class BaseRoom implements Room {
         adjustWallPosition(topWall, 0, -thickness);
     }
 
+ /**
+     * Creates and spawns a wall entity at the specified position.
+     *
+     * @param area     the game area to spawn the wall in
+     * @param width    the width of the wall
+     * @param height   the height of the wall
+     * @param position the grid position of the wall
+     * @return the created wall entity
+     */
     private Entity createAndSpawnWall(GameArea area, float width, float height, GridPoint2 position) {
         Entity wall = ObstacleFactory.createWall(width, height);
         area.spawnEntityAt(wall, position, false, false);
         return wall;
     }
+ /**
+     * Adjusts the position of a wall entity.
+     *
+     * @param wall      the wall entity to adjust
+     * @param offsetX   the offset in the X direction
+     * @param offsetY   the offset in the Y direction
+     */
 
     private void adjustWallPosition(Entity wall, float offsetX, float offsetY) {
         Vector2 wallPos = wall.getPosition();
         wall.setPosition(wallPos.x + offsetX, wallPos.y + offsetY);
     }
+
 
     protected void spawnDoors(GameArea area, Entity player) {
         if (this.roomConnections == null || this.roomConnections.size() < 4) {
@@ -177,9 +201,20 @@ public abstract class BaseRoom implements Room {
         entities.add(item);
         area.spawnEntityAt(item, pos, true, true);
     }
-
+   /**
+     * Checks if the room is complete.
+     *
+     * @return {@code true} if the room is complete, {@code false} otherwise
+     */
     public boolean getIsRoomComplete() {
         return this.isRoomCompleted;
+    }
+
+    /**
+     * Sets the room as completed when loading the map
+     */
+    public void setIsRoomComplete() {
+        this.isRoomCompleted = true;
     }
 
     public void spawn(Entity player, MainGameArea area) {
@@ -192,9 +227,7 @@ public abstract class BaseRoom implements Room {
     }
 
     public void removeRoom() {
-        List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Removing room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
-
+        logger.info("Removing room, {}", ServiceLocator.getEntityService());
         for (Entity entity : entities) {
             ServiceLocator.getEntityService().markEntityForRemoval(entity);
         }

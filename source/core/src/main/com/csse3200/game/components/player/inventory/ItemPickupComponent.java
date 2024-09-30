@@ -1,22 +1,16 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Timer;
-import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.ui.UIComponent;
-import com.csse3200.game.utils.RandomNumberGenerator;
 import java.util.Random;
+
 
 /**
  * A component that allows a player to interact with items
@@ -26,7 +20,7 @@ public class ItemPickupComponent extends Component {
     private boolean contact = false;
     Collectible item = null;
     Entity itemEntity = null;
-    CollectibleFactory collectibleFactory = new CollectibleFactory();
+    CollectibleFactory collectibleFactory;
     Random random;
 
     /**
@@ -43,18 +37,21 @@ public class ItemPickupComponent extends Component {
     public void create() {
         super.create();
         this.random = new Random();
+        this.collectibleFactory = new CollectibleFactory();
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
         entity.getEvents().addListener("pickup", ()->handleItemPickup(item, itemEntity));
         entity.getEvents().addListener("rerollUsed", ()->handleReroll(item, itemEntity));
         entity.getEvents().addListener("purchaseItem", ()->checkItemPurchase(item,itemEntity));
     }
+
+
     /**
      * Handles player collision with another entity. The pickup functionality only occurs
      * if the collided entity is a collectible.
      */
     private void onCollisionStart(Fixture me, Fixture other) {
-        contact = true;
+        this.setContact(true);
         Entity otherEntity = ((BodyUserData) other.getBody().getUserData()).entity;
 
         if (!isCollectible(otherEntity) || otherEntity == lastPickedUpEntity) {
@@ -65,19 +62,34 @@ public class ItemPickupComponent extends Component {
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
     }
 
+    /**
+     * A method that returns whether 'contact' flag
+     * @return boolean value of the contact flag
+     */
     public boolean isInContact() {
         return contact;
     }
 
+    /**
+     * Gets the collectible item in collision
+     * @return the collectible item (null if no item is in collision)
+     */
     public Collectible getItem() {
         return item;
+    }
+
+    /**
+     * Sets the 'contact' flag to a specified boolean value
+     */
+    public void setContact(boolean contact) {
+        this.contact = contact;
     }
 
     /**
      * Determine when the player collision has ended
      */
     private void onCollisionEnd(Fixture me, Fixture other) {
-        contact = false;
+        this.setContact(false);
     }
 
     /**
@@ -89,7 +101,11 @@ public class ItemPickupComponent extends Component {
         return entity.getComponent(CollectibleComponent.class) != null;
     }
 
-    private void handleReroll(Collectible collisionItem, Entity collisionItemEntity) {
+    /**
+     * Handles the reroll item effect. When the reroll item is applied to another item in collision,
+     * a new item spawns in place of the original item.
+     */
+    public void handleReroll(Collectible collisionItem, Entity collisionItemEntity) {
         if (collisionItem == null || collisionItemEntity == null) {
             return;
         }
@@ -99,7 +115,7 @@ public class ItemPickupComponent extends Component {
         GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
         markEntityForRemoval(collisionItemEntity);
 
-        int randomInt = this.random.nextInt(5);
+        int randomInt = this.random.nextInt(6);
         Entity newItem = this.randomItemGenerator(randomInt);
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
@@ -108,10 +124,20 @@ public class ItemPickupComponent extends Component {
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
     }
 
+    /**
+     * A method temporarily used to represent the 'funds' of the player
+     * @return an integer value representing the player's funds
+     */
     public int getTestFunds() {
         return 9;
     }
-    private void checkItemPurchase(Collectible item, Entity itemEntity) {
+
+    /**
+     * Handles the event where the player attempts to purchase a buyable item
+     * @param item the collectible item that the player is attempting to purchase
+     * @param itemEntity the entity representation of the item that the player is attempting to purhase
+     */
+    public void checkItemPurchase(Collectible item, Entity itemEntity) {
         int playerFunds = getTestFunds();
         if (item == null || itemEntity == null) {
             return;
@@ -157,6 +183,11 @@ public class ItemPickupComponent extends Component {
         ServiceLocator.getEntityService().markEntityForRemoval(itemEntity);
     }
 
+    /**
+     * Randomly generates a new item to spawn, based on the random integer passed in
+     * @param randomNum an integer representing a random number passed in
+     * @return an entity representation of a new collectible item
+     */
     private Entity randomItemGenerator(int randomNum) {
         String specification = null;
         switch (randomNum) {
@@ -168,6 +199,6 @@ public class ItemPickupComponent extends Component {
             case 5 -> specification = "buff:energydrink:Medium";
         }
 
-        return collectibleFactory.createCollectibleEntity(specification);
+        return this.collectibleFactory.createCollectibleEntity(specification);
     }
 }

@@ -1,0 +1,10 @@
+{
+RoomNum: {
+	class: java.lang.String
+	value: -3_0
+}
+LevelNum: {
+	class: java.lang.String
+	value: 0
+}
+}

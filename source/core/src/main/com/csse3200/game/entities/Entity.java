@@ -3,16 +3,10 @@ package com.csse3200.game.entities;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
-import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.ComponentType;
-import com.csse3200.game.components.projectile.ProjectileActions;
-import com.csse3200.game.components.projectile.ProjectileAttackComponent;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.events.EventHandler;
-import com.csse3200.game.physics.components.ColliderComponent;
-import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -177,7 +171,6 @@ public class Entity {
   public <T extends Component> T getComponent(Class<T> type) {
     ComponentType componentType = ComponentType.getFrom(type);
     return (T) components.get(componentType.getId());
-
   }
 
   /**
@@ -288,8 +281,21 @@ public class Entity {
     return super.hashCode();
   }
 
+  /**
+   * Get the name of this entity if it has one.
+   *
+   * @return the name of the entity or "Unknown Entity".
+   */
+  public String getName() {
+    NameComponent nameComponent = this.getComponent(NameComponent.class);
+    return (nameComponent == null) ? "Unknown Entity" : nameComponent.getName();
+  }
+
   @Override
   public String toString() {
-    return String.format("Entity{id=%d}", id);
+    String name = getName();
+    Vector2 pos = this.getPosition();
+
+    return String.format("%02d\t(%.2f, %.2f)", this.getId(), pos.x, pos.y) + "\t" + name;
   }
 }

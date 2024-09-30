@@ -44,7 +44,7 @@ public class DamageBuff extends BuffItem {
             //Damage is maxed out
             //Need to update UI and cap
             buffedDamage = maxDamage;
-            entity.getComponent(CombatStatsComponent.class).setBaseAttack(maxDamage);
+            entity.getComponent(CombatStatsComponent.class).setBuff(buffedDamage);
         } else {
             entity.getComponent(CombatStatsComponent.class).addAttack(buff);
         }
@@ -68,7 +68,7 @@ public class DamageBuff extends BuffItem {
      */
     @Override
     public Texture getIcon() {
-        return new Texture("damage_buff.png");
+        return new Texture("images/items/damage_buff.png");
     }
 
     /**

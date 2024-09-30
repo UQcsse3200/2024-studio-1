@@ -157,6 +157,8 @@ public class MainGameExitDisplay extends UIComponent {
    */
   public void pauseGame() {
     MainGameScreen.isPaused = true;
+    logger.info("Game paused, {}", ServiceLocator.getEntityService());
+
     stage.addActor(pauseTable);
     table.remove();
   }
@@ -198,7 +200,7 @@ public class MainGameExitDisplay extends UIComponent {
        entities.add(coordinates);
     }
     String filePath = "configs/save.json";
-    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
+    FileLoader.writeClass(entities, filePath, FileLoader.Location.EXTERNAL);
     logger.debug("Game saved to: " + filePath);
   }
 

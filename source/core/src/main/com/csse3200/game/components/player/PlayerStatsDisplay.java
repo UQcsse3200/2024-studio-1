@@ -1,26 +1,36 @@
 package com.csse3200.game.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A ui component for displaying player stats, e.g. health.
  */
 public class PlayerStatsDisplay extends UIComponent {
     Table table;
+    Table ammoTable;
     private Image heartImage;
     private Label healthLabel;
     private Label pickaxeLabel;
     private Label shotgunLabel;
+
+    private Texture ammoTexture;
+    private List<Image> ammoImages;
+    private int currentAmmo;
+    private static final int RELOAD_TIME = 3;
+    float screenWidth = Gdx.graphics.getWidth();
 
     private Image speedImage;
     private Label speedLabelText;
@@ -39,11 +49,13 @@ public class PlayerStatsDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
+        ammoImages = new ArrayList<>();
         addActors();
 
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
-        entity.getEvents().addListener("updateMeleeWeaponCount", this::updateMeleeWeaponCountUI);
-        entity.getEvents().addListener("updateRangedWeaponCount", this::updateRangedWeaponCountUI);
+        entity.getEvents().addListener("melee_pickup", this::updateMeleeWeaponUI);
+        entity.getEvents().addListener("ranged_pickup", this::updateRangedWeaponUI);
+        entity.getEvents().addListener("ranged_activate", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
     }
@@ -57,6 +69,7 @@ public class PlayerStatsDisplay extends UIComponent {
         labels = new ArrayList<Label>();
 
         table = new Table();
+        ammoTable = new Table();
         table.top().left();
         table.setFillParent(true);
         table.padTop(45f).padLeft(5f);
@@ -64,6 +77,13 @@ public class PlayerStatsDisplay extends UIComponent {
         // Heart image
         float heartSideLength = 30f;
         heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+
+        // Ammo image
+        ammoTexture = new Texture(Gdx.files.internal("images/Weapons/ammo.png")); // Load ammo texture
+        for (int i = 0; i < 20; i++) {
+            Image ammoImage = new Image(ammoTexture);
+            ammoImages.add(ammoImage);
+        }
 
         // Health text
         int health = entity.getComponent(CombatStatsComponent.class).getHealth();
@@ -119,17 +139,11 @@ public class PlayerStatsDisplay extends UIComponent {
         labels.add(pickaxeLabel);
         table.row().padTop(10);
         table.add(shotgunLabel).colspan(2).padLeft(10).left();
-        labels.add(shotgunLabel);
-
+        table.row().padTop(10);
+        table.add(ammoTable).colspan(2).left().padLeft(2);
         stage.addActor(table);
-
     }
-    public void resize(int width, int height)
-    {
-        if (labels != null)
-            for(Label label : labels)
-                label.setFontScale(width/1100f);
-    }
+    
     @Override
     public void draw(SpriteBatch batch) {
 
@@ -145,14 +159,55 @@ public class PlayerStatsDisplay extends UIComponent {
         healthLabel.setText(text);
     }
 
-    public void updateMeleeWeaponCountUI(int weaponCount) {
-        CharSequence text = String.format("Pickaxe x %d", weaponCount);
+    public void updateMeleeWeaponUI() {
+        CharSequence text = String.format("Pickaxe x %d", 1);
         pickaxeLabel.setText(text);
     }
 
-    public void updateRangedWeaponCountUI(int weaponCount) {
-        CharSequence text = String.format("Shotgun x %d", weaponCount);
+    public void updateRangedWeaponUI(int maxAmmo) {
+        CharSequence text = String.format("Shotgun x %d", 1);
         shotgunLabel.setText(text);
+
+        currentAmmo = maxAmmo; // Initialize ammo count from WeaponComponent
+        displayAllAmmo();
+    }
+
+    /**
+     * Displays ammo based on the count of the shotgun or other ranged weapon.
+     * This method is called when the shotgun count is greater than 0.
+     * Displays ammo in rows of 8 within a separate ammo table.
+     */
+    private void displayAllAmmo() {
+        ammoTable.clear(); // Clear existing ammo from the ammoTable
+        ammoTable.top().left(); // Reset alignment
+        int itemsInRow = 0;
+
+        // Always display ammo up to currentAmmo
+        for (int i = 0; i < currentAmmo; i++) {
+            if (itemsInRow == 8) {
+                ammoTable.row().padTop(2f); // Start a new row after 8 ammo items
+                itemsInRow = 0;
+            }
+            ammoImages.get(i).setVisible(true);
+            ammoTable.add(ammoImages.get(i)).size(screenWidth/45f);
+            itemsInRow++;
+        }
+
+        ammoTable.setVisible(true); // Show ammo table when displaying ammo
+    }
+
+    /**
+     * Updates the ammo display based on the current ammo count.
+     * Ammo icons beyond the current count will be hidden.
+     */
+    private void updateAmmoDisplay(int ammoCount) {
+        for (int i = 0; i < ammoImages.size(); i++) {
+            if (i < ammoCount) {
+                ammoImages.get(i).setVisible(true); // Show ammo that's still available
+            } else {
+                ammoImages.get(i).setVisible(false); // Hide depleted ammo
+            }
+        }
     }
 
     /**
@@ -167,7 +222,7 @@ public class PlayerStatsDisplay extends UIComponent {
         speedProgressBar.setValue(speedPercentage);
     }
 
-    public void updateDamageUI(float damage) {
+    public void updateDamageUI(int damage) {
         damageProgressBar.setValue(damage);
     }
 

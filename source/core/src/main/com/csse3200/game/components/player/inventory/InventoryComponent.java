@@ -1,6 +1,7 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.components.Component;
+import com.csse3200.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,16 +34,6 @@ public class InventoryComponent extends Component {
      * @param item The item to add to your inventory
      */
     public void pickup(Collectible item) {
-        if(item instanceof MeleeWeapon){
-            meleeWeaponCount = meleeWeaponCount + 1;
-            System.out.println("Melee Weapon picked up. Total Melee weapons are: " + meleeWeaponCount);
-            entity.getEvents().trigger("updateMeleeWeaponCount", meleeWeaponCount);
-        }
-        if(item instanceof RangedWeapon){
-            rangedWeaponCount = rangedWeaponCount + 1;
-            System.out.println("Ranged Weapon picked up. Total Ranged weapons are: " + rangedWeaponCount);
-            entity.getEvents().trigger("updateRangedWeaponCount", rangedWeaponCount);
-        }
         item.pickup(inventory);
         getEntity().getEvents().trigger("updateInventory");
     }
@@ -66,4 +57,7 @@ public class InventoryComponent extends Component {
         return inventory;
     }
 
+    public int getRangedWeaponCount(){
+        return rangedWeaponCount;
+    }
 }

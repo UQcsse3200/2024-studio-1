@@ -59,6 +59,15 @@ public class MedKit extends UsableItem {
     }
 
     /**
+     * Get mystery box icon for this specific item
+     * @return mystery box icon
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_green.png");
+    }
+
+    /**
      * Applies the Medkit to an entity, increasing its health by a large amount,
      * calls the increaseLargeBoost(entity) method
      *

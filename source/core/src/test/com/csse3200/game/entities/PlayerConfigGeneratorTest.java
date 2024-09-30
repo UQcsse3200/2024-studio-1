@@ -63,12 +63,8 @@ public class PlayerConfigGeneratorTest {
     @Test
     public void testMeleeWeapon() {
         inventoryComponent.getInventory().setMelee(new MeleeWeapon() {
-
             @Override
-            public String getMeleeSpecification() {
-                return "test";
-            }
-
+            public void attack(){}
             @Override
             public String getName() {
                 return "Knife";
@@ -81,7 +77,7 @@ public class PlayerConfigGeneratorTest {
         });
 
         PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals("melee:test", playerConfig.melee);
+        assertEquals("melee:Knife", playerConfig.melee);
     }
 
 
@@ -89,10 +85,6 @@ public class PlayerConfigGeneratorTest {
     @Test
     public void testRangedWeapon() {
         inventoryComponent.getInventory().setRanged(new RangedWeapon() {
-            @Override
-            public String getRangedSpecification() {
-                return "test";
-            }
 
             @Override
             public void shoot(Vector2 direction) {
@@ -101,7 +93,7 @@ public class PlayerConfigGeneratorTest {
 
             @Override
             public String getName() {
-                return null;
+                return "Shotgun";
             }
 
             @Override
@@ -110,7 +102,7 @@ public class PlayerConfigGeneratorTest {
             }
         });
         PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals("ranged:test", playerConfig.ranged);
+        assertEquals("ranged:Shotgun", playerConfig.ranged);
     }
 
     /** Test player with no weapon */

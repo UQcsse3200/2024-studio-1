@@ -4,7 +4,9 @@ import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
+import com.csse3200.game.physics.components.PhysicsMovementComponent;
+import com.csse3200.game.physics.components.HitboxComponent;
+import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -19,8 +21,6 @@ public class NPCDeathHandler extends Component {
     public static final float DEATH_ANIMATION_DURATION = 1.0f;
     public static final List<Integer> deadEntities = new ArrayList<>();
 
-    private AnimationRenderComponent animator;
-    private CombatStatsComponent combatStats;
     private boolean isDead = false;
 
     /**
@@ -28,8 +28,8 @@ public class NPCDeathHandler extends Component {
      */
     @Override
     public void create() {
-        animator = entity.getComponent(AnimationRenderComponent.class);
-        combatStats = entity.getComponent(CombatStatsComponent.class);
+        AnimationRenderComponent animator = entity.getComponent(AnimationRenderComponent.class);
+        CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         entity.getEvents().addListener("died", this::onDeath);
     }
 
@@ -41,15 +41,13 @@ public class NPCDeathHandler extends Component {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());
-
-            // Play death animation if available
-            if (animator != null && animator.hasAnimation("death")) {
-                animator.startAnimation("death");
+            // disable AI component to prevent further interaction
+            for (var componentClass : List.of(AITaskComponent.class, PhysicsMovementComponent.class, HitboxComponent.class, ColliderComponent.class)) {
+                var component = entity.getComponent(componentClass);
+                if (component != null) {
+                    component.setEnabled(false);
+                }
             }
-
-            // Disable physics and AI components to prevent further interaction
-            //entity.getComponent(PhysicsComponent.class).setEnabled(false);
-            //entity.getComponent(AITaskComponent.class).setEnabled(false);
 
             // Schedule entity removal after the death animation completes
             Timer.schedule(new Timer.Task() {

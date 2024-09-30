@@ -31,7 +31,6 @@ public class ShieldPotion extends UsableItem {
         entity.getEvents().trigger("shieldActivated");
          entity.getEvents().addListener("hit", () -> negateHit(entity));
         entity.getComponent(ShieldComponent.class).activateShield();
-        entity.getEvents().addListener("hit", () -> negateHit(entity));
     }
 
     /**

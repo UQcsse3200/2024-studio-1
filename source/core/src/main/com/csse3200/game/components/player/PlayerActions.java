@@ -2,7 +2,6 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.csse3200.game.areas.Level;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.*;
@@ -31,7 +30,7 @@ public class PlayerActions extends Component {
         inventoryComponent = entity.getComponent(InventoryComponent.class);
         entity.getEvents().addListener("walk", this::walk);
         entity.getEvents().addListener("walkStop", this::stopWalking);
-        entity.getEvents().addListener("attack", this::attack);
+        entity.getEvents().addListener("attackMelee", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
         entity.getEvents().addListener("use1", () -> use(new MedKit()));
         entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
@@ -114,16 +113,20 @@ public class PlayerActions extends Component {
      * Makes the player attack.
      */
     private void attack() {
-        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
-        entity.getComponent(WeaponComponent.class).attack();
+        entity.getComponent(InventoryComponent.class)
+                .getInventory()
+                .getMelee()
+                .ifPresent(meleeWeapon -> meleeWeapon.attack());
     }
 
     /**
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
-        entity.getComponent(WeaponComponent.class).shoot(direction);
+        entity.getComponent(InventoryComponent.class)
+                .getInventory()
+                .getRanged()
+                .ifPresent(rangedWeapon -> rangedWeapon.shoot(direction));
     }
 
     private void updateSpeed() {
@@ -143,6 +146,14 @@ public class PlayerActions extends Component {
     private void walk(Vector2 direction) {
         this.walkDirection = direction;
         moving = true;
+    }
+
+    /**
+     * Gets the direction the player is walking in.
+     * @return the direction the player is walking in
+     */
+    public Vector2 getWalkDirection() {
+        return walkDirection;
     }
 
     private void use(UsableItem item) {

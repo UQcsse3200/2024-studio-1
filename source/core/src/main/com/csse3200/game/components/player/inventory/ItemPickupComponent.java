@@ -119,13 +119,20 @@ public class ItemPickupComponent extends Component {
         return 9;
     }
     private void checkItemPurchase(Collectible item, Entity itemEntity) {
-        int playerFunds = getTestFunds();
+        if (entity.getComponent(CoinsComponent.class) == null) {
+            entity.getEvents().trigger("insufficientFunds");
+            // Depending on how you want to handle no coins component
+            return;
+        }
+        CoinsComponent coinsComponent = entity.getComponent(CoinsComponent.class);
+        int playerFunds = coinsComponent.getCoins();
         if (item == null || itemEntity == null) {
             return;
         }
         if ((itemEntity.getComponent(BuyableComponent.class) != null) && contact) {
             int cost = itemEntity.getComponent(BuyableComponent.class).getCost();
             if (playerFunds >= cost) {
+                coinsComponent.spend(cost);
                 entity.getComponent(InventoryComponent.class).pickup(item);
                 markEntityForRemoval(itemEntity);
             }

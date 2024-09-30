@@ -46,6 +46,7 @@ public class PlayerStatsDisplay extends UIComponent {
     public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
     public static final String DAMAGE_BUFF_TEXTURE = "images/items/armor.png";
 
+    private ArrayList<Label> labels;
 
 
     /**
@@ -74,6 +75,8 @@ public class PlayerStatsDisplay extends UIComponent {
      * @see Table for positioning options
      */
     private void addActors() {
+        labels = new ArrayList<Label>();
+
         table = new Table();
         ammoTable = new Table();
         table.top().left();
@@ -129,6 +132,8 @@ public class PlayerStatsDisplay extends UIComponent {
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
+        labels.add(healthLabel);
+
 
         table.row().padTop(10);
         table.add(speedImage).size(speedSideLength).pad(5);
@@ -141,6 +146,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
+        labels.add(pickaxeLabel);
         table.row().padTop(10);
         table.add(shotgunLabel).colspan(2).padLeft(10).left();
         table.row().padTop(10);
@@ -148,6 +154,12 @@ public class PlayerStatsDisplay extends UIComponent {
         stage.addActor(table);
     }
 
+    public void resize(int width, int height)
+    {
+        if (labels != null)
+            for(Label label : labels)
+                label.setFontScale(width/1100f);
+    }
 
     @Override
     public void draw(SpriteBatch batch) {

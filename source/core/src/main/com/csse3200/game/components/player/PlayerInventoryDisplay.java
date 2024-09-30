@@ -1,13 +1,16 @@
 package com.csse3200.game.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +21,11 @@ public class PlayerInventoryDisplay extends UIComponent {
     private Table inventoryTable;
     private final InventoryComponent inventoryComponent;
     private Label heading;
+    private ArrayList<Label> labels;
+
     private Map<String, Label> itemLabels;  // To store labels for each item for easy updating
-    private Map<String, Image> itemIcons;   // To store images for each item for easy updating
+    private Map<String, Image> itemIcons;
+// To store images for each item for easy updating
 
     /**
      * Constructor to initialise the inventory component of Player that needs to be displayed
@@ -54,7 +60,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     private void addActors() {
         inventoryTable = new Table();
-        inventoryTable.bottom().left();
+        inventoryTable.bottom().right();
         inventoryTable.setFillParent(true);
         inventoryTable.padTop(50f).padLeft(5f);
         setHeading();
@@ -67,8 +73,14 @@ public class PlayerInventoryDisplay extends UIComponent {
      * for the items listed below.
      */
     void setHeading() {
+        labels = new ArrayList<Label>();
         CharSequence headingText = "Collected:";
+        Texture dotTrans = ServiceLocator.getResourceService()
+                .getAsset("images/dot_transparent.png", Texture.class);
+        Image itemImage = new Image(dotTrans);
         heading = new Label(headingText, skin, "small");
+        labels.add(heading);
+        inventoryTable.add(itemImage).padRight(0.1f);
         inventoryTable.add(heading);
         stage.addActor(inventoryTable);
         inventoryTable.row();
@@ -142,7 +154,12 @@ public class PlayerInventoryDisplay extends UIComponent {
             }
         }
     }
-
+    public void resize(int width, int height)
+    {
+        if (labels != null)
+            for(Label label : labels)
+                label.setFontScale(width/1100f);
+    }
 
     @Override
     public void draw(SpriteBatch batch) {

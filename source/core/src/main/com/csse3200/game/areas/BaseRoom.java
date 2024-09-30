@@ -224,8 +224,7 @@ public abstract class BaseRoom implements Room {
      * This includes doors and items, and clears the respective lists.
      */
     public void removeRoom() {
-        List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Removing room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+        logger.info("Removing room, {}", ServiceLocator.getEntityService());
 
         List<Entity> entitiesToRemove = Stream.of(doors, walls, items)
                 .flatMap(Collection::stream)

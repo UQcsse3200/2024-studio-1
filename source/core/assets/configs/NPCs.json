@@ -273,7 +273,8 @@
       "chase": {
         "chaseSpeed": 2,
         "viewDistance": 9,
-        "chaseDistance": 9.5
+        "chaseDistance": 9.5,
+        "maxTime": 5
       },
       "charge": {
         "activationMinRange": 5,

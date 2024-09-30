@@ -22,6 +22,8 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private final float viewDistance;
   private final float maxChaseDistance;
   private final float chaseSpeed;
+  private final float maxTime;
+  private long startTime;
   private String direction;
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
@@ -39,6 +41,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     this.viewDistance = config.viewDistance;
     this.maxChaseDistance = config.chaseDistance;
     this.chaseSpeed = config.chaseSpeed;
+    this.maxTime = config.maxTime * 1000;
     this.physics = ServiceLocator.getPhysicsService().getPhysics();
     this.debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
@@ -54,6 +57,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
     direction = owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection();
+    startTime = ServiceLocator.getTimeSource().getTime();
     this.owner.getEntity().getEvents().trigger("walk");
   }
 
@@ -62,6 +66,10 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    */
   @Override
   public void update() {
+    if (maxTime > 0 && ServiceLocator.getTimeSource().getTimeSince(startTime) > maxTime) {
+      this.stop(); // Stop the task if maxTime is exceeded
+      return;
+    }
     movementTask.setTarget(target.getPosition()); // Update target position in case it has moved.
     movementTask.update();
     if (movementTask.getStatus() != Status.ACTIVE) {

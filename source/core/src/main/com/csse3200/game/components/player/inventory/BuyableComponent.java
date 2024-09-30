@@ -15,4 +15,6 @@ public class BuyableComponent extends Component {
     public int getCost() {
         return this.cost;
     }
+
+
 }

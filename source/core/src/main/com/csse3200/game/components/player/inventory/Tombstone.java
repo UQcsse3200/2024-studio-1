@@ -39,13 +39,13 @@ public class Tombstone extends BuffItem {
     @Override
     public void effect(Entity entity) {
 
-        GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
-        markEntityForRemoval(collisionItemEntity);
+        //GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
+        //markEntityForRemoval(collisionItemEntity);
 
         int randomInt = this.random.nextInt(2);
         Entity newItem = this.randomPetGenerator(randomInt);
-        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
-        entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
+        //ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
+        //entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
 
 
     }
@@ -59,7 +59,7 @@ public class Tombstone extends BuffItem {
 //                case 4 -> specification = "buff:energydrink:Low";
 //                case 5 -> specification = "buff:energydrink:Medium";
         }
-
+        //USE SPAWNENTITYAT() TO SPAWN EACH ANIMAL
         return collectibleFactory.createCollectibleEntity(specification);
     }
 

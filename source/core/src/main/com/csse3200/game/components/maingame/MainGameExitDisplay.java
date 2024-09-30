@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -206,6 +205,12 @@ public class MainGameExitDisplay extends UIComponent {
       player.getEvents().trigger("saveMapData");
       System.out.println("Saved Succesfully");
     }
+    /*
+//    String filePath = "configs/save.json";
+//    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
+//    logger.debug("Game saved to: " + filePath);
+
+     */
   }
 
   public void resize(int width, int height){

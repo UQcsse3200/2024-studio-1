@@ -17,8 +17,10 @@ public class RangeAttackComponent extends AttackComponent {
     private final float spreadAngle = 0.1f;
     private final ShootType type;
     private Entity latestProjectile;
-    private String projectileName;
-    private String attackTrigger;
+    private String[] projectileNames;
+    private String[] attackTriggers;
+
+    private int animationID = 0;
 
     private final ProjectileFactory projectileFactory = new ProjectileFactory();
 
@@ -31,7 +33,18 @@ public class RangeAttackComponent extends AttackComponent {
         else {
             type = ShootType.SPREAD;
         }
-        projectileName = "projectile";
+        projectileNames = new String[]{"projectile"};
+    }
+
+    public void setAnimationID(int i) {
+        animationID = i;
+        if (attackTriggers != null) {
+            animationID = animationID % attackTriggers.length;
+        }
+    }
+
+    public int getAnimationID() {
+        return animationID;
     }
 
     @Override
@@ -40,22 +53,22 @@ public class RangeAttackComponent extends AttackComponent {
         String baseName = "Dragon";
         if (baseEntity.getComponent(NameComponent.class) == null) {
             // Use for test entity
-            projectileName = "dragonProjectile";
-            attackTrigger = "fire_attack";
+            projectileNames = new String[]{"dragonProjectile"};
+            attackTriggers = new String[]{"fire_attack"};
         } else {
             baseName = baseEntity.getComponent(NameComponent.class).getName();
         }
         System.out.println("Ranged animals shooting:");
         System.out.println(baseName);
         if (baseName.equals("Dragon")) {
-            projectileName = "dragonProjectile";
-            attackTrigger = "fire_attack";
+            projectileNames = new String[]{"dragonProjectile"};
+            attackTriggers = new String[]{"fire_attack"};
         } else if (baseName.equals("Kitsune")) {
-            projectileName = "kitsuneProjectile";
-            attackTrigger = "fire1";
+            projectileNames = new String[]{"kitsuneProjectile1", "kitsuneProjectile2"};
+            attackTriggers = new String[]{"fire1", "fire2"};
         } else {
-            projectileName = "projectile";
-            attackTrigger = "shoot";
+            projectileNames = new String[]{"dragonProjectile"};
+            attackTriggers = new String[]{"fire_attack"};
         }
     }
 
@@ -68,9 +81,14 @@ public class RangeAttackComponent extends AttackComponent {
         // Shoot target
         Vector2 direction = getDirection(target);
         entity.getEvents().trigger("attack");
+        String baseName = this.getEntity().getComponent(NameComponent.class).getName();
+        // Uncomment this for testing change projectile animation
+//        setAnimationID(0);
         shoot(direction);
         // Attack effects
-        //applyEffects(target);
+        if (effects != null) {
+            applyEffects(target);
+        }
     }
 
     /**
@@ -120,12 +138,12 @@ public class RangeAttackComponent extends AttackComponent {
      * @param direction The direction to shoot at
      */
     private void singleShoot(Vector2 direction) {
-        Entity projectile = projectileFactory.create(projectileName, direction, entity.getPosition());
+        Entity projectile = projectileFactory.create(projectileNames[animationID], direction, entity.getPosition());
         projectile.getComponent(com.csse3200.game.components.projectile.ProjectileAttackComponent.class).create();
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9),
                 true, true);
         updateDirection(projectile, direction);
-        projectile.getEvents().trigger(attackTrigger);
+        projectile.getEvents().trigger(attackTriggers[animationID]);
         latestProjectile = projectile;
     }
 

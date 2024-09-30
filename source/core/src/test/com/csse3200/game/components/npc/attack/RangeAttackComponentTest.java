@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.NPCConfigs;
@@ -125,6 +126,7 @@ class RangeAttackComponentTest {
     private Entity createAttacker(Entity target) {
         NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
         Entity attacker = new Entity()
+                .addComponent(new NameComponent("attacker"))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new PhysicsMovementComponent())
                 .addComponent(new ColliderComponent())
@@ -137,6 +139,7 @@ class RangeAttackComponentTest {
 
     private Entity createTarget() {
         Entity target = new Entity()
+                .addComponent(new NameComponent("target"))
                 .addComponent(new CombatStatsComponent(20, 0))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())

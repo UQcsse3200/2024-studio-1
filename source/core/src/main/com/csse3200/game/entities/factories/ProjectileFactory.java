@@ -37,7 +37,6 @@ public class ProjectileFactory extends LoadedFactory {
     public static ProjectileConfigs loadConfigs() {
         Path path = Paths.get("configs/projectiles.json");
         ProjectileConfigs configs = FileLoader.readClass(ProjectileConfigs.class, "configs/projectiles.json");
-        System.out.println("BRUHHH");
         return configs;
     }
 
@@ -65,7 +64,8 @@ public class ProjectileFactory extends LoadedFactory {
     public Entity create(String specification, Vector2 direction, Vector2 parentPosition) {
         return switch (specification) {
             case "dragonProjectile" -> this.createDragonProjectile(direction, parentPosition);
-            case "kitsuneProjectile" -> this.createKitsuneProjectile(direction, parentPosition);
+            case "kitsuneProjectile1" -> this.createKitsuneProjectile1(direction, parentPosition);
+            case "kitsuneProjectile2" -> this.createKitsuneProjectile2(direction, parentPosition);
             default -> throw new IllegalArgumentException("Unknown animal: " + specification);
         };
     }
@@ -79,10 +79,19 @@ public class ProjectileFactory extends LoadedFactory {
         return dragonProjectile;
     }
 
-    public Entity createKitsuneProjectile(Vector2 direction, Vector2 parentPosition) {
+    public Entity createKitsuneProjectile1(Vector2 direction, Vector2 parentPosition) {
         ProjectileConfigs.BaseProjectileConfig config = configs.kitsuneProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/kitsune/fire1.atlas", config.animations);
-        Entity kitsuneProjectile = createProjectile("Kitsune Projectile", config, direction,
+        Entity kitsuneProjectile = createProjectile("Kitsune Projectile1", config, direction,
+                parentPosition, animator);
+
+        return kitsuneProjectile;
+    }
+
+    public Entity createKitsuneProjectile2(Vector2 direction, Vector2 parentPosition) {
+        ProjectileConfigs.BaseProjectileConfig config = configs.kitsuneProjectile;
+        AnimationRenderComponent animator = createAnimator("images/npc/kitsune/fire2.atlas", config.animations);
+        Entity kitsuneProjectile = createProjectile("Kitsune Projectile2", config, direction,
                 parentPosition, animator);
 
         return kitsuneProjectile;

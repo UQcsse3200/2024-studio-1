@@ -13,19 +13,21 @@ import java.util.HashMap;
 public class AchievementsListComponent extends Component {
 
     private final HashMap<String, String> achievements;
-    private final int numAchievements;
 
     /**
      * Reads player achievements list from external file.
      */
     public AchievementsListComponent() {
-        achievements = FileLoader.readClass(
-                HashMap.class, PlayerAchievementComponent.ACHIEVEMENTS_PATH, Location.EXTERNAL);
-        if (achievements == null) {
-            numAchievements = 0;
-        } else {
-            numAchievements = achievements.size();
-        }
+        this(PlayerAchievementComponent.ACHIEVEMENTS_PATH, Location.EXTERNAL);
+    }
+
+    /**
+     * Reads player achievements list from a file.
+     * @param path achievements file path.
+     * @param location file location.
+     */
+    public AchievementsListComponent(String path, Location location) {
+        achievements = FileLoader.readClass(HashMap.class, path, location);
     }
 
     /**
@@ -41,6 +43,6 @@ public class AchievementsListComponent extends Component {
      * @return the number of achievements or 0 if the achievements file could not be read/found.
      */
     public int getNumAchievements() {
-        return numAchievements;
+        return achievements == null ? 0 : achievements.size();
     }
 }

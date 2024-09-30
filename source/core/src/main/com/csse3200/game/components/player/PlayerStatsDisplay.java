@@ -143,6 +143,13 @@ public class PlayerStatsDisplay extends UIComponent {
         table.add(ammoTable).colspan(2).left().padLeft(2);
         stage.addActor(table);
     }
+
+    public void resize(int width, int height)
+    {
+        if (labels != null)
+            for(Label label : labels)
+                label.setFontScale(width/1100f);
+    }
     
     @Override
     public void draw(SpriteBatch batch) {

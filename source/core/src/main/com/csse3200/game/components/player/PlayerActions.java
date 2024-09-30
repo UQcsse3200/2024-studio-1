@@ -120,19 +120,20 @@ public class PlayerActions extends Component {
      * Makes the player attack.
      */
     private void attack() {
-        if (!dead) {
-            ServiceLocator.getResourceService().playSound("sounds/Impact4.ogg");
-            entity.getComponent(WeaponComponent.class).attackMelee();
-        }
+        entity.getComponent(InventoryComponent.class)
+                .getInventory()
+                .getMelee()
+                .ifPresent(meleeWeapon -> meleeWeapon.attack());
     }
 
     /**
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        if (!dead) {
-            entity.getComponent(WeaponComponent.class).shoot(direction);
-        }
+        entity.getComponent(InventoryComponent.class)
+                .getInventory()
+                .getRanged()
+                .ifPresent(rangedWeapon -> rangedWeapon.shoot(direction));
     }
 
     private void updateSpeed() {

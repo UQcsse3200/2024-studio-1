@@ -71,13 +71,13 @@ public class NPCDeathHandler extends Component {
                 animator.startAnimation("death");
             }
 
-            // Disable physics and AI components to prevent further interaction
-            //entity.getComponent(PhysicsComponent.class).setEnabled(false);
-            entity.getComponent(AITaskComponent.class).setEnabled(false);
             // disable AI component to prevent further interaction
-            entity.getComponent(PhysicsMovementComponent.class).setEnabled(false);
-            entity.getComponent(HitboxComponent.class).setEnabled(false);
-            entity.getComponent(ColliderComponent.class).setEnabled(false);
+            for (var componentClass : List.of(AITaskComponent.class, PhysicsMovementComponent.class, HitboxComponent.class, ColliderComponent.class)) {
+                var component = entity.getComponent(componentClass);
+                if (component != null) {
+                    component.setEnabled(false);
+                }
+            }
 
             // Schedule entity removal after the death animation completes
             Timer.schedule(new Timer.Task() {

@@ -20,8 +20,6 @@ import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
  */
@@ -142,9 +140,7 @@ public class MainGameExitDisplay extends UIComponent {
    */
   public void pauseGame() {
     MainGameScreen.isPaused = true;
-
-    List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-    logger.info("Game paused, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+    logger.info("Game paused, {}", ServiceLocator.getEntityService());
 
     stage.addActor(pauseTable);
     table.remove();
@@ -190,7 +186,7 @@ public class MainGameExitDisplay extends UIComponent {
     }
 
     String filePath = "configs/save.json";
-    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
+    FileLoader.writeClass(entities, filePath, FileLoader.Location.EXTERNAL);
     logger.debug("Game saved to: " + filePath);
   }
 

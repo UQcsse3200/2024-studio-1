@@ -1,8 +1,10 @@
 package com.csse3200.game.areas;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -26,8 +28,24 @@ public abstract class BaseRoom implements Room {
     protected final List<String> roomConnections;
     protected List<Entity> entities;  // Unified list for all entities
 
+    /**
+     * The list of collectible item entities in the room.
+     */
+    protected List<Entity> items;
+
+    /**
+     * The specification for the room, including grid points and indices.
+     */
     protected final String specification;
+
+    /**
+     * The minimum grid point of the room.
+     */
     protected final GridPoint2 minGridPoint;
+
+    /**
+     * The maximum grid point of the room.
+     */
     protected final GridPoint2 maxGridPoint;
     protected final int itemGroup;
     protected List<List<String>> itemSpecifications;
@@ -44,7 +62,7 @@ public abstract class BaseRoom implements Room {
         this.roomConnections = roomConnections;
         this.entities = new ArrayList<>();
         this.itemSpecifications = getItemSpecifications();
-        
+
         List<String> split = Arrays.stream(specification.split(",")).toList();
 
         this.minGridPoint = new GridPoint2(
@@ -71,7 +89,7 @@ public abstract class BaseRoom implements Room {
 
         area.spawnEntity(terrainEntity);
         entities.add(terrainEntity);
-        
+
         float tileSize = terrain.getTileSize();
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);

@@ -219,6 +219,10 @@ public class NPCFactory extends LoadedFactory {
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
 
+    // Add the BossHealthDialogueComponent to the werewolf
+    werewolf.addComponent(new BossHealthDialogueComponent());
+
+
     return werewolf;
   }
 

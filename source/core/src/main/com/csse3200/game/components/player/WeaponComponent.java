@@ -59,12 +59,6 @@ public class WeaponComponent extends Component {
     Entity rangedItemEntity; // the ranged weapon entity
     Entity meleeItemEntity; // the melee weapon entity
 
-    @Override
-    public void create() {
-        super.create();
-        projectileFactory = new ProjectileFactory();
-    }
-
     /**
      * Constructor for WeaponComponent
      *

@@ -12,6 +12,9 @@ public class ProjectileAnimationController extends Component {
     AnimationRenderComponent animator;
     DirectionalNPCComponent directionalComponent;
 
+    /**
+     * Base create method for adding listener
+     */
     @Override
     public void create() {
         super.create();
@@ -19,9 +22,13 @@ public class ProjectileAnimationController extends Component {
         directionalComponent = this.entity.getComponent(DirectionalNPCComponent.class);
 
         entity.getEvents().addListener("fire_attack", this::animateFire);
-        entity.getEvents().addListener("fire1", this::animateFireKitsune);
+        entity.getEvents().addListener("fire1", this::animateFireKitsune1);
+        entity.getEvents().addListener("fire2", this::animateFireKitsune2);
     }
 
+    /**
+     * Animate Fire for dragon projectile
+     */
     void animateFire() {
         if (animator.hasAnimation("fire_attack_right") && animator.hasAnimation("fire_attack_left")) {
             triggerDirectionalAnimation("fire_attack");
@@ -32,16 +39,36 @@ public class ProjectileAnimationController extends Component {
         }
     }
 
-    void animateFireKitsune() {
+    /**
+     * Animate Kitsune fire type 1 for kitsune projectile
+     */
+    void animateFireKitsune1() {
         if (animator.hasAnimation("fire1_right") && animator.hasAnimation("fire1_left")) {
             triggerDirectionalAnimation("fire1");
         } else if (animator.hasAnimation("fire1")) {
             animator.startAnimation("fire1");
         } else {
-            throw new IllegalStateException("No fire_attack animation found");
+            throw new IllegalStateException("No fire_attack_1 animation found");
         }
     }
 
+    /**
+     * Animate Kitsune fire type 2 for kitsune projectile
+     */
+    void animateFireKitsune2() {
+        if (animator.hasAnimation("fire2_right") && animator.hasAnimation("fire2_left")) {
+            triggerDirectionalAnimation("fire2");
+        } else if (animator.hasAnimation("fire2")) {
+            animator.startAnimation("fire2");
+        } else {
+            throw new IllegalStateException("No fire_attack_2 animation found");
+        }
+    }
+
+    /**
+     * Add directional suffix to trigger's call
+     * @param baseAnimation base animation trigger's call
+     */
     private void triggerDirectionalAnimation(String baseAnimation) {
         String direction = directionalComponent.getDirection();
         if (direction.equals("right")) {

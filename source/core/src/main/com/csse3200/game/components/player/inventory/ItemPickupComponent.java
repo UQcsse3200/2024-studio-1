@@ -106,7 +106,7 @@ public class ItemPickupComponent extends Component {
         GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
         markEntityForRemoval(collisionItemEntity);
 
-        int randomInt = this.random.nextInt(5);
+        int randomInt = this.random.nextInt(6);
         Entity newItem = this.randomItemGenerator(randomInt);
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
@@ -118,7 +118,7 @@ public class ItemPickupComponent extends Component {
     public int getTestFunds() {
         return 9;
     }
-    private void checkItemPurchase(Collectible item, Entity itemEntity) {
+    public void checkItemPurchase(Collectible item, Entity itemEntity) {
         int playerFunds = getTestFunds();
         if (item == null || itemEntity == null) {
             return;

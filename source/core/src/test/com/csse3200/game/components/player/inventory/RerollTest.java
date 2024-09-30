@@ -1,29 +1,46 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.areas.GameAreaService;
+import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.services.ServiceLocator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
 public class RerollTest {
 
-    Reroll reroll = new Reroll();
+    private Reroll reroll;
+    private Entity player;
 
-    Entity entity = new Entity()
-            .addComponent(new ItemPickupComponent())
-            .addComponent(new PlayerActions())
-            .addComponent(new CombatStatsComponent(1, 1, true, 1, 0));
+    private Entity collisionItemEntity;
 
+
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+        reroll = new Reroll();
+        player = new Entity().addComponent(new ItemPickupComponent());
+        collisionItemEntity = new Entity()
+                .addComponent(new CollectibleComponent(new MedKit()));
+
+    }
     @Test
     public void testGetName() {
         assertEquals("Reroll", reroll.getName());
@@ -39,15 +56,17 @@ public class RerollTest {
         assertEquals("item:reroll", reroll.getSpecification());
     }
 
+
     @Test
     public void testApplyNoCollision() {
-        ItemPickupComponent itemPickupComponent = entity.getComponent(ItemPickupComponent.class);
+        ItemPickupComponent itemPickupComponent = player.getComponent(ItemPickupComponent.class);
         Collectible collisionItemNull = null;
         Entity collisionItemEntityNull = null;
         Collectible initialCollectible = itemPickupComponent.getItem();
         itemPickupComponent.setContact(false);
-        entity.getComponent(ItemPickupComponent.class).handleReroll(collisionItemNull, collisionItemEntityNull);
+        player.getComponent(ItemPickupComponent.class).handleReroll(collisionItemNull, collisionItemEntityNull);
         assertEquals(initialCollectible, itemPickupComponent.getItem());
     }
+
 
 }

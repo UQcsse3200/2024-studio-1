@@ -156,8 +156,12 @@ public class PlayerActions extends Component {
         return walkDirection;
     }
 
+    public ItemPickupComponent getItemPickupComponent() {
+        return this.itemPickupComponent;
+    }
+
     public void handleReroll(UsableItem reroll) {
-        if (itemPickupComponent.isInContact() && itemPickupComponent.getItem() != null) {
+        if (entity.getComponent(ItemPickupComponent.class).isInContact() && entity.getComponent(ItemPickupComponent.class).getItem() != null) {
             use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
         }
         else {
@@ -165,7 +169,7 @@ public class PlayerActions extends Component {
         }
     }
 
-    private void use(UsableItem item) {
+    public void use(UsableItem item) {
         Inventory inventory = inventoryComponent.getInventory();
         for (Collectible collectedItem : inventory.getItems()) {
             if (collectedItem.getClass() == item.getClass()) {

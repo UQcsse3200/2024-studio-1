@@ -28,18 +28,12 @@ public class AOEAttackComponent extends AttackComponent {
             entity.getEvents().trigger("aoe_attack");
             logger.info("{} performs AOE attack at {}", entity, origin);
             Circle aoeCircle = new Circle(entity.getCenterPosition(), aoeRadius);
-            List<Entity> entitiesInRange = ServiceLocator.getGameAreaService().getGameArea().getListOfEntities();
 
-            for (Entity targetEntity : entitiesInRange) {
-                if(entity != targetEntity) {
-                    //entity.getEvents().trigger("updateCircle");
-                    if (targetEntity.getComponent(CombatStatsComponent.class) != null
-                            && aoeCircle.contains(targetEntity.getPosition())) {
-                        logger.info("AOE attack hits {} for {} damage", targetEntity, combatStats.getBaseAttack());
-                        targetEntity.getComponent(CombatStatsComponent.class).hit(combatStats);
-                        applyEffects(targetEntity);
-                    }
-                }
+            if (target.getComponent(CombatStatsComponent.class) != null
+                    && aoeCircle.contains(target.getPosition())) {
+                logger.info("AOE attack hits {} for {} damage", target, combatStats.getBaseAttack());
+                target.getComponent(CombatStatsComponent.class).hit(combatStats);
+                applyEffects(target);
             }
         }
 

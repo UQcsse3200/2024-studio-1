@@ -283,7 +283,8 @@
       },
       "jump": {
         "activationMinRange": 4,
-        "activationMaxRange": 6
+        "activationMaxRange": 6,
+        "waitTime": 2
       },
       "runAway": {
         "activationMinRange": 0,

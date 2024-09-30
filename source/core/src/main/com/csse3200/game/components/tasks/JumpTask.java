@@ -1,9 +1,9 @@
 package com.csse3200.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
+import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -19,6 +19,7 @@ import static com.badlogic.gdx.math.MathUtils.lerp;
  * Task for an NPC to "jump" toward a target, bypassing obstacles and simulating a jump arc in the y direction.
  */
 public class JumpTask extends DefaultTask implements PriorityTask {
+    private static final Logger logger = LoggerFactory.getLogger(JumpTask.class);
     private static final int ACTIVE_PRIORITY = 10;
     private static final int INACTIVE_PRIORITY = 7;
     private static final float JUMP_DURATION = 1.5f * 1000;
@@ -31,9 +32,11 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private Vector2 targetPos;
     private PhysicsComponent physicsComponent;
     private ColliderComponent colliderComponent;
+    private DirectionalNPCComponent directionalComponent;
     private GameTime gameTime;
     private long startTime;
-    private static final Logger logger = LoggerFactory.getLogger(AITaskComponent.class);
+    private final float waitTime;
+    private WaitTask waitTask;
 
     /**
      * Creates a JumpTask towards the target with a specified jump height and duration.
@@ -44,6 +47,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         this.target = target;
         this.activationMinRange = config.activationMinRange;
         this.activationMaxRange = config.activationMaxRange;
+        this.waitTime = config.waitTime;
     }
 
     @Override
@@ -51,20 +55,47 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         logger.debug("Starting jump towards {}", target);
         super.start();
         this.physicsComponent = owner.getEntity().getComponent(PhysicsComponent.class);
-        colliderComponent = owner.getEntity().getComponent(ColliderComponent.class);
+        this.colliderComponent = owner.getEntity().getComponent(ColliderComponent.class);
+        this.directionalComponent = owner.getEntity().getComponent(DirectionalNPCComponent.class);
         this.gameTime = ServiceLocator.getTimeSource();
+        startTime = gameTime.getTime();
 
+        // Initialise the wait task
+        if (waitTask == null) {
+            waitTask = new WaitTask(waitTime);
+            waitTask.create(owner);
+        }
+
+        // Set the jump height based on the distance between the entity and the target
         startPos = owner.getEntity().getPosition();
         targetPos = target.getPosition();
         jumpHeight = JUMP_HEIGHT_SCALAR * startPos.dst(targetPos);
 
-        startTime = gameTime.getTime();
-        this.owner.getEntity().getEvents().trigger("jump");
+        // Update direction
+        if (directionalComponent != null) {
+            if (startPos.x < targetPos.x) {
+                directionalComponent.setDirection("right");
+            } else {
+                directionalComponent.setDirection("left");
+            }
+        }
+
+        // Set the collider to sensor to allow the entity to pass through obstacles
         colliderComponent.setSensor(true);
+        this.owner.getEntity().getEvents().trigger("jump");
     }
 
     @Override
     public void update() {
+        // Handle waiting at the end of the jump
+        if (waitTask.getStatus() == Status.ACTIVE) {
+            waitTask.update();
+            return;
+        } else if (waitTask.getStatus() == Status.FINISHED) {
+            this.stop();
+            return;
+        }
+
         long elapsedTime = gameTime.getTimeSince(startTime);
         float t = Math.min((float)elapsedTime / JUMP_DURATION, 1);  // Time ratio from 0 to 1
 
@@ -81,8 +112,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
 
         // Check if the jump is finished
         if (t >= 1) {
-            status = Status.FINISHED;
-            this.stop();
+            waitTask.start();
         }
     }
 
@@ -110,5 +140,9 @@ public class JumpTask extends DefaultTask implements PriorityTask {
             return INACTIVE_PRIORITY;
         }
         return -1;
+    }
+
+    private void updateDirection() {
+
     }
 }

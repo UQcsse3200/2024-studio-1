@@ -46,6 +46,7 @@ public class NPCConfigs {
         public float chaseSpeed;
         public float viewDistance;
         public float chaseDistance;
+        public float maxTime;
       }
 
       public static class ChargeTaskConfig {
@@ -58,6 +59,7 @@ public class NPCConfigs {
       public static class JumpTaskConfig {
         public float activationMinRange;
         public float activationMaxRange;
+        public float waitTime;
       }
 
       public static class RunAwayTaskConfig {

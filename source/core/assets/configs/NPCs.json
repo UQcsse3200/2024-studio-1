@@ -277,23 +277,26 @@
         "maxTime": 5
       },
       "charge": {
-        "activationMinRange": 5,
+        "activationMinRange": 4,
         "activationMaxRange": 8,
-        "chaseSpeed": 3,
-        "waitTime": 2
+        "chaseSpeed": 4,
+        "waitTime": 1,
+        "cooldownTime": 6
       },
       "jump": {
         "activationMinRange": 4,
         "activationMaxRange": 6,
-        "waitTime": 2
+        "waitTime": 1,
+        "cooldownTime": 4
       },
       "runAway": {
         "activationMinRange": 0,
         "activationMaxRange": 2,
-        "activationHealth": 0.2,
+        "activationHealth": 0.4,
         "runSpeed": 3,
         "stopDistance": 3,
-        "maxRunTime": 3
+        "maxRunTime": 3,
+        "cooldownTime": 10
       }
     },
     "attacks": {

@@ -27,6 +27,8 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private final Entity target;
     private final float activationMinRange;
     private final float activationMaxRange;
+    private final float waitTime;
+    private final float cooldownTime;
     private float jumpHeight;
     private Vector2 startPos;
     private Vector2 targetPos;
@@ -35,7 +37,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private DirectionalNPCComponent directionalComponent;
     private GameTime gameTime;
     private long startTime;
-    private final float waitTime;
+    private long lastExecutionTime;
     private WaitTask waitTask;
 
     /**
@@ -48,6 +50,8 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         this.activationMinRange = config.activationMinRange;
         this.activationMaxRange = config.activationMaxRange;
         this.waitTime = config.waitTime;
+        this.cooldownTime = config.cooldownTime;
+        gameTime = ServiceLocator.getTimeSource();
     }
 
     @Override
@@ -57,14 +61,11 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         this.physicsComponent = owner.getEntity().getComponent(PhysicsComponent.class);
         this.colliderComponent = owner.getEntity().getComponent(ColliderComponent.class);
         this.directionalComponent = owner.getEntity().getComponent(DirectionalNPCComponent.class);
-        this.gameTime = ServiceLocator.getTimeSource();
         startTime = gameTime.getTime();
 
         // Initialise the wait task
-        if (waitTask == null) {
-            waitTask = new WaitTask(waitTime);
-            waitTask.create(owner);
-        }
+        waitTask = new WaitTask(waitTime);
+        waitTask.create(owner);
 
         // Set the jump height based on the distance between the entity and the target
         startPos = owner.getEntity().getPosition();
@@ -128,6 +129,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         super.stop();
         physicsComponent.getBody().setLinearVelocity(Vector2.Zero);
         colliderComponent.setSensor(false);
+        lastExecutionTime = gameTime.getTime();
     }
 
     @Override
@@ -136,13 +138,17 @@ public class JumpTask extends DefaultTask implements PriorityTask {
             return ACTIVE_PRIORITY;
         }
         float dst = owner.getEntity().getPosition().dst(target.getPosition());
-        if (dst >= activationMinRange && dst <= activationMaxRange) {
+        if (isCooldownComplete() && dst >= activationMinRange && dst <= activationMaxRange) {
             return INACTIVE_PRIORITY;
         }
         return -1;
     }
 
-    private void updateDirection() {
-
+    private boolean isCooldownComplete() {
+        if (lastExecutionTime == 0) {
+            return true;
+        }
+        long currentTime = gameTime.getTime();
+        return (currentTime - lastExecutionTime) >= (cooldownTime * 1000);
     }
 }

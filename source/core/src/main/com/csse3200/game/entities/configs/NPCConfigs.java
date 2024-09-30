@@ -54,12 +54,14 @@ public class NPCConfigs {
         public float activationMaxRange;
         public float chaseSpeed;
         public float waitTime;
+        public float cooldownTime;
       }
 
       public static class JumpTaskConfig {
         public float activationMinRange;
         public float activationMaxRange;
         public float waitTime;
+        public float cooldownTime;
       }
 
       public static class RunAwayTaskConfig {
@@ -69,6 +71,7 @@ public class NPCConfigs {
         public float runSpeed;
         public float stopDistance;
         public float maxRunTime;
+        public float cooldownTime;
       }
     }
 

@@ -10,6 +10,7 @@ import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
 import com.csse3200.game.rendering.DebugRenderer;
+import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +29,12 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private final float activationMaxRange;
   private final float chaseSpeed;
   private final float waitTime;
+  private final float cooldownTime;
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
+  private GameTime gameTime;
+  private long lastExecutionTime;
   private MovementTask movementTask;
   private WaitTask waitTask;
   private Task currentTask;
@@ -47,8 +51,10 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     this.activationMaxRange = config.activationMaxRange;
     this.chaseSpeed = config.chaseSpeed;
     this.waitTime = config.waitTime;
+    this.cooldownTime = config.cooldownTime;
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
+    gameTime = ServiceLocator.getTimeSource();
   }
 
   /**
@@ -115,6 +121,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     if (currentTask != null) {
       currentTask.stop();
     }
+    lastExecutionTime = gameTime.getTime();
   }
 
   /**
@@ -128,7 +135,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
       return ACTIVE_PRIORITY;
     }
     float dst = owner.getEntity().getPosition().dst(target.getPosition());
-    if (dst >= activationMinRange && dst <= activationMaxRange && isTargetVisible()) {
+    if (isCooldownComplete() && dst >= activationMinRange && dst <= activationMaxRange && isTargetVisible()) {
       return INACTIVE_PRIORITY;
     }
     return -1;
@@ -153,5 +160,13 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
    */
   public Entity getTarget() {
     return target;
+  }
+
+  private boolean isCooldownComplete() {
+    if (lastExecutionTime == 0) {
+      return true;
+    }
+    long currentTime = gameTime.getTime();
+    return (currentTime - lastExecutionTime) >= (cooldownTime * 1000);
   }
 }

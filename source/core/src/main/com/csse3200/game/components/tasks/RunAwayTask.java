@@ -26,10 +26,11 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
     private final float runSpeed;  // Speed of movement
     private final float stopDistance;  // Distance to stop running
     private final float maxRunTime;  // Maximum time to run for
-
+    private final float cooldownTime;
     private MovementTask movementTask;
     private GameTime gameTime;
     private long startTime;
+    private long lastExecutionTime;
 
     /**
      * Creates a RunAwayTask.
@@ -44,14 +45,15 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
         this.activationHealthPercentage = config.activationHealth;
         this.runSpeed = config.runSpeed;
         this.stopDistance = config.stopDistance;
-        this.maxRunTime = config.maxRunTime * 1000;
+        this.maxRunTime = config.maxRunTime;
+        this.cooldownTime = config.cooldownTime;
+        gameTime = ServiceLocator.getTimeSource();
     }
 
     @Override
     public void start() {
         logger.debug("Starting to run away from {}", target);
         super.start();
-        this.gameTime = ServiceLocator.getTimeSource();
         startTime = gameTime.getTime();
 
         // Calculate the direction away from the target
@@ -76,7 +78,7 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
         long elapsedTime = gameTime.getTimeSince(startTime);
 
         // Stop if the distance is greater than or equal to the stop distance, or if the time has passed
-        if (distanceToTarget >= stopDistance || elapsedTime >= maxRunTime) {
+        if (distanceToTarget >= stopDistance || elapsedTime >= maxRunTime * 1000) {
             stop();
         }
     }
@@ -85,6 +87,7 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
     public void stop() {
         super.stop();
         movementTask.stop();
+        lastExecutionTime = gameTime.getTime();
     }
 
     @Override
@@ -96,10 +99,18 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
         int currentHealth = owner.getEntity().getComponent(CombatStatsComponent.class).getHealth();
         int maxHealth = owner.getEntity().getComponent(CombatStatsComponent.class).getMaxHealth();
         float healthPercentage = (float) currentHealth / maxHealth;
-        if (distanceToTarget >= activationMinRange && distanceToTarget <= activationMaxRange
+        if (isCooldownComplete() && distanceToTarget >= activationMinRange && distanceToTarget <= activationMaxRange
                 && healthPercentage < activationHealthPercentage) {
             return INACTIVE_PRIORITY;
         }
         return -1;
+    }
+
+    private boolean isCooldownComplete() {
+        if (lastExecutionTime == 0) {
+            return true;
+        }
+        long currentTime = gameTime.getTime();
+        return (currentTime - lastExecutionTime) >= (cooldownTime * 1000);
     }
 }

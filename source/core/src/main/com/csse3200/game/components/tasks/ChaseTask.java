@@ -10,6 +10,7 @@ import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
 import com.csse3200.game.rendering.DebugRenderer;
+import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 
 /**
@@ -28,6 +29,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
+  private GameTime gameTime;
   private MovementTask movementTask;
 
   /**
@@ -41,7 +43,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     this.viewDistance = config.viewDistance;
     this.maxChaseDistance = config.chaseDistance;
     this.chaseSpeed = config.chaseSpeed;
-    this.maxTime = config.maxTime * 1000;
+    this.maxTime = config.maxTime;
     this.physics = ServiceLocator.getPhysicsService().getPhysics();
     this.debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
@@ -52,12 +54,13 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   @Override
   public void start() {
     super.start();
+    this.gameTime = ServiceLocator.getTimeSource();
+    startTime = gameTime.getTime();
     movementTask = new MovementTask(target.getPosition()); // Create a movement task towards the target.
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
     direction = owner.getEntity().getComponent(DirectionalNPCComponent.class).getDirection();
-    startTime = ServiceLocator.getTimeSource().getTime();
     this.owner.getEntity().getEvents().trigger("walk");
   }
 
@@ -66,7 +69,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    */
   @Override
   public void update() {
-    if (maxTime > 0 && ServiceLocator.getTimeSource().getTimeSince(startTime) > maxTime) {
+    if (maxTime > 0 && gameTime.getTimeSince(startTime) > maxTime * 1000) {
       this.stop(); // Stop the task if maxTime is exceeded
       return;
     }

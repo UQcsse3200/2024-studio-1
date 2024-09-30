@@ -16,8 +16,10 @@ public class Feather extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        //entity.getComponent(CombatStatsComponent.class).updateCrit();
+        entity.getComponent(CombatStatsComponent.class).updateCritAbility();
+        entity.getComponent(CombatStatsComponent.class).updateCritChance(0.2);
     }
+
 
     /**
      * Returns a string that specifies the type of buff
@@ -43,7 +45,7 @@ public class Feather extends BuffItem {
      */
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/feather");
+        return new Texture("images/items/feather.png");
     }
 
     /**

@@ -2,11 +2,7 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.areas.EnemyRoom;
-import com.csse3200.game.areas.MainGameArea;
-import com.csse3200.game.entities.Room;
 import com.csse3200.game.input.InputComponent;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,8 +79,21 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    /**
+     * Handles the event when the key for 'pickup' is pressed
+     * @return true
+     */
     private boolean pickupItem() {
         entity.getEvents().trigger("pickup");
+        return true;
+    }
+
+    /**
+     * Handles the event when the key for 'purchase' is pressed
+     * @return true
+     */
+    private boolean purchaseItem() {
+        entity.getEvents().trigger("purchaseItem");
         return true;
     }
 
@@ -92,8 +101,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("teleportToBoss");
         return true;
     }
-
-
 
 
     /*
@@ -121,9 +128,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
 
         actionMap.put(PICK_UP, (i) -> pickupItem());
-        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Reroll here
-
-
+        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Rerol here
+        actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());
         return actionMap;
     }
 

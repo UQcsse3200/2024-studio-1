@@ -2,6 +2,7 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
@@ -25,6 +26,11 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.nio.file.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static java.lang.Math.*;
 
 /**
  * Factory for producing entities with a projectile themed component configuration.
@@ -171,7 +177,7 @@ public class ProjectileFactory extends LoadedFactory {
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
                         ServiceLocator.getResourceService().getAsset(stats.projectileAtlasPath, TextureAtlas.class));
-        animator.addAnimation("Shoot", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("GreenShoot", 0.1f, Animation.PlayMode.LOOP);
 
         Entity projectile =
                 new Entity()
@@ -185,14 +191,38 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new ProjectileActions())
                         .addComponent(animator);
 
-        projectile.getComponent(AnimationRenderComponent.class).startAnimation("Shoot");
+        projectile.getComponent(ProjectileAttackComponent.class).create();
+        projectile.getComponent(AnimationRenderComponent.class).startAnimation("GreenShoot");
         projectile.getComponent(ColliderComponent.class).setSensor(true);
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
         projectile.setScale(stats.scaleX, stats.scaleY);
         projectile.getComponent(ColliderComponent.class).setDensity(1.5f);
-
-
         return projectile;
+    }
+
+    /**This projectile is a shotgun effect.
+     * Four total projectiles with spread of +-0.07 RAD and Lag speed of 90%.
+     * Shot in format:
+     *                         (+0.07)
+     *  gun(->)      (Lag)     (Norm)
+     *                         (-0.7)
+     * NOTE - Magic numbers should not be tested.
+     **/
+     public void createShotGunProjectile (ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {
+        Double polarAngle = atan(direction.y / direction.x);
+        float followSpeed = 0.9F;
+        float scale = 1;
+        if (direction.x < 0) {
+             scale = -1;
+        }
+        Double plusMinus = 0.07;
+        Vector2 rectCordMore = new Vector2(scale * (float) (cos(polarAngle + plusMinus)), (float) ( sin(polarAngle + plusMinus)));
+        Vector2 rectCordLess = new Vector2(scale * (float)  (cos(polarAngle - plusMinus)), (float) ( sin(polarAngle - plusMinus)));
+        Vector2 follower = new Vector2(followSpeed * direction.x, followSpeed * direction.y);
+        List<Vector2> directions = Arrays.asList(rectCordMore, direction, rectCordLess, follower);
+        for (Vector2 dir : directions) {
+            createProjectile(stats, dir, parentPosition);
+        }
     }
 
 

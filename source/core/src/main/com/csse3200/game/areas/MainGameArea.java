@@ -155,8 +155,7 @@ public class MainGameArea extends GameArea {
             return;
         }
 
-        var entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Spawning new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+        logger.info("Spawning new room, {}", ServiceLocator.getEntityService());
         if (currentLevel.roomTraversals == 8 ) {
             this.currentRoom = currentLevel.getRoom("BOSS");
         }
@@ -165,8 +164,7 @@ public class MainGameArea extends GameArea {
         player.setPosition(7, 5);
         spawnEntity(player);
 
-        entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Spawned new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+        logger.info("Spawned new room, {}", ServiceLocator.getEntityService());
         spawnRoom = false;
     }
 

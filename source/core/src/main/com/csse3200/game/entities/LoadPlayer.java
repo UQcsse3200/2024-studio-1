@@ -108,6 +108,7 @@ public class LoadPlayer {
                 .addComponent(inventoryComponent)
                 .addComponent(playerActions)
                 .addComponent(new ItemPickupComponent())
+                .addComponent(new FundsDisplayComponent())
                 .addComponent(new ShieldComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
@@ -115,12 +116,7 @@ public class LoadPlayer {
                 .addComponent(new PlayerAnimationController(config.textureAtlasFilename))
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay())
-                .addComponent(new WeaponComponent(
-                        new Sprite(new Texture("images/Weapons/knife.png")),
-                        Collectible.Type.RANGED_WEAPON,
-                        10, 1, 1, 10, 10, 0));
-        player.getComponent(PlayerActions.class).setSpeed(config.speed);
+                .addComponent(new PlayerHealthDisplay());
 
         CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
         player.addComponent(coinsComponent)
@@ -140,16 +136,7 @@ public class LoadPlayer {
         // calls create method in weapon factory to initialise a weapon
         Collectible melee = weaponFactory.create(Collectible.Type.MELEE_WEAPON, config.melee);
         if (melee instanceof MeleeWeapon meleeWeapon) {
-            WeaponComponent meleeWeaponComponent = new WeaponComponent(
-                    new Sprite(meleeWeapon.getIcon()),  // Use texture from the melee weapon class
-                    Collectible.Type.MELEE_WEAPON,
-                    meleeWeapon.getDamage(),
-                    meleeWeapon.getRange(),
-                    meleeWeapon.getFireRate(),
-                    0, 0, 0
-            );
             inventoryComponent.getInventory().setMelee(meleeWeapon); // Set melee weapon in the inventory
-            player.addComponent(meleeWeaponComponent);
         }
     }
 
@@ -164,18 +151,7 @@ public class LoadPlayer {
 
         Collectible ranged = weaponFactory.create(Collectible.Type.RANGED_WEAPON, config.ranged);
         if (ranged instanceof RangedWeapon rangedWeapon) {
-            WeaponComponent rangedWeaponComponent = new WeaponComponent(
-                    new Sprite(rangedWeapon.getIcon()),
-                    Collectible.Type.RANGED_WEAPON,
-                    rangedWeapon.getDamage(),
-                    rangedWeapon.getRange(),
-                    rangedWeapon.getFireRate(),
-                    rangedWeapon.getAmmo(),
-                    rangedWeapon.getMaxAmmo(),
-                    rangedWeapon.getReloadTime()
-            );
-            player.addComponent(rangedWeaponComponent); // Add melee weapon component to the player
-            inventoryComponent.getInventory().setRanged(rangedWeapon); // Set melee weapon in the inventory
+            inventoryComponent.pickup(rangedWeapon); // Set melee weapon in the inventory
         }
     }
 
@@ -244,7 +220,7 @@ public class LoadPlayer {
                 animator.addAnimation("idle_top", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
-                animator.addAnimation("walk_top`", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_top", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("walk_bottom", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("run_left", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("run_right", 0.1f, Animation.PlayMode.LOOP);

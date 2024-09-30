@@ -235,6 +235,10 @@ public class PetFactory extends LoadedFactory {
     if (tasks.wander != null) {
       aiComponent.addTask(new WanderTask(tasks.wander));
     }
+    // Add follow task
+    if (tasks.follow != null) {
+      aiComponent.addTask(new FollowTask(tasks.follow));
+    }
     // Add straight wander task
     if (tasks.straightWander != null) {
       aiComponent.addTask(new StraightWanderTask(tasks.straightWander.wanderSpeed));

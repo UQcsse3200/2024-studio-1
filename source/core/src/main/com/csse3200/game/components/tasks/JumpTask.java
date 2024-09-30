@@ -18,6 +18,8 @@ import static com.badlogic.gdx.math.MathUtils.lerp;
  * Task for an NPC to "jump" toward a target, bypassing obstacles and simulating a jump arc in the y direction.
  */
 public class JumpTask extends DefaultTask implements PriorityTask {
+    private static final int ACTIVE_PRIORITY = 10;
+    private static final int INACTIVE_PRIORITY = 7;
     private static final float JUMP_DURATION = 1.5f * 1000;
     private static final float JUMP_HEIGHT_SCALAR = 0.3f;
     private final Entity target;

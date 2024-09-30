@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 public class ChargeTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(ChargeTask.class);
   private static final int ACTIVE_PRIORITY = 10;
-    private static final int INACTIVE_PRIORITY = 6;
+    private static final int INACTIVE_PRIORITY = 8;
   private final Entity target;
   private final float activationMinRange;
   private final float activationMaxRange;

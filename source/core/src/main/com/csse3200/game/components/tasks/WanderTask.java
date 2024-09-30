@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class WanderTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(WanderTask.class);
-
+  private static final int PRIORITY = 1;
   private final Vector2 wanderRange;
   private final float waitTime;
   private final float wanderSpeed;
@@ -36,7 +36,7 @@ public class WanderTask extends DefaultTask implements PriorityTask {
 
   @Override
   public int getPriority() {
-    return 1; // Low priority task, can be overridden by higher priority tasks.
+    return PRIORITY; // Low priority task, can be overridden by higher priority tasks.
   }
 
   @Override

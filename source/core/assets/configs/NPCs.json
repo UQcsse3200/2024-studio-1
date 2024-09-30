@@ -12,7 +12,7 @@
         "chaseSpeed": 2
       },
       "charge": {
-        "activationMinRange": 0,
+        "activationMinRange": 1,
         "activationMaxRange": 2,
         "chaseSpeed": 3,
         "waitTime": 0.2
@@ -124,7 +124,7 @@
       },
       "charge": {
         "activationMinRange": 0,
-        "activationMaxRange": 6,
+        "activationMaxRange": 5,
         "chaseSpeed": 2.5,
         "waitTime": 2
       }
@@ -164,7 +164,7 @@
         "chaseDistance": 5
       },
       "charge": {
-        "activationMinRange": 0,
+        "activationMinRange": 1,
         "activationMaxRange": 2,
         "chaseSpeed": 5,
         "waitTime": 2
@@ -199,7 +199,7 @@
         "chaseDistance": 5
       },
       "charge": {
-        "activationMinRange": 1.5,
+        "activationMinRange": 2,
         "activationMaxRange": 2.5,
         "chaseSpeed": 2.5,
         "waitTime": 0.2
@@ -235,7 +235,7 @@
       },
       "charge": {
         "activationMinRange": 4,
-        "activationMaxRange": 6,
+        "activationMaxRange": 5,
         "chaseSpeed": 3,
         "waitTime": 2
       }

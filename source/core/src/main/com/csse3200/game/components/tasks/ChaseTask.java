@@ -17,7 +17,7 @@ import com.csse3200.game.services.ServiceLocator;
  * Requires an entity with a PhysicsMovementComponent to function.
  */
 public class ChaseTask extends DefaultTask implements PriorityTask {
-  private static final int PRIORITY = 5;
+  private static final int PRIORITY = 4;
   private final Entity target;
   private final float viewDistance;
   private final float maxChaseDistance;

@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class RunAwayTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(RunAwayTask.class);
     private static final int ACTIVE_PRIORITY = 10;
-    private static final int INACTIVE_PRIORITY = 4;
+    private static final int INACTIVE_PRIORITY = 9;
     private final Entity target;
     private final float activationMinRange;
     private final float activationMaxRange;

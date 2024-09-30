@@ -68,7 +68,6 @@ public class ProjectileFactory extends LoadedFactory {
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
         projectile.setScale(stats.scaleX, stats.scaleY);
         projectile.getComponent(ColliderComponent.class).setDensity(1.5f);
-        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9), true, true);
         return projectile;
     }
 

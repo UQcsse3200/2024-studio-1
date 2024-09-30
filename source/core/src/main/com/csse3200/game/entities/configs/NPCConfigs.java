@@ -55,6 +55,7 @@ public class NPCConfigs {
         public float activationMinRange;
         public float activationMaxRange;
         public float chaseSpeed;
+        public float distanceMultiplier = 1;
         public float waitTime;
         public float cooldownTime;
       }

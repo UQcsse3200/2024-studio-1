@@ -43,6 +43,7 @@ public class RangeAttackComponent extends AttackComponent {
             type = ShootType.SPREAD;
         }
         projectileNames = new String[]{"projectile"};
+        this.setEnabled(false);
     }
 
     /**

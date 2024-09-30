@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
+import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.PhysicsEngine;
@@ -31,6 +32,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private final RaycastHit hit = new RaycastHit();
   private GameTime gameTime;
   private MovementTask movementTask;
+  private MeleeAttackComponent meleeAttackComponent;
 
   /**
    * Constructs a ChaseTask.
@@ -56,7 +58,15 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     super.start();
     this.gameTime = ServiceLocator.getTimeSource();
     startTime = gameTime.getTime();
-    movementTask = new MovementTask(target.getPosition()); // Create a movement task towards the target.
+
+    // Active the attack component
+    meleeAttackComponent = owner.getEntity().getComponent(MeleeAttackComponent.class);
+    if (meleeAttackComponent != null) {
+      meleeAttackComponent.setEnabled(true);
+    }
+
+    // Create a movement task to chase the target.
+    movementTask = new MovementTask(target.getPosition());
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);

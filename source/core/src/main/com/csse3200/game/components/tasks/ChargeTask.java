@@ -1,9 +1,11 @@
 package com.csse3200.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
+import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.PhysicsEngine;
@@ -28,6 +30,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private final float activationMinRange;
   private final float activationMaxRange;
   private final float chaseSpeed;
+  public final float distanceMultiplier;
   private final float waitTime;
   private final float cooldownTime;
   private final PhysicsEngine physics;
@@ -38,6 +41,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private MovementTask movementTask;
   private WaitTask waitTask;
   private Task currentTask;
+  private MeleeAttackComponent meleeAttackComponent;
 
   /**
    * Creates a ChargeTask.
@@ -50,6 +54,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     this.activationMinRange = config.activationMinRange;
     this.activationMaxRange = config.activationMaxRange;
     this.chaseSpeed = config.chaseSpeed;
+    this.distanceMultiplier = config.distanceMultiplier;
     this.waitTime = config.waitTime;
     this.cooldownTime = config.cooldownTime;
     physics = ServiceLocator.getPhysicsService().getPhysics();
@@ -65,6 +70,17 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     logger.debug("Starting to charge towards {}", target);
     super.start();
     Vector2 targetPos = target.getPosition();
+
+    // Adjust targetPos by multiplying the distance in the direction of the target
+    Vector2 direction = targetPos.cpy().sub(owner.getEntity().getPosition()).nor();
+    targetPos = owner.getEntity().getPosition()
+            .add(direction.scl(targetPos.dst(owner.getEntity().getPosition()) * distanceMultiplier));
+
+    // Active the attack component
+    meleeAttackComponent = owner.getEntity().getComponent(MeleeAttackComponent.class);
+    if (meleeAttackComponent != null) {
+      meleeAttackComponent.setEnabled(true);
+    }
 
     // Initialise tasks
     if (waitTask == null) {
@@ -82,6 +98,9 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
 
     // Trigger the run animation
     owner.getEntity().getEvents().trigger("run");
+
+    // Listen for collisions to stop charging
+    owner.getEntity().getEvents().addListener("collisionStart", this::onCollision);
   }
 
   /**
@@ -112,6 +131,15 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     this.owner.getEntity().getEvents().trigger("gesture");
   }
 
+  private void onCollision(Fixture thisFixture, Fixture otherFixture) {
+    // Check if the collision is with an NPC, player or obstacle
+    if (otherFixture.getFilterData().categoryBits == PhysicsLayer.NPC ||
+            otherFixture.getFilterData().categoryBits == PhysicsLayer.PLAYER ||
+            otherFixture.getFilterData().categoryBits == PhysicsLayer.OBSTACLE) {
+      startWaiting();
+    }
+  }
+
   /**
    * Stop the charge task and any current sub-task.
    */
@@ -120,6 +148,9 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     super.stop();
     if (currentTask != null) {
       currentTask.stop();
+    }
+    if (meleeAttackComponent != null) {
+      meleeAttackComponent.setEnabled(false);
     }
     lastExecutionTime = gameTime.getTime();
   }

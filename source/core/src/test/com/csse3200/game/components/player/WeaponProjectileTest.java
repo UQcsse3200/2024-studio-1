@@ -73,6 +73,7 @@ class WeaponProjectileTest {
         // create a weapon component
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
                 Collectible.Type.RANGED_WEAPON, 10, 5f, 1, maxAmmo, maxAmmo, 2);
+        weaponComponent.create();
         // Create test entity to attach weaponComponent
         Entity testEntity = new Entity();
         testEntity.addComponent(weaponComponent);
@@ -101,6 +102,7 @@ class WeaponProjectileTest {
         // create a weapon component
         WeaponComponent weaponComponent = new WeaponComponent(new Sprite(),
                 Collectible.Type.RANGED_WEAPON, 10, 5f, 1, 0, maxAmmo, 1);
+        weaponComponent.create();
         // Create test entity to attach weaponComponent
         Entity testEntity = new Entity();
         testEntity.addComponent(weaponComponent);

@@ -22,8 +22,8 @@ public class BossRoom extends EnemyRoom {
                 //Currently there are three random animals being spawned in base on the level the player is in. Bosses haven't been implemented thus using
                 //currently available animals.
                 List.of("Werewolf"),//boss 1
-                List.of("Minotaur"),//boss 2
-                List.of("Bear")// boss 3
+                List.of("Birdman"),//boss 2
+                List.of("Kitsune")// boss 3
         );
     }
 

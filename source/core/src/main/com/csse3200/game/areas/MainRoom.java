@@ -11,7 +11,7 @@ public class MainRoom extends EnemyRoom {
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
                 List.of("Snake", "Dog"),
-                List.of("Bear", "Snake", "Dino"),
+                List.of("Bear", "Snake", "Dino", "Dragon"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),
                 List.of("Bat", "Bat", "Bat"),

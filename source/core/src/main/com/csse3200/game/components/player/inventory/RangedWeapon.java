@@ -1,22 +1,27 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.components.player.WeaponComponent;
-import com.csse3200.game.entities.Entity;
 
 import java.util.logging.Logger;
 
 public abstract class RangedWeapon implements Collectible {
+    protected static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
 
-    private static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
+    protected String name;        // name of the weapon
+    protected String iconPath;    // path to the icon of the weapon
+    protected int damage;         // weapon damage
+    protected int range;          // range of the weapon
+    protected int fireRate;       // fire rate of the weapon
+    protected int ammo;           // current ammo left
+    protected int maxAmmo;        // maximum ammo
+    protected int reloadTime;     // reload time
 
-    private int damage;
-    private int range;
-    private int fireRate;
-    private int ammo; // current ammo left
-    private int maxAmmo;
-    private int reloadTime;
-
+    /**
+     * Get the Type of this item.
+     * The type determines how it ought to be used by the player.
+     * @return Type.RANGED_WEAPON
+     */
     @Override
     public Type getType() {
         return Type.RANGED_WEAPON;
@@ -26,57 +31,43 @@ public abstract class RangedWeapon implements Collectible {
     public void pickup(Inventory inventory) {
         logger.info("Picking up ranged weapon - no entity");
         inventory.setRanged(this);
-
-        // Add a Weapon Component
-        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this);
-        } else {
-            logger.warning("Inventory entity or WeaponComponent is null");
-        }
-    }
-
-    @Override
-    public void pickup(Inventory inventory, Entity itemEntity) {
-        logger.info("Picking up ranged weapon - with entity");
-        inventory.setRanged(this);
-
-        // Add a Weapon Component
-        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            logger.info("Setting ranged weapon in inventory");
-            inventory.getEntity().getComponent(WeaponComponent.class).updateWeapon(this, itemEntity);
-        } else {
-            logger.info("Inventory entity or WeaponComponent is null");
-        }
     }
 
     @Override
     public void drop(Inventory inventory) {
         inventory.resetRanged();
-
-        // Switch to default weapon (bare hands)
-        if (inventory.getEntity() != null && inventory.getEntity().getComponent(WeaponComponent.class) != null) {
-            inventory.getEntity().getComponent(WeaponComponent.class).dropRangeWeapon();
-        }
     }
 
     @Override
     public String getSpecification() {
-        return "ranged:" + getRangedSpecification();
+        return "ranged:" + getName();
     }
 
     /**
-     * Get the specification of this ranged weapon.
-     *
-     * @return the string representation of this ranged weapon.
+     * Get the name of the weapon.
+     * @return The name of the weapon.
      */
-    public abstract String getRangedSpecification();
+    @Override
+    public String getName() {
+        return name;
+    }
 
     /**
-     * Fire this weapon.
-     *
-     * @param direction The direction to fire it.
+     * Set the name of the weapon.
+     * @param name The name of the weapon.
      */
-    public abstract void shoot(Vector2 direction);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Get the ranged weapon icon.
+     * @return The ranged weapon icon.
+     */
+    @Override
+    public Texture getIcon() {
+        return new Texture(iconPath);
+    }
 
     public int getDamage() {
         return damage;
@@ -125,4 +116,6 @@ public abstract class RangedWeapon implements Collectible {
     public void setReloadTime(int reloadTime) {
         this.reloadTime = reloadTime;
     }
+
+    public abstract void shoot(Vector2 direction);
 }

@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
@@ -20,8 +17,6 @@ import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
  */
@@ -32,6 +27,8 @@ public class MainGameExitDisplay extends UIComponent {
   private Table table;
   private ImageButton pauseBtn;
   private Table pauseTable;
+  private SelectBox<String> actionSelect;
+  private SelectBox<String> keySelect;
 
   @Override
   public void create() {
@@ -82,6 +79,13 @@ public class MainGameExitDisplay extends UIComponent {
     TextButton restartBtn = new TextButton("Restart", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
 
+    Label keybindingsLabel = new Label("Keybindings : ", skin);
+    Label actionLabel = new Label("Action: ", skin);
+    actionSelect = new SelectBox<>(skin);
+    actionSelect.setItems(actions);
+    Label keyLabel = new Label("Key: ", skin);
+    keySelect = new SelectBox<>(skin);
+    keySelect.setItems(keys);
 
 
     //window = new Image(windowTexture);
@@ -132,6 +136,17 @@ public class MainGameExitDisplay extends UIComponent {
     pauseTable.add(exitBtn).padTop(BTN_SPACING);
     pauseTable.row();
 
+    pauseTable.row().padTop(10f);
+    pauseTable.add(keybindingsLabel);
+    pauseTable.row().padTop(10f);
+    pauseTable.add(actionLabel);
+    pauseTable.row();
+    pauseTable.add(actionSelect);
+    pauseTable.row();
+    pauseTable.add(keyLabel);
+    pauseTable.row();
+    pauseTable.add(keySelect);
+
     stage.addActor(table);
   }
 
@@ -142,9 +157,7 @@ public class MainGameExitDisplay extends UIComponent {
    */
   public void pauseGame() {
     MainGameScreen.isPaused = true;
-
-    List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-    logger.info("Game paused, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+    logger.info("Game paused, {}", ServiceLocator.getEntityService());
 
     stage.addActor(pauseTable);
     table.remove();
@@ -187,7 +200,7 @@ public class MainGameExitDisplay extends UIComponent {
        entities.add(coordinates);
     }
     String filePath = "configs/save.json";
-    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
+    FileLoader.writeClass(entities, filePath, FileLoader.Location.EXTERNAL);
     logger.debug("Game saved to: " + filePath);
   }
 

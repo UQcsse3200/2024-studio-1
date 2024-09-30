@@ -4,7 +4,6 @@ import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -43,10 +42,12 @@ public class NPCDeathHandler extends Component {
             isDead = true;
             deadEntities.add(entity.getId());
             // disable AI component to prevent further interaction
-            // entity.getComponent(AITaskComponent.class).setEnabled(false);
-            entity.getComponent(PhysicsMovementComponent.class).setEnabled(false);
-            entity.getComponent(HitboxComponent.class).setEnabled(false);
-            entity.getComponent(ColliderComponent.class).setEnabled(false);
+            for (var componentClass : List.of(AITaskComponent.class, PhysicsMovementComponent.class, HitboxComponent.class, ColliderComponent.class)) {
+                var component = entity.getComponent(componentClass);
+                if (component != null) {
+                    component.setEnabled(false);
+                }
+            }
 
             // Schedule entity removal after the death animation completes
             Timer.schedule(new Timer.Task() {

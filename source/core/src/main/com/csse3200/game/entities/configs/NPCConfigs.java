@@ -14,7 +14,7 @@ public class NPCConfigs {
   public NPCConfig dino = new NPCConfig();
   public NPCConfig minotaur = new NPCConfig();
   public NPCConfig dragon = new NPCConfig();
-  public BossConfig werewolf = new BossConfig();
+  public NPCConfig werewolf = new NPCConfig();
   public BossConfig birdman = new BossConfig();
   public BossConfig kitsune = new BossConfig();
 
@@ -29,6 +29,7 @@ public class NPCConfigs {
       public StraightWanderTaskConfig straightWander = null;
       public ChaseTaskConfig chase = null;
       public ChargeTaskConfig charge = null;
+      public JumpTaskConfig jump = null;
       public RunAwayTaskConfig runAway = null;
 
       public static class WanderTaskConfig {
@@ -54,8 +55,14 @@ public class NPCConfigs {
         public float waitTime;
       }
 
+      public static class JumpTaskConfig {
+        public float activationMinRange;
+        public float activationMaxRange;
+      }
+
       public static class RunAwayTaskConfig {
-        public int priority;
+        public float activationMinRange;
+        public float activationMaxRange;
         public float runSpeed;
         public float stopDistance;
         public float maxRunTime;

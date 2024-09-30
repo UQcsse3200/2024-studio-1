@@ -199,8 +199,8 @@
         "chaseDistance": 5
       },
       "charge": {
-        "activationMinRange": 2,
-        "activationMaxRange": 2.5,
+        "activationMinRange": 5,
+        "activationMaxRange": 5.5,
         "chaseSpeed": 2.5,
         "waitTime": 0.2
       }
@@ -264,34 +264,33 @@
     "health": 500,
     "baseAttack": 40,
     "isDirectional": true,
-    "waitTime": 1.5,
-    "chaseTime": 7,
-    "wanderMinRange": 10,
-    "chaseMinRange": 2,
-    "chaseMaxRange": 5,
-    "chargeMinRange": 5,
-    "chargeMaxRange": 10,
-    "jumpMinRange": 4,
-    "jumpMaxRange": 6,
-    "retreatMinRange": 0,
-    "retreatMaxRange": 2,
-    "aoeMinRange": 0,
-    "aoeMaxRange": 2,
-    "rangedMinRange": 0,
-    "rangedMaxRange": 0,
-    "rangedAttackNum": 0,
-    "fallbackState": "JUMP",
     "tasks": {
       "wander": {
+        "wanderRadius": 4,
+        "waitTime": 4,
+        "wanderSpeed": 0.4
       },
       "chase": {
-        "chaseSpeed": 2
+        "chaseSpeed": 2,
+        "viewDistance": 9,
+        "chaseDistance": 9.5
       },
       "charge": {
-        "chaseSpeed": 5
+        "activationMinRange": 5,
+        "activationMaxRange": 8,
+        "chaseSpeed": 3,
+        "waitTime": 2
+      },
+      "jump": {
+        "activationMinRange": 4,
+        "activationMaxRange": 6
       },
       "runAway": {
-        "runSpeed": 5
+        "activationMinRange": 0,
+        "activationMaxRange": 2,
+        "runSpeed": 3,
+        "stopDistance": 3,
+        "maxRunTime": 3
       }
     },
     "attacks": {

@@ -5,6 +5,7 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.GameTime;
@@ -23,6 +24,8 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private static final float JUMP_DURATION = 1.5f * 1000;
     private static final float JUMP_HEIGHT_SCALAR = 0.3f;
     private final Entity target;
+    private final float activationMinRange;
+    private final float activationMaxRange;
     private float jumpHeight;
     private Vector2 startPos;
     private Vector2 targetPos;
@@ -37,8 +40,10 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      *
      * @param target Entity to jump towards.
      */
-    public JumpTask(Entity target) {
+    public JumpTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.JumpTaskConfig config) {
         this.target = target;
+        this.activationMinRange = config.activationMinRange;
+        this.activationMaxRange = config.activationMaxRange;
     }
 
     @Override
@@ -97,6 +102,13 @@ public class JumpTask extends DefaultTask implements PriorityTask {
 
     @Override
     public int getPriority() {
-        return 10;
+        if (status == Status.ACTIVE) {
+            return ACTIVE_PRIORITY;
+        }
+        float dst = owner.getEntity().getPosition().dst(target.getPosition());
+        if (dst >= activationMinRange && dst <= activationMaxRange) {
+            return INACTIVE_PRIORITY;
+        }
+        return -1;
     }
 }

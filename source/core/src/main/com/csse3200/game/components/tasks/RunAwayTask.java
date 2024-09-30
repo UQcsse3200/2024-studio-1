@@ -37,8 +37,8 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
      */
     public RunAwayTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config) {
         this.target = target;
-        this.activationMinRange = 0;
-        this.activationMaxRange = 2;
+        this.activationMinRange = config.activationMinRange;
+        this.activationMaxRange = config.activationMaxRange;
         this.runSpeed = config.runSpeed;
         this.stopDistance = config.stopDistance;
         this.maxRunTime = config.maxRunTime * 1000;

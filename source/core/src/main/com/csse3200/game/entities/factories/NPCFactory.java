@@ -213,15 +213,13 @@ public class NPCFactory extends LoadedFactory {
    * @return entity
    */
   public Entity createWerewolf(Entity target) {
-    BossConfig config = configs.werewolf;
-    config.setDefaults();
-    BossAIComponent aiComponent = new BossAIComponent(target, config);
+    NPCConfigs.NPCConfig config = configs.werewolf;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
 
     // Add the BossHealthDialogueComponent to the werewolf
     werewolf.addComponent(new BossHealthDialogueComponent());
-
 
     return werewolf;
   }
@@ -326,7 +324,10 @@ public class NPCFactory extends LoadedFactory {
     if (tasks.charge != null) {
       aiComponent.addTask(new ChargeTask(target, tasks.charge));
     }
-
+    // Add jump task
+    if (tasks.jump != null) {
+      aiComponent.addTask(new JumpTask(target, tasks.jump));
+    }
     // Add run away task
     if (tasks.runAway != null) {
       aiComponent.addTask(new RunAwayTask(target, tasks.runAway));

@@ -22,7 +22,7 @@ public class PlayerActions extends Component {
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
     private boolean dead = false;
-    private float maxSpeed = 5.0f;
+    private float maxSpeed = 3.0f;
     private float speedPercentage;
 
     @Override
@@ -156,7 +156,7 @@ public class PlayerActions extends Component {
         return walkDirection;
     }
 
-    private void handleReroll(UsableItem reroll) {
+    public void handleReroll(UsableItem reroll) {
         if (itemPickupComponent.isInContact() && itemPickupComponent.getItem() != null) {
             use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
         }

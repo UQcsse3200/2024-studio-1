@@ -23,7 +23,7 @@ public class CombatStatsComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
     private final boolean canBeInvincible;
-    private final int maxHealth;
+    private int maxHealth;
     private int health;
     private int baseAttack;
     private int armor;
@@ -204,6 +204,17 @@ public class CombatStatsComponent extends Component {
     }
 
     /**
+     * Sets the entity's maximum health
+     *
+     * @param newMaxHealth updated maximum health
+     */
+    public void setMaxHealth(int newMaxHealth) {
+        if (newMaxHealth > 0){
+            this.maxHealth = newMaxHealth;
+        }
+    }
+
+    /**
      * Handles a hit from another entity by reducing the entity's health based on the attacker's base attack value.
      * Gives them invincibility frames if they can have any
      *
@@ -240,6 +251,7 @@ public class CombatStatsComponent extends Component {
                 entity.getEvents().trigger("death");
                 entity.getEvents().trigger("died");
                 entity.getEvents().trigger("checkAnimalsDead");
+                entity.getEvents().trigger("dummyDestroyed");
             }
         }
     }

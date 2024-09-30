@@ -18,7 +18,7 @@ public abstract class UsableItem implements Collectible {
         inventory.addItem(this);
 
         //Apply method just for testing purpose of Health items(Sprint 1)
-        // apply(inventory.getEntity());
+//        apply(inventory.getEntity());
 
         //FIXME This currently "uses" every item in the inventory at once.
         //inventory.getEntity().getEvents().addListener("use", () -> this.apply(inventory.getEntity()));

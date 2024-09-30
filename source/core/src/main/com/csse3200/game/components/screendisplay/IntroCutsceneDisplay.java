@@ -19,11 +19,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
+/**
+ * Creates the ui elements and functionality for the intro cutscene's ui.
+ */
 public class IntroCutsceneDisplay extends UIComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(IntroCutsceneDisplay.class);
     private static final int Y_PADDING_BUTTON = 40;
-    private static final int X_PADDING_BUTTON = 10;
+    private static final int X_PADDING_BUTTON = 20;
 
     private final GdxGame game;
     private Table table;
@@ -32,6 +35,11 @@ public class IntroCutsceneDisplay extends UIComponent {
     private Texture[] cutsceneTextures;
     private Image backgroundImage;
 
+    /**
+     * Make the component.
+     * @param game the overarching game, needed so that buttons can trigger navigation through
+     *             screens
+     */
     public IntroCutsceneDisplay(GdxGame game) {
         this.game = game;
     }
@@ -68,44 +76,76 @@ public class IntroCutsceneDisplay extends UIComponent {
     }
 
     private void loadTextures() {
-        cutsceneTextures = new Texture[4]; // Adjusted size based on the number of cutscenes
-        cutsceneTextures[0] = new Texture(Gdx.files.internal("images/screen/cutscene1.jpg"));
-        cutsceneTextures[1] = new Texture(Gdx.files.internal("images/screen/cutscene2.jpg"));
-        cutsceneTextures[2] = new Texture(Gdx.files.internal("images/screen/cutscene3.jpg"));
-        cutsceneTextures[3] = new Texture(Gdx.files.internal("images/screen/cutscene4.jpg"));
+        // Define the texture file paths in a fixed array
+        String[] texturePaths = {
+                "images/screen/cutscene1.jpg",
+                "images/screen/cutscene2.jpg",
+                "images/screen/cutscene3.jpg",
+                "images/screen/cutscene4.jpg"
+        };
+
+        // Initialize the array of textures
+        cutsceneTextures = new Texture[texturePaths.length];
+
+        // Load each texture in a loop using the predefined paths
+        for (int i = 0; i < texturePaths.length; i++) {
+            cutsceneTextures[i] = new Texture(Gdx.files.internal(texturePaths[i]));
+        }
     }
 
     private void updateCutscene() {
-        // Clear previous elements in the table
-        table.clear();
+        // Clear all actors from the stage
+        stage.clear();
 
         // Update the background image for the current page
         backgroundImage.setDrawable(new TextureRegionDrawable(new TextureRegion(cutsceneTextures[currentPage])));
+        stage.addActor(backgroundImage); // Re-add the background image to the stage
 
         // Add buttons below the image
         addActors();
     }
 
     private void addActors() {
-        // Add buttons container
-        Table buttonTable = new Table(); // Use a new table for button layout
+        // Clear previous buttons from the table
+        table.clear(); // Clear any existing buttons in the main table
+
+        // Check if we're on the last page
+        if (currentPage == cutsceneTextures.length - 1) {
+            // On the last page, add the "Start Game" button
+            // Create a new button table for the start button
+            Table buttonTable = new Table();
+            buttonTable.setFillParent(true);
+            buttonTable.bottom().padBottom(Y_PADDING_BUTTON); // Position the buttons at the bottom with padding
+
+            Button startGameBtn = new TextButton("Start Game", skin, "action");
+            startGameBtn.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    onStart(); // Start the game when the button is clicked
+                }
+            });
+
+            buttonTable.add(startGameBtn); // Add the start button
+            stage.addActor(buttonTable); // Add the button table to the stage
+            return; // Exit the method
+        }
+
+        // For all other pages, add buttons
+        Table buttonTable = new Table(); // Create a new table for buttons
         buttonTable.setFillParent(true); // Make sure the table takes the full screen
         buttonTable.bottom().padBottom(Y_PADDING_BUTTON); // Position the buttons at the bottom with padding
 
-        // Add "Skip to Game" button if not on the last page
-        if (currentPage < cutsceneTextures.length - 1) {
-            Button skipBtn = new TextButton("Skip", skin, "action");
-            skipBtn.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    logger.debug("Skip button pressed");
-                    onSkip();
-                }
-            });
-            buttonTable.add(skipBtn).padRight(X_PADDING_BUTTON); // Add skip button with padding to the right
-        }
+        // Show the "Skip" button if not on the last page
+        Button skipBtn = new TextButton("Skip", skin, "action");
+        skipBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                onSkip(); // Skip to the last page
+            }
+        });
+        buttonTable.add(skipBtn).padRight(X_PADDING_BUTTON); // Add skip button with padding to the right
 
-        // Add next button
+        // Show the "Next" button if not on the last page
         addNextButton(buttonTable); // Add the next button into buttonTable
 
         // Add button table to the stage
@@ -130,7 +170,6 @@ public class IntroCutsceneDisplay extends UIComponent {
     }
 
     private void onSkip() {
-        logger.info("Skip to last page");
         currentPage = cutsceneTextures.length - 1; // Skip to the last page
         updateCutscene(); // Update the cutscene
     }

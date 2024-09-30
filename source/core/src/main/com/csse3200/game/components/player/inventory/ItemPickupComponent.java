@@ -1,22 +1,16 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Timer;
-import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.ui.UIComponent;
-import com.csse3200.game.utils.RandomNumberGenerator;
 import java.util.Random;
+
 
 /**
  * A component that allows a player to interact with items

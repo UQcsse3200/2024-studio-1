@@ -1,4 +1,4 @@
-slash_1.png
+Knife.png
 size: 256, 1664
 format: RGBA8888
 filter: Linear,Linear
@@ -178,3 +178,10 @@ idle
   orig: 128, 128
   offset: 0, 0
   index: 25
+item
+  rotate: false
+  xy: 128, 1536
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 26

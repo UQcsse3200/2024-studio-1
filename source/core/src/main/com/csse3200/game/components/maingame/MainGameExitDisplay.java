@@ -184,6 +184,7 @@ public class MainGameExitDisplay extends UIComponent {
 
   public void saveGame() {
     Array<EntityCoordinates> entities = new Array<>();
+
     for (Entity entity : ServiceLocator.getEntityService().getEntities()) {
       // obtaining the id of the player to ensure that player's config is saved
       if (entity.getId() == 8) {
@@ -195,14 +196,15 @@ public class MainGameExitDisplay extends UIComponent {
       EntityCoordinates coordinates = new EntityCoordinates(x, y);
       entities.add(coordinates);
     }
-    SavePlayerService savePlayerService = new SavePlayerService();
-    savePlayerService.savePlayerState(player);
-    //exports the rooms and map data into the filePath below after Save button is pressed
+    if (player != null) {
+      SavePlayerService savePlayerService = new SavePlayerService();
+      savePlayerService.savePlayerState(player);
 
-
-    player.getEvents().trigger("saveMapLocation");
-    player.getEvents().trigger("saveMapData");
-    System.out.println("Saved Succesfully");
+      //exports the rooms and map data into the filePath below after Save button is pressed
+      player.getEvents().trigger("saveMapLocation");
+      player.getEvents().trigger("saveMapData");
+      System.out.println("Saved Succesfully");
+    }
     /*
 //    String filePath = "configs/save.json";
 //    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);

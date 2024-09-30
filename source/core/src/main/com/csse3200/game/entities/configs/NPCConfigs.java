@@ -16,7 +16,7 @@ public class NPCConfigs {
   public NPCConfig dragon = new NPCConfig();
   public NPCConfig werewolf = new NPCConfig();
   public BossConfig birdman = new BossConfig();
-  public BossConfig kitsune = new BossConfig();
+  public NPCConfig kitsune = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
     public TaskConfig tasks = new TaskConfig();
@@ -31,6 +31,8 @@ public class NPCConfigs {
       public ChargeTaskConfig charge = null;
       public JumpTaskConfig jump = null;
       public RunAwayTaskConfig runAway = null;
+      public RangeAttackTaskConfig rangeAttack = null;
+      public RangeAttackTaskConfig spreadRangeAttack = null;
 
       public static class WanderTaskConfig {
         public float wanderRadius;
@@ -71,6 +73,13 @@ public class NPCConfigs {
         public float runSpeed;
         public float stopDistance;
         public float maxRunTime;
+        public float cooldownTime;
+      }
+
+      public static class RangeAttackTaskConfig {
+        public float activationMinRange;
+        public float activationMaxRange;
+        public int attackNum;
         public float cooldownTime;
       }
     }

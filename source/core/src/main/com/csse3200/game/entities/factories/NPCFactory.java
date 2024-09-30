@@ -242,9 +242,8 @@ public class NPCFactory extends LoadedFactory {
    * @return the kitsune entity
    */
   public Entity createKitsune(Entity target) {
-    BossConfig config = configs.kitsune;
-    config.setDefaults();
-    BossAIComponent aiComponent = new BossAIComponent(target, config);
+    NPCConfigs.NPCConfig config = configs.kitsune;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
     Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
 
@@ -332,6 +331,14 @@ public class NPCFactory extends LoadedFactory {
     if (tasks.runAway != null) {
       aiComponent.addTask(new RunAwayTask(target, tasks.runAway));
     }
+    // Add range attack task
+    if (tasks.rangeAttack != null) {
+        aiComponent.addTask(new RangeAttackTask(target, tasks.rangeAttack, "single"));
+    }
+    if (tasks.spreadRangeAttack != null) {
+        aiComponent.addTask(new RangeAttackTask(target, tasks.spreadRangeAttack, "spread"));
+    }
+
 
     return aiComponent;
   }

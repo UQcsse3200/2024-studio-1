@@ -334,31 +334,45 @@
     "health": 500,
     "baseAttack": 40,
     "isDirectional": true,
-    "waitTime": 1.5,
-    "chaseTime": 5,
-    "wanderMinRange": 8,
-    "chaseMinRange": 6,
-    "chaseMaxRange": 8,
-    "retreatMinRange": 0,
-    "retreatMaxRange": 2,
-    "rangedMinRange": 2,
-    "rangedMaxRange": 4,
-    "rangedAttackNum": 8,
-    "ranged2MinRange": 4,
-    "ranged2MaxRange": 6,
-    "ranged2AttackNum": 4,
-    "fallbackState": "RANGE_ATTACK",
     "tasks": {
       "wander": {
+        "wanderRadius": 4,
+        "waitTime": 4,
+        "wanderSpeed": 0.4
       },
       "chase": {
-        "chaseSpeed": 1
+        "chaseSpeed": 1.5,
+        "viewDistance": 8,
+        "chaseDistance": 8.5,
+        "maxTime": 5
       },
       "charge": {
-        "chaseSpeed": 2
+          "activationMinRange": 2,
+          "activationMaxRange": 3,
+          "chaseSpeed": 3,
+          "waitTime": 2,
+          "cooldownTime": 8
       },
       "runAway": {
-        "runSpeed": 3
+        "activationMinRange": 0,
+        "activationMaxRange": 2,
+        "activationHealth": 1,
+        "runSpeed": 2,
+        "stopDistance": 5,
+        "maxRunTime": 3,
+        "cooldownTime": 6
+      },
+      "rangeAttack": {
+        "activationMinRange": 3,
+        "activationMaxRange": 6,
+        "attackNum": 10,
+        "cooldownTime": 2
+      },
+      "spreadRangeAttack": {
+        "activationMinRange": 5,
+        "activationMaxRange": 6,
+        "attackNum": 4,
+        "cooldownTime": 5
       }
     },
     "attacks": {

@@ -100,7 +100,7 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
         int maxHealth = owner.getEntity().getComponent(CombatStatsComponent.class).getMaxHealth();
         float healthPercentage = (float) currentHealth / maxHealth;
         if (isCooldownComplete() && distanceToTarget >= activationMinRange && distanceToTarget <= activationMaxRange
-                && healthPercentage < activationHealthPercentage) {
+                && healthPercentage <= activationHealthPercentage) {
             return INACTIVE_PRIORITY;
         }
         return -1;

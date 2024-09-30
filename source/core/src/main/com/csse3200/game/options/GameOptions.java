@@ -24,11 +24,11 @@ public class GameOptions {
     public enum Difficulty {
         EASY(1f), MEDIUM(0.75f), HARD(0.5f), TEST(1f);
 
+        private final float multiplier;
+
         Difficulty(float multiplier) {
             this.multiplier = multiplier;
         }
-
-        private float multiplier;
 
         /**
          * Get multiplier associated with this difficulty value. Initial player health and speed

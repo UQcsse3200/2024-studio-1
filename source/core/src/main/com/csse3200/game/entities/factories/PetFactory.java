@@ -259,7 +259,6 @@ public class PetFactory extends LoadedFactory {
   protected String[] getTextureAtlasFilepaths() {
     return new String[] {
             "images/npc/rat/rat.atlas",
-            "images/npc/dragon/dragon.atlas",
             "images/npc/snake/snake.atlas",
             "images/npc/minotaur/minotaur.atlas",
             "images/npc/bat/bat.atlas",
@@ -272,7 +271,6 @@ public class PetFactory extends LoadedFactory {
   protected String[] getTextureFilepaths() {
     return new String[]{
             "images/npc/rat/rat.png",
-            "images/npc/dragon/dragon.png",
             "images/npc/minotaur/minotaur.png",
             "images/npc/snake/snake.png",
             "images/npc/bat/bat.png",

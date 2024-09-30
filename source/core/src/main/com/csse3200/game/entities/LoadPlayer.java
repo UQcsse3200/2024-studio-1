@@ -10,7 +10,8 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.entities.factories.*;
+import com.csse3200.game.entities.factories.ItemFactory;
+import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -18,6 +19,9 @@ import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Objects;
 
@@ -33,6 +37,7 @@ public class LoadPlayer {
     private final InventoryComponent inventoryComponent;
     private final PlayerActions playerActions;
     private static final float playerScale = 0.75f;
+    private static final Logger logger = getLogger(LoadPlayer.class);
 
 
     /**
@@ -53,6 +58,7 @@ public class LoadPlayer {
      * @return entity
      */
     public Entity createPlayer(PlayerConfig config) {
+        logger.info("Creating player with health {}", config.health);
         Entity player = new Entity();
         addComponents(player, config);
         addWeaponsAndItems(player, config);
@@ -74,7 +80,12 @@ public class LoadPlayer {
         if (!Objects.equals(config.textureAtlasFilename, "images/player/player.atlas")) {
             player.setScale(2f, 2f);
         } else {
-            player.setScale(playerScale, playerScale);
+            if(config.name.equals("Bear")){
+                player.setScale(0.3f,0.3f);
+            }
+            else{
+                player.setScale(playerScale, playerScale);
+            }
         }
     }
 
@@ -85,7 +96,9 @@ public class LoadPlayer {
      * @param config the configuration object containing player settings.
      */
     public void addComponents(Entity player, PlayerConfig config) {
+        if(config.name.equals("bear")){
 
+        }
         player.addComponent(new NameComponent("Main Player"))
                 .addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
@@ -224,6 +237,23 @@ public class LoadPlayer {
                 animator.addAnimation("Attack_1", 0.35f, Animation.PlayMode.NORMAL);
                 animator.addAnimation("Hurt", 0.35f, Animation.PlayMode.NORMAL);
                 break;
+            case ("images/npc/bear/bear.atlas"):
+                System.out.println("Bear Animations Added");
+                animator.addAnimation("idle_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle_bottom", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle_top", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_top`", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_bottom", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("run_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("run_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("death_left", 0.1f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("death_right", 0.1f, Animation.PlayMode.LOOP);
+
         }
 
         return animator;

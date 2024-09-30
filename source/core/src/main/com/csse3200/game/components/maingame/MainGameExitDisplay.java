@@ -13,10 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
+import com.csse3200.game.entities.SavePlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +32,9 @@ public class MainGameExitDisplay extends UIComponent {
   private Table table;
   private ImageButton pauseBtn;
   private Table pauseTable;
+  private Entity player;
+
+
 
   @Override
   public void create() {
@@ -118,6 +121,8 @@ public class MainGameExitDisplay extends UIComponent {
                 Label saveLabel = new Label("Game saved!", skin);
                 pauseTable.add(saveLabel).padTop(BTN_SPACING);
                 pauseTable.row();
+ //               SavePlayerService savePlayer = new SavePlayerService();
+ //               savePlayer.savePlayerState(entity);
                 saveGame();
               }});
 
@@ -179,19 +184,31 @@ public class MainGameExitDisplay extends UIComponent {
 
   public void saveGame() {
     Array<EntityCoordinates> entities = new Array<>();
-    Entity player;
     for (Entity entity : ServiceLocator.getEntityService().getEntities()) {
-      if (entity.getId() == 8) player = entity;
+      // obtaining the id of the player to ensure that player's config is saved
+      if (entity.getId() == 8) {
+        player = entity;
+      }
       Vector2 pos = entity.getPosition();
-       float x = pos.x;
-       float y = pos.y;
-       EntityCoordinates coordinates = new EntityCoordinates(x, y);
-       entities.add(coordinates);
+      float x = pos.x;
+      float y = pos.y;
+      EntityCoordinates coordinates = new EntityCoordinates(x, y);
+      entities.add(coordinates);
     }
+    SavePlayerService savePlayerService = new SavePlayerService();
+    savePlayerService.savePlayerState(player);
+    //exports the rooms and map data into the filePath below after Save button is pressed
 
-    String filePath = "configs/save.json";
-    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
-    logger.debug("Game saved to: " + filePath);
+
+    player.getEvents().trigger("saveMapLocation");
+    player.getEvents().trigger("saveMapData");
+    System.out.println("Saved Succesfully");
+    /*
+//    String filePath = "configs/save.json";
+//    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
+//    logger.debug("Game saved to: " + filePath);
+
+     */
   }
 
   public void resize(int width, int height){

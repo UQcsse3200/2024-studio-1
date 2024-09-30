@@ -138,6 +138,7 @@ public class EntityService {
     public Entity[] getEntities() {
         return entities.toArray(Entity.class);
     }
+
     /**
      * Gets the player entity in the EntityService
      *
@@ -146,7 +147,7 @@ public class EntityService {
     public Entity getPlayer() {
         for (int i = 0; i < entities.size; i++) {
             Entity entity = entities.get(i);
-            if (entity.getComponent(NameComponent.class).getName().equals("player")) {
+            if (entity.getComponent(NameComponent.class).getName().equals("Main Player")) {
                 return entity;
             }
         }

@@ -16,13 +16,15 @@ import org.slf4j.LoggerFactory;
  */
 public class RunAwayTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(RunAwayTask.class);
-
+    private static final int ACTIVE_PRIORITY = 10;
+    private static final int INACTIVE_PRIORITY = 4;
     private final Entity target;
+    private final float activationMinRange;
+    private final float activationMaxRange;
     private final float runSpeed;  // Speed of movement
     private final float stopDistance;  // Distance to stop running
     private final float maxRunTime;  // Maximum time to run for
 
-    private Vector2 targetPos;
     private MovementTask movementTask;
     private GameTime gameTime;
     private long startTime;
@@ -35,6 +37,8 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
      */
     public RunAwayTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config) {
         this.target = target;
+        this.activationMinRange = 0;
+        this.activationMaxRange = 2;
         this.runSpeed = config.runSpeed;
         this.stopDistance = config.stopDistance;
         this.maxRunTime = config.maxRunTime * 1000;
@@ -50,9 +54,9 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
         // Calculate the direction away from the target
         Vector2 currentPos = owner.getEntity().getPosition();
         Vector2 directionAway = currentPos.cpy().sub(target.getPosition()).nor();
-        targetPos = currentPos.add(directionAway.scl(stopDistance));
+        Vector2 targetPos = currentPos.add(directionAway.scl(stopDistance));
 
-        // Initialize a MovementTask to move the entity away
+        // Initialise a MovementTask to move the entity away
         movementTask = new MovementTask(targetPos);
         movementTask.create(owner);
         movementTask.start();
@@ -82,6 +86,13 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
 
     @Override
     public int getPriority() {
-        return 10;
+        if (status == Status.ACTIVE) {
+            return ACTIVE_PRIORITY;
+        }
+        float distanceToTarget = owner.getEntity().getPosition().dst(target.getPosition());
+        if (distanceToTarget >= activationMinRange && distanceToTarget <= activationMaxRange) {
+            return INACTIVE_PRIORITY;
+        }
+        return -1;
     }
 }

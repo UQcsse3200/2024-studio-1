@@ -243,7 +243,6 @@ public class BossAIComponent extends Component implements TaskRunner {
         break;
       case CHARGE:
         changeTask(chargeTask);
-        chargeTask.triggerCharge(1);
         meleeAttackComponent.setEnabled(true);
         break;
       case CHASE:

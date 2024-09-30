@@ -53,8 +53,8 @@ class ChargeTaskTest {
 
         NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig();  // Configuring charge task
         config.priority = 10;
-        config.viewDistance = VIEW_DISTANCE;
-        config.chaseDistance = MAX_CHASE_DISTANCE;
+        config.activationMinRange = VIEW_DISTANCE;
+        config.activationMaxRange = MAX_CHASE_DISTANCE;
         config.chaseSpeed = CHASE_SPEED;
         config.waitTime = WAIT_TIME;
 

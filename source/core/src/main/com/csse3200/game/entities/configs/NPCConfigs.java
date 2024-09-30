@@ -50,9 +50,8 @@ public class NPCConfigs {
       }
 
       public static class ChargeTaskConfig {
-        public int priority;
-        public float viewDistance;
-        public float chaseDistance;
+        public float activationMinRange;
+        public float activationMaxRange;
         public float chaseSpeed;
         public float waitTime;
       }

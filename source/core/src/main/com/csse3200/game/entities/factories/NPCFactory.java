@@ -327,11 +327,6 @@ public class NPCFactory extends LoadedFactory {
       aiComponent.addTask(new ChargeTask(target, tasks.charge));
     }
 
-    // Add boss attack task
-    if (tasks.bossAttack != null) {
-      aiComponent.addTask(new BossAttackTask(target, tasks.bossAttack));
-    }
-
     // Add run away task
     if (tasks.runAway != null) {
       aiComponent.addTask(new RunAwayTask(target, tasks.runAway));

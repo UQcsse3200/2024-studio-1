@@ -53,7 +53,7 @@ public class AITaskComponent extends Component implements TaskRunner {
       return;
     }
 
-    if (desiredtask != currentTask) {
+    if (desiredtask != currentTask || currentTask.getStatus() == Task.Status.INACTIVE) {
       changeTask(desiredtask);
     }
     currentTask.update();

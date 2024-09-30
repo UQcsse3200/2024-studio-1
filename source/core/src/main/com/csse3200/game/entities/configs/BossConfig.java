@@ -32,9 +32,8 @@ public class BossConfig extends NPCConfigs.NPCConfig {
         this.tasks.chase.viewDistance = 20.0f;
         this.tasks.chase.chaseDistance = 20.0f;
 
-        this.tasks.charge.priority = 10;
-        this.tasks.charge.viewDistance = 20.0f;
-        this.tasks.charge.chaseDistance = 20.0f;
+        this.tasks.charge.activationMinRange = 4.0f;
+        this.tasks.charge.activationMaxRange = 6.0f;
         this.tasks.charge.waitTime = 1f;
 
         this.tasks.runAway.priority = 10;

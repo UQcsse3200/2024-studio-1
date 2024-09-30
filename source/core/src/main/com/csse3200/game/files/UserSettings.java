@@ -23,7 +23,7 @@ public class UserSettings {
 
   /**
    * Get the stored user settings
-   * @return Copy of the current settings or default settings if there was an error reading files
+   * @return Copy of the current settings
    */
   public static Settings get() {
     Settings defaultSettings = new Settings();

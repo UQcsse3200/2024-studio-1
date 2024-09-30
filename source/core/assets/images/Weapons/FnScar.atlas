@@ -1,4 +1,4 @@
-fn_scar.png
+FnScar.png
 size: 1536, 128
 format: RGBA8888
 filter: Linear,Linear
@@ -45,7 +45,7 @@ shootLeft
   orig: 128, 128
   offset: 0, 0
   index: 6
-plasma_blaster
+up
   rotate: false
   xy: 768, 0
   size: 128, 128

@@ -1,5 +1,6 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.extensions.GameExtension;
@@ -46,7 +47,13 @@ class InventoryComponentTest {
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        Knife knife = new Knife();
+        //Knife knife = new Knife();
+        MeleeWeapon knife = new MeleeWeapon(){
+            @Override
+            public void attack() {
+
+            }
+        };
         inventory.setMelee(knife);
 
         assertTrue(inventory.getMelee().isPresent());
@@ -59,7 +66,15 @@ class InventoryComponentTest {
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        RangedWeapon shotgun = new Shotgun();
+        RangedWeapon shotgun = new RangedWeapon() {
+            @Override
+            public void drop(Inventory inventory) {
+                super.drop(inventory);
+                throw new TestException();
+            }
+            @Override
+            public void shoot(Vector2 direction) {}
+        };
         inventoryComponent.pickup(shotgun);
 
         assertTrue(inventory.getRanged().isPresent());
@@ -68,16 +83,20 @@ class InventoryComponentTest {
 
     @Test
     public void testRangedDrop() {
+
+
         InventoryComponent inventoryComponent = new InventoryComponent();
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        RangedWeapon shotgun = new Shotgun() {
+        RangedWeapon shotgun = new RangedWeapon() {
             @Override
             public void drop(Inventory inventory) {
                 super.drop(inventory);
                 throw new TestException();
             }
+            @Override
+            public void shoot(Vector2 direction) {}
         };
 
         inventoryComponent.pickup(shotgun);
@@ -92,12 +111,15 @@ class InventoryComponentTest {
         new Entity().addComponent(inventoryComponent);
         Inventory inventory = inventoryComponent.getInventory();
 
-        MeleeWeapon knife = new Knife() {
+        MeleeWeapon knife = new MeleeWeapon() {
             @Override
             public void drop(Inventory inventory) {
                 super.drop(inventory);
                 throw new TestException();
             }
+
+            @Override
+            public void attack() {}
         };
 
         inventoryComponent.pickup(knife);

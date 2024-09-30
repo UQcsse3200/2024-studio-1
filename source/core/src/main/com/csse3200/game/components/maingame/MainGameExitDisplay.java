@@ -20,8 +20,6 @@ import com.csse3200.game.entities.SavePlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
  */
@@ -121,8 +119,6 @@ public class MainGameExitDisplay extends UIComponent {
                 Label saveLabel = new Label("Game saved!", skin);
                 pauseTable.add(saveLabel).padTop(BTN_SPACING);
                 pauseTable.row();
- //               SavePlayerService savePlayer = new SavePlayerService();
- //               savePlayer.savePlayerState(entity);
                 saveGame();
               }});
 
@@ -147,9 +143,7 @@ public class MainGameExitDisplay extends UIComponent {
    */
   public void pauseGame() {
     MainGameScreen.isPaused = true;
-
-    List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-    logger.info("Game paused, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+    logger.info("Game paused, {}", ServiceLocator.getEntityService());
 
     stage.addActor(pauseTable);
     table.remove();
@@ -184,7 +178,6 @@ public class MainGameExitDisplay extends UIComponent {
 
   public void saveGame() {
     Array<EntityCoordinates> entities = new Array<>();
-
     for (Entity entity : ServiceLocator.getEntityService().getEntities()) {
       // obtaining the id of the player to ensure that player's config is saved
       if (entity.getId() == 8) {

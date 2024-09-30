@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -121,8 +122,6 @@ public class MainGameExitDisplay extends UIComponent {
                 Label saveLabel = new Label("Game saved!", skin);
                 pauseTable.add(saveLabel).padTop(BTN_SPACING);
                 pauseTable.row();
- //               SavePlayerService savePlayer = new SavePlayerService();
- //               savePlayer.savePlayerState(entity);
                 saveGame();
               }});
 

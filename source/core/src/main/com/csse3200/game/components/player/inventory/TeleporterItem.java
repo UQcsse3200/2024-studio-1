@@ -1,21 +1,8 @@
 package com.csse3200.game.components.player.inventory;
-
 import com.badlogic.gdx.graphics.Texture;
-import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 
-/**
- * The bandage item class that can be used by player to increase health,
- * by a small health boost of 20.
- */
-public class Bandage extends UsableItem {
-    public static final int Small_Health_Boost = 20;
-
-    /**
-     * The pickup function handles the pickup of Bandage item into player's inventory.
-     *
-     * @param inventory The inventory to be put in.
-     */
+public class TeleporterItem extends UsableItem {
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
@@ -23,7 +10,7 @@ public class Bandage extends UsableItem {
 
     @Override
     public String getItemSpecification() {
-        return "bandage";
+        return "Teleporter";
     }
 
     /**
@@ -43,7 +30,7 @@ public class Bandage extends UsableItem {
      */
     @Override
     public String getName() {
-        return "Bandage";
+        return "Teleporter";
     }
 
     /**
@@ -53,7 +40,7 @@ public class Bandage extends UsableItem {
      */
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/bandage.png");
+        return new Texture("images/items/Big_Purple_Button.png");
     }
 
     /**
@@ -62,7 +49,7 @@ public class Bandage extends UsableItem {
      */
     @Override
     public Texture getMysteryIcon() {
-        return new Texture("images/items/mystery_box_green.png");
+        return new Texture("images/items/mystery_box_red.png");
     }
 
     /**
@@ -73,18 +60,7 @@ public class Bandage extends UsableItem {
      */
     @Override
     public void apply(Entity entity) {
-        increaseSmallBoost(entity);
+
     }
 
-    /**
-     * Increases health by using entity's CombatStatsComponent to add Health
-     *
-     * @param entity whose health is increased.
-     */
-    public void increaseSmallBoost(Entity entity) {
-        CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-        int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + Small_Health_Boost, combatStats.getMaxHealth());
-        combatStats.setHealth(newHealth);
-    }
 }

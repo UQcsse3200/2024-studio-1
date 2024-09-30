@@ -232,7 +232,12 @@ public class CombatStatsComponent extends Component {
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         } else {
             Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
-            int damage = attacker.getBaseAttack() + player.getComponent(CombatStatsComponent.class).buff;
+            int damage;
+            if (player != null) {
+                damage = attacker.getBaseAttack() + player.getComponent(CombatStatsComponent.class).buff;
+            } else {
+                damage = attacker.getBaseAttack();
+            }
             int newHealth = getHealth() - damage;
             setHealth(newHealth);
             //add animationcontroller

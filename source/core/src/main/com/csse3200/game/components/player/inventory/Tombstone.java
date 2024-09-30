@@ -7,6 +7,10 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.areas.GameArea;
+import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.entities.factories.PetFactory;
+import com.csse3200.game.services.ServiceLocator;
 import java.util.Random;
 
 
@@ -39,21 +43,22 @@ public class Tombstone extends BuffItem {
     @Override
     public void effect(Entity entity) {
 
-        //GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
+        GridPoint2 petEntityPosition = new GridPoint2(0, 0);
         //markEntityForRemoval(collisionItemEntity);
 
         int randomInt = this.random.nextInt(2);
-        Entity newItem = this.randomPetGenerator(randomInt);
-        //ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
-        //entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
+        Entity newPet = this.randomPetGenerator(randomInt);
+        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newPet, new GridPoint2(petEntityPosition), true, true);
 
 
     }
-    private Entity randomPetGenerator(int randomNum) {
+    private Entity randomPetGenerator(int randomNum, Entity target) {
         String specification = null;
         switch (randomNum) {
-            case 0 -> specification = "bat";
-            case 1 -> specification = "bear";
+            case 0:
+
+            case 1:
+                specification = "bear";
 //                case 2 -> specification = "item:medkit";
 //                case 3 -> specification = "buff:energydrink:High";
 //                case 4 -> specification = "buff:energydrink:Low";
@@ -61,6 +66,7 @@ public class Tombstone extends BuffItem {
         }
         //USE SPAWNENTITYAT() TO SPAWN EACH ANIMAL
         return collectibleFactory.createCollectibleEntity(specification);
+        //need this return function to return Entity
     }
 
     /**

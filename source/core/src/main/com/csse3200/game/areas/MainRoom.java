@@ -25,7 +25,7 @@ public class MainRoom extends EnemyRoom {
     protected List<List<String>> getItemSpecifications() {
         return List.of(
 //                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
-                List.of("item:targetdummy", "buff:energydrink:Medium"),
+                List.of("item:targetdummy", "buff:tombstone"),
                 List.of("melee:knife", "ranged:shotgun"),
                 List.of("item:beartrap", "buff:feather"),
                 List.of("melee:axe", "ranged:shotgun"),

@@ -54,9 +54,9 @@ public abstract class BigRedButton extends UsableItem {
         return new Texture("images/items/mystery_box_red.png");
     }
 
-    public void apply(MainGameArea gameArea, EnemyRoom Eroom) {
-        if (gameArea.getCurrentRoom() instanceof EnemyRoom) {
-            Eroom.isAllAnimalDead();
+    public void apply(MainGameArea gameArea) {
+        if (gameArea.getCurrentRoom() instanceof EnemyRoom enemyRoom) {
+            enemyRoom.isAllAnimalDead();
         }
     }
 }

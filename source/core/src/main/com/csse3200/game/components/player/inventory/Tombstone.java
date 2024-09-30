@@ -3,22 +3,17 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.areas.GameArea;
-import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.factories.PetFactory;
-import com.csse3200.game.services.ServiceLocator;
 import java.util.Random;
 
 
 public class Tombstone extends BuffItem {
-    Random random;
+    Random random = new Random();
 
     /**
-     * Returns the string of the buff item
+     * Returns the string of the tombstone item
      *
      * @return string of the item
      */
@@ -27,46 +22,40 @@ public class Tombstone extends BuffItem {
         return "tombstone";
     }
 
-    /**
-     * get the amount the damage is buffed by.
-     * @return the amount the damages is buff by.
-     */
-//    public int getBuff() {
-//        return buff;
-//    }
 
     /**
-     * Applies the damage buff to the player for each weapon
+     * Spawns pet entity to assist player
      *
      * @param entity The player entity
      */
     @Override
     public void effect(Entity entity) {
 
-        GridPoint2 petEntityPosition = new GridPoint2(0, 0);
+        GridPoint2 petEntityPosition = new GridPoint2(5, 7);
         //markEntityForRemoval(collisionItemEntity);
 
-        int randomInt = this.random.nextInt(2);
+        int randomInt = this.random.nextInt(1, 5);
         Entity newPet = this.randomPetGenerator(randomInt);
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newPet, new GridPoint2(petEntityPosition), true, true);
-
-
     }
-    private Entity randomPetGenerator(int randomNum, Entity target) {
-        String specification = null;
-        switch (randomNum) {
-            case 0:
 
-            case 1:
-                specification = "bear";
-//                case 2 -> specification = "item:medkit";
-//                case 3 -> specification = "buff:energydrink:High";
-//                case 4 -> specification = "buff:energydrink:Low";
-//                case 5 -> specification = "buff:energydrink:Medium";
+    /**
+     * Uses a random number generator to spawn a pet entity
+     * @param randomNum Random number generated from effect()
+     * @return creates pet entity
+     */
+    private Entity randomPetGenerator(int randomNum) {
+        String specification = 1;
+        Entity player = ServiceLocator.getEntityService().getPlayer();
+        switch (randomNum) {
+            case 1 -> specification = "Rat";
+            case 2 -> specification = "Bear";
+            case 3 -> specification = "Snake";
+            case 4 -> specification = "Bat";
+            case 5 -> specification = "Dog";
+            case 6 -> specification = "Minotaur";
         }
-        //USE SPAWNENTITYAT() TO SPAWN EACH ANIMAL
-        return collectibleFactory.createCollectibleEntity(specification);
-        //need this return function to return Entity
+        return new PetFactory().create(specification, player);
     }
 
     /**

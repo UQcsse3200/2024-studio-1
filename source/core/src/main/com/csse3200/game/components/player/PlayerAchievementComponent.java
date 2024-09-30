@@ -13,10 +13,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-
+/**
+ * Handles achievements accomplished by player throughout the game and
+ * informs the users through a text display for 1 second on the screen.
+ */
 public class PlayerAchievementComponent extends UIComponent {
+    /**
+     * Contains the name and the image of achievement collected
+     */
     public HashMap<String, String> achievements;
     public ArrayList<String> energyDrinksCollected;
+
+    /**
+     * Constructs an Achievement component to an Entity by reading the achievements
+     * gained through previous games
+     */
     public PlayerAchievementComponent() {
         energyDrinksCollected = new ArrayList<>();
         if (FileLoader.readClass(HashMap.class, "configs/achievements.json",
@@ -30,10 +41,9 @@ public class PlayerAchievementComponent extends UIComponent {
         }
     }
 
-
     /**
      * Gets the map of achievements
-     * @return
+     * @return a map containing the achievement
      */
     public HashMap<String, String> getAchievements() {
         return achievements;
@@ -45,8 +55,10 @@ public class PlayerAchievementComponent extends UIComponent {
         //Add event handling
         entity.getEvents().addListener("updateSpeedPercentage", this::handleEnergyDrinkAchievement);
         entity.getEvents().addListener("defeatedEnemy",  this::handleDefeatedEnemyAchievement);
-        entity.getEvents().addListener("addToInventory", ()-> addAchievement("First inventory collectible", "images/npc/birdman.png"));
-        entity.getEvents().addListener("itemUsed", () -> addAchievement("First item used", "images/npc/birdman.png"));
+        entity.getEvents().addListener("addToInventory", () ->
+                addAchievement("First inventory collectible", "images/mystery_box_blue.png"));
+        entity.getEvents().addListener("itemUsed", () ->
+                addAchievement("First item used", "images/mystery_box_blue.png"));
         entity.getEvents().addListener("updateCoins", this::handleCoinsAchievement);
     }
 
@@ -58,7 +70,7 @@ public class PlayerAchievementComponent extends UIComponent {
 
 
     /**
-     * A method to handle whether an energy drink achievement has been obtained. It is called any time an energy drink
+     * Handles whether an energy drink achievement has been obtained. It is called any time an energy drink
      */
     public void handleEnergyDrinkAchievement(float speedPercentage, String speedType) {
         if (energyDrinksCollected.contains(speedType)) {
@@ -72,18 +84,48 @@ public class PlayerAchievementComponent extends UIComponent {
         }
     }
 
+    /**
+     * Handles achievements for when an enemy is defeated.
+     * @param deadCount the amount of animals defeated
+     */
     public void handleDefeatedEnemyAchievement(int deadCount) {
-        if (deadCount == 1) {
-            addAchievement("First defeated enemey", "images/items/energy_drink_blue.png");
-        } else if (deadCount == 10) {
-            addAchievement("10 enemies defeated", "images/items/energy_drink_blue.png");
+
+        switch (deadCount) {
+            case 1:
+                addAchievement("First defeated enemy", "images/items/energy_drink_blue.png");
+                break;
+            case 10:
+                addAchievement("10 enemies defeated", "images/items/energy_drink_blue.png");
+                break;
+            case 100:
+                addAchievement("100 enemies defeated", "images/items/mystery_box_green.png");
+                break;
+            case 1000:
+                addAchievement("1000 enemies defeated", "images/items/mystery_box_green.png");
+                break;
+            default:
+                // Handle other cases or do nothing
+                break;
         }
     }
 
+    /**
+     * Handles achievements for coins collected throught a game
+     */
     public void handleCoinsAchievement() {
         int numCoins = entity.getComponent(CoinsComponent.class).getCoins();
-        if (numCoins >= 100) {
-            addAchievement("Scored 100 points", "images/npc/birdman.png");
+        switch (numCoins) {
+            case 100:
+                addAchievement("Scored 100 coins", "images/items/coin.png");
+                break;
+            case 1000:
+                addAchievement("scored 1000 coins", "images/items/coin.png");
+                break;
+            case 10000:
+                addAchievement("scored 10000 coins", "images/items/coin.png");
+                break;
+            default:
+                break;
         }
     }
 

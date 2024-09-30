@@ -76,11 +76,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      * for the items listed below.
      */
     void setHeading() {
-        //CharSequence headingText = "Collected:";
-        //heading = new Label(headingText, skin, "small");
-        //inventoryTable.add(heading);
         stage.addActor(inventoryTable);
-        //inventoryTable.row();
     }
 
     /**
@@ -102,8 +98,6 @@ public class PlayerInventoryDisplay extends UIComponent {
     private void addItem(String itemName, Texture itemIcon) {
         // initialise the image, the name and the quantity as Label
         Image icon = new Image(itemIcon);
-        //Label nameLabel = new Label(itemName, skin, "small");
-        //nameLabel.setColor(Color.WHITE);
         Label quantityLabel = new Label(" x0", skin, "small");
         quantityLabel.setColor(Color.WHITE);
 

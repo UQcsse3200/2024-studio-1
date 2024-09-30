@@ -32,84 +32,84 @@ repeat: none
   orig: 140, 140
   offset: 0, 0
   index: -1
-0010
+0001_npc
   rotate: false
   xy: 143, 711
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0010_boss
+0010
   rotate: false
   xy: 285, 853
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0010_gambling
+0010_boss
   rotate: false
   xy: 1, 427
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0011
+0010_gambling
   rotate: false
   xy: 143, 569
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0011_gambling
+0010_npc
   rotate: false
   xy: 285, 711
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0100
+0011
   rotate: false
   xy: 427, 853
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0100_boss
+0100
   rotate: false
   xy: 1, 285
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0100_gambling
+0100_boss
   rotate: false
   xy: 143, 427
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0101
+0100_gambling
   rotate: false
   xy: 285, 569
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0101_gambling
+0100_npc
   rotate: false
   xy: 427, 711
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0110
+0101
   rotate: false
   xy: 569, 853
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-0110_gambling
+0110
   rotate: false
   xy: 1, 143
   size: 140, 140
@@ -123,28 +123,28 @@ repeat: none
   orig: 140, 140
   offset: 0, 0
   index: -1
-0111_gambling
+1000
   rotate: false
   xy: 285, 427
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-1000
+1000_boss
   rotate: false
   xy: 427, 569
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-1000_boss
+1000_gambling
   rotate: false
   xy: 569, 711
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-1000_gambling
+1000_npc
   rotate: false
   xy: 711, 853
   size: 140, 140
@@ -158,93 +158,44 @@ repeat: none
   orig: 140, 140
   offset: 0, 0
   index: -1
-1001_gambling
+1010
   rotate: false
   xy: 143, 143
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-1010
+1011
   rotate: false
   xy: 285, 285
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-1010_gambling
+1100
   rotate: false
   xy: 427, 427
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-1011
+1101
   rotate: false
   xy: 569, 569
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-1011_gambling
+1110
   rotate: false
   xy: 711, 711
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-1100
-  rotate: false
-  xy: 853, 853
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-1100_gambling
-  rotate: false
-  xy: 143, 1
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-1101
-  rotate: false
-  xy: 285, 143
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-1101_gambling
-  rotate: false
-  xy: 427, 285
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-1110
-  rotate: false
-  xy: 569, 427
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-1110_gambling
-  rotate: false
-  xy: 711, 569
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
 1111
   rotate: false
-  xy: 853, 711
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-1111_gambling
-  rotate: false
-  xy: 285, 1
+  xy: 853, 853
   size: 140, 140
   orig: 140, 140
   offset: 0, 0

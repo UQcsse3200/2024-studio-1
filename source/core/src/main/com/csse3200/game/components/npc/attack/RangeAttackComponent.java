@@ -24,6 +24,15 @@ public class RangeAttackComponent extends AttackComponent {
 
     private final ProjectileFactory projectileFactory = new ProjectileFactory();
 
+    /**
+     * Makes a ranged attack component
+     *
+     * @param target the player
+     * @param attackRange the range that animals begin to shoot projectiles
+     * @param attackRate the rate of shooting
+     * @param shootType determine single shot or spread shot
+     8 @param effectConfigs the list of effects that apply on target
+     */
     public RangeAttackComponent(Entity target, float attackRange, float attackRate, int shootType,
                                 NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
         super(target, attackRange, attackRate, effectConfigs);
@@ -36,6 +45,11 @@ public class RangeAttackComponent extends AttackComponent {
         projectileNames = new String[]{"projectile"};
     }
 
+    /**
+     * Change the animation ID for controlling animations
+     *  new id must be within number of animations available
+     * @param i new animationID
+     */
     public void setAnimationID(int i) {
         animationID = i;
         if (attackTriggers != null) {
@@ -43,10 +57,17 @@ public class RangeAttackComponent extends AttackComponent {
         }
     }
 
+    /**
+     * return animationID
+     * @return animationID
+     */
     public int getAnimationID() {
         return animationID;
     }
 
+    /**
+     * Base create function to overwrite projectileNames and attackTriggers for different projectile animations
+     */
     @Override
     public void create() {
         Entity baseEntity = this.getEntity();
@@ -147,6 +168,11 @@ public class RangeAttackComponent extends AttackComponent {
         latestProjectile = projectile;
     }
 
+    /**
+     * Update the directional component to be either left or right with respect to target
+     * @param projectile projectile entity
+     * @param direction direction that projectile is flying toward
+     */
     private void updateDirection(Entity projectile, Vector2 direction) {
         if (direction.x >= 0) {
             projectile.getComponent(DirectionalNPCComponent.class).setDirection("right");
@@ -188,6 +214,9 @@ public class RangeAttackComponent extends AttackComponent {
     }
 }
 
+/**
+ * Enum type that control different shooting methods
+ */
 enum ShootType {
     SINGLE, // Single shot
     SPREAD, // Spread shot

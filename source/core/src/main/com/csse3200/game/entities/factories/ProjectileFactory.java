@@ -61,6 +61,13 @@ public class ProjectileFactory extends LoadedFactory {
         return animator;
     }
 
+    /**
+     * Simple create function for external use
+     * @param specification name of projectile
+     * @param direction direction of movement
+     * @param parentPosition position of shooting entity
+     * @return a projectile entity with given spec
+     */
     public Entity create(String specification, Vector2 direction, Vector2 parentPosition) {
         return switch (specification) {
             case "dragonProjectile" -> this.createDragonProjectile(direction, parentPosition);
@@ -70,6 +77,12 @@ public class ProjectileFactory extends LoadedFactory {
         };
     }
 
+    /**
+     * Create a dragon projectile with predefined components and animations.
+     * @param direction direction of movement
+     * @param parentPosition position of Dragon
+     * @return a dragon projectile entity with given spec
+     */
     public Entity createDragonProjectile(Vector2 direction, Vector2 parentPosition) {
         ProjectileConfigs.BaseProjectileConfig config = configs.dragonProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
@@ -79,6 +92,12 @@ public class ProjectileFactory extends LoadedFactory {
         return dragonProjectile;
     }
 
+    /**
+     * Create a kitsune projectile type 1 with predefined components and animations.
+     * @param direction direction of movement
+     * @param parentPosition position of Kitsune
+     * @return a kitsune projectile type 1 entity with given spec
+     */
     public Entity createKitsuneProjectile1(Vector2 direction, Vector2 parentPosition) {
         ProjectileConfigs.BaseProjectileConfig config = configs.kitsuneProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/kitsune/fire1.atlas", config.animations);
@@ -88,6 +107,12 @@ public class ProjectileFactory extends LoadedFactory {
         return kitsuneProjectile;
     }
 
+    /**
+     * Create a kitsune projectile type 2 with predefined components and animations.
+     * @param direction direction of movement
+     * @param parentPosition position of Kitsune
+     * @return a kitsune projectile type 2 entity with given spec
+     */
     public Entity createKitsuneProjectile2(Vector2 direction, Vector2 parentPosition) {
         ProjectileConfigs.BaseProjectileConfig config = configs.kitsuneProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/kitsune/fire2.atlas", config.animations);
@@ -98,10 +123,14 @@ public class ProjectileFactory extends LoadedFactory {
     }
 
     /**
-     * Makes a new Entity with projectile components.
-     *
-     * @param stats     Contains all the re-usable projectile configurations. See ProjectileConfig.
-     * @param direction Direction of shot projectile.
+     * Makes a new Entity with projectile components. This is the newer version that support directional animations,
+     *      custom projectile configs loaded from json files.
+     * @param name name of projectile
+     * @param stats projectile's stats
+     * @param direction direction of movement
+     * @param parentPosition position of shooting entity
+     * @param animator The animator component for the projectile
+     * @return the created projectile entity
      */
     public Entity createProjectile(String name, ProjectileConfigs.BaseProjectileConfig stats,
                                    Vector2 direction, Vector2 parentPosition,

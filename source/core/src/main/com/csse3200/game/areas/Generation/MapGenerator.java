@@ -235,7 +235,10 @@ public class MapGenerator {
         List<String> rooms = new ArrayList<>(roomDetails.keySet());
 
         // NPC Room
-        setRoom(rooms, setRooms, NPCROOM);
+        //setRoom(rooms, setRooms, NPCROOM);
+        details = roomDetails.get("1_0");
+        details.put("room_type", NPCROOM);
+        setRooms.add("1_0");
         // Gambling Room
         setRoom(rooms, setRooms, GAMEROOM);
     }

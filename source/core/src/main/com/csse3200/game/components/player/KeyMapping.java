@@ -62,9 +62,25 @@ public class KeyMapping {
          * The player action to jump to boss room.
          */
         ENTER_BOSS,
+
+        /**
+         * The player action to pick up an item
+         */
         PICK_UP,
+
+        /**
+         * The player action to use a reroll item
+         */
         RE_ROLL,
-        PURCHASE_ITEM
+
+        /**
+         * The player action to attempt to purchase a buyable item
+         */
+        PURCHASE_ITEM,
+        /**
+         * Necromancer Target Switching 
+         */
+        NECROMANCER_BINDING
     }
 
     /**
@@ -99,6 +115,7 @@ public class KeyMapping {
             keyMap.put(Input.Keys.E, PICK_UP);
             keyMap.put(Input.Keys.R, RE_ROLL);
             keyMap.put(Input.Keys.P, PURCHASE_ITEM);
+            keyMap.put(Input.Keys.Q, NECROMANCER_BINDING);
             this.keyMap = keyMap;
 
     }

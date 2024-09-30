@@ -57,6 +57,8 @@ public class ItemFactory {
             case "reroll" -> createReroll();
             case "targetdummy" -> createTargetDummy();
             case "beartrap" -> createBearTrap();
+            case "heart" -> createHeart();
+            case "feather" -> createFeather();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -117,8 +119,24 @@ public class ItemFactory {
         return new TargetDummy();
     }
 
+    /**
+     * Creates a Bear trap that provides damage to the enemy entity upon collision.
+     * @return Bear Trap item
+     */
     private Collectible createBearTrap() {
         return new BearTrap();
+    }
+
+    /**
+     * Creates a Heart item that increases the player's maximum health
+     * @return Heart item
+     */
+    private Collectible createHeart() {
+        return new Heart();
+    }
+
+    private Collectible createFeather() {
+        return new Feather();
     }
 }
 

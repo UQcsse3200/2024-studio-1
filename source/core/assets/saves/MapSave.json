@@ -5,6 +5,10 @@
 }
 {
 	class: java.lang.String
+	value: 0_-1
+}
+{
+	class: java.lang.String
 	value: 0_0
 }
 ]

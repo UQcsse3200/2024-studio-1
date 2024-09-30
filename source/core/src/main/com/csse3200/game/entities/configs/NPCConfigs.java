@@ -63,6 +63,7 @@ public class NPCConfigs {
       public static class RunAwayTaskConfig {
         public float activationMinRange;
         public float activationMaxRange;
+        public float activationHealth;
         public float runSpeed;
         public float stopDistance;
         public float maxRunTime;

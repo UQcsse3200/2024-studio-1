@@ -288,6 +288,7 @@
       "runAway": {
         "activationMinRange": 0,
         "activationMaxRange": 2,
+        "activationHealth": 0.2,
         "runSpeed": 3,
         "stopDistance": 3,
         "maxRunTime": 3

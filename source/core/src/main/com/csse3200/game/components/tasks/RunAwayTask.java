@@ -3,6 +3,7 @@ package com.csse3200.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.services.GameTime;
@@ -21,6 +22,7 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
     private final Entity target;
     private final float activationMinRange;
     private final float activationMaxRange;
+    private final float activationHealthPercentage;
     private final float runSpeed;  // Speed of movement
     private final float stopDistance;  // Distance to stop running
     private final float maxRunTime;  // Maximum time to run for
@@ -39,6 +41,7 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
         this.target = target;
         this.activationMinRange = config.activationMinRange;
         this.activationMaxRange = config.activationMaxRange;
+        this.activationHealthPercentage = config.activationHealth;
         this.runSpeed = config.runSpeed;
         this.stopDistance = config.stopDistance;
         this.maxRunTime = config.maxRunTime * 1000;
@@ -90,7 +93,11 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
             return ACTIVE_PRIORITY;
         }
         float distanceToTarget = owner.getEntity().getPosition().dst(target.getPosition());
-        if (distanceToTarget >= activationMinRange && distanceToTarget <= activationMaxRange) {
+        int currentHealth = owner.getEntity().getComponent(CombatStatsComponent.class).getHealth();
+        int maxHealth = owner.getEntity().getComponent(CombatStatsComponent.class).getMaxHealth();
+        float healthPercentage = (float) currentHealth / maxHealth;
+        if (distanceToTarget >= activationMinRange && distanceToTarget <= activationMaxRange
+                && healthPercentage < activationHealthPercentage) {
             return INACTIVE_PRIORITY;
         }
         return -1;

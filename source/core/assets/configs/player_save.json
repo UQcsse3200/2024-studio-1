@@ -1,8 +1,13 @@
 {
-  "name": "default",
-  "health": 60,
-  "coins": 0,
-  "textureFilename": "images/player/player.png",
-  "textureAtlasFilename": "images/player/player.atlas",
-  "items": ["bandage","energydrink"]
+health: 75
+name: necromancer
+items: []
+speed: {
+	x: 2.25
+	y: 2.25
+}
+melee: melee:axe
+ranged: ranged:shotgun
+textureFilename: images/player/player.png
+textureAtlasFilename: images/player/player.atlas
 }

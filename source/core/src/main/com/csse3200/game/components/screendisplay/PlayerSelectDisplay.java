@@ -3,8 +3,9 @@ package com.csse3200.game.components.screendisplay;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
@@ -12,6 +13,7 @@ import com.csse3200.game.GdxGame.ScreenType;
 import com.csse3200.game.actors.StatBar;
 import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,7 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float STAT_TABLE_PADDING = 2f;
     private static final float BAR_HEIGHT = 20;
     private static final float PROPORTION = 0.9f;
+    private static final float X_PADDING = 10f;
 
     /**
      * Make the component.
@@ -52,7 +55,7 @@ public class PlayerSelectDisplay extends UIComponent {
     }
 
     /**
-     * Populate the stage with player images and buttons to select them.
+     * Populate the stage with player animations and buttons to select them.
      */
     private void addActors() {
         rootTable = new Table();
@@ -62,12 +65,17 @@ public class PlayerSelectDisplay extends UIComponent {
         Map<String, PlayerConfig> configs =
                 PlayerSelection.getPlayerConfigs(Arrays.stream(PlayerSelection.PLAYERS).toList());
 
-        // Add images for each player
         configs.forEach((filename, config) -> {
-            TextureRegion idleTexture = new TextureAtlas(config.textureAtlasFilename)
-                    .findRegion("idle");
-            Image playerImage = new Image(idleTexture);
-            rootTable.add(playerImage);
+            String textureAtlasFilename = config.textureAtlasFilename;
+
+            // Create new AnimationRenderComponent to control animations for each player
+            AnimationRenderComponent animator =
+                    new AnimationRenderComponent(new TextureAtlas(textureAtlasFilename));
+
+            PlayerSelectAnimation animatedImage = new PlayerSelectAnimation(animator, config.textureAtlasFilename);
+            animatedImage.startAnimation();
+
+            rootTable.add(animatedImage).padLeft(X_PADDING).padRight(X_PADDING);
         });
 
         // Add stat bars
@@ -83,7 +91,7 @@ public class PlayerSelectDisplay extends UIComponent {
         // Add buttons to choose each player
         rootTable.row().fillX();
         configs.forEach((filename, config) -> {
-            TextButton button = new TextButton("Choose %s".formatted(config.name), skin, "action");
+            TextButton button = new TextButton("%s".formatted(config.name), skin, "action");
             button.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {

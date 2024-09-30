@@ -6,12 +6,12 @@ import com.csse3200.game.entities.factories.NPCFactory;
 
 import java.util.List;
 
-public class MainRoom extends BaseRoom {
+public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
                 List.of("Snake", "Dog"),
-                List.of("Bear", "Snake", "Dino"),
+                List.of("Bear", "Snake", "Dino", "Dragon"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),
                 List.of("Bat", "Bat", "Bat"),
@@ -24,14 +24,16 @@ public class MainRoom extends BaseRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-                List.of("buff:energydrink:High:mystery", "item:damagebuff"),
+//                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
+                List.of("item:targetdummy", "buff:energydrink:Medium"),
+                List.of("melee:knife", "ranged:shotgun"),
+                List.of("item:beartrap", "buff:feather"),
                 List.of("melee:axe", "ranged:shotgun"),
                 List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High"),
                 List.of("item:shieldpotion", "ranged:shotgun", "melee:knife", "item:medkit", "buff:energydrink:Medium"),
                 List.of("melee:knife", "item:bandage", "ranged:shotgun", "item:shieldpotion", "item:medkit"),
                 List.of("buff:energydrink:Medium", "item:shieldpotion", "ranged:shotgun", "melee:knife", "item:bandage"),
                 List.of("item:medkit", "melee:knife", "buff:energydrink:High", "ranged:shotgun", "item:shieldpotion")
-                
         );
     }
 

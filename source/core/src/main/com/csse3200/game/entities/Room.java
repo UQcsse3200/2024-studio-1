@@ -22,11 +22,11 @@ public interface Room {
      */
     void removeRoom();
 
-    public boolean isAllAnimalDead();
-
     public boolean getIsRoomComplete();
 
     public void setIsRoomComplete();
+
+    public void checkIfRoomComplete();
 }
 
 

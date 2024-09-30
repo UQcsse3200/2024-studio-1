@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.util.EnumMap;
 
 import static com.csse3200.game.files.FileLoader.Location.EXTERNAL;
+import static com.csse3200.game.files.FileLoader.Location.LOCAL;
 import static com.csse3200.game.files.FileLoader.fileExists;
 import static com.csse3200.game.services.ServiceLocator.getResourceService;
 
@@ -49,7 +50,7 @@ public class MainMenuDisplay extends UIComponent {
      */
     private static boolean loadFilesExist() {
         for (String path : MainMenuScreen.SAVE_PATHS) {
-            if (!fileExists(path, EXTERNAL)) {
+            if (!fileExists(path, LOCAL)) {
                 logger.info("Save file not found: {}", path);
                 return false;
             }

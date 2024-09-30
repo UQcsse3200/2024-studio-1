@@ -136,22 +136,15 @@ public class MainGameScreen extends ScreenAdapter {
 
         logger.debug("Initialising main game screen entities");
 
-        MainGameLevelFactory levelFactory = new MainGameLevelFactory();
+        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad);
 
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
-            new MainGameArea(levelFactory, player);
+            new MainGameArea(levelFactory, player, shouldLoad);
         }
     }
-    // TODO implement loading game.
-    //   public void loadMap(String fileName) {
-//       MapLoadConfig mapLoad = FileLoader.readClass(MapLoadConfig.class, fileName);
-//       List<String> seedRoom = mapLoad.savedMap;
-//       map.mapData.setMapSeed(seedRoom.getFirst());
-//       seedRoom.remove(1);
-//       for (String room : seedRoom) {
-//       }
+
     @Override
     public void render(float delta) {
 
@@ -185,8 +178,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     @Override
     public void pause() {
-        List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Game paused, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+        logger.info("Game paused, {}", ServiceLocator.getEntityService());
     }
 
     @Override

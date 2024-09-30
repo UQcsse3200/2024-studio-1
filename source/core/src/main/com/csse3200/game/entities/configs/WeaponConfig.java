@@ -15,7 +15,7 @@ public class WeaponConfig {
 
     static {
         // Load weapon data (can be from JSON or hardcoded for now)
-        weaponConfigs.put("shotgun", new WeaponData("Shotgun", 10, 10,
+        weaponConfigs.put("shotgun", new WeaponData("shotgun", 10, 10,
                 5, 20, 20, 3, "images" +
                 "/Weapons/Centered/Shotgun.png"));
         weaponConfigs.put("plasmablaster", new WeaponData("PlasmaBlaster", 10,
@@ -28,11 +28,11 @@ public class WeaponConfig {
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/FnScar.png"));
 
-        weaponConfigs.put("knife", new WeaponData("Knife", 30,
+        weaponConfigs.put("knife", new WeaponData("knife", 30,
                 4, 0, "images/Weapons/Centered" +
                 "/Knife" +
                 ".png"));
-        weaponConfigs.put("axe", new WeaponData("Axe", 50,
+        weaponConfigs.put("axe", new WeaponData("axe", 50,
                 10, 1, "images/Weapons/Centered/Axe.png"));
 
     }

@@ -59,7 +59,7 @@ public class FiringControllerTest {
 
     @org.junit.jupiter.api.Test
     public void testCreateFiringControllerForMelee() {
-        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.MELEE_WEAPON, "knife");
+        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.MELEE_WEAPON, "Knife");
         assert knifeCollectible instanceof MeleeWeapon;
 
         FiringController firingController = new FiringController((MeleeWeapon) knifeCollectible);
@@ -68,7 +68,7 @@ public class FiringControllerTest {
 
     @org.junit.jupiter.api.Test
     public void testCreateFiringControllerForRanged() {
-        Collectible gunCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "shotgun");
+        Collectible gunCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "Shotgun");
         assert gunCollectible instanceof RangedWeapon;
 
         FiringController firingController = new FiringController((RangedWeapon) gunCollectible, new ProjectileConfig());
@@ -81,7 +81,7 @@ public class FiringControllerTest {
 
     @org.junit.jupiter.api.Test
     public void testConnectAndDisconnectPlayer() {
-        Collectible gunCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "shotgun");
+        Collectible gunCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "Shotgun");
         assert gunCollectible instanceof RangedWeapon;
 
         FiringController firingController = new FiringController((RangedWeapon) gunCollectible, new ProjectileConfig());
@@ -99,7 +99,7 @@ public class FiringControllerTest {
 
     @org.junit.jupiter.api.Test
     public void testActivateRanged() {
-        Collectible gunCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "shotgun");
+        Collectible gunCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "Shotgun");
         assert gunCollectible instanceof RangedWeapon;
 
         FiringController firingController = new FiringController((RangedWeapon) gunCollectible, new ProjectileConfig());
@@ -120,7 +120,7 @@ public class FiringControllerTest {
 
     @org.junit.jupiter.api.Test
     public void testActivateMelee() {
-        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.MELEE_WEAPON, "knife");
+        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.MELEE_WEAPON, "Knife");
         assert knifeCollectible instanceof MeleeWeapon;
 
         FiringController firingController = new FiringController((MeleeWeapon) knifeCollectible);
@@ -137,7 +137,7 @@ public class FiringControllerTest {
 
     @org.junit.jupiter.api.Test
     public void testSetterAndGetterForMelee() {
-        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.MELEE_WEAPON, "knife");
+        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.MELEE_WEAPON, "Knife");
         assert knifeCollectible instanceof MeleeWeapon;
 
         FiringController firingController = new FiringController((MeleeWeapon) knifeCollectible);
@@ -174,7 +174,7 @@ public class FiringControllerTest {
 
     @org.junit.jupiter.api.Test
     public void testSetterAndGetterForRanged() {
-        Collectible gunCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "shotgun");
+        Collectible gunCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "Shotgun");
         assert gunCollectible instanceof RangedWeapon;
 
         FiringController firingController = new FiringController((RangedWeapon) gunCollectible, new ProjectileConfig());

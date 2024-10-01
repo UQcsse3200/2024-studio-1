@@ -8,6 +8,6 @@
   },
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
-  "melee": "melee:axe",
-  "ranged": "ranged:shotgun"
+  "melee": "melee:Axe",
+  "ranged": "ranged:Shotgun"
 }

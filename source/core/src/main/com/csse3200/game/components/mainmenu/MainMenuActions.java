@@ -27,7 +27,6 @@ public class MainMenuActions extends Component {
     @Override
     public void create() {
         entity.getEvents().addListener("player_select", this::onPlayerSelect);
-        entity.getEvents().addListener("load", this::onLoad);
         entity.getEvents().addListener("exit", this::onExit);
         entity.getEvents().addListener("settings", this::onSettings);
         entity.getEvents().addListener("how-to-play", this::onHowToPlay);
@@ -37,18 +36,11 @@ public class MainMenuActions extends Component {
      * Set the game's difficulty to the selected difficulty and go to the player select screen.
      * @param difficulty the difficulty chosen by the player.
      */
-    private void onPlayerSelect(Difficulty difficulty) {
+    private void onPlayerSelect(Difficulty difficulty, boolean shouldLoad) {
         logger.info("Going to player selection");
         game.gameOptions.difficulty = difficulty;
+        game.gameOptions.shouldLoad = shouldLoad;
         game.setScreen(ScreenType.PLAYER_SELECT);
-    }
-
-    /**
-     * Intended for loading a saved game state.
-     * Load functionality is not actually implemented.
-     */
-    private void onLoad() {
-        logger.info("Load game");
     }
 
     /**

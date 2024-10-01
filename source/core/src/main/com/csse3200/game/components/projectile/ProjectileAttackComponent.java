@@ -64,9 +64,13 @@ public class ProjectileAttackComponent extends Component {
             return; // Not our hit-box.
         }
 
+        if (other.getFilterData().categoryBits == PhysicsLayer.WEAPON) {
+            return; // the other is a weapon.
+        }
+
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
             if (!PhysicsLayer.contains(PhysicsLayer.OBSTACLE, other.getFilterData().categoryBits)) {
-                return;
+                return; // other is on the wrong layer.
             }
         }
 
@@ -77,7 +81,8 @@ public class ProjectileAttackComponent extends Component {
             targetStats.hit(combatStats);
         }
 
-        ServiceLocator.getGameAreaService().getGameArea().disposeEntity(entity);
-
+        //I have changed disposal... im keeping prev here to show off a bit of danger.
+        //ServiceLocator.getGameAreaService().getGameArea().disposeEntity(entity);
+        ServiceLocator.getEntityService().markEntityForRemoval(entity);
     }
 }

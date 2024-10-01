@@ -21,12 +21,12 @@ public class MedKit extends UsableItem {
         super.pickup(inventory);
     }
 
-    public void pickup(Inventory inventory, Entity itemEntity) {
-        super.pickup(inventory);
-    }
 
-
-
+    /**
+     * Get the specification of this item.
+     *
+     * @return the string representation of this item.
+     */
     @Override
     public String getItemSpecification() {
         return "medkit";
@@ -91,7 +91,7 @@ public class MedKit extends UsableItem {
     public void increaseLargeBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + Large_Health_Boost,100);
+        int newHealth = Math.min(currentHealth + Large_Health_Boost,combatStats.getMaxHealth());
         combatStats.setHealth(newHealth);
     }
 }

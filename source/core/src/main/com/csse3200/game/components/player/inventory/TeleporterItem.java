@@ -1,6 +1,8 @@
 package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.EnemyRoom;
 
 public class TeleporterItem extends UsableItem {
     @Override
@@ -60,7 +62,9 @@ public class TeleporterItem extends UsableItem {
      */
     @Override
     public void apply(Entity entity) {
-
+        entity.getEvents().trigger("teleportToBoss");
+        //Will have to be changed
+        //New instance would be but getting
     }
 
 }

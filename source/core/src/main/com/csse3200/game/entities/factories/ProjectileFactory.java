@@ -142,8 +142,7 @@ public class ProjectileFactory extends LoadedFactory {
                                    Vector2 direction, Vector2 parentPosition,
                                    AnimationRenderComponent animator) {
 
-        Entity projectile =
-                new Entity()
+        Entity projectile = new Entity()
                         .addComponent(new NameComponent(name))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())

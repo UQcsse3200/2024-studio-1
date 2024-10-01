@@ -1,12 +1,15 @@
 package com.csse3200.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.entities.configs.PlayerLocationConfig;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.options.GameOptions.Difficulty;
 import com.csse3200.game.screens.MainMenuScreen;
@@ -44,8 +47,11 @@ public class MainMenuDisplay extends UIComponent {
 
     private static boolean loadFilesExist() {
         for (String path : MainMenuScreen.SAVE_PATHS) {
-            if (!Gdx.files.local(MainGameArea.PLAYER_SAVE_PATH).exists()) {
-                logger.info("Save file not found: {}", path);
+            try {
+                FileLoader.readClass(PlayerLocationConfig.class, path,
+                        FileLoader.Location.EXTERNAL);
+            } catch (Exception e) {
+                logger.info("Save file not found: {} \n {}", path, e.getMessage());
                 return false;
             }
         }

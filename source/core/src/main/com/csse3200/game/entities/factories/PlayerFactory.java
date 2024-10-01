@@ -37,7 +37,7 @@ public class PlayerFactory extends LoadedFactory {
 
     public Entity createPlay(String fileName, Difficulty difficulty) {
         LoadPlayer loader = new LoadPlayer();
-        PlayerConfig config = FileLoader.readClass(PlayerConfig.class, fileName);
+        PlayerConfig config = FileLoader.readClass(PlayerConfig.class, fileName, FileLoader.Location.EXTERNAL);
         config.adjustForDifficulty(difficulty);
         return loader.createPlayer(config);
     }

@@ -64,8 +64,15 @@ public class PlayerSelectDisplay extends UIComponent {
                 PlayerSelection.getPlayerConfigs(Arrays.stream(PlayerSelection.PLAYERS).toList());
 
         configs.forEach((filename, config) -> {
-            TextureRegion idleTexture = new TextureAtlas(config.textureAtlasFilename)
-                    .findRegion("idle");
+            TextureRegion idleTexture; 
+            if(config.name.equals("bear")){
+                idleTexture = new TextureAtlas(config.textureAtlasFilename)
+                        .findRegion("default");
+            }
+            else{
+                idleTexture = new TextureAtlas(config.textureAtlasFilename)
+                        .findRegion("idle");
+            }
             Image playerImage = new Image(idleTexture);
             rootTable.add(playerImage);
         });

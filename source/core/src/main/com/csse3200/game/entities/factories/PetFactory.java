@@ -183,7 +183,7 @@ public class PetFactory extends LoadedFactory {
    */
   private static Entity createBaseNPC(String name, Component aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
-    Entity player = ServiceLocator.getEntityService().getPlayer();
+    Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer(); 
     Entity npc = new Entity()
             .addComponent(new NameComponent(name))
             .addComponent(new PhysicsComponent())
@@ -210,7 +210,7 @@ public class PetFactory extends LoadedFactory {
 
   private static Entity createBaseNPCTexture(String name, Component aiComponent, NPCConfigs.NPCConfig config,
                                       TextureRenderComponent animator) {
-    Entity player = ServiceLocator.getEntityService().getPlayer();
+    Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer(); 
     Entity npc = new Entity()
             .addComponent(new NameComponent(name))
             .addComponent(new PhysicsComponent())

@@ -6,7 +6,6 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.services.ServiceLocator;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -174,9 +173,8 @@ public class PlayerActions extends Component {
     public void handleReroll(UsableItem reroll) {
         if (entity.getComponent(ItemPickupComponent.class).isInContact() && entity.getComponent(ItemPickupComponent.class).getItem() != null) {
             use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
-        }
-        else {
-            return; //Otherwise the reroll item cannot be used
+        } else {
+            //Otherwise the reroll item cannot be used
         }
     }
 

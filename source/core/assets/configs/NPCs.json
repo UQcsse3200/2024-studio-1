@@ -138,9 +138,8 @@
     },
     "attacks": {
       "aoe": {
-        "range": 1.5,
+        "range": 2,
         "rate": 1,
-        "radius": 2,
         "effects": [
           {
             "type": "knockback",
@@ -279,280 +278,296 @@
     ]
   },
   "dragon": {
-  "health": 200,
-  "strength": 9,
-  "baseAttack": 15,
-  "isDirectional": true,
-  "tasks": {
-    "wander": {
-      "wanderRadius": 4,
-      "waitTime": 2,
-      "wanderSpeed": 2
+    "health": 200,
+    "strength": 9,
+    "baseAttack": 15,
+    "isDirectional": true,
+    "tasks": {
+      "wander": {
+        "wanderRadius": 4,
+        "waitTime": 2,
+        "wanderSpeed": 2
+      },
+      "chase": {
+        "chaseSpeed": 2,
+        "viewDistance": 7,
+        "chaseDistance": 7.5,
+        "maxTime": 5
+      },
+      "charge": {
+        "activationMinRange": 0,
+        "activationMaxRange": 4,
+        "chaseSpeed": 4,
+        "distanceMultiplier": 1.2,
+        "waitTime": 0.5,
+        "cooldownTime": 3
+      },
+      "rangeAttack": {
+        "activationMinRange": 3,
+        "activationMaxRange": 6,
+        "attackNum": 6,
+        "cooldownTime": 5
+      }
     },
-    "chase": {
-      "chaseSpeed": 2,
-      "viewDistance": 7,
-      "chaseDistance": 7.5,
-      "maxTime": 5
+    "attacks": {
+      "melee": {
+        "range": 1.5,
+        "rate": 1.5
+      },
+      "ranged": {
+        "range": 12,
+        "rate": 1,
+        "type": 0
+      }
     },
-    "charge": {
-      "activationMinRange": 0,
-      "activationMaxRange": 4,
-      "chaseSpeed": 4,
-      "distanceMultiplier": 1.2,
-      "waitTime": 0.5,
-      "cooldownTime": 3
-    },
-    "rangeAttack": {
-      "activationMinRange": 3,
-      "activationMaxRange": 6,
-      "attackNum": 6,
-      "cooldownTime": 5
-    }
-  },
-  "attacks": {
-    "melee": {
-      "range": 1.5,
-      "rate": 1.5
-    },
-    "ranged": {
-      "range": 12,
-      "rate": 1,
-      "type": 0
-    }
-  },
-  "animations": [
-    {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
-    {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
-    {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
-    {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
-    {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-    {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
-    {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-    {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
-  ]
-},
-"werewolf": {
-  "health": 1000,
-  "strength": 9,
-  "baseAttack": 40,
-  "isDirectional": true,
-  "tasks": {
-    "wander": {
-      "wanderRadius": 4,
-      "waitTime": 4,
-      "wanderSpeed": 0.4
-    },
-    "chase": {
-      "chaseSpeed": 2.5,
-      "viewDistance": 9,
-      "chaseDistance": 9.5,
-      "maxTime": 5
-    },
-    "charge": {
-      "activationMinRange": 3,
-      "activationMaxRange": 8,
-      "chaseSpeed": 4,
-      "distanceMultiplier": 1.5,
-      "waitTime": 1,
-      "cooldownTime": 3
-    },
-    "jump": {
-      "activationMinRange": 4,
-      "activationMaxRange": 6,
-      "jumpDuration": 1.5,
-      "waitTime": 1,
-      "cooldownTime": 5
-    },
-    "runAway": {
-      "activationMinRange": 0,
-      "activationMaxRange": 2,
-      "activationHealth": 0.4,
-      "runSpeed": 3,
-      "stopDistance": 3,
-      "maxRunTime": 3,
-      "cooldownTime": 10
-    }
-  },
-  "attacks": {
-    "melee": {
-      "range": 1.2,
-      "rate": 0.8,
-      "effects": [
-        {
-          "type": "knockback",
-          "force": 3
-        }
-      ]
-    }
-  },
-  "animations": [
-      {"name": "idle_left", "frameDuration": 0.125, "playMode": "LOOP"},
-      {"name": "idle_right", "frameDuration": 0.125, "playMode": "LOOP"},
-      {"name": "walk_left", "frameDuration": 0.07, "playMode": "LOOP"},
-      {"name": "walk_right", "frameDuration": 0.07, "playMode": "LOOP"},
-      {"name": "run_left", "frameDuration": 0.07, "playMode": "LOOP"},
-      {"name": "run_right", "frameDuration": 0.07, "playMode": "LOOP"},
-      {"name": "attack_left", "frameDuration": 0.33, "playMode": "NORMAL"},
-      {"name": "attack_right", "frameDuration": 0.33, "playMode": "NORMAL"},
-      {"name": "run+attack_left", "frameDuration": 0.14, "playMode": "NORMAL"},
-      {"name": "run+attack_right", "frameDuration": 0.14, "playMode": "NORMAL"},
-      {"name": "hurt_left", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "jump_left", "frameDuration": 0.15, "playMode": "NORMAL"},
-      {"name": "jump_right", "frameDuration": 0.15, "playMode": "NORMAL"}
-    ]
-},
-"kitsune": {
-  "health": 1000,
-  "baseAttack": 40,
-  "isDirectional": true,
-  "tasks": {
-  "wander": {
-    "wanderRadius": 4,
-    "waitTime": 4,
-      "wanderSpeed": 0.4
-    },
-    "chase": {
-      "chaseSpeed": 1.5,
-      "viewDistance": 8,
-      "chaseDistance": 8.5,
-      "maxTime": 5
-    },
-    "charge": {
-      "activationMinRange": 2,
-      "activationMaxRange": 3,
-      "chaseSpeed": 3,
-      "waitTime": 2,
-      "cooldownTime": 8
-    },
-    "runAway": {
-      "activationMinRange": 0,
-      "activationMaxRange": 2,
-      "activationHealth": 1,
-      "runSpeed": 2,
-      "stopDistance": 5,
-      "maxRunTime": 3,
-      "cooldownTime": 6
-    },
-    "rangeAttack": {
-      "activationMinRange": 3,
-      "activationMaxRange": 6,
-      "attackNum": 10,
-      "cooldownTime": 2
-    },
-    "spreadRangeAttack": {
-      "activationMinRange": 5,
-      "activationMaxRange": 6,
-      "attackNum": 4,
-      "cooldownTime": 5
-    }
-  },
-  "attacks": {
-    "melee": {
-      "range": 1.2,
-      "rate": 0.8,
-      "effects": [
-          {
-          "type": "knockback",
-          "force": 2
-          }
-        ]
-    },
-    "ranged": {
-      "range": 12,
-      "rate": 2,
-      "type": 1
-    }
-  },
-  "animations": [
-      {"name": "idle_left", "frameDuration": 0.125, "playMode": "LOOP"},
+    "animations": [
+      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk_left", "frameDuration": 0.09, "playMode": "LOOP"},
-      {"name": "walk_right", "frameDuration": 0.09, "playMode": "LOOP"},
-      {"name": "run_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "run_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
       {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "hurt_left", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "jump_left", "frameDuration": 0.09, "playMode": "NORMAL"},
-      {"name": "jump_right", "frameDuration": 0.09, "playMode": "NORMAL"}
+      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
-},
-"birdman": {
-  "health": 1500,
-  "strength": 9,
-  "baseAttack": 40,
-  "isDirectional": true,
-  "tasks": {
+  },
+  "werewolf": {
+    "health": 1000,
+    "strength": 9,
+    "baseAttack": 40,
+    "isDirectional": true,
+    "tasks": {
+      "wander": {
+        "wanderRadius": 4,
+        "waitTime": 4,
+        "wanderSpeed": 0.4
+      },
+      "chase": {
+        "chaseSpeed": 2.5,
+        "viewDistance": 9,
+        "chaseDistance": 9.5,
+        "maxTime": 5
+      },
+      "charge": {
+        "activationMinRange": 3,
+        "activationMaxRange": 8,
+        "chaseSpeed": 4,
+        "distanceMultiplier": 1.5,
+        "waitTime": 1,
+        "cooldownTime": 3
+      },
+      "jump": {
+        "activationMinRange": 4,
+        "activationMaxRange": 6,
+        "jumpDuration": 1.5,
+        "waitTime": 1,
+        "cooldownTime": 5
+      },
+      "runAway": {
+        "activationMinRange": 0,
+        "activationMaxRange": 2,
+        "activationHealth": 0.4,
+        "runSpeed": 3,
+        "stopDistance": 3,
+        "maxRunTime": 3,
+        "cooldownTime": 10
+      },
+      "aoeAttack": {
+        "activationMinRange": 0,
+        "activationMaxRange": 2,
+        "preparationTime": 3,
+        "cooldownTime": 10
+      }
+    },
+    "attacks": {
+      "melee": {
+        "range": 1.2,
+        "rate": 0.8,
+        "effects": [
+          {
+            "type": "knockback",
+            "force": 3
+          }
+        ]
+      },
+      "aoe": {
+        "rate": 1,
+        "range": 3,
+        "effects": [
+          {
+            "type": "knockback",
+            "force": 5
+          }
+        ]
+      }
+    },
+    "animations": [
+        {"name": "idle_left", "frameDuration": 0.125, "playMode": "LOOP"},
+        {"name": "idle_right", "frameDuration": 0.125, "playMode": "LOOP"},
+        {"name": "walk_left", "frameDuration": 0.07, "playMode": "LOOP"},
+        {"name": "walk_right", "frameDuration": 0.07, "playMode": "LOOP"},
+        {"name": "run_left", "frameDuration": 0.07, "playMode": "LOOP"},
+        {"name": "run_right", "frameDuration": 0.07, "playMode": "LOOP"},
+        {"name": "attack_left", "frameDuration": 0.33, "playMode": "NORMAL"},
+        {"name": "attack_right", "frameDuration": 0.33, "playMode": "NORMAL"},
+        {"name": "run+attack_left", "frameDuration": 0.14, "playMode": "NORMAL"},
+        {"name": "run+attack_right", "frameDuration": 0.14, "playMode": "NORMAL"},
+        {"name": "hurt_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "jump_left", "frameDuration": 0.15, "playMode": "NORMAL"},
+        {"name": "jump_right", "frameDuration": 0.15, "playMode": "NORMAL"}
+      ]
+  },
+  "kitsune": {
+    "health": 1000,
+    "baseAttack": 40,
+    "isDirectional": true,
+    "tasks": {
     "wander": {
       "wanderRadius": 4,
       "waitTime": 4,
-      "wanderSpeed": 0.4
+        "wanderSpeed": 0.4
+      },
+      "chase": {
+        "chaseSpeed": 1.5,
+        "viewDistance": 8,
+        "chaseDistance": 8.5,
+        "maxTime": 5
+      },
+      "charge": {
+        "activationMinRange": 2,
+        "activationMaxRange": 3,
+        "chaseSpeed": 3,
+        "waitTime": 2,
+        "cooldownTime": 8
+      },
+      "runAway": {
+        "activationMinRange": 0,
+        "activationMaxRange": 2,
+        "activationHealth": 1,
+        "runSpeed": 2,
+        "stopDistance": 5,
+        "maxRunTime": 3,
+        "cooldownTime": 6
+      },
+      "rangeAttack": {
+        "activationMinRange": 3,
+        "activationMaxRange": 6,
+        "attackNum": 10,
+        "cooldownTime": 2
+      },
+      "spreadRangeAttack": {
+        "activationMinRange": 5,
+        "activationMaxRange": 6,
+        "attackNum": 4,
+        "cooldownTime": 5
+      }
     },
-    "chase": {
-      "chaseSpeed": 2,
-      "viewDistance": 10,
-      "chaseDistance": 10.5,
-      "maxTime": 5
-    },
-    "charge": {
-      "activationMinRange": 3,
-      "activationMaxRange": 10,
-      "chaseSpeed": 6,
-      "distanceMultiplier": 2,
-      "waitTime": 1,
-      "cooldownTime": 5
-    },
-    "jump": {
-      "activationMinRange": 2,
-      "activationMaxRange": 6,
-      "jumpDuration": 0.8,
-      "waitTime": 1,
-      "cooldownTime": 3
-    },
-    "runAway": {
-      "activationMinRange": 0,
-      "activationMaxRange": 2,
-      "activationHealth": 0.5,
-      "runSpeed": 5,
-      "stopDistance": 4,
-      "maxRunTime": 3,
-      "cooldownTime": 10
-    }
-  },
-  "attacks": {
-    "melee": {
-      "range": 1.2,
-      "rate": 0.5,
-      "effects": [
-          {
+    "attacks": {
+      "melee": {
+        "range": 1.2,
+        "rate": 0.8,
+        "effects": [
+            {
             "type": "knockback",
             "force": 2
-          }
-        ]
-    }
+            }
+          ]
+      },
+      "ranged": {
+        "range": 12,
+        "rate": 2,
+        "type": 1
+      }
+    },
+    "animations": [
+        {"name": "idle_left", "frameDuration": 0.125, "playMode": "LOOP"},
+        {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
+        {"name": "walk_left", "frameDuration": 0.09, "playMode": "LOOP"},
+        {"name": "walk_right", "frameDuration": 0.09, "playMode": "LOOP"},
+        {"name": "run_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+        {"name": "run_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+        {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+        {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+        {"name": "hurt_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "jump_left", "frameDuration": 0.09, "playMode": "NORMAL"},
+        {"name": "jump_right", "frameDuration": 0.09, "playMode": "NORMAL"}
+      ]
   },
-  "animations": [
-      {"name": "idle_left", "frameDuration": 0.125, "playMode": "LOOP"},
-      {"name": "idle_right", "frameDuration": 0.125, "playMode": "LOOP"},
-      {"name": "walk_left", "frameDuration": 0.09, "playMode": "LOOP"},
-      {"name": "walk_right", "frameDuration": 0.09, "playMode": "LOOP"},
-      {"name": "run_left", "frameDuration": 0.11, "playMode": "LOOP"},
-      {"name": "run_right", "frameDuration": 0.11, "playMode": "LOOP"},
-      {"name": "attack_left", "frameDuration": 0.33, "playMode": "NORMAL"},
-      {"name": "attack_right", "frameDuration": 0.33, "playMode": "NORMAL"},
-      {"name": "hurt_left", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
-      {"name": "jump_left", "frameDuration": 0.04, "playMode": "NORMAL"},
-      {"name": "jump_right", "frameDuration": 0.04, "playMode": "NORMAL"}
+  "birdman": {
+    "health": 1500,
+    "strength": 9,
+    "baseAttack": 40,
+    "isDirectional": true,
+    "tasks": {
+      "wander": {
+        "wanderRadius": 4,
+        "waitTime": 4,
+        "wanderSpeed": 0.4
+      },
+      "chase": {
+        "chaseSpeed": 2,
+        "viewDistance": 10,
+        "chaseDistance": 10.5,
+        "maxTime": 5
+      },
+      "charge": {
+        "activationMinRange": 3,
+        "activationMaxRange": 10,
+        "chaseSpeed": 6,
+        "distanceMultiplier": 2,
+        "waitTime": 1,
+        "cooldownTime": 5
+      },
+      "jump": {
+        "activationMinRange": 2,
+        "activationMaxRange": 6,
+        "jumpDuration": 0.8,
+        "waitTime": 1,
+        "cooldownTime": 3
+      },
+      "runAway": {
+        "activationMinRange": 0,
+        "activationMaxRange": 2,
+        "activationHealth": 0.5,
+        "runSpeed": 5,
+        "stopDistance": 4,
+        "maxRunTime": 3,
+        "cooldownTime": 10
+      }
+    },
+    "attacks": {
+      "melee": {
+        "range": 1.2,
+        "rate": 0.5,
+        "effects": [
+            {
+              "type": "knockback",
+              "force": 2
+            }
+          ]
+      }
+    },
+    "animations": [
+        {"name": "idle_left", "frameDuration": 0.125, "playMode": "LOOP"},
+        {"name": "idle_right", "frameDuration": 0.125, "playMode": "LOOP"},
+        {"name": "walk_left", "frameDuration": 0.09, "playMode": "LOOP"},
+        {"name": "walk_right", "frameDuration": 0.09, "playMode": "LOOP"},
+        {"name": "run_left", "frameDuration": 0.11, "playMode": "LOOP"},
+        {"name": "run_right", "frameDuration": 0.11, "playMode": "LOOP"},
+        {"name": "attack_left", "frameDuration": 0.33, "playMode": "NORMAL"},
+        {"name": "attack_right", "frameDuration": 0.33, "playMode": "NORMAL"},
+        {"name": "hurt_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+        {"name": "jump_left", "frameDuration": 0.04, "playMode": "NORMAL"},
+        {"name": "jump_right", "frameDuration": 0.04, "playMode": "NORMAL"}
     ]
   }
 }

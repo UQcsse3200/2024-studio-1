@@ -45,6 +45,7 @@ public class NPCConfigs {
       public RunAwayTaskConfig runAway = null;
       public RangeAttackTaskConfig rangeAttack = null;
       public RangeAttackTaskConfig spreadRangeAttack = null;
+      public AOEAttackTaskConfig aoeAttack = null;
 
       public static class WanderTaskConfig {
         public float wanderRadius;
@@ -95,6 +96,13 @@ public class NPCConfigs {
         public float activationMaxRange;
         public int attackNum;
         public float cooldownTime;
+      }
+
+      public static class AOEAttackTaskConfig {
+          public float activationMinRange;
+          public float activationMaxRange;
+          public float preparationTime;
+          public float cooldownTime;
       }
     }
 

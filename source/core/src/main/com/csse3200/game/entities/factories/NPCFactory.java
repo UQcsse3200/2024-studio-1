@@ -282,7 +282,8 @@ public class NPCFactory extends LoadedFactory {
               config.attacks.ranged.type, config.attacks.ranged.effects));
     }
     if (config.attacks.aoe != null) {
-      npc.addComponent(new AOEAttackComponent(target, config.attacks.aoe.range, config.attacks.aoe.rate, config.attacks.aoe.effects, config.attacks.aoe.radius));
+      npc.addComponent(new AOEAttackComponent(target, config.attacks.aoe.range, config.attacks.aoe.rate,
+              config.attacks.aoe.effects));
     }
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
@@ -347,6 +348,9 @@ public class NPCFactory extends LoadedFactory {
     }
     if (tasks.spreadRangeAttack != null) {
         aiComponent.addTask(new RangeAttackTask(target, tasks.spreadRangeAttack, "spread"));
+    }
+    if (tasks.aoeAttack != null) {
+        aiComponent.addTask(new AOEAttackTask(target, tasks.aoeAttack));
     }
 
     return aiComponent;

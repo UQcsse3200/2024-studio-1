@@ -22,8 +22,8 @@ public class BossRoom extends EnemyRoom {
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
                 List.of("Werewolf"), // boss 1
-                List.of("Minotaur"), // boss 2
-                List.of("Bear")      // boss 3
+                List.of("Kitsune"), // boss 2
+                List.of("Birdman")  // boss 3
         );
     }
 

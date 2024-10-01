@@ -1,14 +1,16 @@
 {
-health: 60
+health: 35
 name: default
-items: []
+items: [
+	item:beartrap
+]
 speed: {
 	x: 3
 	y: 3
 }
-coins: 28
+coins: 40
 melee: ""
-ranged: ranged:shotgun
+ranged: ranged:Shotgun
 textureFilename: images/player/player.png
 textureAtlasFilename: images/player/player.atlas
 }

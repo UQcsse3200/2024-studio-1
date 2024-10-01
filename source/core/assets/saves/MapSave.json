@@ -5,7 +5,11 @@
 }
 {
 	class: java.lang.String
-	value: -1_0
+	value: 0_-2
+}
+{
+	class: java.lang.String
+	value: 0_-1
 }
 {
 	class: java.lang.String

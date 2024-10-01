@@ -150,7 +150,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         return -1;
     }
 
-    private boolean isCooldownComplete() {
+    boolean isCooldownComplete() {
         if (lastExecutionTime == 0) {
             return true;
         }

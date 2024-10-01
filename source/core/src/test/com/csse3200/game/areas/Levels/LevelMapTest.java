@@ -1,8 +1,7 @@
 package com.csse3200.game.areas.Levels;
 
 import com.csse3200.game.areas.LevelMap;
-import com.csse3200.game.areas.Generation.MapGenerator;
-import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.areas.generation.MapGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

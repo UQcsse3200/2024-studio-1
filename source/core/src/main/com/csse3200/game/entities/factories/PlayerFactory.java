@@ -9,13 +9,11 @@ import com.csse3200.game.options.GameOptions.Difficulty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
-
-import static com.csse3200.game.files.FileLoader.Location.EXTERNAL;
-import static com.csse3200.game.files.FileLoader.Location.INTERNAL;
 
 
 /**
@@ -26,7 +24,8 @@ import static com.csse3200.game.files.FileLoader.Location.INTERNAL;
  */
 public class PlayerFactory extends LoadedFactory {
     private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
-    Map<String, PlayerConfig> options;
+
+    private final Map<String, PlayerConfig> options;
 
     /**
      * Construct a new Player Factory (and load all of its assets)
@@ -34,7 +33,13 @@ public class PlayerFactory extends LoadedFactory {
     public PlayerFactory(List<String> configFilenames) {
         super(logger);
         this.options = configFilenames.stream()
-                               .map(filename -> FileLoader.readClass(PlayerConfig.class, filename))
+                               .map(filename -> {
+                                   PlayerConfig config = FileLoader.readClass(PlayerConfig.class, filename);
+                                   if (config == null) {
+                                       throw new IllegalArgumentException("Could not load config file " + filename);
+                                   }
+                                   return config;
+                               })
                                .collect(Collectors.toMap(value -> value.name, value -> value));
         this.load(logger);
     }
@@ -42,16 +47,34 @@ public class PlayerFactory extends LoadedFactory {
     /**
      * Create a player.
      *
-     * @param fileName   the path to the player JSON
+     * @param config     The configuration for the player to create.
      * @param difficulty difficulty chosen by the player, affects player attributes
      * @return the player entity.
      */
-    public Entity createPlayer(String fileName, Difficulty difficulty) {
-        FileLoader.Location location = options.containsKey(fileName) ? INTERNAL : EXTERNAL;
+    public Entity createPlayer(PlayerConfig config, Difficulty difficulty) {
         LoadPlayer loader = new LoadPlayer();
-        PlayerConfig config = FileLoader.readClass(PlayerConfig.class, fileName, location);
         config.adjustForDifficulty(difficulty);
         return loader.createPlayer(config);
+    }
+
+    /**
+     * Create a player.
+     *
+     * @param name       the name of the default character to create.
+     * @param difficulty difficulty chosen by the player, affects player attributes
+     * @return the player entity.
+     */
+    public Entity createPlayer(String name, Difficulty difficulty) {
+        return createPlayer(options.get(name), difficulty);
+    }
+
+    /**
+     * Get the list of default options.
+     *
+     * @return a map of all the player configs by name.
+     */
+    public Map<String, PlayerConfig> getOptions() {
+        return new HashMap<>(options);
     }
 
     @Override

@@ -66,9 +66,7 @@ public class NPCHealthBarComponent extends RenderComponent {
         shapeRenderer.end();
 
         batch.begin();
-        batch.setProjectionMatrix(projectionMatrix.cpy().scale(projectionFactor, projectionFactor, 1));
-        fnt_16.draw(batch, nameComponent.getName(), x/projectionFactor,y/projectionFactor+fnt_16.getCapHeight()*2);
-        batch.setProjectionMatrix(projectionMatrix);
+       
     }
 
     /**

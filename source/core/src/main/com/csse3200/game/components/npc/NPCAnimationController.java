@@ -46,7 +46,7 @@ public class NPCAnimationController extends Component {
 
         // Load the circle image
         circle = new Image(new Texture("images/npc/glowCircle.png"));
-        circle.setSize(300f, 300);
+        circle.setSize(500f, 500);
         circle.setVisible(false);
         circleColor = new Color(0, 0, 1, 1); // Initial blue color for preparation phase
         circle.setColor(circleColor);

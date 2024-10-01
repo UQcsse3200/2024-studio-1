@@ -2,6 +2,7 @@ package com.csse3200.game.components.npc;
 
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
@@ -82,8 +83,11 @@ public class NPCDeathHandler extends Component {
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    ServiceLocator.getGameAreaService().getGameArea().disposeEntity(entity);
-                    deadEntities.remove(Integer.valueOf(entity.getId()));
+                    GameAreaService gameAreaService = ServiceLocator.getGameAreaService();
+                    if (gameAreaService != null) {
+                        gameAreaService.getGameArea().disposeEntity(entity);
+                        deadEntities.remove(Integer.valueOf(entity.getId()));
+                    }
                 }
             }, DEATH_ANIMATION_DURATION);
         }

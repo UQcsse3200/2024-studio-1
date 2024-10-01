@@ -31,14 +31,13 @@ public class Tombstone extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-
-        GridPoint2 petEntityPosition = new GridPoint2(5, 7);
         //markEntityForRemoval(collisionItemEntity);
 
         int randomInt = this.random.nextInt(1, 5);
         Entity newPet = this.randomPetGenerator(randomInt);
         entity.getComponent(InventoryComponent.class).getInventory().addPet(newPet); 
-        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newPet, new GridPoint2(petEntityPosition), true, true);
+        ServiceLocator.getEntityService().register(newPet);
+        newPet.setPosition(5,7);
     }
 
     /**

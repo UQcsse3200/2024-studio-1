@@ -60,6 +60,7 @@ public class ItemFactory {
             case "heart" -> createHeart();
             case "feather" -> createFeather();
             case "divinepotion" -> createDivinePotion();
+            case "bleedbuff" -> createBleedBuff();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -119,6 +120,12 @@ public class ItemFactory {
      * @return damage buff item
      */
     private Collectible createDamageBuff() { return new DamageBuff();}
+
+    /**
+     * Creates a bleed buff item that does bleed damage to the enemies
+     * @return Bleed buff item
+     */
+    private Collectible createBleedBuff() { return new BleedBuff();}
 
     /**
      * Creates a target dummy item which spawns in a target dummy entity for enemies to attack

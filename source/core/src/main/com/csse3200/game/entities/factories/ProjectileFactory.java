@@ -177,7 +177,7 @@ public class ProjectileFactory extends LoadedFactory {
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
                         ServiceLocator.getResourceService().getAsset(stats.projectileAtlasPath, TextureAtlas.class));
-        animator.addAnimation("GreenShoot", 0.1f, Animation.PlayMode.LOOP);
+        animator.addAnimation("Shoot", 0.1f, Animation.PlayMode.LOOP);
 
         Entity projectile =
                 new Entity()
@@ -192,7 +192,7 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(animator);
 
         projectile.getComponent(ProjectileAttackComponent.class).create();
-        projectile.getComponent(AnimationRenderComponent.class).startAnimation("GreenShoot");
+        projectile.getComponent(AnimationRenderComponent.class).startAnimation("Shoot");
         projectile.getComponent(ColliderComponent.class).setSensor(true);
         PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
         projectile.setScale(stats.scaleX, stats.scaleY);

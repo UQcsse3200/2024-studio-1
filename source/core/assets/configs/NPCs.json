@@ -41,11 +41,11 @@
     "baseAttack": 35,
     "isDirectional": true,
     "tasks": {
-      "follow": {
-        "followRadius": 3,
+      "wander": {
+        "wanderRadius": 3,
         "waitTime": 2,
-        "followDistance": 2,
-        "followSpeed": 0.5
+        "wanderDistance": 2,
+        "wanderSpeed": 0.5
       },
       "chase": {
         "priority": 10,

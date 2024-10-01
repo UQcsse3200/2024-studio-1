@@ -36,7 +36,6 @@ public class FollowTask extends DefaultTask implements PriorityTask {
   /**
    * Constructs a FollowTask.
    *
-   * @param target The entity to chase.
    * @param config Configuration for the chase task.
    */
   public FollowTask(NPCConfigs.NPCConfig.TaskConfig.FollowTaskConfig config) {

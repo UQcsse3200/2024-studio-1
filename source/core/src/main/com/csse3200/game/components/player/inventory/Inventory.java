@@ -158,7 +158,7 @@ public class Inventory {
     /**
      * Add to the list of pets.
      *
-     * @param item The pet to add.
+     * @param addPet the pet to be added 
      */
     public void addPet(Entity addPet ) {
         this.pets.add(addPet);
@@ -168,7 +168,7 @@ public class Inventory {
     /**
      * Remove from the list of pets
      *
-     * @param The pet to remove
+     * @param removePet the pet to be removed  
      */
     public void removePet(Entity removePet) {
         this.pets.removeValue(removePet, true);
@@ -177,7 +177,7 @@ public class Inventory {
     /**
      * Set the target for the pet 
      *
-     * @param List of targets  
+     * @param targets that the pets spawn into a room to attack to  
      */
     public void initialisePetAggro(List<Entity> targets) {
         //For each pet, find the closest enemy and set it as its target  
@@ -189,7 +189,7 @@ public class Inventory {
     /**
      * Set the target for the pet 
      *
-     * @param Entity target 
+     * @param targets for the pets 
      */
     public void setPetsAggro(List<Entity> targets) {
         //get the closest enemy to the player make all pets target it  

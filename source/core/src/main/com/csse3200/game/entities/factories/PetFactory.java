@@ -58,10 +58,9 @@ public class PetFactory extends LoadedFactory {
   }
 
   /**
-   * Create a new NPC from specification
+   * Create a new pet from specification
    *
    * @param specification the specification of the npc
-   * @param target entity to chase
    * @return the created npc
    */
   public Entity create(String specification) {
@@ -79,7 +78,6 @@ public class PetFactory extends LoadedFactory {
   /**
    * Creates a rat entity with predefined components and behaviour.
    *
-   * @param target entity to chase
    * @return the created rat entity
    */
   public Entity createRat() {
@@ -95,7 +93,6 @@ public class PetFactory extends LoadedFactory {
   /**
    * Creates a bear entity.
    *
-   * @param target entity to chase
    * @return entity
    */
   public Entity createBear() {
@@ -110,7 +107,6 @@ public class PetFactory extends LoadedFactory {
   /**
    * Creates a Snake entity.
    *
-   * @param target entity to chase
    * @return entity
    */
   public Entity createSnake() {
@@ -125,7 +121,6 @@ public class PetFactory extends LoadedFactory {
   /**
    * Creates a bat entity with predefined components and behaviour.
    *
-   * @param target entity to chase
    * @return the created bat entity
    */
   public Entity createBat() {
@@ -140,7 +135,6 @@ public class PetFactory extends LoadedFactory {
   /**
    * Creates a dog entity with predefined components and behaviour.
    *
-   * @param target entity to chase
    * @return the created dog entity
    */
   public Entity createDog() {
@@ -155,8 +149,6 @@ public class PetFactory extends LoadedFactory {
   /**
    * Creates a Minotaur entity.
    *
-   * @param target entity to chase
-   * @return entity
    */
   public Entity createMinotaur() {
     NPCConfigs.NPCConfig config = configs.minotaur;

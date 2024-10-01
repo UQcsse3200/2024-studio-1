@@ -14,13 +14,11 @@ public class Level {
     private final LevelMap map;
     private final int levelNumber;
     private final Map<String, Room> rooms;
-    public int roomTraversals;
 
     public Level(LevelMap map, int levelNumber, Map<String, Room> rooms) {
         this.map = map;
         this.levelNumber = levelNumber;
         this.rooms = rooms;
-        this.roomTraversals = 0;
     }
     public Room getRoom(String roomKey) {
         log.info("event recognised");
@@ -35,6 +33,6 @@ public class Level {
         return levelNumber;
     }
 
-    public int getRoomTraversals() { return roomTraversals;}
+    public LevelMap getMap() {return map;}
 
 }

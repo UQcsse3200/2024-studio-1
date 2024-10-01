@@ -1,12 +1,7 @@
 package com.csse3200.game.areas.Generation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import com.badlogic.gdx.graphics.g3d.particles.ParticleSorter;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
 /**
@@ -14,10 +9,12 @@ import com.csse3200.game.utils.RandomNumberGenerator;
  * It creates rooms, connects them, and provides methods to manipulate and export the map.
  */
 public class MapGenerator {
+    public Map<String, String> RoomKeys = new HashMap<String, String>();
     public static final int BASEROOM = 0;
     public static final int BOSSROOM = 1;
     public static final int NPCROOM = 2;
     public static final int GAMEROOM = 3;
+
 
     public int mapSize;
     public RandomNumberGenerator rng;
@@ -213,46 +210,59 @@ public class MapGenerator {
             connectRooms(randomRoomKey, new_Room_key, detlas_index);
             roomCount--;
         }
-        setSupplementaryRooms();
-    }
-
-    /**
-     * Sets boss room and any supplementary rooms (currently just NPC and Gambling room)
-     */
-    private void setSupplementaryRooms() {
-        // Set rooms not to be modified
         List<String> setRooms = new ArrayList<>();
         setRooms.add("0_0");
 
-        // Boss Room
-        String bossRoom = findFurthestRoom();
-        HashMap<String, Integer> details = roomDetails.get(bossRoom);
-        details.put("room_type", BOSSROOM);
-        setRooms.add(bossRoom);
-
-        // More Different Rooms
-        List<String> rooms = new ArrayList<>(roomDetails.keySet());
-
-        // NPC Room
-        setRoom(rooms, setRooms, NPCROOM);
-        // Gambling Room
-        setRoom(rooms, setRooms, GAMEROOM);
+        setBossRoom(setRooms);
+        setNpcRoom(setRooms);
+        setGameRoom(setRooms);
     }
 
     /**
-     * Modular setting of rooms to determined room type based on the current already set rooms. Does not set rooms
-     * if the room is already set with another type
-     * @param rooms - list of room keys
-     * @param setRooms - set rooms that already are modified to a particular room type
-     * @param type - type to set the room to
+     * Set boss room
+     * @param setRooms - rooms already set with specific types
      */
-    private void setRoom(List<String> rooms, List<String> setRooms, int type) {
-        String randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-        while (setRooms.contains(randomRoomKey)) {
+    private void setBossRoom(List<String> setRooms) {
+        String bossRoom = findFurthestRoom();
+        HashMap<String, Integer> details = roomDetails.get(bossRoom);
+        details.put("room_type", BOSSROOM);
+        RoomKeys.put("Boss", bossRoom);
+        setRooms.add(bossRoom);
+    }
+
+    /**
+     * Set NPC room
+     * @param setRooms - rooms already set with specific types
+     */
+    private void setNpcRoom(List<String> setRooms) {
+        List<String> rooms = new ArrayList<>(roomDetails.keySet());
+        String randomRoomKey;
+        do {
             randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-        }
+        } while (setRooms.contains(randomRoomKey));
+
+        // Get the random room details
         HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
-        details.put("room_type", type);
+        details.put("room_type", NPCROOM);
+        RoomKeys.put("NPC", randomRoomKey);
+        setRooms.add(randomRoomKey);
+    }
+
+    /**
+     * Set Game Room
+     * @param setRooms - rooms already set with specific types
+     */
+    private void setGameRoom(List<String> setRooms) {
+        List<String> rooms = new ArrayList<>(roomDetails.keySet());
+        String randomRoomKey;
+        do {
+            randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
+        } while (setRooms.contains(randomRoomKey));
+
+        // Get the random room details
+        HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
+        details.put("room_type", GAMEROOM);
+        RoomKeys.put("GameRoom", randomRoomKey);
         setRooms.add(randomRoomKey);
     }
 

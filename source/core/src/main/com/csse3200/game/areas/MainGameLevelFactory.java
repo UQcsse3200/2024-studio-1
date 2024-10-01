@@ -38,6 +38,7 @@ public class MainGameLevelFactory implements LevelFactory {
 
     @Override
     public Level create(int levelNumber) {
+        //loads map seed from the save file if Load button was checked.
         if (!shouldLoad) {
             map = new LevelMap("seed", DEFAULT_MAP_SIZE);
         } else {
@@ -50,36 +51,37 @@ public class MainGameLevelFactory implements LevelFactory {
                     new TerrainFactory(levelNumber)
             );
             // Sprint 4 Switch the MapGenerator to use Rooms
-        Set<String> room_keySet = map.mapData.getPositions().keySet();
-            for (String room_key : room_keySet) {
-                int itemIndex = map.mapData.getRoomDetails().get(room_key).get("item_index");
-                int animalIndex = map.mapData.getRoomDetails().get(room_key).get("animal_index");
-            int roomType = map.mapData.getRoomDetails().get(room_key).get("room_type");
+        Set<String> roomKeySet = map.mapData.getPositions().keySet();
+            for (String roomKey : roomKeySet) {
+                int itemIndex = map.mapData.getRoomDetails().get(roomKey).get("item_index");
+                int animalIndex = map.mapData.getRoomDetails().get(roomKey).get("animal_index");
+            int roomType = map.mapData.getRoomDetails().get(roomKey).get("room_type");
             switch (roomType) {
                 case MapGenerator.BOSSROOM:
-                    rooms.put(room_key, roomFactory.createBossRoom(
-                            map.mapData.getPositions().get(room_key),
-                            "0,0,14,10," + levelNumber + "," + levelNumber, "BOSS"));
-                    // Not sure whether "boss" or key should be used here
-//                    rooms.put("BOSS", roomFactory.createBossRoom(List.of("", "", "", "", ""),
-//                            "0,0,14,10," + levelNumber + "," + levelNumber));
+                    rooms.put(roomKey, roomFactory.createBossRoom(
+                            map.mapData.getPositions().get(roomKey),
+                            "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.NPCROOM:
-                    System.out.print("NPCRoom at " + room_key);
+                rooms.put(roomKey, roomFactory.createShopRoom(
+                    map.mapData.getPositions().get(roomKey),
+                    "0,0,14,10," + 0 + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.GAMEROOM:
-                    System.out.print("Gameroom at " + room_key);
+                rooms.put(roomKey, roomFactory.createGambleRoom(
+                    map.mapData.getPositions().get(roomKey),
+                    "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 default:
-            rooms.put(room_key, roomFactory.createRoom(
-                    map.mapData.getPositions().get(room_key),
-                    "0,0,14,10," + animalIndex + "," + itemIndex, room_key));
+                    rooms.put(roomKey, roomFactory.createRoom(
+                            map.mapData.getPositions().get(roomKey),
+                            "0,0,14,10," + animalIndex + "," + itemIndex, roomKey));
+
                     break;
             }
             }
-            //creating and adding a boss room instance into the Map containing the rooms for
-            // the level
         if (shouldLoad) {
+            //sets the completed rooms extracted from save file to be complete in the game.
             setRoomsComplete(loadedRooms);
             shouldLoad = false;
         }
@@ -100,6 +102,12 @@ public class MainGameLevelFactory implements LevelFactory {
         FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.LOCAL);
     }
 
+
+    /**
+     * Loads map data from the save file and extracts the completed rooms into a list which
+     * is later set to completed in the create method above
+     * @param filePath: Path for the save file
+     */
     public void loadFromJson (String filePath) {
         MapLoadConfig mapLoadConfig = new MapLoadConfig();
         mapLoadConfig.savedMap = FileLoader.readClass(ArrayList.class, filePath, FileLoader.Location.LOCAL);

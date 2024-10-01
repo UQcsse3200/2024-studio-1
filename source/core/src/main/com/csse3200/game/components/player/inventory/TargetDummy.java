@@ -3,9 +3,10 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
-import com.csse3200.game.areas.BaseRoom;
 import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.npc.NPCConfigComponent;
+import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
+import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.ChargeTask;
 import com.csse3200.game.components.tasks.ChaseTask;
 import com.csse3200.game.entities.Entity;
@@ -62,8 +63,12 @@ public class TargetDummy extends UsableItem {
     public void updateEnemyTargets(List<Entity> enemies, Entity target) {
         for (Entity entity : enemies) {
             if (entity.getComponent(AITaskComponent.class) != null) {
+
                 NPCConfigs.NPCConfig config = entity.getComponent(NPCConfigComponent.class).config;
                 NPCConfigs.NPCConfig.TaskConfig tasks = config.tasks;
+
+                MeleeAttackComponent meleeAttack = entity.getComponent(MeleeAttackComponent.class);
+                RangeAttackComponent rangedAttack = entity.getComponent(RangeAttackComponent.class);
 
                 // Add chase task
                 if (tasks.chase != null) {
@@ -72,6 +77,13 @@ public class TargetDummy extends UsableItem {
                 // Add charge task
                 if (tasks.charge != null) {
                     entity.getComponent(AITaskComponent.class).addTask(new ChargeTask(target, tasks.charge));
+                }
+
+                if (meleeAttack != null) {
+                    meleeAttack.updateTarget(target);
+                }
+                if (rangedAttack!= null) {
+                    rangedAttack.updateTarget(target);
                 }
 
                 entity.getComponent(AITaskComponent.class).update();

@@ -1,0 +1,11 @@
+{
+  "name": "player 4",
+  "health": 100,
+  "coins": 0,
+  "speed": {
+    "x": 3,
+    "y": 3
+  },
+  "textureFilename": "images/player/homeless3.png",
+  "textureAtlasFilename": "images/player/homeless3.atlas"
+}

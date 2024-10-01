@@ -1,10 +1,16 @@
 {
-health: 70
+health: 35
 name: default
-favouriteColour: peach
-items: []
-melee: melee:pickaxe
-ranged: ranged:shotgun
+items: [
+	item:beartrap
+]
+speed: {
+	x: 3
+	y: 3
+}
+coins: 40
+melee: ""
+ranged: ranged:Shotgun
 textureFilename: images/player/player.png
 textureAtlasFilename: images/player/player.atlas
 }

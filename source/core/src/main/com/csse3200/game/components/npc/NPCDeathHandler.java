@@ -61,23 +61,21 @@ public class NPCDeathHandler extends Component {
             isDead = true;
             deadEntities.add(entity.getId());
             // triggering event for player to get animal's strength as coins
-            String event = "collectCoin:" + npcStrength;
-            target.getEvents().trigger(event);
+            String event = "collectCoin";
+            target.getEvents().trigger(event, npcStrength);
             logger.info(event + "   is triggered");
-
 
             // Play death animation if available
             if (animator != null && animator.hasAnimation("death")) {
                 animator.startAnimation("death");
             }
-
-            // Disable physics and AI components to prevent further interaction
-            //entity.getComponent(PhysicsComponent.class).setEnabled(false);
-            entity.getComponent(AITaskComponent.class).setEnabled(false);
             // disable AI component to prevent further interaction
-            entity.getComponent(PhysicsMovementComponent.class).setEnabled(false);
-            entity.getComponent(HitboxComponent.class).setEnabled(false);
-            entity.getComponent(ColliderComponent.class).setEnabled(false);
+            for (var componentClass : List.of(AITaskComponent.class, PhysicsMovementComponent.class, HitboxComponent.class, ColliderComponent.class)) {
+                var component = entity.getComponent(componentClass);
+                if (component != null) {
+                    component.setEnabled(false);
+                }
+            }
 
             // Schedule entity removal after the death animation completes
             Timer.schedule(new Timer.Task() {

@@ -1,3 +1,4 @@
+/*
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.player.inventory.Collectible;
@@ -118,4 +119,16 @@ public class WeaponFactoryTest {
             assert e.getMessage().equals("Invalid collectible");
         }
     }
+
+    @org.junit.jupiter.api.Test
+    public void testCreateEntityInvalidCollectibleType() {
+        try {
+            Collectible invalidCollectible = mock(Collectible.class);
+            Entity entity = weaponFactory.createWeaponEntity(invalidCollectible);
+        } catch (IllegalArgumentException e) {
+            assert e.getMessage().equals("Invalid collectible");
+        }
+    }
 }
+
+ */

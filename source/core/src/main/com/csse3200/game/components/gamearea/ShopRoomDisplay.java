@@ -24,7 +24,7 @@ public class ShopRoomDisplay extends UIComponent {
         Table table = new Table();
         table.center();
         table.setFillParent(true);
-        table.add(lable).padTop(5f);
+        table.add(lable).padBottom(930f);
         stage.addActor(table);
         // unrender the label after 3 second of display
         Timer.schedule(new Timer.Task() {

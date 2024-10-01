@@ -73,6 +73,7 @@ public class MainGameScreen extends ScreenAdapter {
 
 
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
+    private static final Vector2 MINIMAP_CAMERA_POSITION = new Vector2(-7.5f, 4.8f);
 
     private final GdxGame game;
     private final Renderer renderer;
@@ -104,6 +105,7 @@ public class MainGameScreen extends ScreenAdapter {
 
         this.renderer = RenderFactory.createRenderer();
         this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        this.renderer.getSecondaryCamera().getEntity().setPosition(MINIMAP_CAMERA_POSITION);
         this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());

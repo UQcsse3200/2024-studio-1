@@ -246,7 +246,6 @@ public class CombatStatsComponent extends Component {
             //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
             //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
             //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
-           //ServiceLocator.getResourceService().playSound("sounds/hit.ogg");
             entity.getEvents().trigger("playerHit");
             if (isDead()){ return; }
             setInvincible(true);

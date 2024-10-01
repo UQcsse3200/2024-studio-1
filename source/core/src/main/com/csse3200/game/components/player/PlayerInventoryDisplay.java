@@ -110,9 +110,9 @@ public class PlayerInventoryDisplay extends UIComponent {
         addItem("Medkit", new MedKit().getIcon());
         addItem("Shield", new ShieldPotion().getIcon());
         addItem("Bandage", new Bandage().getIcon());
+        addItem("Target Dummy", new TargetDummy().getIcon());
         addItem("Bear Trap", new BearTrap().getIcon());
         addItem("Big Red Button", new BigRedButton().getIcon());
-        addItem("Target Dummy", new TeleporterItem().getIcon());
         addItem("Teleport Item", new TeleporterItem().getIcon());
         addItem("ReRoll", new Reroll().getIcon());
     }

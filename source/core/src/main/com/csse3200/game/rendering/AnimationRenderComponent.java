@@ -169,6 +169,29 @@ public class AnimationRenderComponent extends RenderComponent {
   public boolean isFinished() {
     return currentAnimation != null && currentAnimation.isAnimationFinished(animationPlayTime);
   }
+
+  /**
+   * Keeps track of the time of the current animation.
+   * @param delta time elapsed since last frame.
+   */
+  public void update(float delta) {
+    // Update the animation play time
+    if (currentAnimation != null) {
+      animationPlayTime += delta;
+    }
+  }
+
+  /**
+   * Get the frame of the current animation.
+   * @return the TextureRegion frame
+   */
+  public TextureRegion getCurrentFrame() {
+    if (currentAnimation != null) {
+      return currentAnimation.getKeyFrame(animationPlayTime);
+    }
+    return null; // Return null if no animation is playing
+  }
+
   public void setOpacity(float opacity){
     this.opacity = opacity;
   }

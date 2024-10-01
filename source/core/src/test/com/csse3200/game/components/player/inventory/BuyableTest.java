@@ -35,6 +35,8 @@ public class BuyableTest {
         entity = new Entity()
                 .addComponent(new InventoryComponent())
                 .addComponent(new ItemPickupComponent());
+        Inventory inventory = entity.getComponent(InventoryComponent.class).getInventory();
+                entity.addComponent(new CoinsComponent(inventory));
         itemEntity = new Entity()
                 .addComponent(new BuyableComponent(10))
                 .addComponent(new CollectibleComponent(new MedKit()));
@@ -47,9 +49,8 @@ public class BuyableTest {
 
     @Test
     public void sufficientFundsTest() {
-        //Set the cost of the buyable item to 8 instead of 10
-        //For testing, the player's funds are set to 9 (refer to getTestFunds() in ItemPickupComponent)
-        itemEntity.getComponent(BuyableComponent.class).setCost(8);
+        //Set the cost of the buyable item to 0 instead of 10
+        itemEntity.getComponent(BuyableComponent.class).setCost(0);
         ItemPickupComponent itemPickupComponent = entity.getComponent(ItemPickupComponent.class);
         itemPickupComponent.setContact(true);
         Collectible item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();

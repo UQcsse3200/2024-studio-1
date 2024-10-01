@@ -18,10 +18,7 @@ public class CoinsComponent extends Component {
     public CoinsComponent(Inventory inventory) {
         this.coins = 0;
         this.inventory = inventory;
-        inventory.getEntity().getEvents().addListener("collectCoin:3", () -> addCoins(3));
-        inventory.getEntity().getEvents().addListener("collectCoin:6", () -> addCoins(6));
-        inventory.getEntity().getEvents().addListener("collectCoin:9", () -> addCoins(9));
-        inventory.getEntity().getEvents().addListener("collectCoin:10", () -> addCoins(10));
+        inventory.getEntity().getEvents().addListener("collectCoin", this::addCoins);
     }
 
     /**

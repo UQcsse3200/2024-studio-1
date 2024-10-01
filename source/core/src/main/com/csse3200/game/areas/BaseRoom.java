@@ -74,16 +74,6 @@ public abstract class BaseRoom implements Room {
      * @param specification The room specification string.
      * @param roomName The name of the room.
      */
-
-    /**
-     * Constructs a new BaseRoom with the given parameters.
-     *
-     * @param terrainFactory The factory for creating terrain.
-     * @param collectibleFactory The factory for creating collectible items.
-     * @param roomConnections List of room connections.
-     * @param specification The room specification string.
-     * @param roomName The name of the room.
-     */
     public BaseRoom(
             TerrainFactory terrainFactory,
             CollectibleFactory collectibleFactory,

@@ -75,7 +75,6 @@ public class MainGameScreen extends ScreenAdapter {
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
     private static final Vector2 MINIMAP_CAMERA_POSITION = new Vector2(-7.5f, 4.8f);
 
-
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;

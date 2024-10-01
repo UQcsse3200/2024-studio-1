@@ -8,6 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.components.DialogComponent;
+
 /** Service for displaying alert boxes in the game. */
 public class AlertBoxService {
 
@@ -30,6 +33,21 @@ public class AlertBoxService {
         dialog.text(message);
         dialog.button("OK");
         dialog.show(stage);
+    }
+
+    public void confirmDialogBox(Entity entity, String text, ConfirmationListener listener) {
+        entity.getComponent(DialogComponent.class).showDialog(text);
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.ENTER) {
+                    if(entity.getComponent(DialogComponent.class).dismissDialog())
+                        listener.onYes();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     /**

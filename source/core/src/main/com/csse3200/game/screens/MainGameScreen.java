@@ -12,6 +12,8 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
+import com.csse3200.game.components.player.PlayerStatsDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.PlayerSelection;
@@ -51,7 +53,7 @@ public class MainGameScreen extends ScreenAdapter {
     private final PlayerFactory playerFactory;
     private static final String[] mainGameTextures = {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-            "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/black_dot_transparent.png"
+            "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/dot_transparent.png", "images/black_dot_transparent.png"
     };
     // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
@@ -77,6 +79,8 @@ public class MainGameScreen extends ScreenAdapter {
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
     private Entity ui;
+    private Entity player;
+
     public static boolean isPaused = false;
 
     public MainGameScreen(GdxGame game) {
@@ -106,6 +110,7 @@ public class MainGameScreen extends ScreenAdapter {
         this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());
+        ServiceLocator.getRenderService().setSecondaryCamera(this.renderer.getSecondaryCamera());
 
         loadAssets();
         createUI();
@@ -128,7 +133,7 @@ public class MainGameScreen extends ScreenAdapter {
          * If Player choose Load, then create
          */
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
-        Entity player = playerFactory.createPlayer(
+        player = playerFactory.createPlayer(
                 FileLoader.readClass(PlayerConfig.class, chosenPlayer).name,
                 gameOptions.difficulty);
 
@@ -173,6 +178,11 @@ public class MainGameScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         renderer.resize(width, height);
         ui.getComponent(MainGameExitDisplay.class).resize(width, height);
+        if(player != null)
+        {
+            player.getComponent(PlayerInventoryDisplay.class).resize(width, height);
+            player.getComponent(PlayerStatsDisplay.class).resize(width, height);
+        }
         logger.trace("Resized renderer: ({} x {})", width, height);
     }
 

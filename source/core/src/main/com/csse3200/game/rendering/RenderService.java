@@ -17,6 +17,7 @@ public class RenderService implements Disposable {
     private Stage stage;
     private DebugRenderer debugRenderer;
     private CameraComponent camera;
+    private CameraComponent secondaryCamera;
 
     /**
      * Map from layer to list of renderables, allows us to render each layer in the correct order
@@ -93,5 +94,13 @@ public class RenderService implements Disposable {
 
     public void setCamera(CameraComponent camera) {
         this.camera = camera;
+    }
+
+    public CameraComponent getSecondaryCamera() {
+        return secondaryCamera;
+    }
+
+    public void setSecondaryCamera(CameraComponent secondaryCamera) {
+        this.secondaryCamera = secondaryCamera;
     }
 }

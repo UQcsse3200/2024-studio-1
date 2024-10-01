@@ -6,6 +6,7 @@ import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.DialogComponent;
 import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
@@ -106,6 +107,10 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
     Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
+
+    // Add the BossHealthDialogueComponent to the kitsune
+    kitsune.addComponent(new BossHealthDialogueComponent());
+    kitsune.addComponent(new DialogComponent());
 
     return kitsune; 
   }
@@ -213,6 +218,10 @@ public class NPCFactory extends LoadedFactory {
     AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
     Entity birdman = createBaseNPC("Birdman", target, aiComponent, config, animator);
 
+    // Add the BossHealthDialogueComponent
+    birdman.addComponent(new BossHealthDialogueComponent());
+    birdman.addComponent(new DialogComponent());
+
     return birdman;
   }
 
@@ -233,6 +242,7 @@ public class NPCFactory extends LoadedFactory {
 
     // Add the BossHealthDialogueComponent to the werewolf
     werewolf.addComponent(new BossHealthDialogueComponent());
+    werewolf.addComponent(new DialogComponent());
 
 
     return werewolf;

@@ -44,7 +44,6 @@
       "wander": {
         "wanderRadius": 3,
         "waitTime": 2,
-        "wanderDistance": 2,
         "wanderSpeed": 0.5
       },
       "chase": {

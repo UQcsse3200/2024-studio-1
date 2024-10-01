@@ -21,7 +21,6 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,8 +79,7 @@ public class ProjectileFactory extends LoadedFactory {
      *                         (-0.7)
      * NOTE - Magic numbers should not be tested.
      **/
-     public List<Entity> createShotGunProjectile (ProjectileConfig stats, Vector2 direction,
-                                       Vector2 parentPosition) {
+     public void createShotGunProjectile (ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {
         Double polarAngle = atan(direction.y / direction.x);
         float followSpeed = 0.9F;
         float scale = 1;
@@ -93,11 +91,9 @@ public class ProjectileFactory extends LoadedFactory {
         Vector2 rectCordLess = new Vector2(scale * (float)  (cos(polarAngle - plusMinus)), (float) ( sin(polarAngle - plusMinus)));
         Vector2 follower = new Vector2(followSpeed * direction.x, followSpeed * direction.y);
         List<Vector2> directions = Arrays.asList(rectCordMore, direction, rectCordLess, follower);
-        List<Entity> projectiles = new ArrayList<>();
         for (Vector2 dir : directions) {
-            projectiles.add(createProjectile(stats, dir, parentPosition));
+            createProjectile(stats, dir, parentPosition);
         }
-        return projectiles;
     }
 
 

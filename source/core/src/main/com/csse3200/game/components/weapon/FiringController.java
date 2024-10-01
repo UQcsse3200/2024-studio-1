@@ -201,13 +201,9 @@ public class FiringController extends Component {
                 // Shooting
                 this.setAmmo(-1);
 
-                // Create projectiles
-                for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
-                        direction, this.getEntity().getPosition())) {
-                    e.getComponent(ProjectileAttackComponent.class).create();
-                    ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
-                            new GridPoint2(9, 9), true, true);
-                }
+                Entity projectile = projectileFactory.createProjectile(this.projectileConfig, direction, this.getEntity().getPosition());
+                projectile.getComponent(ProjectileAttackComponent.class).create();
+                ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9, 9), true, true);
                 ServiceLocator.getResourceService().playSound("sounds/shotgun1_f.ogg");
                 // Trigger event for animation controller
                 triggerEvent(direction);

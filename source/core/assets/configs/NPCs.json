@@ -141,16 +141,9 @@
       }
     },
     "attacks": {
-      "aoe": {
-        "range": 2,
-        "rate": 1,
-        "radius": 2,
-        "effects": [
-          {
-            "type": "knockback",
-            "force": 5
-          }
-        ]
+      "melee": {
+        "range": 1.5,
+        "rate": 1
       }
     },
     "animations": [
@@ -191,12 +184,11 @@
         "waitTime": 2
       }
     },
-
-      "attacks": {
-        "melee": {
-          "range": 1,
-          "rate": 2
-        }
+    "attacks": {
+      "melee": {
+        "range": 1,
+        "rate": 0.8
+      }
     },
     "animations": [
       {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
@@ -434,7 +426,7 @@
         "effects": [
           {
             "type": "knockback",
-            "force": 4
+            "force": 2
           }
         ]
       }

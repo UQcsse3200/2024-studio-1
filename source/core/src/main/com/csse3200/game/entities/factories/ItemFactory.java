@@ -62,6 +62,7 @@ public class ItemFactory {
             case "divinepotion" -> createDivinePotion();
             case "bleedbuff" -> createBleedBuff();
             case "BigRedButton" -> createBigRedButton();
+            case "Teleporter" -> createTeleporter();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -170,8 +171,14 @@ public class ItemFactory {
 
     /**
      * Creates a big red button item that kills all enemies in the current room
-     * @return BigRedButton
+     * @return BigRedButton item
      */
     private Collectible createBigRedButton() {return new BigRedButton();}
+
+    /**
+     * Creates an item that teleports the player to the boss room
+     * @return teleporter item
+     */
+    private Collectible createTeleporter() {return new TeleporterItem();}
 }
 

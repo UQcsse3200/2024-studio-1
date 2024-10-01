@@ -143,7 +143,7 @@ public class ItemPickupComponent extends Component {
      * @param item the collectible item that the player is attempting to purchase
      * @param itemEntity the entity representation of the item that the player is attempting to purhase
      */
-    private void checkItemPurchase(Collectible item, Entity itemEntity) {
+    public void checkItemPurchase(Collectible item, Entity itemEntity) {
         if (entity.getComponent(CoinsComponent.class) == null) {
             entity.getEvents().trigger("insufficientFunds");
             // Depending on how you want to handle no coins component

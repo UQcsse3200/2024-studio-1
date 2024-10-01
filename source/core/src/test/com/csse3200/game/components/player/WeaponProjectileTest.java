@@ -75,8 +75,8 @@ class WeaponProjectileTest {
                 Collectible.Type.RANGED_WEAPON, 10, 5f, 1, maxAmmo, maxAmmo, 2);
         // Create test entity to attach weaponComponent
         Entity testEntity = new Entity();
-        testEntity.addComponent(weaponComponent)
-                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC));
+        testEntity.addComponent(weaponComponent);
+        testEntity.getComponent(WeaponComponent.class).create();
         // Shot in default direction with ammo at 0
         weaponComponent.shoot(new Vector2());
         try {
@@ -103,8 +103,8 @@ class WeaponProjectileTest {
                 Collectible.Type.RANGED_WEAPON, 10, 5f, 1, 0, maxAmmo, 1);
         // Create test entity to attach weaponComponent
         Entity testEntity = new Entity();
-        testEntity.addComponent(weaponComponent)
-                .addComponent(new RangeDetectionComponent(PhysicsLayer.NPC));
+        testEntity.addComponent(weaponComponent);
+        testEntity.getComponent(WeaponComponent.class).create();
         // Ammo is 0
         assertEquals(0, weaponComponent.getAmmo());
         // Shot in default direction with ammo at 0

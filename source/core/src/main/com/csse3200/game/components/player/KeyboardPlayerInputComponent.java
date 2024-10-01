@@ -64,7 +64,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     private boolean melee() {
-        entity.getEvents().trigger("attack");
+        entity.getEvents().trigger("attackMelee");
         return true;
     }
 

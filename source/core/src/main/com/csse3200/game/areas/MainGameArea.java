@@ -97,6 +97,12 @@ public class MainGameArea extends GameArea {
         if (!spawnRoom) {
             return;
         }
+
+        if (ServiceLocator.getPhysicsService().getPhysics().getWorld().isLocked()){
+            logger.error("Physics is locked!");
+            return;
+        }
+
         var entityNames = ServiceLocator.getEntityService().getEntityNames();
         logger.info("Spawning new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
         if (currentLevel.roomTraversals == 8 ) {

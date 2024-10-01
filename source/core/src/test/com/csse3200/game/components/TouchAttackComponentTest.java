@@ -1,6 +1,8 @@
 package com.csse3200.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.csse3200.game.areas.GameAreaService;
+import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;
@@ -10,14 +12,39 @@ import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
 class TouchAttackComponentTest {
+
+  @Mock
+  private GameAreaService gameAreaService;
+
+  @Mock
+  private MainGameArea mainGameArea;
+
+  @Mock
+  private Entity player;
+
   @BeforeEach
   void beforeEach() {
+    // Mock GameAreaService and MainGameArea
+    gameAreaService = mock(GameAreaService.class);
+    mainGameArea = mock(MainGameArea.class);
+    player = mock(Entity.class);
+    player = new Entity().addComponent(new CombatStatsComponent(100, 10));
+
+    // Register the mock services
+    ServiceLocator.registerGameAreaService(gameAreaService);
     ServiceLocator.registerPhysicsService(new PhysicsService());
+
+    // Mock the GameAreaService behavior
+    when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
+    when(mainGameArea.getPlayer()).thenReturn(player);
   }
 
   @Test

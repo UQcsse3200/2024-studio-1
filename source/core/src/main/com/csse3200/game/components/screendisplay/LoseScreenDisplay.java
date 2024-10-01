@@ -100,13 +100,13 @@ public class LoseScreenDisplay extends UIComponent {
         table.row();
         table.add(animalName).padTop(Y_PADDING);
 
-        Label Rat = new Label("You thought you were the predator, but turns out you’re just prey!", skin, "cutscene");
-        Label Bear = new Label("Too slow, too soft. You didn't stand a chance against my claws!.", skin, "cutscene");
+        Label Rat = new Label("You thought you were the predator, but turns out you are just prey!", skin, "cutscene");
+        Label Bear = new Label("Too slow, too soft. You didn't stand a chance against my claws!", skin, "cutscene");
         Label Bat = new Label("Couldn't see in the dark, huh? My world, my rules. Better luck next time, human!", skin, "cutscene");
         Label Dog = new Label("Fetch? More like fight! Too bad you didn't put up much of one.", skin, "cutscene");
-        Label Snake = new Label("Slither, slither... you never saw me coming, and now it's lights out for you!", skin, "cutscene");
-        Label Dino = new Label("Extinct? Not me! Guess it's you who's heading for the history books!", skin, "cutscene");
-        Label Minotaur = new Label("Lost in my labyrinth of power, and now you’re just another trophy!", skin, "cutscene");
+        Label Snake = new Label("Slither, slither... you never saw me coming, and now it is lights out for you!", skin, "cutscene");
+        Label Dino = new Label("Extinct? Not me! Guess it is you who is heading for the history books!", skin, "cutscene");
+        Label Minotaur = new Label("Lost in my labyrinth of power, and now you are just another trophy!", skin, "cutscene");
 
         table.row();
         if (LastAttackAnimal.equals("Rat")){

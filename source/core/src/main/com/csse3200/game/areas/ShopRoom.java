@@ -14,6 +14,9 @@ import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
+/**
+ * Room for Player to Shop in to buy 'buyable' items within
+ */
 public class ShopRoom extends BaseRoom {
     public RandomNumberGenerator rng;
 

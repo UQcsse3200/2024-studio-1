@@ -87,7 +87,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="../areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></code>, <code><a href="../areas/BossRoom.html" title="class in com.csse3200.game.areas">BossRoom</a></code>, <code><a href="../areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></code>, <code><a href="../areas/GambleRoom.html" title="class in com.csse3200.game.areas">GambleRoom</a></code>, <code><a href="../areas/MainRoom.html" title="class in com.csse3200.game.areas">MainRoom</a></code>, <code><a href="../areas/ShopRoom.html" title="class in com.csse3200.game.areas">ShopRoom</a></code></dd>
+<dd><code><a href="../areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></code>, <code><a href="../areas/BossRoom.html" title="class in com.csse3200.game.areas">BossRoom</a></code>, <code><a href="../areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></code>, <code><a href="../areas/MainRoom.html" title="class in com.csse3200.game.areas">MainRoom</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Room</span></div>
@@ -107,23 +107,17 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#checkIfRoomComplete()" class="member-name-link">checkIfRoomComplete</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getIsRoomComplete()" class="member-name-link">getIsRoomComplete</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getIsRoomComplete()" class="member-name-link">getIsRoomComplete</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#isAllAnimalDead()" class="member-name-link">isAllAnimalDead</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getRoomName()" class="member-name-link">getRoomName</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#removeRoom()" class="member-name-link">removeRoom</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#removeRoom()" class="member-name-link">removeRoom</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Remove all entities that form this room.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#setIsRoomComplete()" class="member-name-link">setIsRoomComplete</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)" class="member-name-link">spawn</a><wbr>(<a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
  <a href="../areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a>&nbsp;mainGameArea)</code></div>
@@ -158,12 +152,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getRoomName()">
-<h3>getRoomName</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getRoomName</span>()</div>
-</section>
-</li>
-<li>
 <section class="detail" id="removeRoom()">
 <h3>removeRoom</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">removeRoom</span>()</div>
@@ -171,21 +159,15 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="isAllAnimalDead()">
+<h3>isAllAnimalDead</h3>
+<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">isAllAnimalDead</span>()</div>
+</section>
+</li>
+<li>
 <section class="detail" id="getIsRoomComplete()">
 <h3>getIsRoomComplete</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">getIsRoomComplete</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="setIsRoomComplete()">
-<h3>setIsRoomComplete</h3>
-<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">setIsRoomComplete</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="checkIfRoomComplete()">
-<h3>checkIfRoomComplete</h3>
-<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">checkIfRoomComplete</span>()</div>
 </section>
 </li>
 </ul>

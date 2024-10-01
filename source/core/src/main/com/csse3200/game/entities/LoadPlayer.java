@@ -67,7 +67,6 @@ public class LoadPlayer {
         addAtlas(player, config);
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
-       // player.setScale(playerScale, playerScale);
         return player;
     }
 
@@ -83,7 +82,7 @@ public class LoadPlayer {
         System.out.println(config.textureAtlasFilename);
         if (!config.textureAtlasFilename.equals("images/player/player.atlas")) {
             TextureRegion defaultTexture = atlas.findRegion("idle");
-            player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+            player.setScale(2f, 2f);
         } else {
             player.setScale(playerScale, playerScale);
         }

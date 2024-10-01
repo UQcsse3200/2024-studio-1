@@ -7,5 +7,7 @@
     "y": 3
   },
   "textureFilename": "images/player/homeless3.png",
-  "textureAtlasFilename": "images/player/homeless3.atlas"
+  "textureAtlasFilename": "images/player/homeless3.atlas",
+  "melee": "melee:Axe",
+  "ranged": "ranged:Shotgun"
 }

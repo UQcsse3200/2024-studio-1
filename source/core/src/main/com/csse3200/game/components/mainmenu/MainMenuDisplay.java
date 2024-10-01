@@ -1,18 +1,18 @@
 package com.csse3200.game.components.mainmenu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.entities.configs.MapLoadConfig;
+import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.configs.PlayerLocationConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.options.GameOptions.Difficulty;
-import com.csse3200.game.screens.MainMenuScreen;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,17 +46,11 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     private static boolean loadFilesExist() {
-        for (String path : MainMenuScreen.SAVE_PATHS) {
-            try {
-                FileLoader.readClass(PlayerLocationConfig.class, path,
-                        FileLoader.Location.EXTERNAL);
-            } catch (Exception e) {
-                logger.info("Save file not found: {} \n {}", path, e.getMessage());
-                return false;
-            }
-        }
-        logger.info("Can load from save file - all save files found");
-        return true;
+        PlayerLocationConfig playerLocationConfig = FileLoader.readClass(PlayerLocationConfig.class, MainGameArea.PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class, MainGameArea.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class, "configs/player_save.json", FileLoader.Location.EXTERNAL);
+
+        return playerLocationConfig != null && mapLoadConfig != null && playerConfig != null;
     }
 
     private void addActors() {

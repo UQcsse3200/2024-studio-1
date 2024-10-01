@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
@@ -53,7 +54,6 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/black_dot_transparent.png"
     };
-
     // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
 
@@ -80,10 +80,9 @@ public class MainGameScreen extends ScreenAdapter {
     private Entity ui;
     public static boolean isPaused = false;
 
-
     public MainGameScreen(GdxGame game) {
         this.game = game;
-        game.setScreenColour(DEFAULT);
+        game.setScreenColour(GdxGame.ScreenColour.GREY);
         isPaused = false;
 
         GameOptions gameOptions = game.gameOptions;
@@ -108,6 +107,7 @@ public class MainGameScreen extends ScreenAdapter {
         this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());
+        ServiceLocator.getRenderService().setSecondaryCamera(this.renderer.getSecondaryCamera());
 
         loadAssets();
         createUI();
@@ -121,23 +121,36 @@ public class MainGameScreen extends ScreenAdapter {
         Stage stage = ServiceLocator.getRenderService().getStage();
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
 
+        // todo load based on what the user chose
+        boolean shouldLoad = gameOptions.shouldLoad;
+        logger.info("Should start from save file: {}", shouldLoad);
+
         /**
          * based on the characters selected, changed the link
          * If Player choose Load, then create
          */
-        // todo confirm which players should be passed into PlayerFactory
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
-        Entity player = playerFactory.createPlayer(
-                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name);
+        Entity player;
+        if (shouldLoad) {
+            player = playerFactory.createPlayer("configs/player_save.json",
+                    gameOptions.difficulty);
+            System.out.println(player.getComponent(CombatStatsComponent.class).getHealth());
+        } else {
+            player = playerFactory.createPlayer(chosenPlayer,
+                    gameOptions.difficulty);
+        }
+
 
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
-        LevelFactory levelFactory = new MainGameLevelFactory();
+
+        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad);
+
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
-            new MainGameArea(levelFactory, player);
+            new MainGameArea(levelFactory, player, shouldLoad);
         }
     }
 
@@ -174,8 +187,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     @Override
     public void pause() {
-        List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Game paused, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+        logger.info("Game paused, {}", ServiceLocator.getEntityService());
     }
 
     @Override
@@ -246,3 +258,4 @@ public class MainGameScreen extends ScreenAdapter {
         ServiceLocator.getEntityService().register(ui);
     }
 }
+

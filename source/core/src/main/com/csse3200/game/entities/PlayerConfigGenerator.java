@@ -2,11 +2,9 @@ package com.csse3200.game.entities;
 
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerConfigComponent;
-import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
 
 /**
@@ -31,6 +29,8 @@ public class PlayerConfigGenerator {
 
         config.health = statsComponent.getHealth();
         config.baseAttack = statsComponent.getBaseAttack();
+        config.coins = player.getComponent(CoinsComponent.class).getCoins();
+        config.speed = player.getComponent(PlayerActions.class).getCurrSpeed();
 
         // store the string representation of items player has collected
         config.items = itemsToString(inventoryComponent.getInventory().getItems());
@@ -65,3 +65,4 @@ public class PlayerConfigGenerator {
         return allItems;
     }
 }
+

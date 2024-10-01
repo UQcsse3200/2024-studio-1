@@ -1,8 +1,16 @@
 {
-  "name": "default",
-  "health": 60,
-  "favouriteColour": "peach",
-  "textureFilename": "images/player/player.png",
-  "textureAtlasFilename": "images/player/player.atlas",
-  "items": ["bandage","energydrink"]
+health: 35
+name: default
+items: [
+	item:beartrap
+]
+speed: {
+	x: 3
+	y: 3
+}
+coins: 40
+melee: ""
+ranged: ranged:Shotgun
+textureFilename: images/player/player.png
+textureAtlasFilename: images/player/player.atlas
 }

@@ -3,18 +3,13 @@ package com.csse3200.game.files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
 import com.csse3200.game.files.FileLoader.Location;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
 
 /**
  * Reading, Writing, and applying user settings in the game.
  */
 public class UserSettings {
-  private static final String ROOT_DIR = "source/core/assets/configs/settings.json";
   private static final String SETTINGS_FILE = "settings.json";
 
   private static final int WINDOW_WIDTH = 1280;
@@ -23,13 +18,18 @@ public class UserSettings {
 
   /**
    * Get the stored user settings
-   * @return Copy of the current settings
+   * @return Copy of the current settings or default settings if there was an error reading files
    */
   public static Settings get() {
-    String path = ROOT_DIR + File.separator + SETTINGS_FILE;
-    Settings fileSettings = FileLoader.readClass(Settings.class, path, Location.EXTERNAL);
+    Settings defaultSettings = new Settings();
+    if (Gdx.files == null) {
+      // Likely means Gdx environment hasn't been set up yet (e.g. during unit tests), just use
+      // defaults
+      return defaultSettings;
+    }
+    Settings fileSettings = FileLoader.readClass(Settings.class, SETTINGS_FILE, Location.EXTERNAL);
     // Use default values if file doesn't exist
-    return fileSettings != null ? fileSettings : new Settings();
+    return fileSettings != null ? fileSettings : defaultSettings;
   }
 
   /**
@@ -38,8 +38,7 @@ public class UserSettings {
    * @param applyImmediate true to immediately apply new settings.
    */
   public static void set(Settings settings, boolean applyImmediate) {
-    String path = ROOT_DIR + File.separator + SETTINGS_FILE;
-    FileLoader.writeClass(settings, path, Location.EXTERNAL);
+    FileLoader.writeClass(settings, SETTINGS_FILE, Location.EXTERNAL);
 
     if (applyImmediate) {
       applySettings(settings);
@@ -53,7 +52,6 @@ public class UserSettings {
   public static void applySettings(Settings settings) {
     Gdx.graphics.setForegroundFPS(settings.fps);
     Gdx.graphics.setVSync(settings.vsync);
-    ResourceService resourceService = ServiceLocator.getResourceService();
     log.info("{}", settings.mute);
     log.info("{}", settings.musicVolume);
 

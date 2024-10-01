@@ -6,10 +6,7 @@ import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
-import com.csse3200.game.components.npc.DirectionalNPCComponent;
-import com.csse3200.game.components.npc.NPCAnimationController;
-import com.csse3200.game.components.npc.NPCDeathHandler;
-import com.csse3200.game.components.npc.NPCHealthBarComponent;
+import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
@@ -94,9 +91,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
-    Entity rat = createBaseNPC("Rat", target, aiComponent, config, animator);
-
-    return rat;
+      return createBaseNPC("Rat", target, aiComponent, config, animator);
   }
 
   /**
@@ -235,6 +230,10 @@ public class NPCFactory extends LoadedFactory {
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
 
+    // Add the BossHealthDialogueComponent to the werewolf
+    werewolf.addComponent(new BossHealthDialogueComponent());
+
+
     return werewolf;
   }
 
@@ -275,9 +274,11 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler()) 
+            .addComponent(new NPCDeathHandler(target, config.getStrength()))
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
-            .addComponent(new NPCAnimationController());
+            .addComponent(new NPCAnimationController())
+            .addComponent(new NPCConfigComponent(config));
+
     if (config.attacks.melee != null) {
       npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee.range, config.attacks.melee.rate,
               config.attacks.melee.effects));
@@ -321,6 +322,10 @@ public class NPCFactory extends LoadedFactory {
     // Add wander task
     if (tasks.wander != null) {
       aiComponent.addTask(new WanderTask(tasks.wander));
+    }
+    // Add follow task
+    if (tasks.follow != null) {
+      aiComponent.addTask(new FollowTask(tasks.follow));
     }
     // Add straight wander task
     if (tasks.straightWander != null) {

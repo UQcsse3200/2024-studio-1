@@ -2,9 +2,22 @@ package com.csse3200.game.areas;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.areas.terrain.TerrainComponent;
+import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.npc.NPCConfigComponent;
+import com.csse3200.game.components.npc.attack.AttackComponent;
+import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
+import com.csse3200.game.components.npc.attack.RangeAttackComponent;
+import com.csse3200.game.components.tasks.BossAttackTask;
+import com.csse3200.game.components.tasks.ChargeTask;
+import com.csse3200.game.components.tasks.ChaseTask;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.entities.factories.LoadedFactory;
+import com.csse3200.game.entities.factories.NPCFactory;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +35,7 @@ import java.util.List;
 public abstract class GameArea extends LoadedFactory {
     private static final Logger log = LoggerFactory.getLogger(GameArea.class);
     protected TerrainComponent terrain;
+
     protected List<Entity> areaEntities;
 
     protected GameArea() {

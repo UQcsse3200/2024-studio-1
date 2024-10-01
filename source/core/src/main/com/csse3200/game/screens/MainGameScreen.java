@@ -132,11 +132,11 @@ public class MainGameScreen extends ScreenAdapter {
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         Entity player;
         if (shouldLoad) {
-            player = playerFactory.createPlay("configs/player_save.json",
+            player = playerFactory.createPlayer("configs/player_save.json",
                     gameOptions.difficulty);
             System.out.println(player.getComponent(CombatStatsComponent.class).getHealth());
         } else {
-            player = playerFactory.createPlay(chosenPlayer,
+            player = playerFactory.createPlayer(chosenPlayer,
                     gameOptions.difficulty);
         }
 

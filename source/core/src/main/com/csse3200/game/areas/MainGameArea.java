@@ -6,11 +6,14 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.configs.PlayerLocationConfig;
+import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -164,6 +167,17 @@ public class MainGameArea extends GameArea {
         player.setPosition(7, 5);
         spawnEntity(player);
 
+        if(player.getComponent(InventoryComponent.class).getInventory().petsExist()){
+            //do here
+            if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+                List<Entity> enemies = room.getEnemies();
+                player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
+            }
+            else{
+                //do nothing I guess and pray
+            }
+        } 
+
         logger.info("Spawned new room, {}", ServiceLocator.getEntityService());
         spawnRoom = false;
     }
@@ -171,8 +185,6 @@ public class MainGameArea extends GameArea {
     public void changeLevel(int levelNumber) {
         logger.info("Changing to level: {}", levelNumber);
         currentLevelNumber = levelNumber;
-
-        // TODO: Save player progress or game state here, create a save manager
 
         // Create and load the new level
         this.currentLevel = this.levelFactory.create(levelNumber);

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.factories.PetFactory;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 import java.util.Random;
 
 
@@ -36,6 +37,7 @@ public class Tombstone extends BuffItem {
 
         int randomInt = this.random.nextInt(1, 5);
         Entity newPet = this.randomPetGenerator(randomInt);
+        entity.getComponent(InventoryComponent.class).getInventory().addPet(newPet); 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newPet, new GridPoint2(petEntityPosition), true, true);
     }
 

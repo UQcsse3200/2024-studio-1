@@ -11,6 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.List;
+import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.areas.EnemyRoom;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 
 import static com.csse3200.game.components.player.KeyMapping.KeyBinding.*;
 
@@ -169,6 +174,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * @return true
      */
     private boolean petTargetSwitch() {
+        Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+            List<Entity> enemies = room.getEnemies();
+            player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
+        }
         return true;
     }
 

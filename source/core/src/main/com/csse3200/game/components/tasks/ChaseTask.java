@@ -100,6 +100,9 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   public void stop() {
     super.stop();
     movementTask.stop();
+    if (meleeAttackComponent != null) {
+      meleeAttackComponent.setEnabled(false);
+    }
   }
 
   /**

@@ -41,7 +41,6 @@ class ChaseTaskTest {
     target.setPosition(2f, 2f);
 
     NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig();
-    config.priority = 10;
     config.viewDistance = 5;
     config.chaseDistance = 10;
     config.chaseSpeed = 10;
@@ -74,7 +73,6 @@ class ChaseTaskTest {
     entity.setPosition(0f, 0f);
 
     NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig();
-    config.priority = 10;
     config.viewDistance = 5;
     config.chaseDistance = 10;
     config.chaseSpeed = 1;
@@ -87,7 +85,7 @@ class ChaseTaskTest {
 
     // When in view distance, should give higher priority
     target.setPosition(0f, 4f);
-    assertEquals(10, chaseTask.getPriority());
+    assertEquals(4, chaseTask.getPriority());
 
     // When active, should chase if within chase distance
     target.setPosition(0f, 8f);

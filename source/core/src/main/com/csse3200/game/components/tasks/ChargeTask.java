@@ -165,8 +165,11 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     if (status == Status.ACTIVE) {
       return ACTIVE_PRIORITY;
     }
+    if (!isCooldownComplete()) {
+      return -1;
+    }
     float dst = owner.getEntity().getPosition().dst(target.getPosition());
-    if (isCooldownComplete() && dst >= activationMinRange && dst <= activationMaxRange && isTargetVisible()) {
+    if (dst >= activationMinRange && dst <= activationMaxRange && isTargetVisible()) {
       return INACTIVE_PRIORITY;
     }
     return -1;

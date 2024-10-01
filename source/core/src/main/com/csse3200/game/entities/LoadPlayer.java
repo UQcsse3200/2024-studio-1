@@ -1,3 +1,5 @@
+
+
 package com.csse3200.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -10,7 +12,9 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.entities.factories.*;
+import com.csse3200.game.entities.factories.CollectibleFactory;
+import com.csse3200.game.entities.factories.ItemFactory;
+import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -18,6 +22,11 @@ import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+
+import java.util.Objects;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 
 /**
@@ -26,19 +35,21 @@ import com.csse3200.game.services.ServiceLocator;
  *
  */
 public class LoadPlayer {
-    private final WeaponFactory weaponFactory;
     private final ItemFactory itemFactory;
     private final InventoryComponent inventoryComponent;
     private static final float playerScale = 0.75f;
+    private static final Logger logger = getLogger(LoadPlayer.class);
+    private CollectibleFactory collectibleFactory;
 
 
     /**
-    * Constructs a new LoadPlayer instance, initializing factories and inventory component.
+     * Constructs a new LoadPlayer instance, initializing factories and inventory component.
      */
     public LoadPlayer() {
-        this.weaponFactory = new WeaponFactory();
+        this.collectibleFactory = new CollectibleFactory();
         this.itemFactory = new ItemFactory();
         this.inventoryComponent = new InventoryComponent();
+
     }
 
     /**
@@ -49,6 +60,7 @@ public class LoadPlayer {
      * @return entity
      */
     public Entity createPlayer(PlayerConfig config) {
+        logger.info("Creating player with health {}", config.health);
         Entity player = new Entity();
         addComponents(player, config);
         addWeaponsAndItems(player, config);
@@ -92,24 +104,22 @@ public class LoadPlayer {
                 .addComponent(inventoryComponent)
                 .addComponent(new PlayerAchievementComponent())
                 .addComponent(new ItemPickupComponent())
+                .addComponent(new FundsDisplayComponent())
                 .addComponent(new ShieldComponent())
                 .addComponent(ServiceLocator.getInputService().getInputFactory().createForPlayer())
                 .addComponent(new PlayerStatsDisplay())
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))
-                .addComponent(new PlayerAnimationController())
+                .addComponent(new PlayerAnimationController(config.textureAtlasFilename))
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay())
-                .addComponent(new WeaponComponent(
-                        new Sprite(new Texture("images/Weapons/knife.png")),
-                        Collectible.Type.RANGED_WEAPON,
-                        10, 1, 1, 10, 10, 0));
+                .addComponent(new PlayerHealthDisplay());
 
-                CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
-                player.addComponent(coinsComponent)
-                        .addComponent(new PlayerCoinDisplay(coinsComponent));
+        CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
 
-            player.getComponent(PlayerActions.class).setSpeed(config.speed);
+        player.addComponent(coinsComponent)
+                .addComponent(new PlayerCoinDisplay(coinsComponent));
+        player.getComponent(CoinsComponent.class).setCoins(config.coins);
+        player.getComponent(PlayerActions.class).setSpeed(config.speed);
 
 
     }
@@ -122,19 +132,9 @@ public class LoadPlayer {
      * @param player the player entity to which the melee weapon will be added.
      */
     public void createMelee(PlayerConfig config, Entity player) {
-        // calls create method in weapon factory to initialise a weapon
-        Collectible melee = weaponFactory.create(Collectible.Type.MELEE_WEAPON, config.melee);
+        Collectible melee = collectibleFactory.create(config.ranged);
         if (melee instanceof MeleeWeapon meleeWeapon) {
-            WeaponComponent meleeWeaponComponent = new WeaponComponent(
-                    new Sprite(meleeWeapon.getIcon()),  // Use texture from the melee weapon class
-                    Collectible.Type.MELEE_WEAPON,
-                    meleeWeapon.getDamage(),
-                    meleeWeapon.getRange(),
-                    meleeWeapon.getFireRate(),
-                    0, 0, 0
-            );
             inventoryComponent.getInventory().setMelee(meleeWeapon); // Set melee weapon in the inventory
-            player.addComponent(meleeWeaponComponent);
         }
     }
 
@@ -147,20 +147,9 @@ public class LoadPlayer {
      */
     public void createRanged(PlayerConfig config, Entity player) {
 
-        Collectible ranged = weaponFactory.create(Collectible.Type.RANGED_WEAPON, config.ranged);
+        Collectible ranged = collectibleFactory.create(config.ranged);
         if (ranged instanceof RangedWeapon rangedWeapon) {
-            WeaponComponent rangedWeaponComponent = new WeaponComponent(
-                    new Sprite(rangedWeapon.getIcon()),
-                    Collectible.Type.RANGED_WEAPON,
-                    rangedWeapon.getDamage(),
-                    rangedWeapon.getRange(),
-                    rangedWeapon.getFireRate(),
-                    rangedWeapon.getAmmo(),
-                    rangedWeapon.getMaxAmmo(),
-                    rangedWeapon.getReloadTime()
-            );
-            player.addComponent(rangedWeaponComponent); // Add melee weapon component to the player
-            inventoryComponent.getInventory().setRanged(rangedWeapon); // Set melee weapon in the inventory
+            inventoryComponent.pickup(rangedWeapon); // Set melee weapon in the inventory
         }
     }
 
@@ -182,7 +171,7 @@ public class LoadPlayer {
 
         if (config.items != null) {
             for (String itemName : config.items) {
-                Collectible item = itemFactory.create(itemName);
+                Collectible item = collectibleFactory.create(itemName);
                 inventoryComponent.getInventory().addItem(item);
             }
         }
@@ -213,4 +202,5 @@ public class LoadPlayer {
         return animator;
     }
 }
+
 

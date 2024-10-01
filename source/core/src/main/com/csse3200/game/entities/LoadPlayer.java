@@ -28,6 +28,8 @@ import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+import java.util.Objects;
+
 
 /**
  * Handles the setup of various player components, including animations,
@@ -37,6 +39,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class LoadPlayer {
     private final ItemFactory itemFactory;
     private final InventoryComponent inventoryComponent;
+    private final PlayerActions playerActions;
     private static final float playerScale = 0.75f;
     private static final Logger logger = getLogger(LoadPlayer.class);
     private CollectibleFactory collectibleFactory;
@@ -49,7 +52,7 @@ public class LoadPlayer {
         this.collectibleFactory = new CollectibleFactory();
         this.itemFactory = new ItemFactory();
         this.inventoryComponent = new InventoryComponent();
-
+        this.playerActions = new PlayerActions();
     }
 
     /**
@@ -67,7 +70,6 @@ public class LoadPlayer {
         addAtlas(player, config);
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
-        player.setScale(playerScale, playerScale);
 
         return player;
     }
@@ -81,8 +83,18 @@ public class LoadPlayer {
      */
     public  void addAtlas(Entity player, PlayerConfig config) {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
-        TextureRegion defaultTexture = atlas.findRegion("idle");
-        player.setScale(1f, (float) defaultTexture.getRegionHeight() / defaultTexture.getRegionWidth());
+        System.out.println(config.textureAtlasFilename);
+        if (!config.textureAtlasFilename.equals("images/player/player.atlas")) {
+            TextureRegion defaultTexture = atlas.findRegion("idle");
+            player.setScale(2f, 2f);
+        } else {
+            if(config.name.equals("Bear")){
+                player.setScale(0.3f,0.3f);
+            }
+            else{
+                player.setScale(playerScale, playerScale);
+            }
+        }
 
     }
 
@@ -93,15 +105,18 @@ public class LoadPlayer {
      * @param config the configuration object containing player settings.
      */
     public void addComponents(Entity player, PlayerConfig config) {
+        if(config.name.equals("bear")){
 
+        }
         player.addComponent(new NameComponent("Main Player"))
                 .addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-                .addComponent(new PlayerActions())
                 .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0))
                 .addComponent(inventoryComponent)
+                .addComponent(playerActions)
+                .addComponent(new PlayerAchievementComponent())
                 .addComponent(new ItemPickupComponent())
                 .addComponent(new FundsDisplayComponent())
                 .addComponent(new ShieldComponent())
@@ -131,7 +146,8 @@ public class LoadPlayer {
      * @param player the player entity to which the melee weapon will be added.
      */
     public void createMelee(PlayerConfig config, Entity player) {
-        Collectible melee = collectibleFactory.create(config.ranged);
+        System.out.printf("-- config name is %s\n", config.name);
+        Collectible melee = collectibleFactory.create(config.melee);
         if (melee instanceof MeleeWeapon meleeWeapon) {
             inventoryComponent.getInventory().setMelee(meleeWeapon); // Set melee weapon in the inventory
         }
@@ -160,11 +176,11 @@ public class LoadPlayer {
      * @param config the configuration object containing weapon and item details.
      */
     public void addWeaponsAndItems(Entity player, PlayerConfig config) {
-        if (config.melee!=null) {
+        if (config.melee!=null && !config.melee.isEmpty()) {
             createMelee(config, player);
         }
 
-        if (config.ranged!=null) {
+        if (config.ranged!=null && !config.ranged.isEmpty()) {
             createRanged(config, player);
         }
 
@@ -183,22 +199,58 @@ public class LoadPlayer {
      *
      * @return the created AnimationRenderComponent.
      */
+    /**
+     * Creates an AnimationRenderComponent for handling player animations.
+     *
+     * @param textureAtlasFilename the filename of the texture atlas containing animations.
+     *
+     * @return the created AnimationRenderComponent.
+     */
     private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
-                        ServiceLocator.getResourceService().getAsset("images/player/player.atlas", TextureAtlas.class));
-        animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
-        animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("death-up", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("death-left", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
-        animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
+                        ServiceLocator.getResourceService().getAsset(textureAtlasFilename, TextureAtlas.class));
 
+        switch (textureAtlasFilename) {
+            case ("images/player/player.atlas"):
+                animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk-down", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("death-down", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("death-up", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("death-left", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
+                break;
+            case ("images/player/homeless1.atlas"), ("images/player/homeless2.atlas"),
+                    ("images/player/homeless3.atlas"):
+                animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Walk", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Dead", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack_1", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Hurt", 0.35f, Animation.PlayMode.NORMAL);
+                break;
+            case ("images/npc/bear/bear.atlas"):
+                System.out.println("Bear Animations Added");
+                animator.addAnimation("idle_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle_bottom", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle_top", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_top", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_bottom", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("run_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("run_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("death_left", 0.1f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("death_right", 0.1f, Animation.PlayMode.LOOP);
+        }
         return animator;
+
     }
 }
 

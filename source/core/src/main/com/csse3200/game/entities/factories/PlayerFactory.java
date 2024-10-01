@@ -35,33 +35,17 @@ public class PlayerFactory extends LoadedFactory {
         this.load(logger);
     }
 
-    public Entity createPlay(String fileName, Difficulty difficulty) {
-        LoadPlayer loader = new LoadPlayer();
-        PlayerConfig config = FileLoader.readClass(PlayerConfig.class, fileName);
-        config.adjustForDifficulty(difficulty);
-        return loader.createPlayer(config);
-    }
-
-    /**
-     * Create a player entity
-     *
-     * @return entity
-     */
-    public Entity createPlayer(){
-        LoadPlayer loader = new LoadPlayer();
-        PlayerConfig config = options.get("default");
-        return loader.createPlayer(config);
-    }
 
     /**
      * Create a player.
-     * @param player the name of the player (name attribute).
+     * @param fileName the path to the player JSON
      * @param difficulty difficulty chosen by the player, affects player attributes
      * @return the player entity.
      */
-    public Entity createPlayer(String player, Difficulty difficulty) {
+
+    public Entity createPlayer(String fileName, Difficulty difficulty) {
         LoadPlayer loader = new LoadPlayer();
-        PlayerConfig config = options.get(player);
+        PlayerConfig config = FileLoader.readClass(PlayerConfig.class, fileName);
         config.adjustForDifficulty(difficulty);
         return loader.createPlayer(config);
     }

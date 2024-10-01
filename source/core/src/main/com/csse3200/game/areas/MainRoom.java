@@ -11,7 +11,7 @@ public class MainRoom extends EnemyRoom {
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
                 List.of("Snake", "Dog"),
-                List.of("Bear", "Snake", "Dino"),
+                List.of("Bear", "Snake", "Dino", "Dragon"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),
                 List.of("Bat", "Bat", "Bat"),
@@ -24,6 +24,9 @@ public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
+//                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
+                List.of("item:targetdummy", "buff:energydrink:Medium"),
+                List.of("melee:knife", "ranged:shotgun"),
                 List.of("item:beartrap", "buff:feather"),
                 List.of("melee:Axe", "ranged:Shotgun"),
                 List.of("ranged:Shotgun", "item:medkit", "melee:Knife", "item:bandage", "buff:energydrink:High"),

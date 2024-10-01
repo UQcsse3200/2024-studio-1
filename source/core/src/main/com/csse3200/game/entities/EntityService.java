@@ -1,6 +1,7 @@
 package com.csse3200.game.entities;
 
 import com.badlogic.gdx.utils.Array;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +82,7 @@ public class EntityService {
         disposeMarkedEntities();
     }
 
+
     /**
      * Dispose all entities marked for removal
      */
@@ -112,6 +114,20 @@ public class EntityService {
         return entities.toArray(Entity.class);
     }
 
+    /**
+     * Gets the player entity in the EntityService
+     *
+     * @return Entity - the player entity, if none exists return null 
+     */
+    public Entity getPlayer() {
+        for (int i = 0; i < entities.size; i++) {
+            Entity entity = entities.get(i);
+            if (entity.getComponent(NameComponent.class).getName().equals("Main Player")) {
+                return entity;
+            }
+        }
+        return null;
+    }
     @Override
     public String toString() {
         return getEntities().length + " Entities\n" +

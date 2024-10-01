@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.options.GameOptions.Difficulty;
 import com.csse3200.game.screens.MainMenuScreen;
@@ -16,6 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.EnumMap;
 
+import static com.csse3200.game.files.FileLoader.Location.EXTERNAL;
+import static com.csse3200.game.files.FileLoader.Location.LOCAL;
+import static com.csse3200.game.files.FileLoader.fileExists;
 import static com.csse3200.game.services.ServiceLocator.getResourceService;
 
 /**
@@ -42,14 +44,18 @@ public class MainMenuDisplay extends UIComponent {
         addActors();
     }
 
+    /**
+     * Check if all load files exist.
+     * @return true if all load files exist, false otherwise.
+     */
     private static boolean loadFilesExist() {
         for (String path : MainMenuScreen.SAVE_PATHS) {
-            if (!Gdx.files.local(MainGameArea.PLAYER_SAVE_PATH).exists()) {
+            if (!fileExists(path, LOCAL)) {
                 logger.info("Save file not found: {}", path);
                 return false;
             }
         }
-        logger.info("Can load from save file - all save files found");
+        logger.info("Can load from save files - all save files found");
         return true;
     }
 
@@ -69,6 +75,7 @@ public class MainMenuDisplay extends UIComponent {
             difficultyBtns.put(diff, new TextButton(diff.toString(), skin, "action"));
         }
         TextButton howToPlayBtn = new TextButton("How To Play", skin);
+        TextButton achievementsBtn = new TextButton("Achievements", skin);
         TextButton settingsBtn = new TextButton("Settings", skin);
         TextButton exitBtn = new TextButton("Exit", skin);
 
@@ -106,6 +113,15 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
+        achievementsBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        logger.debug("Achievements button clicked");
+                        entity.getEvents().trigger("achievements");
+                    }
+                });
+
         settingsBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -137,11 +153,12 @@ public class MainMenuDisplay extends UIComponent {
             table.add(shouldLoadBtn);
             table.row();
         }
-        table.add(howToPlayBtn);
-        table.row();
-        table.add(settingsBtn);
-        table.row();
-        table.add(exitBtn);
+
+        for (TextButton button : new TextButton[]{
+                howToPlayBtn, achievementsBtn, settingsBtn, exitBtn}) {
+            table.add(button);
+            table.row();
+        }
 
         stage.addActor(bg_logo);
         stage.addActor(table);

@@ -165,6 +165,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     /**
+     * Switches all the pets for the necromancer to target their closest Entity
+     * @return true
+     */
+    private boolean petTargetSwitch() {
+        return true;
+    }
+
+    /**
      * Handles the event when the key for 'purchase' is pressed
      * @return true
      */
@@ -207,6 +215,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(PICK_UP, (i) -> pickupItem());
         actionMap.put(RE_ROLL, (i) -> useItem(5)); //Rerol here
         actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());
+        actionMap.put(NECROMANCER_BINDING, (i) -> petTargetSwitch());
         return actionMap;
     }
 

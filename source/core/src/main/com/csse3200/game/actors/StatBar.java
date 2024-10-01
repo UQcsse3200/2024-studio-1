@@ -68,7 +68,6 @@ public class StatBar extends Actor {
 
         // Only remake the texture when needed
         if (shouldUpdateTexture) {
-            logger.info("Making texture with width {}, height {}", getWidth(), getHeight());
             createTexture();
             shouldUpdateTexture = false;
         }

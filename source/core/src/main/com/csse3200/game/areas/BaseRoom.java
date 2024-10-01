@@ -141,7 +141,6 @@ public abstract class BaseRoom implements Room {
         wall.setPosition(wallPos.x + offsetX, wallPos.y + offsetY);
     }
 
-
     protected void spawnDoors(GameArea area, Entity player) {
         if (this.roomConnections == null || this.roomConnections.size() < 4) {
             throw new IllegalStateException("Room connections are not properly initialized.");
@@ -232,5 +231,9 @@ public abstract class BaseRoom implements Room {
             ServiceLocator.getEntityService().markEntityForRemoval(entity);
         }
         entities.clear();
+    }
+
+    public List<String> getRoomConnections() {
+        return roomConnections;
     }
 }

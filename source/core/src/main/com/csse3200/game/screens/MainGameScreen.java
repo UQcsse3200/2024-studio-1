@@ -107,6 +107,7 @@ public class MainGameScreen extends ScreenAdapter {
         this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());
+        ServiceLocator.getRenderService().setSecondaryCamera(this.renderer.getSecondaryCamera());
 
         loadAssets();
         createUI();
@@ -131,13 +132,11 @@ public class MainGameScreen extends ScreenAdapter {
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         Entity player;
         if (shouldLoad) {
-            System.out.println("Should start from save file: {}" + shouldLoad);
-            player = playerFactory.createPlay("configs/player_save.json",
+            player = playerFactory.createPlayer("configs/player_save.json",
                     gameOptions.difficulty);
             System.out.println(player.getComponent(CombatStatsComponent.class).getHealth());
         } else {
-            player = playerFactory.createPlayer(
-                    FileLoader.readClass(PlayerConfig.class, chosenPlayer).name,
+            player = playerFactory.createPlayer(chosenPlayer,
                     gameOptions.difficulty);
         }
 

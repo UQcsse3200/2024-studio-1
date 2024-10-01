@@ -230,6 +230,10 @@ public class NPCFactory extends LoadedFactory {
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
 
+    // Add the BossHealthDialogueComponent to the werewolf
+    werewolf.addComponent(new BossHealthDialogueComponent());
+
+
     return werewolf;
   }
 
@@ -318,6 +322,10 @@ public class NPCFactory extends LoadedFactory {
     // Add wander task
     if (tasks.wander != null) {
       aiComponent.addTask(new WanderTask(tasks.wander));
+    }
+    // Add follow task
+    if (tasks.follow != null) {
+      aiComponent.addTask(new FollowTask(tasks.follow));
     }
     // Add straight wander task
     if (tasks.straightWander != null) {

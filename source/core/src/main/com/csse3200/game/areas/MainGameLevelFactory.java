@@ -41,8 +41,8 @@ public class MainGameLevelFactory implements LevelFactory {
         String seed;
         // default seed for junit tests
         if (!shouldLoad) {
-            seed = "seed_" + levelNumber;
-            map = new LevelMap(seed, DEFAULT_MAP_SIZE);
+            seed = "seed";
+            map = new LevelMap(seed + levelNumber, DEFAULT_MAP_SIZE);
         } else {
             // For loaded games, append the level number to the loaded seed
             loadFromJson(MAP_SAVE_PATH);

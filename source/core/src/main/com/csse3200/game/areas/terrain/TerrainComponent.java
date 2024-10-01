@@ -78,7 +78,7 @@ public class TerrainComponent extends RenderComponent {
 
   @Override
   public float getZIndex() {
-    return 0f;
+    return 1f;
   }
 
   @Override

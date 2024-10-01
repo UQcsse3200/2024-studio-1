@@ -11,6 +11,8 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Locale;
+
 /**
  * Core entity class. Entities exist in the game and are updated each frame. All entities have a
  * position and scale, but have no default behaviour. Components should be added to an entity to
@@ -38,7 +40,7 @@ public class Entity {
   private Vector2 position = Vector2.Zero.cpy();
   private Vector2 scale = new Vector2(1, 1);
   private Array<Component> createdComponents;
-
+  private int Score;
   public Entity() {
     id = nextId;
     nextId++;
@@ -296,6 +298,6 @@ public class Entity {
     String name = getName();
     Vector2 pos = this.getPosition();
 
-    return String.format("%02d\t(%.2f, %.2f)", this.getId(), pos.x, pos.y) + "\t" + name;
+    return String.format(Locale.US, "%02d\t(%.2f, %.2f)", this.getId(), pos.x, pos.y) + "\t" + name;
   }
 }

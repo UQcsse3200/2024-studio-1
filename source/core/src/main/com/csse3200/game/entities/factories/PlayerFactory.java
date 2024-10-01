@@ -13,11 +13,13 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.options.GameOptions.Difficulty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 
 /**
@@ -66,11 +68,13 @@ public class PlayerFactory extends LoadedFactory {
     /**
      * Create a player.
      * @param player the name of the player (name attribute).
+     * @param difficulty difficulty chosen by the player, affects player attributes
      * @return the player entity.
      */
-    public Entity createPlayer(String player) {
+    public Entity createPlayer(String player, Difficulty difficulty) {
         LoadPlayer loader = new LoadPlayer();
         PlayerConfig config = options.get(player);
+        config.adjustForDifficulty(difficulty);
         return loader.createPlayer(config);
     }
 
@@ -87,6 +91,10 @@ public class PlayerFactory extends LoadedFactory {
         if (this.options == null){
             return new String[]{};
         }
-        return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
+        List<String> result = new ArrayList<>(options.values().stream().map(config -> config.textureFilename).toList());
+        result.add(PlayerStatsDisplay.DAMAGE_BUFF_TEXTURE);
+        result.add(PlayerStatsDisplay.SPEED_TEXTURE);
+        return result.toArray(String[]::new);
+//        return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
     }
 }

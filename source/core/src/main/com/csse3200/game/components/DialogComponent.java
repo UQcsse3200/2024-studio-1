@@ -49,7 +49,7 @@ public class DialogComponent extends RenderComponent {
         fnt_18.setColor(Color.BLACK);
 
         layout = new GlyphLayout();
-        showDialog("remove this sample dialog from DialogComponent");
+        //showDialog("remove this sample dialog from DialogComponent");
         //completeDialog();
         //dismissDialog();
     }
@@ -60,16 +60,25 @@ public class DialogComponent extends RenderComponent {
         textLength = 0f;
     }
 
-    public void completeDialog() {
+    private void completeDialog() {
         glyphText = text;
         layout.setText(fnt_18, glyphText);
         textLength = text.length();
         WIDTH = layout.width*projectionFactor+PADDING*2;
     }
 
-    public void dismissDialog() {
+    //returns true if dialog is dismissed
+    public boolean dismissDialog() {
         if(glyphText.length() == text.length())
+        {
             this.text = "";
+            return true;
+        }
+        else
+        {
+            completeDialog();
+            return false;
+        }
     }
 
     /**

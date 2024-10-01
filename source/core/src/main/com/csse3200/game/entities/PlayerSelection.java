@@ -31,7 +31,6 @@ public class PlayerSelection {
                 ));
     }
 
-
     public List<Entity> createTwoPlayers() {
         this.playerFactory1 = new PlayerFactory(List.of("configs/player.json"));
         Entity player1 = playerFactory1.createPlayer();

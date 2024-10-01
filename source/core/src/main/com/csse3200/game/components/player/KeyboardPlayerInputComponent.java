@@ -79,21 +79,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
-    /**
-     * Handles the event when the key for 'pickup' is pressed
-     * @return true
-     */
     private boolean pickupItem() {
         entity.getEvents().trigger("pickup");
-        return true;
-    }
-
-    /**
-     * Handles the event when the key for 'purchase' is pressed
-     * @return true
-     */
-    private boolean purchaseItem() {
-        entity.getEvents().trigger("purchaseItem");
         return true;
     }
 
@@ -128,8 +115,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
 
         actionMap.put(PICK_UP, (i) -> pickupItem());
-        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Rerol here
-        actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());
+        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Reroll here
         return actionMap;
     }
 

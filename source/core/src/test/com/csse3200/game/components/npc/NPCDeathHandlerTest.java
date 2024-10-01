@@ -1,4 +1,4 @@
-/**package com.csse3200.game.components.npc;
+package com.csse3200.game.components.npc;
 
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.areas.GameArea;
@@ -26,17 +26,12 @@ import static org.mockito.Mockito.*;
 class NPCDeathHandlerTest {
 
     private Entity entity;
-<<<<<<< HEAD
     private GameArea gameArea;
-=======
-    private Entity target;
->>>>>>> team-6-maps
 
     @BeforeEach
     void setUp() {
         entity = new Entity();
-        target = new Entity();
-        NPCDeathHandler npcDeathHandler = new NPCDeathHandler(target, 9);
+        NPCDeathHandler npcDeathHandler = new NPCDeathHandler();
         CombatStatsComponent combatStats = mock(CombatStatsComponent.class);
         AnimationRenderComponent animationRender = mock(AnimationRenderComponent.class);
         PhysicsMovementComponent physicsMovementComponent = mock(PhysicsMovementComponent.class);
@@ -87,7 +82,6 @@ class NPCDeathHandlerTest {
         verify(entity.getComponent(ColliderComponent.class), times(1)).setEnabled(false);
         assertTrue(NPCDeathHandler.deadEntities.contains(entity.getId()));
     }
-<<<<<<< HEAD
 
     @Test
     void shouldRemoveEntityAndCleanupDeadEntitiesAfterDeathAnimation() {
@@ -113,5 +107,3 @@ class NPCDeathHandlerTest {
         Assertions.assertFalse(NPCDeathHandler.deadEntities.contains(entity.getId()));
     }
 }
-=======
-}*/

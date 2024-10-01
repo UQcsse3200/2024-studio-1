@@ -3,7 +3,6 @@ package com.csse3200.game.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerConfigComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
@@ -25,24 +24,14 @@ public class PlayerConfigGeneratorTest {
     PlayerConfigGenerator generator = new PlayerConfigGenerator();
     InventoryComponent inventoryComponent;
     CombatStatsComponent statsComponent;
-    CoinsComponent coinsComponent;
-    PlayerActions playerActions;
 
     @Before
     public void setUp() {
         player = new Entity();
         inventoryComponent = new InventoryComponent();
         statsComponent = new CombatStatsComponent(100, 30, true, 0, 0);
-        playerActions = new PlayerActions();
-
-        player.addComponent(inventoryComponent)
-                .addComponent(statsComponent)
-                .addComponent(playerActions);
-
-        coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
-
-        player.addComponent(new PlayerConfigComponent(new PlayerConfig()))
-                .addComponent(coinsComponent);
+        player.addComponent(inventoryComponent).addComponent(statsComponent);
+        player.addComponent(new PlayerConfigComponent(new PlayerConfig()));
     }
 
     /**
@@ -68,28 +57,18 @@ public class PlayerConfigGeneratorTest {
         assertEquals(20, playerConfig.baseAttack);
     }
 
-    @Test
-    public void testCoins() {
-        coinsComponent.setCoins(10);
-        PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals(10, playerConfig.coins);
-
-    }
-
-    @Test
-    public void testSpeed() {
-        playerActions.setSpeed(new Vector2(5f, 5f));
-        PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals(new Vector2(5f, 5f), playerConfig.speed);
-    }
     /**
      * Test saved player's melee weapon
      */
     @Test
     public void testMeleeWeapon() {
         inventoryComponent.getInventory().setMelee(new MeleeWeapon() {
+
             @Override
-            public void attack(){}
+            public String getMeleeSpecification() {
+                return "test";
+            }
+
             @Override
             public String getName() {
                 return "Knife";
@@ -102,16 +81,18 @@ public class PlayerConfigGeneratorTest {
         });
 
         PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals("melee:Knife", playerConfig.melee);
+        assertEquals("melee:test", playerConfig.melee);
     }
-
-
 
 
     /** Test player's saved Ranged weapon */
     @Test
     public void testRangedWeapon() {
         inventoryComponent.getInventory().setRanged(new RangedWeapon() {
+            @Override
+            public String getRangedSpecification() {
+                return "test";
+            }
 
             @Override
             public void shoot(Vector2 direction) {
@@ -120,7 +101,7 @@ public class PlayerConfigGeneratorTest {
 
             @Override
             public String getName() {
-                return "Shotgun";
+                return null;
             }
 
             @Override
@@ -129,7 +110,7 @@ public class PlayerConfigGeneratorTest {
             }
         });
         PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals("ranged:Shotgun", playerConfig.ranged);
+        assertEquals("ranged:test", playerConfig.ranged);
     }
 
     /** Test player with no weapon */
@@ -177,6 +158,11 @@ public class PlayerConfigGeneratorTest {
             }
 
             @Override
+            public void pickup(Inventory inventory, Entity entity) {
+
+            }
+
+            @Override
             public void drop(Inventory inventory) {
 
             }
@@ -219,6 +205,11 @@ public class PlayerConfigGeneratorTest {
             }
 
             @Override
+            public void pickup(Inventory inventory, Entity entity) {
+
+            }
+
+            @Override
             public void drop(Inventory inventory) {
 
             }
@@ -246,6 +237,11 @@ public class PlayerConfigGeneratorTest {
 
             @Override
             public void pickup(Inventory inventory) {
+
+            }
+
+            @Override
+            public void pickup(Inventory inventory, Entity entity) {
 
             }
 

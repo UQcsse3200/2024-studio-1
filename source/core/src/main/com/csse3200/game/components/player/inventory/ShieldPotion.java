@@ -70,6 +70,10 @@ public class ShieldPotion extends UsableItem {
         super.pickup(inventory);
     }
 
+    @Override
+    public void pickup(Inventory inventory, Entity itemEntity) {
+        super.pickup(inventory);
+    }
     /**
      * Handles dropping the shield potion from the player's inventory after being used.
      *

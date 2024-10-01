@@ -21,18 +21,15 @@ public class BossRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                //Currently there are three random animals being spawned in base on the level the player is in. Bosses haven't been implemented thus using
-                //currently available animals.
-                List.of("Werewolf"),//boss 1
-                List.of("Birdman"),//boss 2
-                List.of("Kitsune")// boss 3
+                List.of("Werewolf"), // boss 1
+                List.of("Minotaur"), // boss 2
+                List.of("Bear")      // boss 3
         );
     }
 
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-                //List of three lists of items for 3 different levels to be spawned in base on which level player is in.
                 List.of("buff:energydrink:High", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
                 List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink:High", "item:shieldpotion"),
                 List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High")
@@ -52,9 +49,8 @@ public class BossRoom extends EnemyRoom {
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
                     List<String> roomConnections,
-                    String specification,
-                    String roomName) {
-        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification, roomName);
+                    String specification) {
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
         this.npcFactory = npcFactory;
     }
 
@@ -68,7 +64,7 @@ public class BossRoom extends EnemyRoom {
 
     private void spawnStairs(Entity player, MainGameArea area) {
         Entity stairs = StairFactory.createStair(player.getId());
-        int x = maxGridPoint.x;
+        int x = maxGridPoint.x / 2;
         int y = maxGridPoint.y;
         GridPoint2 pos = new GridPoint2(x, y);
         area.spawnEntityAt(stairs, pos, true, true);

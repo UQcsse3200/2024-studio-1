@@ -49,14 +49,11 @@ public class MedkitTest {
 
     @Test
     public void testApplyIncreasesHealth() {
-        // Initialize initial health and expected health after applying Medit
-        int initialHealth = 60;
-        int maxHealth = 150; // Assuming max health is 150
-        int expectedHealth = Math.min(initialHealth + 100, maxHealth); //health should cap at 150
-
+        // Initialize initial health and expected health
+        int initialHealth = 50;
+        int expectedHealth = 100; // Health should cap at 100
 
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
-        when(combatStatsComponent.getMaxHealth()).thenReturn(maxHealth);
 
         medkit.apply(entity);
 
@@ -67,11 +64,9 @@ public class MedkitTest {
     public void testApplyIncreasesHealthFromZero() {
         // Initialize initial health as 0 and expected health after applying Medkit
         int initialHealth = 0;
-        int maxHealth = 100; // Assuming max health is 100
-        int expectedHealth = Math.min(initialHealth + 100, maxHealth);
+        int expectedHealth = 100;
 
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
-        when(combatStatsComponent.getMaxHealth()).thenReturn(maxHealth);
 
         medkit.apply(entity);
 

@@ -1,13 +1,14 @@
 package com.csse3200.game.entities;
 
 import com.badlogic.gdx.utils.Array;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Provides a global access point for entities to register themselves. This allows for iterating
@@ -23,6 +24,7 @@ public class EntityService {
     private final Array<Entity> entities = new Array<>(false, INITIAL_CAPACITY);
 
     private final Array<Entity> entitiesToRemove = new Array<>();
+    private final Array<Supplier<Entity>> entitiesToCreate = new Array<>();
 
     /**
      * Register a new entity with the entity service. The entity will be created and start updating.
@@ -30,11 +32,9 @@ public class EntityService {
      * @param entity new entity.
      */
     public void register(Entity entity) {
-        if (!entities.contains(entity, false)){
-            logger.debug("Registering {} in entity service", entity);
-            entities.add(entity);
-            entity.create();
-        }
+        logger.debug("Registering {} in entity service", entity);
+        entities.add(entity);
+        entity.create();
     }
 
     /**
@@ -45,6 +45,7 @@ public class EntityService {
     public void unregister(Entity entity) {
         logger.debug("Unregistering {} in entity service", entity);
         entities.removeValue(entity, true);
+
     }
 
     /**
@@ -89,10 +90,35 @@ public class EntityService {
         for (Entity entity : entitiesToRemove) {
             if (!ServiceLocator.getPhysicsService().getPhysics().getWorld().isLocked()){
                 entity.dispose();
+                unregister(entity);
                 removed.add(entity);
             }
         }
         entitiesToRemove.removeAll(removed, true);
+    }
+
+    private String entityToString(Entity entity) {
+        if (entity == null) {
+            return "null";
+        }
+
+        NameComponent name = entity.getComponent(NameComponent.class);
+        if (name != null) {
+            return name.getName();
+        }
+
+        return "Unknown Entity: " + entity;
+    }
+
+    public List<String> getEntityNames() {
+        return Stream.of(getEntities()).map(this::entityToString).toList();
+    }
+
+    private void createQueuedEntities() {
+        for (Supplier<Entity> entitySupplier : entitiesToCreate) {
+            register(entitySupplier.get());
+        }
+        entitiesToCreate.clear();
     }
 
     /**
@@ -110,15 +136,5 @@ public class EntityService {
      */
     public Entity[] getEntities() {
         return entities.toArray(Entity.class);
-    }
-
-    @Override
-    public String toString() {
-        return getEntities().length + " Entities\n" +
-                "ID\tPosition\t\tName\n" +
-                Arrays.stream(this.getEntities()) // For each entity
-                .sorted(Comparator.comparingInt(Entity::getId)) // Sorted by ID
-                .map(Entity::toString) // Get it's string
-                .collect(Collectors.joining("\n")); // and list them on separate lines.
     }
 }

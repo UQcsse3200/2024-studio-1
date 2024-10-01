@@ -3,6 +3,8 @@ package com.csse3200.game.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -11,7 +13,6 @@ import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
@@ -171,25 +172,6 @@ class EntityTest {
 
     verify(component, times(0)).earlyUpdate();
     verify(component, times(0)).update();
-  }
-
-  @Test
-  void testGetNoName() {
-    Entity entity = new Entity();
-    assertEquals("Unknown Entity", entity.getName());
-  }
-
-  @Test
-  void testGetAName() {
-    Entity entity = new Entity().addComponent(new NameComponent("hello"));
-    assertEquals("hello", entity.getName());
-  }
-
-  @Test
-  void testGetAString() {
-    Entity entity = new Entity().addComponent(new NameComponent("hello"));
-    // ignoring ID
-    assertEquals("(0.00, 0.00)\thello", entity.toString().split("\t", 2)[1]);
   }
 
   static class TestComponent1 extends Component {}

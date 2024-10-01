@@ -29,6 +29,17 @@ public abstract class BuffItem implements Collectible {
     }
 
     /**
+     * Only used for weapon team
+     *
+     * @param inventory The inventory to be put in.
+     * @param entity The entity that encapsulate the collectable
+     */
+    @Override
+    public void pickup(Inventory inventory, Entity entity) {
+        pickup(inventory);
+    }
+
+    /**
      * Return a string representation of this collectible that can be parsed by CollectibleFactory
      *
      * @return the string representation of this collectible.

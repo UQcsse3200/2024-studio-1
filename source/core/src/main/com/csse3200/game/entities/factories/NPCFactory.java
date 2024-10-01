@@ -92,7 +92,9 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
-      return createBaseNPC("Rat", target, aiComponent, config, animator);
+    Entity rat = createBaseNPC("Rat", target, aiComponent, config, animator);
+
+    return rat;
   }
 
   /**
@@ -276,7 +278,7 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(animator)
             .addComponent(new DialogComponent())
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler(target, config.getStrength()))
+            .addComponent(new NPCDeathHandler()) 
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController())
             .addComponent(new NPCConfigComponent(config));

@@ -72,15 +72,12 @@ public class PlayerHealthDisplay extends UIComponent{
 
         // get player's current health percentage
         CombatStatsComponent stats = entity.getComponent(CombatStatsComponent.class);
-
-        float maxHealth = stats.getMaxHealth();
-        float healthPercent = (float) stats.getHealth() / maxHealth;
-        float heartWidth = WIDTH * (maxHealth/100);
+        float healthPercent = (float) stats.getHealth() / 100;
 
         // Draw full health bar in red with defined position and size
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.rect(entity.getPosition().x - X_BAR,
-                entity.getPosition().y + Y_BAR, heartWidth, HEIGHT);
+                entity.getPosition().y + Y_BAR, WIDTH, HEIGHT);
 
         // Draw green bar on top of red bar with the width of health percentage
         float greenFill = WIDTH * healthPercent;

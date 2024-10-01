@@ -19,8 +19,6 @@ public class ProjectileActions extends Component {
     private Vector2 speed = new Vector2(3f, 3f);
     private Vector2 parentPosition;
 
-
-
     @Override
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
@@ -54,6 +52,7 @@ public class ProjectileActions extends Component {
      *
      */
     void shoot(Vector2 direction, Vector2 speed, Vector2 parentPosition) {
+        this.getEntity().getComponent(AnimationRenderComponent.class).startAnimation("GreenShoot");
         this.walkDirection = direction;
         this.speed = speed;
         this.parentPosition = parentPosition;

@@ -4,12 +4,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
 
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerStatsDisplay;
 
 /**
  * An item that boosts your damage.
  */
 public class DamageBuff extends BuffItem {
-    private final int buff = 15;
+    private final int buff = 5;
 
     /**
      * Returns the string of the buff item

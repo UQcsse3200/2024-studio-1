@@ -43,6 +43,7 @@ public interface Collectible {
      * @param inventory The inventory to be put in.
      */
     void pickup(Inventory inventory);
+    void pickup(Inventory inventory, Entity itemEntity);
 
     /**
      * Remove this collectible from the entity

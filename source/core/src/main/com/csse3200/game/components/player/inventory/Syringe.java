@@ -7,17 +7,6 @@ public class Syringe extends BuffItem {
     private static final int syringeBoost = 50;
 
     /**
-     * Make the entity pick the item up, and apply effects immediately instead of being added to the inventory
-     *
-     * @param inventory The inventory to be put in.
-     */
-    @Override
-    public void pickup(Inventory inventory) {
-        inventory.addItem(this); // FIXME
-        effect(inventory.getEntity());
-    }
-
-    /**
      * Get the name of this item
      *
      * @return the String representation of the name of this item

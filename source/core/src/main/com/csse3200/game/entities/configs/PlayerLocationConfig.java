@@ -1,6 +1,6 @@
 package com.csse3200.game.entities.configs;
-import java.util.Map;
+import java.util.HashMap;
 
 public class PlayerLocationConfig {
-    public Map<String, String> savedLoc;
+    public HashMap<String, String> savedLoc;
 }

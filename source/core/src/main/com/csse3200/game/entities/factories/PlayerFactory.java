@@ -8,10 +8,14 @@ import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.options.GameOptions.Difficulty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+
+import static com.csse3200.game.files.FileLoader.Location.EXTERNAL;
+import static com.csse3200.game.files.FileLoader.Location.INTERNAL;
 
 
 /**
@@ -30,29 +34,29 @@ public class PlayerFactory extends LoadedFactory {
     public PlayerFactory(List<String> configFilenames) {
         super(logger);
         this.options = configFilenames.stream()
-                .map(filename -> FileLoader.readClass(PlayerConfig.class, filename))
-                .collect(Collectors.toMap(value -> value.name, value -> value));
+                               .map(filename -> FileLoader.readClass(PlayerConfig.class, filename))
+                               .collect(Collectors.toMap(value -> value.name, value -> value));
         this.load(logger);
     }
 
-
     /**
      * Create a player.
-     * @param fileName the path to the player JSON
+     *
+     * @param fileName   the path to the player JSON
      * @param difficulty difficulty chosen by the player, affects player attributes
      * @return the player entity.
      */
-
     public Entity createPlayer(String fileName, Difficulty difficulty) {
+        FileLoader.Location location = options.containsKey(fileName) ? INTERNAL : EXTERNAL;
         LoadPlayer loader = new LoadPlayer();
-        PlayerConfig config = FileLoader.readClass(PlayerConfig.class, fileName);
+        PlayerConfig config = FileLoader.readClass(PlayerConfig.class, fileName, location);
         config.adjustForDifficulty(difficulty);
         return loader.createPlayer(config);
     }
 
     @Override
     protected String[] getTextureAtlasFilepaths() {
-        if (this.options == null){
+        if (this.options == null) {
             return new String[]{};
         }
         return options.values().stream().map(config -> config.textureAtlasFilename).toArray(String[]::new);
@@ -60,7 +64,7 @@ public class PlayerFactory extends LoadedFactory {
 
     @Override
     protected String[] getTextureFilepaths() {
-        if (this.options == null){
+        if (this.options == null) {
             return new String[]{};
         }
         List<String> result = new ArrayList<>(options.values().stream().map(config -> config.textureFilename).toList());

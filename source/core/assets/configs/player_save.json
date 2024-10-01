@@ -1,13 +1,13 @@
 {
-health: 90
+health: 60
 name: default
 items: []
 speed: {
 	x: 3
 	y: 3
 }
-coins: 12
-melee: melee:pickaxe
+coins: 28
+melee: ""
 ranged: ranged:shotgun
 textureFilename: images/player/player.png
 textureAtlasFilename: images/player/player.atlas

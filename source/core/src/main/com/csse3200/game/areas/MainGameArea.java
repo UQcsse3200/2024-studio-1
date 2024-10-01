@@ -86,6 +86,14 @@ public class MainGameArea extends GameArea {
         return currentLevel.getMap().mapData.RoomKeys.get("Boss");
     }
 
+    public String getNpcRoom() {
+        return currentLevel.getMap().mapData.RoomKeys.get("NPC");
+    }
+
+    public String getGameRoom() {
+        return currentLevel.getMap().mapData.RoomKeys.get("GameRoom");
+    }
+
     /**
      * Get the main player of this game area.
      *

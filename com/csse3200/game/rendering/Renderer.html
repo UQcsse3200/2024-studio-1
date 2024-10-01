@@ -109,11 +109,13 @@ implements com.badlogic.gdx.utils.Disposable</span></div>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.components.CameraComponent)" class="member-name-link">Renderer</a><wbr>(<a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;camera)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.components.CameraComponent,com.csse3200.game.components.CameraComponent)" class="member-name-link">Renderer</a><wbr>(<a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;maincamera,
+ <a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;secondaryCamera)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Create a new renderer with default settings</div>
 </div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.components.CameraComponent,float,com.badlogic.gdx.graphics.g2d.SpriteBatch,com.badlogic.gdx.scenes.scene2d.Stage,com.csse3200.game.rendering.RenderService,com.csse3200.game.rendering.DebugRenderer)" class="member-name-link">Renderer</a><wbr>(<a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;camera,
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.components.CameraComponent,com.csse3200.game.components.CameraComponent,float,com.badlogic.gdx.graphics.g2d.SpriteBatch,com.badlogic.gdx.scenes.scene2d.Stage,com.csse3200.game.rendering.RenderService,com.csse3200.game.rendering.DebugRenderer)" class="member-name-link">Renderer</a><wbr>(<a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;maincamera,
+ <a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;secondaryCamera,
  float&nbsp;gameWidth,
  com.badlogic.gdx.graphics.g2d.SpriteBatch&nbsp;batch,
  com.badlogic.gdx.scenes.scene2d.Stage&nbsp;stage,
@@ -145,18 +147,21 @@ implements com.badlogic.gdx.utils.Disposable</span></div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="DebugRenderer.html" title="class in com.csse3200.game.rendering">DebugRenderer</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDebug()" class="member-name-link">getDebug</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.scenes.scene2d.Stage</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getStage()" class="member-name-link">getStage</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSecondaryCamera()" class="member-name-link">getSecondaryCamera</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#render()" class="member-name-link">render</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.scenes.scene2d.Stage</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getStage()" class="member-name-link">getStage</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#render()" class="member-name-link">render</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Render everything to the render service.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resize(int,int)" class="member-name-link">resize</a><wbr>(int&nbsp;width,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resize(int,int)" class="member-name-link">resize</a><wbr>(int&nbsp;width,
  int&nbsp;height)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Resize the renderer to a new screen size.</div>
 </div>
 </div>
@@ -177,20 +182,23 @@ implements com.badlogic.gdx.utils.Disposable</span></div>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.csse3200.game.components.CameraComponent)">
+<section class="detail" id="&lt;init&gt;(com.csse3200.game.components.CameraComponent,com.csse3200.game.components.CameraComponent)">
 <h3>Renderer</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Renderer</span><wbr><span class="parameters">(<a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;camera)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Renderer</span><wbr><span class="parameters">(<a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;maincamera,
+ <a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;secondaryCamera)</span></div>
 <div class="block">Create a new renderer with default settings</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>camera</code> - camera to render to</dd>
+<dd><code>maincamera</code> - camera to render to</dd>
+<dd><code>secondaryCamera</code> - secondary camera</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(com.csse3200.game.components.CameraComponent,float,com.badlogic.gdx.graphics.g2d.SpriteBatch,com.badlogic.gdx.scenes.scene2d.Stage,com.csse3200.game.rendering.RenderService,com.csse3200.game.rendering.DebugRenderer)">
+<section class="detail" id="&lt;init&gt;(com.csse3200.game.components.CameraComponent,com.csse3200.game.components.CameraComponent,float,com.badlogic.gdx.graphics.g2d.SpriteBatch,com.badlogic.gdx.scenes.scene2d.Stage,com.csse3200.game.rendering.RenderService,com.csse3200.game.rendering.DebugRenderer)">
 <h3>Renderer</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Renderer</span><wbr><span class="parameters">(<a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;camera,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Renderer</span><wbr><span class="parameters">(<a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;maincamera,
+ <a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a>&nbsp;secondaryCamera,
  float&nbsp;gameWidth,
  com.badlogic.gdx.graphics.g2d.SpriteBatch&nbsp;batch,
  com.badlogic.gdx.scenes.scene2d.Stage&nbsp;stage,
@@ -199,7 +207,8 @@ implements com.badlogic.gdx.utils.Disposable</span></div>
 <div class="block">Create a renderer</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>camera</code> - Camera to use for rendering.</dd>
+<dd><code>maincamera</code> - Camera to use for rendering.</dd>
+<dd><code>secondaryCamera</code> - Secondary camera</dd>
 <dd><code>gameWidth</code> - Desired game width in metres the screen should show. Height is then based on *
      the aspect ratio.</dd>
 <dd><code>batch</code> - Batch to render to.</dd>
@@ -221,6 +230,12 @@ implements com.badlogic.gdx.utils.Disposable</span></div>
 <section class="detail" id="getCamera()">
 <h3>getCamera</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a></span>&nbsp;<span class="element-name">getCamera</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getSecondaryCamera()">
+<h3>getSecondaryCamera</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a></span>&nbsp;<span class="element-name">getSecondaryCamera</span>()</div>
 </section>
 </li>
 <li>

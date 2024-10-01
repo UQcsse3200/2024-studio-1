@@ -54,6 +54,8 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="com/csse3200/game/files/FileLoader.Location.html#ABSOLUTE" class="member-name-link">ABSOLUTE</a> - Enum constant in enum class com.csse3200.game.files.<a href="com/csse3200/game/files/FileLoader.Location.html" title="enum class in com.csse3200.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.html#act(float)" class="member-name-link">act(float)</a> - Method in class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.html" title="class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/ui/terminal/commands/Command.html#action(java.util.ArrayList)" class="member-name-link">action(ArrayList&lt;String&gt;)</a> - Method in interface com.csse3200.game.ui.terminal.commands.<a href="com/csse3200/game/ui/terminal/commands/Command.html" title="interface in com.csse3200.game.ui.terminal.commands">Command</a></dt>
 <dd>
 <div class="block">Action a command.</div>
@@ -96,6 +98,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Increases the entities base Attack damage</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/inventory/CoinsComponent.html#addCoins(int)" class="member-name-link">addCoins(int)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/CoinsComponent.html" title="class in com.csse3200.game.components.player.inventory">CoinsComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/ui/terminal/Terminal.html#addCommand(java.lang.String,com.csse3200.game.ui.terminal.commands.Command)" class="member-name-link">addCommand(String, Command)</a> - Method in class com.csse3200.game.ui.terminal.<a href="com/csse3200/game/ui/terminal/Terminal.html" title="class in com.csse3200.game.ui.terminal">Terminal</a></dt>
 <dd>
 <div class="block">Adds a command to the list of valid terminal commands.</div>
@@ -132,7 +136,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Add a listener to an event with three arguments</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#addRoomAtPosition(int,int,int,int,int)" class="member-name-link">addRoomAtPosition(int, int, int, int, int)</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#addRoomAtPosition(int,int,int,int,int)" class="member-name-link">addRoomAtPosition(int, int, int, int, int)</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Adds a room at the specified position and connects it to an existing room.</div>
 </dd>
@@ -147,6 +151,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/entities/LoadPlayer.html#addWeaponsAndItems(com.csse3200.game.entities.Entity,com.csse3200.game.entities.configs.PlayerConfig)" class="member-name-link">addWeaponsAndItems(Entity, PlayerConfig)</a> - Method in class com.csse3200.game.entities.<a href="com/csse3200/game/entities/LoadPlayer.html" title="class in com.csse3200.game.entities">LoadPlayer</a></dt>
 <dd>
 <div class="block">Adds weapons and items to the player entity</div>
+</dd>
+<dt><a href="com/csse3200/game/entities/configs/PlayerConfig.html#adjustForDifficulty(com.csse3200.game.options.GameOptions.Difficulty)" class="member-name-link">adjustForDifficulty(GameOptions.Difficulty)</a> - Method in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a></dt>
+<dd>
+<div class="block">Adjust player attributes to account for chosen difficulty and make the game easier/harder.</div>
 </dd>
 <dt><a href="com/csse3200/game/ai/tasks/AITaskComponent.html" class="type-name-link" title="class in com.csse3200.game.ai.tasks">AITaskComponent</a> - Class in <a href="com/csse3200/game/ai/tasks/package-summary.html">com.csse3200.game.ai.tasks</a></dt>
 <dd>
@@ -189,9 +197,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/howtoplaymenu/AnimalDisplay.html#%3Cinit%3E(com.csse3200.game.GdxGame)" class="member-name-link">AnimalDisplay(GdxGame)</a> - Constructor for class com.csse3200.game.components.howtoplaymenu.<a href="com/csse3200/game/components/howtoplaymenu/AnimalDisplay.html" title="class in com.csse3200.game.components.howtoplaymenu">AnimalDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#animalGroup" class="member-name-link">animalGroup</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.RoomInfo.html#animalIndex" class="member-name-link">animalIndex</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapConfigs.RoomInfo.html" title="class in com.csse3200.game.entities.configs">MapConfigs.RoomInfo</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Group index for animals/enemies in the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/configs/AnimalProjectileConfig.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">AnimalProjectileConfig</a> - Class in <a href="com/csse3200/game/entities/configs/package-summary.html">com.csse3200.game.entities.configs</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/AnimalProjectileConfig.html#%3Cinit%3E()" class="member-name-link">AnimalProjectileConfig()</a> - Constructor for class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/AnimalProjectileConfig.html" title="class in com.csse3200.game.entities.configs">AnimalProjectileConfig</a></dt>
@@ -209,7 +217,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/screens/AnimalScreen.html#%3Cinit%3E(com.csse3200.game.GdxGame)" class="member-name-link">AnimalScreen(GdxGame)</a> - Constructor for class com.csse3200.game.screens.<a href="com/csse3200/game/screens/AnimalScreen.html" title="class in com.csse3200.game.screens">AnimalScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#animalSpecifications" class="member-name-link">animalSpecifications</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">List of animal/enemy specifications for the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.AnimationData.html#%3Cinit%3E()" class="member-name-link">AnimationData()</a> - Constructor for class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.AnimationData.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.AnimationData</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/rendering/AnimationRenderComponent.html" class="type-name-link" title="class in com.csse3200.game.rendering">AnimationRenderComponent</a> - Class in <a href="com/csse3200/game/rendering/package-summary.html">com.csse3200.game.rendering</a></dt>
@@ -354,8 +364,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/entities/configs/BaseItemConfig.html#%3Cinit%3E()" class="member-name-link">BaseItemConfig()</a> - Constructor for class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/BaseItemConfig.html" title="class in com.csse3200.game.entities.configs">BaseItemConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html" class="type-name-link" title="class in com.csse3200.game.areas">BaseRoom</a> - Class in <a href="com/csse3200/game/areas/package-summary.html">com.csse3200.game.areas</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/BaseRoom.html#%3Cinit%3E(com.csse3200.game.areas.terrain.TerrainFactory,com.csse3200.game.entities.factories.CollectibleFactory,java.util.List,java.lang.String)" class="member-name-link">BaseRoom(TerrainFactory, CollectibleFactory, List&lt;String&gt;, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
+<dd>
+<div class="block">Abstract base class for implementing rooms in the game.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/BaseRoom.html#%3Cinit%3E(com.csse3200.game.areas.terrain.TerrainFactory,com.csse3200.game.entities.factories.CollectibleFactory,java.util.List,java.lang.String,java.lang.String)" class="member-name-link">BaseRoom(TerrainFactory, CollectibleFactory, List&lt;String&gt;, String, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
+<dd>
+<div class="block">Constructs a new BaseRoom with the given parameters.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#BASEROOM" class="member-name-link">BASEROOM</a> - Static variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.html#bat" class="member-name-link">bat</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.html" title="class in com.csse3200.game.entities.configs">NPCConfigs</a></dt>
 <dd>&nbsp;</dd>
@@ -366,6 +382,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/inventory/BearTrap.html#%3Cinit%3E()" class="member-name-link">BearTrap()</a> - Constructor for class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BearTrap.html" title="class in com.csse3200.game.components.player.inventory">BearTrap</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/PhysicsContactListener.html#beginContact(com.badlogic.gdx.physics.box2d.Contact)" class="member-name-link">beginContact(Contact)</a> - Method in class com.csse3200.game.physics.<a href="com/csse3200/game/physics/PhysicsContactListener.html" title="class in com.csse3200.game.physics">PhysicsContactListener</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/screens/PlayerSelectScreen.html#BG_IMAGE" class="member-name-link">BG_IMAGE</a> - Static variable in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/PlayerSelectScreen.html" title="class in com.csse3200.game.screens">PlayerSelectScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/BigRedButton.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">BigRedButton</a> - Class in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
 <dd>&nbsp;</dd>
@@ -411,10 +429,12 @@ loadScripts(document, 'script');</script>
 <div class="block">A boss room of the game,
  these often have unique animals and rewards.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/BossRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String)" class="member-name-link">BossRoom(NPCFactory, CollectibleFactory, TerrainFactory, List&lt;String&gt;, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BossRoom.html" title="class in com.csse3200.game.areas">BossRoom</a></dt>
+<dt><a href="com/csse3200/game/areas/BossRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String,java.lang.String)" class="member-name-link">BossRoom(NPCFactory, CollectibleFactory, TerrainFactory, List&lt;String&gt;, String, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BossRoom.html" title="class in com.csse3200.game.areas">BossRoom</a></dt>
 <dd>
 <div class="block">A boss room with particular features.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#BOSSROOM" class="member-name-link">BOSSROOM</a> - Static variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/components/PhysicsComponent.AlignY.html#BOTTOM" class="member-name-link">BOTTOM</a> - Enum constant in enum class com.csse3200.game.physics.components.<a href="com/csse3200/game/physics/components/PhysicsComponent.AlignY.html" title="enum class in com.csse3200.game.physics.components">PhysicsComponent.AlignY</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Collectible.Type.html#BUFF_ITEM" class="member-name-link">BUFF_ITEM</a> - Enum constant in enum class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></dt>
@@ -433,6 +453,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#calculateDistance(java.lang.String)" class="member-name-link">calculateDistance(String)</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
+<dd>
+<div class="block">Calculates distance from centre room to current room key</div>
+</dd>
 <dt><a href="com/csse3200/game/components/CameraComponent.html" class="type-name-link" title="class in com.csse3200.game.components">CameraComponent</a> - Class in <a href="com/csse3200/game/components/package-summary.html">com.csse3200.game.components</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/CameraComponent.html#%3Cinit%3E()" class="member-name-link">CameraComponent()</a> - Constructor for class com.csse3200.game.components.<a href="com/csse3200/game/components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a></dt>
@@ -450,9 +474,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/physics/components/PhysicsComponent.AlignY.html#CENTER" class="member-name-link">CENTER</a> - Enum constant in enum class com.csse3200.game.physics.components.<a href="com/csse3200/game/physics/components/PhysicsComponent.AlignY.html" title="enum class in com.csse3200.game.physics.components">PhysicsComponent.AlignY</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#changeLevel(int)" class="member-name-link">changeLevel(int)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Changes the current level to a new level specified by the level number.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#changeRooms(java.lang.String)" class="member-name-link">changeRooms(String)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Changes the current room to a new room specified by the room key.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.html#charge" class="member-name-link">charge</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.BossAttackTaskConfig.html#chargeSpeed" class="member-name-link">chargeSpeed</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.BossAttackTaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig.BossAttackTaskConfig</a></dt>
@@ -491,6 +519,22 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig.html#%3Cinit%3E()" class="member-name-link">ChaseTaskConfig()</a> - Constructor for class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/BaseRoom.html#checkIfRoomComplete()" class="member-name-link">checkIfRoomComplete()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
+<dd>
+<div class="block">Checks if the room is complete.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/EnemyRoom.html#checkIfRoomComplete()" class="member-name-link">checkIfRoomComplete()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
+<dd>
+<div class="block">Checks if the room is complete by verifying if all animals/enemies are dead.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/GambleRoom.html#checkIfRoomComplete()" class="member-name-link">checkIfRoomComplete()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/GambleRoom.html" title="class in com.csse3200.game.areas">GambleRoom</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/ShopRoom.html#checkIfRoomComplete()" class="member-name-link">checkIfRoomComplete()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/ShopRoom.html" title="class in com.csse3200.game.areas">ShopRoom</a></dt>
+<dd>
+<div class="block">Check room is complete and set it as always complete</div>
+</dd>
+<dt><a href="com/csse3200/game/entities/Room.html#checkIfRoomComplete()" class="member-name-link">checkIfRoomComplete()</a> - Method in interface com.csse3200.game.entities.<a href="com/csse3200/game/entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/ItemPickupComponent.html#checkItemPurchase(com.csse3200.game.components.player.inventory.Collectible,com.csse3200.game.entities.Entity)" class="member-name-link">checkItemPurchase(Collectible, Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/ItemPickupComponent.html" title="class in com.csse3200.game.components.player.inventory">ItemPickupComponent</a></dt>
 <dd>
 <div class="block">Handles the event where the player attempts to purchase a buyable item</div>
@@ -511,6 +555,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Clears all loaded assets and assets in the preloading queue.</div>
 </dd>
+<dt><a href="com/csse3200/game/entities/configs/PlayerConfig.html#coins" class="member-name-link">coins</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/CoinsComponent.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">CoinsComponent</a> - Class in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/CoinsComponent.html#%3Cinit%3E(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">CoinsComponent(Inventory)</a> - Constructor for class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/CoinsComponent.html" title="class in com.csse3200.game.components.player.inventory">CoinsComponent</a></dt>
+<dd>
+<div class="block">Constructor for CoinComponent</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Collectible.html" class="type-name-link" title="interface in com.csse3200.game.components.player.inventory">Collectible</a> - Interface in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
 <dd>
 <div class="block">An item that can be collected.</div>
@@ -528,7 +580,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Construct a new Component that holds a collectible.</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#collectibleFactory" class="member-name-link">collectibleFactory</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Factory for creating collectible items.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/factories/CollectibleFactory.html" class="type-name-link" title="class in com.csse3200.game.entities.factories">CollectibleFactory</a> - Class in <a href="com/csse3200/game/entities/factories/package-summary.html">com.csse3200.game.entities.factories</a></dt>
 <dd>
 <div class="block">A factory that creates a collectible from a specification.</div>
@@ -565,13 +619,17 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/package-summary.html">com.csse3200.game</a> - package com.csse3200.game</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/actors/package-summary.html">com.csse3200.game.actors</a> - package com.csse3200.game.actors</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/ai/movement/package-summary.html">com.csse3200.game.ai.movement</a> - package com.csse3200.game.ai.movement</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/ai/tasks/package-summary.html">com.csse3200.game.ai.tasks</a> - package com.csse3200.game.ai.tasks</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/package-summary.html">com.csse3200.game.areas</a> - package com.csse3200.game.areas</dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Generation/package-summary.html">com.csse3200.game.areas.Generation</a> - package com.csse3200.game.areas.Generation</dt>
+<dt><a href="com/csse3200/game/areas/generation/package-summary.html">com.csse3200.game.areas.generation</a> - package com.csse3200.game.areas.generation</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/package-summary.html">com.csse3200.game.areas.minimap</a> - package com.csse3200.game.areas.minimap</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/package-summary.html">com.csse3200.game.areas.terrain</a> - package com.csse3200.game.areas.terrain</dt>
 <dd>&nbsp;</dd>
@@ -728,6 +786,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/gamearea/PerformanceDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.gamearea.<a href="com/csse3200/game/components/gamearea/PerformanceDisplay.html" title="class in com.csse3200.game.components.gamearea">PerformanceDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/gamearea/ShopRoomDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.gamearea.<a href="com/csse3200/game/components/gamearea/ShopRoomDisplay.html" title="class in com.csse3200.game.components.gamearea">ShopRoomDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/howtoplaymenu/AnimalDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.howtoplaymenu.<a href="com/csse3200/game/components/howtoplaymenu/AnimalDisplay.html" title="class in com.csse3200.game.components.howtoplaymenu">AnimalDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/howtoplaymenu/HowToPlayMenuDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.howtoplaymenu.<a href="com/csse3200/game/components/howtoplaymenu/HowToPlayMenuDisplay.html" title="class in com.csse3200.game.components.howtoplaymenu">HowToPlayMenuDisplay</a></dt>
@@ -776,6 +836,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/PlayerAnimationController.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerAnimationController.html" title="class in com.csse3200.game.components.player">PlayerAnimationController</a></dt>
 <dd>
 <div class="block">Adds the event listener to the character entity to trigger an animation change.</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/PlayerCoinDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerCoinDisplay.html" title="class in com.csse3200.game.components.player">PlayerCoinDisplay</a></dt>
+<dd>
+<div class="block">Initialises and set up UI components required for the display</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/PlayerHealthDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerHealthDisplay.html" title="class in com.csse3200.game.components.player">PlayerHealthDisplay</a></dt>
 <dd>
@@ -896,11 +960,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/physics/PhysicsEngine.html#createBody(com.badlogic.gdx.physics.box2d.BodyDef)" class="member-name-link">createBody(BodyDef)</a> - Method in class com.csse3200.game.physics.<a href="com/csse3200/game/physics/PhysicsEngine.html" title="class in com.csse3200.game.physics">PhysicsEngine</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/factories/RoomFactory.html#createBossRoom(java.util.List,java.lang.String)" class="member-name-link">createBossRoom(List&lt;String&gt;, String)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/RoomFactory.html" title="class in com.csse3200.game.entities.factories">RoomFactory</a></dt>
+<dt><a href="com/csse3200/game/entities/factories/RoomFactory.html#createBossRoom(java.util.List,java.lang.String,java.lang.String)" class="member-name-link">createBossRoom(List&lt;String&gt;, String, String)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/RoomFactory.html" title="class in com.csse3200.game.entities.factories">RoomFactory</a></dt>
 <dd>
 <div class="block">Constructs boss room</div>
 </dd>
-<dt><a href="com/csse3200/game/entities/factories/RenderFactory.html#createCamera()" class="member-name-link">createCamera()</a> - Static method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/RenderFactory.html" title="class in com.csse3200.game.entities.factories">RenderFactory</a></dt>
+<dt><a href="com/csse3200/game/entities/factories/RenderFactory.html#createCamera(java.lang.String)" class="member-name-link">createCamera(String)</a> - Static method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/RenderFactory.html" title="class in com.csse3200.game.entities.factories">RenderFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/factories/CollectibleFactory.html#createCollectibleEntity(java.lang.String)" class="member-name-link">createCollectibleEntity(String)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/CollectibleFactory.html" title="class in com.csse3200.game.entities.factories">CollectibleFactory</a></dt>
 <dd>
@@ -925,7 +989,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/entities/factories/EffectFactory.html#createEffect(com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.EffectConfig,com.csse3200.game.entities.Entity)" class="member-name-link">createEffect(NPCConfigs.NPCConfig.EffectConfig, Entity)</a> - Static method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/EffectFactory.html" title="class in com.csse3200.game.entities.factories">EffectFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#createEnemyEntities(java.util.List,com.csse3200.game.entities.Entity)" class="member-name-link">createEnemyEntities(List&lt;String&gt;, Entity)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Creates enemy entities based on the provided specifications.</div>
+</dd>
 <dt><a href="com/csse3200/game/input/InputFactory.html#createForPlayer()" class="member-name-link">createForPlayer()</a> - Method in class com.csse3200.game.input.<a href="com/csse3200/game/input/InputFactory.html" title="class in com.csse3200.game.input">InputFactory</a></dt>
 <dd>
 <div class="block">Creates an input handler for the player</div>
@@ -952,13 +1018,15 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/input/InputFactory.html#createFromInputType(com.csse3200.game.input.InputFactory.InputType)" class="member-name-link">createFromInputType(InputFactory.InputType)</a> - Static method in class com.csse3200.game.input.<a href="com/csse3200/game/input/InputFactory.html" title="class in com.csse3200.game.input">InputFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/entities/factories/RoomFactory.html#createGambleRoom(java.util.List,java.lang.String,java.lang.String)" class="member-name-link">createGambleRoom(List&lt;String&gt;, String, String)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/RoomFactory.html" title="class in com.csse3200.game.entities.factories">RoomFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/PhysicsEngine.html#createJoint(com.badlogic.gdx.physics.box2d.JointDef)" class="member-name-link">createJoint(JointDef)</a> - Method in class com.csse3200.game.physics.<a href="com/csse3200/game/physics/PhysicsEngine.html" title="class in com.csse3200.game.physics">PhysicsEngine</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/factories/NPCFactory.html#createKitsune(com.csse3200.game.entities.Entity)" class="member-name-link">createKitsune(Entity)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/NPCFactory.html" title="class in com.csse3200.game.entities.factories">NPCFactory</a></dt>
 <dd>
 <div class="block">Creates a kitsune boss entity with predefined components and behaviour.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#createMap()" class="member-name-link">createMap()</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#createMap()" class="member-name-link">createMap()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Creates the map by generating and connecting rooms.</div>
 </dd>
@@ -966,19 +1034,21 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates and adds a melee weapon to the player entity.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapFactory.html#createMinimap()" class="member-name-link">createMinimap()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapFactory.html" title="class in com.csse3200.game.areas.minimap">MinimapFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/factories/NPCFactory.html#createMinotaur(com.csse3200.game.entities.Entity)" class="member-name-link">createMinotaur(Entity)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/NPCFactory.html" title="class in com.csse3200.game.entities.factories">NPCFactory</a></dt>
 <dd>
 <div class="block">Creates a Minotaur entity.</div>
-</dd>
-<dt><a href="com/csse3200/game/entities/factories/PlayerFactory.html#createPlayer()" class="member-name-link">createPlayer()</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/PlayerFactory.html" title="class in com.csse3200.game.entities.factories">PlayerFactory</a></dt>
-<dd>
-<div class="block">Create a player entity</div>
 </dd>
 <dt><a href="com/csse3200/game/entities/LoadPlayer.html#createPlayer(com.csse3200.game.entities.configs.PlayerConfig)" class="member-name-link">createPlayer(PlayerConfig)</a> - Method in class com.csse3200.game.entities.<a href="com/csse3200/game/entities/LoadPlayer.html" title="class in com.csse3200.game.entities">LoadPlayer</a></dt>
 <dd>
 <div class="block">Create a player entity based on provided config file</div>
 </dd>
-<dt><a href="com/csse3200/game/entities/factories/PlayerFactory.html#createPlayer(java.lang.String)" class="member-name-link">createPlayer(String)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/PlayerFactory.html" title="class in com.csse3200.game.entities.factories">PlayerFactory</a></dt>
+<dt><a href="com/csse3200/game/entities/factories/PlayerFactory.html#createPlayer(com.csse3200.game.entities.configs.PlayerConfig,com.csse3200.game.options.GameOptions.Difficulty)" class="member-name-link">createPlayer(PlayerConfig, GameOptions.Difficulty)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/PlayerFactory.html" title="class in com.csse3200.game.entities.factories">PlayerFactory</a></dt>
+<dd>
+<div class="block">Create a player.</div>
+</dd>
+<dt><a href="com/csse3200/game/entities/factories/PlayerFactory.html#createPlayer(java.lang.String,com.csse3200.game.options.GameOptions.Difficulty)" class="member-name-link">createPlayer(String, GameOptions.Difficulty)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/PlayerFactory.html" title="class in com.csse3200.game.entities.factories">PlayerFactory</a></dt>
 <dd>
 <div class="block">Create a player.</div>
 </dd>
@@ -1000,10 +1070,12 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/entities/factories/RenderFactory.html#createRenderer()" class="member-name-link">createRenderer()</a> - Static method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/RenderFactory.html" title="class in com.csse3200.game.entities.factories">RenderFactory</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/factories/RoomFactory.html#createRoom(java.util.List,java.lang.String)" class="member-name-link">createRoom(List&lt;String&gt;, String)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/RoomFactory.html" title="class in com.csse3200.game.entities.factories">RoomFactory</a></dt>
+<dt><a href="com/csse3200/game/entities/factories/RoomFactory.html#createRoom(java.util.List,java.lang.String,java.lang.String)" class="member-name-link">createRoom(List&lt;String&gt;, String, String)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/RoomFactory.html" title="class in com.csse3200.game.entities.factories">RoomFactory</a></dt>
 <dd>
 <div class="block">Constructs room</div>
 </dd>
+<dt><a href="com/csse3200/game/entities/factories/RoomFactory.html#createShopRoom(java.util.List,java.lang.String,java.lang.String)" class="member-name-link">createShopRoom(List&lt;String&gt;, String, String)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/RoomFactory.html" title="class in com.csse3200.game.entities.factories">RoomFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/factories/ProjectileFactory.html#createShotGunProjectile(com.csse3200.game.entities.configs.ProjectileConfig,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)" class="member-name-link">createShotGunProjectile(ProjectileConfig, Vector2, Vector2)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/ProjectileFactory.html" title="class in com.csse3200.game.entities.factories">ProjectileFactory</a></dt>
 <dd>
 <div class="block">This projectile is a shotgun effect.</div>
@@ -1026,8 +1098,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates a tree entity.</div>
 </dd>
-<dt><a href="com/csse3200/game/entities/PlayerSelection.html#createTwoPlayers()" class="member-name-link">createTwoPlayers()</a> - Method in class com.csse3200.game.entities.<a href="com/csse3200/game/entities/PlayerSelection.html" title="class in com.csse3200.game.entities">PlayerSelection</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/factories/ObstacleFactory.html#createWall(float,float)" class="member-name-link">createWall(float, float)</a> - Static method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/ObstacleFactory.html" title="class in com.csse3200.game.entities.factories">ObstacleFactory</a></dt>
 <dd>
 <div class="block">Creates an invisible physics wall.</div>
@@ -1039,6 +1109,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/entities/factories/NPCFactory.html#createWerewolf(com.csse3200.game.entities.Entity)" class="member-name-link">createWerewolf(Entity)</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/NPCFactory.html" title="class in com.csse3200.game.entities.factories">NPCFactory</a></dt>
 <dd>
 <div class="block">Creates a Werewolf entity.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#currentRoomName" class="member-name-link">currentRoomName</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
+<dd>
+<div class="block">Name of the current room</div>
 </dd>
 <dt><a href="com/csse3200/game/components/tasks/BossAttackTask.html#currentTask" class="member-name-link">currentTask</a> - Variable in class com.csse3200.game.components.tasks.<a href="com/csse3200/game/components/tasks/BossAttackTask.html" title="class in com.csse3200.game.components.tasks">BossAttackTask</a></dt>
 <dd>&nbsp;</dd>
@@ -1116,7 +1190,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/PhysicsEngine.html#destroyJoint(com.badlogic.gdx.physics.box2d.Joint)" class="member-name-link">destroyJoint(Joint)</a> - Method in class com.csse3200.game.physics.<a href="com/csse3200/game/physics/PhysicsEngine.html" title="class in com.csse3200.game.physics">PhysicsEngine</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#detlas" class="member-name-link">detlas</a> - Variable in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#detlas" class="member-name-link">detlas</a> - Variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/raycast/SingleHitCallback.html#didHit" class="member-name-link">didHit</a> - Variable in class com.csse3200.game.physics.raycast.<a href="com/csse3200/game/physics/raycast/SingleHitCallback.html" title="class in com.csse3200.game.physics.raycast">SingleHitCallback</a></dt>
 <dd>&nbsp;</dd>
@@ -1162,6 +1236,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Dispose of all internal entities in the area</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
+<dd>
+<div class="block">Disposes of the game area resources, including stopping the background music.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
@@ -1193,6 +1271,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Dispose playerDeath resources to avoid memory leaks</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/PlayerCoinDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerCoinDisplay.html" title="class in com.csse3200.game.components.player">PlayerCoinDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/PlayerHealthDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerHealthDisplay.html" title="class in com.csse3200.game.components.player">PlayerHealthDisplay</a></dt>
 <dd>
 <div class="block">Dispose the resources used by shape rendered that are no longer needed</div>
@@ -1263,7 +1343,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Interface to be implemented by callback to be supplied to door entity</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#doorFactory" class="member-name-link">doorFactory</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Factory for creating doors.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/factories/DoorFactory.html" class="type-name-link" title="class in com.csse3200.game.entities.factories">DoorFactory</a> - Class in <a href="com/csse3200/game/entities/factories/package-summary.html">com.csse3200.game.entities.factories</a></dt>
 <dd>
 <div class="block">Create door with necessary components</div>
@@ -1274,6 +1356,12 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.html#dragon" class="member-name-link">dragon</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.html" title="class in com.csse3200.game.entities.configs">NPCConfigs</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/actors/StatBar.html#draw(com.badlogic.gdx.graphics.g2d.Batch,float)" class="member-name-link">draw(Batch, float)</a> - Method in class com.csse3200.game.actors.<a href="com/csse3200/game/actors/StatBar.html" title="class in com.csse3200.game.actors">StatBar</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.html#draw(com.badlogic.gdx.graphics.g2d.Batch,float)" class="member-name-link">draw(Batch, float)</a> - Method in class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.html" title="class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/BlackoutComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.<a href="com/csse3200/game/components/BlackoutComponent.html" title="class in com.csse3200.game.components">BlackoutComponent</a></dt>
@@ -1281,6 +1369,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/gamearea/GameAreaDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.gamearea.<a href="com/csse3200/game/components/gamearea/GameAreaDisplay.html" title="class in com.csse3200.game.components.gamearea">GameAreaDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/gamearea/PerformanceDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.gamearea.<a href="com/csse3200/game/components/gamearea/PerformanceDisplay.html" title="class in com.csse3200.game.components.gamearea">PerformanceDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/gamearea/ShopRoomDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.gamearea.<a href="com/csse3200/game/components/gamearea/ShopRoomDisplay.html" title="class in com.csse3200.game.components.gamearea">ShopRoomDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/howtoplaymenu/AnimalDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.howtoplaymenu.<a href="com/csse3200/game/components/howtoplaymenu/AnimalDisplay.html" title="class in com.csse3200.game.components.howtoplaymenu">AnimalDisplay</a></dt>
 <dd>&nbsp;</dd>
@@ -1302,13 +1392,17 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/components/player/FundsDisplayComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/FundsDisplayComponent.html" title="class in com.csse3200.game.components.player">FundsDisplayComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/PlayerCoinDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerCoinDisplay.html" title="class in com.csse3200.game.components.player">PlayerCoinDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/PlayerHealthDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerHealthDisplay.html" title="class in com.csse3200.game.components.player">PlayerHealthDisplay</a></dt>
 <dd>
 <div class="block">Draws the health bar over player's head
  The bar is red in colour and the green filling over the red bar</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/PlayerInventoryDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerInventoryDisplay.html" title="class in com.csse3200.game.components.player">PlayerInventoryDisplay</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Draws white background behind inventory</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/PlayerStatsDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerStatsDisplay.html" title="class in com.csse3200.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/screendisplay/IntroCutsceneDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/IntroCutsceneDisplay.html" title="class in com.csse3200.game.components.screendisplay">IntroCutsceneDisplay</a></dt>
@@ -1495,9 +1589,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/physics/PhysicsContactListener.html#endContact(com.badlogic.gdx.physics.box2d.Contact)" class="member-name-link">endContact(Contact)</a> - Method in class com.csse3200.game.physics.<a href="com/csse3200/game/physics/PhysicsContactListener.html" title="class in com.csse3200.game.physics">PhysicsContactListener</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html" class="type-name-link" title="class in com.csse3200.game.areas">EnemyRoom</a> - Class in <a href="com/csse3200/game/areas/package-summary.html">com.csse3200.game.areas</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/EnemyRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String)" class="member-name-link">EnemyRoom(NPCFactory, CollectibleFactory, TerrainFactory, List&lt;String&gt;, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Abstract class representing a room containing enemies in the game.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/EnemyRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String,java.lang.String)" class="member-name-link">EnemyRoom(NPCFactory, CollectibleFactory, TerrainFactory, List&lt;String&gt;, String, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
+<dd>
+<div class="block">Constructs a new EnemyRoom.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/configs/ItemConfigs.html#energyDrink" class="member-name-link">energyDrink</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/ItemConfigs.html" title="class in com.csse3200.game.entities.configs">ItemConfigs</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/EnergyDrink.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">EnergyDrink</a> - Class in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
@@ -1518,7 +1616,9 @@ loadScripts(document, 'script');</script>
 <div class="block">The player action to jump to boss room.</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#entities" class="member-name-link">entities</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">List of all entities in the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/Component.html#entity" class="member-name-link">entity</a> - Variable in class com.csse3200.game.components.<a href="com/csse3200/game/components/Component.html" title="class in com.csse3200.game.components">Component</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/BodyUserData.html#entity" class="member-name-link">entity</a> - Variable in class com.csse3200.game.physics.<a href="com/csse3200/game/physics/BodyUserData.html" title="class in com.csse3200.game.physics">BodyUserData</a></dt>
@@ -1577,7 +1677,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/areas/LevelMap.html#exportMapGenerator(java.lang.String)" class="member-name-link">exportMapGenerator(String)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/LevelMap.html" title="class in com.csse3200.game.areas">LevelMap</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#exportToJson(java.lang.String)" class="member-name-link">exportToJson(String)</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/LevelFactory.html#exportToJson(java.lang.String)" class="member-name-link">exportToJson(String)</a> - Method in interface com.csse3200.game.areas.<a href="com/csse3200/game/areas/LevelFactory.html" title="interface in com.csse3200.game.areas">LevelFactory</a></dt>
+<dd>
+<div class="block">Exports the map data to a JSON file.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/MainGameLevelFactory.html#exportToJson(java.lang.String)" class="member-name-link">exportToJson(String)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameLevelFactory.html" title="class in com.csse3200.game.areas">MainGameLevelFactory</a></dt>
 <dd>
 <div class="block">Exports the map data to a JSON file.</div>
 </dd>
@@ -1588,10 +1692,6 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="com/csse3200/game/ai/tasks/Task.Status.html#FAILED" class="member-name-link">FAILED</a> - Enum constant in enum class com.csse3200.game.ai.tasks.<a href="com/csse3200/game/ai/tasks/Task.Status.html" title="enum class in com.csse3200.game.ai.tasks">Task.Status</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/configs/PlayerConfig.html#favouriteColour" class="member-name-link">favouriteColour</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a></dt>
-<dd>
-<div class="block">Player's favourite colour by default</div>
-</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Feather.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">Feather</a> - Class in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
 <dd>
 <div class="block">The Feather class represents an item that grants the player a 20% chance to perform a critical hit, dealing double damage.</div>
@@ -1606,6 +1706,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/files/FileLoader.Location.html" class="type-name-link" title="enum class in com.csse3200.game.files">FileLoader.Location</a> - Enum Class in <a href="com/csse3200/game/files/package-summary.html">com.csse3200.game.files</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#findFurthestRoom()" class="member-name-link">findFurthestRoom()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
+<dd>
+<div class="block">Find the furthest room from the centre (to be used to spawn boss room)</div>
+</dd>
 <dt><a href="com/csse3200/game/ai/tasks/Task.Status.html#FINISHED" class="member-name-link">FINISHED</a> - Enum constant in enum class com.csse3200.game.ai.tasks.<a href="com/csse3200/game/ai/tasks/Task.Status.html" title="enum class in com.csse3200.game.ai.tasks">Task.Status</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/MeleeWeapon.html#fireRate" class="member-name-link">fireRate</a> - Variable in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a></dt>
@@ -1658,6 +1762,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
+<dt><a href="com/csse3200/game/areas/GambleRoom.html" class="type-name-link" title="class in com.csse3200.game.areas">GambleRoom</a> - Class in <a href="com/csse3200/game/areas/package-summary.html">com.csse3200.game.areas</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/GambleRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String,java.lang.String)" class="member-name-link">GambleRoom(NPCFactory, CollectibleFactory, TerrainFactory, List&lt;String&gt;, String, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/GambleRoom.html" title="class in com.csse3200.game.areas">GambleRoom</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/screens/StaticScreen.html#game" class="member-name-link">game</a> - Variable in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/StaticScreen.html" title="class in com.csse3200.game.screens">StaticScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/GameArea.html" class="type-name-link" title="class in com.csse3200.game.areas">GameArea</a> - Class in <a href="com/csse3200/game/areas/package-summary.html">com.csse3200.game.areas</a></dt>
@@ -1688,6 +1796,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The difficulty of the game.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#GAMEROOM" class="member-name-link">GAMEROOM</a> - Static variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/services/GameTime.html" class="type-name-link" title="class in com.csse3200.game.services">GameTime</a> - Class in <a href="com/csse3200/game/services/package-summary.html">com.csse3200.game.services</a></dt>
 <dd>
 <div class="block">Controls the game time</div>
@@ -1714,7 +1824,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Get value from map</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#get_player_position()" class="member-name-link">get_player_position()</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#get_player_position()" class="member-name-link">get_player_position()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/rendering/DebugRenderer.html#getActive()" class="member-name-link">getActive()</a> - Method in class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/DebugRenderer.html" title="class in com.csse3200.game.rendering">DebugRenderer</a></dt>
 <dd>&nbsp;</dd>
@@ -1745,7 +1855,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/areas/BossRoom.html#getAnimalSpecifications()" class="member-name-link">getAnimalSpecifications()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BossRoom.html" title="class in com.csse3200.game.areas">BossRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#getAnimalSpecifications()" class="member-name-link">getAnimalSpecifications()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets the animal specifications for the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/MainRoom.html#getAnimalSpecifications()" class="member-name-link">getAnimalSpecifications()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainRoom.html" title="class in com.csse3200.game.areas">MainRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/CombatStatsComponent.html#getArmor()" class="member-name-link">getArmor()</a> - Method in class com.csse3200.game.components.<a href="com/csse3200/game/components/CombatStatsComponent.html" title="class in com.csse3200.game.components">CombatStatsComponent</a></dt>
@@ -1764,11 +1876,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the entity's base attack damage.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#getBlendMode()" class="member-name-link">getBlendMode()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#getBlendMode()" class="member-name-link">getBlendMode()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/components/PhysicsComponent.html#getBody()" class="member-name-link">getBody()</a> - Method in class com.csse3200.game.physics.components.<a href="com/csse3200/game/physics/components/PhysicsComponent.html" title="class in com.csse3200.game.physics.components">PhysicsComponent</a></dt>
 <dd>
 <div class="block">Get the physics body.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#getBossRoom()" class="member-name-link">getBossRoom()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
+<dd>
+<div class="block">Get the room key for the boss room.</div>
 </dd>
 <dt><a href="com/csse3200/game/physics/components/ColliderComponent.html#getBoxRatio()" class="member-name-link">getBoxRatio()</a> - Method in class com.csse3200.game.physics.components.<a href="com/csse3200/game/physics/components/ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></dt>
 <dd>&nbsp;</dd>
@@ -1833,6 +1951,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Get the clip size of this weapon
  i.e how many shots it can fire before reloading</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/inventory/CoinsComponent.html#getCoins()" class="member-name-link">getCoins()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/CoinsComponent.html" title="class in com.csse3200.game.components.player.inventory">CoinsComponent</a></dt>
+<dd>
+<div class="block">Returns the number of coins a player owns.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/CollectibleComponent.html#getCollectible()" class="member-name-link">getCollectible()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/CollectibleComponent.html" title="class in com.csse3200.game.components.player">CollectibleComponent</a></dt>
 <dd>
 <div class="block">Get the collectible this component holds.</div>
@@ -1851,14 +1973,22 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Get the name of the animation currently being played.</div>
 </dd>
+<dt><a href="com/csse3200/game/rendering/AnimationRenderComponent.html#getCurrentFrame()" class="member-name-link">getCurrentFrame()</a> - Method in class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/AnimationRenderComponent.html" title="class in com.csse3200.game.rendering">AnimationRenderComponent</a></dt>
+<dd>
+<div class="block">Get the frame of the current animation.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#getCurrentLevel()" class="member-name-link">getCurrentLevel()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets the current level.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/MainGameLevelFactory.html#getCurrentLevel()" class="member-name-link">getCurrentLevel()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameLevelFactory.html" title="class in com.csse3200.game.areas">MainGameLevelFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainFactory.html#getCurrentLevel()" class="member-name-link">getCurrentLevel()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainFactory.html" title="class in com.csse3200.game.areas.terrain">TerrainFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#getCurrentRoom()" class="member-name-link">getCurrentRoom()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Get the current room the player is in.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/PlayerActions.html#getCurrSpeed()" class="member-name-link">getCurrSpeed()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerActions.html" title="class in com.csse3200.game.components.player">PlayerActions</a></dt>
 <dd>
 <div class="block">Gets the current speed of the player</div>
@@ -1898,7 +2028,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Calculate the distance to the target entity.</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#getEnemies()" class="member-name-link">getEnemies()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets the list of enemy entities in the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/ui/terminal/Terminal.html#getEnteredMessage()" class="member-name-link">getEnteredMessage()</a> - Method in class com.csse3200.game.ui.terminal.<a href="com/csse3200/game/ui/terminal/Terminal.html" title="class in com.csse3200.game.ui.terminal">Terminal</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/EntityService.html#getEntities()" class="member-name-link">getEntities()</a> - Method in class com.csse3200.game.entities.<a href="com/csse3200/game/entities/EntityService.html" title="class in com.csse3200.game.entities">EntityService</a></dt>
@@ -1939,6 +2071,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/services/ServiceLocator.html#getGameAreaService()" class="member-name-link">getGameAreaService()</a> - Static method in class com.csse3200.game.services.<a href="com/csse3200/game/services/ServiceLocator.html" title="class in com.csse3200.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#getGameRoom()" class="member-name-link">getGameRoom()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
+<dd>
+<div class="block">Get the room key for the game room.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/CombatStatsComponent.html#getHealth()" class="member-name-link">getHealth()</a> - Method in class com.csse3200.game.components.<a href="com/csse3200/game/components/CombatStatsComponent.html" title="class in com.csse3200.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Returns the entity's health.</div>
@@ -2013,6 +2149,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/entities/configs/WeaponConfig.WeaponData.html#getIconPath()" class="member-name-link">getIconPath()</a> - Method in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/WeaponConfig.WeaponData.html" title="class in com.csse3200.game.entities.configs">WeaponConfig.WeaponData</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#getId()" class="member-name-link">getId()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#getId()" class="member-name-link">getId()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/ComponentType.html#getId()" class="member-name-link">getId()</a> - Method in class com.csse3200.game.components.<a href="com/csse3200/game/components/ComponentType.html" title="class in com.csse3200.game.components">ComponentType</a></dt>
@@ -2044,7 +2182,9 @@ loadScripts(document, 'script');</script>
 <div class="block">returns the state of the entity's invincibility</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#getIsRoomComplete()" class="member-name-link">getIsRoomComplete()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Checks if the room is complete.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/Room.html#getIsRoomComplete()" class="member-name-link">getIsRoomComplete()</a> - Method in interface com.csse3200.game.entities.<a href="com/csse3200/game/entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/ItemPickupComponent.html#getItem()" class="member-name-link">getItem()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/ItemPickupComponent.html" title="class in com.csse3200.game.components.player.inventory">ItemPickupComponent</a></dt>
@@ -2086,11 +2226,19 @@ loadScripts(document, 'script');</script>
 <div class="block">Get the specification of this item.</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#getItemSpecifications()" class="member-name-link">getItemSpecifications()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets the item specifications for the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/BossRoom.html#getItemSpecifications()" class="member-name-link">getItemSpecifications()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BossRoom.html" title="class in com.csse3200.game.areas">BossRoom</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/GambleRoom.html#getItemSpecifications()" class="member-name-link">getItemSpecifications()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/GambleRoom.html" title="class in com.csse3200.game.areas">GambleRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/MainRoom.html#getItemSpecifications()" class="member-name-link">getItemSpecifications()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainRoom.html" title="class in com.csse3200.game.areas">MainRoom</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/ShopRoom.html#getItemSpecifications()" class="member-name-link">getItemSpecifications()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/ShopRoom.html" title="class in com.csse3200.game.areas">ShopRoom</a></dt>
+<dd>
+<div class="block">Item specifications for Shop Rooms based on levels</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/KeyMapping.html#getKeyMap()" class="member-name-link">getKeyMap()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.html" title="class in com.csse3200.game.components.player">KeyMapping</a></dt>
 <dd>
 <div class="block">Get the key mapping.</div>
@@ -2100,6 +2248,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Return the latest projectile -- only available for singleShoot
  Primarily used for testing</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#getLayer()" class="member-name-link">getLayer()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#getLayer()" class="member-name-link">getLayer()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/components/ColliderComponent.html#getLayer()" class="member-name-link">getLayer()</a> - Method in class com.csse3200.game.physics.components.<a href="com/csse3200/game/physics/components/ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></dt>
@@ -2122,15 +2272,21 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Get a list of all entities in the area.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/Level.html#getMap()" class="member-name-link">getMap()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/Level.html" title="class in com.csse3200.game.areas">Level</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#getMap()" class="member-name-link">getMap()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#getMap()" class="member-name-link">getMap()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#getMapBounds(int)" class="member-name-link">getMapBounds(int)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#getMapBounds(int)" class="member-name-link">getMapBounds(int)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#getMapSeed()" class="member-name-link">getMapSeed()</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#getMapSeed()" class="member-name-link">getMapSeed()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Gets the seed used for random number generation.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#getMapSize()" class="member-name-link">getMapSize()</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#getMapSize()" class="member-name-link">getMapSize()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Gets the size of the map.</div>
 </dd>
@@ -2166,8 +2322,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/components/PhysicsMovementComponent.html#getMoving()" class="member-name-link">getMoving()</a> - Method in class com.csse3200.game.physics.components.<a href="com/csse3200/game/physics/components/PhysicsMovementComponent.html" title="class in com.csse3200.game.physics.components">PhysicsMovementComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/options/GameOptions.Difficulty.html#getMultiplier()" class="member-name-link">getMultiplier()</a> - Method in enum class com.csse3200.game.options.<a href="com/csse3200/game/options/GameOptions.Difficulty.html" title="enum class in com.csse3200.game.options">GameOptions.Difficulty</a></dt>
+<dd>
+<div class="block">Get multiplier associated with this difficulty value.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#getMusicFilepaths()" class="member-name-link">getMusicFilepaths()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets the file paths for all music files used in the game area.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/factories/LoadedFactory.html#getMusicFilepaths()" class="member-name-link">getMusicFilepaths()</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></dt>
 <dd>
 <div class="block">Get all the filepaths to music needed by this Factory</div>
@@ -2292,16 +2454,32 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Get the name of this entity if it has one.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#getNpcRoom()" class="member-name-link">getNpcRoom()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
+<dd>
+<div class="block">Get the room key for the NPC room.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#getObjects()" class="member-name-link">getObjects()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>
+<div class="block">Not required for game, unimplemented</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#getObjects()" class="member-name-link">getObjects()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
 <dd>
 <div class="block">Not required for game, unimplemented</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#getOffsetX()" class="member-name-link">getOffsetX()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#getOffsetX()" class="member-name-link">getOffsetX()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#getOffsetY()" class="member-name-link">getOffsetY()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#getOffsetY()" class="member-name-link">getOffsetY()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/RoomDirection.html#getOppositeDirection()" class="member-name-link">getOppositeDirection()</a> - Method in enum class com.csse3200.game.entities.<a href="com/csse3200/game/entities/RoomDirection.html" title="enum class in com.csse3200.game.entities">RoomDirection</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/entities/factories/PlayerFactory.html#getOptions()" class="member-name-link">getOptions()</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/PlayerFactory.html" title="class in com.csse3200.game.entities.factories">PlayerFactory</a></dt>
+<dd>
+<div class="block">Get the list of default options.</div>
+</dd>
 <dt><a href="com/csse3200/game/physics/PhysicsService.html#getPhysics()" class="member-name-link">getPhysics()</a> - Method in class com.csse3200.game.physics.<a href="com/csse3200/game/physics/PhysicsService.html" title="class in com.csse3200.game.physics">PhysicsService</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/services/ServiceLocator.html#getPhysicsService()" class="member-name-link">getPhysicsService()</a> - Static method in class com.csse3200.game.services.<a href="com/csse3200/game/services/ServiceLocator.html" title="class in com.csse3200.game.services">ServiceLocator</a></dt>
@@ -2328,13 +2506,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">A method to extract the players start location on the map.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#getPlayerPosition()" class="member-name-link">getPlayerPosition()</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#getPlayerPosition()" class="member-name-link">getPlayerPosition()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/Entity.html#getPosition()" class="member-name-link">getPosition()</a> - Method in class com.csse3200.game.entities.<a href="com/csse3200/game/entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></dt>
 <dd>
 <div class="block">Get the entity's game position.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#getPositions()" class="member-name-link">getPositions()</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#getPositions()" class="member-name-link">getPositions()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Gets the relative positions of all rooms in the map.</div>
 </dd>
@@ -2380,6 +2558,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/CameraComponent.html#getProjectionMatrix()" class="member-name-link">getProjectionMatrix()</a> - Method in class com.csse3200.game.components.<a href="com/csse3200/game/components/CameraComponent.html" title="class in com.csse3200.game.components">CameraComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#getProperties()" class="member-name-link">getProperties()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>
+<div class="block">Not required for game, unimplemented</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#getProperties()" class="member-name-link">getProperties()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
 <dd>
 <div class="block">Not required for game, unimplemented</div>
@@ -2432,20 +2614,32 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">A method responsible for getting a specific room connection using an index input.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/BaseRoom.html#getRoomConnections()" class="member-name-link">getRoomConnections()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
+<dd>
+<div class="block">Gets the room connections.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/LevelMap.html#getRoomConnections(java.lang.String)" class="member-name-link">getRoomConnections(String)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/LevelMap.html" title="class in com.csse3200.game.areas">LevelMap</a></dt>
 <dd>
 <div class="block">A getter method used to extract the room connection data from the json file for the map.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#getRoomDetails()" class="member-name-link">getRoomDetails()</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#getRoomDetails()" class="member-name-link">getRoomDetails()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Gets the details of all rooms in the map.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Level.html#getRoomTraversals()" class="member-name-link">getRoomTraversals()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/Level.html" title="class in com.csse3200.game.areas">Level</a></dt>
+<dt><a href="com/csse3200/game/areas/BaseRoom.html#getRoomName()" class="member-name-link">getRoomName()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
+<dd>
+<div class="block">Gets the name of the room.</div>
+</dd>
+<dt><a href="com/csse3200/game/entities/Room.html#getRoomName()" class="member-name-link">getRoomName()</a> - Method in interface com.csse3200.game.entities.<a href="com/csse3200/game/entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/Entity.html#getScale()" class="member-name-link">getScale()</a> - Method in class com.csse3200.game.entities.<a href="com/csse3200/game/entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></dt>
 <dd>
 <div class="block">Get the entity's scale.</div>
 </dd>
+<dt><a href="com/csse3200/game/rendering/Renderer.html#getSecondaryCamera()" class="member-name-link">getSecondaryCamera()</a> - Method in class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/Renderer.html" title="class in com.csse3200.game.rendering">Renderer</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/rendering/RenderService.html#getSecondaryCamera()" class="member-name-link">getSecondaryCamera()</a> - Method in class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/RenderService.html" title="class in com.csse3200.game.rendering">RenderService</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/LevelMap.html#getSeed()" class="member-name-link">getSeed()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/LevelMap.html" title="class in com.csse3200.game.areas">LevelMap</a></dt>
 <dd>
 <div class="block">Method that extracts the map seed information for the randomly generated map from the json file.</div>
@@ -2453,7 +2647,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/utils/RandomNumberGenerator.html#getSeed()" class="member-name-link">getSeed()</a> - Method in class com.csse3200.game.utils.<a href="com/csse3200/game/utils/RandomNumberGenerator.html" title="class in com.csse3200.game.utils">RandomNumberGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#getSoundFilepaths()" class="member-name-link">getSoundFilepaths()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets the file paths for all sound effects used in the game area.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/factories/LoadedFactory.html#getSoundFilepaths()" class="member-name-link">getSoundFilepaths()</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></dt>
 <dd>
 <div class="block">Get all the filepaths to sounds needed by this Factory</div>
@@ -2496,7 +2692,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Get the current status of the task.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#getStringRelativeLocation(int,int)" class="member-name-link">getStringRelativeLocation(int, int)</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.html#getStrength()" class="member-name-link">getStrength()</a> - Method in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#getStringRelativeLocation(int,int)" class="member-name-link">getStringRelativeLocation(int, int)</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Converts integer coordinates to a string representation of a relative location.</div>
 </dd>
@@ -2525,7 +2723,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Get the texture being rendered.</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets the file paths for all texture atlases used in the game area.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/factories/AnimalProjectileFactory.html#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths()</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/AnimalProjectileFactory.html" title="class in com.csse3200.game.entities.factories">AnimalProjectileFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/factories/LoadedFactory.html#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths()</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></dt>
@@ -2558,7 +2758,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/factories/ProjectileFactory.html#getTextureFilepaths()" class="member-name-link">getTextureFilepaths()</a> - Method in class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/ProjectileFactory.html" title="class in com.csse3200.game.entities.factories">ProjectileFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#getTextureRegion()" class="member-name-link">getTextureRegion()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#getTextureRegion()" class="member-name-link">getTextureRegion()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#getTileSize()" class="member-name-link">getTileSize()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#getTileSize()" class="member-name-link">getTileSize()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
@@ -2633,6 +2837,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/maingame/MainGameExitDisplay.EntityCoordinates.html#getY()" class="member-name-link">getY()</a> - Method in class com.csse3200.game.components.maingame.<a href="com/csse3200/game/components/maingame/MainGameExitDisplay.EntityCoordinates.html" title="class in com.csse3200.game.components.maingame">MainGameExitDisplay.EntityCoordinates</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#getZIndex()" class="member-name-link">getZIndex()</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#getZIndex()" class="member-name-link">getZIndex()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/gamearea/PerformanceDisplay.html#getZIndex()" class="member-name-link">getZIndex()</a> - Method in class com.csse3200.game.components.gamearea.<a href="com/csse3200/game/components/gamearea/PerformanceDisplay.html" title="class in com.csse3200.game.components.gamearea">PerformanceDisplay</a></dt>
@@ -2703,6 +2909,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/rendering/AnimationRenderComponent.html#hasAnimation(java.lang.String)" class="member-name-link">hasAnimation(String)</a> - Method in class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/AnimationRenderComponent.html" title="class in com.csse3200.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Whether the animator has added the given animation.</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/CoinsComponent.html#hasCoins(int)" class="member-name-link">hasCoins(int)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/CoinsComponent.html" title="class in com.csse3200.game.components.player.inventory">CoinsComponent</a></dt>
+<dd>
+<div class="block">Returns if the player has a certain amount of coins.</div>
 </dd>
 <dt><a href="com/csse3200/game/entities/configs/PlayerConfig.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a></dt>
 <dd>
@@ -2882,13 +3092,15 @@ loadScripts(document, 'script');</script>
 <div class="block">Checks if the shield is active.</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#isAllAnimalDead()" class="member-name-link">isAllAnimalDead()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/Room.html#isAllAnimalDead()" class="member-name-link">isAllAnimalDead()</a> - Method in interface com.csse3200.game.entities.<a href="com/csse3200/game/entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Checks if all animals/enemies in the room are dead.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/BlackoutComponent.html#isBlackoutActive()" class="member-name-link">isBlackoutActive()</a> - Method in class com.csse3200.game.components.<a href="com/csse3200/game/components/BlackoutComponent.html" title="class in com.csse3200.game.components">BlackoutComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#isBossRoom" class="member-name-link">isBossRoom</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Flag indicating if this is a boss room.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainFactory.html#isBossRoom()" class="member-name-link">isBossRoom()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainFactory.html" title="class in com.csse3200.game.areas.terrain">TerrainFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainFactory.html#isBrokenTile()" class="member-name-link">isBrokenTile()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainFactory.html" title="class in com.csse3200.game.areas.terrain">TerrainFactory</a></dt>
@@ -2930,7 +3142,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/screens/MainGameScreen.html#isPaused" class="member-name-link">isPaused</a> - Static variable in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/MainGameScreen.html" title="class in com.csse3200.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#isRoomCompleted" class="member-name-link">isRoomCompleted</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Flag indicating if the room is completed.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainFactory.html#isStainedTile()" class="member-name-link">isStainedTile()</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainFactory.html" title="class in com.csse3200.game.areas.terrain">TerrainFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/tasks/ChargeTask.html#isTargetVisible()" class="member-name-link">isTargetVisible()</a> - Method in class com.csse3200.game.components.tasks.<a href="com/csse3200/game/components/tasks/ChargeTask.html" title="class in com.csse3200.game.components.tasks">ChargeTask</a></dt>
@@ -2950,9 +3164,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/entities/factories/ItemFactory.html#%3Cinit%3E()" class="member-name-link">ItemFactory()</a> - Constructor for class com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/ItemFactory.html" title="class in com.csse3200.game.entities.factories">ItemFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#itemGroup" class="member-name-link">itemGroup</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.RoomInfo.html#itemIndex" class="member-name-link">itemIndex</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapConfigs.RoomInfo.html" title="class in com.csse3200.game.entities.configs">MapConfigs.RoomInfo</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Group index for items in the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/configs/BaseItemConfig.html#itemName" class="member-name-link">itemName</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/BaseItemConfig.html" title="class in com.csse3200.game.entities.configs">BaseItemConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/StairConfig.html#itemName" class="member-name-link">itemName</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/StairConfig.html" title="class in com.csse3200.game.entities.configs">StairConfig</a></dt>
@@ -2970,7 +3184,9 @@ loadScripts(document, 'script');</script>
 <div class="block">The items player has collected/picked up during the game</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#itemSpecifications" class="member-name-link">itemSpecifications</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">List of item specifications for the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/utils/SortedIntMap.html#iterator()" class="member-name-link">iterator()</a> - Method in class com.csse3200.game.utils.<a href="com/csse3200/game/utils/SortedIntMap.html" title="class in com.csse3200.game.utils">SortedIntMap</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -3166,9 +3382,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Loads assets for the specified duration in milliseconds.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/MainGameLevelFactory.html#loadFromJson(java.lang.String)" class="member-name-link">loadFromJson(String)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameLevelFactory.html" title="class in com.csse3200.game.areas">MainGameLevelFactory</a></dt>
+<dd>
+<div class="block">Loads map data from the save file and extracts the completed rooms into a list which
+ is later set to completed in the create method above</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/LevelMap.html#loadMap(java.lang.String)" class="member-name-link">loadMap(String)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/LevelMap.html" title="class in com.csse3200.game.areas">LevelMap</a></dt>
 <dd>
 <div class="block">A loader method which loads the map from either a json file or from the Map Generator class.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#loadMapLocation()" class="member-name-link">loadMapLocation()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
+<dd>
+<div class="block">Loads the saved Level number and Room number of the player</div>
 </dd>
 <dt><a href="com/csse3200/game/services/ResourceService.html#loadMusic(java.lang.String%5B%5D)" class="member-name-link">loadMusic(String[])</a> - Method in class com.csse3200.game.services.<a href="com/csse3200/game/services/ResourceService.html" title="class in com.csse3200.game.services">ResourceService</a></dt>
 <dd>
@@ -3254,6 +3479,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#%3Cinit%3E(com.csse3200.game.areas.LevelFactory,com.csse3200.game.entities.Entity)" class="member-name-link">MainGameArea(LevelFactory, Entity)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
 <dd>
+<div class="block">Initialise this Game Area to use the provided levelFactory without loading a saved state.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#%3Cinit%3E(com.csse3200.game.areas.LevelFactory,com.csse3200.game.entities.Entity,boolean)" class="member-name-link">MainGameArea(LevelFactory, Entity, boolean)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
+<dd>
 <div class="block">Initialise this Game Area to use the provided levelFactory.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/maingame/MainGameExitDisplay.html" class="type-name-link" title="class in com.csse3200.game.components.maingame">MainGameExitDisplay</a> - Class in <a href="com/csse3200/game/components/maingame/package-summary.html">com.csse3200.game.components.maingame</a></dt>
@@ -3268,7 +3497,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">This is the main game mode.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/MainGameLevelFactory.html#%3Cinit%3E()" class="member-name-link">MainGameLevelFactory()</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameLevelFactory.html" title="class in com.csse3200.game.areas">MainGameLevelFactory</a></dt>
+<dt><a href="com/csse3200/game/areas/MainGameLevelFactory.html#%3Cinit%3E(boolean)" class="member-name-link">MainGameLevelFactory(boolean)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameLevelFactory.html" title="class in com.csse3200.game.areas">MainGameLevelFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/screens/MainGameScreen.html" class="type-name-link" title="class in com.csse3200.game.screens">MainGameScreen</a> - Class in <a href="com/csse3200/game/screens/package-summary.html">com.csse3200.game.screens</a></dt>
 <dd>
@@ -3301,29 +3530,29 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/areas/MainRoom.html" class="type-name-link" title="class in com.csse3200.game.areas">MainRoom</a> - Class in <a href="com/csse3200/game/areas/package-summary.html">com.csse3200.game.areas</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/MainRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String)" class="member-name-link">MainRoom(NPCFactory, CollectibleFactory, TerrainFactory, List&lt;String&gt;, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainRoom.html" title="class in com.csse3200.game.areas">MainRoom</a></dt>
+<dt><a href="com/csse3200/game/areas/MainRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String,java.lang.String)" class="member-name-link">MainRoom(NPCFactory, CollectibleFactory, TerrainFactory, List&lt;String&gt;, String, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainRoom.html" title="class in com.csse3200.game.areas">MainRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#makeAllAnimalDead()" class="member-name-link">makeAllAnimalDead()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">MapConfigs</a> - Class in <a href="com/csse3200/game/entities/configs/package-summary.html">com.csse3200.game.entities.configs</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.html#%3Cinit%3E()" class="member-name-link">MapConfigs()</a> - Constructor for class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapConfigs.html" title="class in com.csse3200.game.entities.configs">MapConfigs</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.RoomInfo.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">MapConfigs.RoomInfo</a> - Class in <a href="com/csse3200/game/entities/configs/package-summary.html">com.csse3200.game.entities.configs</a></dt>
+<dd>
+<div class="block">Sets all animals/enemies in the room to dead state.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#MAP_SAVE_PATH" class="member-name-link">MAP_SAVE_PATH</a> - Static variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/LevelMap.html#mapData" class="member-name-link">mapData</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/LevelMap.html" title="class in com.csse3200.game.areas">LevelMap</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html" class="type-name-link" title="class in com.csse3200.game.areas.Generation">MapGenerator</a> - Class in <a href="com/csse3200/game/areas/Generation/package-summary.html">com.csse3200.game.areas.Generation</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html" class="type-name-link" title="class in com.csse3200.game.areas.generation">MapGenerator</a> - Class in <a href="com/csse3200/game/areas/generation/package-summary.html">com.csse3200.game.areas.generation</a></dt>
 <dd>
 <div class="block">The MapGenerator class is responsible for generating and managing a game map.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#%3Cinit%3E(int,java.lang.String)" class="member-name-link">MapGenerator(int, String)</a> - Constructor for class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#%3Cinit%3E(int,java.lang.String)" class="member-name-link">MapGenerator(int, String)</a> - Constructor for class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Constructs a new MapGenerator with the specified map size and seed.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#mapSize" class="member-name-link">mapSize</a> - Variable in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/entities/configs/MapLoadConfig.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">MapLoadConfig</a> - Class in <a href="com/csse3200/game/entities/configs/package-summary.html">com.csse3200.game.entities.configs</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.html#mapSize" class="member-name-link">mapSize</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapConfigs.html" title="class in com.csse3200.game.entities.configs">MapConfigs</a></dt>
+<dt><a href="com/csse3200/game/entities/configs/MapLoadConfig.html#%3Cinit%3E()" class="member-name-link">MapLoadConfig()</a> - Constructor for class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapLoadConfig.html" title="class in com.csse3200.game.entities.configs">MapLoadConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#mapSize" class="member-name-link">mapSize</a> - Variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/EntityService.html#markEntityForRemoval(com.csse3200.game.entities.Entity)" class="member-name-link">markEntityForRemoval(Entity)</a> - Method in class com.csse3200.game.entities.<a href="com/csse3200/game/entities/EntityService.html" title="class in com.csse3200.game.entities">EntityService</a></dt>
 <dd>
@@ -3331,6 +3560,14 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/utils/math/Vector2Utils.html#MAX" class="member-name-link">MAX</a> - Static variable in class com.csse3200.game.utils.math.<a href="com/csse3200/game/utils/math/Vector2Utils.html" title="class in com.csse3200.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/entities/configs/PlayerConfig.html#MAX_HEALTH" class="member-name-link">MAX_HEALTH</a> - Static variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a></dt>
+<dd>
+<div class="block">The highest possible initial health a player can have.</div>
+</dd>
+<dt><a href="com/csse3200/game/entities/configs/PlayerConfig.html#MAX_SPEED" class="member-name-link">MAX_SPEED</a> - Static variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a></dt>
+<dd>
+<div class="block">The highest possible initial speed a player can have.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/RangedWeapon.html#maxAmmo" class="member-name-link">maxAmmo</a> - Variable in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/RangeWeaponItemConfig.html#maxAmmo" class="member-name-link">maxAmmo</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/RangeWeaponItemConfig.html" title="class in com.csse3200.game.entities.configs">RangeWeaponItemConfig</a></dt>
@@ -3338,7 +3575,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/tasks/ChargeTask.html#maxChaseDistance" class="member-name-link">maxChaseDistance</a> - Variable in class com.csse3200.game.components.tasks.<a href="com/csse3200/game/components/tasks/ChargeTask.html" title="class in com.csse3200.game.components.tasks">ChargeTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#maxGridPoint" class="member-name-link">maxGridPoint</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Maximum grid point of the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig.html#maxRunDistance" class="member-name-link">maxRunDistance</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/options/GameOptions.Difficulty.html#MEDIUM" class="member-name-link">MEDIUM</a> - Enum constant in enum class com.csse3200.game.options.<a href="com/csse3200/game/options/GameOptions.Difficulty.html" title="enum class in com.csse3200.game.options">GameOptions.Difficulty</a></dt>
@@ -3383,6 +3622,22 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/utils/math/Vector2Utils.html#MIN" class="member-name-link">MIN</a> - Static variable in class com.csse3200.game.utils.math.<a href="com/csse3200/game/utils/math/Vector2Utils.html" title="class in com.csse3200.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#minGridPoint" class="member-name-link">minGridPoint</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
+<dd>
+<div class="block">Minimum grid point of the room.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html" class="type-name-link" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a> - Class in <a href="com/csse3200/game/areas/minimap/package-summary.html">com.csse3200.game.areas.minimap</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#%3Cinit%3E(com.badlogic.gdx.graphics.OrthographicCamera,com.badlogic.gdx.maps.tiled.TiledMap,com.badlogic.gdx.maps.tiled.TiledMapRenderer,float)" class="member-name-link">MinimapComponent(OrthographicCamera, TiledMap, TiledMapRenderer, float)</a> - Constructor for class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapFactory.html" class="type-name-link" title="class in com.csse3200.game.areas.minimap">MinimapFactory</a> - Class in <a href="com/csse3200/game/areas/minimap/package-summary.html">com.csse3200.game.areas.minimap</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapFactory.html#%3Cinit%3E(com.csse3200.game.areas.Level,float)" class="member-name-link">MinimapFactory(Level, float)</a> - Constructor for class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapFactory.html" title="class in com.csse3200.game.areas.minimap">MinimapFactory</a></dt>
+<dd>
+<div class="block">Constructor for minimap display.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html" class="type-name-link" title="class in com.csse3200.game.areas.minimap">MinimapTile</a> - Class in <a href="com/csse3200/game/areas/minimap/package-summary.html">com.csse3200.game.areas.minimap</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#%3Cinit%3E(com.badlogic.gdx.graphics.g2d.TextureRegion)" class="member-name-link">MinimapTile(TextureRegion)</a> - Constructor for class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.html#minotaur" class="member-name-link">minotaur</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.html" title="class in com.csse3200.game.entities.configs">NPCConfigs</a></dt>
 <dd>&nbsp;</dd>
@@ -3517,8 +3772,12 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/components/npc/NPCDeathHandler.html#%3Cinit%3E()" class="member-name-link">NPCDeathHandler()</a> - Constructor for class com.csse3200.game.components.npc.<a href="com/csse3200/game/components/npc/NPCDeathHandler.html" title="class in com.csse3200.game.components.npc">NPCDeathHandler</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/EnemyRoom.html#npcFactory" class="member-name-link">npcFactory</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
+<dt><a href="com/csse3200/game/components/npc/NPCDeathHandler.html#%3Cinit%3E(com.csse3200.game.entities.Entity,int)" class="member-name-link">NPCDeathHandler(Entity, int)</a> - Constructor for class com.csse3200.game.components.npc.<a href="com/csse3200/game/components/npc/NPCDeathHandler.html" title="class in com.csse3200.game.components.npc">NPCDeathHandler</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/EnemyRoom.html#npcFactory" class="member-name-link">npcFactory</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
+<dd>
+<div class="block">Factory for creating NPC entities, including enemies and bosses.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/factories/NPCFactory.html" class="type-name-link" title="class in com.csse3200.game.entities.factories">NPCFactory</a> - Class in <a href="com/csse3200/game/entities/factories/package-summary.html">com.csse3200.game.entities.factories</a></dt>
 <dd>
 <div class="block">Factory to create non-playable character (NPC) entities with predefined components.</div>
@@ -3532,6 +3791,8 @@ loadScripts(document, 'script');</script>
 <div class="block">This component renders a health bar for NPCs.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/npc/NPCHealthBarComponent.html#%3Cinit%3E()" class="member-name-link">NPCHealthBarComponent()</a> - Constructor for class com.csse3200.game.components.npc.<a href="com/csse3200/game/components/npc/NPCHealthBarComponent.html" title="class in com.csse3200.game.components.npc">NPCHealthBarComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#NPCROOM" class="member-name-link">NPCROOM</a> - Static variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:O">O</h2>
@@ -3554,7 +3815,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/npc/NPCDeathHandler.html#onDeath()" class="member-name-link">onDeath()</a> - Method in class com.csse3200.game.components.npc.<a href="com/csse3200/game/components/npc/NPCDeathHandler.html" title="class in com.csse3200.game.components.npc">NPCDeathHandler</a></dt>
 <dd>
 <div class="block">Handles the death of the entity by playing the death animation,
- disabling physics and AI components, and scheduling the entity's removal from the game.</div>
+ triggering event for player to obtain animal's strength as score,
+ disabling physics and AI components, and scheduling the entity's
+ removal from the game.</div>
 </dd>
 <dt><a href="com/csse3200/game/entities/factories/DoorCallBack.html#onDoorCollided()" class="member-name-link">onDoorCollided()</a> - Method in interface com.csse3200.game.entities.factories.<a href="com/csse3200/game/entities/factories/DoorCallBack.html" title="interface in com.csse3200.game.entities.factories">DoorCallBack</a></dt>
 <dd>
@@ -3585,7 +3848,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Iterates over registered input handlers in descending priority and stops as soon as the input is
  processed</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#parseIntRelativeLocation(java.lang.String)" class="member-name-link">parseIntRelativeLocation(String)</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#parseIntRelativeLocation(java.lang.String)" class="member-name-link">parseIntRelativeLocation(String)</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Parses a string representation of a relative location into integer coordinates.</div>
 </dd>
@@ -3749,9 +4012,19 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Happy player image, edited from assets/images/player/player.png</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#player_position" class="member-name-link">player_position</a> - Variable in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#player_position" class="member-name-link">player_position</a> - Variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#PLAYER_SAVE_PATH" class="member-name-link">PLAYER_SAVE_PATH</a> - Static variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/GdxGame.ScreenType.html#PLAYER_SELECT" class="member-name-link">PLAYER_SELECT</a> - Enum constant in enum class com.csse3200.game.<a href="com/csse3200/game/GdxGame.ScreenType.html" title="enum class in com.csse3200.game">GdxGame.ScreenType</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html#Player1" class="member-name-link">Player1</a> - Enum constant in enum class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html" title="enum class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation.PlayerNum</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html#Player2" class="member-name-link">Player2</a> - Enum constant in enum class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html" title="enum class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation.PlayerNum</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html#Player3" class="member-name-link">Player3</a> - Enum constant in enum class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html" title="enum class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation.PlayerNum</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html#Player4" class="member-name-link">Player4</a> - Enum constant in enum class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html" title="enum class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation.PlayerNum</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/PlayerActions.html" class="type-name-link" title="class in com.csse3200.game.components.player">PlayerActions</a> - Class in <a href="com/csse3200/game/components/player/package-summary.html">com.csse3200.game.components.player</a></dt>
 <dd>
@@ -3764,8 +4037,18 @@ loadScripts(document, 'script');</script>
 <div class="block">This class listens to events triggered by the KeyboardPlayerInputComponent
  and starts the relevant character animation based on the current event.</div>
 </dd>
-<dt><a href="com/csse3200/game/components/player/PlayerAnimationController.html#%3Cinit%3E()" class="member-name-link">PlayerAnimationController()</a> - Constructor for class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerAnimationController.html" title="class in com.csse3200.game.components.player">PlayerAnimationController</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/PlayerAnimationController.html#%3Cinit%3E(java.lang.String)" class="member-name-link">PlayerAnimationController(String)</a> - Constructor for class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerAnimationController.html" title="class in com.csse3200.game.components.player">PlayerAnimationController</a></dt>
+<dd>
+<div class="block">Assign the Player Number by the associated texture atlas name.</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/PlayerCoinDisplay.html" class="type-name-link" title="class in com.csse3200.game.components.player">PlayerCoinDisplay</a> - Class in <a href="com/csse3200/game/components/player/package-summary.html">com.csse3200.game.components.player</a></dt>
+<dd>
+<div class="block">Displays the amount of coins player has on the UI</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/PlayerCoinDisplay.html#%3Cinit%3E(com.csse3200.game.components.player.inventory.CoinsComponent)" class="member-name-link">PlayerCoinDisplay(CoinsComponent)</a> - Constructor for class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerCoinDisplay.html" title="class in com.csse3200.game.components.player">PlayerCoinDisplay</a></dt>
+<dd>
+<div class="block">Constructor that initialises the rendering of coins on UI</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/configs/PlayerConfig.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">PlayerConfig</a> - Class in <a href="com/csse3200/game/entities/configs/package-summary.html">com.csse3200.game.entities.configs</a></dt>
 <dd>
 <div class="block">Defines the properties stored in player config files to be loaded by the Player Factory.</div>
@@ -3805,12 +4088,23 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Constructor to initialise the inventory component of Player that needs to be displayed</div>
 </dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.html#playerLocation" class="member-name-link">playerLocation</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapConfigs.html" title="class in com.csse3200.game.entities.configs">MapConfigs</a></dt>
+<dt><a href="com/csse3200/game/entities/configs/PlayerLocationConfig.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">PlayerLocationConfig</a> - Class in <a href="com/csse3200/game/entities/configs/package-summary.html">com.csse3200.game.entities.configs</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/entities/configs/PlayerLocationConfig.html#%3Cinit%3E()" class="member-name-link">PlayerLocationConfig()</a> - Constructor for class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/PlayerLocationConfig.html" title="class in com.csse3200.game.entities.configs">PlayerLocationConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/PlayerSelection.html#PLAYERS" class="member-name-link">PLAYERS</a> - Static variable in class com.csse3200.game.entities.<a href="com/csse3200/game/entities/PlayerSelection.html" title="class in com.csse3200.game.entities">PlayerSelection</a></dt>
 <dd>
 <div class="block">List of player json files.</div>
 </dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.html" class="type-name-link" title="class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation</a> - Class in <a href="com/csse3200/game/components/screendisplay/package-summary.html">com.csse3200.game.components.screendisplay</a></dt>
+<dd>
+<div class="block">This class is sued to control the animation rendering for each
+ player on the Select Screen.</div>
+</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.html#%3Cinit%3E(com.csse3200.game.rendering.AnimationRenderComponent,java.lang.String)" class="member-name-link">PlayerSelectAnimation(AnimationRenderComponent, String)</a> - Constructor for class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.html" title="class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html" class="type-name-link" title="enum class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation.PlayerNum</a> - Enum Class in <a href="com/csse3200/game/components/screendisplay/package-summary.html">com.csse3200.game.components.screendisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectDisplay.html" class="type-name-link" title="class in com.csse3200.game.components.screendisplay">PlayerSelectDisplay</a> - Class in <a href="com/csse3200/game/components/screendisplay/package-summary.html">com.csse3200.game.components.screendisplay</a></dt>
 <dd>
 <div class="block">Creates the ui elements and functionality for the player select screen's ui.</div>
@@ -3851,6 +4145,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/npc/attack/attackeffects/PoisonEffect.html#%3Cinit%3E(int,float)" class="member-name-link">PoisonEffect(int, float)</a> - Constructor for class com.csse3200.game.components.npc.attack.attackeffects.<a href="com/csse3200/game/components/npc/attack/attackeffects/PoisonEffect.html" title="class in com.csse3200.game.components.npc.attack.attackeffects">PoisonEffect</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/actors/StatBar.html#positionChanged()" class="member-name-link">positionChanged()</a> - Method in class com.csse3200.game.actors.<a href="com/csse3200/game/actors/StatBar.html" title="class in com.csse3200.game.actors">StatBar</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/weapon/PositionTracker.html" class="type-name-link" title="class in com.csse3200.game.components.weapon">PositionTracker</a> - Class in <a href="com/csse3200/game/components/weapon/package-summary.html">com.csse3200.game.components.weapon</a></dt>
 <dd>
 <div class="block">Component to track the player's position and set it to the weapon entity.</div>
@@ -3863,11 +4159,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/utils/StringDecorator.html#printFn" class="member-name-link">printFn</a> - Variable in class com.csse3200.game.utils.<a href="com/csse3200/game/utils/StringDecorator.html" title="class in com.csse3200.game.utils">StringDecorator</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#printRelativePosition()" class="member-name-link">printRelativePosition()</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#printRelativePosition()" class="member-name-link">printRelativePosition()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Prints the relative positions of all rooms in the map.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#printRoomDetails()" class="member-name-link">printRoomDetails()</a> - Method in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#printRoomDetails()" class="member-name-link">printRoomDetails()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Prints the details of all rooms in the map.</div>
 </dd>
@@ -4069,7 +4365,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/services/ServiceLocator.html#registerTimeSource(com.csse3200.game.services.GameTime)" class="member-name-link">registerTimeSource(GameTime)</a> - Static method in class com.csse3200.game.services.<a href="com/csse3200/game/services/ServiceLocator.html" title="class in com.csse3200.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#relativePosition" class="member-name-link">relativePosition</a> - Variable in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#relativePosition" class="member-name-link">relativePosition</a> - Variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/RangedWeapon.html#reloadTime" class="member-name-link">reloadTime</a> - Variable in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a></dt>
 <dd>&nbsp;</dd>
@@ -4090,9 +4386,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/inventory/Inventory.html#removeItem(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">removeItem(Collectible)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#removeRoom()" class="member-name-link">removeRoom()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Removes the room and all its entities.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#removeRoom()" class="member-name-link">removeRoom()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Removes the room and clears all enemy entities.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/Room.html#removeRoom()" class="member-name-link">removeRoom()</a> - Method in interface com.csse3200.game.entities.<a href="com/csse3200/game/entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></dt>
 <dd>
 <div class="block">Remove all entities that form this room.</div>
@@ -4141,11 +4441,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Core rendering system for the game.</div>
 </dd>
-<dt><a href="com/csse3200/game/rendering/Renderer.html#%3Cinit%3E(com.csse3200.game.components.CameraComponent)" class="member-name-link">Renderer(CameraComponent)</a> - Constructor for class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/Renderer.html" title="class in com.csse3200.game.rendering">Renderer</a></dt>
+<dt><a href="com/csse3200/game/rendering/Renderer.html#%3Cinit%3E(com.csse3200.game.components.CameraComponent,com.csse3200.game.components.CameraComponent)" class="member-name-link">Renderer(CameraComponent, CameraComponent)</a> - Constructor for class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/Renderer.html" title="class in com.csse3200.game.rendering">Renderer</a></dt>
 <dd>
 <div class="block">Create a new renderer with default settings</div>
 </dd>
-<dt><a href="com/csse3200/game/rendering/Renderer.html#%3Cinit%3E(com.csse3200.game.components.CameraComponent,float,com.badlogic.gdx.graphics.g2d.SpriteBatch,com.badlogic.gdx.scenes.scene2d.Stage,com.csse3200.game.rendering.RenderService,com.csse3200.game.rendering.DebugRenderer)" class="member-name-link">Renderer(CameraComponent, float, SpriteBatch, Stage, RenderService, DebugRenderer)</a> - Constructor for class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/Renderer.html" title="class in com.csse3200.game.rendering">Renderer</a></dt>
+<dt><a href="com/csse3200/game/rendering/Renderer.html#%3Cinit%3E(com.csse3200.game.components.CameraComponent,com.csse3200.game.components.CameraComponent,float,com.badlogic.gdx.graphics.g2d.SpriteBatch,com.badlogic.gdx.scenes.scene2d.Stage,com.csse3200.game.rendering.RenderService,com.csse3200.game.rendering.DebugRenderer)" class="member-name-link">Renderer(CameraComponent, CameraComponent, float, SpriteBatch, Stage, RenderService, DebugRenderer)</a> - Constructor for class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/Renderer.html" title="class in com.csse3200.game.rendering">Renderer</a></dt>
 <dd>
 <div class="block">Create a renderer</div>
 </dd>
@@ -4205,6 +4505,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Initialise this ResourceService to use the provided AssetManager.</div>
 </dd>
+<dt><a href="com/csse3200/game/services/ResourceService.html#%3Cinit%3E(com.badlogic.gdx.assets.AssetManager,com.csse3200.game.files.UserSettings.Settings)" class="member-name-link">ResourceService(AssetManager, UserSettings.Settings)</a> - Constructor for class com.csse3200.game.services.<a href="com/csse3200/game/services/ResourceService.html" title="class in com.csse3200.game.services">ResourceService</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/services/ResourceService.html#%3Cinit%3E(com.csse3200.game.files.UserSettings.Settings)" class="member-name-link">ResourceService(UserSettings.Settings)</a> - Constructor for class com.csse3200.game.services.<a href="com/csse3200/game/services/ResourceService.html" title="class in com.csse3200.game.services">ResourceService</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/screens/MainGameScreen.html#resume()" class="member-name-link">resume()</a> - Method in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/MainGameScreen.html" title="class in com.csse3200.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/screens/StaticScreen.html#resume()" class="member-name-link">resume()</a> - Method in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/StaticScreen.html" title="class in com.csse3200.game.screens">StaticScreen</a></dt>
@@ -4213,7 +4517,9 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/utils/math/Vector2Utils.html#RIGHT" class="member-name-link">RIGHT</a> - Static variable in class com.csse3200.game.utils.math.<a href="com/csse3200/game/utils/math/Vector2Utils.html" title="class in com.csse3200.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#rng" class="member-name-link">rng</a> - Variable in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#rng" class="member-name-link">rng</a> - Variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/ShopRoom.html#rng" class="member-name-link">rng</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/ShopRoom.html" title="class in com.csse3200.game.areas">ShopRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/Room.html" class="type-name-link" title="interface in com.csse3200.game.entities">Room</a> - Interface in <a href="com/csse3200/game/entities/package-summary.html">com.csse3200.game.entities</a></dt>
 <dd>
@@ -4225,10 +4531,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainFactory.TerrainType.html#ROOM1" class="member-name-link">ROOM1</a> - Enum constant in enum class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainFactory.TerrainType.html" title="enum class in com.csse3200.game.areas.terrain">TerrainFactory.TerrainType</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#roomConnections" class="member-name-link">roomConnections</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.html#roomConnections" class="member-name-link">roomConnections</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapConfigs.html" title="class in com.csse3200.game.entities.configs">MapConfigs</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Generation/MapGenerator.html#roomDetails" class="member-name-link">roomDetails</a> - Variable in class com.csse3200.game.areas.Generation.<a href="com/csse3200/game/areas/Generation/MapGenerator.html" title="class in com.csse3200.game.areas.Generation">MapGenerator</a></dt>
+<dd>
+<div class="block">List of room connections.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#roomDetails" class="member-name-link">roomDetails</a> - Variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/RoomDirection.html" class="type-name-link" title="enum class in com.csse3200.game.entities">RoomDirection</a> - Enum Class in <a href="com/csse3200/game/entities/package-summary.html">com.csse3200.game.entities</a></dt>
 <dd>&nbsp;</dd>
@@ -4240,12 +4546,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Construct a new  Room Factory</div>
 </dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.html#roomInfo" class="member-name-link">roomInfo</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapConfigs.html" title="class in com.csse3200.game.entities.configs">MapConfigs</a></dt>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#RoomKeys" class="member-name-link">RoomKeys</a> - Variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.RoomInfo.html#%3Cinit%3E()" class="member-name-link">RoomInfo()</a> - Constructor for class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapConfigs.RoomInfo.html" title="class in com.csse3200.game.entities.configs">MapConfigs.RoomInfo</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/Level.html#roomTraversals" class="member-name-link">roomTraversals</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/Level.html" title="class in com.csse3200.game.areas">Level</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/BaseRoom.html#roomName" class="member-name-link">roomName</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
+<dd>
+<div class="block">Name of the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.html#runAway" class="member-name-link">runAway</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/tasks/RunAwayTask.html" class="type-name-link" title="class in com.csse3200.game.components.tasks">RunAwayTask</a> - Class in <a href="com/csse3200/game/components/tasks/package-summary.html">com.csse3200.game.components.tasks</a></dt>
@@ -4264,8 +4570,24 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
+<dt><a href="com/csse3200/game/entities/configs/PlayerLocationConfig.html#savedLoc" class="member-name-link">savedLoc</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/PlayerLocationConfig.html" title="class in com.csse3200.game.entities.configs">PlayerLocationConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/entities/configs/MapLoadConfig.html#savedMap" class="member-name-link">savedMap</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapLoadConfig.html" title="class in com.csse3200.game.entities.configs">MapLoadConfig</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/maingame/MainGameExitDisplay.html#saveGame()" class="member-name-link">saveGame()</a> - Method in class com.csse3200.game.components.maingame.<a href="com/csse3200/game/components/maingame/MainGameExitDisplay.html" title="class in com.csse3200.game.components.maingame">MainGameExitDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#saveMapData()" class="member-name-link">saveMapData()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
+<dd>
+<div class="block">Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
+ which can be loaded when load button is pressed.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/MainGameArea.html#saveMapLocation()" class="member-name-link">saveMapLocation()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
+<dd>
+<div class="block">Exports the current Level number and Room number of the player
+ as well as the complete map details of the current map generated into a JSON file
+ which can then be loaded and set as the starting position of the player when player
+ loads the game.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/SavePlayerService.html" class="type-name-link" title="class in com.csse3200.game.entities">SavePlayerService</a> - Class in <a href="com/csse3200/game/entities/package-summary.html">com.csse3200.game.entities</a></dt>
 <dd>
 <div class="block">A Class to handle saving character state into a json file so that a player
@@ -4323,8 +4645,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Scrolling up will open the terminal and scrolling down will close the terminal.</div>
 </dd>
-<dt><a href="com/csse3200/game/entities/configs/MapConfigs.html#seed" class="member-name-link">seed</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/MapConfigs.html" title="class in com.csse3200.game.entities.configs">MapConfigs</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/services/ServiceLocator.html" class="type-name-link" title="class in com.csse3200.game.services">ServiceLocator</a> - Class in <a href="com/csse3200/game/services/package-summary.html">com.csse3200.game.services</a></dt>
 <dd>
 <div class="block">A simplified implementation of the Service Locator pattern:
@@ -4360,6 +4680,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Sets the entity's attack damage.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#setBlendMode(com.badlogic.gdx.maps.tiled.TiledMapTile.BlendMode)" class="member-name-link">setBlendMode(TiledMapTile.BlendMode)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#setBlendMode(com.badlogic.gdx.maps.tiled.TiledMapTile.BlendMode)" class="member-name-link">setBlendMode(TiledMapTile.BlendMode)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/components/PhysicsComponent.html#setBodyType(com.badlogic.gdx.physics.box2d.BodyDef.BodyType)" class="member-name-link">setBodyType(BodyDef.BodyType)</a> - Method in class com.csse3200.game.physics.components.<a href="com/csse3200/game/physics/components/PhysicsComponent.html" title="class in com.csse3200.game.physics.components">PhysicsComponent</a></dt>
@@ -4387,6 +4709,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/ui/terminal/Terminal.html#setClosed()" class="member-name-link">setClosed()</a> - Method in class com.csse3200.game.ui.terminal.<a href="com/csse3200/game/ui/terminal/Terminal.html" title="class in com.csse3200.game.ui.terminal">Terminal</a></dt>
 <dd>
 <div class="block">Closes the terminal and clears the stored message.</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/CoinsComponent.html#setCoins(int)" class="member-name-link">setCoins(int)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/CoinsComponent.html" title="class in com.csse3200.game.components.player.inventory">CoinsComponent</a></dt>
+<dd>
+<div class="block">Sets the player's coin count.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/ItemPickupComponent.html#setContact(boolean)" class="member-name-link">setContact(boolean)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/ItemPickupComponent.html" title="class in com.csse3200.game.components.player.inventory">ItemPickupComponent</a></dt>
 <dd>
@@ -4452,12 +4778,20 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Sets the correct icon depending on what type of energy drink this is</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#setId(int)" class="member-name-link">setId(int)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#setId(int)" class="member-name-link">setId(int)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/CombatStatsComponent.html#setInvincible(boolean)" class="member-name-link">setInvincible(boolean)</a> - Method in class com.csse3200.game.components.<a href="com/csse3200/game/components/CombatStatsComponent.html" title="class in com.csse3200.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Sets the state of the entity's invincibility</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/BaseRoom.html#setIsRoomComplete()" class="member-name-link">setIsRoomComplete()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
+<dd>
+<div class="block">Sets the room as completed when loading the map.</div>
+</dd>
+<dt><a href="com/csse3200/game/entities/Room.html#setIsRoomComplete()" class="member-name-link">setIsRoomComplete()</a> - Method in interface com.csse3200.game.entities.<a href="com/csse3200/game/entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/KeyMapping.html#setKeyBinding(int,com.csse3200.game.components.player.KeyMapping.KeyBinding)" class="member-name-link">setKeyBinding(int, KeyMapping.KeyBinding)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.html" title="class in com.csse3200.game.components.player">KeyMapping</a></dt>
 <dd>
 <div class="block">Set a key binding for this mapping.</div>
@@ -4469,6 +4803,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/physics/components/PhysicsMovementComponent.html#setLinearVelocity(com.badlogic.gdx.math.Vector2)" class="member-name-link">setLinearVelocity(Vector2)</a> - Method in class com.csse3200.game.physics.components.<a href="com/csse3200/game/physics/components/PhysicsMovementComponent.html" title="class in com.csse3200.game.physics.components">PhysicsMovementComponent</a></dt>
 <dd>
 <div class="block">Directly sets the linear velocity of the physics body.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#setMapSeed(java.lang.String)" class="member-name-link">setMapSeed(String)</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
+<dd>
+<div class="block">Sets the seed when map is loaded</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/RangedWeapon.html#setMaxAmmo(int)" class="member-name-link">setMaxAmmo(int)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a></dt>
 <dd>&nbsp;</dd>
@@ -4498,7 +4836,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Set the name of the weapon.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#setOffsetX(float)" class="member-name-link">setOffsetX(float)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#setOffsetX(float)" class="member-name-link">setOffsetX(float)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#setOffsetY(float)" class="member-name-link">setOffsetY(float)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#setOffsetY(float)" class="member-name-link">setOffsetY(float)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
 <dd>&nbsp;</dd>
@@ -4544,6 +4886,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Set restitution</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/MainGameLevelFactory.html#setRoomsComplete(java.util.List)" class="member-name-link">setRoomsComplete(List&lt;String&gt;)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameLevelFactory.html" title="class in com.csse3200.game.areas">MainGameLevelFactory</a></dt>
+<dd>
+<div class="block">Sets the rooms that have been completed in the saved game as completed in the loaded
+ game.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/EnergyDrink.html#setScalar(java.lang.String)" class="member-name-link">setScalar(String)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/EnergyDrink.html" title="class in com.csse3200.game.components.player.inventory">EnergyDrink</a></dt>
 <dd>
 <div class="block">Sets the correct speed boost depending on what type of energy drink this is.</div>
@@ -4566,6 +4913,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Set background colour of the game window.</div>
 </dd>
+<dt><a href="com/csse3200/game/rendering/RenderService.html#setSecondaryCamera(com.csse3200.game.components.CameraComponent)" class="member-name-link">setSecondaryCamera(CameraComponent)</a> - Method in class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/RenderService.html" title="class in com.csse3200.game.rendering">RenderService</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/utils/RandomNumberGenerator.html#setSeed(java.lang.String)" class="member-name-link">setSeed(String)</a> - Method in class com.csse3200.game.utils.<a href="com/csse3200/game/utils/RandomNumberGenerator.html" title="class in com.csse3200.game.utils">RandomNumberGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/components/ColliderComponent.html#setSensor(boolean)" class="member-name-link">setSensor(boolean)</a> - Method in class com.csse3200.game.physics.components.<a href="com/csse3200/game/physics/components/ColliderComponent.html" title="class in com.csse3200.game.physics.components">ColliderComponent</a></dt>
 <dd>
 <div class="block">Set whether this physics component is a sensor.</div>
@@ -4604,6 +4955,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Set a new texture for rendering and scale the entity based on the new texture's dimensions.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapTile.html#setTextureRegion(com.badlogic.gdx.graphics.g2d.TextureRegion)" class="member-name-link">setTextureRegion(TextureRegion)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapTile.html" title="class in com.csse3200.game.areas.minimap">MinimapTile</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainTile.html#setTextureRegion(com.badlogic.gdx.graphics.g2d.TextureRegion)" class="member-name-link">setTextureRegion(TextureRegion)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainTile.html" title="class in com.csse3200.game.areas.terrain">TerrainTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/services/GameTime.html#setTimeScale(float)" class="member-name-link">setTimeScale(float)</a> - Method in class com.csse3200.game.services.<a href="com/csse3200/game/services/GameTime.html" title="class in com.csse3200.game.services">GameTime</a></dt>
@@ -4694,6 +5047,22 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The player action to shoot up.</div>
 </dd>
+<dt><a href="com/csse3200/game/areas/ShopRoom.html" class="type-name-link" title="class in com.csse3200.game.areas">ShopRoom</a> - Class in <a href="com/csse3200/game/areas/package-summary.html">com.csse3200.game.areas</a></dt>
+<dd>
+<div class="block">Room for Player to Shop in to buy 'buyable' items within</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/ShopRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String,java.lang.String)" class="member-name-link">ShopRoom(NPCFactory, CollectibleFactory, TerrainFactory, List&lt;String&gt;, String, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/ShopRoom.html" title="class in com.csse3200.game.areas">ShopRoom</a></dt>
+<dd>
+<div class="block">A shop room (NPC Room) that users can buy items in</div>
+</dd>
+<dt><a href="com/csse3200/game/components/gamearea/ShopRoomDisplay.html" class="type-name-link" title="class in com.csse3200.game.components.gamearea">ShopRoomDisplay</a> - Class in <a href="com/csse3200/game/components/gamearea/package-summary.html">com.csse3200.game.components.gamearea</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/gamearea/ShopRoomDisplay.html#%3Cinit%3E()" class="member-name-link">ShopRoomDisplay()</a> - Constructor for class com.csse3200.game.components.gamearea.<a href="com/csse3200/game/components/gamearea/ShopRoomDisplay.html" title="class in com.csse3200.game.components.gamearea">ShopRoomDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/options/GameOptions.html#shouldLoad" class="member-name-link">shouldLoad</a> - Variable in class com.csse3200.game.options.<a href="com/csse3200/game/options/GameOptions.html" title="class in com.csse3200.game.options">GameOptions</a></dt>
+<dd>
+<div class="block">Whether to load from save files when the game starts.</div>
+</dd>
 <dt><a href="com/csse3200/game/services/AlertBoxService.html#showAlert(java.lang.String,java.lang.String)" class="member-name-link">showAlert(String, String)</a> - Method in class com.csse3200.game.services.<a href="com/csse3200/game/services/AlertBoxService.html" title="class in com.csse3200.game.services">AlertBoxService</a></dt>
 <dd>
 <div class="block">Displays an alert box with the specified message.</div>
@@ -4702,11 +5071,15 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Displays a confirmation dialog with Yes and No buttons.</div>
 </dd>
+<dt><a href="com/csse3200/game/components/gamearea/ShopRoomDisplay.html#showRoomSpawnMessage()" class="member-name-link">showRoomSpawnMessage()</a> - Method in class com.csse3200.game.components.gamearea.<a href="com/csse3200/game/components/gamearea/ShopRoomDisplay.html" title="class in com.csse3200.game.components.gamearea">ShopRoomDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/raycast/SingleHitCallback.html" class="type-name-link" title="class in com.csse3200.game.physics.raycast">SingleHitCallback</a> - Class in <a href="com/csse3200/game/physics/raycast/package-summary.html">com.csse3200.game.physics.raycast</a></dt>
 <dd>
 <div class="block">Cast a ray against all colliders that match the layermask.</div>
 </dd>
 <dt><a href="com/csse3200/game/physics/raycast/SingleHitCallback.html#%3Cinit%3E()" class="member-name-link">SingleHitCallback()</a> - Constructor for class com.csse3200.game.physics.raycast.<a href="com/csse3200/game/physics/raycast/SingleHitCallback.html" title="class in com.csse3200.game.physics.raycast">SingleHitCallback</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/actors/StatBar.html#sizeChanged()" class="member-name-link">sizeChanged()</a> - Method in class com.csse3200.game.actors.<a href="com/csse3200/game/actors/StatBar.html" title="class in com.csse3200.game.actors">StatBar</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/ui/UIComponent.html#skin" class="member-name-link">skin</a> - Static variable in class com.csse3200.game.ui.<a href="com/csse3200/game/ui/UIComponent.html" title="class in com.csse3200.game.ui">UIComponent</a></dt>
 <dd>&nbsp;</dd>
@@ -4727,25 +5100,45 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/entities/RoomDirection.html#SOUTH" class="member-name-link">SOUTH</a> - Enum constant in enum class com.csse3200.game.entities.<a href="com/csse3200/game/entities/RoomDirection.html" title="enum class in com.csse3200.game.entities">RoomDirection</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)" class="member-name-link">spawn(Entity, MainGameArea)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Spawns the room in the game area.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/BossRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)" class="member-name-link">spawn(Entity, MainGameArea)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BossRoom.html" title="class in com.csse3200.game.areas">BossRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)" class="member-name-link">spawn(Entity, MainGameArea)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
+<dd>
+<div class="block">Spawns the room, including terrain, doors, enemies, and items.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/GambleRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)" class="member-name-link">spawn(Entity, MainGameArea)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/GambleRoom.html" title="class in com.csse3200.game.areas">GambleRoom</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/ShopRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)" class="member-name-link">spawn(Entity, MainGameArea)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/ShopRoom.html" title="class in com.csse3200.game.areas">ShopRoom</a></dt>
+<dd>
+<div class="block">Spawn the area and player with necessary area conditions</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/Room.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)" class="member-name-link">spawn(Entity, MainGameArea)</a> - Method in interface com.csse3200.game.entities.<a href="com/csse3200/game/entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></dt>
 <dd>
 <div class="block">Spawn all entities that form this room.</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#spawnAnimalEntity(com.csse3200.game.areas.MainGameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)" class="member-name-link">spawnAnimalEntity(MainGameArea, Entity, GridPoint2)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Spawns an animal entity in the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#spawnAnimals(com.csse3200.game.areas.MainGameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,com.badlogic.gdx.math.GridPoint2)" class="member-name-link">spawnAnimals(MainGameArea, Entity, GridPoint2, GridPoint2)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Spawns animals/enemies in the room at random positions within the given bounds.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/MainGameArea.html#spawnCurrentRoom()" class="member-name-link">spawnCurrentRoom()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Spawns the current room if it hasn't been spawned yet.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#spawnDoors(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity)" class="member-name-link">spawnDoors(GameArea, Entity)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Spawns doors in the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/EnemyRoom.html#SpawnEnemyEntity(com.csse3200.game.areas.MainGameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)" class="member-name-link">SpawnEnemyEntity(MainGameArea, Entity, GridPoint2)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Spawns an enemy entity and sets up its event listener for room completion check.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/GameArea.html#spawnEntity(com.csse3200.game.entities.Entity)" class="member-name-link">spawnEntity(Entity)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/GameArea.html" title="class in com.csse3200.game.areas">GameArea</a></dt>
 <dd>
 <div class="block">Spawn entity at its current position</div>
@@ -4755,10 +5148,18 @@ loadScripts(document, 'script');</script>
 <div class="block">Spawn entity on a given tile.</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#spawnItem(com.csse3200.game.areas.MainGameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)" class="member-name-link">spawnItem(MainGameArea, String, GridPoint2)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Spawns an item in the room.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#spawnTerrain(com.csse3200.game.areas.GameArea,float,boolean)" class="member-name-link">spawnTerrain(GameArea, float, boolean)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Spawns the terrain for the room, including walls and background.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#specification" class="member-name-link">specification</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
+<dd>
+<div class="block">Specification string for the room.</div>
+</dd>
+<dt><a href="com/csse3200/game/entities/configs/PlayerConfig.html#speed" class="member-name-link">speed</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/ProjectileConfig.html#speed" class="member-name-link">speed</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/ProjectileConfig.html" title="class in com.csse3200.game.entities.configs">ProjectileConfig</a></dt>
 <dd>&nbsp;</dd>
@@ -4770,6 +5171,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/SpeedBoostConfig.html#speedFactor" class="member-name-link">speedFactor</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/SpeedBoostConfig.html" title="class in com.csse3200.game.entities.configs">SpeedBoostConfig</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/CoinsComponent.html#spend(int)" class="member-name-link">spend(int)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/CoinsComponent.html" title="class in com.csse3200.game.components.player.inventory">CoinsComponent</a></dt>
+<dd>
+<div class="block">Reduces the coins player owns</div>
+</dd>
 <dt><a href="com/csse3200/game/utils/SortedIntMap.html#spliterator()" class="member-name-link">spliterator()</a> - Method in class com.csse3200.game.utils.<a href="com/csse3200/game/utils/SortedIntMap.html" title="class in com.csse3200.game.utils">SortedIntMap</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/ui/UIComponent.html#stage" class="member-name-link">stage</a> - Variable in class com.csse3200.game.ui.<a href="com/csse3200/game/ui/UIComponent.html" title="class in com.csse3200.game.ui">UIComponent</a></dt>
@@ -4818,6 +5223,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/components/tasks/WanderTask.html#start()" class="member-name-link">start()</a> - Method in class com.csse3200.game.components.tasks.<a href="com/csse3200/game/components/tasks/WanderTask.html" title="class in com.csse3200.game.components.tasks">WanderTask</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.html#startAnimation()" class="member-name-link">startAnimation()</a> - Method in class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.html" title="class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/rendering/AnimationRenderComponent.html#startAnimation(java.lang.String)" class="member-name-link">startAnimation(String)</a> - Method in class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/AnimationRenderComponent.html" title="class in com.csse3200.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Start playback of an animation.</div>
@@ -4834,6 +5241,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Start waiting after charging.</div>
 </dd>
+<dt><a href="com/csse3200/game/actors/StatBar.html" class="type-name-link" title="class in com.csse3200.game.actors">StatBar</a> - Class in <a href="com/csse3200/game/actors/package-summary.html">com.csse3200.game.actors</a></dt>
+<dd>
+<div class="block">Stat bar on player select screen to show player stats e.g.</div>
+</dd>
+<dt><a href="com/csse3200/game/actors/StatBar.html#%3Cinit%3E(float)" class="member-name-link">StatBar(float)</a> - Constructor for class com.csse3200.game.actors.<a href="com/csse3200/game/actors/StatBar.html" title="class in com.csse3200.game.actors">StatBar</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/screens/StaticScreen.html" class="type-name-link" title="class in com.csse3200.game.screens">StaticScreen</a> - Class in <a href="com/csse3200/game/screens/package-summary.html">com.csse3200.game.screens</a></dt>
 <dd>
 <div class="block">A superclass for static screens such as menu screens.</div>
@@ -4877,6 +5290,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/tasks/StraightWanderTask.html#%3Cinit%3E(float)" class="member-name-link">StraightWanderTask(float)</a> - Constructor for class com.csse3200.game.components.tasks.<a href="com/csse3200/game/components/tasks/StraightWanderTask.html" title="class in com.csse3200.game.components.tasks">StraightWanderTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.StraightWanderTaskConfig.html#%3Cinit%3E()" class="member-name-link">StraightWanderTaskConfig()</a> - Constructor for class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.StraightWanderTaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig.StraightWanderTaskConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.html#strength" class="member-name-link">strength</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/utils/StringDecorator.html" class="type-name-link" title="class in com.csse3200.game.utils">StringDecorator&lt;T&gt;</a> - Class in <a href="com/csse3200/game/utils/package-summary.html">com.csse3200.game.utils</a></dt>
 <dd>
@@ -4970,7 +5385,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#%3Cinit%3E(com.badlogic.gdx.graphics.OrthographicCamera,com.badlogic.gdx.maps.tiled.TiledMap,com.badlogic.gdx.maps.tiled.TiledMapRenderer,float)" class="member-name-link">TerrainComponent(OrthographicCamera, TiledMap, TiledMapRenderer, float)</a> - Constructor for class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#terrainFactory" class="member-name-link">terrainFactory</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Factory for creating terrain.</div>
+</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainFactory.html" class="type-name-link" title="class in com.csse3200.game.areas.terrain">TerrainFactory</a> - Class in <a href="com/csse3200/game/areas/terrain/package-summary.html">com.csse3200.game.areas.terrain</a></dt>
 <dd>
 <div class="block">Factory for creating game terrains.</div>
@@ -5024,7 +5441,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/screens/StaticScreen.html#textures" class="member-name-link">textures</a> - Variable in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/StaticScreen.html" title="class in com.csse3200.game.screens">StaticScreen</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#tileToWorldPosition(int,int)" class="member-name-link">tileToWorldPosition(int, int)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#tileToWorldPosition(int,int)" class="member-name-link">tileToWorldPosition(int, int)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapComponent.html#tileToWorldPosition(com.badlogic.gdx.math.GridPoint2)" class="member-name-link">tileToWorldPosition(GridPoint2)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/terrain/TerrainComponent.html#tileToWorldPosition(com.badlogic.gdx.math.GridPoint2)" class="member-name-link">tileToWorldPosition(GridPoint2)</a> - Method in class com.csse3200.game.areas.terrain.<a href="com/csse3200/game/areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
@@ -5159,6 +5580,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:U">U</h2>
 <dl class="index">
+<dt><a href="com/csse3200/game/screens/StaticScreen.html#ui" class="member-name-link">ui</a> - Variable in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/StaticScreen.html" title="class in com.csse3200.game.screens">StaticScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/ui/UIComponent.html" class="type-name-link" title="class in com.csse3200.game.ui">UIComponent</a> - Class in <a href="com/csse3200/game/ui/package-summary.html">com.csse3200.game.ui</a></dt>
 <dd>
 <div class="block">A generic component for rendering onto the ui.</div>
@@ -5262,6 +5685,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/PhysicsEngine.html#update()" class="member-name-link">update()</a> - Method in class com.csse3200.game.physics.<a href="com/csse3200/game/physics/PhysicsEngine.html" title="class in com.csse3200.game.physics">PhysicsEngine</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/rendering/AnimationRenderComponent.html#update(float)" class="member-name-link">update(float)</a> - Method in class com.csse3200.game.rendering.<a href="com/csse3200/game/rendering/AnimationRenderComponent.html" title="class in com.csse3200.game.rendering">AnimationRenderComponent</a></dt>
+<dd>
+<div class="block">Keeps track of the time of the current animation.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/npc/attack/attackeffects/Effect.html#update(com.csse3200.game.entities.Entity,float)" class="member-name-link">update(Entity, float)</a> - Method in interface com.csse3200.game.components.npc.attack.attackeffects.<a href="com/csse3200/game/components/npc/attack/attackeffects/Effect.html" title="interface in com.csse3200.game.components.npc.attack.attackeffects">Effect</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/npc/attack/attackeffects/KnockbackEffect.html#update(com.csse3200.game.entities.Entity,float)" class="member-name-link">update(Entity, float)</a> - Method in class com.csse3200.game.components.npc.attack.attackeffects.<a href="com/csse3200/game/components/npc/attack/attackeffects/KnockbackEffect.html" title="class in com.csse3200.game.components.npc.attack.attackeffects">KnockbackEffect</a></dt>
@@ -5292,6 +5719,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/components/player/PlayerStatsDisplay.html#updateMeleeWeaponUI()" class="member-name-link">updateMeleeWeaponUI()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerStatsDisplay.html" title="class in com.csse3200.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/areas/minimap/MinimapFactory.html#updateMinimap(java.lang.String)" class="member-name-link">updateMinimap(String)</a> - Method in class com.csse3200.game.areas.minimap.<a href="com/csse3200/game/areas/minimap/MinimapFactory.html" title="class in com.csse3200.game.areas.minimap">MinimapFactory</a></dt>
+<dd>
+<div class="block">Updates the minimap when the player changes rooms.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/PlayerStatsDisplay.html#updatePlayerHealthUI(int)" class="member-name-link">updatePlayerHealthUI(int)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerStatsDisplay.html" title="class in com.csse3200.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>
 <div class="block">Updates the player's health on the ui.</div>
@@ -5315,8 +5746,6 @@ loadScripts(document, 'script');</script>
 <div class="block">An item that can be used at the player's leisure.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/UsableItem.html#%3Cinit%3E()" class="member-name-link">UsableItem()</a> - Constructor for class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/components/player/PlayerActions.html#use(com.csse3200.game.components.player.inventory.UsableItem)" class="member-name-link">use(UsableItem)</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerActions.html" title="class in com.csse3200.game.components.player">PlayerActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html#USE_1" class="member-name-link">USE_1</a> - Enum constant in enum class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></dt>
 <dd>&nbsp;</dd>
@@ -5354,6 +5783,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></dt>
+<dd>
+<div class="block">Returns the enum constant of this class with the specified name.</div>
+</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html" title="enum class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation.PlayerNum</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
 </dd>
@@ -5405,6 +5838,11 @@ the order they are declared.</div>
 the order they are declared.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html#values()" class="member-name-link">values()</a> - Static method in enum class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></dt>
+<dd>
+<div class="block">Returns an array containing the constants of this enum class, in
+the order they are declared.</div>
+</dd>
+<dt><a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html#values()" class="member-name-link">values()</a> - Static method in enum class com.csse3200.game.components.screendisplay.<a href="com/csse3200/game/components/screendisplay/PlayerSelectAnimation.PlayerNum.html" title="enum class in com.csse3200.game.components.screendisplay">PlayerSelectAnimation.PlayerNum</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum class, in
 the order they are declared.</div>
@@ -5499,7 +5937,9 @@ the order they are declared.</div>
 <div class="block">The player action to walk up.</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#WALL_THICKNESS" class="member-name-link">WALL_THICKNESS</a> - Static variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Thickness of the room walls.</div>
+</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.html#wander" class="member-name-link">wander</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.WanderTaskConfig.html#wanderRadius" class="member-name-link">wanderRadius</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.NPCConfig.TaskConfig.WanderTaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig.WanderTaskConfig</a></dt>

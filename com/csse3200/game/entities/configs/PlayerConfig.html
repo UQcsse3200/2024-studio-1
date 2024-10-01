@@ -111,11 +111,9 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">Player's base attack by default</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#favouriteColour" class="member-name-link">favouriteColour</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">Player's favourite colour by default</div>
-</div>
+<div class="col-first odd-row-color"><code>int</code></div>
+<div class="col-second odd-row-color"><code><a href="#coins" class="member-name-link">coins</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>int</code></div>
 <div class="col-second even-row-color"><code><a href="#health" class="member-name-link">health</a></code></div>
 <div class="col-last even-row-color">
@@ -125,6 +123,16 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color"><code><a href="#items" class="member-name-link">items</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">The items player has collected/picked up during the game</div>
+</div>
+<div class="col-first even-row-color"><code>static final int</code></div>
+<div class="col-second even-row-color"><code><a href="#MAX_HEALTH" class="member-name-link">MAX_HEALTH</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The highest possible initial health a player can have.</div>
+</div>
+<div class="col-first odd-row-color"><code>static final com.badlogic.gdx.math.Vector2</code></div>
+<div class="col-second odd-row-color"><code><a href="#MAX_SPEED" class="member-name-link">MAX_SPEED</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">The highest possible initial speed a player can have.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#melee" class="member-name-link">melee</a></code></div>
@@ -141,14 +149,17 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">The specification of player's equipped ranged weapon</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#textureAtlasFilename" class="member-name-link">textureAtlasFilename</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first odd-row-color"><code>com.badlogic.gdx.math.Vector2</code></div>
+<div class="col-second odd-row-color"><code><a href="#speed" class="member-name-link">speed</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#textureAtlasFilename" class="member-name-link">textureAtlasFilename</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">The texture atlas this player uses</div>
 </div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#textureFilename" class="member-name-link">textureFilename</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#textureFilename" class="member-name-link">textureFilename</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">The texture this player uses</div>
 </div>
 </div>
@@ -178,14 +189,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#adjustForDifficulty(com.csse3200.game.options.GameOptions.Difficulty)" class="member-name-link">adjustForDifficulty</a><wbr>(<a href="../../options/GameOptions.Difficulty.html" title="enum class in com.csse3200.game.options">GameOptions.Difficulty</a>&nbsp;difficulty)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Adjust player attributes to account for chosen difficulty and make the game easier/harder.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;object)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Checks if two players are the same based on their attributes</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generates a hashcode based on player's attributes</div>
 </div>
 </div>
@@ -220,13 +236,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="favouriteColour">
-<h3>favouriteColour</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">favouriteColour</span></div>
-<div class="block">Player's favourite colour by default</div>
-</section>
-</li>
-<li>
 <section class="detail" id="items">
 <h3>items</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name">items</span></div>
@@ -234,10 +243,22 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="speed">
+<h3>speed</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.math.Vector2</span>&nbsp;<span class="element-name">speed</span></div>
+</section>
+</li>
+<li>
 <section class="detail" id="health">
 <h3>health</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">health</span></div>
 <div class="block">Player's current health</div>
+</section>
+</li>
+<li>
+<section class="detail" id="coins">
+<h3>coins</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">coins</span></div>
 </section>
 </li>
 <li>
@@ -266,6 +287,28 @@ loadScripts(document, 'script');</script>
 <h3>textureAtlasFilename</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">textureAtlasFilename</span></div>
 <div class="block">The texture atlas this player uses</div>
+</section>
+</li>
+<li>
+<section class="detail" id="MAX_HEALTH">
+<h3>MAX_HEALTH</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MAX_HEALTH</span></div>
+<div class="block">The highest possible initial health a player can have.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="../../../../../constant-values.html#com.csse3200.game.entities.configs.PlayerConfig.MAX_HEALTH">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="MAX_SPEED">
+<h3>MAX_SPEED</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">com.badlogic.gdx.math.Vector2</span>&nbsp;<span class="element-name">MAX_SPEED</span></div>
+<div class="block">The highest possible initial speed a player can have.</div>
 </section>
 </li>
 </ul>
@@ -302,6 +345,17 @@ loadScripts(document, 'script');</script>
 <dd><code>object</code> - The object to compare with the player</dd>
 <dt>Returns:</dt>
 <dd>True if two objects are the same, otherwise false</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="adjustForDifficulty(com.csse3200.game.options.GameOptions.Difficulty)">
+<h3>adjustForDifficulty</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">adjustForDifficulty</span><wbr><span class="parameters">(<a href="../../options/GameOptions.Difficulty.html" title="enum class in com.csse3200.game.options">GameOptions.Difficulty</a>&nbsp;difficulty)</span></div>
+<div class="block">Adjust player attributes to account for chosen difficulty and make the game easier/harder.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>difficulty</code> - difficulty chosen by player.</dd>
 </dl>
 </section>
 </li>

@@ -129,6 +129,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">NPCDeathHandler</a>()</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.entities.Entity,int)" class="member-name-link">NPCDeathHandler</a><wbr>(<a href="../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
+ int&nbsp;npcStrength)</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -152,7 +155,9 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#onDeath()" class="member-name-link">onDeath</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Handles the death of the entity by playing the death animation,
- disabling physics and AI components, and scheduling the entity's removal from the game.</div>
+ triggering event for player to obtain animal's strength as score,
+ disabling physics and AI components, and scheduling the entity's
+ removal from the game.</div>
 </div>
 </div>
 </div>
@@ -203,6 +208,13 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="&lt;init&gt;(com.csse3200.game.entities.Entity,int)">
+<h3>NPCDeathHandler</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">NPCDeathHandler</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
+ int&nbsp;npcStrength)</span></div>
+</section>
+</li>
+<li>
 <section class="detail" id="&lt;init&gt;()">
 <h3>NPCDeathHandler</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">NPCDeathHandler</span>()</div>
@@ -232,7 +244,9 @@ loadScripts(document, 'script');</script>
 <h3>onDeath</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">onDeath</span>()</div>
 <div class="block">Handles the death of the entity by playing the death animation,
- disabling physics and AI components, and scheduling the entity's removal from the game.</div>
+ triggering event for player to obtain animal's strength as score,
+ disabling physics and AI components, and scheduling the entity's
+ removal from the game.</div>
 </section>
 </li>
 </ul>

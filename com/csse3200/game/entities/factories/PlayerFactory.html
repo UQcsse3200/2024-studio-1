@@ -131,23 +131,30 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createPlayer()" class="member-name-link">createPlayer</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createPlayer(com.csse3200.game.entities.configs.PlayerConfig,com.csse3200.game.options.GameOptions.Difficulty)" class="member-name-link">createPlayer</a><wbr>(<a href="../configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
+ <a href="../../options/GameOptions.Difficulty.html" title="enum class in com.csse3200.game.options">GameOptions.Difficulty</a>&nbsp;difficulty)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Create a player entity</div>
+<div class="block">Create a player.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createPlayer(java.lang.String)" class="member-name-link">createPlayer</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;player)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createPlayer(java.lang.String,com.csse3200.game.options.GameOptions.Difficulty)" class="member-name-link">createPlayer</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
+ <a href="../../options/GameOptions.Difficulty.html" title="enum class in com.csse3200.game.options">GameOptions.Difficulty</a>&nbsp;difficulty)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Create a player.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="../configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getOptions()" class="member-name-link">getOptions</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
+<div class="block">Get the list of default options.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get all the filepaths to textures needed by this Factory</div>
 </div>
 </div>
@@ -186,26 +193,43 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="createPlayer()">
+<section class="detail" id="createPlayer(com.csse3200.game.entities.configs.PlayerConfig,com.csse3200.game.options.GameOptions.Difficulty)">
 <h3>createPlayer</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createPlayer</span>()</div>
-<div class="block">Create a player entity</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createPlayer</span><wbr><span class="parameters">(<a href="../configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
+ <a href="../../options/GameOptions.Difficulty.html" title="enum class in com.csse3200.game.options">GameOptions.Difficulty</a>&nbsp;difficulty)</span></div>
+<div class="block">Create a player.</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>config</code> - The configuration for the player to create.</dd>
+<dd><code>difficulty</code> - difficulty chosen by the player, affects player attributes</dd>
 <dt>Returns:</dt>
-<dd>entity</dd>
+<dd>the player entity.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="createPlayer(java.lang.String)">
+<section class="detail" id="createPlayer(java.lang.String,com.csse3200.game.options.GameOptions.Difficulty)">
 <h3>createPlayer</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createPlayer</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;player)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createPlayer</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
+ <a href="../../options/GameOptions.Difficulty.html" title="enum class in com.csse3200.game.options">GameOptions.Difficulty</a>&nbsp;difficulty)</span></div>
 <div class="block">Create a player.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>player</code> - the name of the player (name attribute).</dd>
+<dd><code>name</code> - the name of the default character to create.</dd>
+<dd><code>difficulty</code> - difficulty chosen by the player, affects player attributes</dd>
 <dt>Returns:</dt>
 <dd>the player entity.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getOptions()">
+<h3>getOptions</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="../configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&gt;</span>&nbsp;<span class="element-name">getOptions</span>()</div>
+<div class="block">Get the list of default options.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>a map of all the player configs by name.</dd>
 </dl>
 </section>
 </li>

@@ -46,7 +46,7 @@ loadScripts(document, 'script');</script>
 <li>
 <p>Detail:</p>
 <ul>
-<li>Field</li>
+<li><a href="#field-detail">Field</a></li>
 <li><a href="#constructor-detail">Constr</a></li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -64,7 +64,7 @@ loadScripts(document, 'script');</script>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -111,6 +111,23 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="field-summary" id="field-summary">
 <h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#currentRoomName" class="member-name-link">currentRoomName</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Name of the current room</div>
+</div>
+<div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#MAP_SAVE_PATH" class="member-name-link">MAP_SAVE_PATH</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#PLAYER_SAVE_PATH" class="member-name-link">PLAYER_SAVE_PATH</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.areas.GameArea">Fields inherited from class&nbsp;com.csse3200.game.areas.<a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a></h3>
 <code><a href="GameArea.html#areaEntities">areaEntities</a>, <a href="GameArea.html#terrain">terrain</a></code></div>
@@ -127,6 +144,12 @@ loadScripts(document, 'script');</script>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.areas.LevelFactory,com.csse3200.game.entities.Entity)" class="member-name-link">MainGameArea</a><wbr>(<a href="LevelFactory.html" title="interface in com.csse3200.game.areas">LevelFactory</a>&nbsp;levelFactory,
  <a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player)</code></div>
 <div class="col-last even-row-color">
+<div class="block">Initialise this Game Area to use the provided levelFactory without loading a saved state.</div>
+</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.areas.LevelFactory,com.csse3200.game.entities.Entity,boolean)" class="member-name-link">MainGameArea</a><wbr>(<a href="LevelFactory.html" title="interface in com.csse3200.game.areas">LevelFactory</a>&nbsp;levelFactory,
+ <a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
+ boolean&nbsp;shouldLoad)</code></div>
+<div class="col-last odd-row-color">
 <div class="block">Initialise this Game Area to use the provided levelFactory.</div>
 </div>
 </div>
@@ -145,10 +168,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#changeLevel(int)" class="member-name-link">changeLevel</a><wbr>(int&nbsp;levelNumber)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Changes the current level to a new level specified by the level number.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#changeRooms(java.lang.String)" class="member-name-link">changeRooms</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;roomKey)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Changes the current room to a new room specified by the room key.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -157,42 +184,82 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#dispose()" class="member-name-link">dispose</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Dispose of all internal entities in the area</div>
+<div class="block">Disposes of the game area resources, including stopping the background music.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Level.html" title="class in com.csse3200.game.areas">Level</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCurrentLevel()" class="member-name-link">getCurrentLevel</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCurrentRoom()" class="member-name-link">getCurrentRoom</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBossRoom()" class="member-name-link">getBossRoom</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get the room key for the boss room.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Level.html" title="class in com.csse3200.game.areas">Level</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCurrentLevel()" class="member-name-link">getCurrentLevel</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the current level.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCurrentRoom()" class="member-name-link">getCurrentRoom</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get the current room the player is in.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGameRoom()" class="member-name-link">getGameRoom</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get the room key for the game room.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMusicFilepaths()" class="member-name-link">getMusicFilepaths</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepaths to music needed by this Factory</div>
+<div class="block">Gets the file paths for all music files used in the game area.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlayer()" class="member-name-link">getPlayer</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNpcRoom()" class="member-name-link">getNpcRoom</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get the room key for the NPC room.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlayer()" class="member-name-link">getPlayer</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get the main player of this game area.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSoundFilepaths()" class="member-name-link">getSoundFilepaths</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the file paths for all sound effects used in the game area.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSoundFilepaths()" class="member-name-link">getSoundFilepaths</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepaths to sounds needed by this Factory</div>
+<div class="block">Gets the file paths for all texture atlases used in the game area.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the file paths for all textures used in the game area.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#loadMapLocation()" class="member-name-link">loadMapLocation</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Loads the saved Level number and Room number of the player</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#saveMapData()" class="member-name-link">saveMapData</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
+ which can be loaded when load button is pressed.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#saveMapLocation()" class="member-name-link">saveMapLocation</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Exports the current Level number and Room number of the player
+ as well as the complete map details of the current map generated into a JSON file
+ which can then be loaded and set as the starting position of the player when player
+ loads the game.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnCurrentRoom()" class="member-name-link">spawnCurrentRoom</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Spawns the current room if it hasn't been spawned yet.</div>
+</div>
 </div>
 </div>
 </div>
@@ -211,20 +278,79 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="PLAYER_SAVE_PATH">
+<h3>PLAYER_SAVE_PATH</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">PLAYER_SAVE_PATH</span></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="../../../../constant-values.html#com.csse3200.game.areas.MainGameArea.PLAYER_SAVE_PATH">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="MAP_SAVE_PATH">
+<h3>MAP_SAVE_PATH</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">MAP_SAVE_PATH</span></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="../../../../constant-values.html#com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="currentRoomName">
+<h3>currentRoomName</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">currentRoomName</span></div>
+<div class="block">Name of the current room</div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor-detail">
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.csse3200.game.areas.LevelFactory,com.csse3200.game.entities.Entity)">
+<section class="detail" id="&lt;init&gt;(com.csse3200.game.areas.LevelFactory,com.csse3200.game.entities.Entity,boolean)">
 <h3>MainGameArea</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">MainGameArea</span><wbr><span class="parameters">(<a href="LevelFactory.html" title="interface in com.csse3200.game.areas">LevelFactory</a>&nbsp;levelFactory,
- <a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player)</span></div>
+ <a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
+ boolean&nbsp;shouldLoad)</span></div>
 <div class="block">Initialise this Game Area to use the provided levelFactory.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>levelFactory</code> - the provided levelFactory.</dd>
+<dd><code>player</code> - the main player entity.</dd>
+<dd><code>shouldLoad</code> - flag to determine if a saved state should be loaded.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="&lt;init&gt;(com.csse3200.game.areas.LevelFactory,com.csse3200.game.entities.Entity)">
+<h3>MainGameArea</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">MainGameArea</span><wbr><span class="parameters">(<a href="LevelFactory.html" title="interface in com.csse3200.game.areas">LevelFactory</a>&nbsp;levelFactory,
+ <a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player)</span></div>
+<div class="block">Initialise this Game Area to use the provided levelFactory without loading a saved state.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>levelFactory</code> - the provided levelFactory.</dd>
+<dd><code>player</code> - the main player entity.</dd>
 </dl>
 </section>
 </li>
@@ -248,6 +374,39 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="getBossRoom()">
+<h3>getBossRoom</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getBossRoom</span>()</div>
+<div class="block">Get the room key for the boss room.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the room key for the boss room.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getNpcRoom()">
+<h3>getNpcRoom</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getNpcRoom</span>()</div>
+<div class="block">Get the room key for the NPC room.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the room key for the NPC room.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getGameRoom()">
+<h3>getGameRoom</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getGameRoom</span>()</div>
+<div class="block">Get the room key for the game room.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the room key for the game room.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="getPlayer()">
 <h3>getPlayer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">getPlayer</span>()</div>
@@ -262,43 +421,88 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getCurrentRoom()">
 <h3>getCurrentRoom</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></span>&nbsp;<span class="element-name">getCurrentRoom</span>()</div>
+<div class="block">Get the current room the player is in.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the current Room object.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="saveMapLocation()">
+<h3>saveMapLocation</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">saveMapLocation</span>()</div>
+<div class="block">Exports the current Level number and Room number of the player
+ as well as the complete map details of the current map generated into a JSON file
+ which can then be loaded and set as the starting position of the player when player
+ loads the game.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="loadMapLocation()">
+<h3>loadMapLocation</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">loadMapLocation</span>()</div>
+<div class="block">Loads the saved Level number and Room number of the player</div>
+</section>
+</li>
+<li>
+<section class="detail" id="saveMapData()">
+<h3>saveMapData</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">saveMapData</span>()</div>
+<div class="block">Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
+ which can be loaded when load button is pressed.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="changeRooms(java.lang.String)">
 <h3>changeRooms</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">changeRooms</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;roomKey)</span></div>
+<div class="block">Changes the current room to a new room specified by the room key.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>roomKey</code> - the key of the room to change to.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="spawnCurrentRoom()">
 <h3>spawnCurrentRoom</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawnCurrentRoom</span>()</div>
+<div class="block">Spawns the current room if it hasn't been spawned yet.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="changeLevel(int)">
 <h3>changeLevel</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">changeLevel</span><wbr><span class="parameters">(int&nbsp;levelNumber)</span></div>
+<div class="block">Changes the current level to a new level specified by the level number.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>levelNumber</code> - the number of the level to change to.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getCurrentLevel()">
 <h3>getCurrentLevel</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Level.html" title="class in com.csse3200.game.areas">Level</a></span>&nbsp;<span class="element-name">getCurrentLevel</span>()</div>
+<div class="block">Gets the current level.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the current Level object.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getSoundFilepaths()">
 <h3>getSoundFilepaths</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name">getSoundFilepaths</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="../entities/factories/LoadedFactory.html#getSoundFilepaths()">LoadedFactory</a></code></span></div>
-<div class="block">Get all the filepaths to sounds needed by this Factory</div>
+<div class="block">Gets the file paths for all sound effects used in the game area.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="../entities/factories/LoadedFactory.html#getSoundFilepaths()">getSoundFilepaths</a></code>&nbsp;in class&nbsp;<code><a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></code></dd>
 <dt>Returns:</dt>
-<dd>the filepaths needed.</dd>
+<dd>An array of String paths for sound effects.</dd>
 </dl>
 </section>
 </li>
@@ -306,13 +510,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getTextureAtlasFilepaths()">
 <h3>getTextureAtlasFilepaths</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name">getTextureAtlasFilepaths</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="../entities/factories/LoadedFactory.html#getTextureAtlasFilepaths()">LoadedFactory</a></code></span></div>
-<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
+<div class="block">Gets the file paths for all texture atlases used in the game area.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="../entities/factories/LoadedFactory.html#getTextureAtlasFilepaths()">getTextureAtlasFilepaths</a></code>&nbsp;in class&nbsp;<code><a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></code></dd>
 <dt>Returns:</dt>
-<dd>the filepaths needed.</dd>
+<dd>An array of String paths for texture atlases.</dd>
 </dl>
 </section>
 </li>
@@ -326,8 +529,8 @@ loadScripts(document, 'script');</script>
 <dd><code><a href="../entities/factories/LoadedFactory.html#getTextureFilepaths()">getTextureFilepaths</a></code>&nbsp;in class&nbsp;<code><a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></code></dd>
 <dt>Returns:</dt>
 <dd>An array of String paths for textures, including:
-         - Common textures (player, doors, etc.)
-         - Tile textures for levels 1-3</dd>
+ - Common textures (player, doors, etc.)
+ - Tile textures for levels 1-3</dd>
 </dl>
 </section>
 </li>
@@ -335,13 +538,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getMusicFilepaths()">
 <h3>getMusicFilepaths</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name">getMusicFilepaths</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="../entities/factories/LoadedFactory.html#getMusicFilepaths()">LoadedFactory</a></code></span></div>
-<div class="block">Get all the filepaths to music needed by this Factory</div>
+<div class="block">Gets the file paths for all music files used in the game area.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="../entities/factories/LoadedFactory.html#getMusicFilepaths()">getMusicFilepaths</a></code>&nbsp;in class&nbsp;<code><a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></code></dd>
 <dt>Returns:</dt>
-<dd>the filepaths needed.</dd>
+<dd>An array of String paths for music files.</dd>
 </dl>
 </section>
 </li>
@@ -349,8 +551,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="dispose()">
 <h3>dispose</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">dispose</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="GameArea.html#dispose()">GameArea</a></code></span></div>
-<div class="block">Dispose of all internal entities in the area</div>
+<div class="block">Disposes of the game area resources, including stopping the background music.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>dispose</code>&nbsp;in interface&nbsp;<code>com.badlogic.gdx.utils.Disposable</code></dd>

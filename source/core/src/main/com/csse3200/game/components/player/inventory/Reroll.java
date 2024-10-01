@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.Entity;
 
 /**
- * A usable item yjsy can be applied to another item to give the player a chance at obtaining a different item
+ * A usable item that can be applied to another item to give the player a chance at obtaining a different item
  */
 public class Reroll extends UsableItem {
     /**

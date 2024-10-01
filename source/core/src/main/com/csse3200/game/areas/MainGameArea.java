@@ -71,7 +71,6 @@ public class MainGameArea extends GameArea {
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getBossRoom()));
         player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
-
         player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkIfRoomComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
@@ -166,7 +165,7 @@ public class MainGameArea extends GameArea {
     }
 
     /**
-     * Loads the player's last saved location and changes the level and room accordingly.
+     * Loads the saved Level number and Room number of the player
      */
     public void loadMapLocation() {
         PlayerLocationConfig playerLocationConfig = new PlayerLocationConfig();

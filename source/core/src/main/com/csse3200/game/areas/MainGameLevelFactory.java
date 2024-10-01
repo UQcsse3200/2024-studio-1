@@ -38,7 +38,7 @@ public class MainGameLevelFactory implements LevelFactory {
 
     @Override
     public Level create(int levelNumber) {
-
+        //loads map seed from the save file if Load button was checked.
         if (!shouldLoad) {
             map = new LevelMap("seed", DEFAULT_MAP_SIZE);
         } else {
@@ -80,9 +80,8 @@ public class MainGameLevelFactory implements LevelFactory {
                     break;
             }
             }
-            //creating and adding a boss room instance into the Map containing the rooms for
-            // the level
         if (shouldLoad) {
+            //sets the completed rooms extracted from save file to be complete in the game.
             setRoomsComplete(loadedRooms);
             shouldLoad = false;
         }
@@ -103,6 +102,12 @@ public class MainGameLevelFactory implements LevelFactory {
         FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.LOCAL);
     }
 
+
+    /**
+     * Loads map data from the save file and extracts the completed rooms into a list which
+     * is later set to completed in the create method above
+     * @param filePath: Path for the save file
+     */
     public void loadFromJson (String filePath) {
         MapLoadConfig mapLoadConfig = new MapLoadConfig();
         mapLoadConfig.savedMap = FileLoader.readClass(ArrayList.class, filePath, FileLoader.Location.LOCAL);

@@ -67,6 +67,7 @@ public class Heart extends BuffItem{
             int currentMaxHealth = combatStats.getMaxHealth();
             if (currentMaxHealth < maxHealthLimit) {
                 combatStats.setMaxHealth(Math.min(currentMaxHealth + maxHealthIncrease, maxHealthLimit));
+                combatStats.setHealth(combatStats.getMaxHealth());
             }
         }
     }

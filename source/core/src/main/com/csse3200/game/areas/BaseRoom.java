@@ -70,7 +70,7 @@ public abstract class BaseRoom implements Room {
      *
      * @param terrainFactory The factory for creating terrain.
      * @param collectibleFactory The factory for creating collectible items.
-     * @param roomConnections List of room connections.
+     * @param  Connections List of room connections.
      * @param specification The room specification string.
      * @param roomName The name of the room.
      */

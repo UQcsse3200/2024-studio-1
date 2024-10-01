@@ -14,7 +14,6 @@ import com.csse3200.game.areas.Level;
 import com.csse3200.game.services.ServiceLocator;
 
 import com.csse3200.game.areas.BossRoom;
-import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.areas.GambleRoom;
 
 import com.csse3200.game.entities.Room;

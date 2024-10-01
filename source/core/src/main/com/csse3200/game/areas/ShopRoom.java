@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
+import com.csse3200.game.components.gamearea.ShopRoomDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
@@ -35,6 +36,8 @@ public class ShopRoom extends BaseRoom {
     public void spawn(Entity player, MainGameArea area) {
         super.spawn(player, area);
         spawnItems(area);
+        ShopRoomDisplay messageDisplay = new ShopRoomDisplay();
+        messageDisplay.create();
         setIsRoomComplete();
     }
 

@@ -5,7 +5,7 @@ import com.csse3200.game.entities.Entity;
 
 import com.csse3200.game.components.player.ShieldComponent;
 
-//import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.RandomNumberGenerator;
@@ -40,8 +40,8 @@ public class CombatStatsComponent extends Component {
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
 
-//    private String lastAttackName;
-//    private String filePath = "configs/LastAttack.json";
+    private String lastAttackName;
+    private String filePath = "configs/LastAttack.json";
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
@@ -247,8 +247,15 @@ public class CombatStatsComponent extends Component {
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
-//            lastAttackName = attacker.getEntity().getComponent(NameComponent.class).getName();
-//            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.LOCAL);
+
+            if (attacker.getEntity() == null || attacker.getEntity().getComponent(NameComponent.class) == null){
+                lastAttackName = "Unknown";
+            }
+            else {
+                lastAttackName = attacker.getEntity().getComponent(NameComponent.class).getName();
+            }
+
+            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.LOCAL);
             //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
             //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
             //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
@@ -261,17 +268,21 @@ public class CombatStatsComponent extends Component {
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         } else {
             Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
-            CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);
-
-            int damage = attacker.getBaseAttack() + playerStats.buff;
-            if (playerStats.getCanCrit()) {
-                damage = applyCrit(damage, playerStats.getCritChance());
+            int damage;
+            if (player != null) {
+                CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);
+                damage = attacker.getBaseAttack() + playerStats.buff;
+                if (playerStats.getCanCrit()) {
+                    damage = applyCrit(damage, playerStats.getCritChance());
+                }
+            } else {
+                damage = attacker.getBaseAttack();
             }
 
             int newHealth = getHealth() - damage;
             setHealth(newHealth);
             //add animationcontroller
-            if (isDead()) {
+            if (health <= 0) {
                 entity.getEvents().trigger("death");
                 entity.getEvents().trigger("died");
                 entity.getEvents().trigger("checkAnimalsDead");

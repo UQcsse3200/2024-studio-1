@@ -1,0 +1,7 @@
+{
+  "name": "player 3",
+  "health": 100,
+  "favouriteColour": "pink",
+  "textureFilename": "images/player/homeless2.png",
+  "textureAtlasFilename": "images/player/homeless2.atlas"
+}

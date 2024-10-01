@@ -35,6 +35,7 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float STAT_TABLE_PADDING = 2f;
     private static final float BAR_HEIGHT = 20;
     private static final float PROPORTION = 0.9f;
+    private static final float X_PADDING = 10f;
 
     /**
      * Make the component.
@@ -63,8 +64,15 @@ public class PlayerSelectDisplay extends UIComponent {
                 PlayerSelection.getPlayerConfigs(Arrays.stream(PlayerSelection.PLAYERS).toList());
 
         configs.forEach((filename, config) -> {
-            TextureRegion idleTexture = new TextureAtlas(config.textureAtlasFilename)
-                    .findRegion("idle");
+            TextureRegion idleTexture; 
+            if(config.name.equals("bear")){
+                idleTexture = new TextureAtlas(config.textureAtlasFilename)
+                        .findRegion("default");
+            }
+            else{
+                idleTexture = new TextureAtlas(config.textureAtlasFilename)
+                        .findRegion("idle");
+            }
             Image playerImage = new Image(idleTexture);
             rootTable.add(playerImage);
         });
@@ -82,7 +90,7 @@ public class PlayerSelectDisplay extends UIComponent {
         // Add buttons to choose each player
         rootTable.row().fillX();
         configs.forEach((filename, config) -> {
-            TextButton button = new TextButton("Choose %s".formatted(config.name), skin, "action");
+            TextButton button = new TextButton("%s".formatted(config.name), skin, "action");
             button.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {

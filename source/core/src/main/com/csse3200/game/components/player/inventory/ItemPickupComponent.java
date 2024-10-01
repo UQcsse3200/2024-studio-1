@@ -124,8 +124,10 @@ public class ItemPickupComponent extends Component {
 
         int randomInt = this.random.nextInt(6);
         Entity newItem = this.randomItemGenerator(randomInt);
+//        Entity newItem = testCollectibleFactory.createCollectibleEntity("item:shieldpotion");
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
+//        area.spawnEntityAt(newItem, itemEntityPosition, true, true);
         entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
         itemEntity = newItem;
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();

@@ -17,6 +17,7 @@ public class NPCConfigs {
   public NPCConfig dragon = new NPCConfig();
   public NPCConfig birdman = new NPCConfig();
   public NPCConfig kitsune = new NPCConfig();
+  public NPCConfig ringFire = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
 
@@ -38,6 +39,7 @@ public class NPCConfigs {
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;
+      public FollowTaskConfig follow = null;
       public StraightWanderTaskConfig straightWander = null;
       public ChaseTaskConfig chase = null;
       public ChargeTaskConfig charge = null;
@@ -48,6 +50,13 @@ public class NPCConfigs {
         public float wanderRadius;
         public float waitTime;
         public float wanderSpeed;
+      }
+
+      public static class FollowTaskConfig{
+        public float followRadius;
+        public float waitTime;
+        public float followDistance;
+        public float followSpeed;
       }
 
       public static class StraightWanderTaskConfig {

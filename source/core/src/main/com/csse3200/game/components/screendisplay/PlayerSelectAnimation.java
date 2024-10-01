@@ -18,6 +18,7 @@ public class PlayerSelectAnimation extends Actor {
         Player1,
         Player2,
         Player3,
+        Bear,
         Player4
     }
 
@@ -32,6 +33,7 @@ public class PlayerSelectAnimation extends Actor {
         return switch (textureAtlas) {
             case "images/player/player.atlas" -> PlayerNum.Player1;
             case "images/player/homeless1.atlas" -> PlayerNum.Player2;
+            case "images/npc/bear/bear.atlas" -> PlayerNum.Bear;
             case "images/player/homeless2.atlas" -> PlayerNum.Player3;
             case "images/player/homeless3.atlas" -> PlayerNum.Player4;
             default -> throw new IllegalArgumentException("Unknown texture atlas: " + textureAtlas);
@@ -50,6 +52,10 @@ public class PlayerSelectAnimation extends Actor {
                 break;
             case Player4:
                 animator.addAnimation("Attack_1", 0.2f, Animation.PlayMode.LOOP_RANDOM);
+                break;
+            case Bear:
+                animator.addAnimation("idle_right", 0.5f, Animation.PlayMode.LOOP);
+                animator.addAnimation("attack_right", 0.5f, Animation.PlayMode.LOOP);
                 break;
         }
     }
@@ -89,6 +95,7 @@ public class PlayerSelectAnimation extends Actor {
             case Player4 -> "Attack_1";
             case Player2 -> "Special";
             case Player3 -> "Run";
+            case Bear-> "idle_right";
             default -> "idle";
         };
         animator.startAnimation(animationName);

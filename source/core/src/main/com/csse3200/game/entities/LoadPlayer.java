@@ -84,7 +84,12 @@ public class LoadPlayer {
             TextureRegion defaultTexture = atlas.findRegion("idle");
             player.setScale(2f, 2f);
         } else {
-            player.setScale(playerScale, playerScale);
+            if(config.name.equals("Bear")){
+                player.setScale(0.3f,0.3f);
+            }
+            else{
+                player.setScale(playerScale, playerScale);
+            }
         }
 
     }
@@ -96,7 +101,9 @@ public class LoadPlayer {
      * @param config the configuration object containing player settings.
      */
     public void addComponents(Entity player, PlayerConfig config) {
+        if(config.name.equals("bear")){
 
+        }
         player.addComponent(new NameComponent("Main Player"))
                 .addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
@@ -219,6 +226,23 @@ public class LoadPlayer {
                 animator.addAnimation("Attack_1", 0.35f, Animation.PlayMode.NORMAL);
                 animator.addAnimation("Hurt", 0.35f, Animation.PlayMode.NORMAL);
                 break;
+            case ("images/npc/bear/bear.atlas"):
+                System.out.println("Bear Animations Added");
+                animator.addAnimation("idle_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle_bottom", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle_top", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_top", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("walk_bottom", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("run_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("run_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
+                animator.addAnimation("death_left", 0.1f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("death_right", 0.1f, Animation.PlayMode.LOOP);
+
         }
         return animator;
 

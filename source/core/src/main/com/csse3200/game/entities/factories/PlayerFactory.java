@@ -8,8 +8,6 @@ import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.options.GameOptions.Difficulty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,6 +33,13 @@ public class PlayerFactory extends LoadedFactory {
                 .map(filename -> FileLoader.readClass(PlayerConfig.class, filename))
                 .collect(Collectors.toMap(value -> value.name, value -> value));
         this.load(logger);
+    }
+
+    public Entity createPlay(String fileName, Difficulty difficulty) {
+        LoadPlayer loader = new LoadPlayer();
+        PlayerConfig config = FileLoader.readClass(PlayerConfig.class, fileName);
+        config.adjustForDifficulty(difficulty);
+        return loader.createPlayer(config);
     }
 
     /**
@@ -80,14 +85,5 @@ public class PlayerFactory extends LoadedFactory {
         return result.toArray(String[]::new);
 //        return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
     }
-
-    @Override
-    protected String[] getSoundFilepaths() {
-        return new String[]{
-                // "sounds/hit.ogg"
-                // "sounds/gethit.ogg"
-                // "sounds/hit2.ogg"
-                 "sounds/hit3.ogg"
-        };
-    }
 }
+

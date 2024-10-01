@@ -5,9 +5,6 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.screens.MainGameScreen;
-import com.csse3200.game.areas.BossRoom;
-import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
 
 /**
  * A component that manages the boss's health-based dialogue during a battle.
@@ -39,10 +36,6 @@ public class BossHealthDialogueComponent extends Component {
         float healthPercentage = (float) combatStats.getHealth() / combatStats.getMaxHealth();
 
         if (healthPercentage <= healthThresholds[currentThresholdIndex]) {
-            if (healthThresholds[currentThresholdIndex] == 0.5f) {
-                // At 50% health, spawn dog and snake
-                spawnAdditionalEnemies();
-            }
             showDialogueAndPause();
             currentThresholdIndex++;
         }
@@ -86,18 +79,5 @@ public class BossHealthDialogueComponent extends Component {
             case 2 -> "I'm on my last legs, but I won't go down without a fight!";
             default -> "You'll never defeat me!";
         };
-    }
-
-    /**
-     * Spawns additional enemies (dog and snake) near the boss when health reaches 50%.
-     */
-    private void spawnAdditionalEnemies() {
-        GameAreaService gameAreaService = ServiceLocator.getGameAreaService();
-        if (gameAreaService.getGameArea() != null) {
-            MainGameArea area = (MainGameArea) gameAreaService.getGameArea();
-            if (area.getCurrentRoom() instanceof BossRoom bossRoom) {
-                bossRoom.spawnOtherAnimals(entity);
-            }
-        }
     }
 }

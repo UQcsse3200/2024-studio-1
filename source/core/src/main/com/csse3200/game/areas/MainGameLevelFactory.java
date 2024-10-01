@@ -1,6 +1,6 @@
 package com.csse3200.game.areas;
 
-import com.csse3200.game.areas.Generation.MapGenerator;
+import com.csse3200.game.areas.generation.MapGenerator;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.configs.MapLoadConfig;
@@ -118,10 +118,10 @@ public class MainGameLevelFactory implements LevelFactory {
      * @param roomNames Room keys that have been completed.
      */
 
-    public void setRoomsComplete( List<String> roomNames) {
+    public void setRoomsComplete(List<String> roomNames) {
         for (String roomName : roomNames) {
             rooms.get(roomName).setIsRoomComplete();
-            }
+        }
     }
 
     public int getCurrentLevel() {

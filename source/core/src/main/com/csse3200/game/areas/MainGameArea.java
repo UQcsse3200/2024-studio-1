@@ -54,7 +54,6 @@ public class MainGameArea extends GameArea {
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getBossRoom()));
         player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
-
         player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkIfRoomComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
@@ -86,6 +85,14 @@ public class MainGameArea extends GameArea {
         return currentLevel.getMap().mapData.RoomKeys.get("Boss");
     }
 
+    public String getNpcRoom() {
+        return currentLevel.getMap().mapData.RoomKeys.get("NPC");
+    }
+
+    public String getGameRoom() {
+        return currentLevel.getMap().mapData.RoomKeys.get("GameRoom");
+    }
+
     /**
      * Get the main player of this game area.
      *
@@ -114,12 +121,16 @@ public class MainGameArea extends GameArea {
         FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
     }
 
+    /**
+     * Loads the saved Level number and Room number of the player
+     */
     public void loadMapLocation() {
         PlayerLocationConfig playerLocationConfig = new PlayerLocationConfig();
         playerLocationConfig.savedLoc = FileLoader.readClass(HashMap.class, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
         changeLevel(Integer.parseInt(playerLocationConfig.savedLoc.get("LevelNum")));
         changeRooms(playerLocationConfig.savedLoc.get("RoomNum"));
     }
+
     /**
      * Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
      * which can be loaded when load button is pressed.

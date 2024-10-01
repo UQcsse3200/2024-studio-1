@@ -182,6 +182,7 @@ public class MainGameExitDisplay extends UIComponent {
         player = entity;
         SavePlayerService savePlayerService = new SavePlayerService();
         savePlayerService.savePlayerState(player);
+        //triggers to save map data and player location, listeners in MainGameArea
         player.getEvents().trigger("saveMapLocation");
         player.getEvents().trigger("saveMapData");
         System.out.println("Saved Successfully");

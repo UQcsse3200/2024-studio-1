@@ -5,9 +5,6 @@ import java.util.List;
 
 import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.MainRoom;
-import com.csse3200.game.areas.ShopRoom;
-import com.csse3200.game.areas.GambleRoom;
-
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Room;
 
@@ -39,35 +36,37 @@ public class RoomFactory {
      * Constructs room
      * @return room
      */
-    public Room createRoom(List<String> roomConnections, String specification, String roomName) {
+    public Room createRoom(List<String> roomConnections, String specification) {
         return new MainRoom(this.npcFactory, this.collectibleFactory, 
-                             this.terrainFactory, roomConnections, specification, roomName);
+                             this.terrainFactory, roomConnections, specification);
     }
 
     /**
      * Constructs boss room
      * @return room
      */
-    public Room createBossRoom(List<String> roomConnections, String specification, String roomName) {
+    public Room createBossRoom(List<String> roomConnections, String specification) {
         // add connections to boss Room
         return new BossRoom(this.npcFactory, this.collectibleFactory,
-                            this.terrainFactory, roomConnections, specification, roomName);
+                            this.terrainFactory, roomConnections, specification);
     }
 
-
-    public Room createShopRoom(List<String> roomConnections, String specification, String roomName) {
-        // add connections to boss Room
-        return new ShopRoom(this.npcFactory, this.collectibleFactory,
-                            this.terrainFactory, roomConnections, specification, roomName);
-    }
-
-
-    public Room createGambleRoom(List<String> roomConnections, String specification, String roomName) {
-        // add connections to boss Room
-        return new GambleRoom(this.npcFactory, this.collectibleFactory,
-                            this.terrainFactory, roomConnections, specification, roomName);
-    }
-
-
-
+//    /**
+//     * Adds connections to other rooms from this room
+//     * If in some direction you don't want to connect a room, just pass null
+//     *
+//     * @param mainRoom main room
+//     * @param north room in north
+//     * @param south room in south
+//     * @param east room in east
+//     * @param west room in west
+//     * @return connected room
+//     */
+//    public static Room createConnections(Room mainRoom, Room north, Room south, Room east, Room west) {
+//        if (east != null) mainRoom.connectRoom(RoomDirection.EAST, east);
+//        if (south != null) mainRoom.connectRoom(RoomDirection.SOUTH, south);
+//        if (west != null) mainRoom.connectRoom(RoomDirection.WEST, west);
+//        if (north != null) mainRoom.connectRoom(RoomDirection.NORTH, north);
+//        return mainRoom;
+//    }
 }

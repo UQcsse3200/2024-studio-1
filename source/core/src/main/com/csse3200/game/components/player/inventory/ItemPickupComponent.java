@@ -109,7 +109,6 @@ public class ItemPickupComponent extends Component {
         if (collisionItem == null || collisionItemEntity == null) {
             return;
         }
-
         int xPosition = (int) collisionItemEntity.getPosition().x;
         int yPosition = (int) collisionItemEntity.getPosition().y;
 

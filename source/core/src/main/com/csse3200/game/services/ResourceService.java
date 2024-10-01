@@ -23,7 +23,6 @@ public class ResourceService implements Disposable {
 
   private static final Logger logger = LoggerFactory.getLogger(ResourceService.class);
   private final AssetManager assetManager;
-  private final Settings settings;
 
   private final Map<String, Integer> referenceCounts = new HashMap<>();
 
@@ -37,16 +36,7 @@ public class ResourceService implements Disposable {
    * @requires assetManager != null
    */
   public ResourceService(AssetManager assetManager) {
-    this(assetManager, UserSettings.get());
-  }
-
-  public ResourceService(Settings settings) {
-    this(new AssetManager(), settings);
-  }
-
-  public ResourceService(AssetManager assetManager, Settings settings) {
     this.assetManager = assetManager;
-    this.settings = settings;
   }
 
   /**
@@ -224,6 +214,7 @@ public class ResourceService implements Disposable {
      * @param soundName The path of the asset relative to the assets folder.
      */
     public void playSound(String soundName) {
+        Settings settings = UserSettings.get();
         if (!settings.mute) {
             Sound sound = getAsset(soundName, Sound.class);
             sound.play(settings.soundVolume);

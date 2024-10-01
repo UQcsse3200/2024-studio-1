@@ -22,8 +22,8 @@ public class BossRoom extends EnemyRoom {
                 //Currently there are three random animals being spawned in base on the level the player is in. Bosses haven't been implemented thus using
                 //currently available animals.
                 List.of("Werewolf"),//boss 1
-                List.of("Birdman"),//boss 2
-                List.of("Kitsune")// boss 3
+                List.of("Minotaur"),//boss 2
+                List.of("Bear")// boss 3
         );
     }
 
@@ -50,9 +50,8 @@ public class BossRoom extends EnemyRoom {
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
                     List<String> roomConnections,
-                    String specification,
-                    String roomName) {
-        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification, roomName);
+                    String specification) {
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class BossRoom extends EnemyRoom {
 
     private void spawnStairs(Entity player, MainGameArea area) {
         Entity stairs = StairFactory.createStair(player.getId());
-        int x = maxGridPoint.x;
+        int x = maxGridPoint.x / 2;
         int y = maxGridPoint.y;
         GridPoint2 pos = new GridPoint2(x, y);
         area.spawnEntityAt(stairs, pos, true, true);

@@ -19,22 +19,10 @@ public class NPCConfigs {
   public NPCConfig kitsune = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
-
-    public NPCConfig() {
-    }
-
-    public int strength;
-
-    public int getStrength() {
-      return strength;
-    }
-
-
     public TaskConfig tasks = new TaskConfig();
     public AttackConfig attacks = new AttackConfig();
     public AnimationData[] animations = new AnimationData[0];
     public boolean isDirectional;
-
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;

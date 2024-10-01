@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class RandomNumberGenerator {
     private final Random random;
-    private String seed;
+    private final String seed;
 
     public RandomNumberGenerator(String seed) {
         // Convert string seed to a long value
@@ -20,8 +20,6 @@ public class RandomNumberGenerator {
     public String getSeed() {
         return this.seed;
     }
-
-    public void setSeed(String seed) { this.seed = seed; }
 
     public int getRandomInt(int minVal, int maxVal) {
         // Check minVal greater maxVal

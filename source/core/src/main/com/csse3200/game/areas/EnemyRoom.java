@@ -26,31 +26,17 @@ public abstract class EnemyRoom extends BaseRoom {
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
             List<String> roomConnections,
-            String specification,
-            String roomName) {
-        super(terrainFactory, collectibleFactory, roomConnections, specification, roomName);
+            String specification) {
+        super(terrainFactory, collectibleFactory, roomConnections, specification);
         this.npcFactory = npcFactory;
         this.animalSpecifications = getAnimalSpecifications();
 
         List<String> split = List.of(specification.split(","));
         this.animalGroup = Integer.parseInt(split.get(4));
-
-
-
-
-        
     }
 
     public List<Entity> getEnemies() {
         return enemies;
-    }
-
-
-    public void checkIfRoomComplete() {
-        if (isAllAnimalDead()) {
-            System.out.println("room is complete");
-            setIsRoomComplete();
-        }
     }
 
     protected abstract List<List<String>> getAnimalSpecifications();
@@ -63,7 +49,7 @@ public abstract class EnemyRoom extends BaseRoom {
     }
 
     protected void makeAllAnimalDead() {
-        for (Entity entity : enemies) {
+        for (Entity entity : entities) {
             CombatStatsComponent combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
             if (combatStatsComponent != null) {
                 combatStatsComponent.setHealth(0);
@@ -73,19 +59,19 @@ public abstract class EnemyRoom extends BaseRoom {
     }
 
     public boolean isAllAnimalDead() {
-        for (Entity entity : enemies) {
+        boolean anyAlive = false;
+        for (Entity entity : entities) {
             CombatStatsComponent combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
             if (combatStatsComponent != null && !combatStatsComponent.isDead()) {
-                return false;
+                anyAlive = true;
+                break;
             }
         }
-
-        return true;
-        
-        
+        if (!anyAlive) {
+            this.isRoomCompleted = true;
+        }
+        return !anyAlive;
     }
-
-    
 
     private void spawnItems() {
         MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
@@ -132,7 +118,6 @@ public abstract class EnemyRoom extends BaseRoom {
     }
 
     protected void SpawnEnemyEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
-        enemy.getEvents().addListener("checkAnimalsDead", () -> checkIfRoomComplete());
         this.spawnAnimalEntity(area, enemy, position);
         enemies.add(enemy);
     }

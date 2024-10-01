@@ -10,8 +10,7 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.entities.factories.ItemFactory;
-import com.csse3200.game.entities.factories.WeaponFactory;
+import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -19,9 +18,6 @@ import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
-import org.slf4j.Logger;
-
-import static org.slf4j.LoggerFactory.getLogger;
 
 
 /**
@@ -34,7 +30,6 @@ public class LoadPlayer {
     private final ItemFactory itemFactory;
     private final InventoryComponent inventoryComponent;
     private static final float playerScale = 0.75f;
-    private static final Logger logger = getLogger(LoadPlayer.class);
 
 
     /**
@@ -54,7 +49,6 @@ public class LoadPlayer {
      * @return entity
      */
     public Entity createPlayer(PlayerConfig config) {
-        logger.info("Creating player with health {}", config.health);
         Entity player = new Entity();
         addComponents(player, config);
         addWeaponsAndItems(player, config);
@@ -106,13 +100,6 @@ public class LoadPlayer {
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay());
-
-                CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
-                player.addComponent(coinsComponent)
-                        .addComponent(new PlayerCoinDisplay(coinsComponent));
-
-            player.getComponent(PlayerActions.class).setSpeed(config.speed);
-
 
     }
 

@@ -1,8 +1,12 @@
 package com.csse3200.game.components.screendisplay;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.screens.IntroCutsceneScreen;
@@ -70,7 +74,7 @@ public class IntroCutsceneDisplay extends UIComponent {
         // Cutscene text
         Label label = new Label(CUTSCENE_TEXT, skin, "cutscene");
         label.setWrap(true);
-        table.add(label).expandX().fillX().pad(80);
+        table.add(label).width(Gdx.graphics.getWidth() * WIDTH_PROPORTION);
 
         // Button to start game
         Button startBtn = new TextButton("I'm ready", skin, "action");

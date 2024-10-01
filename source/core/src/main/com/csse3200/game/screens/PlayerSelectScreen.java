@@ -7,7 +7,10 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.services.ServiceLocator;
 
+import java.util.List;
+
 import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
+import static com.csse3200.game.entities.PlayerSelection.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
@@ -15,20 +18,21 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 public class PlayerSelectScreen extends StaticScreen {
 
-    public static final String BG_IMAGE = "images/bg_logo.png";
-
     /**
      * Make the screen.
      * @param game the overarching game.
      */
     public PlayerSelectScreen(GdxGame game) {
-        super(game, getTextures(), getLogger(PlayerSelectScreen.class), DEFAULT);
-    }
-
-    private static String[] getTextures() {
-        // Player images are loaded when you create them. If this is changed, they would probably
-        // need to be added here instead
-        return new String[]{BG_IMAGE};
+        super(
+                game,
+                getPlayerConfigs(List.of(PLAYERS))
+                        .values()
+                        .stream()
+                        .map(config -> config.textureFilename)
+                        .toArray(String[]::new),
+                getLogger(PlayerSelectScreen.class),
+                DEFAULT
+        );
     }
 
     @Override

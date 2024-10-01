@@ -61,21 +61,16 @@ public class MainGameLevelFactory implements LevelFactory {
                     rooms.put(roomKey, roomFactory.createBossRoom(
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
-
-                    System.out.println("THIS IS THE BOSS_ROOM LOCATION " +  roomKey);
                     break;
                 case MapGenerator.NPCROOM:
                 rooms.put(roomKey, roomFactory.createShopRoom(
                     map.mapData.getPositions().get(roomKey),
                     "0,0,14,10," + 0 + "," + levelNumber, roomKey));
-                    System.out.println("THIS IS THE NPC ROOM LOCATION " + roomKey);
                     break;
                 case MapGenerator.GAMEROOM:
                 rooms.put(roomKey, roomFactory.createGambleRoom(
                     map.mapData.getPositions().get(roomKey),
                     "0,0,14,10," + 0 + "," + levelNumber, roomKey));
-                    System.out.println("THIS IS THE GAME ROOM LOCATION " + roomKey);
-
                     break;
                 default:
                     rooms.put(roomKey, roomFactory.createRoom(

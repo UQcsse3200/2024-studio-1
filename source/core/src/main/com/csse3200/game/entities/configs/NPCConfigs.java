@@ -19,10 +19,22 @@ public class NPCConfigs {
   public NPCConfig kitsune = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
+
+    public NPCConfig() {
+    }
+
+    public int strength;
+
+    public int getStrength() {
+      return strength;
+    }
+
+
     public TaskConfig tasks = new TaskConfig();
     public AttackConfig attacks = new AttackConfig();
     public AnimationData[] animations = new AnimationData[0];
     public boolean isDirectional;
+
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;
@@ -89,6 +101,7 @@ public class NPCConfigs {
     public static class AttackConfig {
       public MeleeAttack melee = null;
       public RangeAttack ranged = null;
+      public AOEAttack aoe = null;
 
       public static class MeleeAttack {
         public float range;
@@ -100,6 +113,12 @@ public class NPCConfigs {
         public float range;
         public float rate;
         public int type;
+        public EffectConfig[] effects = new EffectConfig[0];
+      }
+      public static class AOEAttack {
+        public float range;
+        public float rate;
+        public float radius;
         public EffectConfig[] effects = new EffectConfig[0];
       }
     }

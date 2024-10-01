@@ -90,7 +90,7 @@ class ChaseTaskTest {
     // When active, should chase if within chase distance
     target.setPosition(0f, 8f);
     chaseTask.start();
-    assertEquals(10, chaseTask.getPriority());
+    assertEquals(4, chaseTask.getPriority());
 
     // When active, should not chase outside chase distance
     target.setPosition(0f, 12f);

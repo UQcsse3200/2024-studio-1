@@ -1,9 +1,14 @@
 package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.csse3200.game.GdxGame;
+import com.csse3200.game.areas.minimap.MinimapComponent;
+import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
+import com.csse3200.game.entities.configs.PlayerLocationConfig;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
@@ -11,9 +16,7 @@ import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
@@ -21,26 +24,44 @@ import java.util.List;
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
+    public static final String PLAYER_SAVE_PATH = "saves/PlayerLocationSave.json";
+    public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
     private final Entity player;
 
     private final LevelFactory levelFactory;
     private Level currentLevel;
+    private int currentLevelNumber;
     private Room currentRoom;
     private boolean spawnRoom = true;
+    public String currentRoomName;
+    private Map <String, String> currentPosition = new HashMap<>();
+    private final boolean shouldLoad;
+    private MinimapFactory minimapFactory;
+    
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
      *
      * @param levelFactory the provided levelFactory.
+     *
      */
-    public MainGameArea(LevelFactory levelFactory, Entity player) {
+    public MainGameArea(LevelFactory levelFactory, Entity player, boolean shouldLoad) {
         super();
         this.player = player;
         this.levelFactory = levelFactory;
-        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
+        this.shouldLoad = shouldLoad;
+        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getBossRoom()));
+        player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
+        player.getEvents().addListener("saveMapData", this::saveMapData);
+
+        player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkIfRoomComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
         create();
+    }
+
+    public MainGameArea(LevelFactory levelFactory, Entity player) {
+        this(levelFactory, player, false);
     }
 
     /**
@@ -52,10 +73,17 @@ public class MainGameArea extends GameArea {
         logger.error("loaded all assets");
 
         displayUI();
+        if (shouldLoad) {
+            loadMapLocation();
 
-        changeLevel(0);
-
+        } else {
+            changeLevel(0);
+        }
         playMusic();
+    }
+
+    public String getBossRoom() {
+        return currentLevel.getMap().mapData.RoomKeys.get("Boss");
     }
 
     /**
@@ -71,6 +99,36 @@ public class MainGameArea extends GameArea {
         return currentRoom;
     }
 
+    /**
+     * Exports the current Level number and Room number of the player
+     * as well as the complete map details of the current map generated into a JSON file
+     * which can then be loaded and set as the starting position of the player when player
+     * loads the game.
+     */
+    public void saveMapLocation() {
+        String levelNum = "" + currentLevelNumber;
+        currentPosition.put("LevelNum", levelNum);
+        currentPosition.put("RoomNum", currentRoomName);
+        //exports the current player location (room and level details into a json).
+        System.out.println("roomComplete?:" + currentRoom.getIsRoomComplete());
+        FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
+    }
+
+    public void loadMapLocation() {
+        PlayerLocationConfig playerLocationConfig = new PlayerLocationConfig();
+        playerLocationConfig.savedLoc = FileLoader.readClass(HashMap.class, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
+        changeLevel(Integer.parseInt(playerLocationConfig.savedLoc.get("LevelNum")));
+        changeRooms(playerLocationConfig.savedLoc.get("RoomNum"));
+    }
+    /**
+     * Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
+     * which can be loaded when load button is pressed.
+     */
+    public void saveMapData() {
+        //exports the rooms and map data into the filePath below after Save button is pressed
+        levelFactory.exportToJson(MAP_SAVE_PATH);
+    }
+
     private void selectRoom(String roomKey) {
         logger.info("Changing to room: {}", roomKey);
         Room newRoom = this.currentLevel.getRoom(roomKey);
@@ -79,6 +137,8 @@ public class MainGameArea extends GameArea {
             return;
         }
         this.currentRoom = newRoom;
+        this.currentRoomName = this.currentRoom.getRoomName();
+
         this.spawnRoom = true;
     }
 
@@ -86,10 +146,8 @@ public class MainGameArea extends GameArea {
     public void changeRooms(String roomKey) {
         this.currentRoom.removeRoom();
         selectRoom(roomKey);
-
-        if (!this.currentRoom.getIsRoomComplete()) {
-            this.currentLevel.roomTraversals++;
-        }
+        // update minimap
+        minimapFactory.updateMinimap(roomKey);
     }
 
     public void spawnCurrentRoom() {
@@ -102,29 +160,35 @@ public class MainGameArea extends GameArea {
             return;
         }
 
-        var entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Spawning new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
-        if (currentLevel.roomTraversals == 8 ) {
-            this.currentRoom = currentLevel.getRoom("BOSS");
-        }
+        logger.info("Spawning new room, {}", ServiceLocator.getEntityService());
         this.currentRoom.spawn(player, this);
 
         player.setPosition(7, 5);
         spawnEntity(player);
 
-        entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Spawned new room, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+        logger.info("Spawned new room, {}", ServiceLocator.getEntityService());
         spawnRoom = false;
     }
 
     public void changeLevel(int levelNumber) {
         logger.info("Changing to level: {}", levelNumber);
+        currentLevelNumber = levelNumber;
 
         // TODO: Save player progress or game state here, create a save manager
 
         // Create and load the new level
         this.currentLevel = this.levelFactory.create(levelNumber);
         selectRoom(this.currentLevel.getStartingRoomKey());
+
+        // // initialize minimap
+
+        this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
+        MinimapComponent minimapComponent = minimapFactory.createMinimap();
+
+        Entity minimap = new Entity();
+        minimap.addComponent(minimapComponent);
+        spawnEntity(minimap);
+
     }
 
     private void displayUI() {
@@ -165,6 +229,11 @@ public class MainGameArea extends GameArea {
     protected String[] getTextureAtlasFilepaths() {
         return new String[]{
                 "images/terrain_iso_grass.atlas",
+                "skins/levels/level1/level1_skin.atlas",
+                "skins/levels/level2/level2_skin.atlas",
+                "skins/levels/level3/level3_skin.atlas",
+                "skins/minimap/minimap.atlas"
+
         };
     }
 
@@ -181,25 +250,13 @@ public class MainGameArea extends GameArea {
         List<String> filepaths = new ArrayList<>();
         String[] commonTextures = {
                 "images/box_boy_leaf.png",
-                "images/tile_1.png",
-                "images/tile_2.png",
-                "images/tile_3.png",
-                "images/tile_4.png",
-                "images/tile_5.png",
-                "images/tile_6.png",
-                "images/tile_7.png",
-                "images/tile_8.png",
-                "images/tile_middle.png",
-                "images/tile_general.png",
-                "images/tile_broken1.png",
-                "images/tile_broken2.png",
-                "images/tile_broken3.png",
-                "images/tile_staircase.png",
-                "images/tile_staircase_down.png",
-                "images/tile_blood.png",
                 "images/rounded_door_v.png",
                 "images/rounded_door_h.png",
-                "images/staircase.png"
+                "images/staircase.png",
+                "skins/levels/level1/level1_skin.png",
+                "skins/levels/level2/level2_skin.png",
+                "skins/levels/level3/level3_skin.png",
+                "skins/minimap/minimap.png"
         };
         Collections.addAll(filepaths, commonTextures);
 

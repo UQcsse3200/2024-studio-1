@@ -168,6 +168,10 @@ public class ItemFactory {
         return new DivinePotion();
     }
 
+    /**
+     * Creates a big red button item that kills all enemies in the current room
+     * @return BigRedButton
+     */
     private Collectible createBigRedButton() {return new BigRedButton();}
 }
 

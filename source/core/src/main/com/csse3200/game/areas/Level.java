@@ -37,8 +37,6 @@ public class Level {
 
     public int getRoomTraversals() { return roomTraversals;}
 
-    public LevelMap getMap() {
-        return map;
-    }
+    public LevelMap getMap() {return map;}
 
 }

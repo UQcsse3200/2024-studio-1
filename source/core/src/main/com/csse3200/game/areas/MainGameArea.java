@@ -1,6 +1,7 @@
 package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.NameComponent;
@@ -214,6 +215,28 @@ public class MainGameArea extends GameArea {
     }
 
     /**
+     * Generate the corresponding player position to the door they stepped in
+     */
+    private Vector2 getNewPlayerPosition(Entity player){
+        Vector2 curPos = player.getPosition();
+        curPos.x = Math.round(curPos.x);
+        curPos.y = Math.round(curPos.y);
+        if(curPos.x == 0.0f && curPos.y == 5.0f){
+            return new Vector2(13,5);
+        }
+        if(curPos.x == 14.0f && curPos.y == 5.0f){
+            return new Vector2(1,5);
+        }
+        if(curPos.x == 7.0f && curPos.y == 0.0f){
+            return new Vector2(7,9);
+        }
+        if(curPos.x == 7.0f && curPos.y == 10.0f){
+            return new Vector2(7,1);
+        }
+        return new Vector2(7,5);
+    }
+
+    /**
      * Spawns the current room if it hasn't been spawned yet.
      */
     public void spawnCurrentRoom() {
@@ -229,7 +252,8 @@ public class MainGameArea extends GameArea {
         logger.info("Spawning new room, {}", ServiceLocator.getEntityService());
         this.currentRoom.spawn(player, this);
 
-        player.setPosition(7, 5);
+        Vector2 nextRoomPos = this.getNewPlayerPosition(player);
+        player.setPosition(nextRoomPos.x,nextRoomPos.y);
         spawnEntity(player);
 
         logger.info("Spawned new room, {}", ServiceLocator.getEntityService());

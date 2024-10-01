@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
@@ -166,10 +167,17 @@ public abstract class EnemyRoom extends BaseRoom {
             createEnemyEntities(animalGroup, player);
             for (Entity enemy : entities) {
                 if (enemy.getComponent(CombatStatsComponent.class) != null) {
+                    Vector2 playerPos = player.getPosition();
                     GridPoint2 randomPos = new GridPoint2(
                         ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
                         ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
                     );
+                    while (Math.abs(randomPos.x-playerPos.x) <= 1 || Math.abs(randomPos.y-playerPos.y) <= 1){
+                        randomPos = new GridPoint2(
+                                ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
+                                ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
+                        );
+                    }
                     SpawnEnemyEntity(area, enemy, randomPos);
                 }
             }

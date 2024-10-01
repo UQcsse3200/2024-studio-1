@@ -49,7 +49,7 @@ public class AOEAttackComponent extends AttackComponent {
     /**
      * Executes the actual AOE attack: triggers the attack event and applies damage.
      */
-    private void executeAOEAttack() {
+    void executeAOEAttack() {
         // Trigger the actual AOE attack event
         entity.getEvents().trigger("aoe_attack");
         logger.info("{} executes AOE attack at {}", entity, origin);

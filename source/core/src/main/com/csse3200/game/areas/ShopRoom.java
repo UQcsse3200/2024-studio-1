@@ -41,9 +41,9 @@ public class ShopRoom extends BaseRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-                List.of("item:medkit:buyable", "buff:heart:buyable"),
-                List.of("item:medkit:buyable", "buff:heart:buyable", "item:shieldpotion:buyable"),
-                List.of("item:medkit:buyable", "buff:heart:buyable","item:shieldpotion:buyable","buff:energydrink:High")
+                List.of("item:medkit:buyable", "buff:heart:buyable","item:medkit:buyable", "buff:heart:buyable","item:medkit:buyable", "buff:heart:buyable"),
+                List.of("item:medkit:buyable", "buff:heart:buyable", "item:shieldpotion:buyable","item:medkit:buyable", "buff:heart:buyable", "item:shieldpotion:buyable"),
+                List.of("item:medkit:buyable", "buff:heart:buyable","item:shieldpotion:buyable","item:medkit:buyable", "buff:heart:buyable", "item:shieldpotion:buyable")
         );
     }
 
@@ -87,7 +87,7 @@ public class ShopRoom extends BaseRoom {
         //Zack's code: spawn in 1 line (if there is 6 item)
         else if(items != null) {
             for (int i = 0; i < items.size(); i++){
-                spawnItem(area, items.get(i), new GridPoint2(i * 2 + 3, 8));
+                spawnItem(area, items.get(i), new GridPoint2(i * 2 + 2, 8));
             }
         }
     }

@@ -25,9 +25,9 @@ public class ShopRoom extends BaseRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-                List.of("item:medkit:buyable", "buff:heart:buybale", "item:medkit:buyable", "item:medkit:buybale"),
-                List.of("item:medkit:buyable", "item:medkit:buybale"),
-                List.of("item:medkit:buyable", "item:medkit:buybale")
+                List.of("item:medkit:buyable", "buff:heart:buyable"),
+                List.of("item:medkit:buyable", "buff:heart:buyable", "item:shieldpotion:buyable"),
+                List.of("item:medkit:buyable", "buff:heart:buyable","item:shieldpotion:buyable","buff:energydrink:High")
         );
     }
 

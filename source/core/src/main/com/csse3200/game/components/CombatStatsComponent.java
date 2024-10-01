@@ -5,6 +5,7 @@ import com.csse3200.game.entities.Entity;
 
 import com.csse3200.game.components.player.ShieldComponent;
 
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.RandomNumberGenerator;
@@ -38,6 +39,9 @@ public class CombatStatsComponent extends Component {
     private static final int timeFlash = 250;
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
+
+    private String lastAttackName;
+    private String filePath = "configs/LastAttack.json";
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
@@ -248,6 +252,8 @@ public class CombatStatsComponent extends Component {
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
+            lastAttackName = attacker.getEntity().getComponent(NameComponent.class).getName();
+            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.LOCAL);
             //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
             //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
             //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");

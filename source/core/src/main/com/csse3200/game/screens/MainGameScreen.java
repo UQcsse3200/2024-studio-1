@@ -137,8 +137,8 @@ public class MainGameScreen extends ScreenAdapter {
                     gameOptions.difficulty);
             System.out.println(player.getComponent(CombatStatsComponent.class).getHealth());
         } else {
-            player = playerFactory.createPlayer(
-                    FileLoader.readClass(PlayerConfig.class, chosenPlayer).name,
+            System.out.println("Should start from file: {}" + chosenPlayer);
+            player = playerFactory.createPlay(chosenPlayer,
                     gameOptions.difficulty);
         }
 

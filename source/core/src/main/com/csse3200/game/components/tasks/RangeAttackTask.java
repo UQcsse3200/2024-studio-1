@@ -8,6 +8,9 @@ import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 
+/**
+ * Task for an NPC to perform a given number of range attacks on a target entity.
+ */
 public class RangeAttackTask extends DefaultTask implements PriorityTask {
     private static final int ACTIVE_PRIORITY = 9;
     private static final int SINGLE_INACTIVE_PRIORITY = 5;

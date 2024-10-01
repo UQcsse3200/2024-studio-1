@@ -432,8 +432,8 @@
       },
       "chase": {
         "chaseSpeed": 1.5,
-        "viewDistance": 8,
-        "chaseDistance": 8.5,
+        "viewDistance": 10,
+        "chaseDistance": 10.5,
         "maxTime": 5
       },
       "charge": {

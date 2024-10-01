@@ -1,11 +1,14 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.entities.Entity;
 
 /**
  * An item that can be collected.
  */
 public interface Collectible {
+
     /**
      * Get the Type of this item. The type determines how it ought to be used by the player.
      *
@@ -67,5 +70,4 @@ public interface Collectible {
     default Texture getMysteryIcon() {
         return null;
     }
-
 }

@@ -3,6 +3,7 @@ package com.csse3200.game.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerConfigComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
@@ -24,14 +25,24 @@ public class PlayerConfigGeneratorTest {
     PlayerConfigGenerator generator = new PlayerConfigGenerator();
     InventoryComponent inventoryComponent;
     CombatStatsComponent statsComponent;
+    CoinsComponent coinsComponent;
+    PlayerActions playerActions;
 
     @Before
     public void setUp() {
         player = new Entity();
         inventoryComponent = new InventoryComponent();
         statsComponent = new CombatStatsComponent(100, 30, true, 0, 0);
-        player.addComponent(inventoryComponent).addComponent(statsComponent);
-        player.addComponent(new PlayerConfigComponent(new PlayerConfig()));
+        playerActions = new PlayerActions();
+
+        player.addComponent(inventoryComponent)
+                .addComponent(statsComponent)
+                .addComponent(playerActions);
+
+        coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
+
+        player.addComponent(new PlayerConfigComponent(new PlayerConfig()))
+                .addComponent(coinsComponent);
     }
 
     /**
@@ -57,18 +68,28 @@ public class PlayerConfigGeneratorTest {
         assertEquals(20, playerConfig.baseAttack);
     }
 
+    @Test
+    public void testCoins() {
+        coinsComponent.setCoins(10);
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(10, playerConfig.coins);
+
+    }
+
+    @Test
+    public void testSpeed() {
+        playerActions.setSpeed(new Vector2(5f, 5f));
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(new Vector2(5f, 5f), playerConfig.speed);
+    }
     /**
      * Test saved player's melee weapon
      */
     @Test
     public void testMeleeWeapon() {
         inventoryComponent.getInventory().setMelee(new MeleeWeapon() {
-
             @Override
-            public String getMeleeSpecification() {
-                return "test";
-            }
-
+            public void attack(){}
             @Override
             public String getName() {
                 return "Knife";
@@ -81,18 +102,16 @@ public class PlayerConfigGeneratorTest {
         });
 
         PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals("melee:test", playerConfig.melee);
+        assertEquals("melee:Knife", playerConfig.melee);
     }
+
+
 
 
     /** Test player's saved Ranged weapon */
     @Test
     public void testRangedWeapon() {
         inventoryComponent.getInventory().setRanged(new RangedWeapon() {
-            @Override
-            public String getRangedSpecification() {
-                return "test";
-            }
 
             @Override
             public void shoot(Vector2 direction) {
@@ -101,7 +120,7 @@ public class PlayerConfigGeneratorTest {
 
             @Override
             public String getName() {
-                return null;
+                return "Shotgun";
             }
 
             @Override
@@ -110,7 +129,7 @@ public class PlayerConfigGeneratorTest {
             }
         });
         PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals("ranged:test", playerConfig.ranged);
+        assertEquals("ranged:Shotgun", playerConfig.ranged);
     }
 
     /** Test player with no weapon */

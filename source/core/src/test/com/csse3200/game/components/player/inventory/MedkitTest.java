@@ -46,29 +46,35 @@ public class MedkitTest {
         assertEquals("item:medkit", medkit.getSpecification());
     }
 
-//    @Test
-//    public void testGetIcon() {
-//        // Test getIcon method
-//        Texture icon = medkit.getIcon();
-//        assertNotNull(icon,"icon should not be null");
-//
-//        // Ensure the correct path is used
-//        assertEquals("images/items/med_kit.png", icon.toString());
-//    }
 
     @Test
     public void testApplyIncreasesHealth() {
-        // Initialize initial health and expected health
-        int initialHealth = 0;
-        int expectedHealth = initialHealth + 100;
+        // Initialize initial health and expected health after applying Medit
+        int initialHealth = 60;
+        int maxHealth = 150; // Assuming max health is 150
+        int expectedHealth = Math.min(initialHealth + 100, maxHealth); //health should cap at 150
 
-        // Setup the getHealth method to return initial health
+
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
+        when(combatStatsComponent.getMaxHealth()).thenReturn(maxHealth);
 
-        // Apply the Medkit
         medkit.apply(entity);
 
-        // Verify that addHealth was called with the correct amount
+        verify(combatStatsComponent).setHealth(expectedHealth);
+    }
+
+    @Test
+    public void testApplyIncreasesHealthFromZero() {
+        // Initialize initial health as 0 and expected health after applying Medkit
+        int initialHealth = 0;
+        int maxHealth = 100; // Assuming max health is 100
+        int expectedHealth = Math.min(initialHealth + 100, maxHealth);
+
+        when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
+        when(combatStatsComponent.getMaxHealth()).thenReturn(maxHealth);
+
+        medkit.apply(entity);
+
         verify(combatStatsComponent).setHealth(expectedHealth);
     }
 }

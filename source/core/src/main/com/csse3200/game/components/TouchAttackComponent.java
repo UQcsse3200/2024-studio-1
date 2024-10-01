@@ -65,16 +65,7 @@ public class TouchAttackComponent extends Component {
     Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
     CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
     if (targetStats != null) {
-      // If target has a shield component and the shield is active then negate hit
-      if (target.getComponent(ShieldComponent.class) != null) {
-        if (target.getComponent(ShieldComponent.class).isActive()) {
-          target.getEvents().trigger("hit");
-        } else {
-          targetStats.hit(combatStats);
-        }
-      } else {
         targetStats.hit(combatStats);
-      }
     }
 
     // Apply knock back

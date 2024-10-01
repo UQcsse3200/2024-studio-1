@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.NPCConfigs;
@@ -21,6 +22,7 @@ import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -31,15 +33,37 @@ import static org.mockito.Mockito.*;
 class RangeAttackComponentTest {
     private GameTime gameTime;
 
+    @Mock
+    private GameAreaService gameAreaService;
+
+    @Mock
+    private MainGameArea mainGameArea;
+
+    @Mock
+    private Entity player;
+
     @BeforeEach
     void beforeEach() {
+
+        // Mock GameTime, GameAreaService and MainGameArea
         gameTime = mock(GameTime.class);
+        gameAreaService = mock(GameAreaService.class);
+        mainGameArea = mock(MainGameArea.class);
+
+        player = new Entity().addComponent(new CombatStatsComponent(100, 10));
+
+        // Register the mocked services with ServiceLocator
         ServiceLocator.registerTimeSource(gameTime);
+        ServiceLocator.registerGameAreaService(gameAreaService);
+
+        // Mock the behavior of gameAreaService and mainGameArea
+        when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
+        when(mainGameArea.getPlayer()).thenReturn(player);
+
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
         ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerGameAreaService(new GameAreaService(mock(MainGameArea.class)));
     }
 
     /**
@@ -125,6 +149,7 @@ class RangeAttackComponentTest {
     private Entity createAttacker(Entity target) {
         NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
         Entity attacker = new Entity()
+                .addComponent(new NameComponent("attacker"))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new PhysicsMovementComponent())
                 .addComponent(new ColliderComponent())
@@ -137,6 +162,7 @@ class RangeAttackComponentTest {
 
     private Entity createTarget() {
         Entity target = new Entity()
+                .addComponent(new NameComponent("target"))
                 .addComponent(new CombatStatsComponent(20, 0))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())

@@ -3,6 +3,7 @@ package com.csse3200.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.screens.*;
@@ -24,10 +25,8 @@ public class GdxGame extends Game {
   public void create() {
     logger.info("Creating game");
     loadSettings();
-
     // Sets background to light grey
     setScreenColour(ScreenColour.GREY);
-
     setScreen(ScreenType.MAIN_MENU);
   }
 
@@ -69,6 +68,7 @@ public class GdxGame extends Game {
           case MAIN_MENU -> new MainMenuScreen(this);
           case MAIN_GAME -> new MainGameScreen(this);
           case SETTINGS -> new SettingsScreen(this);
+          case ACHIEVEMENTS -> new AchievementsScreen(this);
           case HOW_TO_PLAY -> new HowToPlayScreen(this);
           case PLAYER_SELECT -> new PlayerSelectScreen(this);
           case CUTSCENE -> new IntroCutsceneScreen(this);
@@ -80,7 +80,10 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, HOW_TO_PLAY, PLAYER_SELECT, CUTSCENE, WIN, LOSE, ANIMALS, WEAPONS
+    MAIN_MENU, MAIN_GAME,
+    SETTINGS, HOW_TO_PLAY, ANIMALS, WEAPONS, ACHIEVEMENTS,
+    PLAYER_SELECT, CUTSCENE,
+    WIN, LOSE
   }
 
   /**

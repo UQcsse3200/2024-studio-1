@@ -1,0 +1,6 @@
+{
+First inventory collectible: {
+	class: java.lang.String
+	value: images/items/mystery_box_blue.png
+}
+}

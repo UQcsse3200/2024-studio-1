@@ -58,9 +58,7 @@ public abstract class EnemyRoom extends BaseRoom {
         }
     }
 
-
-    
-    protected void makeAllAnimalDead() {
+    public void makeAllAnimalDead() {
         for (Entity entity : enemies) {
             CombatStatsComponent combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
             if (combatStatsComponent != null) {

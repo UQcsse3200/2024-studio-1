@@ -2,6 +2,8 @@ package com.csse3200.game.areas;
 
 import com.badlogic.gdx.audio.Music;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.areas.minimap.MinimapComponent;
+import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
@@ -38,6 +40,7 @@ public class MainGameArea extends GameArea {
     public String currentRoomName;
     private Map <String, String> currentPosition = new HashMap<>();
     private final boolean shouldLoad;
+    private MinimapFactory minimapFactory;
     
 
     /**
@@ -51,7 +54,7 @@ public class MainGameArea extends GameArea {
         this.player = player;
         this.levelFactory = levelFactory;
         this.shouldLoad = shouldLoad;
-        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
+        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getBossRoom()));
         player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
 
@@ -80,6 +83,10 @@ public class MainGameArea extends GameArea {
             changeLevel(0);
         }
         playMusic();
+    }
+
+    public String getBossRoom() {
+        return currentLevel.getMap().mapData.RoomKeys.get("Boss");
     }
 
     /**
@@ -142,10 +149,8 @@ public class MainGameArea extends GameArea {
     public void changeRooms(String roomKey) {
         this.currentRoom.removeRoom();
         selectRoom(roomKey);
-
-        if (!this.currentRoom.getIsRoomComplete()) {
-            this.currentLevel.roomTraversals++;
-        }
+        // update minimap
+        minimapFactory.updateMinimap(roomKey);
     }
 
     public void spawnCurrentRoom() {
@@ -159,9 +164,6 @@ public class MainGameArea extends GameArea {
         }
 
         logger.info("Spawning new room, {}", ServiceLocator.getEntityService());
-        if (currentLevel.roomTraversals == 8 ) {
-            this.currentRoom = currentLevel.getRoom("BOSS");
-        }
         this.currentRoom.spawn(player, this);
 
         player.setPosition(7, 5);
@@ -189,6 +191,16 @@ public class MainGameArea extends GameArea {
         // Create and load the new level
         this.currentLevel = this.levelFactory.create(levelNumber);
         selectRoom(this.currentLevel.getStartingRoomKey());
+
+        // // initialize minimap
+
+        this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
+        MinimapComponent minimapComponent = minimapFactory.createMinimap();
+
+        Entity minimap = new Entity();
+        minimap.addComponent(minimapComponent);
+        spawnEntity(minimap);
+
     }
 
     private void displayUI() {
@@ -231,7 +243,8 @@ public class MainGameArea extends GameArea {
                 "images/terrain_iso_grass.atlas",
                 "skins/levels/level1/level1_skin.atlas",
                 "skins/levels/level2/level2_skin.atlas",
-                "skins/levels/level3/level3_skin.atlas"
+                "skins/levels/level3/level3_skin.atlas",
+                "skins/minimap/minimap.atlas"
 
         };
     }
@@ -254,7 +267,8 @@ public class MainGameArea extends GameArea {
                 "images/staircase.png",
                 "skins/levels/level1/level1_skin.png",
                 "skins/levels/level2/level2_skin.png",
-                "skins/levels/level3/level3_skin.png"
+                "skins/levels/level3/level3_skin.png",
+                "skins/minimap/minimap.png"
         };
         Collections.addAll(filepaths, commonTextures);
 

@@ -64,14 +64,14 @@ public class PetFactory extends LoadedFactory {
    * @param target entity to chase
    * @return the created npc
    */
-  public Entity create(String specification, Entity target) {
+  public Entity create(String specification) {
     return switch (specification) {
-      case "Rat" -> this.createRat(target);
-      case "Bear" -> this.createBear(target);
-      case "Snake" -> this.createSnake(target);
-      case "Bat" -> this.createBat(target);
-      case "Dog" -> this.createDog(target);
-      case "Minotaur" -> this.createMinotaur(target);
+      case "Rat" -> this.createRat();
+      case "Bear" -> this.createBear();
+      case "Snake" -> this.createSnake();
+      case "Bat" -> this.createBat();
+      case "Dog" -> this.createDog();
+      case "Minotaur" -> this.createMinotaur();
       default -> throw new IllegalArgumentException("Unknown animal: " + specification);
     };
   }
@@ -82,11 +82,11 @@ public class PetFactory extends LoadedFactory {
    * @param target entity to chase
    * @return the created rat entity
    */
-  public Entity createRat(Entity target) {
+  public Entity createRat() {
     NPCConfigs.NPCConfig config = configs.rat;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
-    Entity rat = createBaseNPC("Rat", target, aiComponent, config, animator);
+    Entity rat = createBaseNPC("Rat",  aiComponent, config, animator);
 
     return rat;
   }
@@ -98,11 +98,11 @@ public class PetFactory extends LoadedFactory {
    * @param target entity to chase
    * @return entity
    */
-  public Entity createBear(Entity target) {
+  public Entity createBear() {
     NPCConfigs.NPCConfig config = configs.bear;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
-    Entity bear = createBaseNPC("Bear", target, aiComponent, config, animator);
+    Entity bear = createBaseNPC("Bear", aiComponent, config, animator);
 
     return bear;
   }
@@ -113,11 +113,11 @@ public class PetFactory extends LoadedFactory {
    * @param target entity to chase
    * @return entity
    */
-  public Entity createSnake(Entity target) {
+  public Entity createSnake() {
     NPCConfigs.NPCConfig config = configs.snake;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/snake/snake.atlas", config.animations);
-    Entity snake = createBaseNPC("Snake", target, aiComponent, config, animator);
+    Entity snake = createBaseNPC("Snake",aiComponent, config, animator);
 
     return snake;
   }
@@ -128,11 +128,11 @@ public class PetFactory extends LoadedFactory {
    * @param target entity to chase
    * @return the created bat entity
    */
-  public Entity createBat(Entity target) {
+  public Entity createBat() {
     NPCConfigs.NPCConfig config = configs.bat;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bat/bat.atlas", config.animations);
-    Entity bat = createBaseNPC("Bat", target, aiComponent, config, animator);
+    Entity bat = createBaseNPC("Bat", aiComponent, config, animator);
 
     return bat;
   }
@@ -143,11 +143,11 @@ public class PetFactory extends LoadedFactory {
    * @param target entity to chase
    * @return the created dog entity
    */
-  public Entity createDog(Entity target) {
+  public Entity createDog() {
     NPCConfigs.NPCConfig config = configs.dog;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
-    Entity dog = createBaseNPC("Dog", target, aiComponent, config, animator);
+    Entity dog = createBaseNPC("Dog",aiComponent, config, animator);
 
     return dog;
   }
@@ -158,11 +158,11 @@ public class PetFactory extends LoadedFactory {
    * @param target entity to chase
    * @return entity
    */
-  public Entity createMinotaur(Entity target) {
+  public Entity createMinotaur() {
     NPCConfigs.NPCConfig config = configs.minotaur;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/minotaur/minotaur.atlas", config.animations);
-    Entity minotaur = createBaseNPC("Minotaur", target, aiComponent, config, animator);
+    Entity minotaur = createBaseNPC("Minotaur", aiComponent, config, animator);
 
     return minotaur;
   }
@@ -177,7 +177,7 @@ public class PetFactory extends LoadedFactory {
    * @param animator    The animator component for the NPC.
    * @return The created NPC entity.
    */
-  private static Entity createBaseNPC(String name, Entity target, Component aiComponent, NPCConfigs.NPCConfig config,
+  private static Entity createBaseNPC(String name, Component aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
     Entity player = ServiceLocator.getEntityService().getPlayer();
     Entity npc = new Entity()
@@ -196,7 +196,7 @@ public class PetFactory extends LoadedFactory {
             .addComponent(new NPCConfigComponent(config));
 
     if (config.attacks.melee != null) {
-      npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee.range, config.attacks.melee.rate,
+      npc.addComponent(new MeleeAttackComponent(player, config.attacks.melee.range, config.attacks.melee.rate,
               config.attacks.melee.effects));
     }
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
@@ -228,32 +228,11 @@ public class PetFactory extends LoadedFactory {
    * @param tasks The task configuration for the NPC
    * @return The created AITaskComponent
    */
-  private AITaskComponent createAIComponent(Entity target, NPCConfigs.NPCConfig.TaskConfig tasks) {
+  private AITaskComponent createAIComponent(NPCConfigs.NPCConfig.TaskConfig tasks) {
     AITaskComponent aiComponent = new AITaskComponent();
-
-    // Add wander task
-    if (tasks.wander != null) {
-      aiComponent.addTask(new WanderTask(tasks.wander));
-    }
     // Add follow task
     if (tasks.follow != null) {
       aiComponent.addTask(new FollowTask(tasks.follow));
-    }
-    // Add straight wander task
-    if (tasks.straightWander != null) {
-      aiComponent.addTask(new StraightWanderTask(tasks.straightWander.wanderSpeed));
-    }
-    // Add chase task
-    if (tasks.chase != null) {
-      aiComponent.addTask(new ChaseTask(target, tasks.chase));
-    }
-    // Add charge task
-    if (tasks.charge != null) {
-      aiComponent.addTask(new ChargeTask(target, tasks.charge));
-    }
-    // Add run away task
-    if (tasks.runAway != null) {
-      aiComponent.addTask(new RunAwayTask(target, tasks.runAway));
     }
     return aiComponent;
   }

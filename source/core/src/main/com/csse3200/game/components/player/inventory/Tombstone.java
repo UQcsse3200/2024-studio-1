@@ -55,7 +55,7 @@ public class Tombstone extends BuffItem {
             case 5 -> specification = "Dog";
             case 6 -> specification = "Minotaur";
         }
-        return new PetFactory().create(specification, player);
+        return new PetFactory().create(specification);
     }
 
     /**

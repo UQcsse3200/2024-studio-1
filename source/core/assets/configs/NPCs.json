@@ -366,15 +366,15 @@
       "runAway": {
         "activationMinRange": 0,
         "activationMaxRange": 2,
-        "activationHealth": 0.4,
+        "activationHealth": 0.5,
         "runSpeed": 3,
-        "stopDistance": 3,
+        "stopDistance": 4,
         "maxRunTime": 3,
         "cooldownTime": 10
       },
       "aoeAttack": {
         "activationMinRange": 0,
-        "activationMaxRange": 2,
+        "activationMaxRange": 1.5,
         "preparationTime": 3,
         "cooldownTime": 10
       }
@@ -391,7 +391,7 @@
         ]
       },
       "aoe": {
-        "rate": 1,
+        "rate": 10,
         "range": 3,
         "effects": [
           {
@@ -529,16 +529,16 @@
         "activationMaxRange": 6,
         "jumpDuration": 0.8,
         "waitTime": 1,
-        "cooldownTime": 3
+        "cooldownTime": 4
       },
       "runAway": {
         "activationMinRange": 0,
         "activationMaxRange": 2,
         "activationHealth": 0.5,
         "runSpeed": 5,
-        "stopDistance": 4,
+        "stopDistance": 5,
         "maxRunTime": 3,
-        "cooldownTime": 10
+        "cooldownTime": 8
       }
     },
     "attacks": {
@@ -551,6 +551,16 @@
               "force": 2
             }
           ]
+      },
+      "aoe": {
+        "rate": 10,
+        "range": 2,
+        "effects": [
+          {
+            "type": "knockback",
+            "force": 2
+          }
+        ]
       }
     },
     "animations": [

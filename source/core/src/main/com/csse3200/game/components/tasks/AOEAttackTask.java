@@ -12,8 +12,8 @@ import com.csse3200.game.services.ServiceLocator;
  * Task for an NPC to perform an AOE attack with a preparation phase (charge-up animation).
  */
 public class AOEAttackTask extends DefaultTask implements PriorityTask {
-    private static final int ACTIVE_PRIORITY = 9;
-    private static final int INACTIVE_PRIORITY = 7;
+    private static final int ACTIVE_PRIORITY = 10;
+    private static final int INACTIVE_PRIORITY = 6;
     private final Entity target;
     private final float activationMinRange;
     private final float activationMaxRange;

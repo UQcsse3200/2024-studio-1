@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
+import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -35,10 +36,12 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private PhysicsComponent physicsComponent;
     private ColliderComponent colliderComponent;
     private DirectionalNPCComponent directionalComponent;
+    private AOEAttackComponent aoeAttackComponent;
     private GameTime gameTime;
     private long startTime;
     private long lastExecutionTime;
     private WaitTask waitTask;
+    private boolean hasAttacked;
 
     /**
      * Creates a JumpTask towards the target with a specified jump height and duration.
@@ -62,11 +65,9 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         this.physicsComponent = owner.getEntity().getComponent(PhysicsComponent.class);
         this.colliderComponent = owner.getEntity().getComponent(ColliderComponent.class);
         this.directionalComponent = owner.getEntity().getComponent(DirectionalNPCComponent.class);
+        this.aoeAttackComponent = owner.getEntity().getComponent(AOEAttackComponent.class);
         startTime = gameTime.getTime();
-
-        // Initialise the wait task
-        waitTask = new WaitTask(waitTime);
-        waitTask.create(owner);
+        hasAttacked = false;
 
         // Set the jump height based on the distance between the entity and the target
         startPos = owner.getEntity().getPosition();
@@ -89,15 +90,6 @@ public class JumpTask extends DefaultTask implements PriorityTask {
 
     @Override
     public void update() {
-        // Handle waiting at the end of the jump
-        if (waitTask.getStatus() == Status.ACTIVE) {
-            waitTask.update();
-            return;
-        } else if (waitTask.getStatus() == Status.FINISHED) {
-            this.stop();
-            return;
-        }
-
         long elapsedTime = gameTime.getTimeSince(startTime);
         float t = Math.min((float)elapsedTime / (jumpDuration * 1000), 1);  // Time ratio from 0 to 1
 
@@ -113,8 +105,23 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         physicsComponent.getBody().applyLinearImpulse(impulse, physicsComponent.getBody().getWorldCenter(), true);
 
         // Check if the jump is finished
-        if (t >= 1) {
+        if (t >= 1 && !hasAttacked) {
+            physicsComponent.getBody().setLinearVelocity(Vector2.Zero);
+            colliderComponent.setSensor(false);
+
+            // Perform the AOE attack immediately
+            aoeAttackComponent.enableForNumAttacks(1);
+            owner.getEntity().getEvents().trigger("attack"); // Trigger attack animation
+            hasAttacked = true;
+
+            // Start wait task
+            waitTask = new WaitTask(waitTime);
+            waitTask.create(owner);
             waitTask.start();
+        } else if (hasAttacked && waitTask.getStatus() == Status.ACTIVE) {
+            waitTask.update();
+        } else if (hasAttacked && waitTask.getStatus() == Status.FINISHED) {
+            this.stop();
         }
     }
 
@@ -128,8 +135,6 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     @Override
     public void stop() {
         super.stop();
-        physicsComponent.getBody().setLinearVelocity(Vector2.Zero);
-        colliderComponent.setSensor(false);
         lastExecutionTime = gameTime.getTime();
     }
 

@@ -146,11 +146,6 @@ public class MainGameArea extends GameArea {
     public void changeRooms(String roomKey) {
         this.currentRoom.removeRoom();
         selectRoom(roomKey);
-
-        if (!this.currentRoom.getIsRoomComplete()) {
-            this.currentLevel.roomTraversals++;
-        }
-
         // update minimap
         minimapFactory.updateMinimap(roomKey);
     }
@@ -166,9 +161,6 @@ public class MainGameArea extends GameArea {
         }
 
         logger.info("Spawning new room, {}", ServiceLocator.getEntityService());
-        if (currentLevel.roomTraversals == 8 ) {
-            this.currentRoom = currentLevel.getRoom("BOSS");
-        }
         this.currentRoom.spawn(player, this);
 
         player.setPosition(7, 5);

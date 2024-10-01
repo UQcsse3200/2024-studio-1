@@ -48,7 +48,7 @@ public class MainGameArea extends GameArea {
         this.player = player;
         this.levelFactory = levelFactory;
         this.shouldLoad = shouldLoad;
-        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms("BOSS"));
+        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getBossRoom()));
         player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
 
@@ -77,6 +77,10 @@ public class MainGameArea extends GameArea {
             changeLevel(0);
         }
         playMusic();
+    }
+
+    public String getBossRoom() {
+        return currentLevel.getMap().mapData.RoomKeys.get("Boss");
     }
 
     /**

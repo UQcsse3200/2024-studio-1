@@ -53,6 +53,7 @@ public class PlayerActions extends Component {
             entity.getEvents().trigger("stopAnimation");
             if (!dead) {
                 entity.getEvents().trigger("death");
+                stopWalking();
                 dead = true;
             }
         }
@@ -108,9 +109,11 @@ public class PlayerActions extends Component {
      * Stops the player from walking.
      */
     private void stopWalking() {
-        this.walkDirection = Vector2.Zero.cpy();
-        updateSpeed();
-        moving = false;
+        if (!dead) {
+            this.walkDirection = Vector2.Zero.cpy();
+            updateSpeed();
+            moving = false;
+        }
     }
 
     /**
@@ -148,8 +151,10 @@ public class PlayerActions extends Component {
      * @param direction direction to move in
      */
     private void walk(Vector2 direction) {
-        this.walkDirection = direction;
-        moving = true;
+        if (!dead) {
+            this.walkDirection = direction;
+            moving = true;
+        }
     }
 
     /**
@@ -175,13 +180,15 @@ public class PlayerActions extends Component {
         }
     }
 
-    public void use(UsableItem item) {
-        Inventory inventory = inventoryComponent.getInventory();
-        for (Collectible collectedItem : inventory.getItems()) {
-            if (collectedItem.getClass() == item.getClass()) {
-                item.apply(entity);
-                inventoryComponent.drop(collectedItem);
-                break;
+    private void use(UsableItem item) {
+        if (!dead) {
+            Inventory inventory = inventoryComponent.getInventory();
+            for (Collectible collectedItem : inventory.getItems()) {
+                if (collectedItem.getClass() == item.getClass()) {
+                    item.apply(entity);
+                    inventoryComponent.drop(collectedItem);
+                    break;
+                }
             }
         }
     }

@@ -35,6 +35,13 @@ public class PlayerFactory extends LoadedFactory {
         this.load(logger);
     }
 
+    public Entity createPlay(String fileName, Difficulty difficulty) {
+        LoadPlayer loader = new LoadPlayer();
+        PlayerConfig config = FileLoader.readClass(PlayerConfig.class, fileName);
+        config.adjustForDifficulty(difficulty);
+        return loader.createPlayer(config);
+    }
+
     /**
      * Create a player entity
      *
@@ -79,3 +86,4 @@ public class PlayerFactory extends LoadedFactory {
 //        return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
     }
 }
+

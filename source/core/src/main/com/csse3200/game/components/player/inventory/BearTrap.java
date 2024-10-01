@@ -56,6 +56,6 @@ public class BearTrap extends UsableItem {
      */
     @Override
     public String getItemSpecification() {
-        return "bearTrap";
+        return "beartrap";
     }
 }

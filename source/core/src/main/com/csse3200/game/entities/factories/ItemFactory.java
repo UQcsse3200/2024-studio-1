@@ -61,6 +61,7 @@ public class ItemFactory {
             case "feather" -> createFeather();
             case "divinepotion" -> createDivinePotion();
             case "bleedbuff" -> createBleedBuff();
+            case "BigRedButton" -> createBigRedButton();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -166,5 +167,7 @@ public class ItemFactory {
     private Collectible createDivinePotion() {
         return new DivinePotion();
     }
+
+    private Collectible createBigRedButton() {return new BigRedButton();}
 }
 

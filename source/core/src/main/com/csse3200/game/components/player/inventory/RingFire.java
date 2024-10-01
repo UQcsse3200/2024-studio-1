@@ -1,0 +1,41 @@
+package com.csse3200.game.components.player.inventory;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.factories.DeployableItemFactory;
+import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.components.tasks.FollowTask;
+
+public class RingFire extends UsableItem {
+    @Override
+    public void apply(Entity entity) {
+        spawnRingFire(entity);
+    }
+
+    private void spawnRingFire(Entity entity) {
+        Entity ringFire = new DeployableItemFactory().createRingFire();
+
+        // Spawn it at the player's current position
+        //North
+        int NxPos = (int) entity.getPosition().x;
+        int NyPos = (int) entity.getPosition().y + 2;
+
+        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(ringFire, new GridPoint2(NxPos, NyPos), true, true);
+    }
+
+    @Override
+    public String getName() {
+        return "Ring of Fire";
+    }
+
+    @Override
+    public Texture getIcon() {
+        return new Texture("images/items/Ring_Of_Fire.png");
+    }
+
+    @Override
+    public String getItemSpecification() {
+        return "ringfire";
+    }
+}

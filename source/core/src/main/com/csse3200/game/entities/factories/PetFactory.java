@@ -40,7 +40,7 @@ public class PetFactory extends LoadedFactory {
           loadConfigs();
 
   public static NPCConfigs loadConfigs() {
-    NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/petTest.json");
+    NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/pets.json");
     System.out.println("Loaded configs: " + configs); // Add debug printout
     if (configs.rat.attacks == null) {
       System.out.println("Rat attacks are null!"); // Check if attacks are being loaded

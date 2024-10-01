@@ -66,7 +66,6 @@ public class NPCDeathHandler extends Component {
             target.getEvents().trigger(event, npcStrength);
             logger.info(event + "   is triggered");
 
-
             // Play death animation if available
             if (animator != null && animator.hasAnimation("death")) {
                 animator.startAnimation("death");

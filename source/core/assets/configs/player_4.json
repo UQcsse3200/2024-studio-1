@@ -3,11 +3,11 @@
   "health": 100,
   "coins": 0,
   "speed": {
-    "x": 3,
-    "y": 3
+    "x": 4,
+    "y": 4
   },
   "textureFilename": "images/player/homeless3.png",
   "textureAtlasFilename": "images/player/homeless3.atlas",
-  "melee": "axe",
-  "ranged": "shotgun"
+  "melee": "melee:Axe",
+  "ranged": "ranged:Shotgun"
 }

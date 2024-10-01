@@ -39,31 +39,6 @@ public class InventoryComponent extends Component {
     }
 
     /**
-     * Add a weapon collectible and its entity wrapper to your inventory.
-     *
-     * @param item The item to add to your inventory
-     */
-    public void pickup(Collectible item, Entity itemEntity) {
-        if(item instanceof MeleeWeapon){
-            meleeWeaponCount = 1;
-            System.out.println("Melee Weapon picked up. Total Melee weapons are: " + meleeWeaponCount);
-            entity.getEvents().trigger("updateMeleeWeaponCount", meleeWeaponCount);
-            item.pickup(inventory, itemEntity);
-        }
-        if(item instanceof RangedWeapon){
-            rangedWeaponCount = 1;
-            System.out.println("Ranged Weapon picked up. Total Ranged weapons are: " + rangedWeaponCount);
-            entity.getEvents().trigger("updateRangedWeaponCount", rangedWeaponCount);
-            item.pickup(inventory, itemEntity);
-        }
-        else {
-            // Should never go here
-            item.pickup(inventory);
-        }
-        getEntity().getEvents().trigger("updateInventory");
-    }
-
-    /**
      * Remove an item to your inventory.
      *
      * @param item The item to remove from your inventory.

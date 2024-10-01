@@ -3,7 +3,6 @@ package com.csse3200.game.components.maingame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -13,14 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
+import com.csse3200.game.entities.SavePlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
@@ -32,6 +29,9 @@ public class MainGameExitDisplay extends UIComponent {
   private Table table;
   private ImageButton pauseBtn;
   private Table pauseTable;
+  private Entity player;
+
+
 
   @Override
   public void create() {
@@ -41,28 +41,28 @@ public class MainGameExitDisplay extends UIComponent {
 
   private void addActors() {
     Texture iconSheet = ServiceLocator.getResourceService()
-                .getAsset("images/ui_white_icons.png", Texture.class);
+            .getAsset("images/ui_white_icons.png", Texture.class);
     TextureRegion[][] icons = new TextureRegion(iconSheet).split(
-    iconSheet.getWidth() / 6,
-    iconSheet.getHeight() / 6);
+            iconSheet.getWidth() / 6,
+            iconSheet.getHeight() / 6);
 
     Texture iconOverSheet = ServiceLocator.getResourceService()
-                .getAsset("images/ui_white_icons_over.png", Texture.class);
+            .getAsset("images/ui_white_icons_over.png", Texture.class);
     TextureRegion[][] iconsOver = new TextureRegion(iconOverSheet).split(
-    iconOverSheet.getWidth() / 6,
-    iconOverSheet.getHeight() / 6);
+            iconOverSheet.getWidth() / 6,
+            iconOverSheet.getHeight() / 6);
 
     Texture iconDownSheet = ServiceLocator.getResourceService()
-                .getAsset("images/ui_white_icons_down.png", Texture.class);
+            .getAsset("images/ui_white_icons_down.png", Texture.class);
     TextureRegion[][] iconsDown = new TextureRegion(iconDownSheet).split(
-    iconDownSheet.getWidth() / 6,
-    iconDownSheet.getHeight() / 6);
+            iconDownSheet.getWidth() / 6,
+            iconDownSheet.getHeight() / 6);
 
     /*TextureAtlas atlas = ServiceLocator.getResourceService()
                 .getAsset("flat-earth/skin/flat-earth-ui.atlas", TextureAtlas.class);
     TextureRegion windowTexture = atlas.findRegion("list");*/
     Texture blackDotTrans = ServiceLocator.getResourceService()
-                .getAsset("images/black_dot_transparent.png", Texture.class);
+            .getAsset("images/black_dot_transparent.png", Texture.class);
 
     table = new Table();
     table.top().right();
@@ -88,28 +88,28 @@ public class MainGameExitDisplay extends UIComponent {
 
     // Triggers an event when the button is pressed.
     pauseBtn.addListener(
-      new ChangeListener() {
-        @Override
-        public void changed(ChangeEvent changeEvent, Actor actor) {
-          pauseGame();
-        }
-      });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                pauseGame();
+              }
+            });
     resumeBtn.addListener(
-      new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-             unpause();
-          }
-      });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                unpause();
+              }
+            });
     exitBtn.addListener(
-      new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-             unpause();
-              logger.debug("Exit button clicked");
-              entity.getEvents().trigger("exit");
-          }
-      });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                unpause();
+                logger.debug("Exit button clicked");
+                entity.getEvents().trigger("exit");
+              }
+            });
     saveBtn.addListener(
             new ChangeListener() {
               @Override
@@ -142,9 +142,7 @@ public class MainGameExitDisplay extends UIComponent {
    */
   public void pauseGame() {
     MainGameScreen.isPaused = true;
-
-    List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-    logger.info("Game paused, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+    logger.info("Game paused, {}", ServiceLocator.getEntityService());
 
     stage.addActor(pauseTable);
     table.remove();
@@ -180,16 +178,18 @@ public class MainGameExitDisplay extends UIComponent {
   public void saveGame() {
     Array<EntityCoordinates> entities = new Array<>();
     for (Entity entity : ServiceLocator.getEntityService().getEntities()) {
-       Vector2 pos = entity.getPosition();
-       float x = pos.x;
-       float y = pos.y;
-       EntityCoordinates coordinates = new EntityCoordinates(x, y);
-       entities.add(coordinates);
+      if (entity.getName().equals("Main Player")) {
+        player = entity;
+        SavePlayerService savePlayerService = new SavePlayerService();
+        savePlayerService.savePlayerState(player);
+        player.getEvents().trigger("saveMapLocation");
+        player.getEvents().trigger("saveMapData");
+        System.out.println("Saved Successfully");
+      }
     }
-    String filePath = "configs/save.json";
-    FileLoader.writeClass(entities, filePath, FileLoader.Location.LOCAL);
-    logger.debug("Game saved to: " + filePath);
+
   }
+
 
   public void resize(int width, int height){
     //window.setSize(width/4, height/4);

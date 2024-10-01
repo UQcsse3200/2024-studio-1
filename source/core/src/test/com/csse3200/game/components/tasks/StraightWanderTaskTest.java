@@ -67,42 +67,42 @@ class StraightWanderTaskTest {
         assertTrue(distanceMoved > 0, "Entity should have moved a non-zero distance.");
     }
 
-//    @Test
-//    void shouldChangeDirectionOnCollision() {
-//        Vector2 initialPosition = entity.getPosition().cpy();
-//        straightWanderTask.start();
-//
-//        // Simulate movement before collision
-//        for (int i = 0; i < 5; i++) {
-//            entity.earlyUpdate();
-//            entity.update();
-//            ServiceLocator.getPhysicsService().getPhysics().update();
-//        }
-//
-//        Vector2 positionBeforeCollision = entity.getPosition().cpy();
-//
-//        // Calculate initial movement direction
-//        Vector2 initialDirection = positionBeforeCollision.cpy().sub(initialPosition).nor();
-//
-//        // Simulate a collision
-//        entity.getEvents().trigger("collisionStart", null, null);
-//
-//        // Simulate updates after collision
-//        for (int i = 0; i < 5; i++) {
-//            entity.earlyUpdate();
-//            entity.update();
-//            ServiceLocator.getPhysicsService().getPhysics().update();
-//        }
-//
-//        Vector2 positionAfterCollision = entity.getPosition();
-//
-//        // Calculate direction after collision
-//        Vector2 newDirection = positionAfterCollision.cpy().sub(positionBeforeCollision).nor();
-//
-//        // Ensure directions are not the same
-//        float angleBetween = initialDirection.angleDeg(newDirection);
-//        assertTrue(angleBetween > 5f, "Entity should have moved in a different direction after collision.");
-//    }
+    @Test
+    void shouldChangeDirectionOnCollision() {
+        Vector2 initialPosition = entity.getPosition().cpy();
+        straightWanderTask.start();
+
+        // Simulate movement before collision
+        for (int i = 0; i < 5; i++) {
+            entity.earlyUpdate();
+            entity.update();
+            ServiceLocator.getPhysicsService().getPhysics().update();
+        }
+
+        Vector2 positionBeforeCollision = entity.getPosition().cpy();
+
+        // Calculate initial movement direction
+        Vector2 initialDirection = positionBeforeCollision.cpy().sub(initialPosition).nor();
+
+        // Simulate a collision
+        entity.getEvents().trigger("collisionStart", null, null);
+
+        // Simulate updates after collision
+        for (int i = 0; i < 5; i++) {
+            entity.earlyUpdate();
+            entity.update();
+            ServiceLocator.getPhysicsService().getPhysics().update();
+        }
+
+        Vector2 positionAfterCollision = entity.getPosition();
+
+        // Calculate direction after collision
+        Vector2 newDirection = positionAfterCollision.cpy().sub(positionBeforeCollision).nor();
+
+        // Ensure directions are not the same
+        float angleBetween = initialDirection.angleDeg(newDirection);
+        assertTrue(angleBetween > 5f, "Entity should have moved in a different direction after collision.");
+    }
 
     @Test
     void shouldStopTaskProperly() {

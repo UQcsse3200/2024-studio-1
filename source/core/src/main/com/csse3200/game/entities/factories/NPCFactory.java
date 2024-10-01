@@ -107,6 +107,10 @@ public class NPCFactory extends LoadedFactory {
     AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
     Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
 
+    // Add the BossHealthDialogueComponent to the kitsune
+    kitsune.addComponent(new BossHealthDialogueComponent());
+    kitsune.addComponent(new DialogComponent());
+
     return kitsune; 
   }
 
@@ -213,6 +217,10 @@ public class NPCFactory extends LoadedFactory {
     AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
     Entity birdman = createBaseNPC("Birdman", target, aiComponent, config, animator);
 
+    // Add the BossHealthDialogueComponent
+    birdman.addComponent(new BossHealthDialogueComponent());
+    birdman.addComponent(new DialogComponent());
+
     return birdman;
   }
 
@@ -233,6 +241,7 @@ public class NPCFactory extends LoadedFactory {
 
     // Add the BossHealthDialogueComponent to the werewolf
     werewolf.addComponent(new BossHealthDialogueComponent());
+    werewolf.addComponent(new DialogComponent());
 
 
     return werewolf;
@@ -274,7 +283,6 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
-            .addComponent(new DialogComponent())
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDeathHandler(target, config.getStrength()))
             .addComponent(new DirectionalNPCComponent(config.isDirectional))

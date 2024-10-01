@@ -1,4 +1,4 @@
-package com.csse3200.game.areas.Generation;
+package com.csse3200.game.areas.generation;
 
 import java.util.*;
 

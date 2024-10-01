@@ -102,12 +102,12 @@ public class MainGameLevelFactory implements LevelFactory {
                 completedRooms.add(room.getRoomName());
             }
         }
-        FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.LOCAL);
+        FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.EXTERNAL);
     }
 
     public void loadFromJson (String filePath) {
         MapLoadConfig mapLoadConfig = new MapLoadConfig();
-        mapLoadConfig.savedMap = FileLoader.readClass(ArrayList.class, filePath, FileLoader.Location.LOCAL);
+        mapLoadConfig.savedMap = FileLoader.readClass(ArrayList.class, filePath, FileLoader.Location.EXTERNAL);
         loadedSeed = mapLoadConfig.savedMap.getFirst();
         mapLoadConfig.savedMap.remove(0);
         loadedRooms.addAll(mapLoadConfig.savedMap);

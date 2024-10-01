@@ -35,16 +35,15 @@ public class MainGameArea extends GameArea {
     private Room currentRoom;
     private boolean spawnRoom = true;
     public String currentRoomName;
-    private Map <String, String> currentPosition = new HashMap<>();
+    private Map<String, String> currentPosition = new HashMap<>();
     private final boolean shouldLoad;
     private MinimapFactory minimapFactory;
-    
+
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
      *
      * @param levelFactory the provided levelFactory.
-     *
      */
     public MainGameArea(LevelFactory levelFactory, Entity player, boolean shouldLoad) {
         super();
@@ -111,15 +110,16 @@ public class MainGameArea extends GameArea {
         currentPosition.put("RoomNum", currentRoomName);
         //exports the current player location (room and level details into a json).
         System.out.println("roomComplete?:" + currentRoom.getIsRoomComplete());
-        FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
+        FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
     }
 
     public void loadMapLocation() {
         PlayerLocationConfig playerLocationConfig = new PlayerLocationConfig();
-        playerLocationConfig.savedLoc = FileLoader.readClass(HashMap.class, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
+        playerLocationConfig.savedLoc = FileLoader.readClass(HashMap.class, PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
         changeLevel(Integer.parseInt(playerLocationConfig.savedLoc.get("LevelNum")));
         changeRooms(playerLocationConfig.savedLoc.get("RoomNum"));
     }
+
     /**
      * Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
      * which can be loaded when load button is pressed.
@@ -155,7 +155,7 @@ public class MainGameArea extends GameArea {
             return;
         }
 
-        if (ServiceLocator.getPhysicsService().getPhysics().getWorld().isLocked()){
+        if (ServiceLocator.getPhysicsService().getPhysics().getWorld().isLocked()) {
             logger.error("Physics is locked!");
             return;
         }
@@ -241,8 +241,8 @@ public class MainGameArea extends GameArea {
      * Gets the file paths for all textures used in the game area.
      *
      * @return An array of String paths for textures, including:
-     *         - Common textures (player, doors, etc.)
-     *         - Tile textures for levels 1-3
+     * - Common textures (player, doors, etc.)
+     * - Tile textures for levels 1-3
      */
     @Override
     protected String[] getTextureFilepaths() {

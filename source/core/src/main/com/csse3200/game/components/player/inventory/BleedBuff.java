@@ -15,7 +15,18 @@ public class BleedBuff extends BuffItem {
   // Percentage of health to reduce per second
   private final int healthReductionPerc = 5;
 
+   /*
+        Default constructor for the BleedBuff class.
+   */
   public BleedBuff() {}
+
+  /**
+   * Applies the bleed effect to an entity. The player must hit an enemy with a weapon
+   * that can apply the bleed effect. The method listens for the
+   * "BleedWeaponHit" event to apply the effect.
+   *
+   * @param entity The player entity that will apply the bleed effect.
+   */
 
   @Override
   public void effect(Entity entity) {
@@ -23,6 +34,13 @@ public class BleedBuff extends BuffItem {
     entity.getEvents().addListener("BleedWeaponHit", this::applyBleedEffect);
 
   }
+
+  /**
+   * Applies the bleed effect to the enemy. Reduces 5% of the enemy's health per
+   * second for 5 seconds. The damage stops if the enemy's health reaches 0.
+   *
+   * @param enemy The enemy entity to apply the bleed effect to.
+   */
 
   private void applyBleedEffect(Entity enemy) {
     CombatStatsComponent enemyStats = enemy.getComponent(CombatStatsComponent.class);
@@ -44,24 +62,50 @@ public class BleedBuff extends BuffItem {
     }
   }
 
+  /**
+   * Returns the name of the item.
+   *
+   * @return the name of the item, "Bleed Buff".
+   */
   @Override
   public String getName() {
     return "Bleed Buff";
   }
 
+  /**
+   * Returns the icon representing the BleedBuff item.
+   *
+   * @return a Texture object for the bleed icon.
+   */
   @Override
   public Texture getIcon() {
     return new Texture("images/items/bleed.png");
   }
 
+  /**
+   * Drops the BleedBuff item from the player's inventory.
+   *
+   * @param inventory The inventory from which the item is dropped.
+   */
+
   @Override
   public void drop(Inventory inventory) {}
 
+  /**
+   * Returns a string that specifies the type of buff.
+   *
+   * @return the buff specification as a string, "bleedbuff".
+   */
   @Override
   public String getBuffSpecification() {
     return "bleedbuff";
   }
 
+  /**
+   * Returns the percentage of health reduced per second by the bleed effect.
+   *
+   * @return the health reduction percentage (5%).
+   */
   public int getHealthReductionPerc() {
     return healthReductionPerc;
   }

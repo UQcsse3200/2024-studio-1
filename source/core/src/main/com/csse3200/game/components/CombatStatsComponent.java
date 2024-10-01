@@ -255,12 +255,6 @@ public class CombatStatsComponent extends Component {
                 damage = applyCrit(damage, playerStats.getCritChance());
             }
 
-            /*  boolean causesBleed = *The weapons that cause bleed*;
-            if (causesBleed){
-                entity.getEvents().trigger("BleedWeaponHit", entity);
-            }
-           */
-
             int newHealth = getHealth() - damage;
             setHealth(newHealth);
             //add animationcontroller

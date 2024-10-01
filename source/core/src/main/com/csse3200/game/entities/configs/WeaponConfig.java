@@ -18,13 +18,13 @@ public class WeaponConfig {
         weaponConfigs.put("shotgun", new WeaponData("shotgun", 10, 10,
                 5, 20, 20, 3, "images" +
                 "/Weapons/Centered/Shotgun.png"));
-        weaponConfigs.put("plasmablaster", new WeaponData("PlasmaBlaster", 10,
+        weaponConfigs.put("plasmablaster", new WeaponData("plasmaBlaster", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/PlasmaBlaster.png"));
-        weaponConfigs.put("supersoaker", new WeaponData("SuperSoaker", 10,
+        weaponConfigs.put("supersoaker", new WeaponData("superSoaker", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/SuperSoaker.png"));
-        weaponConfigs.put("fnscar", new WeaponData("FnScar", 10,
+        weaponConfigs.put("fnscar", new WeaponData("fnScar", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/FnScar.png"));
 

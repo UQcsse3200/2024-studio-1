@@ -37,12 +37,12 @@ public class PlayerConfigGenerator {
 
         // obtain the specification of melee of player, if any
         config.melee = inventoryComponent.getInventory().getMelee()
-                .map(MeleeWeapon::getName)
+                .map(MeleeWeapon::getSpecification)
                 .orElse("");
 
         //obtain the specification of ranged weapon of player, if any
         config.ranged = inventoryComponent.getInventory().getRanged()
-                .map(RangedWeapon::getName)
+                .map(RangedWeapon::getSpecification)
                 .orElse("");
 
         return config;

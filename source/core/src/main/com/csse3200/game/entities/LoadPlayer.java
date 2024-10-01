@@ -35,20 +35,21 @@ import static org.slf4j.LoggerFactory.getLogger;
  *
  */
 public class LoadPlayer {
-    private final WeaponFactory weaponFactory;
     private final ItemFactory itemFactory;
     private final InventoryComponent inventoryComponent;
     private static final float playerScale = 0.75f;
     private static final Logger logger = getLogger(LoadPlayer.class);
+    private CollectibleFactory collectibleFactory;
 
 
     /**
      * Constructs a new LoadPlayer instance, initializing factories and inventory component.
      */
     public LoadPlayer() {
-        this.weaponFactory = new WeaponFactory();
+        this.collectibleFactory = new CollectibleFactory();
         this.itemFactory = new ItemFactory();
         this.inventoryComponent = new InventoryComponent();
+
     }
 
     /**
@@ -130,8 +131,7 @@ public class LoadPlayer {
      * @param player the player entity to which the melee weapon will be added.
      */
     public void createMelee(PlayerConfig config, Entity player) {
-        // calls create method in weapon factory to initialise a weapon
-        Collectible melee = weaponFactory.create(Collectible.Type.MELEE_WEAPON, config.melee);
+        Collectible melee = collectibleFactory.create(config.ranged);
         if (melee instanceof MeleeWeapon meleeWeapon) {
             inventoryComponent.getInventory().setMelee(meleeWeapon); // Set melee weapon in the inventory
         }
@@ -146,7 +146,7 @@ public class LoadPlayer {
      */
     public void createRanged(PlayerConfig config, Entity player) {
 
-        Collectible ranged = weaponFactory.create(Collectible.Type.RANGED_WEAPON, config.ranged);
+        Collectible ranged = collectibleFactory.create(config.ranged);
         if (ranged instanceof RangedWeapon rangedWeapon) {
             inventoryComponent.pickup(rangedWeapon); // Set melee weapon in the inventory
         }
@@ -169,7 +169,6 @@ public class LoadPlayer {
         }
 
         if (config.items != null) {
-            CollectibleFactory collectibleFactory = new CollectibleFactory();
             for (String itemName : config.items) {
                 Collectible item = collectibleFactory.create(itemName);
                 inventoryComponent.getInventory().addItem(item);

@@ -179,7 +179,7 @@ public class PetFactory extends LoadedFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PET))
             .addComponent(aiComponent)
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack,true))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDeathHandler()) 

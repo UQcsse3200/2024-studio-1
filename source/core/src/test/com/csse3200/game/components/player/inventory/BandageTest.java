@@ -49,11 +49,13 @@ public class BandageTest {
 
     @Test
     public void testApplyIncreasesHealth() {
-        // Initialize initial health and expected health
-        int initialHealth = 90;
-        int expectedHealth = 100; // Health should cap at 100
+        // Initialize initial health and expected health after applying Bandage
+        int initialHealth = 140;
+        int maxHealth = 150; // Assuming max health is 150
+        int expectedHealth = Math.min(initialHealth + 20, maxHealth); //health should cap at 150
 
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
+        when(combatStatsComponent.getMaxHealth()).thenReturn(maxHealth);
 
         bandage.apply(entity);
 
@@ -62,11 +64,13 @@ public class BandageTest {
 
     @Test
     public void testApplyIncreasesHealthFromZero() {
-        // Initialize initial health as 0 and expected health after applying Medkit
+        // Initialize initial health as 0 and expected health after applying Bandage
         int initialHealth = 0;
-        int expectedHealth = 20;
+        int maxHealth = 100; // Assuming max health is 100
+        int expectedHealth = Math.min(initialHealth + 20, maxHealth);
 
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
+        when(combatStatsComponent.getMaxHealth()).thenReturn(maxHealth);
 
         bandage.apply(entity);
 

@@ -1,5 +1,4 @@
 package com.csse3200.game.components.player.inventory;
-import com.csse3200.game.areas.GameArea;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.CombatStatsComponent;
@@ -53,7 +52,7 @@ public class DamageBuffTest {
     public void testGetItemSpecification() {assertEquals("damagebuff", damageBuff.getBuffSpecification());}
 
     @Test
-    public void testGetBuff() {assertEquals(5, damageBuff.getBuff());}
+    public void testGetBuff() {assertEquals(15, damageBuff.getBuff());}
 
     @Test
     public void testBaseDamageBuff() {assertEquals(0, player.getComponent(CombatStatsComponent.class).getDamageBuff());}
@@ -62,7 +61,7 @@ public class DamageBuffTest {
     public void testDamageBuff()
     {
         damageBuff.effect(player);
-        assertEquals(5, player.getComponent(CombatStatsComponent.class).getDamageBuff());
+        assertEquals(15, player.getComponent(CombatStatsComponent.class).getDamageBuff());
     }
 
     @Test
@@ -71,6 +70,6 @@ public class DamageBuffTest {
         CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);
         CombatStatsComponent victimStats = enemy.getComponent(CombatStatsComponent.class);
         victimStats.hit(playerStats);
-        assertEquals(90, victimStats.getHealth());
+        assertEquals(80, victimStats.getHealth());
     }
 }

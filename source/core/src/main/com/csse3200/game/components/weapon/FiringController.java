@@ -3,13 +3,13 @@ package com.csse3200.game.components.weapon;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.components.player.PlayerActions;
-import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
@@ -21,7 +21,7 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Controller for firing weapons (predecessor: WeaponComponent)
@@ -56,8 +56,6 @@ public class FiringController extends Component {
     private Entity player;
     private short targetLayer;                          // Layer to target for melee weapon
     private final boolean isMelee;
-
-    private Timer timer;                                // Used for trigger reload event
 
     /**
      * Initialize the firing controller for ranged weapon
@@ -113,7 +111,6 @@ public class FiringController extends Component {
     public void create() {
         // No action by default.
         this.projectileFactory = new ProjectileFactory();
-        this.timer  = new Timer();
     }
 
     /**
@@ -189,12 +186,12 @@ public class FiringController extends Component {
                 this.setAmmo(-2);
                 // Offset time so that the weapon must wait extra long for reload time
                 currentTime += this.getReloadTime() * 1000L - this.activationInterval;
-                timer.schedule(new TimerTask() {
+                Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
                         getPlayer().getEvents().trigger("ranged_activate", getMaxAmmo());
                     }
-                }, this.reloadTime*1000);
+                }, this.reloadTime * 1000L);
                 logger.info("Ranged weapon reloading");
                 ServiceLocator.getResourceService().playSound("sounds/shotgun1_r.ogg");
             } else {
@@ -204,7 +201,6 @@ public class FiringController extends Component {
                 // Create projectiles
                 for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
                         direction, this.getEntity().getPosition())) {
-                    e.getComponent(ProjectileAttackComponent.class).create();
                     ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
                             new GridPoint2(9, 9), true, true);
                 }

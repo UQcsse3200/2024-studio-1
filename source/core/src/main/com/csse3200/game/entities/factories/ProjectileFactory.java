@@ -2,7 +2,6 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
@@ -31,8 +30,8 @@ import static java.lang.Math.*;
  * Factory for producing entities with a projectile themed component configuration.
  */
 public class ProjectileFactory extends LoadedFactory {
-
     private static final Logger logger = LoggerFactory.getLogger(ProjectileFactory.class);
+
     public ProjectileFactory() {
         super(logger);
     }

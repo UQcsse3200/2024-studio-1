@@ -1,8 +1,13 @@
 {
   "name": "default",
-  "health": 60,
-  "favouriteColour": "peach",
+  "health": 100,
+  "coins": 0,
+  "speed": {
+    "x": 3,
+    "y": 3
+  },
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
-  "items": ["bandage","energydrink"]
+  "melee": "pickaxe",
+  "ranged": "shotgun"
 }

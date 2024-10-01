@@ -17,6 +17,7 @@ public class NPCConfigs {
   public NPCConfig dragon = new NPCConfig();
   public NPCConfig birdman = new NPCConfig();
   public NPCConfig kitsune = new NPCConfig();
+  public NPCConfig ringFire = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
 

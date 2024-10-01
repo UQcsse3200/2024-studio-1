@@ -6,6 +6,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.DeployableItemFactory;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.tasks.FollowTask;
+import com.csse3200.game.entities.factories.PetFactory;
 
 public class RingFire extends UsableItem {
     @Override
@@ -14,14 +15,12 @@ public class RingFire extends UsableItem {
     }
 
     private void spawnRingFire(Entity entity) {
-        Entity ringFire = new DeployableItemFactory().createRingFire();
-
-        // Spawn it at the player's current position
-        //North
-        int NxPos = (int) entity.getPosition().x;
-        int NyPos = (int) entity.getPosition().y + 2;
-
-        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(ringFire, new GridPoint2(NxPos, NyPos), true, true);
+        Entity ringFire = new PetFactory().createRingFire();
+        int xPos = (int) entity.getPosition().x;
+        int yPos = (int) entity.getPosition().y;
+        entity.getComponent(InventoryComponent.class).getInventory().addPet(ringFire);
+        ServiceLocator.getEntityService().register(ringFire);
+        ringFire.setPosition(xPos,yPos);
     }
 
     @Override

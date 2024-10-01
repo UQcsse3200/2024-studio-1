@@ -60,6 +60,7 @@ public class ItemFactory {
             case "heart" -> createHeart();
             case "feather" -> createFeather();
             case "tombstone" -> createTombstone();
+            case "ringfire" -> createRingFire();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -143,5 +144,6 @@ public class ItemFactory {
     private Collectible createTombstone() {
         return new Tombstone();
     }
+    private Collectible createRingFire() {return new RingFire();}
 }
 

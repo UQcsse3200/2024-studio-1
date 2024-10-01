@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.ai.tasks.BossAITaskComponent;
@@ -20,6 +21,7 @@ import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
+import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +73,7 @@ public class PetFactory extends LoadedFactory {
       case "Bat" -> this.createBat();
       case "Dog" -> this.createDog();
       case "Minotaur" -> this.createMinotaur();
+      case "ringFire" -> this.createRingFire();
       default -> throw new IllegalArgumentException("Unknown animal: " + specification);
     };
   }
@@ -159,6 +162,15 @@ public class PetFactory extends LoadedFactory {
     return minotaur;
   }
 
+  public Entity createRingFire() {
+    NPCConfigs.NPCConfig config = configs.ringFire;
+    AITaskComponent aiComponent = createAIComponent(config.tasks);
+    TextureRenderComponent animator = new TextureRenderComponent("images/items/Ring_Of_Fire.png");
+    Entity ringFire = createBaseNPCTexture("ringFire", aiComponent, config, animator);
+
+    return ringFire;
+  }
+
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
@@ -183,6 +195,33 @@ public class PetFactory extends LoadedFactory {
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDeathHandler()) 
+            .addComponent(new DirectionalNPCComponent(config.isDirectional))
+            .addComponent(new NPCAnimationController())
+            .addComponent(new NPCConfigComponent(config));
+
+    if (config.attacks.melee != null) {
+      npc.addComponent(new MeleeAttackComponent(player, config.attacks.melee.range, config.attacks.melee.rate,
+              config.attacks.melee.effects));
+    }
+    PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+    npc.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return npc;
+  }
+
+  private static Entity createBaseNPCTexture(String name, Component aiComponent, NPCConfigs.NPCConfig config,
+                                      TextureRenderComponent animator) {
+    Entity player = ServiceLocator.getEntityService().getPlayer();
+    Entity npc = new Entity()
+            .addComponent(new NameComponent(name))
+            .addComponent(new PhysicsComponent())
+            .addComponent(new PhysicsMovementComponent())
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PET))
+            .addComponent(aiComponent)
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack,true))
+            .addComponent(animator)
+            .addComponent(new NPCHealthBarComponent())
+            .addComponent(new NPCDeathHandler())
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController())
             .addComponent(new NPCConfigComponent(config));

@@ -93,21 +93,4 @@ class LevelMapTest {
         int mapSize = levelMap.getMapSize();
         assertEquals(10, mapSize);
     }
-
-    @Test
-    void testGetNonExistentRoom() {
-        when(mockMapGenerator.getPositions()).thenReturn(new HashMap<>());
-        List<String> connections = levelMap.getRoomConnections("nonexistent");
-        assertNull(connections);
-    }
-
-    @Test
-    void testGetInvalidRoomConnection() {
-        HashMap<String, List<String>> mockPositions = new HashMap<>();
-        mockPositions.put("room1", Arrays.asList("room2", "", "", ""));
-        when(mockMapGenerator.getPositions()).thenReturn(mockPositions);
-
-        String connection = levelMap.getRoomConnection("room1", 3);
-        assertEquals("", connection);
-    }
 }

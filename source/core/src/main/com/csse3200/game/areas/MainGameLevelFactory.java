@@ -13,13 +13,14 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
+
 /**
  * This is the main game mode.
  */
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
     private static final Logger log = LoggerFactory.getLogger(MainGameLevelFactory.class);
-    public static final String MAP_SAVE_PATH = "saves/MapSave.json";
     private int levelNum;
     private final Map<String, Room> rooms;
     private final List<String> completedRooms;
@@ -117,7 +118,7 @@ public class MainGameLevelFactory implements LevelFactory {
      * is later set to completed in the create method above
      * @param filePath: Path for the save file
      */
-    public void loadFromJson (String filePath) {
+    public void loadFromJson(String filePath) {
         MapLoadConfig mapLoadConfig = new MapLoadConfig();
         mapLoadConfig.savedMap = FileLoader.readClass(ArrayList.class, filePath, FileLoader.Location.EXTERNAL);
         loadedSeed = mapLoadConfig.savedMap.getFirst();

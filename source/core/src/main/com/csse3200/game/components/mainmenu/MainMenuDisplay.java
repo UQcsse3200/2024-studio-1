@@ -7,9 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.areas.MainGameArea;
-import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.entities.configs.PlayerLocationConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.options.GameOptions.Difficulty;
@@ -17,7 +15,9 @@ import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 
 import static com.csse3200.game.services.ServiceLocator.getResourceService;
 
@@ -46,10 +46,11 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     private static boolean loadFilesExist() {
-        PlayerLocationConfig playerLocationConfig = FileLoader.readClass(PlayerLocationConfig.class, MainGameArea.PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
-        MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class, MainGameArea.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        HashMap playerLocationConfig = FileLoader.readClass(HashMap.class, MainGameArea.PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        ArrayList mapLoadConfig = FileLoader.readClass(ArrayList.class, MainGameArea.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
         PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class, "configs/player_save.json", FileLoader.Location.EXTERNAL);
 
+        logger.info("{}\n{}\n{}", playerConfig, mapLoadConfig, playerLocationConfig);
         return playerLocationConfig != null && mapLoadConfig != null && playerConfig != null;
     }
 

@@ -2,9 +2,6 @@ package com.csse3200.game.areas.Generation;
 
 import java.util.*;
 
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
-import com.badlogic.gdx.graphics.g3d.particles.ParticleSorter;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
 /**

@@ -11,7 +11,7 @@ public class MainRoom extends EnemyRoom {
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
                 List.of("Snake", "Dog"),
-                List.of("Bear", "Snake", "Dino"),
+                List.of("Bear", "Snake", "Dino", "Dragon"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),
                 List.of("Bat", "Bat", "Bat"),
@@ -31,7 +31,6 @@ public class MainRoom extends EnemyRoom {
                 List.of("melee:knife", "item:bandage", "ranged:shotgun", "item:shieldpotion", "item:medkit"),
                 List.of("buff:energydrink:Medium", "item:shieldpotion", "ranged:shotgun", "melee:knife", "item:bandage"),
                 List.of("item:medkit", "melee:knife", "buff:energydrink:High", "ranged:shotgun", "item:shieldpotion")
-                
         );
     }
 
@@ -39,7 +38,8 @@ public class MainRoom extends EnemyRoom {
                     CollectibleFactory collectibleFactory,
                     TerrainFactory terrainFactory,
                     List<String> roomConnections,
-                    String specification) {
-        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification);
+                    String specification,
+                    String roomName) {
+        super(npcFactory, collectibleFactory, terrainFactory, roomConnections, specification, roomName);
     }
 }

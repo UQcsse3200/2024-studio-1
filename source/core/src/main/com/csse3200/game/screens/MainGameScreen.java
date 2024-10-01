@@ -33,6 +33,7 @@ import com.csse3200.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
@@ -52,7 +53,6 @@ public class MainGameScreen extends ScreenAdapter {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
             "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/black_dot_transparent.png"
     };
-
     // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
 
@@ -79,10 +79,9 @@ public class MainGameScreen extends ScreenAdapter {
     private Entity ui;
     public static boolean isPaused = false;
 
-
     public MainGameScreen(GdxGame game) {
         this.game = game;
-        game.setScreenColour(DEFAULT);
+        game.setScreenColour(GdxGame.ScreenColour.GREY);
         isPaused = false;
 
         GameOptions gameOptions = game.gameOptions;
@@ -120,25 +119,29 @@ public class MainGameScreen extends ScreenAdapter {
         Stage stage = ServiceLocator.getRenderService().getStage();
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
 
+        // todo load based on what the user chose
+        boolean shouldLoad = gameOptions.shouldLoad;
+        logger.info("Should start from save file: {}", shouldLoad);
+
         /**
          * based on the characters selected, changed the link
          * If Player choose Load, then create
          */
-        // todo confirm which players should be passed into PlayerFactory
-        this.playerFactory = new PlayerFactory(List.of(
-                PLAYERS
-        ));
+        this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         Entity player = playerFactory.createPlayer(
-                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name);
+                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name,
+                gameOptions.difficulty);
 
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
-        LevelFactory levelFactory = new MainGameLevelFactory();
+
+        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad);
+
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
-            new MainGameArea(levelFactory, player);
+            new MainGameArea(levelFactory, player, shouldLoad);
         }
     }
 

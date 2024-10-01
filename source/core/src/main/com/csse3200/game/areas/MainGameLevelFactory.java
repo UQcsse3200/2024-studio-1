@@ -38,23 +38,28 @@ public class MainGameLevelFactory implements LevelFactory {
 
     @Override
     public Level create(int levelNumber) {
-        //loads map seed from the save file if Load button was checked.
+        String seed;
+        // default seed for junit tests
         if (!shouldLoad) {
-            map = new LevelMap("seed", DEFAULT_MAP_SIZE);
+            seed = "seed_" + levelNumber + "_";
+            map = new LevelMap(seed, DEFAULT_MAP_SIZE);
         } else {
+            // For loaded games, append the level number to the loaded seed
             loadFromJson(MAP_SAVE_PATH);
-            map = new LevelMap(loadedSeed, DEFAULT_MAP_SIZE);
+            seed = loadedSeed + "_" + levelNumber;
+            map = new LevelMap(seed, DEFAULT_MAP_SIZE);
         }
-            RoomFactory roomFactory = new RoomFactory(
-                    new NPCFactory(),
-                    new CollectibleFactory(),
-                    new TerrainFactory(levelNumber)
-            );
-            // Sprint 4 Switch the MapGenerator to use Rooms
+
+        RoomFactory roomFactory = new RoomFactory(
+                new NPCFactory(),
+                new CollectibleFactory(),
+                new TerrainFactory(levelNumber)
+        );
+
         Set<String> roomKeySet = map.mapData.getPositions().keySet();
-            for (String roomKey : roomKeySet) {
-                int itemIndex = map.mapData.getRoomDetails().get(roomKey).get("item_index");
-                int animalIndex = map.mapData.getRoomDetails().get(roomKey).get("animal_index");
+        for (String roomKey : roomKeySet) {
+            int itemIndex = map.mapData.getRoomDetails().get(roomKey).get("item_index");
+            int animalIndex = map.mapData.getRoomDetails().get(roomKey).get("animal_index");
             int roomType = map.mapData.getRoomDetails().get(roomKey).get("room_type");
             switch (roomType) {
                 case MapGenerator.BOSSROOM:
@@ -63,30 +68,35 @@ public class MainGameLevelFactory implements LevelFactory {
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.NPCROOM:
-                rooms.put(roomKey, roomFactory.createShopRoom(
-                    map.mapData.getPositions().get(roomKey),
-                    "0,0,14,10," + 0 + "," + levelNumber, roomKey));
+                    rooms.put(roomKey, roomFactory.createShopRoom(
+                            map.mapData.getPositions().get(roomKey),
+                            "0,0,14,10," + 0 + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.GAMEROOM:
-                rooms.put(roomKey, roomFactory.createGambleRoom(
-                    map.mapData.getPositions().get(roomKey),
-                    "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
+                    rooms.put(roomKey, roomFactory.createGambleRoom(
+                            map.mapData.getPositions().get(roomKey),
+                            "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 default:
                     rooms.put(roomKey, roomFactory.createRoom(
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + animalIndex + "," + itemIndex, roomKey));
-
                     break;
             }
-            }
+        }
+
         if (shouldLoad) {
-            //sets the completed rooms extracted from save file to be complete in the game.
             setRoomsComplete(loadedRooms);
             shouldLoad = false;
         }
+
+        // Store the current level number
+        this.levelNum = levelNumber;
+
         return new Level(map, levelNumber, rooms);
     }
+
+
     /**
      * Exports the map data to a JSON file.
      *

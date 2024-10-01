@@ -161,7 +161,7 @@ public class MainGameArea extends GameArea {
         currentPosition.put("RoomNum", currentRoomName);
         //exports the current player location (room and level details into a json).
         System.out.println("roomComplete?:" + currentRoom.getIsRoomComplete());
-        FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
+        FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
     }
 
     /**
@@ -169,7 +169,7 @@ public class MainGameArea extends GameArea {
      */
     public void loadMapLocation() {
         PlayerLocationConfig playerLocationConfig = new PlayerLocationConfig();
-        playerLocationConfig.savedLoc = FileLoader.readClass(HashMap.class, PLAYER_SAVE_PATH, FileLoader.Location.LOCAL);
+        playerLocationConfig.savedLoc = FileLoader.readClass(HashMap.class, PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
         changeLevel(Integer.parseInt(playerLocationConfig.savedLoc.get("LevelNum")));
         changeRooms(playerLocationConfig.savedLoc.get("RoomNum"));
     }

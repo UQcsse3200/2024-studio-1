@@ -1,10 +1,8 @@
 package com.csse3200.game.areas.Generation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g3d.particles.ParticleSorter;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.utils.RandomNumberGenerator;
@@ -14,12 +12,13 @@ import com.csse3200.game.utils.RandomNumberGenerator;
  * It creates rooms, connects them, and provides methods to manipulate and export the map.
  */
 public class MapGenerator {
+    public Map<String, String> RoomKeys = new HashMap<String, String>();
     public static final int BASEROOM = 0;
     public static final int BOSSROOM = 1;
     public static final int NPCROOM = 2;
     public static final int GAMEROOM = 3;
 
-    
+
     public int mapSize;
     public RandomNumberGenerator rng;
     public String player_position;
@@ -229,6 +228,7 @@ public class MapGenerator {
         String bossRoom = findFurthestRoom();
         HashMap<String, Integer> details = roomDetails.get(bossRoom);
         details.put("room_type", BOSSROOM);
+        RoomKeys.put("Boss", bossRoom);
         setRooms.add(bossRoom);
 
         // More Different Rooms

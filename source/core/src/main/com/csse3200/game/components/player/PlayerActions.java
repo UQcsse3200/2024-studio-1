@@ -180,14 +180,16 @@ public class PlayerActions extends Component {
         }
     }
 
-    public void use(UsableItem item) {
-        Inventory inventory = inventoryComponent.getInventory();
-        for (Collectible collectedItem : inventory.getItems()) {
-            if (collectedItem.getClass() == item.getClass()) {
-                item.apply(entity);
-                entity.getEvents().trigger("itemUsed");
-                inventoryComponent.drop(collectedItem);
-                break;
+    private void use(UsableItem item) {
+        if (!dead) {
+            Inventory inventory = inventoryComponent.getInventory();
+            for (Collectible collectedItem : inventory.getItems()) {
+                if (collectedItem.getClass() == item.getClass()) {
+                    item.apply(entity);
+                    entity.getEvents().trigger("itemUsed");
+                    inventoryComponent.drop(collectedItem);
+                    break;
+                }
             }
         }
     }

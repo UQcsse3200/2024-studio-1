@@ -20,7 +20,6 @@ public abstract class EnemyRoom extends BaseRoom {
     protected List<List<String>> animalSpecifications;
     protected boolean isBossRoom = false;
     private List<Entity> enemies = new ArrayList<>();
-    private List<Entity> pets = new ArrayList<>();
 
     public EnemyRoom(
             NPCFactory npcFactory,
@@ -35,6 +34,10 @@ public abstract class EnemyRoom extends BaseRoom {
 
         List<String> split = List.of(specification.split(","));
         this.animalGroup = Integer.parseInt(split.get(4));
+
+
+
+
         
     }
 
@@ -59,13 +62,11 @@ public abstract class EnemyRoom extends BaseRoom {
         }
     }
 
-
-    
-    protected void makeAllAnimalDead() {
+    public void makeAllAnimalDead() {
         for (Entity entity : enemies) {
             CombatStatsComponent combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
             if (combatStatsComponent != null) {
-                combatStatsComponent.setHealth(1);
+                combatStatsComponent.setHealth(0);
                 combatStatsComponent.hit(combatStatsComponent);
             }
         }
@@ -109,7 +110,6 @@ public abstract class EnemyRoom extends BaseRoom {
                 }
             }
         }
-        //makeAllAnimalDead();
     }
 
     @Override

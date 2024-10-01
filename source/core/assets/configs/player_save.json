@@ -1,13 +1,16 @@
 {
-health: 75
-name: necromancer
-items: []
+health: 35
+name: default
+items: [
+	item:beartrap
+]
 speed: {
-	x: 2.25
-	y: 2.25
+	x: 3
+	y: 3
 }
-melee: melee:axe
-ranged: ranged:shotgun
+coins: 40
+melee: ""
+ranged: ranged:Shotgun
 textureFilename: images/player/player.png
 textureAtlasFilename: images/player/player.atlas
 }

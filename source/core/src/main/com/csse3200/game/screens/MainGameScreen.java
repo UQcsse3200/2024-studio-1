@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
@@ -106,6 +107,7 @@ public class MainGameScreen extends ScreenAdapter {
         this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());
+        ServiceLocator.getRenderService().setSecondaryCamera(this.renderer.getSecondaryCamera());
 
         loadAssets();
         createUI();
@@ -128,9 +130,16 @@ public class MainGameScreen extends ScreenAdapter {
          * If Player choose Load, then create
          */
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
-        Entity player = playerFactory.createPlayer(
-                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name,
-                gameOptions.difficulty);
+        Entity player;
+        if (shouldLoad) {
+            player = playerFactory.createPlayer("configs/player_save.json",
+                    gameOptions.difficulty);
+            System.out.println(player.getComponent(CombatStatsComponent.class).getHealth());
+        } else {
+            player = playerFactory.createPlayer(chosenPlayer,
+                    gameOptions.difficulty);
+        }
+
 
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
@@ -249,3 +258,4 @@ public class MainGameScreen extends ScreenAdapter {
         ServiceLocator.getEntityService().register(ui);
     }
 }
+

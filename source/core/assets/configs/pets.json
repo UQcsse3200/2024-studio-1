@@ -3,8 +3,11 @@
     "health": 100,
     "baseAttack": 10,
     "tasks": {
-      "straightWander": {
-        "wanderSpeed": 2
+      "follow": {
+        "followRadius": 3,
+        "waitTime": 2,
+        "followDistance": 2,
+        "followSpeed": 5
       },
       "chase": {
         "priority": 5,
@@ -39,10 +42,11 @@
     "baseAttack": 35,
     "isDirectional": true,
     "tasks": {
-      "wander": {
-        "wanderRadius": 3,
+      "follow": {
+        "followRadius": 3,
         "waitTime": 2,
-        "wanderSpeed": 0.5
+        "followDistance": 2,
+        "followSpeed": 5
       },
       "chase": {
         "priority": 10,
@@ -87,8 +91,11 @@
     "health": 50,
     "baseAttack": 10,
     "tasks": {
-      "straightWander": {
-        "wanderSpeed": 1.5
+      "follow": {
+        "followRadius": 3,
+        "waitTime": 2,
+        "followDistance": 2,
+        "followSpeed": 5
       },
       "chase": {
         "priority": 10,
@@ -123,6 +130,12 @@
     "baseAttack": 20,
     "isDirectional": true,
     "tasks": {
+      "follow": {
+        "followRadius": 3,
+        "waitTime": 2,
+        "followDistance": 2,
+        "followSpeed": 5
+      },
       "wander": {
         "wanderRadius": 4,
         "waitTime": 2,
@@ -160,6 +173,12 @@
     "baseAttack": 10,
     "isDirectional": true,
     "tasks": {
+      "follow": {
+        "followRadius": 3,
+        "waitTime": 2,
+        "followDistance": 2,
+        "followSpeed": 5
+      },
       "wander": {
         "wanderRadius": 2,
         "waitTime": 6,

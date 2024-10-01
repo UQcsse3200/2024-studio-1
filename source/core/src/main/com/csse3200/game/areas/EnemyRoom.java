@@ -20,7 +20,6 @@ public abstract class EnemyRoom extends BaseRoom {
     protected List<List<String>> animalSpecifications;
     protected boolean isBossRoom = false;
     private List<Entity> enemies = new ArrayList<>();
-    private List<Entity> pets = new ArrayList<>();
 
     public EnemyRoom(
             NPCFactory npcFactory,

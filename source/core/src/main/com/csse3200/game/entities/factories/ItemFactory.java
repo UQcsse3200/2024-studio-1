@@ -58,6 +58,7 @@ public class ItemFactory {
             case "targetdummy" -> createTargetDummy();
             case "beartrap" -> createBearTrap();
             case "heart" -> createHeart();
+            case "feather" -> createFeather();
             case "divinepotion" -> createDivinePotion();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
@@ -113,8 +114,16 @@ public class ItemFactory {
      */
     private Collectible createArmor() { return new Armor();}
 
+    /**
+     * Creates a damage buff item that increase the damage the player does
+     * @return damage buff item
+     */
     private Collectible createDamageBuff() { return new DamageBuff();}
 
+    /**
+     * Creates a target dummy item which spawns in a target dummy entity for enemies to attack
+     * @return TargetDummy item
+     */
     private Collectible createTargetDummy() {
         return new TargetDummy();
     }
@@ -133,6 +142,14 @@ public class ItemFactory {
      */
     private Collectible createHeart() {
         return new Heart();
+    }
+
+    /**
+     * Creates a Feather item that give the player the ability to crit hit enemies
+     * @return Feather item
+     */
+    private Collectible createFeather() {
+        return new Feather();
     }
 
     /**

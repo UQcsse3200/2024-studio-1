@@ -132,12 +132,10 @@ public class MainGameScreen extends ScreenAdapter {
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         Entity player;
         if (shouldLoad) {
-            System.out.println("Should start from save file: {}" + shouldLoad);
             player = playerFactory.createPlay("configs/player_save.json",
                     gameOptions.difficulty);
             System.out.println(player.getComponent(CombatStatsComponent.class).getHealth());
         } else {
-            System.out.println("Should start from file: {}" + chosenPlayer);
             player = playerFactory.createPlay(chosenPlayer,
                     gameOptions.difficulty);
         }

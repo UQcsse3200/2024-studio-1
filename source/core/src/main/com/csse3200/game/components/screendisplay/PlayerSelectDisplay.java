@@ -52,7 +52,7 @@ public class PlayerSelectDisplay extends UIComponent {
     }
 
     /**
-     * Populate the stage with player images and buttons to select them.
+     * Populate the stage with player animations and buttons to select them.
      */
     private void addActors() {
         rootTable = new Table();
@@ -62,7 +62,6 @@ public class PlayerSelectDisplay extends UIComponent {
         Map<String, PlayerConfig> configs =
                 PlayerSelection.getPlayerConfigs(Arrays.stream(PlayerSelection.PLAYERS).toList());
 
-        // Add images for each player
         configs.forEach((filename, config) -> {
             TextureRegion idleTexture = new TextureAtlas(config.textureAtlasFilename)
                     .findRegion("idle");

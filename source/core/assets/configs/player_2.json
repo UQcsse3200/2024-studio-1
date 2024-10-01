@@ -1,11 +1,13 @@
 {
-  "name": "the other one",
+  "name": "Player 2",
   "health": 70,
   "coins": 0,
   "speed": {
     "x": 5,
     "y": 5
   },
-  "textureFilename": "images/player/player.png",
-  "textureAtlasFilename": "images/player/player.atlas"
+  "textureFilename": "images/player/homeless1.png",
+  "textureAtlasFilename": "images/player/homeless1.atlas",
+  "melee": "melee:Axe",
+  "ranged": "ranged:Shotgun"
 }

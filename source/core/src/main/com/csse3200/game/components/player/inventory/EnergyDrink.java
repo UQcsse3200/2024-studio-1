@@ -23,7 +23,7 @@ public class EnergyDrink extends BuffItem {
     /**
      * The maximum speed that the energy drink effect can sum to
      */
-    Vector2 maxSpeed = new Vector2(6f, 6f);
+    Vector2 maxSpeed = new Vector2(4.5f, 4.5f);
     /**
      * The speed associated with this energy drink type. This variable is used
      * to update the UI of the speed percentage stats
@@ -98,10 +98,6 @@ public class EnergyDrink extends BuffItem {
     @Override
     public void drop(Inventory inventory) {
 
-    }
-
-    public void pickup(Inventory inventory, Entity itemEntity) {
-        super.pickup(inventory);
     }
 
     /**

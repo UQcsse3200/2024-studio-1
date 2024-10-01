@@ -106,6 +106,7 @@ public class MainGameScreen extends ScreenAdapter {
         this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());
+        ServiceLocator.getRenderService().setSecondaryCamera(this.renderer.getSecondaryCamera());
 
         loadAssets();
         createUI();
@@ -178,8 +179,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     @Override
     public void pause() {
-        List<String> entityNames = ServiceLocator.getEntityService().getEntityNames();
-        logger.info("Game paused, {} Entities\n{}", entityNames.size(), String.join("\n", entityNames));
+        logger.info("Game paused, {}", ServiceLocator.getEntityService());
     }
 
     @Override

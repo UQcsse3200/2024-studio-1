@@ -18,7 +18,7 @@ public class DialogComponent extends RenderComponent {
     public static final float PADDING = 0.1f;
     public static float WIDTH = 0f;
     public static final float HEIGHT = 0.4f+PADDING*2;
-    public static final float OFFSET_Y = 1f;
+    public static final float OFFSET_Y = 1.5f;
 
     private static String text = "";
     private static String glyphText = "";

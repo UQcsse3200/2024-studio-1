@@ -35,7 +35,13 @@ public class MinimapTileTest {
             assertEquals(TiledMapTile.BlendMode.NONE, minimapTile.getBlendMode());
         }
 
-
+        @Test
+        void testGetSetTextureRegion() {
+        assertEquals(textureRegion, minimapTile.getTextureRegion());
+        TextureRegion newRegion = new TextureRegion();
+        minimapTile.setTextureRegion(newRegion);
+        assertEquals(newRegion, minimapTile.getTextureRegion());
+        }
 
         @Test
         void testGetSetOffsetX() {

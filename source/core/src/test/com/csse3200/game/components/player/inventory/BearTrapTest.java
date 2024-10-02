@@ -67,6 +67,6 @@ public class BearTrapTest {
     @Test
     public void testGetItemSpecification() {
         BearTrap bearTrapItem = new BearTrap();
-        assertEquals("bearTrap", bearTrapItem.getItemSpecification());
+        assertEquals("beartrap", bearTrapItem.getItemSpecification());
     }
 }

@@ -81,7 +81,7 @@ public class PlayerInventoryDisplay extends UIComponent {
     public void create() {
         super.create();
         itemLabels = new HashMap<>();
-       //itemIcons = new HashMap<>();
+        //itemIcons = new HashMap<>();
         addActors();
         updateInventoryUI();
         if (entity.getEvents() != null) {
@@ -131,13 +131,13 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     private void addItems() {
         addItem("Medkit", new MedKit().getIcon());
-        addItem("Shield", new ShieldPotion().getIcon());
+        addItem("Shield Potion", new ShieldPotion().getIcon());
         addItem("Bandage", new Bandage().getIcon());
         addItem("Target Dummy", new TargetDummy().getIcon());
         addItem("Bear Trap", new BearTrap().getIcon());
-        //addItem("Big Red Button", new BigRedButton().getIcon());
-        addItem("Teleport Item", new TeleporterItem().getIcon());
-        addItem("ReRoll", new Reroll().getIcon());
+        addItem("BigRedButton", new BigRedButton().getIcon());
+        addItem("Teleporter", new TeleporterItem().getIcon());
+        addItem("Reroll", new Reroll().getIcon());
     }
 
     /**

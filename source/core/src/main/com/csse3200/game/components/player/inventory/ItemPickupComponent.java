@@ -124,8 +124,10 @@ public class ItemPickupComponent extends Component {
 
         int randomInt = this.random.nextInt(15);
         Entity newItem = this.randomItemGenerator(randomInt);
+//        Entity newItem = testCollectibleFactory.createCollectibleEntity("item:shieldpotion");
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
+//        area.spawnEntityAt(newItem, itemEntityPosition, true, true);
         entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
         itemEntity = newItem;
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
@@ -182,6 +184,7 @@ public class ItemPickupComponent extends Component {
         if(contact) {
             inventory.pickup(item);
             markEntityForRemoval(itemEntity);
+            this.itemEntity.getEvents().trigger("itemChose");
         }
 
         lastPickedUpEntity = itemEntity; //Update the last picked up entity

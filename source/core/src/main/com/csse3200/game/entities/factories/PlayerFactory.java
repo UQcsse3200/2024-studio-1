@@ -1,27 +1,22 @@
 package com.csse3200.game.entities.factories;
 
-import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.*;
+import com.csse3200.game.components.player.PlayerHealthDisplay;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
+import com.csse3200.game.components.player.PlayerStatsDisplay;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.LoadPlayer;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.components.ColliderComponent;
-import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.physics.components.PhysicsComponent;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.options.GameOptions.Difficulty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.ArrayList;
 
 
 /**
@@ -51,6 +46,28 @@ public class PlayerFactory extends LoadedFactory {
                                .collect(Collectors.toMap(value -> value.name, value -> value));
         this.load(logger);
     }
+
+    /**
+     * Create a player entity
+     *
+     * @return entity
+     */
+    public Entity createPlayer() {
+        LoadPlayer loader = new LoadPlayer();
+        PlayerConfig config = options.get("default");
+
+        InventoryComponent inventoryComponent = new InventoryComponent();
+
+        Entity player = new Entity()
+
+
+                .addComponent(inventoryComponent)
+                .addComponent(new PlayerStatsDisplay())
+                .addComponent(new PlayerInventoryDisplay(inventoryComponent))
+                .addComponent(new PlayerHealthDisplay());
+        return loader.createPlayer(config);
+    }
+
 
     /**
      * Create a player.
@@ -105,4 +122,3 @@ public class PlayerFactory extends LoadedFactory {
 //        return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
     }
 }
-

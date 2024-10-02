@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
-class MeleeAttackComponentTest {
+class AOEAttackComponentTest {
     private GameTime gameTime;
 
     @Mock
@@ -32,7 +32,6 @@ class MeleeAttackComponentTest {
 
     @BeforeEach
     void beforeEach() {
-
         // Mock GameTime, GameAreaService and MainGameArea
         gameTime = mock(GameTime.class);
         gameAreaService = mock(GameAreaService.class);
@@ -49,60 +48,78 @@ class MeleeAttackComponentTest {
         when(mainGameArea.getPlayer()).thenReturn(player);
     }
 
-
     @Test
-    void shouldPerformAttack() {
+    void shouldPerformAOEAttack() {
         Entity target = createTarget();
-        Entity attacker = createAttacker(target);
+        Entity attacker = createAttacker(target, 5f);
         attacker.setPosition(0, 0);
-        target.setPosition(0, 1); // Within attack range
+        target.setPosition(0, 0); // Within AOE range
 
         when(gameTime.getDeltaTime()).thenReturn(1f); // Simulate time passing
 
         attacker.update();
-        assertEquals(10, target.getComponent(CombatStatsComponent.class).getHealth(),
-                "Target should have taken damage.");
-    }
-
-    @Test
-    void shouldNotAttackDuringCooldown() {
-        Entity target = createTarget();
-        Entity attacker = createAttacker(target);
-        attacker.setPosition(0, 0);
-        target.setPosition(0, 1); // Within attack range
+        // Wait for the preparation time to pass
+        when(gameTime.getDeltaTime()).thenReturn(2f); // Simulate preparation time passing
 
         attacker.update();
-        assertEquals(10, target.getComponent(CombatStatsComponent.class).getHealth(),
-                "Target should not have taken damage.");
-
-        when(gameTime.getDeltaTime()).thenReturn(0.5f); // Simulate half of cooldown time passing
-
-        attacker.update();
-        assertEquals(10, target.getComponent(CombatStatsComponent.class).getHealth(),
-                "Target should not take damage during attack cooldown.");
+        assertEquals(20, target.getComponent(CombatStatsComponent.class).getHealth());
     }
 
     @Test
     void shouldNotAttackOutOfRange() {
         Entity target = createTarget();
-        Entity attacker = createAttacker(target);
+        Entity attacker = createAttacker(target, 5f);
         attacker.setPosition(0, 0);
-        target.setPosition(0, 5); // Out of attack range
+        target.setPosition(10, 0); // Out of AOE range
 
         when(gameTime.getDeltaTime()).thenReturn(1f); // Simulate time passing
 
         attacker.update();
-        assertEquals(20, target.getComponent(CombatStatsComponent.class).getHealth(),
-                "Target should not take damage when out of attack range.");
+        // Wait for the preparation time to pass
+        when(gameTime.getDeltaTime()).thenReturn(2f); // Simulate preparation time passing
+
+        attacker.update();
+        assertEquals(20, target.getComponent(CombatStatsComponent.class).getHealth());
     }
 
-    private Entity createAttacker(Entity target) {
+    @Test
+    void shouldNotAttackDuringCooldown() {
+        Entity target = createTarget();
+        Entity attacker = createAttacker(target, 5f);
+        attacker.setPosition(0, 0);
+        target.setPosition(0, 0); // Within AOE range
+
+        attacker.update();
+        // Wait for the preparation time to pass
+        when(gameTime.getDeltaTime()).thenReturn(2f); // Simulate preparation time passing
+
+        attacker.update();
+        assertEquals(20, target.getComponent(CombatStatsComponent.class).getHealth());
+
+        when(gameTime.getDeltaTime()).thenReturn(0.5f); // Simulate half of cooldown time passing
+
+        attacker.update();
+        assertEquals(20, target.getComponent(CombatStatsComponent.class).getHealth());
+    }
+
+    @Test
+    void shouldPerformAOEAttackDirectly() {
+        Entity target = createTarget();
+        Entity attacker = createAttacker(target, 5f);
+        attacker.setPosition(0, 0);
+        target.setPosition(0, 0); // Within AOE range
+
+        AOEAttackComponent aoeAttackComponent = (AOEAttackComponent) attacker.getComponent(AOEAttackComponent.class);
+        aoeAttackComponent.executeAOEAttack();
+        assertEquals(10, target.getComponent(CombatStatsComponent.class).getHealth());
+    }
+
+    private Entity createAttacker(Entity target, float aoeRadius) {
         NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects
         Entity attacker = new Entity()
                 .addComponent(new CombatStatsComponent(10, 10))
-                .addComponent(new MeleeAttackComponent(target, 2f, 1f, effectConfigs));
+                .addComponent(new AOEAttackComponent(target, aoeRadius, 1f, effectConfigs));
         attacker.create();
-        attacker.getComponent(MeleeAttackComponent.class).setEnabled(true);
         return attacker;
     }
 

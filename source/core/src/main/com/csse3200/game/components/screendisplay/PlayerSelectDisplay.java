@@ -38,7 +38,7 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float ROOT_PADDING = 10f;
     private static final float STAT_TABLE_PADDING = 2f;
     private static final float BAR_HEIGHT = 20;
-    private static final float PROPORTION = 0.7f;
+    private static final float PROPORTION = 0.8f;
 
     /**
      * Make the component.

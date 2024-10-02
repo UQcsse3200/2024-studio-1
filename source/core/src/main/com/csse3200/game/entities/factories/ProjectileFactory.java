@@ -2,6 +2,7 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
@@ -141,8 +142,7 @@ public class ProjectileFactory extends LoadedFactory {
                                    Vector2 direction, Vector2 parentPosition,
                                    AnimationRenderComponent animator) {
 
-        Entity projectile =
-                new Entity()
+        Entity projectile = new Entity()
                         .addComponent(new NameComponent(name))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())

@@ -1,15 +1,18 @@
 package com.csse3200.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
+import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
 import com.csse3200.game.rendering.DebugRenderer;
+import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,20 +24,24 @@ import org.slf4j.LoggerFactory;
  */
 public class ChargeTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(ChargeTask.class);
-  protected final Entity target;
-  protected int priority;
-  private final int basePriority;
-  private final int triggerPriority = 15;
-  private final float viewDistance;
-  protected final float maxChaseDistance;
+  private static final int ACTIVE_PRIORITY = 10;
+    private static final int INACTIVE_PRIORITY = 8;
+  private final Entity target;
+  private final float activationMinRange;
+  private final float activationMaxRange;
   private final float chaseSpeed;
+  public final float distanceMultiplier;
   private final float waitTime;
+  private final float cooldownTime;
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
-  protected MovementTask movementTask;
-  WaitTask waitTask;
+  private GameTime gameTime;
+  private long lastExecutionTime;
+  private MovementTask movementTask;
+  private WaitTask waitTask;
   private Task currentTask;
+  private MeleeAttackComponent meleeAttackComponent;
 
   /**
    * Creates a ChargeTask.
@@ -44,14 +51,15 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
    */
   public ChargeTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config) {
     this.target = target;
-    this.priority = config.priority;
-    this.basePriority = config.priority;
-    this.viewDistance = config.viewDistance;
-    this.maxChaseDistance = config.chaseDistance;
+    this.activationMinRange = config.activationMinRange;
+    this.activationMaxRange = config.activationMaxRange;
     this.chaseSpeed = config.chaseSpeed;
+    this.distanceMultiplier = config.distanceMultiplier;
     this.waitTime = config.waitTime;
+    this.cooldownTime = config.cooldownTime;
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
+    gameTime = ServiceLocator.getTimeSource();
   }
 
   /**
@@ -59,11 +67,40 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
    */
   @Override
   public void start() {
+    logger.debug("Starting to charge towards {}", target);
     super.start();
-    if (movementTask == null) {
-      initialiseTasks();
+    Vector2 targetPos = target.getPosition();
+
+    // Adjust targetPos by multiplying the distance in the direction of the target
+    Vector2 direction = targetPos.cpy().sub(owner.getEntity().getPosition()).nor();
+    targetPos = owner.getEntity().getPosition()
+            .add(direction.scl(targetPos.dst(owner.getEntity().getPosition()) * distanceMultiplier));
+
+    // Active the attack component
+    meleeAttackComponent = owner.getEntity().getComponent(MeleeAttackComponent.class);
+    if (meleeAttackComponent != null) {
+      meleeAttackComponent.setEnabled(true);
     }
-    startMoving(); // Begin charging towards the target.
+
+    // Initialise tasks
+    if (waitTask == null) {
+      waitTask = new WaitTask(waitTime);
+      waitTask.create(owner);
+    }
+    if (movementTask == null) {
+      movementTask = new MovementTask(targetPos);
+      movementTask.create(owner);
+    }
+    movementTask.start();
+    movementTask.setTarget(targetPos);
+    movementTask.setVelocity(chaseSpeed);
+    currentTask = movementTask;
+
+    // Trigger the run animation
+    owner.getEntity().getEvents().trigger("run");
+
+    // Listen for collisions to stop charging
+    owner.getEntity().getEvents().addListener("collisionStart", this::onCollision);
   }
 
   /**
@@ -75,14 +112,32 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
       if (currentTask == movementTask && waitTime > 0) {
         startWaiting(); // After moving, start waiting if waitTime is set.
       } else {
-        if (priority == triggerPriority) {
-          resetPriority();
-        } else {
-          startMoving();
-        }
+        this.stop();
       }
     }
-    currentTask.update(); // Continue updating the active task.
+    currentTask.update();
+  }
+
+  /**
+   * Start waiting after charging.
+   */
+  private void startWaiting() {
+    logger.debug("Starting waiting");
+    if (movementTask != null) {
+      movementTask.stop();
+    }
+    currentTask = waitTask;
+    currentTask.start();
+    this.owner.getEntity().getEvents().trigger("gesture");
+  }
+
+  private void onCollision(Fixture thisFixture, Fixture otherFixture) {
+    // Check if the collision is with an NPC, player or obstacle
+    if (otherFixture.getFilterData().categoryBits == PhysicsLayer.NPC ||
+            otherFixture.getFilterData().categoryBits == PhysicsLayer.PLAYER ||
+            otherFixture.getFilterData().categoryBits == PhysicsLayer.OBSTACLE) {
+      startWaiting();
+    }
   }
 
   /**
@@ -94,6 +149,10 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     if (currentTask != null) {
       currentTask.stop();
     }
+    if (meleeAttackComponent != null) {
+      meleeAttackComponent.setEnabled(false);
+    }
+    lastExecutionTime = gameTime.getTime();
   }
 
   /**
@@ -103,107 +162,20 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
    */
   @Override
   public int getPriority() {
-    if (status == Task.Status.ACTIVE) {
-      return getActivePriority();
+    if (status == Status.ACTIVE) {
+      return ACTIVE_PRIORITY;
     }
-    return getInactivePriority();
-  }
-
-  /**
-   * Initializes the movement and wait tasks for charging behavior.
-   */
-  protected void initialiseTasks() {
-    waitTask = new WaitTask(waitTime, priority + 1);
-    waitTask.create(owner);
-    movementTask = new MovementTask(target.getPosition());
-    movementTask.create(owner);
-    movementTask.start();
-    movementTask.setVelocity(chaseSpeed); // Set charge speed.
-  }
-
-  /**
-   * Start moving towards the target.
-   */
-  protected void startMoving() {
-    logger.debug("Starting moving towards {}", target.getPosition());
-    movementTask.setTarget(target.getPosition()); // Update target position.
-    movementTask.setVelocity(chaseSpeed);
-    swapTask(movementTask);
-    this.owner.getEntity().getEvents().trigger("run");
-  }
-
-  /**
-   * Start waiting after charging.
-   */
-  protected void startWaiting() {
-    logger.debug("Starting waiting");
-    if (movementTask != null) {
-      movementTask.stop();
+    if (!isCooldownComplete()) {
+      return -1;
     }
-    swapTask(waitTask);
-    this.owner.getEntity().getEvents().trigger("gesture");
-  }
-
-  /**
-   * Swap the current task to a new task.
-   *
-   * @param newTask The new task to switch to.
-   */
-  protected void swapTask(Task newTask) {
-    if (currentTask != null) {
-      currentTask.stop();
-    }
-    currentTask = newTask;
-    currentTask.start();
-  }
-
-  /**
-   * Calculate the distance to the target entity.
-   *
-   * @return The distance to the target.
-   */
-  protected float getDistanceToTarget() {
-    return owner.getEntity().getPosition().dst(target.getPosition());
-  }
-
-  /**
-   * Determine the priority when the task is active.
-   *
-   * @return The priority or -1 if the target is too far or not visible.
-   */
-  protected int getActivePriority() {
-    float dst = getDistanceToTarget();
-    if (dst > maxChaseDistance || !isTargetVisible()) {
-      return -1; // Too far or not visible, stop charging.
-    }
-    return priority;
-  }
-
-  /**
-   * Determine the priority when the task is inactive.
-   *
-   * @return The priority if the target is within view distance and visible, otherwise -1.
-   */
-  protected int getInactivePriority() {
-    float dst = getDistanceToTarget();
-    if (dst < viewDistance && isTargetVisible()) {
-      return priority;
+    float dst = owner.getEntity().getPosition().dst(target.getPosition());
+    if (dst >= activationMinRange && dst <= activationMaxRange && isTargetVisible()) {
+      return INACTIVE_PRIORITY;
     }
     return -1;
   }
 
-  private void resetPriority() {
-    this.priority = basePriority;
-  }
-
-  /**
-   * Triggers the charge task to start charging towards the target once.
-   */
-  public void triggerCharge() {
-    this.priority = triggerPriority;
-  }
-
-  protected boolean isTargetVisible() {
+  private boolean isTargetVisible() {
     Vector2 from = owner.getEntity().getCenterPosition();
     Vector2 to = target.getCenterPosition();
 
@@ -224,4 +196,11 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
     return target;
   }
 
+  private boolean isCooldownComplete() {
+    if (lastExecutionTime == 0) {
+      return true;
+    }
+    long currentTime = gameTime.getTime();
+    return (currentTime - lastExecutionTime) >= (cooldownTime * 1000);
+  }
 }

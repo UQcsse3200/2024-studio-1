@@ -30,7 +30,6 @@ public class MainGameExitDisplay extends UIComponent {
   private SelectBox<String> keySelect;
   private Entity player;
 
-
   @Override
   public void create() {
     super.create();

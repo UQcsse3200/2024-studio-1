@@ -11,46 +11,53 @@ import com.badlogic.gdx.utils.Timer.Task;
 
 /**
  * AOEAttackComponent manages Area of Effect attacks for NPCs, including a preparation phase.
+ * This component extends the basic AttackComponent to provide AOE functionality.
  */
 public class AOEAttackComponent extends AttackComponent {
     private final float aoeRadius;
     private Vector2 origin;
-    private final float preparationTime = 2f; // 2-second delay
+    private final float preparationTime = 2f;
 
+    /**
+     * Constructs a new AOEAttackComponent.
+     *
+     * @param target The target entity for the attack.
+     * @param attackRange The maximum range at which the attack can be initiated.
+     * @param attackRate The frequency of attacks (attacks per second).
+     * @param effectConfigs An array of effect configurations to be applied with the attack.
+     * @param aoeRadius The radius of the area of effect for the attack.
+     */
     public AOEAttackComponent(Entity target, float attackRange, float attackRate,
                               NPCConfigs.NPCConfig.EffectConfig[] effectConfigs, float aoeRadius) {
-
         super(target, attackRange, attackRate, effectConfigs);
-        this.target = target;
         this.aoeRadius = aoeRadius;
         this.origin = new Vector2();
     }
 
     /**
      * Initiates the AOE attack by triggering the preparation phase.
+     * This method is called when the attack conditions are met.
      */
     @Override
     public void performAttack() {
         if (canAttack(entity, target)) {
-            // Trigger the AOE preparation event
             entity.getEvents().trigger("aoe_preparation");
             logger.info("{} is preparing an AOE attack at {}", entity, origin);
 
-            // Schedule the actual AOE attack after the preparation time
             Timer.schedule(new Task() {
                 @Override
                 public void run() {
                     executeAOEAttack();
                 }
-            }, preparationTime); // Delay in seconds
+            }, preparationTime);
         }
     }
 
     /**
-     * Executes the actual AOE attack: triggers the attack event and applies damage.
+     * Executes the actual AOE attack after the preparation phase.
+     * This method applies damage and effects to the target if within the AOE.
      */
-    void executeAOEAttack() {
-        // Trigger the actual AOE attack event
+    private void executeAOEAttack() {
         entity.getEvents().trigger("aoe_attack");
         logger.info("{} executes AOE attack at {}", entity, origin);
         Circle aoeCircle = new Circle(entity.getCenterPosition(), aoeRadius);
@@ -76,8 +83,8 @@ public class AOEAttackComponent extends AttackComponent {
      * Determines if the attacker can perform an attack on the target.
      *
      * @param attacker The entity performing the attack.
-     * @param target   The entity being targeted.
-     * @return True if the attack can be performed; otherwise, false.
+     * @param target The entity being targeted.
+     * @return true if the attack can be performed; false otherwise.
      */
     @Override
     public boolean canAttack(Entity attacker, Entity target) {

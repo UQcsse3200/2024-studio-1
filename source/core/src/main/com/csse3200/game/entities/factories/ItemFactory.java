@@ -54,6 +54,17 @@ public class ItemFactory {
             case "syringe" -> createSyringe();
             case "armor" -> createArmor();
             case "damagebuff" -> createDamageBuff();
+            case "reroll" -> createReroll();
+            case "targetdummy" -> createTargetDummy();
+            case "beartrap" -> createBearTrap();
+            case "heart" -> createHeart();
+            case "feather" -> createFeather();
+            case "tombstone" -> createTombstone();
+            case "ringfire" -> createRingFire();
+            case "divinepotion" -> createDivinePotion();
+            case "bleedbuff" -> createBleedBuff();
+            case "BigRedButton" -> createBigRedButton();
+            case "Teleporter" -> createTeleporter();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -64,6 +75,10 @@ public class ItemFactory {
      */
     private Collectible createMedKit() {
         return new MedKit();
+    }
+
+    private Collectible createReroll() {
+        return new Reroll();
     }
 
     /**
@@ -104,7 +119,72 @@ public class ItemFactory {
      */
     private Collectible createArmor() { return new Armor();}
 
+    /**
+     * Creates a damage buff item that increase the damage the player does
+     * @return damage buff item
+     */
     private Collectible createDamageBuff() { return new DamageBuff();}
 
+    /**
+     * Creates a bleed buff item that does bleed damage to the enemies
+     * @return Bleed buff item
+     */
+    private Collectible createBleedBuff() { return new BleedBuff();}
+
+    /**
+     * Creates a target dummy item which spawns in a target dummy entity for enemies to attack
+     * @return TargetDummy item
+     */
+    private Collectible createTargetDummy() {
+        return new TargetDummy();
+    }
+
+    /**
+     * Creates a Bear trap that provides damage to the enemy entity upon collision.
+     * @return Bear Trap item
+     */
+    private Collectible createBearTrap() {
+        return new BearTrap();
+    }
+
+    /**
+     * Creates a Heart item that increases the player's maximum health
+     * @return Heart item
+     */
+    private Collectible createHeart() {
+        return new Heart();
+    }
+
+    /**
+     * Creates a Feather item that give the player the ability to crit hit enemies
+     * @return Feather item
+     */
+    private Collectible createFeather() {
+        return new Feather();
+    }
+
+    private Collectible createTombstone() {
+        return new Tombstone();
+    }
+    private Collectible createRingFire() {return new RingFire();}
+    /**
+     * Creates a divine potion item that increases the player's health and speed
+     * @return divine potion item
+     */
+    private Collectible createDivinePotion() {
+        return new DivinePotion();
+    }
+
+    /**
+     * Creates a big red button item that kills all enemies in the current room
+     * @return BigRedButton item
+     */
+    private Collectible createBigRedButton() {return new BigRedButton();}
+
+    /**
+     * Creates an item that teleports the player to the boss room
+     * @return teleporter item
+     */
+    private Collectible createTeleporter() {return new TeleporterItem();}
 }
 

@@ -28,6 +28,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class RendererTest {
   @Spy OrthographicCamera camera;
+  @Spy OrthographicCamera secondaryCamera;
   @Mock SpriteBatch spriteBatch;
   @Mock Stage stage;
   @Mock Graphics graphics;
@@ -44,12 +45,13 @@ class RendererTest {
   @Test
   void shouldResizeCamera() {
     CameraComponent cameraComponent = makeCameraEntity(camera);
+    CameraComponent secondaryCameraComponent = makeCameraEntity(secondaryCamera);
 
     when(stage.getViewport()).thenReturn(mock(Viewport.class));
     when(graphics.getWidth()).thenReturn(100);
     when(graphics.getHeight()).thenReturn(200);
     Renderer renderer =
-        new Renderer(cameraComponent, 10, spriteBatch, stage, renderService, debugRenderer);
+        new Renderer(cameraComponent,secondaryCameraComponent, 10, spriteBatch, stage, renderService, debugRenderer);
 
     assertEquals(Vector3.Zero, camera.position);
     assertEquals(10, camera.viewportWidth);
@@ -63,11 +65,12 @@ class RendererTest {
   @Test
   void shouldResizeViewPort() {
     CameraComponent cameraComponent = makeCameraEntity(camera);
+    CameraComponent secondaryCameraComponent = makeCameraEntity(secondaryCamera);
     ScreenViewport screenViewport = spy(ScreenViewport.class);
     Stage stage = new Stage(screenViewport, spriteBatch);
 
     Renderer renderer =
-        new Renderer(cameraComponent, 10, spriteBatch, stage, renderService, debugRenderer);
+        new Renderer(cameraComponent,secondaryCameraComponent, 10, spriteBatch, stage, renderService, debugRenderer);
 
     assertEquals(0, stage.getViewport().getScreenWidth());
     assertEquals(0, stage.getViewport().getScreenHeight());
@@ -81,10 +84,11 @@ class RendererTest {
   @Test
   void shouldRender() {
     CameraComponent cameraComponent = makeCameraEntity(camera);
+    CameraComponent secondaryCameraComponent = makeCameraEntity(secondaryCamera);
     Renderer renderer =
-        new Renderer(cameraComponent, 10, spriteBatch, stage, renderService, debugRenderer);
+        new Renderer(cameraComponent,secondaryCameraComponent, 10, spriteBatch, stage, renderService, debugRenderer);
     renderer.render();
-    verify(renderService).render(spriteBatch);
+    verify(renderService, times(2)).render(spriteBatch);
   }
 
   private static CameraComponent makeCameraEntity(Camera camera) {

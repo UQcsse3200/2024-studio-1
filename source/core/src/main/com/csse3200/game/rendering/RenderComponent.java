@@ -1,6 +1,8 @@
 package com.csse3200.game.rendering;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Disposable;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.services.ServiceLocator;
@@ -11,6 +13,9 @@ import com.csse3200.game.services.ServiceLocator;
  */
 public abstract class RenderComponent extends Component implements Renderable, Disposable {
   private static final int DEFAULT_LAYER = 1;
+  protected static final BitmapFont fnt_16 = new BitmapFont(Gdx.files.internal("flat-earth/skin/fonts/pixel_16.fnt"), false);
+  protected static final BitmapFont fnt_18 = new BitmapFont(Gdx.files.internal("flat-earth/skin/fonts/pixel_18.fnt"), false);
+  protected static final float projectionFactor = 0.020f;
 
   @Override
   public void create() {

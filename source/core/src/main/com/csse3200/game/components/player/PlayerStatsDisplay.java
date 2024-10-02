@@ -40,6 +40,10 @@ public class PlayerStatsDisplay extends UIComponent {
     private Image damageImage;
     private ProgressBar damageProgressBar;
 
+    private ArrayList<Label> labels;
+    public static final String HEART_TEXTURE = "images/heart.png";
+    public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
+    public static final String DAMAGE_BUFF_TEXTURE = "images/items/damage_buff.png";
 
 
     /**
@@ -57,6 +61,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("ranged_activate", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
+        entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
     }
 
     /**
@@ -65,6 +70,8 @@ public class PlayerStatsDisplay extends UIComponent {
      * @see Table for positioning options
      */
     private void addActors() {
+        labels = new ArrayList<Label>();
+
         table = new Table();
         ammoTable = new Table();
         table.top().left();
@@ -73,7 +80,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
         // Heart image
         float heartSideLength = 30f;
-        heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        heartImage = new Image(ServiceLocator.getResourceService().getAsset(HEART_TEXTURE, Texture.class));
 
         // Ammo image
         ammoTexture = new Texture(Gdx.files.internal("images/Weapons/ammo.png")); // Load ammo texture
@@ -88,11 +95,11 @@ public class PlayerStatsDisplay extends UIComponent {
         healthLabel = new Label(healthText, skin, "small");
 
         //Speed image
-        float speedSideLength = 30f;
-        speedImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        float speedSideLength = 100f;
+        speedImage = new Image(ServiceLocator.getResourceService().getAsset(SPEED_TEXTURE, Texture.class));
 
         //Speed text
-        speedProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        speedProgressBar = new ProgressBar(0f, 1.5f, 0.1f, false, skin);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
         /*
@@ -104,21 +111,24 @@ public class PlayerStatsDisplay extends UIComponent {
 
         //Damage Progress bar
         //Will need to check values
-        float damageSideLength = 30f;
-        damageImage = new Image(
-                ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        float damageSideLength = 50f;
+//        damageImage = new Image(
+//                ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+        damageImage = new Image(ServiceLocator.getResourceService().getAsset(DAMAGE_BUFF_TEXTURE, Texture.class));
         damageProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
         damageProgressBar.setWidth(200f);
         damageProgressBar.setAnimateDuration(2.0f);
 
         //Weapon text, like the name of weapon
         //entity.getComponent(WeaponComponent.class).getWeaponType();
-        pickaxeLabel = new Label("Pickaxe: 0", skin, "large");
-        shotgunLabel = new Label("Shotgun: 0", skin, "large");
+        pickaxeLabel = new Label("Pickaxe: 0", skin, "small");
+        shotgunLabel = new Label("Shotgun: 0", skin, "small");
 
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
+        labels.add(healthLabel);
+
 
         table.row().padTop(10);
         table.add(speedImage).size(speedSideLength).pad(5);
@@ -131,6 +141,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
+        labels.add(pickaxeLabel);
         table.row().padTop(10);
         table.add(shotgunLabel).colspan(2).padLeft(10).left();
         table.row().padTop(10);
@@ -138,7 +149,13 @@ public class PlayerStatsDisplay extends UIComponent {
         stage.addActor(table);
     }
 
-
+    public void resize(int width, int height)
+    {
+        if (labels != null)
+            for(Label label : labels)
+                label.setFontScale(width/1100f);
+    }
+    
     @Override
     public void draw(SpriteBatch batch) {
 
@@ -210,7 +227,7 @@ public class PlayerStatsDisplay extends UIComponent {
      *
      * @param speedPercentage the player's new speed percentage to update the UI to
      */
-    public void updateSpeedPercentageUI(float speedPercentage) {
+    public void updateSpeedPercentageUI(float speedPercentage, String speedType) {
         //Temporarily commented out in case design team prefers text over a progress bar
 //        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
 //        speedLabelText.setText(text);

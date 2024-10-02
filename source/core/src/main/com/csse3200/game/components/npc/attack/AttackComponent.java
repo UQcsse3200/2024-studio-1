@@ -23,6 +23,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected CombatStatsComponent combatStats;
     protected List<Effect> effects;
     protected NPCConfigs.NPCConfig.EffectConfig[] effectConfigs;
+    protected int remainingAttacks = -1;
     protected static final Logger logger = LoggerFactory.getLogger(MeleeAttackComponent.class);
 
 
@@ -61,6 +62,14 @@ public abstract class AttackComponent extends Component implements AttackBehavio
         if (timeSinceLastAttack >= attackCooldown) {
             performAttack();
             timeSinceLastAttack = 0; // Reset cooldown timer
+
+            // Disable the attack component if it has a limited number of attacks
+            if (remainingAttacks > 0) {
+                remainingAttacks--;
+                if (remainingAttacks == 0) {
+                    this.setEnabled(false);
+                }
+            }
         }
     }
 
@@ -74,7 +83,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     /**
      * Makes Effects
      *
-     * @param list of effectConfig 
+     * @param effectConfigs Effect configurations
      * @return List of effects
      */
     private List<Effect> createEffects(NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
@@ -92,5 +101,15 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     public boolean canAttack(Entity attacker, Entity target) {
         float distanceToTarget = attacker.getPosition().dst(target.getPosition());
         return distanceToTarget <= attackRange;
+    }
+
+    /**
+     * Enable the attack component for a given number of attacks.
+     *
+     * @param numberOfAttacks Number of attacks to enable for.
+     */
+    public void enableForNumAttacks(int numberOfAttacks) {
+        this.remainingAttacks = numberOfAttacks;
+        this.setEnabled(true);
     }
 }

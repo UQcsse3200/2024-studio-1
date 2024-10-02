@@ -2,15 +2,13 @@ package com.csse3200.game.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.components.MenuExitComponent;
 import com.csse3200.game.components.screendisplay.PlayerSelectDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.services.ServiceLocator;
 
-import java.util.List;
-
 import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
-import static com.csse3200.game.entities.PlayerSelection.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
@@ -18,21 +16,20 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 public class PlayerSelectScreen extends StaticScreen {
 
+    public static final String BG_IMAGE = "images/bg_logo.png";
+
     /**
      * Make the screen.
      * @param game the overarching game.
      */
     public PlayerSelectScreen(GdxGame game) {
-        super(
-                game,
-                getPlayerConfigs(List.of(PLAYERS))
-                        .values()
-                        .stream()
-                        .map(config -> config.textureFilename)
-                        .toArray(String[]::new),
-                getLogger(PlayerSelectScreen.class),
-                DEFAULT
-        );
+        super(game, getTextures(), getLogger(PlayerSelectScreen.class), DEFAULT);
+    }
+
+    private static String[] getTextures() {
+        // Player images are loaded when you create them. If this is changed, they would probably
+        // need to be added here instead
+        return new String[]{BG_IMAGE};
     }
 
     @Override
@@ -40,7 +37,8 @@ public class PlayerSelectScreen extends StaticScreen {
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
         ui.addComponent(new InputDecorator(stage, 10))
-                .addComponent(new PlayerSelectDisplay(game));
+                .addComponent(new PlayerSelectDisplay(game))
+                .addComponent(new MenuExitComponent(game));
         return ui;
     }
 }

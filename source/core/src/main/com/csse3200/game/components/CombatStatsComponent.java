@@ -1,15 +1,15 @@
 package com.csse3200.game.components;
 
-import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 
 import com.csse3200.game.components.player.ShieldComponent;
 
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.utils.RandomNumberGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.ai.tasks.AITaskComponent;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,12 +23,13 @@ public class CombatStatsComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
     private final boolean canBeInvincible;
-    private final int maxHealth;
+    private int maxHealth;
     private int health;
     private int baseAttack;
     private int armor;
     private int buff;
-
+    private boolean critAbility;
+    private double critChance;
     private boolean isInvincible;
     // change requested by character team
     private static final int timeInvincible = 2000;
@@ -37,6 +38,9 @@ public class CombatStatsComponent extends Component {
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
 
+    private String lastAttackName;
+    private String filePath = "configs/LastAttack.json";
+
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
@@ -44,11 +48,18 @@ public class CombatStatsComponent extends Component {
         this.baseAttack = baseAttack;
         this.armor = armor;
         this.buff = buff;
+        this.critAbility = false;
+        this.critChance = 0.0;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
         this.timerIFrames = new Timer();
         this.timerFlashSprite = new Timer();
+    }
+
+    public CombatStatsComponent(int health, int baseAttack, boolean neverDies){
+        this(health, baseAttack, false, 0, 0);
+        setInvincible(neverDies);
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
@@ -204,6 +215,18 @@ public class CombatStatsComponent extends Component {
     }
 
     /**
+     * Sets the entity's maximum health
+     *
+     * @param newMaxHealth updated maximum health
+     */
+    public void setMaxHealth(int newMaxHealth) {
+        if (newMaxHealth > 0){
+            this.maxHealth = newMaxHealth;
+        }
+    }
+
+
+    /**
      * Handles a hit from another entity by reducing the entity's health based on the attacker's base attack value.
      * Gives them invincibility frames if they can have any
      *
@@ -214,17 +237,34 @@ public class CombatStatsComponent extends Component {
         if (getIsInvincible()) {
             return;
         }
+        if (isDead()){
+            return;
+        }
         ShieldComponent shield = entity.getComponent(ShieldComponent.class);
         if (shield != null && shield.isActive()) {
             entity.getEvents().trigger("hit");
             return;
         }
 
-        if (getCanBeInvincible()) {
+        if (getCanBeInvincible()) { // Only player currently
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
+
+            if (attacker.getEntity() == null
+                    || attacker.getEntity().getName().equals("Unknown Entity")) {
+                lastAttackName = "Unknown";
+            }
+            else {
+                lastAttackName = attacker.getEntity().getName();
+            }
+
+            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
+            //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
+            //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
+            //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
             entity.getEvents().trigger("playerHit");
+            if (isDead()){ return; }
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);
@@ -232,7 +272,16 @@ public class CombatStatsComponent extends Component {
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         } else {
             Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
-            int damage = attacker.getBaseAttack() + player.getComponent(CombatStatsComponent.class).buff;
+            int damage;
+            if (player != null) {
+                CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);
+                damage = attacker.getBaseAttack() + playerStats.buff;
+                if (playerStats.getCanCrit()) {
+                    damage = applyCrit(damage, playerStats.getCritChance());
+                }
+            } else {
+                damage = attacker.getBaseAttack();
+            }
             int newHealth = getHealth() - damage;
             setHealth(newHealth);
             //add animationcontroller
@@ -240,9 +289,11 @@ public class CombatStatsComponent extends Component {
                 entity.getEvents().trigger("death");
                 entity.getEvents().trigger("died");
                 entity.getEvents().trigger("checkAnimalsDead");
+                entity.getEvents().trigger("dummyDestroyed");
             }
         }
     }
+
 
     /**
      *Returns if the entity can be invincible
@@ -269,5 +320,49 @@ public class CombatStatsComponent extends Component {
      */
     public boolean getIsInvincible() {
         return isInvincible;
+    }
+
+    /**
+     * Returns a boolean value based on if the entity can crit or not
+     * @return true if the entity can crit, false otherwise
+     */
+    public boolean getCanCrit() {
+        return critAbility;
+    }
+
+    /**
+     * Returns the entities crit chance
+     * @return the crit chance value
+     */
+    public double getCritChance() {
+        return critChance;
+    }
+
+    /**
+     * Update the entity's ability to perform critical hits
+     */
+    public void updateCritAbility() {
+        this.critAbility = true;
+    }
+
+    /**
+     * Update the critChance of the entity
+     */
+    public void updateCritChance(double critValue) {
+        this.critChance = Math.min(1.0, this.critChance + critValue);
+    }
+
+    /**
+     * Apply critical hit based on chance
+     * @return the modified damage
+     */
+    public int applyCrit(int damage, double critChance) {
+        int newDamage = damage;
+        RandomNumberGenerator rng = ServiceLocator.getRandomService().getRandomNumberGenerator(CombatStatsComponent.class);
+        double randomDouble = rng.getRandomDouble(0.0, 1.0);
+        if (randomDouble <= critChance) {
+            newDamage *= 2;
+        }
+        return newDamage;
     }
 }

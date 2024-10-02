@@ -2,14 +2,12 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.ai.tasks.AITaskComponent;
-import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.DialogComponent;
 import com.csse3200.game.components.NameComponent;
-import com.csse3200.game.components.npc.DirectionalNPCComponent;
-import com.csse3200.game.components.npc.NPCAnimationController;
-import com.csse3200.game.components.npc.NPCDeathHandler;
-import com.csse3200.game.components.npc.NPCHealthBarComponent;
+import com.csse3200.game.components.npc.*;
+import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
@@ -39,19 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static final NPCConfigs configs =
-          loadConfigs();
-
-  public static NPCConfigs loadConfigs() {
-    NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
-    System.out.println("Loaded configs: " + configs); // Add debug printout
-    if (configs.rat.attacks == null) {
-      System.out.println("Rat attacks are null!"); // Check if attacks are being loaded
-    } else {
-      System.out.println("Rat melee attack range: " + configs.rat.attacks.melee.range); // Log specific fields
-    }
-    return configs;
-  }
+  private static final NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
    * Construct a new NPC Factory.
@@ -94,26 +80,8 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
-    Entity rat = createBaseNPC("Rat", target, aiComponent, config, animator);
-
-    return rat;
+      return createBaseNPC("Rat", target, aiComponent, config, animator);
   }
-
-  /**
-   * Creates a kitsune boss entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the kitsune entity
-   */
-  public Entity createKitsune(Entity target) {
-    NPCConfigs.NPCConfig config = configs.kitsune;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
-    Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
-
-    return kitsune; 
-  }
-
 
   /**
    * Creates a bear entity.
@@ -206,39 +174,6 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
-   * Creates a Birdman entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createBirdman(Entity target) {
-    NPCConfigs.NPCConfig config = configs.birdman;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
-    Entity birdman = createBaseNPC("Birdman", target, aiComponent, config, animator);
-
-    return birdman;
-  }
-
-  /**
-   * Creates a Werewolf entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createWerewolf(Entity target) {
-    NPCConfigs.NPCConfig config = configs.werewolf;
-    BossAITaskComponent aiComponent = new BossAITaskComponent();
-    aiComponent.addTask(new ChaseTask(target, config.tasks.chase));
-    aiComponent.addTask(new ChargeTask(target, config.tasks.charge));
-    aiComponent.addTask(new WanderTask(config.tasks.wander));
-    AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
-    Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
-
-    return werewolf;
-  }
-
-  /**
    * Creates a dragon entity with predefined components and behaviour.
    *
    * @param target entity to chase
@@ -254,6 +189,44 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
+   * Creates a Birdman entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public Entity createBirdman(Entity target) {
+    NPCConfigs.NPCConfig config = configs.birdman;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
+    Entity birdman = createBaseNPC("Birdman", target, aiComponent, config, animator);
+
+    // Add the BossHealthDialogueComponent
+    birdman.addComponent(new BossHealthDialogueComponent());
+    birdman.addComponent(new DialogComponent());
+
+    return birdman;
+  }
+
+  /**
+   * Creates a Werewolf entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public Entity createWerewolf(Entity target) {
+    NPCConfigs.NPCConfig config = configs.werewolf;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
+    Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
+
+    // Add the BossHealthDialogueComponent to the werewolf
+    werewolf.addComponent(new BossHealthDialogueComponent());
+    werewolf.addComponent(new DialogComponent());
+
+    return werewolf;
+  }
+
+  /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
    * @param name
@@ -263,6 +236,26 @@ public class NPCFactory extends LoadedFactory {
    * @param animator    The animator component for the NPC.
    * @return The created NPC entity.
    */
+
+  /**
+   * Creates a kitsune boss entity with predefined components and behaviour.
+   *
+   * @param target entity to chase
+   * @return the kitsune entity
+   */
+  public Entity createKitsune(Entity target) {
+    NPCConfigs.NPCConfig config = configs.kitsune;
+    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
+    AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
+    Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
+
+    // Add the BossHealthDialogueComponent to the kitsune
+      kitsune.addComponent(new BossHealthDialogueComponent());
+      kitsune.addComponent(new DialogComponent());
+
+    return kitsune;
+  }
+
   private static Entity createBaseNPC(String name, Entity target, Component aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
     Entity npc = new Entity()
@@ -275,9 +268,11 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler()) 
+            .addComponent(new NPCDeathHandler(target, config.getStrength()))
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
-            .addComponent(new NPCAnimationController());
+            .addComponent(new NPCAnimationController())
+            .addComponent(new NPCConfigComponent(config));
+
     if (config.attacks.melee != null) {
       npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee.range, config.attacks.melee.rate,
               config.attacks.melee.effects));
@@ -286,6 +281,11 @@ public class NPCFactory extends LoadedFactory {
       npc.addComponent(new RangeAttackComponent(target, config.attacks.ranged.range, config.attacks.ranged.rate,
               config.attacks.ranged.type, config.attacks.ranged.effects));
     }
+    if (config.attacks.aoe != null) {
+      npc.addComponent(new AOEAttackComponent(target, config.attacks.aoe.range, config.attacks.aoe.rate,
+              config.attacks.aoe.effects));
+    }
+
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
     return npc;
@@ -322,6 +322,10 @@ public class NPCFactory extends LoadedFactory {
     if (tasks.wander != null) {
       aiComponent.addTask(new WanderTask(tasks.wander));
     }
+    // Add follow task
+    if (tasks.follow != null) {
+      aiComponent.addTask(new FollowTask(tasks.follow));
+    }
     // Add straight wander task
     if (tasks.straightWander != null) {
       aiComponent.addTask(new StraightWanderTask(tasks.straightWander.wanderSpeed));
@@ -334,15 +338,23 @@ public class NPCFactory extends LoadedFactory {
     if (tasks.charge != null) {
       aiComponent.addTask(new ChargeTask(target, tasks.charge));
     }
-
-    // Add boss attack task
-    if (tasks.bossAttack != null) {
-      aiComponent.addTask(new BossAttackTask(target, tasks.bossAttack));
+    // Add jump task
+    if (tasks.jump != null) {
+      aiComponent.addTask(new JumpTask(target, tasks.jump));
     }
-
     // Add run away task
     if (tasks.runAway != null) {
       aiComponent.addTask(new RunAwayTask(target, tasks.runAway));
+    }
+    // Add range attack tasks
+    if (tasks.rangeAttack != null) {
+        aiComponent.addTask(new RangeAttackTask(target, tasks.rangeAttack, "single"));
+    }
+    if (tasks.spreadRangeAttack != null) {
+        aiComponent.addTask(new RangeAttackTask(target, tasks.spreadRangeAttack, "spread"));
+    }
+    if (tasks.aoeAttack != null) {
+        aiComponent.addTask(new AOEAttackTask(target, tasks.aoeAttack));
     }
 
     return aiComponent;

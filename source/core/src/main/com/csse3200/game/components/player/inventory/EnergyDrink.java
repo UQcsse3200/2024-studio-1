@@ -23,7 +23,7 @@ public class EnergyDrink extends BuffItem {
     /**
      * The maximum speed that the energy drink effect can sum to
      */
-    Vector2 maxSpeed = new Vector2(8f, 8f);
+    Vector2 maxSpeed = new Vector2(4.5f, 4.5f);
     /**
      * The speed associated with this energy drink type. This variable is used
      * to update the UI of the speed percentage stats
@@ -116,7 +116,7 @@ public class EnergyDrink extends BuffItem {
             entity.getComponent(PlayerActions.class).setSpeed(this.maxSpeed); //Cap it at the max speed
             entity.getComponent(PlayerActions.class).setSpeedPercentage(speedLimit); //Cap the UI percentage at max
             newSpeedPercentage = speedLimit;
-            entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage);
+            entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage, speedType);
         } else {
             //Add the current speed with the boost (vector) associated with this energy drink
             Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
@@ -124,7 +124,7 @@ public class EnergyDrink extends BuffItem {
             entity.getComponent(PlayerActions.class).setSpeed(updatedSpeed);
             //Update the UI
             entity.getComponent(PlayerActions.class).setSpeedPercentage(newSpeedPercentage);
-            entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage);
+            entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage, speedType);
         }
     }
 
@@ -156,16 +156,16 @@ public class EnergyDrink extends BuffItem {
         Vector2 baseSpeed = new Vector2(3f, 3f); //Improvement: actually get the default speed somehow
         switch (speedType) {
             case "Low" -> {
-                this.speed = baseSpeed.scl(0.3f); //0.3% of the base speed
-                this.speedPercentage = 0.3f; //% Increase
+                this.speed = baseSpeed.scl(0.03f); //0.03% of the base speed
+                this.speedPercentage = 0.03f; //% Increase
             }
             case "Medium" -> {
-                this.speed = baseSpeed.scl(0.5f);
-                this.speedPercentage = 0.5f;
+                this.speed = baseSpeed.scl(0.05f);
+                this.speedPercentage = 0.05f;
             }
             case "High" -> {
-                this.speed = baseSpeed.scl(0.6f);
-                this.speedPercentage = 0.6f;
+                this.speed = baseSpeed.scl(0.1f);
+                this.speedPercentage = 0.1f;
             }
         }
     }

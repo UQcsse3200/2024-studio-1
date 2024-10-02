@@ -20,7 +20,8 @@ public class Renderer implements Disposable {
   private static final float GAME_SCREEN_WIDTH = 20f;
   private static final Logger logger = LoggerFactory.getLogger(Renderer.class);
 
-  private CameraComponent camera;
+  private CameraComponent mainCamera; // Main camera for the game world
+  private CameraComponent secondaryCamera; // Secondary camera for the minimap
   private float gameWidth;
   private SpriteBatch batch;
   private Stage stage;
@@ -29,15 +30,17 @@ public class Renderer implements Disposable {
 
   /**
    * Create a new renderer with default settings
-   * @param camera camera to render to
+   * @param maincamera camera to render to
+   * @param secondaryCamera secondary camera
    */
-  public Renderer(CameraComponent camera) {
+  public Renderer(CameraComponent maincamera, CameraComponent secondaryCamera) {
     SpriteBatch spriteBatch = new SpriteBatch();
     DebugRenderer debugRenderer = new DebugRenderer();
     debugRenderer.setActive(false);
 
     init(
-        camera,
+        maincamera,
+        secondaryCamera,
         GAME_SCREEN_WIDTH,
         spriteBatch,
         new Stage(new ScreenViewport(), spriteBatch),
@@ -48,7 +51,8 @@ public class Renderer implements Disposable {
   /**
    * Create a renderer
    *
-   * @param camera Camera to use for rendering.
+   * @param maincamera Camera to use for rendering.
+   * @param secondaryCamera Secondary camera
    * @param gameWidth Desired game width in metres the screen should show. Height is then based on *
    *     the aspect ratio.
    * @param batch Batch to render to.
@@ -57,24 +61,27 @@ public class Renderer implements Disposable {
    * @param debugRenderer Debug renderer to render
    */
   public Renderer(
-      CameraComponent camera,
+      CameraComponent maincamera,
+      CameraComponent secondaryCamera,
       float gameWidth,
       SpriteBatch batch,
       Stage stage,
       RenderService renderService,
       DebugRenderer debugRenderer) {
-    init(camera, gameWidth, batch, stage, renderService, debugRenderer);
+    init(maincamera, secondaryCamera,gameWidth, batch, stage, renderService, debugRenderer);
   }
 
   private void init(
-      CameraComponent camera,
+      CameraComponent maincamera,
+      CameraComponent secondaryCamera,
       float gameWidth,
       SpriteBatch batch,
       Stage stage,
       RenderService renderService,
       DebugRenderer debugRenderer) {
 
-    this.camera = camera;
+    this.mainCamera = maincamera;
+    this.secondaryCamera = secondaryCamera;
     this.gameWidth = gameWidth;
     this.batch = batch;
     this.stage = stage;
@@ -87,17 +94,31 @@ public class Renderer implements Disposable {
   }
 
   public CameraComponent getCamera() {
-    return camera;
+    return mainCamera;
+  }
+  public CameraComponent getSecondaryCamera() {
+    return secondaryCamera;
   }
 
   /** Render everything to the render service. */
   public void render() {
-    Matrix4 projMatrix = camera.getProjectionMatrix();
+    // Render using the main camera
+    renderMainScene();
+
+    // Render using the secondary camera
+    renderSecondaryScene();
+  }
+
+  /**
+   * Render the main game scene.
+   */
+  private void renderMainScene() {
+    Matrix4 projMatrix = mainCamera.getProjectionMatrix();
     batch.setProjectionMatrix(projMatrix);
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clear the screen
 
     batch.begin();
-    renderService.render(batch);
+    renderService.render(batch); // Render the game objects
     batch.end();
     debugRenderer.render(projMatrix);
 
@@ -105,6 +126,25 @@ public class Renderer implements Disposable {
     stage.draw();
   }
 
+  /**
+   * Render the minimap using the minimap camera.
+   */
+  private void renderSecondaryScene() {
+    Matrix4 minimapProjMatrix = secondaryCamera.getProjectionMatrix();
+    batch.setProjectionMatrix(minimapProjMatrix);
+
+    Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
+    Gdx.gl.glScissor(10, Gdx.graphics.getHeight() - 210, 200, 200);
+
+    batch.begin();
+    renderService.render(batch);
+    batch.end();
+
+    Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
+
+    stage.act();
+    stage.draw();
+  }
   /**
    * Resize the renderer to a new screen size.
    *
@@ -122,12 +162,14 @@ public class Renderer implements Disposable {
     return debugRenderer;
   }
 
-  private void resizeCamera(int screenWidth, int screenHeight) {
-    camera.resize(screenWidth, screenHeight, gameWidth);
+  private void resizeCamera(int screenWidth, int screenHeight)
+  {
+    mainCamera.resize(screenWidth, screenHeight, gameWidth);
   }
 
   private void resizeStage(int screenWidth, int screenHeight) {
     stage.getViewport().update(screenWidth, screenHeight, true);
+    secondaryCamera.resize(screenWidth, screenHeight, gameWidth);
   }
 
   @Override

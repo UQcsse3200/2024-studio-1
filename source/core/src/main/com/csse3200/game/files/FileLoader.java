@@ -103,6 +103,16 @@ public class FileLoader {
       };
   }
 
+  /**
+   * Check if file exists in the given location.
+   * @param filename path of the file
+   * @param location file location
+   * @return true if the file exists, false otherwise
+   */
+  public static boolean fileExists(String filename, Location location) {
+    return getFileHandle(filename, location).exists();
+  }
+
   public enum Location {
     CLASSPATH,
     INTERNAL,

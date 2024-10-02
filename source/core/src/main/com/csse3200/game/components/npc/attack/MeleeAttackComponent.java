@@ -13,6 +13,7 @@ public class MeleeAttackComponent extends AttackComponent {
     public MeleeAttackComponent(Entity target, float attackRange, float attackRate,
                                 NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
         super(target, attackRange, attackRate, effectConfigs);
+        this.setEnabled(false);
     }
 
     @Override
@@ -27,4 +28,13 @@ public class MeleeAttackComponent extends AttackComponent {
         // Attack effects
         applyEffects(target);
     }
+
+    /**
+     * Updates the attack target
+     * @param newTarget the new target
+     */
+    public void updateTarget(Entity newTarget) {
+        this.target = newTarget;
+    }
+
 }

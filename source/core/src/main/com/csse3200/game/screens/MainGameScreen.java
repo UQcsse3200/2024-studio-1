@@ -33,9 +33,8 @@ import com.csse3200.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.util.Arrays;
 
-import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
 import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
@@ -49,10 +48,14 @@ public class MainGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
     private final PlayerFactory playerFactory;
     private static final String[] mainGameTextures = {
-            "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-            "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/black_dot_transparent.png"
+            "images/heart.png",
+            "images/ui_white_icons.png",
+            "images/ui_white_icons_over.png",
+            "images/ui_white_icons_down.png",
+            "skins/rainbow/skin/rainbow-ui.png",
+            "images/dot_transparent.png",
+            "images/black_dot_transparent.png"
     };
-
     // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
 
@@ -72,6 +75,7 @@ public class MainGameScreen extends ScreenAdapter {
 
 
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
+    private static final Vector2 MINIMAP_CAMERA_POSITION = new Vector2(-7.5f, 4.8f);
 
     private final GdxGame game;
     private final Renderer renderer;
@@ -79,10 +83,9 @@ public class MainGameScreen extends ScreenAdapter {
     private Entity ui;
     public static boolean isPaused = false;
 
-
     public MainGameScreen(GdxGame game) {
         this.game = game;
-        game.setScreenColour(DEFAULT);
+        game.setScreenColour(GdxGame.ScreenColour.GREY);
         isPaused = false;
 
         GameOptions gameOptions = game.gameOptions;
@@ -104,9 +107,11 @@ public class MainGameScreen extends ScreenAdapter {
 
         this.renderer = RenderFactory.createRenderer();
         this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        this.renderer.getSecondaryCamera().getEntity().setPosition(MINIMAP_CAMERA_POSITION);
         this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());
+        ServiceLocator.getRenderService().setSecondaryCamera(this.renderer.getSecondaryCamera());
 
         loadAssets();
         createUI();
@@ -120,26 +125,45 @@ public class MainGameScreen extends ScreenAdapter {
         Stage stage = ServiceLocator.getRenderService().getStage();
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
 
-        /**
+        // todo load based on what the user chose
+        boolean shouldLoad = gameOptions.shouldLoad;
+        logger.info("Should start from save file: {}", shouldLoad);
+
+        /*
          * based on the characters selected, changed the link
          * If Player choose Load, then create
          */
-        // todo confirm which players should be passed into PlayerFactory
-        this.playerFactory = new PlayerFactory(List.of(
-                PLAYERS
-        ));
-        Entity player = playerFactory.createPlayer(
-                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name);
+        this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
+        Entity player = loadPlayer(shouldLoad, gameOptions, chosenPlayer);
 
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
-        LevelFactory levelFactory = new MainGameLevelFactory();
+
+        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad);
+
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
-            new MainGameArea(levelFactory, player);
+            new MainGameArea(levelFactory, player, shouldLoad);
         }
+    }
+
+    private Entity loadPlayer(boolean shouldLoad, GameOptions gameOptions, String chosenPlayer) {
+        Entity player;
+        if (shouldLoad) {
+            PlayerConfig config = FileLoader.readClass(
+                    PlayerConfig.class,
+                    "configs/player_save.json",
+                    FileLoader.Location.EXTERNAL);
+            if (config == null) {
+                throw new RuntimeException("Tried to load player and failed");
+            }
+            player = playerFactory.createPlayer(config, gameOptions.difficulty);
+        } else {
+            player = playerFactory.createPlayer(chosenPlayer, gameOptions.difficulty);
+        }
+        return player;
     }
 
     @Override

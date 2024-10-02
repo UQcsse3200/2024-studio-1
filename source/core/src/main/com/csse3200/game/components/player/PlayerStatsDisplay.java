@@ -215,7 +215,7 @@ public class PlayerStatsDisplay extends UIComponent {
      *
      * @param speedPercentage the player's new speed percentage to update the UI to
      */
-    public void updateSpeedPercentageUI(float speedPercentage) {
+    public void updateSpeedPercentageUI(float speedPercentage, String speedType) {
         //Temporarily commented out in case design team prefers text over a progress bar
 //        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
 //        speedLabelText.setText(text);

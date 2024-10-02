@@ -12,6 +12,8 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
+import com.csse3200.game.components.player.PlayerStatsDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.PlayerSelection;
@@ -51,7 +53,7 @@ public class MainGameScreen extends ScreenAdapter {
     private final PlayerFactory playerFactory;
     private static final String[] mainGameTextures = {
             "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-            "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/black_dot_transparent.png"
+            "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/dot_transparent.png", "images/black_dot_transparent.png"
     };
     // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
@@ -72,6 +74,7 @@ public class MainGameScreen extends ScreenAdapter {
 
 
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
+    private static final Vector2 MINIMAP_CAMERA_POSITION = new Vector2(-7.5f, 4.8f);
 
     private final GdxGame game;
     private final Renderer renderer;
@@ -103,9 +106,11 @@ public class MainGameScreen extends ScreenAdapter {
 
         this.renderer = RenderFactory.createRenderer();
         this.renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+        this.renderer.getSecondaryCamera().getEntity().setPosition(MINIMAP_CAMERA_POSITION);
         this.renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         ServiceLocator.getRenderService().setCamera(this.renderer.getCamera());
+        ServiceLocator.getRenderService().setSecondaryCamera(this.renderer.getSecondaryCamera());
 
         loadAssets();
         createUI();
@@ -123,14 +128,12 @@ public class MainGameScreen extends ScreenAdapter {
         boolean shouldLoad = gameOptions.shouldLoad;
         logger.info("Should start from save file: {}", shouldLoad);
 
-        /**
+        /*
          * based on the characters selected, changed the link
          * If Player choose Load, then create
          */
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
-        Entity player = playerFactory.createPlayer(
-                FileLoader.readClass(PlayerConfig.class, chosenPlayer).name,
-                gameOptions.difficulty);
+        Entity player = loadPlayer(shouldLoad, gameOptions, chosenPlayer);
 
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
@@ -143,6 +146,23 @@ public class MainGameScreen extends ScreenAdapter {
         } else {
             new MainGameArea(levelFactory, player, shouldLoad);
         }
+    }
+
+    private Entity loadPlayer(boolean shouldLoad, GameOptions gameOptions, String chosenPlayer) {
+        Entity player;
+        if (shouldLoad) {
+            PlayerConfig config = FileLoader.readClass(
+                    PlayerConfig.class,
+                    "configs/player_save.json",
+                    FileLoader.Location.EXTERNAL);
+            if (config == null) {
+                throw new RuntimeException("Tried to load player and failed");
+            }
+            player = playerFactory.createPlayer(config, gameOptions.difficulty);
+        } else {
+            player = playerFactory.createPlayer(chosenPlayer, gameOptions.difficulty);
+        }
+        return player;
     }
 
     @Override

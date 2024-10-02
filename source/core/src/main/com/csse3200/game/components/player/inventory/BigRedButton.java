@@ -1,8 +1,10 @@
 package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.EnemyRoom;
 
-public class BigRedButton extends UsableItem {
+public abstract class BigRedButton extends UsableItem {
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
@@ -52,15 +54,9 @@ public class BigRedButton extends UsableItem {
         return new Texture("images/items/mystery_box_red.png");
     }
 
-    /**
-     * Applies the bandage to an entity, increasing its health by a small amount,
-     * calls the increaseSmallBoost(entity) method
-     *
-     * @param entity to which Bandage item effect is applied to.
-     */
-    @Override
-    public void apply(Entity entity) {
-
+    public void apply(MainGameArea gameArea) {
+        if (gameArea.getCurrentRoom() instanceof EnemyRoom enemyRoom) {
+            enemyRoom.isAllAnimalDead();
+        }
     }
-
 }

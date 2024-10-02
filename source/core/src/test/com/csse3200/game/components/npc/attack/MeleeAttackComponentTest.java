@@ -102,6 +102,7 @@ class MeleeAttackComponentTest {
                 .addComponent(new CombatStatsComponent(10, 10))
                 .addComponent(new MeleeAttackComponent(target, 2f, 1f, effectConfigs));
         attacker.create();
+        attacker.getComponent(MeleeAttackComponent.class).setEnabled(true);
         return attacker;
     }
 

@@ -8,8 +8,10 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
-import com.csse3200.game.rendering.TextureRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 
 /**
@@ -21,6 +23,7 @@ import com.csse3200.game.services.ServiceLocator;
  *  HitboxComponent - triggers event on collisions.
  */
 public class ProjectileAttackComponent extends Component {
+    private static final Logger logger = LoggerFactory.getLogger(ProjectileAttackComponent.class);
 
     private final short targetLayer;
     private CombatStatsComponent combatStats;
@@ -74,7 +77,11 @@ public class ProjectileAttackComponent extends Component {
             }
         }
 
-        Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
+        if (!(other.getBody().getUserData() instanceof BodyUserData data)) {
+            logger.error("user data incorrect");
+            return;
+        }
+        Entity target = data.entity;
         CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
 
         if (targetStats != null) {

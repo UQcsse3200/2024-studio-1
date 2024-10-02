@@ -1,6 +1,6 @@
 package com.csse3200.game.areas;
 
-import com.csse3200.game.areas.Generation.MapGenerator;
+import com.csse3200.game.areas.generation.MapGenerator;
 import com.csse3200.game.files.FileLoader;
 import java.util.List;
 

@@ -157,6 +157,7 @@ class RangeAttackComponentTest {
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
                 .addComponent(new RangeAttackComponent(target, 5f, 1f, 0, effectConfigs));
         attacker.create();
+        attacker.getComponent(RangeAttackComponent.class).setEnabled(true);
         return attacker;
     }
 

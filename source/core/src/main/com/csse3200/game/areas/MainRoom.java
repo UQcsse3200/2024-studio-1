@@ -10,7 +10,7 @@ public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                List.of("Snake", "Dog"),
+                List.of("Dog", "Snake"),
                 List.of("Bear", "Snake", "Dino", "Dragon"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),
@@ -24,13 +24,16 @@ public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
+//                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
+                List.of("item:targetdummy", "buff:tombstone"),
+                List.of("melee:knife", "ranged:shotgun"),
                 List.of("item:beartrap", "buff:feather"),
-                List.of("melee:axe", "ranged:shotgun"),
-                List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High"),
-                List.of("item:shieldpotion", "ranged:shotgun", "melee:knife", "item:medkit", "buff:energydrink:Medium"),
-                List.of("melee:knife", "item:bandage", "ranged:shotgun", "item:shieldpotion", "item:medkit"),
-                List.of("buff:energydrink:Medium", "item:shieldpotion", "ranged:shotgun", "melee:knife", "item:bandage"),
-                List.of("item:medkit", "melee:knife", "buff:energydrink:High", "ranged:shotgun", "item:shieldpotion")
+                List.of("melee:Axe", "ranged:Shotgun"),
+                List.of("ranged:Shotgun", "item:medkit", "melee:Knife", "item:bandage", "buff:energydrink:High"),
+                List.of("item:shieldpotion", "ranged:Shotgun", "melee:Knife", "item:medkit", "buff:energydrink:Medium"),
+                List.of("melee:Knife", "item:bandage", "ranged:Shotgun", "item:shieldpotion", "item:medkit"),
+                List.of("buff:energydrink:Medium", "item:shieldpotion", "ranged:Shotgun", "melee:Knife", "item:bandage"),
+                List.of("item:medkit", "melee:Knife", "buff:energydrink:High", "ranged:Shotgun", "item:shieldpotion")
         );
     }
 

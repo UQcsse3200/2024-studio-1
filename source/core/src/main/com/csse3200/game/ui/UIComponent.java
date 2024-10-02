@@ -15,6 +15,9 @@ public abstract class UIComponent extends RenderComponent implements Renderable 
   protected static final Skin skin =
       new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
   protected Stage stage;
+  protected String[] actions = {"UP", "DOWN", "LEFT", "RIGHT"};
+  protected String[] keys = {"KEY W", "KEY S", "KEY A", "KEY D", "KEY UP", "KEY DOWN", "KEY LEFT", "KEY RIGHT"};
+
 
   @Override
   public void create() {

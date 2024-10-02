@@ -9,10 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.*;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,12 +28,6 @@ public class PlayerInventoryDisplay extends UIComponent {
      * to be displayed.
      */
     private final InventoryComponent inventoryComponent;
-    private Label heading;
-    private ArrayList<Label> labels;
-
-    private Map<String, Label> itemLabels;  // To store labels for each item for easy updating
-    private Map<String, Image> itemIcons;
-// To store images for each item for easy updating
 
     /**
      * Renderer used to draw shapes (in this case, the background of the inventory).
@@ -62,6 +54,13 @@ public class PlayerInventoryDisplay extends UIComponent {
      * Estimated through trial and error
      */
     private static final float HEIGHT = 55f;
+
+    /**
+     * Map for storing labels associated with each item for easy access and
+     * updating the quantity. Estimated through trial and error.
+     */
+    private Map<String, Label> itemLabels;  // To store labels for each item for easy updating
+
 
     /**
      * Constructor to initialise the inventory component of Player that needs to be displayed
@@ -92,33 +91,11 @@ public class PlayerInventoryDisplay extends UIComponent {
     /**
      * Displays Inventory heading and all the items and position them on UI
      * This will set up the initial layout of the inventory UI.
-     *
+     * <p>
      * The {@link Table} is used to manage the layout
      */
     private void addActors() {
         inventoryTable = new Table();
-        inventoryTable.bottom().right();
-        inventoryTable.setFillParent(true);
-        inventoryTable.padTop(50f).padLeft(5f);
-        setHeading();
-        addItems();
-    }
-
-    /**
-     * Sets and displays the heading text for the inventory list.
-     * The heading is displayed at the top of inventory and provides a title
-     * for the items listed below.
-     */
-    void setHeading() {
-        labels = new ArrayList<Label>();
-        CharSequence headingText = "Collected:";
-        Texture dotTrans = ServiceLocator.getResourceService()
-                .getAsset("images/dot_transparent.png", Texture.class);
-        Image itemImage = new Image(dotTrans);
-        heading = new Label(headingText, skin, "small");
-        labels.add(heading);
-        inventoryTable.add(itemImage).padRight(0.1f);
-        inventoryTable.add(heading);
         inventoryTable.bottom();
         inventoryTable.setFillParent(true);
         stage.addActor(inventoryTable);
@@ -131,13 +108,13 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     private void addItems() {
         addItem("Medkit", new MedKit().getIcon());
-        addItem("Shield Potion", new ShieldPotion().getIcon());
+        addItem("Shield", new ShieldPotion().getIcon());
         addItem("Bandage", new Bandage().getIcon());
         addItem("Target Dummy", new TargetDummy().getIcon());
         addItem("Bear Trap", new BearTrap().getIcon());
-        addItem("BigRedButton", new BigRedButton().getIcon());
-        addItem("Teleporter", new TeleporterItem().getIcon());
-        addItem("Reroll", new Reroll().getIcon());
+        //addItem("Big Red Button", new BigRedButton().getIcon());
+        addItem("Teleport Item", new TeleporterItem().getIcon());
+        addItem("ReRoll", new Reroll().getIcon());
     }
 
     /**
@@ -195,15 +172,10 @@ public class PlayerInventoryDisplay extends UIComponent {
             }
         }
     }
-    public void resize(int width, int height)
-    {
-        if (labels != null)
-            for(Label label : labels)
-                label.setFontScale(width/1100f);
-    }
 
     /**
      * Draws white background behind inventory
+     *
      * @param batch Batch to render to.
      */
     @Override
@@ -211,7 +183,7 @@ public class PlayerInventoryDisplay extends UIComponent {
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.LIGHT_GRAY);
-        shapeRenderer.rect(START_X , START_Y,  WIDTH, HEIGHT);
+        shapeRenderer.rect(START_X, START_Y, WIDTH, HEIGHT);
         shapeRenderer.end();
 
         batch.begin();

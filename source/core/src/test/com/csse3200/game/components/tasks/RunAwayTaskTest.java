@@ -2,6 +2,7 @@ package com.csse3200.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.extensions.GameExtension;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
 class RunAwayTaskTest {
+    private GameTime gameTime;
 
     @BeforeEach
     void beforeEach() {
@@ -30,7 +32,7 @@ class RunAwayTaskTest {
         RenderService renderService = new RenderService();
         renderService.setDebug(mock(DebugRenderer.class));
         ServiceLocator.registerRenderService(renderService);
-        GameTime gameTime = mock(GameTime.class);
+        gameTime = mock(GameTime.class);
         when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
         ServiceLocator.registerTimeSource(gameTime);
         ServiceLocator.registerPhysicsService(new PhysicsService());
@@ -43,20 +45,19 @@ class RunAwayTaskTest {
 
         // Use a configuration object for RunAwayTask
         NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
-        config.priority = 10;
-        config.viewDistance = 5;
-        config.chaseDistance = 10;
-        config.chaseSpeed = 3;
-        config.waitTime = 2;
+        config.runSpeed = 3;
+        config.stopDistance = 5;
+        config.maxRunTime = 10;
+        config.activationMinRange = 1;
+        config.activationMaxRange = 10;
+        config.activationHealth = 1f;
+        config.cooldownTime = 5;
 
         AITaskComponent ai = new AITaskComponent().addTask(new RunAwayTask(target, config));
 
-        Entity entity = makePhysicsEntity().addComponent(ai);
+        Entity entity = makeEntity().addComponent(ai);
         entity.create();
         entity.setPosition(0f, 0f);
-
-        // Simulate the 'runAway' event trigger
-        entity.getEvents().trigger("runAway");
 
         // Ensure the task is active and running away from the target
         float initialDistance = entity.getPosition().dst(target.getPosition());
@@ -70,7 +71,7 @@ class RunAwayTaskTest {
 
         // Ensure the entity has moved away from the target
         float newDistance = entity.getPosition().dst(target.getPosition());
-        assertTrue(newDistance <= initialDistance);
+        assertTrue(newDistance > initialDistance);
     }
 
     @Test
@@ -80,19 +81,19 @@ class RunAwayTaskTest {
 
         // Use a configuration object for RunAwayTask
         NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
-        config.priority = 10;
-        config.viewDistance = 5;
-        config.chaseDistance = 10;
-        config.chaseSpeed = 3;
-        config.waitTime = 2;
+        config.runSpeed = 3;
+        config.stopDistance = 5;
+        config.maxRunTime = 10;
+        config.activationMinRange = 1;
+        config.activationMaxRange = 10;
+        config.activationHealth = 1f;
+        config.cooldownTime = 5;
 
-        AITaskComponent ai = new AITaskComponent().addTask(new RunAwayTask(target, config));
-        Entity entity = makePhysicsEntity().addComponent(ai);
+        RunAwayTask runAwayTask = new RunAwayTask(target, config);
+        AITaskComponent ai = new AITaskComponent().addTask(runAwayTask);
+        Entity entity = makeEntity().addComponent(ai);
         entity.create();
         entity.setPosition(0f, 0f);
-
-        // Simulate the 'runAway' event trigger followed by the 'stopRunAway' event
-        entity.getEvents().trigger("runAway");
 
         // Simulate entity running for a few updates
         for (int i = 0; i < 3; i++) {
@@ -101,9 +102,6 @@ class RunAwayTaskTest {
             ServiceLocator.getPhysicsService().getPhysics().update();
         }
 
-        // Trigger the 'stopRunAway' event and ensure the entity has stopped moving
-        entity.getEvents().trigger("stopRunAway");
-
         // Capture the entity's current position
         Vector2 stoppedPosition = entity.getPosition().cpy();
         entity.earlyUpdate();
@@ -111,7 +109,9 @@ class RunAwayTaskTest {
         ServiceLocator.getPhysicsService().getPhysics().update();
 
         // Check that the entity has stopped moving after triggering stopRunAway
-        assertEquals(stoppedPosition, entity.getPosition());
+        float tolerance = 0.05f;
+        assertEquals(stoppedPosition.x, entity.getPosition().x, tolerance);
+        assertEquals(stoppedPosition.y, entity.getPosition().y, tolerance);
     }
 
     @Test
@@ -121,19 +121,18 @@ class RunAwayTaskTest {
 
         // Use a configuration object for RunAwayTask
         NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
-        config.priority = 10;
-        config.viewDistance = 5;
-        config.chaseDistance = 10;
-        config.chaseSpeed = 3;
-        config.waitTime = 2;
+        config.runSpeed = 3;
+        config.stopDistance = 5;
+        config.maxRunTime = 10;
+        config.activationMinRange = 1;
+        config.activationMaxRange = 10;
+        config.activationHealth = 0.5f;
+        config.cooldownTime = 5;
 
         AITaskComponent ai = new AITaskComponent().addTask(new RunAwayTask(target, config));
-        Entity entity = makePhysicsEntity().addComponent(ai);
+        Entity entity = makeEntity().addComponent(ai);
         entity.create();
         entity.setPosition(0f, 0f);
-
-        // Trigger the 'runAway' event
-        entity.getEvents().trigger("runAway");
 
         // Run a few update cycles and check that the entity has not moved
         Vector2 initialPosition = entity.getPosition().cpy();
@@ -153,21 +152,20 @@ class RunAwayTaskTest {
 
         // Use a configuration object for RunAwayTask
         NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
-        config.priority = 10;
-        config.viewDistance = 5;
-        config.chaseDistance = 10;
-        config.chaseSpeed = 3;
-        config.waitTime = 2;
+        config.runSpeed = 20;
+        config.stopDistance = 5;
+        config.maxRunTime = 10;
+        config.activationMinRange = 1;
+        config.activationMaxRange = 4;
+        config.activationHealth = 1f;
+        config.cooldownTime = 5;
 
         AITaskComponent ai = new AITaskComponent().addTask(new RunAwayTask(target, config));
-        Entity entity = makePhysicsEntity().addComponent(ai);
+        Entity entity = makeEntity().addComponent(ai);
         entity.create();
         entity.setPosition(0f, 0f);
 
-        // Simulate the 'runAway' event trigger
-        entity.getEvents().trigger("runAway");
-
-        // Simulate running away until entity exceeds the maxChaseDistance
+        // Simulate running away until entity exceeds the stopDistance
         for (int i = 0; i < 10; i++) {
             entity.earlyUpdate();
             entity.update();
@@ -176,12 +174,49 @@ class RunAwayTaskTest {
 
         // Ensure that the entity has stopped moving after exceeding maxChaseDistance
         float distance = entity.getPosition().dst(target.getPosition());
-        assertTrue(distance > 2); // Should be beyond maxChaseDistance and stopped running
+        assertTrue(distance >= 5); // Should be beyond stopDistance and stopped running
     }
 
-    private Entity makePhysicsEntity() {
+    @Test
+    void shouldRespectCooldownAfterRunningAway() {
+        Entity target = new Entity();
+        target.setPosition(2f, 2f);
+
+        // Use a configuration object for RunAwayTask
+        NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
+        config.runSpeed = 3;
+        config.stopDistance = 5;
+        config.maxRunTime = 10;
+        config.activationMinRange = 1;
+        config.activationMaxRange = 10;
+        config.activationHealth = 1f;
+        config.cooldownTime = 5;
+
+        RunAwayTask runAwayTask = new RunAwayTask(target, config);
+        AITaskComponent ai = new AITaskComponent().addTask(runAwayTask);
+        Entity entity = makeEntity().addComponent(ai);
+        entity.create();
+        entity.setPosition(0f, 0f);
+
+        // Simulate the task running once
+        when(gameTime.getTime()).thenReturn(1000L); // After 1 second
+        entity.earlyUpdate();
+        entity.update();
+        runAwayTask.stop();
+
+        // Simulate time passing (less than cooldown)
+        when(gameTime.getTime()).thenReturn(2000L);  // 1 second later
+        assertEquals(-1, runAwayTask.getPriority(), "Should not run again during cooldown");
+
+        // Simulate time passing (cooldown complete)
+        when(gameTime.getTime()).thenReturn(6000L);  // 5 seconds later
+        assertEquals(9, runAwayTask.getPriority(), "RunAwayTask should be ready after cooldown");
+    }
+
+    private Entity makeEntity() {
         return new Entity()
                 .addComponent(new PhysicsComponent())
-                .addComponent(new PhysicsMovementComponent());
+                .addComponent(new PhysicsMovementComponent())
+                .addComponent(new CombatStatsComponent(100,10));
     }
 }

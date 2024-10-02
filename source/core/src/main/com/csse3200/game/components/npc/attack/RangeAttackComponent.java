@@ -15,7 +15,7 @@ import com.csse3200.game.services.ServiceLocator;
 public class RangeAttackComponent extends AttackComponent {
 
     private final float spreadAngle = 0.1f;
-    private final ShootType type;
+    private ShootType type;
     private Entity latestProjectile;
     private String[] projectileNames;
     private String[] attackTriggers;
@@ -43,6 +43,7 @@ public class RangeAttackComponent extends AttackComponent {
             type = ShootType.SPREAD;
         }
         projectileNames = new String[]{"projectile"};
+        this.setEnabled(false);
     }
 
     /**
@@ -219,6 +220,18 @@ public class RangeAttackComponent extends AttackComponent {
         float newY = mainRay.x * sin + mainRay.y * cos;
 
         return new Vector2(newX, newY);
+    }
+
+    /**
+     * Set the type of shooting
+     * @param type The type of shooting
+     */
+    public void setType(String type) {
+        this.type = switch (type.toUpperCase()) {
+            case "SINGLE" -> ShootType.SINGLE;
+            case "SPREAD" -> ShootType.SPREAD;
+            default -> ShootType.SINGLE;
+        };
     }
 }
 

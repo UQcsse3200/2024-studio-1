@@ -3,17 +3,9 @@ package com.csse3200.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
-import com.csse3200.game.components.npc.DirectionalNPCComponent;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.configs.NPCConfigs;
-import com.csse3200.game.physics.PhysicsEngine;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.raycast.RaycastHit;
-import com.csse3200.game.rendering.DebugRenderer;
-import com.csse3200.game.services.ServiceLocator;
-
 import com.csse3200.game.ai.tasks.Task;
+import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +28,6 @@ public class FollowTask extends DefaultTask implements PriorityTask {
   /**
    * Constructs a FollowTask.
    *
-   * @param target The entity to chase.
    * @param config Configuration for the chase task.
    */
   public FollowTask(NPCConfigs.NPCConfig.TaskConfig.FollowTaskConfig config) {
@@ -51,7 +42,7 @@ public class FollowTask extends DefaultTask implements PriorityTask {
   @Override
   public void start() {
     super.start();
-    waitTask = new WaitTask(waitTime, 0);
+    waitTask = new WaitTask(waitTime);
     waitTask.create(owner);
     movementTask = new MovementTask(getRandomPosInRange()); // Move to a random position within the range 
     movementTask.create(owner);
@@ -117,7 +108,7 @@ public class FollowTask extends DefaultTask implements PriorityTask {
 
   private Vector2 getRandomPosInRange() {
     // Calculate a random position within the wander range around the starting point.
-    Vector2 playerPosition = ServiceLocator.getEntityService().getPlayer().getPosition();
+    Vector2 playerPosition = ServiceLocator.getGameAreaService().getGameArea().getPlayer().getPosition();
     Vector2 halfRange = followRange.cpy().scl(0.5f);
     Vector2 min = playerPosition.cpy().sub(halfRange); // Minimum boundary of the range.
     Vector2 max = playerPosition.cpy().add(halfRange); // Maximum boundary of the range.

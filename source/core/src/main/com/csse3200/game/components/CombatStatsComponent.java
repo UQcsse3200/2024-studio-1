@@ -59,6 +59,11 @@ public class CombatStatsComponent extends Component {
         this.timerFlashSprite = new Timer();
     }
 
+    public CombatStatsComponent(int health, int baseAttack, boolean neverDies){
+        this(health, baseAttack, false, 0, 0);
+        setInvincible(neverDies);
+    }
+
     public CombatStatsComponent(int health, int baseAttack) {
         this(health, baseAttack, false, 0, 0);
     }
@@ -278,7 +283,6 @@ public class CombatStatsComponent extends Component {
             } else {
                 damage = attacker.getBaseAttack();
             }
-
             int newHealth = getHealth() - damage;
             setHealth(newHealth);
             //add animationcontroller

@@ -4,10 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
@@ -29,9 +26,9 @@ public class MainGameExitDisplay extends UIComponent {
   private Table table;
   private ImageButton pauseBtn;
   private Table pauseTable;
+  private SelectBox<String> actionSelect;
+  private SelectBox<String> keySelect;
   private Entity player;
-
-
 
   @Override
   public void create() {
@@ -82,6 +79,13 @@ public class MainGameExitDisplay extends UIComponent {
     TextButton restartBtn = new TextButton("Restart", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
 
+    Label keybindingsLabel = new Label("Keybindings : ", skin);
+    Label actionLabel = new Label("Action: ", skin);
+    actionSelect = new SelectBox<>(skin);
+    actionSelect.setItems(actions);
+    Label keyLabel = new Label("Key: ", skin);
+    keySelect = new SelectBox<>(skin);
+    keySelect.setItems(keys);
 
 
     //window = new Image(windowTexture);
@@ -131,6 +135,17 @@ public class MainGameExitDisplay extends UIComponent {
     pauseTable.row();
     pauseTable.add(exitBtn).padTop(BTN_SPACING);
     pauseTable.row();
+
+    pauseTable.row().padTop(10f);
+    pauseTable.add(keybindingsLabel);
+    pauseTable.row().padTop(10f);
+    pauseTable.add(actionLabel);
+    pauseTable.row();
+    pauseTable.add(actionSelect);
+    pauseTable.row();
+    pauseTable.add(keyLabel);
+    pauseTable.row();
+    pauseTable.add(keySelect);
 
     stage.addActor(table);
   }
@@ -182,6 +197,7 @@ public class MainGameExitDisplay extends UIComponent {
         player = entity;
         SavePlayerService savePlayerService = new SavePlayerService();
         savePlayerService.savePlayerState(player);
+        //triggers to save map data and player location, listeners in MainGameArea
         player.getEvents().trigger("saveMapLocation");
         player.getEvents().trigger("saveMapData");
         System.out.println("Saved Successfully");

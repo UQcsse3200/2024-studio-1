@@ -37,7 +37,6 @@ import static java.lang.Math.*;
  * Factory for producing entities with a projectile themed component configuration.
  */
 public class ProjectileFactory extends LoadedFactory {
-
     private static final Logger logger = LoggerFactory.getLogger(ProjectileFactory.class);
     private final ProjectileConfigs configs = loadConfigs();
 
@@ -143,8 +142,7 @@ public class ProjectileFactory extends LoadedFactory {
                                    Vector2 direction, Vector2 parentPosition,
                                    AnimationRenderComponent animator) {
 
-        Entity projectile =
-                new Entity()
+        Entity projectile = new Entity()
                         .addComponent(new NameComponent(name))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())

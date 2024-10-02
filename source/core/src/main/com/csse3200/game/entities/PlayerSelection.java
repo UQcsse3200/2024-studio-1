@@ -1,14 +1,13 @@
 package com.csse3200.game.entities;
 
 import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.entities.factories.PlayerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class PlayerSelection {
-
     /**
      * List of player json files.
      */
@@ -27,10 +26,6 @@ public class PlayerSelection {
      * @return map of config filename to config.
      */
     public static Map<String, PlayerConfig> getPlayerConfigs(List<String> configFilenames) {
-        return configFilenames.stream()
-                .collect(Collectors.toMap(
-                        filename -> filename,
-                        filename -> FileLoader.readClass(PlayerConfig.class, filename)
-                ));
+        return new PlayerFactory(Arrays.stream(PLAYERS).toList()).getOptions();
     }
 }

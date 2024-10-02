@@ -42,6 +42,8 @@ public class SettingsMenuDisplay extends UIComponent {
     private Slider soundVolumeSlider;
     private CheckBox muteCheck;
     private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
+    private SelectBox<String> actionSelect;
+    private SelectBox<String> keySelect;
 
     public SettingsMenuDisplay(GdxGame game) {
         super();
@@ -115,6 +117,13 @@ public class SettingsMenuDisplay extends UIComponent {
         displayModeSelect.setItems(getDisplayModes(selectedMonitor));
         displayModeSelect.setSelected(getActiveMode(displayModeSelect.getItems()));
 
+        Label actionLabel = new Label("Action: ", skin);
+        actionSelect = new SelectBox<>(skin);
+        actionSelect.setItems(actions);
+        Label keyLabel = new Label("Key: ", skin);
+        keySelect = new SelectBox<>(skin);
+        keySelect.setItems(keys);
+
         // Position Components on table
         Table table = new Table();
 
@@ -160,6 +169,12 @@ public class SettingsMenuDisplay extends UIComponent {
 
         table.add(soundVolumeLabel).right().padRight(15f);
         table.add(soundVolumeTable).left();
+
+        table.row().padTop(10f);
+        table.add(actionLabel).right().padRight(15f);
+        table.add(actionSelect).left();
+        table.add(keyLabel).right().padRight(15f);
+        table.add(keySelect).left();
 
 
         // Listener for uiScaleSlider

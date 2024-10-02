@@ -6,18 +6,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.options.GameOptions.Difficulty;
-import com.csse3200.game.screens.MainMenuScreen;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 
-import static com.csse3200.game.files.FileLoader.Location.EXTERNAL;
-import static com.csse3200.game.files.FileLoader.Location.LOCAL;
-import static com.csse3200.game.files.FileLoader.fileExists;
 import static com.csse3200.game.services.ServiceLocator.getResourceService;
 
 /**
@@ -49,14 +50,12 @@ public class MainMenuDisplay extends UIComponent {
      * @return true if all load files exist, false otherwise.
      */
     private static boolean loadFilesExist() {
-        for (String path : MainMenuScreen.SAVE_PATHS) {
-            if (!fileExists(path, LOCAL)) {
-                logger.info("Save file not found: {}", path);
-                return false;
-            }
-        }
-        logger.info("Can load from save files - all save files found");
-        return true;
+        HashMap playerLocationConfig = FileLoader.readClass(HashMap.class, MainGameArea.PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        ArrayList mapLoadConfig = FileLoader.readClass(ArrayList.class, MainGameArea.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class, "configs/player_save.json", FileLoader.Location.EXTERNAL);
+
+        logger.info("{}\n{}\n{}", playerConfig, mapLoadConfig, playerLocationConfig);
+        return playerLocationConfig != null && mapLoadConfig != null && playerConfig != null;
     }
 
     private void addActors() {

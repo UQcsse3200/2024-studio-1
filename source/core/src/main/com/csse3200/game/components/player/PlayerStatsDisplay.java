@@ -40,10 +40,10 @@ public class PlayerStatsDisplay extends UIComponent {
     private Image damageImage;
     private ProgressBar damageProgressBar;
 
+    private ArrayList<Label> labels;
     public static final String HEART_TEXTURE = "images/heart.png";
     public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
-    public static final String DAMAGE_BUFF_TEXTURE = "images/items/armor.png";
-
+    public static final String DAMAGE_BUFF_TEXTURE = "images/items/damage_buff.png";
 
 
     /**
@@ -61,6 +61,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("ranged_activate", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
+        entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
     }
 
     /**
@@ -69,6 +70,8 @@ public class PlayerStatsDisplay extends UIComponent {
      * @see Table for positioning options
      */
     private void addActors() {
+        labels = new ArrayList<Label>();
+
         table = new Table();
         ammoTable = new Table();
         table.top().left();
@@ -118,12 +121,14 @@ public class PlayerStatsDisplay extends UIComponent {
 
         //Weapon text, like the name of weapon
         //entity.getComponent(WeaponComponent.class).getWeaponType();
-        pickaxeLabel = new Label("Pickaxe: 0", skin, "large");
-        shotgunLabel = new Label("Shotgun: 0", skin, "large");
+        pickaxeLabel = new Label("Pickaxe: 0", skin, "small");
+        shotgunLabel = new Label("Shotgun: 0", skin, "small");
 
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
+        labels.add(healthLabel);
+
 
         table.row().padTop(10);
         table.add(speedImage).size(speedSideLength).pad(5);
@@ -136,6 +141,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
+        labels.add(pickaxeLabel);
         table.row().padTop(10);
         table.add(shotgunLabel).colspan(2).padLeft(10).left();
         table.row().padTop(10);
@@ -143,7 +149,13 @@ public class PlayerStatsDisplay extends UIComponent {
         stage.addActor(table);
     }
 
-
+    public void resize(int width, int height)
+    {
+        if (labels != null)
+            for(Label label : labels)
+                label.setFontScale(width/1100f);
+    }
+    
     @Override
     public void draw(SpriteBatch batch) {
 

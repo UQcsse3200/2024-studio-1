@@ -3,6 +3,7 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.areas.BaseRoom;
 import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.npc.NPCConfigComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;

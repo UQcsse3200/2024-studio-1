@@ -12,6 +12,7 @@ public class PhysicsLayer {
   public static final short ROOM = (1 << 4);
   public static final short ALL = ~0;
   public static final short WEAPON = (1 << 6);
+  public static final short PET = (1 << 7);
 
   public static boolean contains(short filterBits, short layer) {
     return (filterBits & layer) != 0;

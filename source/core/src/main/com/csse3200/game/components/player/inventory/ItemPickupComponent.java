@@ -115,16 +115,19 @@ public class ItemPickupComponent extends Component {
         if (collisionItem == null || collisionItemEntity == null) {
             return;
         }
+
         int xPosition = (int) collisionItemEntity.getPosition().x;
         int yPosition = (int) collisionItemEntity.getPosition().y;
 
         GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
         markEntityForRemoval(collisionItemEntity);
 
-        int randomInt = this.random.nextInt(6);
+        int randomInt = this.random.nextInt(15);
         Entity newItem = this.randomItemGenerator(randomInt);
+//        Entity newItem = testCollectibleFactory.createCollectibleEntity("item:shieldpotion");
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
+//        area.spawnEntityAt(newItem, itemEntityPosition, true, true);
         entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
         itemEntity = newItem;
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
@@ -211,6 +214,15 @@ public class ItemPickupComponent extends Component {
             case 3 -> specification = "buff:energydrink:High";
             case 4 -> specification = "buff:energydrink:Low";
             case 5 -> specification = "buff:energydrink:Medium";
+            case 6 -> specification = "buff:syringe";
+            case 7 -> specification = "buff:armor";
+            case 8 -> specification = "buff:damagebuff";
+            case 9 -> specification = "item:beartrap";
+            case 10 -> specification = "item:targetdummy";
+            case 11 -> specification = "item:reroll";
+            case 12 -> specification = "buff:feather";
+            case 13 -> specification = "item:heart";
+            case 14 -> specification = "buff:divinepotion";
         }
 
         return this.collectibleFactory.createCollectibleEntity(specification);

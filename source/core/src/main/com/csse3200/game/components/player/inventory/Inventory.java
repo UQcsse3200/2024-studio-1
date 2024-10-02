@@ -117,6 +117,7 @@ public class Inventory {
      */
     public void addItem(Collectible item) {
         this.items.add(item);
+        getEntity().getEvents().trigger("addToInventory");
     }
 
 

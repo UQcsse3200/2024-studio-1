@@ -184,6 +184,7 @@ public class PlayerActions extends Component {
             for (Collectible collectedItem : inventory.getItems()) {
                 if (collectedItem.getClass() == item.getClass()) {
                     item.apply(entity);
+                    entity.getEvents().trigger("itemUsed");
                     inventoryComponent.drop(collectedItem);
                     break;
                 }

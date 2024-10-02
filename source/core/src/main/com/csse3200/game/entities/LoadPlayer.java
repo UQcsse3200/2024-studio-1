@@ -105,6 +105,7 @@ public class LoadPlayer {
                 .addComponent(new PlayerActions())
                 .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0))
                 .addComponent(inventoryComponent)
+                .addComponent(new PlayerAchievementComponent())
                 .addComponent(new ItemPickupComponent())
                 .addComponent(new FundsDisplayComponent())
                 .addComponent(new ShieldComponent())

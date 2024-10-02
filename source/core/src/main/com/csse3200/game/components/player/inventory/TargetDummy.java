@@ -3,6 +3,7 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.areas.BaseRoom;
 import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.npc.NPCConfigComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
@@ -47,12 +48,11 @@ public class TargetDummy extends UsableItem {
         int xPos = (int) entity.getPosition().x;
         int yPos = (int) entity.getPosition().y;
 
-        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(targetDummy, new GridPoint2(xPos, yPos), true, true);
         if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+            room.SpawnDeployable(targetDummy, new GridPoint2(xPos, yPos), true, true);
             List<Entity> enemies = room.getEnemies();
             updateEnemyTargets(enemies, targetDummy);
         }
-
     }
 
     /**

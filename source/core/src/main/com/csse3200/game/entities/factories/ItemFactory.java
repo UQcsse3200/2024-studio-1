@@ -59,6 +59,8 @@ public class ItemFactory {
             case "beartrap" -> createBearTrap();
             case "heart" -> createHeart();
             case "feather" -> createFeather();
+            case "tombstone" -> createTombstone();
+            case "ringfire" -> createRingFire();
             case "divinepotion" -> createDivinePotion();
             case "bleedbuff" -> createBleedBuff();
             case "BigRedButton" -> createBigRedButton();
@@ -161,6 +163,10 @@ public class ItemFactory {
         return new Feather();
     }
 
+    private Collectible createTombstone() {
+        return new Tombstone();
+    }
+    private Collectible createRingFire() {return new RingFire();}
     /**
      * Creates a divine potion item that increases the player's health and speed
      * @return divine potion item

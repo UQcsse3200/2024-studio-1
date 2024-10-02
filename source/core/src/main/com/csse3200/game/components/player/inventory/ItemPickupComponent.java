@@ -1,16 +1,22 @@
 package com.csse3200.game.components.player.inventory;
 
-
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Timer;
+import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.ui.UIComponent;
+import com.csse3200.game.utils.RandomNumberGenerator;
 import java.util.Random;
-
 
 /**
  * A component that allows a player to interact with items
@@ -138,13 +144,20 @@ public class ItemPickupComponent extends Component {
      * @param itemEntity the entity representation of the item that the player is attempting to purhase
      */
     public void checkItemPurchase(Collectible item, Entity itemEntity) {
-        int playerFunds = getTestFunds();
+        if (entity.getComponent(CoinsComponent.class) == null) {
+            entity.getEvents().trigger("insufficientFunds");
+            // Depending on how you want to handle no coins component
+            return;
+        }
+        CoinsComponent coinsComponent = entity.getComponent(CoinsComponent.class);
+        int playerFunds = coinsComponent.getCoins();
         if (item == null || itemEntity == null) {
             return;
         }
         if ((itemEntity.getComponent(BuyableComponent.class) != null) && contact) {
             int cost = itemEntity.getComponent(BuyableComponent.class).getCost();
             if (playerFunds >= cost) {
+                coinsComponent.spend(cost);
                 entity.getComponent(InventoryComponent.class).pickup(item);
                 markEntityForRemoval(itemEntity);
             }

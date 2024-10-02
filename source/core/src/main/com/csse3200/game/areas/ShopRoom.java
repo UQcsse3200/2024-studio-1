@@ -41,9 +41,9 @@ public class ShopRoom extends BaseRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-                List.of("item:medkit:buyable", "buff:heart:buyable"),
-                List.of("item:medkit:buyable", "buff:heart:buyable", "item:shieldpotion:buyable"),
-                List.of("item:medkit:buyable", "buff:heart:buyable","item:shieldpotion:buyable","buff:energydrink:High")
+                List.of("item:medkit:buyable", "buff:heart:buyable","item:medkit:buyable", "buff:heart:buyable","item:medkit:buyable", "buff:heart:buyable"),
+                List.of("item:medkit:buyable", "buff:heart:buyable", "item:shieldpotion:buyable","item:medkit:buyable", "buff:heart:buyable", "item:shieldpotion:buyable"),
+                List.of("item:medkit:buyable", "buff:heart:buyable","item:shieldpotion:buyable","item:medkit:buyable", "buff:heart:buyable", "item:shieldpotion:buyable")
         );
     }
 
@@ -66,22 +66,29 @@ public class ShopRoom extends BaseRoom {
      * @param area the game are to spawn room into
      */
     private void spawnItems(MainGameArea area) {
-        List<String> itemGroup = this.itemSpecifications.get(this.itemGroup);
-        Set<String> usedCoordinates = new HashSet<>();
-        final int MAXGENERATED = 10;
-
-        String coordinate;
-        if (itemGroup != null) {
-            while (usedCoordinates.size() < itemGroup.size() && itemGroup.size() < MAXGENERATED) {
-                int x = rng.getRandomInt(1, 8);
-                int y = rng.getRandomInt(1, 8);
-                coordinate = x + "_" + y;
-                if (!usedCoordinates.contains(coordinate)) {
-                    spawnItem(area, itemGroup.get(usedCoordinates.size()), new GridPoint2(x, y));
-                    usedCoordinates.add(coordinate);
+        List<String> items = this.itemSpecifications.get(this.itemGroup);
+        if(items != null && items.size() != 6) {
+            //Cooper's code: spawn the items randomly
+            Set<String> usedCoordinates = new HashSet<>();
+            final int MAXGENERATED = 10;
+            String coordinate;
+            if (items != null) {
+                while (usedCoordinates.size() < items.size() && items.size() < MAXGENERATED) {
+                    int x = rng.getRandomInt(1, 8);
+                    int y = rng.getRandomInt(1, 8);
+                    coordinate = x + "_" + y;
+                    if (!usedCoordinates.contains(coordinate)) {
+                        spawnItem(area, items.get(usedCoordinates.size()), new GridPoint2(x, y));
+                        usedCoordinates.add(coordinate);
+                    }
                 }
             }
-
+        }
+        //Zack's code: spawn in 1 line (if there is 6 item)
+        else if(items != null) {
+            for (int i = 0; i < items.size(); i++){
+                spawnItem(area, items.get(i), new GridPoint2(i * 2 + 2, 8));
+            }
         }
     }
 

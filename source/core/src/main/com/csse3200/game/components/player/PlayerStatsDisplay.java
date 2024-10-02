@@ -42,7 +42,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     public static final String HEART_TEXTURE = "images/heart.png";
     public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
-    public static final String DAMAGE_BUFF_TEXTURE = "images/items/armor.png";
+    public static final String DAMAGE_BUFF_TEXTURE = "images/items/damage_buff.png";
 
 
 
@@ -61,6 +61,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("ranged_activate", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
+        entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
     }
 
     /**

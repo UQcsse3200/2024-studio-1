@@ -1,6 +1,5 @@
 package com.csse3200.game.components;
 
-import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 
 import com.csse3200.game.components.player.ShieldComponent;
@@ -11,7 +10,6 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.RandomNumberGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.ai.tasks.AITaskComponent;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -261,7 +259,7 @@ public class CombatStatsComponent extends Component {
                 lastAttackName = attacker.getEntity().getName();
             }
 
-            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.LOCAL);
+            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
             //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
             //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
             //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");

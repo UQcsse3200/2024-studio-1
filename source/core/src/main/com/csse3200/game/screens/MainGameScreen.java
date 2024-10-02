@@ -12,8 +12,6 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
-import com.csse3200.game.components.player.PlayerInventoryDisplay;
-import com.csse3200.game.components.player.PlayerStatsDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.PlayerSelection;
@@ -36,9 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static com.csse3200.game.GdxGame.ScreenColour.DEFAULT;
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
 import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
@@ -52,8 +48,13 @@ public class MainGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
     private final PlayerFactory playerFactory;
     private static final String[] mainGameTextures = {
-            "images/heart.png", "images/ui_white_icons.png", "images/ui_white_icons_over.png",
-            "images/ui_white_icons_down.png","skins/rainbow/skin/rainbow-ui.png", "images/dot_transparent.png", "images/black_dot_transparent.png"
+            "images/heart.png",
+            "images/ui_white_icons.png",
+            "images/ui_white_icons_over.png",
+            "images/ui_white_icons_down.png",
+            "skins/rainbow/skin/rainbow-ui.png",
+            "images/dot_transparent.png",
+            "images/black_dot_transparent.png"
     };
     // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};

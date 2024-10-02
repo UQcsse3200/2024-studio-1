@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -57,7 +58,7 @@ public class LoseScreenDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
-        LastAttackAnimal = readClass(String.class, "configs/LastAttack.json");
+        LastAttackAnimal = readClass(String.class, "configs/LastAttack.json", FileLoader.Location.EXTERNAL);
         Label youDied = new Label("You died...", skin, "cutscene");
         Label animalName;
         Image playerDead;

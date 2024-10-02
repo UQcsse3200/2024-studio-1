@@ -24,7 +24,8 @@ public class PlayerAchievementComponent extends UIComponent {
      */
     public HashMap<String, String> achievements;
     public ArrayList<String> energyDrinksCollected;
-    public Table table;
+    private static final int ACHIEVEMENT_DURATION = 3;
+    private static final String ACHIEVEMENT_FILE = "configs/achievements.json";
 
     /**
      * Constructs an Achievement component to an Entity by reading the achievements
@@ -32,19 +33,15 @@ public class PlayerAchievementComponent extends UIComponent {
      */
     public PlayerAchievementComponent() {
         energyDrinksCollected = new ArrayList<>();
-        if (FileLoader.readClass(HashMap.class, "configs/achievements.json",
+        if (FileLoader.readClass(HashMap.class, ACHIEVEMENT_FILE,
                 FileLoader.Location.EXTERNAL) == null) {
-            achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
+            achievements = FileLoader.readClass(HashMap.class, ACHIEVEMENT_FILE,
                     FileLoader.Location.LOCAL);
         }
         else {
-            achievements = FileLoader.readClass(HashMap.class, "configs/achievements.json",
+            achievements = FileLoader.readClass(HashMap.class, ACHIEVEMENT_FILE,
                     FileLoader.Location.EXTERNAL);
         }
-
-        this.table = new Table();
-        this.table.center();
-        this.table.setFillParent(true);
 
     }
 
@@ -161,19 +158,19 @@ public class PlayerAchievementComponent extends UIComponent {
             // Create a Label to display the achievement message
             String text = String.format("Congratulations, you have achieved the '%s' achievement!", name);
             Label achievementLabel = new Label(text, skin, "small");
-//            Table table = new Table();
-//            table.center();
-//            table.setFillParent(true);
-            this.table.row().padTop(5f);
-            this.table.add(achievementLabel).padTop(5f);
+            Table table = new Table();
+            table.center();
+            table.setFillParent(true);
+            table.row().padTop(5f);
+            table.add(achievementLabel).padTop(5f);
             stage.addActor(table);
-            // unrender the label after 1 second of display
+            // unrender the label after 3 second of display
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    achievementLabel.remove(); // Remove the label from the screen
+                    achievementLabel.remove();
                 }
-            }, 3);
+            }, ACHIEVEMENT_DURATION);
             updateConfig();
         }
     }
@@ -183,14 +180,14 @@ public class PlayerAchievementComponent extends UIComponent {
      */
     public void resetAchievements() {
         achievements = new HashMap<>();
-        FileLoader.writeClass(achievements, "configs/achievements.json", FileLoader.Location.EXTERNAL);
+        FileLoader.writeClass(achievements, ACHIEVEMENT_FILE, FileLoader.Location.EXTERNAL);
     }
 
     /**
      * Writes the Hashmap to Json file
      */
     public void updateConfig() {
-        FileLoader.writeClass(achievements, "configs/achievements.json", FileLoader.Location.EXTERNAL);
+        FileLoader.writeClass(achievements, ACHIEVEMENT_FILE, FileLoader.Location.EXTERNAL);
     }
 
 }

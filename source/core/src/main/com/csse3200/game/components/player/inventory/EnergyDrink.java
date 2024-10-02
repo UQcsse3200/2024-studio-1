@@ -116,7 +116,7 @@ public class EnergyDrink extends BuffItem {
             entity.getComponent(PlayerActions.class).setSpeed(this.maxSpeed); //Cap it at the max speed
             entity.getComponent(PlayerActions.class).setSpeedPercentage(speedLimit); //Cap the UI percentage at max
             newSpeedPercentage = speedLimit;
-            entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage);
+            entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage, speedType);
         } else {
             //Add the current speed with the boost (vector) associated with this energy drink
             Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
@@ -124,7 +124,7 @@ public class EnergyDrink extends BuffItem {
             entity.getComponent(PlayerActions.class).setSpeed(updatedSpeed);
             //Update the UI
             entity.getComponent(PlayerActions.class).setSpeedPercentage(newSpeedPercentage);
-            entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage);
+            entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage, speedType);
         }
     }
 

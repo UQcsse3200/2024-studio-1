@@ -51,7 +51,7 @@ public class Heart extends BuffItem{
      */
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/Heart.png");
+        return new Texture("images/items/heart_organ.png");
     }
 
     /**
@@ -67,6 +67,7 @@ public class Heart extends BuffItem{
             int currentMaxHealth = combatStats.getMaxHealth();
             if (currentMaxHealth < maxHealthLimit) {
                 combatStats.setMaxHealth(Math.min(currentMaxHealth + maxHealthIncrease, maxHealthLimit));
+                combatStats.setHealth(combatStats.getMaxHealth());
             }
         }
     }

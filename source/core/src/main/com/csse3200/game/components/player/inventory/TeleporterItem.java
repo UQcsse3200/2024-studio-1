@@ -63,8 +63,6 @@ public class TeleporterItem extends UsableItem {
     @Override
     public void apply(Entity entity) {
         entity.getEvents().trigger("teleportToBoss");
-        //Will have to be changed
-        //New instance would be but getting
     }
 
 }

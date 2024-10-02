@@ -157,7 +157,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case 2 -> entity.getEvents().trigger("use2");
             case 3 -> entity.getEvents().trigger("use3");
             case 4 -> entity.getEvents().trigger("use4");
-            case 5 -> entity.getEvents().trigger("useReroll");
+            case 5 -> entity.getEvents().trigger("use5");
+            case 6 -> entity.getEvents().trigger("use6");
+            case 7 -> entity.getEvents().trigger("use7");
+            case 8 -> entity.getEvents().trigger("useReroll");
         }
         return true;
     }
@@ -223,11 +226,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_2, (i) -> useItem(2));
         actionMap.put(USE_3, (i) -> useItem(3));
         actionMap.put(USE_4, (i) -> useItem(4));
+        actionMap.put(USE_5, (i) -> useItem(5));
+        actionMap.put(USE_6, (i) -> useItem(6));
+        actionMap.put(USE_7, (i) -> useItem(7));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
 
         actionMap.put(PICK_UP, (i) -> pickupItem());
-        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Rerol here
+        actionMap.put(RE_ROLL, (i) -> useItem(8)); //Rerol here
         actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());
         actionMap.put(NECROMANCER_BINDING, (i) -> petTargetSwitch());
         return actionMap;

@@ -3,9 +3,7 @@ package com.csse3200.game.entities.factories;
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
-import com.csse3200.game.components.TouchAttackComponent;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
-import com.csse3200.game.components.player.PlayerHealthDisplay;
 import com.csse3200.game.components.player.inventory.DummyDestroyedHandler;
 import com.csse3200.game.components.player.inventory.TrapComponent;
 import com.csse3200.game.entities.Entity;
@@ -38,8 +36,8 @@ public class DeployableItemFactory extends LoadedFactory {
     public Entity createBearTrap() {
         Entity bearTrap = new Entity()
                 .addComponent(new HitboxComponent())
-                .addComponent(new CombatStatsComponent(100,30))
-                .addComponent(new TextureRenderComponent(new Texture("images/items/trap_close.png")))
+                .addComponent(new CombatStatsComponent(100,50))
+                .addComponent(new TextureRenderComponent(new Texture("images/items/trap_open.png")))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new TrapComponent());
 

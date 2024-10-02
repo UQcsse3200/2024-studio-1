@@ -1,10 +1,13 @@
 package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.areas.EnemyRoom;
+import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.services.ServiceLocator;
 
-public abstract class BigRedButton extends UsableItem {
+import java.util.List;
+
+public class BigRedButton extends UsableItem {
     @Override
     public void pickup(Inventory inventory) {
         super.pickup(inventory);
@@ -36,13 +39,13 @@ public abstract class BigRedButton extends UsableItem {
     }
 
     /**
-     * Return texture related with Bandage item
+     * Return texture related with Big Red Button item
      *
-     * @return texture representing icon of Bandage item
+     * @return texture representing icon of Button item
      */
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/big_red_button.png");
+        return new Texture("images/items/Big_red_button.png");
     }
 
     /**
@@ -54,9 +57,23 @@ public abstract class BigRedButton extends UsableItem {
         return new Texture("images/items/mystery_box_red.png");
     }
 
-    public void apply(MainGameArea gameArea) {
-        if (gameArea.getCurrentRoom() instanceof EnemyRoom enemyRoom) {
-            enemyRoom.isAllAnimalDead();
+    /**
+     * Activates an item which damages all surrounding enemies
+     *
+     *
+     * @param entity Deals damage to all enemy entities within the current room
+     */
+    @Override
+    public void apply(Entity entity) {
+        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom enemyRoom) {
+            List<Entity> entities = enemyRoom.getEnemies();
+            for (Entity enemy : entities) {
+                CombatStatsComponent combatStatsComponent = enemy.getComponent(CombatStatsComponent.class);
+                if (combatStatsComponent != null) {
+                    combatStatsComponent.setHealth(1);
+                    combatStatsComponent.hit(combatStatsComponent);
+                }
+            }
         }
     }
 }

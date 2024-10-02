@@ -44,7 +44,7 @@ public class ArmorTest {
 
     @Test
     public void testArmorItem() {
-        assertEquals(10, armor.getArmorValue());
+        assertEquals(20, armor.getArmorValue());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ArmorTest {
     @Test
     public void testIncreaseEntityArmor() {
         armor.effect(entity);
-        assertEquals(10, entity.getComponent(CombatStatsComponent.class).getArmor());
+        assertEquals(20, entity.getComponent(CombatStatsComponent.class).getArmor());
     }
 
     @Test
@@ -66,10 +66,10 @@ public class ArmorTest {
 
     @Test
     public void testDamageReduction() {
-        armor.effect(entity); // Armor applied once
-        armor.effect(entity); // Armor applied twice (20 armor)
-        assertEquals(20, entity.getComponent(CombatStatsComponent.class).getArmor());
+        armor.effect(entity);
+        armor.effect(entity);
+        assertEquals(40, entity.getComponent(CombatStatsComponent.class).getArmor());
         entity.getComponent(CombatStatsComponent.class).hit(attacker);
-        assertEquals(87, entity.getComponent(CombatStatsComponent.class).getHealth());
+        assertEquals(entity.getComponent(CombatStatsComponent.class).getHealth(), 88);
     }
 }

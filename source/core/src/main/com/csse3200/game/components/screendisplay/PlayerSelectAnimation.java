@@ -74,16 +74,7 @@ public class PlayerSelectAnimation extends Actor {
         // Get the current frame from the animator
         TextureRegion currentFrame = animator.getCurrentFrame();
         if (currentFrame != null) {
-            // Calculate the center position
-            float centerX = (getX() + (getWidth() / 2)) - ((float) currentFrame.getRegionWidth() / 2);
-            float centerY = getY();
-
-            if (player == PlayerNum.Player1) {
-                batch.draw(currentFrame, centerX, centerY);
-            } else {
-                // Draw the current frame at the actor's position and size, centered
-                batch.draw(currentFrame, centerX - 50, centerY, 250, 250);
-            }
+            batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
         }
 
         // Reset batch color

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.csse3200.game.files.FileLoader.Location.INTERNAL;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(GameExtension.class)
@@ -44,5 +45,15 @@ class FileLoaderTest {
                 FileLoader.readClass(
                   TestStats.class, "test/files/invalid.json");
         assertNull(test);
+    }
+
+    @Test
+    void fileExists() {
+        assertTrue(FileLoader.fileExists("test/files/existent.txt", INTERNAL));
+    }
+
+    @Test
+    void fileDoesNotExist() {
+        assertFalse(FileLoader.fileExists("test/files/nonexistent.txt", INTERNAL));
     }
 }

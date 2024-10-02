@@ -45,6 +45,10 @@ public class MainMenuDisplay extends UIComponent {
         addActors();
     }
 
+    /**
+     * Check if all load files exist.
+     * @return true if all load files exist, false otherwise.
+     */
     private static boolean loadFilesExist() {
         HashMap playerLocationConfig = FileLoader.readClass(HashMap.class, MainGameArea.PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
         ArrayList mapLoadConfig = FileLoader.readClass(ArrayList.class, MainGameArea.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
@@ -70,6 +74,7 @@ public class MainMenuDisplay extends UIComponent {
             difficultyBtns.put(diff, new TextButton(diff.toString(), skin, "action"));
         }
         TextButton howToPlayBtn = new TextButton("How To Play", skin);
+        TextButton achievementsBtn = new TextButton("Achievements", skin);
         TextButton settingsBtn = new TextButton("Settings", skin);
         TextButton exitBtn = new TextButton("Exit", skin);
 
@@ -107,6 +112,15 @@ public class MainMenuDisplay extends UIComponent {
                     }
                 });
 
+        achievementsBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        logger.debug("Achievements button clicked");
+                        entity.getEvents().trigger("achievements");
+                    }
+                });
+
         settingsBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -138,11 +152,12 @@ public class MainMenuDisplay extends UIComponent {
             table.add(shouldLoadBtn);
             table.row();
         }
-        table.add(howToPlayBtn);
-        table.row();
-        table.add(settingsBtn);
-        table.row();
-        table.add(exitBtn);
+
+        for (TextButton button : new TextButton[]{
+                howToPlayBtn, achievementsBtn, settingsBtn, exitBtn}) {
+            table.add(button);
+            table.row();
+        }
 
         stage.addActor(bg_logo);
         stage.addActor(table);

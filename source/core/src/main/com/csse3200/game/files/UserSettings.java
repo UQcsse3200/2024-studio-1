@@ -3,8 +3,6 @@ package com.csse3200.game.files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
 import com.csse3200.game.files.FileLoader.Location;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +19,7 @@ public class UserSettings {
     /**
      * Get the stored user settings
      *
-     * @return Copy of the current settings
+     * @return Copy of the current settings or default settings upon file error
      */
     public static Settings get() {
         Settings defaultSettings = new Settings();
@@ -57,7 +55,6 @@ public class UserSettings {
     public static void applySettings(Settings settings) {
         Gdx.graphics.setForegroundFPS(settings.fps);
         Gdx.graphics.setVSync(settings.vsync);
-        ResourceService resourceService = ServiceLocator.getResourceService();
         log.info("{}", settings.mute);
         log.info("{}", settings.musicVolume);
 

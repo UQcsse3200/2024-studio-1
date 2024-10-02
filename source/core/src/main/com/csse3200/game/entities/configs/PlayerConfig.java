@@ -32,10 +32,35 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String textureFilename;
   /** The texture atlas this player uses*/
   public String textureAtlasFilename;
+  
   /** The highest possible initial health a player can have. */
   public static final int MAX_HEALTH = 100;
   /** The highest possible initial speed a player can have. */
   public static final Vector2 MAX_SPEED = new Vector2(5, 5);
+
+  /**
+   * Make a copy of the config, used for testing.
+   * @return a copy of the config.
+   */
+  public PlayerConfig copy() {
+    PlayerConfig other = new PlayerConfig();
+    other.name = this.name;
+    other.baseAttack = this.baseAttack;
+    if (this.items == null) {
+      other.items = null;
+    } else {
+      other.items = this.items.clone();
+    }
+    other.speed = this.speed.cpy();
+    other.health = this.health;
+    other.coins = this.coins;
+    other.melee = this.melee;
+    other.ranged = this.ranged;
+    other.textureFilename = this.textureFilename;
+    other.textureAtlasFilename = this.textureAtlasFilename;
+
+    return other;
+  }
 
   /**
    * Checks if two players are the same based on their attributes
@@ -66,11 +91,13 @@ public class PlayerConfig extends BaseEntityConfig  {
   /**
    * Adjust player attributes to account for chosen difficulty and make the game easier/harder.
    * @param difficulty difficulty chosen by player.
+   * @return this same instance with adjusted attributes.
    */
-  public void adjustForDifficulty(Difficulty difficulty) {
+  public PlayerConfig adjustForDifficulty(Difficulty difficulty) {
     float multiplier = difficulty.getMultiplier();
     health = (int) (health * multiplier);
     speed.scl(multiplier);
+    return this;
   }
 
   /**

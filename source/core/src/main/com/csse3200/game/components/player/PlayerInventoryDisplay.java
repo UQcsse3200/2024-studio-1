@@ -80,7 +80,7 @@ public class PlayerInventoryDisplay extends UIComponent {
     public void create() {
         super.create();
         itemLabels = new HashMap<>();
-       //itemIcons = new HashMap<>();
+        //itemIcons = new HashMap<>();
         addActors();
         updateInventoryUI();
         if (entity.getEvents() != null) {
@@ -91,7 +91,7 @@ public class PlayerInventoryDisplay extends UIComponent {
     /**
      * Displays Inventory heading and all the items and position them on UI
      * This will set up the initial layout of the inventory UI.
-     *
+     * <p>
      * The {@link Table} is used to manage the layout
      */
     private void addActors() {
@@ -175,6 +175,7 @@ public class PlayerInventoryDisplay extends UIComponent {
 
     /**
      * Draws white background behind inventory
+     *
      * @param batch Batch to render to.
      */
     @Override
@@ -182,7 +183,7 @@ public class PlayerInventoryDisplay extends UIComponent {
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.LIGHT_GRAY);
-        shapeRenderer.rect(START_X , START_Y,  WIDTH, HEIGHT);
+        shapeRenderer.rect(START_X, START_Y, WIDTH, HEIGHT);
         shapeRenderer.end();
 
         batch.begin();

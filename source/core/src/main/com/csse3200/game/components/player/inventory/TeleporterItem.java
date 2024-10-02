@@ -42,7 +42,7 @@ public class TeleporterItem extends UsableItem {
      */
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/Big_Purple_Button.png");
+        return new Texture("images/items/big_purple_button.png");
     }
 
     /**

@@ -80,7 +80,7 @@ public class PlayerInventoryDisplay extends UIComponent {
     public void create() {
         super.create();
         itemLabels = new HashMap<>();
-       //itemIcons = new HashMap<>();
+        //itemIcons = new HashMap<>();
         addActors();
         updateInventoryUI();
         if (entity.getEvents() != null) {

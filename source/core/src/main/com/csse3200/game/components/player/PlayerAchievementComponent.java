@@ -18,13 +18,15 @@ import java.util.HashMap;
  * informs the users through a text display for 1 second on the screen.
  */
 public class PlayerAchievementComponent extends UIComponent {
+
+
     /**
      * Contains the name and the image of achievement collected
      */
     public HashMap<String, String> achievements;
     public ArrayList<String> energyDrinksCollected;
     private static final int ACHIEVEMENT_DURATION = 3;
-    private static final String ACHIEVEMENT_FILE = "configs/achievements.json";
+    public static final String ACHIEVEMENT_FILE = "configs/achievements.json";
 
     /**
      * Constructs an Achievement component to an Entity by reading the achievements
@@ -62,9 +64,9 @@ public class PlayerAchievementComponent extends UIComponent {
         entity.getEvents().addListener("updateSpeedPercentage", this::handleEnergyDrinkAchievement);
         entity.getEvents().addListener("defeatedEnemy",  this::handleDefeatedEnemyAchievement);
         entity.getEvents().addListener("addToInventory", () ->
-                addAchievement("First inventory collectible", "images/mystery_box_blue.png"));
+                addAchievement("First inventory collectible", "images/items/mystery_box_blue.png"));
         entity.getEvents().addListener("itemUsed", () ->
-                addAchievement("First item used", "images/mystery_box_blue.png"));
+                addAchievement("First item used", "images/items/mystery_box_blue.png"));
         entity.getEvents().addListener("updateCoins", this::handleCoinsAchievement);
     }
 

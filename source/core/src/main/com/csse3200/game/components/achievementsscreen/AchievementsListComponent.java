@@ -18,7 +18,7 @@ public class AchievementsListComponent extends Component {
      * Reads player achievements list from external file.
      */
     public AchievementsListComponent() {
-        this(PlayerAchievementComponent.ACHIEVEMENTS_PATH, Location.EXTERNAL);
+        this(PlayerAchievementComponent.ACHIEVEMENT_FILE, Location.EXTERNAL);
     }
 
     /**

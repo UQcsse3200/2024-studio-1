@@ -1,0 +1,52 @@
+{
+  "bear": {
+    "health": 600,
+    "baseAttack": 35,
+    "isDirectional": true,
+    "tasks": {
+      "follow": {
+        "followRadius": 3,
+        "waitTime": 2,
+        "followDistance": 2,
+        "followSpeed": 0.5
+      },
+      "chase": {
+        "priority": 10,
+        "chaseSpeed": 1.5,
+        "viewDistance": 1.5,
+        "chaseDistance": 2
+      },
+      "charge": {
+        "priority": 5,
+        "viewDistance": 4,
+        "chaseDistance": 5,
+        "chaseSpeed": 3,
+        "waitTime": 2
+      }
+    },
+    "attacks": {
+      "melee": {
+        "range": 1.5,
+        "rate": 0.5,
+        "effects": [
+          {
+            "type": "knockback",
+            "force": 3
+          }
+        ]
+      }
+    },
+    "animations": [
+      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "run_left", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "run_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
+    ]
+  } 
+}

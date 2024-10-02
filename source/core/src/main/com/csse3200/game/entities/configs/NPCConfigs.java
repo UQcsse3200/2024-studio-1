@@ -13,10 +13,11 @@ public class NPCConfigs {
   public NPCConfig snake = new NPCConfig();
   public NPCConfig dino = new NPCConfig();
   public NPCConfig minotaur = new NPCConfig();
-  public NPCConfig werewolf = new NPCConfig();
   public NPCConfig dragon = new NPCConfig();
+  public NPCConfig werewolf = new NPCConfig();
   public NPCConfig birdman = new NPCConfig();
   public NPCConfig kitsune = new NPCConfig();
+  public NPCConfig ringFire = new NPCConfig();
 
   public static class NPCConfig extends BaseEntityConfig {
 
@@ -38,11 +39,15 @@ public class NPCConfigs {
 
     public static class TaskConfig {
       public WanderTaskConfig wander = null;
+      public FollowTaskConfig follow = null;
       public StraightWanderTaskConfig straightWander = null;
       public ChaseTaskConfig chase = null;
       public ChargeTaskConfig charge = null;
-      public BossAttackTaskConfig bossAttack = null;
+      public JumpTaskConfig jump = null;
       public RunAwayTaskConfig runAway = null;
+      public RangeAttackTaskConfig rangeAttack = null;
+      public RangeAttackTaskConfig spreadRangeAttack = null;
+      public AOEAttackTaskConfig aoeAttack = null;
 
       public static class WanderTaskConfig {
         public float wanderRadius;
@@ -50,46 +55,70 @@ public class NPCConfigs {
         public float wanderSpeed;
       }
 
+      public static class FollowTaskConfig{
+        public float followRadius;
+        public float waitTime;
+        public float followDistance;
+        public float followSpeed;
+      }
+
       public static class StraightWanderTaskConfig {
         public float wanderSpeed;
       }
 
       public static class ChaseTaskConfig {
-        public int priority;
         public float chaseSpeed;
         public float viewDistance;
         public float chaseDistance;
+        public float maxTime;
       }
 
       public static class ChargeTaskConfig {
-        public int priority;
-        public float viewDistance;
-        public float chaseDistance;
+        public float activationMinRange;
+        public float activationMaxRange;
         public float chaseSpeed;
+        public float distanceMultiplier = 1;
         public float waitTime;
+        public float cooldownTime;
       }
 
-      public static class BossAttackTaskConfig {
-        public int priority;
-        public float viewDistance;
-        public float chaseDistance;
-        public float chaseSpeed;
-        public float chargeSpeed;
+      public static class JumpTaskConfig {
+        public float activationMinRange;
+        public float activationMaxRange;
+        public float jumpDuration;
         public float waitTime;
+        public float cooldownTime;
       }
 
-      public static class RunAwayTaskConfig extends ChargeTaskConfig{
-        public int priority;
-        public float viewDistance;
-        public float maxRunDistance;
+      public static class RunAwayTaskConfig {
+        public float activationMinRange;
+        public float activationMaxRange;
+        public float activationHealth;
         public float runSpeed;
-        public float waitTime;
+        public float stopDistance;
+        public float maxRunTime;
+        public float cooldownTime;
+      }
+
+      public static class RangeAttackTaskConfig {
+        public float activationMinRange;
+        public float activationMaxRange;
+        public int attackNum;
+        public float cooldownTime;
+      }
+
+      public static class AOEAttackTaskConfig {
+          public float activationMinRange;
+          public float activationMaxRange;
+          public float preparationTime;
+          public float cooldownTime;
       }
     }
 
     public static class AttackConfig {
       public MeleeAttack melee = null;
       public RangeAttack ranged = null;
+      public AOEAttack aoe = null;
 
       public static class MeleeAttack {
         public float range;
@@ -101,6 +130,12 @@ public class NPCConfigs {
         public float range;
         public float rate;
         public int type;
+        public EffectConfig[] effects = new EffectConfig[0];
+      }
+      public static class AOEAttack {
+        public float range;
+        public float rate;
+        public float radius;
         public EffectConfig[] effects = new EffectConfig[0];
       }
     }

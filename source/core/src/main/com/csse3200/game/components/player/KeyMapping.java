@@ -80,7 +80,11 @@ public class KeyMapping {
         /**
          * The player action to attempt to purchase a buyable item
          */
-        PURCHASE_ITEM
+        PURCHASE_ITEM,
+        /**
+         * Necromancer Target Switching 
+         */
+        NECROMANCER_BINDING
     }
 
     /**
@@ -118,6 +122,7 @@ public class KeyMapping {
             keyMap.put(Input.Keys.E, PICK_UP);
             keyMap.put(Input.Keys.R, RE_ROLL);
             keyMap.put(Input.Keys.P, PURCHASE_ITEM);
+            keyMap.put(Input.Keys.Q, NECROMANCER_BINDING);
             this.keyMap = keyMap;
 
     }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.rendering.RenderComponent;
 
 /**
@@ -14,9 +15,10 @@ import com.csse3200.game.rendering.RenderComponent;
 public class NPCHealthBarComponent extends RenderComponent {
     public static final float WIDTH = 1f;
     public static final float HEIGHT = 0.1f;
-    public static final float OFFSET_Y = 1.2f;
+    public static final float OFFSET_Y = 1f;
 
     private CombatStatsComponent combatStats;
+    private NameComponent nameComponent;
     ShapeRenderer shapeRenderer;
 
     /**
@@ -27,7 +29,10 @@ public class NPCHealthBarComponent extends RenderComponent {
         super.create();
         // Get the CombatStatsComponent and initialize the ShapeRenderer
         combatStats = entity.getComponent(CombatStatsComponent.class);
+        nameComponent = entity.getComponent(NameComponent.class);
         shapeRenderer = new ShapeRenderer();
+
+        fnt_16.setColor(Color.BLACK);
     }
 
     /**
@@ -61,6 +66,7 @@ public class NPCHealthBarComponent extends RenderComponent {
         shapeRenderer.end();
 
         batch.begin();
+       
     }
 
     /**

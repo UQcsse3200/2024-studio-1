@@ -74,6 +74,14 @@ public class Component {
     this.enabled = enabled;
   }
 
+  /**
+   * Get whether the component is enabled.
+   * @return enabled
+   */
+  public boolean isEnabled() {
+      return enabled;
+  }
+
   /** Used to trigger the component to update itself. This should not need to be called manually. */
   public final void triggerUpdate() {
     if (enabled) {

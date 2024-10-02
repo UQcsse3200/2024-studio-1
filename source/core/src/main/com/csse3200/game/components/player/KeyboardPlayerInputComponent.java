@@ -10,6 +10,11 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.areas.EnemyRoom;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 
 import static com.csse3200.game.components.player.KeyMapping.KeyBinding.*;
 
@@ -171,6 +176,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     /**
+     * Switches all the pets for the necromancer to target their closest Entity
+     * @return true
+     */
+    private boolean petTargetSwitch() {
+        Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+            List<Entity> enemies = room.getEnemies();
+            player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
+        }
+        return true;
+    }
+
+    /**
      * Handles the event when the key for 'purchase' is pressed
      *
      * @return true
@@ -217,6 +235,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(PICK_UP, (i) -> pickupItem());
         actionMap.put(RE_ROLL, (i) -> useItem(8)); //Rerol here
         actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());
+        actionMap.put(NECROMANCER_BINDING, (i) -> petTargetSwitch());
         return actionMap;
     }
 

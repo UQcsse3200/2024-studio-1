@@ -4,12 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
+import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
 import com.csse3200.game.rendering.DebugRenderer;
+import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 
 /**
@@ -17,16 +19,20 @@ import com.csse3200.game.services.ServiceLocator;
  * Requires an entity with a PhysicsMovementComponent to function.
  */
 public class ChaseTask extends DefaultTask implements PriorityTask {
+  private static final int PRIORITY = 4;
   private final Entity target;
-  private final int priority;
   private final float viewDistance;
   private final float maxChaseDistance;
   private final float chaseSpeed;
+  private final float maxTime;
+  private long startTime;
   private String direction;
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
+  private GameTime gameTime;
   private MovementTask movementTask;
+  private MeleeAttackComponent meleeAttackComponent;
 
   /**
    * Constructs a ChaseTask.
@@ -36,10 +42,10 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    */
   public ChaseTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config) {
     this.target = target;
-    this.priority = config.priority;
     this.viewDistance = config.viewDistance;
     this.maxChaseDistance = config.chaseDistance;
     this.chaseSpeed = config.chaseSpeed;
+    this.maxTime = config.maxTime;
     this.physics = ServiceLocator.getPhysicsService().getPhysics();
     this.debugRenderer = ServiceLocator.getRenderService().getDebug();
   }
@@ -50,7 +56,17 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   @Override
   public void start() {
     super.start();
-    movementTask = new MovementTask(target.getPosition()); // Create a movement task towards the target.
+    this.gameTime = ServiceLocator.getTimeSource();
+    startTime = gameTime.getTime();
+
+    // Active the attack component
+    meleeAttackComponent = owner.getEntity().getComponent(MeleeAttackComponent.class);
+    if (meleeAttackComponent != null) {
+      meleeAttackComponent.setEnabled(true);
+    }
+
+    // Create a movement task to chase the target.
+    movementTask = new MovementTask(target.getPosition());
     movementTask.create(owner);
     movementTask.start();
     movementTask.setVelocity(chaseSpeed);
@@ -63,6 +79,10 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    */
   @Override
   public void update() {
+    if (maxTime > 0 && gameTime.getTimeSince(startTime) > maxTime * 1000) {
+      this.stop(); // Stop the task if maxTime is exceeded
+      return;
+    }
     movementTask.setTarget(target.getPosition()); // Update target position in case it has moved.
     movementTask.update();
     if (movementTask.getStatus() != Status.ACTIVE) {
@@ -80,6 +100,9 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   public void stop() {
     super.stop();
     movementTask.stop();
+    if (meleeAttackComponent != null) {
+      meleeAttackComponent.setEnabled(false);
+    }
   }
 
   /**
@@ -114,7 +137,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     if (dst > maxChaseDistance || !isTargetVisible()) {
       return -1; // Too far or not visible, stop chasing.
     }
-    return priority;
+    return PRIORITY;
   }
 
   /**
@@ -125,7 +148,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private int getInactivePriority() {
     float dst = getDistanceToTarget();
     if (dst < viewDistance && isTargetVisible()) {
-      return priority;
+      return PRIORITY;
     }
     return -1;
   }

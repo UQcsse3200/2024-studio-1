@@ -76,5 +76,4 @@ public class BigRedButton extends UsableItem {
             }
         }
     }
-
 }

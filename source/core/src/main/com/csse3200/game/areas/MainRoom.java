@@ -26,7 +26,7 @@ public class MainRoom extends EnemyRoom {
         return List.of(
 //                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
                 List.of("item:targetdummy", "buff:energydrink:Medium"),
-                List.of("melee:knife", "ranged:shotgun"),
+                List.of("melee:Knife", "ranged:Shotgun"),
                 List.of("item:beartrap", "buff:feather"),
                 List.of("melee:Axe", "ranged:Shotgun"),
                 List.of("ranged:Shotgun", "item:medkit", "melee:Knife", "item:bandage", "buff:energydrink:High"),

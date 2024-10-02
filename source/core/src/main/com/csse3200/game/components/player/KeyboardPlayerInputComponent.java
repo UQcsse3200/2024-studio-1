@@ -2,6 +2,7 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.input.InputComponent;
 import com.csse3200.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
@@ -9,8 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static com.csse3200.game.components.player.KeyMapping.KeyBinding.*;
 
@@ -25,27 +24,27 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private final Map<Integer, Action> upBindings;
     private Vector2 directionShooting = null;
     // Timer and task for holding down a shoot button
-    private final Timer holdShoot = new Timer();
     private RepeatShoot taskShoot;
-    private final Timer holdMelee = new Timer();
     private RepeatMelee taskMelee;
     private static final int inputDelay = 15; // time between 'button held' method calls in milliseconds
 
     /**
      * TimerTask used to repeatedly shoot in a direction
      */
-    private class RepeatShoot extends TimerTask{
+    private class RepeatShoot extends Timer.Task {
         private final Vector2 directionShooting;
-        public RepeatShoot(Vector2 direction){
+
+        public RepeatShoot(Vector2 direction) {
             this.directionShooting = direction;
         }
+
         @Override
         public void run() {
             shoot(this.directionShooting);
         }
     }
 
-    private class RepeatMelee extends TimerTask{
+    private class RepeatMelee extends Timer.Task {
         @Override
         public void run() {
             melee();
@@ -61,6 +60,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     /**
      * Create a new KeyboardPlayerInputComponent with specified keyBindings
+     *
      * @param keyMapping a mapping of the keys to their actions.
      */
     public KeyboardPlayerInputComponent(KeyMapping keyMapping) {
@@ -91,15 +91,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     /**
      * Method used to setup the timer to hold the shoot button
      * triggered whenever the player inputs to shoot (default is arrow keys)
+     *
      * @param direction The direction to shoot in
      */
-    private boolean holdShoot(Vector2 direction){
+    private boolean holdShoot(Vector2 direction) {
         if (this.taskShoot != null) {
             this.taskShoot.cancel();
         }
         this.directionShooting = direction;
         this.taskShoot = new RepeatShoot(direction);
-        this.holdShoot.scheduleAtFixedRate(taskShoot, inputDelay, inputDelay);
+        Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
         return true;
     }
 
@@ -111,11 +112,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     /**
      * Method used to stop calling the 'shoot' method
      * Called when the player releases the input to shoot (default is arrow keys)
+     *
      * @param direction
      * @return (not sure why this needs to return)
      */
     private boolean unShoot(Vector2 direction) {
-        if (this.directionShooting == direction){
+        if (this.directionShooting == direction) {
             this.taskShoot.cancel();
             this.directionShooting = null;
         }
@@ -127,12 +129,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
-    private boolean holdMelee(){
+    private boolean holdMelee() {
         if (this.taskMelee != null) {
             this.taskMelee.cancel();
         }
         this.taskMelee = new RepeatMelee();
-        this.holdMelee.scheduleAtFixedRate(taskMelee, inputDelay, inputDelay);
+        Timer.schedule(taskMelee, inputDelay / 1000f, inputDelay / 1000f);
         return true;
     }
 
@@ -150,13 +152,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case 2 -> entity.getEvents().trigger("use2");
             case 3 -> entity.getEvents().trigger("use3");
             case 4 -> entity.getEvents().trigger("use4");
-            case 5 -> entity.getEvents().trigger("useReroll");
+            case 5 -> entity.getEvents().trigger("use5");
+            case 6 -> entity.getEvents().trigger("use6");
+            case 7 -> entity.getEvents().trigger("use7");
+            case 8 -> entity.getEvents().trigger("useReroll");
         }
         return true;
     }
 
     /**
      * Handles the event when the key for 'pickup' is pressed
+     *
      * @return true
      */
     private boolean pickupItem() {
@@ -174,6 +180,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     /**
      * Handles the event when the key for 'purchase' is pressed
+     *
      * @return true
      */
     private boolean purchaseItem() {
@@ -190,30 +197,33 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     /*
      * All the player actions that need to respond to key down
      */
-    private Map<KeyMapping.KeyBinding, Action> getDownActions(){
+    private Map<KeyMapping.KeyBinding, Action> getDownActions() {
         Map<KeyMapping.KeyBinding, Action> actionMap = new HashMap<>();
 
-        actionMap.put(WALK_UP,  (i) -> walk(Vector2Utils.UP));
-        actionMap.put(WALK_LEFT,  (i) -> walk(Vector2Utils.LEFT));
-        actionMap.put(WALK_DOWN,  (i) -> walk(Vector2Utils.DOWN));
-        actionMap.put(WALK_RIGHT,  (i) -> walk(Vector2Utils.RIGHT));
+        actionMap.put(WALK_UP, (i) -> walk(Vector2Utils.UP));
+        actionMap.put(WALK_LEFT, (i) -> walk(Vector2Utils.LEFT));
+        actionMap.put(WALK_DOWN, (i) -> walk(Vector2Utils.DOWN));
+        actionMap.put(WALK_RIGHT, (i) -> walk(Vector2Utils.RIGHT));
 
-        actionMap.put(SHOOT_UP,  (i) -> holdShoot(Vector2Utils.UP));
-        actionMap.put(SHOOT_LEFT,  (i) -> holdShoot(Vector2Utils.LEFT));
-        actionMap.put(SHOOT_RIGHT,  (i) -> holdShoot(Vector2Utils.RIGHT));
-        actionMap.put(SHOOT_DOWN,  (i) -> holdShoot(Vector2Utils.DOWN));
+        actionMap.put(SHOOT_UP, (i) -> holdShoot(Vector2Utils.UP));
+        actionMap.put(SHOOT_LEFT, (i) -> holdShoot(Vector2Utils.LEFT));
+        actionMap.put(SHOOT_RIGHT, (i) -> holdShoot(Vector2Utils.RIGHT));
+        actionMap.put(SHOOT_DOWN, (i) -> holdShoot(Vector2Utils.DOWN));
 
-        actionMap.put(MELEE,  (i) -> holdMelee());
+        actionMap.put(MELEE, (i) -> holdMelee());
 
         actionMap.put(USE_1, (i) -> useItem(1));
         actionMap.put(USE_2, (i) -> useItem(2));
         actionMap.put(USE_3, (i) -> useItem(3));
         actionMap.put(USE_4, (i) -> useItem(4));
+        actionMap.put(USE_5, (i) -> useItem(5));
+        actionMap.put(USE_6, (i) -> useItem(6));
+        actionMap.put(USE_7, (i) -> useItem(7));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
 
         actionMap.put(PICK_UP, (i) -> pickupItem());
-        actionMap.put(RE_ROLL, (i) -> useItem(5)); //Rerol here
+        actionMap.put(RE_ROLL, (i) -> useItem(8)); //Rerol here
         actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());
         actionMap.put(NECROMANCER_BINDING, (i) -> petTargetSwitch());
         return actionMap;
@@ -222,20 +232,20 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     /*
      * All the player actions that need to respond to key up
      */
-    private Map<KeyMapping.KeyBinding, Action> getUpActions(){
+    private Map<KeyMapping.KeyBinding, Action> getUpActions() {
         Map<KeyMapping.KeyBinding, Action> actionMap = new HashMap<>();
 
-        actionMap.put(WALK_UP,  (i) -> unWalk(Vector2Utils.UP));
-        actionMap.put(WALK_LEFT,  (i) -> unWalk(Vector2Utils.LEFT));
-        actionMap.put(WALK_DOWN,  (i) -> unWalk(Vector2Utils.DOWN));
-        actionMap.put(WALK_RIGHT,  (i) -> unWalk(Vector2Utils.RIGHT));
+        actionMap.put(WALK_UP, (i) -> unWalk(Vector2Utils.UP));
+        actionMap.put(WALK_LEFT, (i) -> unWalk(Vector2Utils.LEFT));
+        actionMap.put(WALK_DOWN, (i) -> unWalk(Vector2Utils.DOWN));
+        actionMap.put(WALK_RIGHT, (i) -> unWalk(Vector2Utils.RIGHT));
 
-        actionMap.put(SHOOT_UP,  (i) -> unShoot(Vector2Utils.UP));
-        actionMap.put(SHOOT_LEFT,  (i) -> unShoot(Vector2Utils.LEFT));
-        actionMap.put(SHOOT_RIGHT,  (i) -> unShoot(Vector2Utils.RIGHT));
-        actionMap.put(SHOOT_DOWN,  (i) -> unShoot(Vector2Utils.DOWN));
+        actionMap.put(SHOOT_UP, (i) -> unShoot(Vector2Utils.UP));
+        actionMap.put(SHOOT_LEFT, (i) -> unShoot(Vector2Utils.LEFT));
+        actionMap.put(SHOOT_RIGHT, (i) -> unShoot(Vector2Utils.RIGHT));
+        actionMap.put(SHOOT_DOWN, (i) -> unShoot(Vector2Utils.DOWN));
 
-        actionMap.put(MELEE,  (i) -> unMelee());
+        actionMap.put(MELEE, (i) -> unMelee());
 
         return actionMap;
     }
@@ -268,7 +278,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return "NONE";
     }
 
-    private boolean keyChange(Map<Integer, Action> bindings, int keycode){
+    private boolean keyChange(Map<Integer, Action> bindings, int keycode) {
         if (!bindings.containsKey(keycode)) {
             return false;
         }
@@ -308,21 +318,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             entity.getEvents().trigger("walk", walkDirection);
             String direction = getDirection(walkDirection);
             switch (direction) {
-                case "LEFT":
-                    entity.getEvents().trigger("walkLeft");
-                    break;
-                case "UP":
-                    entity.getEvents().trigger("walkUp");
-                    break;
-                case "RIGHT":
-                    entity.getEvents().trigger("walkRight");
-                    break;
-                case "DOWN":
-                    entity.getEvents().trigger("walkDown");
-                    break;
-                case "NONE":
+                case "LEFT" -> entity.getEvents().trigger("walkLeft");
+                case "UP" -> entity.getEvents().trigger("walkUp");
+                case "RIGHT" -> entity.getEvents().trigger("walkRight");
+                case "DOWN" -> entity.getEvents().trigger("walkDown");
+                case "NONE" -> {
                     // Handle no movement or default case
-                    break;
+                }
             }
         }
     }

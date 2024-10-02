@@ -3,6 +3,7 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.CoinsComponent;
 import com.csse3200.game.files.FileLoader;
@@ -19,16 +20,14 @@ import java.util.HashMap;
  */
 public class PlayerAchievementComponent extends UIComponent {
 
-    /**
-     * File where achievement information is stored (map of name to image path).
-     */
-    public static final String ACHIEVEMENTS_PATH = "configs/achievements.json";
 
     /**
      * Contains the name and the image of achievement collected
      */
     public HashMap<String, String> achievements;
     public ArrayList<String> energyDrinksCollected;
+    private static final int ACHIEVEMENT_DURATION = 3;
+    public static final String ACHIEVEMENT_FILE = "configs/achievements.json";
 
     /**
      * Constructs an Achievement component to an Entity by reading the achievements
@@ -36,13 +35,13 @@ public class PlayerAchievementComponent extends UIComponent {
      */
     public PlayerAchievementComponent() {
         energyDrinksCollected = new ArrayList<>();
-        if (FileLoader.readClass(HashMap.class, ACHIEVEMENTS_PATH,
+        if (FileLoader.readClass(HashMap.class, ACHIEVEMENT_FILE,
                 FileLoader.Location.EXTERNAL) == null) {
-            achievements = FileLoader.readClass(HashMap.class, ACHIEVEMENTS_PATH,
+            achievements = FileLoader.readClass(HashMap.class, ACHIEVEMENT_FILE,
                     FileLoader.Location.LOCAL);
         }
         else {
-            achievements = FileLoader.readClass(HashMap.class, ACHIEVEMENTS_PATH,
+            achievements = FileLoader.readClass(HashMap.class, ACHIEVEMENT_FILE,
                     FileLoader.Location.EXTERNAL);
         }
 
@@ -56,6 +55,9 @@ public class PlayerAchievementComponent extends UIComponent {
         return achievements;
     }
 
+    /**
+     * Called upon creation of this component
+     */
     public void create() {
         super.create();
 
@@ -69,7 +71,10 @@ public class PlayerAchievementComponent extends UIComponent {
         entity.getEvents().addListener("updateCoins", this::handleCoinsAchievement);
     }
 
-
+    /**
+     * Method inherited from superclass
+     * @param batch Batch to render to.
+     */
     @Override
     protected void draw(SpriteBatch batch) {
         // handled by superclass
@@ -77,7 +82,10 @@ public class PlayerAchievementComponent extends UIComponent {
 
 
     /**
-     * Handles whether an energy drink achievement has been obtained. It is called any time an energy drink
+     * Handles whether an energy drink achievement has been obtained. It is called any time an energy drink has
+     * been collected.
+     * @param speedPercentage the speedPercentage which is used in the PlayerStatesDisplay
+     * @param speedType the speed type of the energy drink collected (High, Medium or Low)
      */
     public void handleEnergyDrinkAchievement(float speedPercentage, String speedType) {
         if (energyDrinksCollected.contains(speedType)) {
@@ -155,24 +163,33 @@ public class PlayerAchievementComponent extends UIComponent {
             Table table = new Table();
             table.center();
             table.setFillParent(true);
+            table.row().padTop(5f);
             table.add(achievementLabel).padTop(5f);
             stage.addActor(table);
-            // unrender the label after 1 second of display
+            // unrender the label after 3 second of display
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    table.remove(); // Remove the label from the screen
+                    achievementLabel.remove();
                 }
-            }, 1);
+            }, ACHIEVEMENT_DURATION);
             updateConfig();
         }
+    }
+
+    /**
+     * Resets the list of achievements to an empty list
+     */
+    public void resetAchievements() {
+        achievements = new HashMap<>();
+        FileLoader.writeClass(achievements, ACHIEVEMENT_FILE, FileLoader.Location.EXTERNAL);
     }
 
     /**
      * Writes the Hashmap to Json file
      */
     public void updateConfig() {
-        FileLoader.writeClass(achievements, ACHIEVEMENTS_PATH, FileLoader.Location.EXTERNAL);
+        FileLoader.writeClass(achievements, ACHIEVEMENT_FILE, FileLoader.Location.EXTERNAL);
     }
 
 }

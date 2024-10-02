@@ -60,7 +60,7 @@ public class TeleporterItem extends UsableItem {
      */
     @Override
     public void apply(Entity entity) {
-
+        entity.getEvents().trigger("teleportToBoss");
     }
 
 }

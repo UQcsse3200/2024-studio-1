@@ -1,6 +1,8 @@
 package com.csse3200.game.components.weapon;
 
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -9,6 +11,8 @@ import com.csse3200.game.entities.Entity;
 public class PositionTracker extends Component {
     private Entity player; // The player entity
 
+    private Vector2 offset; // The offset of the weapon entity from the player entity
+
     /**
      * Update the position of the weapon entity to the player's position.
      */
@@ -16,7 +20,8 @@ public class PositionTracker extends Component {
     public void update() {
         // No action by default.
         if (player != null) {
-            this.getEntity().setPosition(this.player.getPosition());
+            Vector2 updatedPosition = new Vector2(player.getPosition().x + offset.x, player.getPosition().y + offset.y);
+            this.getEntity().setPosition(updatedPosition);
         }
     }
 
@@ -42,6 +47,13 @@ public class PositionTracker extends Component {
      */
     public void connectPlayer(Entity player) {
         setPlayer(player);
+        switch (player.getComponent(NameComponent.class).getName()) {
+            case "Player":
+                offset = new Vector2(1, 1);
+                break;
+            default:
+                offset = new Vector2(0, 0);
+        }
     }
 
     /**

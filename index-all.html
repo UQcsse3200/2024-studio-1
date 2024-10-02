@@ -264,8 +264,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/BigRedButton.html#apply(com.csse3200.game.entities.Entity)" class="member-name-link">apply(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BigRedButton.html" title="class in com.csse3200.game.components.player.inventory">BigRedButton</a></dt>
 <dd>
-<div class="block">Applies the bandage to an entity, increasing its health by a small amount,
- calls the increaseSmallBoost(entity) method</div>
+<div class="block">Activates an item which damages all surrounding enemies</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/MedKit.html#apply(com.csse3200.game.entities.Entity)" class="member-name-link">apply(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/MedKit.html" title="class in com.csse3200.game.components.player.inventory">MedKit</a></dt>
 <dd>
@@ -273,7 +272,9 @@ loadScripts(document, 'script');</script>
  calls the increaseLargeBoost(entity) method</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Reroll.html#apply(com.csse3200.game.entities.Entity)" class="member-name-link">apply(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Reroll.html" title="class in com.csse3200.game.components.player.inventory">Reroll</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Applies the effects of the reroll item to a specified entity.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/ShieldPotion.html#apply(com.csse3200.game.entities.Entity)" class="member-name-link">apply(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/ShieldPotion.html" title="class in com.csse3200.game.components.player.inventory">ShieldPotion</a></dt>
 <dd>
 <div class="block">Applies the effects of the shield potion to a specified entity.</div>
@@ -408,12 +409,22 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/BlackoutComponent.html#%3Cinit%3E()" class="member-name-link">BlackoutComponent()</a> - Constructor for class com.csse3200.game.components.<a href="com/csse3200/game/components/BlackoutComponent.html" title="class in com.csse3200.game.components">BlackoutComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/BleedBuff.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">BleedBuff</a> - Class in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
+<dd>
+<div class="block">The bleed item reduces 5% health of enemies per second for 5 seconds.</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/BleedBuff.html#%3Cinit%3E()" class="member-name-link">BleedBuff()</a> - Constructor for class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BleedBuff.html" title="class in com.csse3200.game.components.player.inventory">BleedBuff</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/physics/BodyUserData.html" class="type-name-link" title="class in com.csse3200.game.physics">BodyUserData</a> - Class in <a href="com/csse3200/game/physics/package-summary.html">com.csse3200.game.physics</a></dt>
 <dd>
 <div class="block">POJO which contains the custom data attached to each box2D entity.</div>
 </dd>
 <dt><a href="com/csse3200/game/physics/BodyUserData.html#%3Cinit%3E()" class="member-name-link">BodyUserData()</a> - Constructor for class com.csse3200.game.physics.<a href="com/csse3200/game/physics/BodyUserData.html" title="class in com.csse3200.game.physics">BodyUserData</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html#Boost(com.csse3200.game.entities.Entity)" class="member-name-link">Boost(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></dt>
+<dd>
+<div class="block">Increases health by using entity's CombatStatsComponent to set Health</div>
+</dd>
 <dt><a href="com/csse3200/game/ai/tasks/BossAITaskComponent.html" class="type-name-link" title="class in com.csse3200.game.ai.tasks">BossAITaskComponent</a> - Class in <a href="com/csse3200/game/ai/tasks/package-summary.html">com.csse3200.game.ai.tasks</a></dt>
 <dd>
 <div class="block">Task-based AI component.</div>
@@ -1349,6 +1360,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/GameArea.html#disposeEntity(com.csse3200.game.entities.Entity)" class="member-name-link">disposeEntity(Entity)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/GameArea.html" title="class in com.csse3200.game.areas">GameArea</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a> - Class in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html#%3Cinit%3E()" class="member-name-link">DivinePotion()</a> - Constructor for class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/NPCConfigs.html#dog" class="member-name-link">dog</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/NPCConfigs.html" title="class in com.csse3200.game.entities.configs">NPCConfigs</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/factories/DoorCallBack.html" class="type-name-link" title="interface in com.csse3200.game.entities.factories">DoorCallBack</a> - Interface in <a href="com/csse3200/game/entities/factories/package-summary.html">com.csse3200.game.entities.factories</a></dt>
@@ -1474,6 +1489,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Handles the dropping of item from player's inventory after being used</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/inventory/BleedBuff.html#drop(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">drop(Inventory)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BleedBuff.html" title="class in com.csse3200.game.components.player.inventory">BleedBuff</a></dt>
+<dd>
+<div class="block">Drops the BleedBuff item from the player's inventory.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Collectible.html#drop(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">drop(Inventory)</a> - Method in interface com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></dt>
 <dd>
 <div class="block">Remove this collectible from the entity</div>
@@ -1489,6 +1508,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/inventory/DamageBuff.html#drop(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">drop(Inventory)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DamageBuff.html" title="class in com.csse3200.game.components.player.inventory">DamageBuff</a></dt>
 <dd>
 <div class="block">Removes the item from inventory</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html#drop(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">drop(Inventory)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></dt>
+<dd>
+<div class="block">Remove this collectible from the entity</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/EnergyDrink.html#drop(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">drop(Inventory)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/EnergyDrink.html" title="class in com.csse3200.game.components.player.inventory">EnergyDrink</a></dt>
 <dd>
@@ -1557,6 +1580,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Applies the armor effect to the player which increases the armor value.</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/inventory/BleedBuff.html#effect(com.csse3200.game.entities.Entity)" class="member-name-link">effect(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BleedBuff.html" title="class in com.csse3200.game.components.player.inventory">BleedBuff</a></dt>
+<dd>
+<div class="block">Applies the bleed effect to an entity.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/BuffItem.html#effect(com.csse3200.game.entities.Entity)" class="member-name-link">effect(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BuffItem.html" title="class in com.csse3200.game.components.player.inventory">BuffItem</a></dt>
 <dd>
 <div class="block">A method that applies the unique effect of this item, upon pickup</div>
@@ -1564,6 +1591,11 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/inventory/DamageBuff.html#effect(com.csse3200.game.entities.Entity)" class="member-name-link">effect(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DamageBuff.html" title="class in com.csse3200.game.components.player.inventory">DamageBuff</a></dt>
 <dd>
 <div class="block">Applies the damage buff to the player for each weapon</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html#effect(com.csse3200.game.entities.Entity)" class="member-name-link">effect(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></dt>
+<dd>
+<div class="block">Applies the divine potion to an entity
+ calls the Boost(entity) method</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/EnergyDrink.html#effect(com.csse3200.game.entities.Entity)" class="member-name-link">effect(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/EnergyDrink.html" title="class in com.csse3200.game.components.player.inventory">EnergyDrink</a></dt>
 <dd>
@@ -1923,6 +1955,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the buff specification for this item, identifying it as an "armor" type.</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/inventory/BleedBuff.html#getBuffSpecification()" class="member-name-link">getBuffSpecification()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BleedBuff.html" title="class in com.csse3200.game.components.player.inventory">BleedBuff</a></dt>
+<dd>
+<div class="block">Returns a string that specifies the type of buff.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/BuffItem.html#getBuffSpecification()" class="member-name-link">getBuffSpecification()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BuffItem.html" title="class in com.csse3200.game.components.player.inventory">BuffItem</a></dt>
 <dd>
 <div class="block">Get the specification of this buff.</div>
@@ -1930,6 +1966,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/inventory/DamageBuff.html#getBuffSpecification()" class="member-name-link">getBuffSpecification()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DamageBuff.html" title="class in com.csse3200.game.components.player.inventory">DamageBuff</a></dt>
 <dd>
 <div class="block">Returns the string of the buff item</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html#getBuffSpecification()" class="member-name-link">getBuffSpecification()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></dt>
+<dd>
+<div class="block">Return a string representation of this collectible that can be parsed by CollectibleFactory</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/EnergyDrink.html#getBuffSpecification()" class="member-name-link">getBuffSpecification()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/EnergyDrink.html" title="class in com.csse3200.game.components.player.inventory">EnergyDrink</a></dt>
 <dd>
@@ -2102,6 +2142,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the entity's health.</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/inventory/BleedBuff.html#getHealthReductionPerc()" class="member-name-link">getHealthReductionPerc()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BleedBuff.html" title="class in com.csse3200.game.components.player.inventory">BleedBuff</a></dt>
+<dd>
+<div class="block">Returns the percentage of health reduced per second by the bleed effect.</div>
+</dd>
 <dt><a href="com/csse3200/game/physics/raycast/AllHitCallback.html#getHitsAndClear()" class="member-name-link">getHitsAndClear()</a> - Method in class com.csse3200.game.physics.raycast.<a href="com/csse3200/game/physics/raycast/AllHitCallback.html" title="class in com.csse3200.game.physics.raycast">AllHitCallback</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Armor.html#getIcon()" class="member-name-link">getIcon()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Armor.html" title="class in com.csse3200.game.components.player.inventory">Armor</a></dt>
@@ -2118,7 +2162,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/BigRedButton.html#getIcon()" class="member-name-link">getIcon()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BigRedButton.html" title="class in com.csse3200.game.components.player.inventory">BigRedButton</a></dt>
 <dd>
-<div class="block">Return texture related with Bandage item</div>
+<div class="block">Return texture related with Big Red Button item</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/BleedBuff.html#getIcon()" class="member-name-link">getIcon()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BleedBuff.html" title="class in com.csse3200.game.components.player.inventory">BleedBuff</a></dt>
+<dd>
+<div class="block">Returns the icon representing the BleedBuff item.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Collectible.html#getIcon()" class="member-name-link">getIcon()</a> - Method in interface com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></dt>
 <dd>
@@ -2127,6 +2175,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/inventory/DamageBuff.html#getIcon()" class="member-name-link">getIcon()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DamageBuff.html" title="class in com.csse3200.game.components.player.inventory">DamageBuff</a></dt>
 <dd>
 <div class="block">Gets the render for the item</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html#getIcon()" class="member-name-link">getIcon()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></dt>
+<dd>
+<div class="block">Return texture related with divine potion item</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/EnergyDrink.html#getIcon()" class="member-name-link">getIcon()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/EnergyDrink.html" title="class in com.csse3200.game.components.player.inventory">EnergyDrink</a></dt>
 <dd>
@@ -2153,7 +2205,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Get the ranged weapon icon.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Reroll.html#getIcon()" class="member-name-link">getIcon()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Reroll.html" title="class in com.csse3200.game.components.player.inventory">Reroll</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Return texture related with Bandage item</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/ShieldPotion.html#getIcon()" class="member-name-link">getIcon()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/ShieldPotion.html" title="class in com.csse3200.game.components.player.inventory">ShieldPotion</a></dt>
 <dd>
 <div class="block">Returns the texture associated with the shield potion item.</div>
@@ -2235,7 +2289,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Get the specification of this item.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Reroll.html#getItemSpecification()" class="member-name-link">getItemSpecification()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Reroll.html" title="class in com.csse3200.game.components.player.inventory">Reroll</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets the specification associated with this item</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/ShieldPotion.html#getItemSpecification()" class="member-name-link">getItemSpecification()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/ShieldPotion.html" title="class in com.csse3200.game.components.player.inventory">ShieldPotion</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/TargetDummy.html#getItemSpecification()" class="member-name-link">getItemSpecification()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/TargetDummy.html" title="class in com.csse3200.game.components.player.inventory">TargetDummy</a></dt>
@@ -2421,6 +2477,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns name of item</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/inventory/BleedBuff.html#getName()" class="member-name-link">getName()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/BleedBuff.html" title="class in com.csse3200.game.components.player.inventory">BleedBuff</a></dt>
+<dd>
+<div class="block">Returns the name of the item.</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Collectible.html#getName()" class="member-name-link">getName()</a> - Method in interface com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></dt>
 <dd>
 <div class="block">Get the name of this item.</div>
@@ -2428,6 +2488,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/inventory/DamageBuff.html#getName()" class="member-name-link">getName()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DamageBuff.html" title="class in com.csse3200.game.components.player.inventory">DamageBuff</a></dt>
 <dd>
 <div class="block">Gets the name of the item</div>
+</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html#getName()" class="member-name-link">getName()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></dt>
+<dd>
+<div class="block">Get the name of this item</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/EnergyDrink.html#getName()" class="member-name-link">getName()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/EnergyDrink.html" title="class in com.csse3200.game.components.player.inventory">EnergyDrink</a></dt>
 <dd>
@@ -2454,7 +2518,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Get the name of the weapon.</div>
 </dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Reroll.html#getName()" class="member-name-link">getName()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Reroll.html" title="class in com.csse3200.game.components.player.inventory">Reroll</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns name of item</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/ShieldPotion.html#getName()" class="member-name-link">getName()</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/ShieldPotion.html" title="class in com.csse3200.game.components.player.inventory">ShieldPotion</a></dt>
 <dd>
 <div class="block">Returns the name of the item.</div>
@@ -3989,6 +4055,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Pick up the ranged weapon and put it in the inventory.</div>
 </dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html#pickup(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">pickup(Inventory)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></dt>
+<dd>
+<div class="block">Make the entity pick the item up, and apply effects immediately instead of being added to the inventory</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Heart.html#pickup(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">pickup(Inventory)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Heart.html" title="class in com.csse3200.game.components.player.inventory">Heart</a></dt>
 <dd>
 <div class="block">Triggers effect of the item when player picks up</div>
@@ -4509,7 +4579,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/physics/raycast/SingleHitCallback.html#reportRayFixture(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2,float)" class="member-name-link">reportRayFixture(Fixture, Vector2, Vector2, float)</a> - Method in class com.csse3200.game.physics.raycast.<a href="com/csse3200/game/physics/raycast/SingleHitCallback.html" title="class in com.csse3200.game.physics.raycast">SingleHitCallback</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Reroll.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">Reroll</a> - Class in <a href="com/csse3200/game/components/player/inventory/package-summary.html">com.csse3200.game.components.player.inventory</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A usable item that can be applied to another item to give the player a chance at obtaining a different item</div>
+</dd>
 <dt><a href="com/csse3200/game/components/player/inventory/Reroll.html#%3Cinit%3E()" class="member-name-link">Reroll()</a> - Constructor for class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/Reroll.html" title="class in com.csse3200.game.components.player.inventory">Reroll</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/PlayerAchievementComponent.html#resetAchievements()" class="member-name-link">resetAchievements()</a> - Method in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerAchievementComponent.html" title="class in com.csse3200.game.components.player">PlayerAchievementComponent</a></dt>
@@ -5212,6 +5284,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/ProjectileConfig.html#speed" class="member-name-link">speed</a> - Variable in class com.csse3200.game.entities.configs.<a href="com/csse3200/game/entities/configs/ProjectileConfig.html" title="class in com.csse3200.game.entities.configs">ProjectileConfig</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/inventory/DivinePotion.html#speed(com.csse3200.game.entities.Entity)" class="member-name-link">speed(Entity)</a> - Method in class com.csse3200.game.components.player.inventory.<a href="com/csse3200/game/components/player/inventory/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/PlayerStatsDisplay.html#SPEED_TEXTURE" class="member-name-link">SPEED_TEXTURE</a> - Static variable in class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/PlayerStatsDisplay.html" title="class in com.csse3200.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/entities/configs/SpeedBoostConfig.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">SpeedBoostConfig</a> - Class in <a href="com/csse3200/game/entities/configs/package-summary.html">com.csse3200.game.entities.configs</a></dt>
@@ -5807,6 +5881,12 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html#USE_3" class="member-name-link">USE_3</a> - Enum constant in enum class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html#USE_4" class="member-name-link">USE_4</a> - Enum constant in enum class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html#USE_5" class="member-name-link">USE_5</a> - Enum constant in enum class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html#USE_6" class="member-name-link">USE_6</a> - Enum constant in enum class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html#USE_7" class="member-name-link">USE_7</a> - Enum constant in enum class com.csse3200.game.components.player.<a href="com/csse3200/game/components/player/KeyMapping.KeyBinding.html" title="enum class in com.csse3200.game.components.player">KeyMapping.KeyBinding</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/files/UserSettings.html" class="type-name-link" title="class in com.csse3200.game.files">UserSettings</a> - Class in <a href="com/csse3200/game/files/package-summary.html">com.csse3200.game.files</a></dt>
 <dd>

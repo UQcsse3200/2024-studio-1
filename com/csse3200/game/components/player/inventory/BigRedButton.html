@@ -136,8 +136,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#apply(com.csse3200.game.entities.Entity)" class="member-name-link">apply</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Applies the bandage to an entity, increasing its health by a small amount,
- calls the increaseSmallBoost(entity) method</div>
+<div class="block">Activates an item which damages all surrounding enemies</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#drop(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">drop</a><wbr>(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory)</code></div>
@@ -147,7 +146,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.graphics.Texture</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getIcon()" class="member-name-link">getIcon</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Return texture related with Bandage item</div>
+<div class="block">Return texture related with Big Red Button item</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemSpecification()" class="member-name-link">getItemSpecification</a>()</code></div>
@@ -263,10 +262,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getIcon()">
 <h3>getIcon</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.graphics.Texture</span>&nbsp;<span class="element-name">getIcon</span>()</div>
-<div class="block">Return texture related with Bandage item</div>
+<div class="block">Return texture related with Big Red Button item</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>texture representing icon of Bandage item</dd>
+<dd>texture representing icon of Button item</dd>
 </dl>
 </section>
 </li>
@@ -285,13 +284,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="apply(com.csse3200.game.entities.Entity)">
 <h3>apply</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">apply</span><wbr><span class="parameters">(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</span></div>
-<div class="block">Applies the bandage to an entity, increasing its health by a small amount,
- calls the increaseSmallBoost(entity) method</div>
+<div class="block">Activates an item which damages all surrounding enemies</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="UsableItem.html#apply(com.csse3200.game.entities.Entity)">apply</a></code>&nbsp;in class&nbsp;<code><a href="UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>entity</code> - to which Bandage item effect is applied to.</dd>
+<dd><code>entity</code> - Deals damage to all enemy entities within the current room</dd>
 </dl>
 </section>
 </li>

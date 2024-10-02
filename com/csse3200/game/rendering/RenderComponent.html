@@ -46,7 +46,7 @@ loadScripts(document, 'script');</script>
 <li>
 <p>Detail:</p>
 <ul>
-<li>Field</li>
+<li><a href="#field-detail">Field</a></li>
 <li><a href="#constructor-detail">Constr</a></li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -64,7 +64,7 @@ loadScripts(document, 'script');</script>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -96,7 +96,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="AnimationRenderComponent.html" title="class in com.csse3200.game.rendering">AnimationRenderComponent</a></code>, <code><a href="../components/BlackoutComponent.html" title="class in com.csse3200.game.components">BlackoutComponent</a></code>, <code><a href="../areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></code>, <code><a href="../components/npc/NPCHealthBarComponent.html" title="class in com.csse3200.game.components.npc">NPCHealthBarComponent</a></code>, <code><a href="../areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></code>, <code><a href="TextureRenderComponent.html" title="class in com.csse3200.game.rendering">TextureRenderComponent</a></code>, <code><a href="../ui/UIComponent.html" title="class in com.csse3200.game.ui">UIComponent</a></code></dd>
+<dd><code><a href="AnimationRenderComponent.html" title="class in com.csse3200.game.rendering">AnimationRenderComponent</a></code>, <code><a href="../components/BlackoutComponent.html" title="class in com.csse3200.game.components">BlackoutComponent</a></code>, <code><a href="../components/DialogComponent.html" title="class in com.csse3200.game.components">DialogComponent</a></code>, <code><a href="../areas/minimap/MinimapComponent.html" title="class in com.csse3200.game.areas.minimap">MinimapComponent</a></code>, <code><a href="../components/npc/NPCHealthBarComponent.html" title="class in com.csse3200.game.components.npc">NPCHealthBarComponent</a></code>, <code><a href="../areas/terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a></code>, <code><a href="TextureRenderComponent.html" title="class in com.csse3200.game.rendering">TextureRenderComponent</a></code>, <code><a href="../ui/UIComponent.html" title="class in com.csse3200.game.ui">UIComponent</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">RenderComponent</span>
@@ -111,6 +111,21 @@ implements <a href="Renderable.html" title="interface in com.csse3200.game.rende
 <li>
 <section class="field-summary" id="field-summary">
 <h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>protected static final com.badlogic.gdx.graphics.g2d.BitmapFont</code></div>
+<div class="col-second even-row-color"><code><a href="#fnt_16" class="member-name-link">fnt_16</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>protected static final com.badlogic.gdx.graphics.g2d.BitmapFont</code></div>
+<div class="col-second odd-row-color"><code><a href="#fnt_18" class="member-name-link">fnt_18</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>protected static final float</code></div>
+<div class="col-second even-row-color"><code><a href="#projectionFactor" class="member-name-link">projectionFactor</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.components.Component">Fields inherited from class&nbsp;com.csse3200.game.components.<a href="../components/Component.html" title="class in com.csse3200.game.components">Component</a></h3>
 <code><a href="../components/Component.html#enabled">enabled</a>, <a href="../components/Component.html#entity">entity</a></code></div>
@@ -178,7 +193,7 @@ implements <a href="Renderable.html" title="interface in com.csse3200.game.rende
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.components.Component">Methods inherited from class&nbsp;com.csse3200.game.components.<a href="../components/Component.html" title="class in com.csse3200.game.components">Component</a></h3>
-<code><a href="../components/Component.html#earlyUpdate()">earlyUpdate</a>, <a href="../components/Component.html#getEntity()">getEntity</a>, <a href="../components/Component.html#setEnabled(boolean)">setEnabled</a>, <a href="../components/Component.html#setEntity(com.csse3200.game.entities.Entity)">setEntity</a>, <a href="../components/Component.html#toString()">toString</a>, <a href="../components/Component.html#triggerEarlyUpdate()">triggerEarlyUpdate</a>, <a href="../components/Component.html#triggerUpdate()">triggerUpdate</a>, <a href="../components/Component.html#update()">update</a></code></div>
+<code><a href="../components/Component.html#earlyUpdate()">earlyUpdate</a>, <a href="../components/Component.html#getEntity()">getEntity</a>, <a href="../components/Component.html#isEnabled()">isEnabled</a>, <a href="../components/Component.html#setEnabled(boolean)">setEnabled</a>, <a href="../components/Component.html#setEntity(com.csse3200.game.entities.Entity)">setEntity</a>, <a href="../components/Component.html#toString()">toString</a>, <a href="../components/Component.html#triggerEarlyUpdate()">triggerEarlyUpdate</a>, <a href="../components/Component.html#triggerUpdate()">triggerUpdate</a>, <a href="../components/Component.html#update()">update</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -188,6 +203,40 @@ implements <a href="Renderable.html" title="interface in com.csse3200.game.rende
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="fnt_16">
+<h3>fnt_16</h3>
+<div class="member-signature"><span class="modifiers">protected static final</span>&nbsp;<span class="return-type">com.badlogic.gdx.graphics.g2d.BitmapFont</span>&nbsp;<span class="element-name">fnt_16</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="fnt_18">
+<h3>fnt_18</h3>
+<div class="member-signature"><span class="modifiers">protected static final</span>&nbsp;<span class="return-type">com.badlogic.gdx.graphics.g2d.BitmapFont</span>&nbsp;<span class="element-name">fnt_18</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="projectionFactor">
+<h3>projectionFactor</h3>
+<div class="member-signature"><span class="modifiers">protected static final</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">projectionFactor</span></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="../../../../constant-values.html#com.csse3200.game.rendering.RenderComponent.projectionFactor">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor-detail">

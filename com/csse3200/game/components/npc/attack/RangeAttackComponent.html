@@ -109,7 +109,7 @@ loadScripts(document, 'script');</script>
 <h2>Field Summary</h2>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.components.npc.attack.AttackComponent">Fields inherited from class&nbsp;com.csse3200.game.components.npc.attack.<a href="AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></h3>
-<code><a href="AttackComponent.html#attackCooldown">attackCooldown</a>, <a href="AttackComponent.html#attackRange">attackRange</a>, <a href="AttackComponent.html#combatStats">combatStats</a>, <a href="AttackComponent.html#effectConfigs">effectConfigs</a>, <a href="AttackComponent.html#effects">effects</a>, <a href="AttackComponent.html#logger">logger</a>, <a href="AttackComponent.html#target">target</a>, <a href="AttackComponent.html#timeSinceLastAttack">timeSinceLastAttack</a></code></div>
+<code><a href="AttackComponent.html#attackCooldown">attackCooldown</a>, <a href="AttackComponent.html#attackRange">attackRange</a>, <a href="AttackComponent.html#combatStats">combatStats</a>, <a href="AttackComponent.html#effectConfigs">effectConfigs</a>, <a href="AttackComponent.html#effects">effects</a>, <a href="AttackComponent.html#logger">logger</a>, <a href="AttackComponent.html#remainingAttacks">remainingAttacks</a>, <a href="AttackComponent.html#target">target</a>, <a href="AttackComponent.html#timeSinceLastAttack">timeSinceLastAttack</a></code></div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.components.Component">Fields inherited from class&nbsp;com.csse3200.game.components.<a href="../../Component.html" title="class in com.csse3200.game.components">Component</a></h3>
 <code><a href="../../Component.html#enabled">enabled</a>, <a href="../../Component.html#entity">entity</a></code></div>
@@ -128,7 +128,9 @@ loadScripts(document, 'script');</script>
  float&nbsp;attackRate,
  int&nbsp;shootType,
  <a href="../../../entities/configs/NPCConfigs.NPCConfig.EffectConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.EffectConfig</a>[]&nbsp;effectConfigs)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Makes a ranged attack component</div>
+</div>
 </div>
 </section>
 </li>
@@ -143,6 +145,16 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Base create function to overwrite projectileNames and attackTriggers for different projectile animations</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAnimationID()" class="member-name-link">getAnimationID</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">return animationID</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLatestProjectile()" class="member-name-link">getLatestProjectile</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -150,16 +162,24 @@ loadScripts(document, 'script');</script>
  Primarily used for testing</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#loadProjectileConfig(com.csse3200.game.entities.configs.ProjectileConfig)" class="member-name-link">loadProjectileConfig</a><wbr>(<a href="../../../entities/configs/ProjectileConfig.html" title="class in com.csse3200.game.entities.configs">ProjectileConfig</a>&nbsp;projectileConfig)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#performAttack()" class="member-name-link">performAttack</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#performAttack()" class="member-name-link">performAttack</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Perform attack for superclass `update` call</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAnimationID(int)" class="member-name-link">setAnimationID</a><wbr>(int&nbsp;i)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Change the animation ID for controlling animations
+  new id must be within number of animations available</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateTarget(com.csse3200.game.entities.Entity)" class="member-name-link">updateTarget</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;newTarget)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setType(java.lang.String)" class="member-name-link">setType</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;type)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Set the type of shooting</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateTarget(com.csse3200.game.entities.Entity)" class="member-name-link">updateTarget</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;newTarget)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Updates the attack target</div>
 </div>
 </div>
@@ -167,10 +187,10 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.components.npc.attack.AttackComponent">Methods inherited from class&nbsp;com.csse3200.game.components.npc.attack.<a href="AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></h3>
-<code><a href="AttackComponent.html#applyEffects(com.csse3200.game.entities.Entity)">applyEffects</a>, <a href="AttackComponent.html#canAttack(com.csse3200.game.entities.Entity,com.csse3200.game.entities.Entity)">canAttack</a>, <a href="AttackComponent.html#create()">create</a>, <a href="AttackComponent.html#update()">update</a></code></div>
+<code><a href="AttackComponent.html#applyEffects(com.csse3200.game.entities.Entity)">applyEffects</a>, <a href="AttackComponent.html#canAttack(com.csse3200.game.entities.Entity,com.csse3200.game.entities.Entity)">canAttack</a>, <a href="AttackComponent.html#enableForNumAttacks(int)">enableForNumAttacks</a>, <a href="AttackComponent.html#update()">update</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.components.Component">Methods inherited from class&nbsp;com.csse3200.game.components.<a href="../../Component.html" title="class in com.csse3200.game.components">Component</a></h3>
-<code><a href="../../Component.html#dispose()">dispose</a>, <a href="../../Component.html#earlyUpdate()">earlyUpdate</a>, <a href="../../Component.html#getEntity()">getEntity</a>, <a href="../../Component.html#setEnabled(boolean)">setEnabled</a>, <a href="../../Component.html#setEntity(com.csse3200.game.entities.Entity)">setEntity</a>, <a href="../../Component.html#toString()">toString</a>, <a href="../../Component.html#triggerEarlyUpdate()">triggerEarlyUpdate</a>, <a href="../../Component.html#triggerUpdate()">triggerUpdate</a></code></div>
+<code><a href="../../Component.html#dispose()">dispose</a>, <a href="../../Component.html#earlyUpdate()">earlyUpdate</a>, <a href="../../Component.html#getEntity()">getEntity</a>, <a href="../../Component.html#isEnabled()">isEnabled</a>, <a href="../../Component.html#setEnabled(boolean)">setEnabled</a>, <a href="../../Component.html#setEntity(com.csse3200.game.entities.Entity)">setEntity</a>, <a href="../../Component.html#toString()">toString</a>, <a href="../../Component.html#triggerEarlyUpdate()">triggerEarlyUpdate</a>, <a href="../../Component.html#triggerUpdate()">triggerUpdate</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -193,6 +213,15 @@ loadScripts(document, 'script');</script>
  float&nbsp;attackRate,
  int&nbsp;shootType,
  <a href="../../../entities/configs/NPCConfigs.NPCConfig.EffectConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.EffectConfig</a>[]&nbsp;effectConfigs)</span></div>
+<div class="block">Makes a ranged attack component</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>target</code> - the player</dd>
+<dd><code>attackRange</code> - the range that animals begin to shoot projectiles</dd>
+<dd><code>attackRate</code> - the rate of shooting</dd>
+<dd><code>shootType</code> - determine single shot or spread shot
+     8 @param effectConfigs the list of effects that apply on target</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -204,9 +233,37 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="loadProjectileConfig(com.csse3200.game.entities.configs.ProjectileConfig)">
-<h3>loadProjectileConfig</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">loadProjectileConfig</span><wbr><span class="parameters">(<a href="../../../entities/configs/ProjectileConfig.html" title="class in com.csse3200.game.entities.configs">ProjectileConfig</a>&nbsp;projectileConfig)</span></div>
+<section class="detail" id="setAnimationID(int)">
+<h3>setAnimationID</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setAnimationID</span><wbr><span class="parameters">(int&nbsp;i)</span></div>
+<div class="block">Change the animation ID for controlling animations
+  new id must be within number of animations available</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>i</code> - new animationID</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getAnimationID()">
+<h3>getAnimationID</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getAnimationID</span>()</div>
+<div class="block">return animationID</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>animationID</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="create()">
+<h3>create</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">create</span>()</div>
+<div class="block">Base create function to overwrite projectileNames and attackTriggers for different projectile animations</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="AttackComponent.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></code></dd>
+</dl>
 </section>
 </li>
 <li>
@@ -236,6 +293,17 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the latest projectile being created</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setType(java.lang.String)">
+<h3>setType</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setType</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;type)</span></div>
+<div class="block">Set the type of shooting</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - The type of shooting</dd>
 </dl>
 </section>
 </li>

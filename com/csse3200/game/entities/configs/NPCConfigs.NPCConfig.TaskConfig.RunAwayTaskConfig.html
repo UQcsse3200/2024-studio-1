@@ -85,9 +85,7 @@ loadScripts(document, 'script');</script>
 <h1 title="Class NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig" class="title">Class NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig.html" title="class in com.csse3200.game.entities.configs">com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig</a>
 <div class="inheritance">com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig</div>
-</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -96,7 +94,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public static class </span><span class="element-name type-name-label">NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig</span>
-<span class="extends-implements">extends <a href="NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig</a></span></div>
+<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -110,24 +108,27 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>float</code></div>
-<div class="col-second even-row-color"><code><a href="#maxRunDistance" class="member-name-link">maxRunDistance</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>int</code></div>
-<div class="col-second odd-row-color"><code><a href="#priority" class="member-name-link">priority</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>float</code></div>
-<div class="col-second even-row-color"><code><a href="#runSpeed" class="member-name-link">runSpeed</a></code></div>
+<div class="col-second even-row-color"><code><a href="#activationHealth" class="member-name-link">activationHealth</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code>float</code></div>
-<div class="col-second odd-row-color"><code><a href="#viewDistance" class="member-name-link">viewDistance</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#activationMaxRange" class="member-name-link">activationMaxRange</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>float</code></div>
-<div class="col-second even-row-color"><code><a href="#waitTime" class="member-name-link">waitTime</a></code></div>
+<div class="col-second even-row-color"><code><a href="#activationMinRange" class="member-name-link">activationMinRange</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>float</code></div>
+<div class="col-second odd-row-color"><code><a href="#cooldownTime" class="member-name-link">cooldownTime</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>float</code></div>
+<div class="col-second even-row-color"><code><a href="#maxRunTime" class="member-name-link">maxRunTime</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>float</code></div>
+<div class="col-second odd-row-color"><code><a href="#runSpeed" class="member-name-link">runSpeed</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>float</code></div>
+<div class="col-second even-row-color"><code><a href="#stopDistance" class="member-name-link">stopDistance</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
-<div class="inherited-list">
-<h3 id="fields-inherited-from-class-com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig">Fields inherited from class&nbsp;com.csse3200.game.entities.configs.<a href="NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig</a></h3>
-<code><a href="NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig.html#chaseDistance">chaseDistance</a>, <a href="NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig.html#chaseSpeed">chaseSpeed</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -162,21 +163,21 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="priority">
-<h3>priority</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">priority</span></div>
+<section class="detail" id="activationMinRange">
+<h3>activationMinRange</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">activationMinRange</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="viewDistance">
-<h3>viewDistance</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">viewDistance</span></div>
+<section class="detail" id="activationMaxRange">
+<h3>activationMaxRange</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">activationMaxRange</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="maxRunDistance">
-<h3>maxRunDistance</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">maxRunDistance</span></div>
+<section class="detail" id="activationHealth">
+<h3>activationHealth</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">activationHealth</span></div>
 </section>
 </li>
 <li>
@@ -186,9 +187,21 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="waitTime">
-<h3>waitTime</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">waitTime</span></div>
+<section class="detail" id="stopDistance">
+<h3>stopDistance</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">stopDistance</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="maxRunTime">
+<h3>maxRunTime</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">maxRunTime</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="cooldownTime">
+<h3>cooldownTime</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">cooldownTime</span></div>
 </section>
 </li>
 </ul>

@@ -87,9 +87,9 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="BossAttackTask.html" title="class in com.csse3200.game.components.tasks">BossAttackTask</a></div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="AOEAttackTask.html" title="class in com.csse3200.game.components.tasks">AOEAttackTask</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">Task for managing the attack behavior of a boss entity.</div>
+<div class="block">Task for an NPC to perform an AOE attack with a preparation phase (charge-up animation).</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="ChargeTask.html" title="class in com.csse3200.game.components.tasks">ChargeTask</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
@@ -99,24 +99,36 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Chases a target entity until it gets too far away or the line of sight is lost.</div>
 </div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="FollowTask.html" title="class in com.csse3200.game.components.tasks">FollowTask</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">Chases a target entity until it gets too far away or the line of sight is lost.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="JumpTask.html" title="class in com.csse3200.game.components.tasks">JumpTask</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">Task for an NPC to "jump" toward a target, bypassing obstacles and simulating a jump arc in the y direction.</div>
+</div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="MovementTask.html" title="class in com.csse3200.game.components.tasks">MovementTask</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Moves the entity to a given position, finishing when it gets close enough.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="RunAwayTask.html" title="class in com.csse3200.game.components.tasks">RunAwayTask</a></div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="RangeAttackTask.html" title="class in com.csse3200.game.components.tasks">RangeAttackTask</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">Task for managing the runaway behavior of an entity.</div>
+<div class="block">Task for an NPC to perform a given number of range attacks on a target entity.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="StraightWanderTask.html" title="class in com.csse3200.game.components.tasks">StraightWanderTask</a></div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="RunAwayTask.html" title="class in com.csse3200.game.components.tasks">RunAwayTask</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">Task for an NPC to run away from a target at a given speed.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="StraightWanderTask.html" title="class in com.csse3200.game.components.tasks">StraightWanderTask</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Wander around by moving in a random direction.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="WaitTask.html" title="class in com.csse3200.game.components.tasks">WaitTask</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="WaitTask.html" title="class in com.csse3200.game.components.tasks">WaitTask</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Task that does nothing other than waiting for a given time.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="WanderTask.html" title="class in com.csse3200.game.components.tasks">WanderTask</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="WanderTask.html" title="class in com.csse3200.game.components.tasks">WanderTask</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Wander around by moving to a random position within a specified range
  from the starting position.</div>
 </div>

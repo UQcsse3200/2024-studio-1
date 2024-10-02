@@ -194,6 +194,7 @@ public abstract class EnemyRoom extends BaseRoom {
                 }
             }
         }
+        makeAllAnimalDead();
     }
 
     /**

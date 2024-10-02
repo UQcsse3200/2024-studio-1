@@ -1,16 +1,13 @@
 package com.csse3200.game.entities.factories;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.ai.tasks.AITaskComponent;
-import com.csse3200.game.ai.tasks.BossAITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
-import com.csse3200.game.components.npc.attack.RangeAttackComponent;
-import com.csse3200.game.components.tasks.*;
+import com.csse3200.game.components.tasks.FollowTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.files.FileLoader;
@@ -175,7 +172,6 @@ public class PetFactory extends LoadedFactory {
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
    * @param name
-   * @param target      The target entity for the NPC to chase.
    * @param aiComponent The AI component to be added to the NPC.
    * @param config      The configuration for the NPC.
    * @param animator    The animator component for the NPC.
@@ -255,7 +251,6 @@ public class PetFactory extends LoadedFactory {
   /**
    * Helper method to create an AI component for the NPC based on its tasks.
    *
-   * @param target The target entity (e.g., the player)
    * @param tasks The task configuration for the NPC
    * @return The created AITaskComponent
    */

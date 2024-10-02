@@ -1,7 +1,5 @@
 package com.csse3200.game.components.npc.attack;
 
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.CombatStatsComponent;
@@ -120,7 +118,7 @@ class AOEAttackComponentTest {
         NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects
         Entity attacker = new Entity()
                 .addComponent(new CombatStatsComponent(10, 10))
-                .addComponent(new AOEAttackComponent(target, 2f, 1f, effectConfigs, aoeRadius));
+                .addComponent(new AOEAttackComponent(target, aoeRadius, 1f, effectConfigs));
         attacker.create();
         return attacker;
     }

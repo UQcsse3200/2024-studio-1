@@ -52,7 +52,7 @@ public class MovementTask extends DefaultTask {
     super.start();
     this.movementComponent = owner.getEntity().getComponent(PhysicsMovementComponent.class);
     this.directionalComponent = owner.getEntity().getComponent(DirectionalNPCComponent.class);
-    movementComponent.setTarget(target);
+    this.setTarget(target);
     movementComponent.setMoving(true);
     logger.debug("Starting movement towards {}", target);
     lastTimeMoved = gameTime.getTime(); // Record the current time.

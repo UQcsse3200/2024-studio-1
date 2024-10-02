@@ -1,6 +1,7 @@
 {
   "rat": {
     "health": 100,
+    "strength": 3,
     "baseAttack": 10,
     "tasks": {
       "follow": {
@@ -10,22 +11,20 @@
         "followSpeed": 5
       },
       "chase": {
-        "priority": 5,
         "viewDistance": 4,
         "chaseDistance": 5,
         "chaseSpeed": 2
       },
       "charge": {
-        "priority": 10,
-        "viewDistance": 2,
-        "chaseDistance": 2,
-        "chaseSpeed": 4,
-        "waitTime": 0.4
+        "activationMinRange": 1,
+        "activationMaxRange": 2,
+        "chaseSpeed": 3,
+        "waitTime": 0.2
       }
     },
     "attacks": {
       "melee": {
-        "range": 1,
+        "range": 1.2,
         "rate": 2
       }
     },
@@ -38,6 +37,7 @@
     ]
   },
   "bear": {
+    "strength": 6,
     "health": 600,
     "baseAttack": 35,
     "isDirectional": true,
@@ -48,16 +48,20 @@
         "followDistance": 2,
         "followSpeed": 5
       },
+      "wander": {
+        "wanderRadius": 3,
+        "waitTime": 2,
+        "wanderSpeed": 0.5
+      },
       "chase": {
-        "priority": 10,
         "chaseSpeed": 1.5,
-        "viewDistance": 1.5,
-        "chaseDistance": 2
+        "viewDistance": 3,
+        "chaseDistance": 4
       },
       "charge": {
-        "priority": 5,
-        "viewDistance": 4,
-        "chaseDistance": 5,
+        "activationMinRange": 4,
+        "activationMaxRange": 5,
+        "distanceMultiplier": 1.2,
         "chaseSpeed": 3,
         "waitTime": 2
       }
@@ -89,6 +93,7 @@
   },
   "bat": {
     "health": 50,
+    "strength": 3,
     "baseAttack": 10,
     "tasks": {
       "follow": {
@@ -98,15 +103,14 @@
         "followSpeed": 5
       },
       "chase": {
-        "priority": 10,
         "chaseSpeed": 1.5,
-        "viewDistance": 2,
+        "viewDistance": 3,
         "chaseDistance": 4
       },
       "charge": {
-        "priority": 5,
-        "viewDistance": 5,
-        "chaseDistance": 6,
+        "activationMinRange": 4,
+        "activationMaxRange": 6,
+        "distanceMultiplier": 1.4,
         "chaseSpeed": 5,
         "waitTime": 0
       }
@@ -127,32 +131,28 @@
   },
   "dog": {
     "health": 300,
+    "strength": 3,
     "baseAttack": 20,
     "isDirectional": true,
     "tasks": {
-      "follow": {
-        "followRadius": 3,
-        "waitTime": 2,
-        "followDistance": 2,
-        "followSpeed": 5
-      },
-      "wander": {
-        "wanderRadius": 4,
-        "waitTime": 2,
-        "wanderSpeed": 0.7
-      },
       "charge": {
-        "priority": 10,
-        "viewDistance": 5,
-        "chaseDistance": 6,
+        "activationMinRange": 0,
+        "activationMaxRange": 5,
+        "distanceMultiplier": 1.3,
         "chaseSpeed": 2.5,
         "waitTime": 2
       }
     },
     "attacks": {
-      "melee": {
-        "range": 1.5,
-        "rate": 1
+      "aoe": {
+        "range": 2,
+        "rate": 1,
+        "effects": [
+          {
+            "type": "knockback",
+            "force": 5
+          }
+        ]
       }
     },
     "animations": [
@@ -170,6 +170,7 @@
   },
   "snake": {
     "health": 300,
+    "strength":6,
     "baseAttack": 10,
     "isDirectional": true,
     "tasks": {
@@ -179,29 +180,23 @@
         "followDistance": 2,
         "followSpeed": 5
       },
-      "wander": {
-        "wanderRadius": 2,
-        "waitTime": 6,
-        "wanderSpeed": 0.5
-      },
       "chase": {
-        "priority": 5,
         "chaseSpeed": 0.8,
         "viewDistance": 4,
         "chaseDistance": 5
       },
       "charge": {
-        "priority": 10,
-        "viewDistance": 1.8,
-        "chaseDistance": 2,
+        "activationMinRange": 1,
+        "activationMaxRange": 2,
         "chaseSpeed": 5,
         "waitTime": 2
       }
     },
+
     "attacks": {
       "melee": {
-        "range": 1,
-        "rate": 0.8
+        "range": 1.2,
+        "rate": 2
       }
     },
     "animations": [
@@ -214,17 +209,48 @@
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
-  "ringFire": {
-    "health": 600,
+  "minotaur": {
+    "health": 400,
+    "strength":10,
     "baseAttack": 35,
-    "isDirectional": true,
     "tasks": {
       "follow": {
-        "followRadius": 0,
-        "waitTime": 0,
-        "followDistance": 0,
-        "followSpeed": 100
+        "followRadius": 3,
+        "waitTime": 2,
+        "followDistance": 2,
+        "followSpeed": 5
+      },
+      "chase": {
+        "chaseSpeed": 1.5,
+        "viewDistance": 3,
+        "chaseDistance": 4
+      },
+      "charge": {
+        "activationMinRange": 4,
+        "activationMaxRange": 5,
+        "chaseSpeed": 3,
+        "waitTime": 2
       }
-    }
-  }
+    },
+    "attacks": {
+      "melee": {
+        "range": 1.5,
+        "rate": 0.5,
+        "effects": [
+          {
+            "type": "knockback",
+            "force": 1
+          }
+        ]
+      }
+    },
+    "animations": [
+      {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "walk", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
+    ]
+  },
 }
+

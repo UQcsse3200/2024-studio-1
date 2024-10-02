@@ -1,13 +1,10 @@
 package com.csse3200.game.areas;
 
-import java.util.List;
-
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
-import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.StairFactory;
 
 import java.util.List;
@@ -24,11 +21,9 @@ public class BossRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                //Currently there are three random animals being spawned in base on the level the player is in. Bosses haven't been implemented thus using
-                //currently available animals.
-                List.of("Werewolf"),//boss 1
-                List.of("Minotaur"),//boss 2
-                List.of("Bear")// boss 3
+                List.of("Werewolf"), // boss 1
+                List.of("Kitsune"), // boss 2
+                List.of("Birdman")  // boss 3
         );
     }
 

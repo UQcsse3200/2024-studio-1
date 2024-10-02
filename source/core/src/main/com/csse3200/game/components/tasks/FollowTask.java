@@ -3,17 +3,9 @@ package com.csse3200.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
-import com.csse3200.game.components.npc.DirectionalNPCComponent;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.configs.NPCConfigs;
-import com.csse3200.game.physics.PhysicsEngine;
-import com.csse3200.game.physics.PhysicsLayer;
-import com.csse3200.game.physics.raycast.RaycastHit;
-import com.csse3200.game.rendering.DebugRenderer;
-import com.csse3200.game.services.ServiceLocator;
-
 import com.csse3200.game.ai.tasks.Task;
+import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +42,7 @@ public class FollowTask extends DefaultTask implements PriorityTask {
   @Override
   public void start() {
     super.start();
-    waitTask = new WaitTask(waitTime, 0);
+    waitTask = new WaitTask(waitTime);
     waitTask.create(owner);
     movementTask = new MovementTask(getRandomPosInRange()); // Move to a random position within the range 
     movementTask.create(owner);

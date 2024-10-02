@@ -253,11 +253,12 @@ public class CombatStatsComponent extends Component {
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
 
-            if (attacker.getEntity() == null || attacker.getEntity().getComponent(NameComponent.class) == null){
+            if (attacker.getEntity() == null
+                    || attacker.getEntity().getName().equals("Unknown Entity")) {
                 lastAttackName = "Unknown";
             }
             else {
-                lastAttackName = attacker.getEntity().getComponent(NameComponent.class).getName();
+                lastAttackName = attacker.getEntity().getName();
             }
 
             FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.LOCAL);

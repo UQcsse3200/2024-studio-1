@@ -1,5 +1,7 @@
 package com.csse3200.game.areas;
 
+import static com.csse3200.game.services.ServiceLocator.getGameAreaService;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +73,16 @@ public abstract class EnemyRoom extends BaseRoom {
      */
     public List<Entity> getEnemies() {
         return enemies;
+    }
+
+
+    /**
+     * Spawns Deployable Entity
+     */
+    public void SpawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
+        entities.add(entity);
+        getGameAreaService().getGameArea().spawnEntityAt(entity, tilePos, centerX, centerY);
+
     }
 
     /**

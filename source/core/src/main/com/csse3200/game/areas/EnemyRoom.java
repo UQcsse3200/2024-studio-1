@@ -131,7 +131,7 @@ public abstract class EnemyRoom extends BaseRoom {
         for (Entity entity : enemies) {
             CombatStatsComponent combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
             if (combatStatsComponent != null) {
-                combatStatsComponent.setHealth(0);
+                combatStatsComponent.setHealth(1);
                 combatStatsComponent.hit(combatStatsComponent);
             }
         }

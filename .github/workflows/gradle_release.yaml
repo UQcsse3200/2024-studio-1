@@ -34,6 +34,8 @@ jobs:
 
       - name: Build and Analyse Game
         run: |
+          mkdir -p ~/Beast\ Breakout/
+          ls -al ~
           cd $GRADLE_DIR
           chmod +x ./gradlew
           ./gradlew --stacktrace build sonarqube --info

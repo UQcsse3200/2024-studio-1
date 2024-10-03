@@ -1,9 +1,13 @@
 package com.csse3200.game.areas;
 
+import static com.csse3200.game.services.ServiceLocator.getGameAreaService;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
@@ -71,6 +75,16 @@ public abstract class EnemyRoom extends BaseRoom {
         return enemies;
     }
 
+
+    /**
+     * Spawns Deployable Entity
+     */
+    public void SpawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
+        entities.add(entity);
+        getGameAreaService().getGameArea().spawnEntityAt(entity, tilePos, centerX, centerY);
+
+    }
+
     /**
      * Checks if the room is complete by verifying if all animals/enemies are dead.
      * Sets the room as complete if the condition is met.
@@ -78,6 +92,12 @@ public abstract class EnemyRoom extends BaseRoom {
     public void checkIfRoomComplete() {
         if (isAllAnimalDead()) {
             System.out.println("room is complete");
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    spawnItems();
+                }
+            }, 1.0f);
             setIsRoomComplete();
         }
     }
@@ -138,10 +158,10 @@ public abstract class EnemyRoom extends BaseRoom {
      */
     private void spawnItems() {
         MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
-        List<String> itemGroup = this.itemSpecifications.get(this.itemGroup);
-        if (itemGroup != null && itemGroup.size() >= 2) {
-            spawnItem(area, itemGroup.get(0), new GridPoint2(8, 8));
-            spawnItem(area, itemGroup.get(1), new GridPoint2(6, 8));
+        List<String> items = this.itemSpecifications.get(this.itemGroup);
+        if (items != null && items.size() >= 2) {
+            spawnItem(area, items.get(0), new GridPoint2(8, 8));
+            spawnItem(area, items.get(1), new GridPoint2(6, 8));
         }
     }
 
@@ -159,20 +179,27 @@ public abstract class EnemyRoom extends BaseRoom {
             createEnemyEntities(animalGroup, player);
             for (Entity enemy : entities) {
                 if (enemy.getComponent(CombatStatsComponent.class) != null) {
+                    Vector2 playerPos = player.getPosition();
                     GridPoint2 randomPos = new GridPoint2(
                         ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
                         ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
                     );
+                    while (Math.abs(randomPos.x-playerPos.x) <= 1 || Math.abs(randomPos.y-playerPos.y) <= 1){
+                        randomPos = new GridPoint2(
+                                ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
+                                ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
+                        );
+                    }
                     SpawnEnemyEntity(area, enemy, randomPos);
                 }
             }
         }
-        //makeAllAnimalDead();
+        // makeAllAnimalDead();
     }
 
     /**
      * Spawns the room, including terrain, doors, enemies, and items.
-     * 
+     *
      * @param player The player entity.
      * @param area The game area to spawn the room in.
      */
@@ -184,8 +211,8 @@ public abstract class EnemyRoom extends BaseRoom {
             logger.info("spawning enemies");
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
 
-            logger.info("spawning items");
-            this.spawnItems();
+            //logger.info("spawning items");
+            //this.spawnItems();
         }
     }
 

@@ -1,49 +1,39 @@
 package com.csse3200.game.components.screendisplay;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.screens.IntroCutsceneScreen;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 /**
  * Creates the ui elements and functionality for the intro cutscene's ui.
  */
 public class IntroCutsceneDisplay extends UIComponent {
 
-    private static final Logger logger = LoggerFactory.getLogger(IntroCutsceneScreen.class);
-    private static final float Z_INDEX = 2f;
-    private static final float Y_PADDING = 20f;
-    /**
-     * Proportion of the screen width to be taken up by the cutscene text.
-     */
-    private static final float WIDTH_PROPORTION = .8f;
-    /*
-    Cutscene text is largely taken from storyline wiki page:
-    https://github.com/UQcsse3200/2024-studio-1/wiki/Storyline
-     */
-    private static final String CUTSCENE_TEXT = """
-            They escaped.
+    private static final Logger logger = LoggerFactory.getLogger(IntroCutsceneDisplay.class);
+    private static final int Y_PADDING_BUTTON = 40;
+    private static final int X_PADDING_BUTTON = 20;
 
-            All of them.
-
-            You tested them, tortured them, tormented them, \
-            all those poor, helpless animals.
-
-            But now you're the helpless one.
-
-            The humans have left, or rather, they left you behind. \
-            Hope you enjoyed your beer, because it may be your last.
-
-            The beasts have broken out.
-
-            Are you ready to put them back in their place?""";
     private final GdxGame game;
     private Table table;
+    private int currentPage = 0;
+
+    private Texture[] cutsceneTextures;
+    private Image backgroundImage;
 
     /**
      * Make the component.
@@ -57,57 +47,153 @@ public class IntroCutsceneDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
+        loadTextures();
+
+        // Create a background image that will fill the screen
+        backgroundImage = new Image(cutsceneTextures[currentPage]);
+        backgroundImage.setFillParent(true); // Make it fill the screen
+        stage.addActor(backgroundImage); // Add it to the stage first, behind everything else
+
+        // Create a table for buttons
+        table = new Table();
+        table.setFillParent(true);
+        table.top().center();  // Align content to the top
+        stage.addActor(table);  // Add the table above the background
+
+        // Create a listener for key presses (like ESC)
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.ESCAPE) {
+                    skipToLastPage();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        updateCutscene(); // Start with the first page
+    }
+
+    private void loadTextures() {
+        // Define the texture file paths in a fixed array
+        String[] texturePaths = {
+                "images/screen/cutscene1.jpg",
+                "images/screen/cutscene2.jpg",
+                "images/screen/cutscene3.jpg",
+                "images/screen/cutscene4.jpg"
+        };
+
+        // Initialize the array of textures
+        cutsceneTextures = new Texture[texturePaths.length];
+
+        // Load each texture in a loop using the predefined paths
+        for (int i = 0; i < texturePaths.length; i++) {
+            cutsceneTextures[i] = new Texture(Gdx.files.internal(texturePaths[i]));
+        }
+    }
+
+    private void updateCutscene() {
+        // Clear all actors from the stage
+        stage.clear();
+
+        // Update the background image for the current page
+        backgroundImage.setDrawable(new TextureRegionDrawable(new TextureRegion(cutsceneTextures[currentPage])));
+        stage.addActor(backgroundImage); // Re-add the background image to the stage
+
+        // Add buttons below the image
         addActors();
     }
 
     private void addActors() {
-        // todo make the cutscene more interesting
-        // todo make cutscene text respond to screen resizing
+        // Clear previous buttons from the table
+        table.clear(); // Clear any existing buttons in the main table
 
-        table = new Table();
-        table.setFillParent(true);
+        // Check if we're on the last page
+        if (currentPage == cutsceneTextures.length - 1) {
+            // On the last page, add the "Start Game" button
+            // Create a new button table for the start button
+            Table buttonTable = new Table();
+            buttonTable.setFillParent(true);
+            buttonTable.bottom().padBottom(Y_PADDING_BUTTON); // Position the buttons at the bottom with padding
 
-        // Cutscene text
-        Label label = new Label(CUTSCENE_TEXT, skin, "cutscene");
-        label.setWrap(true);
-        table.add(label).expandX().fillX().pad(80);
+            Button startGameBtn = new TextButton("Start Game", skin, "action");
+            startGameBtn.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    onStart(); // Start the game when the button is clicked
+                }
+            });
 
-        // Button to start game
-        Button startBtn = new TextButton("I'm ready", skin, "action");
-        startBtn.addListener(new ChangeListener() {
+            buttonTable.add(startGameBtn); // Add the start button
+            stage.addActor(buttonTable); // Add the button table to the stage
+            return; // Exit the method
+        }
+
+        // For all other pages, add buttons
+        Table buttonTable = new Table(); // Create a new table for buttons
+        buttonTable.setFillParent(true); // Make sure the table takes the full screen
+        buttonTable.bottom().padBottom(Y_PADDING_BUTTON); // Position the buttons at the bottom with padding
+
+        // Show the "Skip" button if not on the last page
+        Button skipBtn = new TextButton("Skip", skin, "action");
+        skipBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                logger.debug("Start game button pressed");
-                onStart();
+                onSkip(); // Skip to the last page
             }
         });
-        table.row();
-        table.add(startBtn).padTop(Y_PADDING);
+        buttonTable.add(skipBtn).padRight(X_PADDING_BUTTON); // Add skip button with padding to the right
 
-        stage.addActor(table);
+        // Show the "Next" button if not on the last page
+        addNextButton(buttonTable); // Add the next button into buttonTable
+
+        // Add button table to the stage
+        stage.addActor(buttonTable);
     }
 
-    /**
-     * Swaps to the Main Game screen.
-     */
+    private void addNextButton(Table buttonTable) {
+        Button nextBtn = new TextButton(currentPage == cutsceneTextures.length - 1 ? "Start Game" : "Next", skin, "action");
+        nextBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (currentPage < cutsceneTextures.length - 1) {
+                    currentPage++;
+                    updateCutscene(); // Go to the next page
+                } else {
+                    onStart(); // Start the game
+                }
+            }
+        });
+
+        buttonTable.add(nextBtn).padLeft(X_PADDING_BUTTON); // Add next button with padding to the left
+    }
+
+    private void onSkip() {
+        currentPage = cutsceneTextures.length - 1; // Skip to the last page
+        updateCutscene(); // Update the cutscene
+    }
+
+    private void skipToLastPage() {
+        currentPage = cutsceneTextures.length - 1;
+        updateCutscene(); // Update the cutscene to the last page
+    }
+
     private void onStart() {
-        logger.info("Start game");
         game.setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 
     @Override
     public void dispose() {
+        for (Texture texture : cutsceneTextures) {
+            texture.dispose();
+        }
         table.clear();
         super.dispose();
     }
 
     @Override
-    public float getZIndex() {
-        return Z_INDEX;
-    }
-
-    @Override
     protected void draw(SpriteBatch batch) {
-        // draw is handled by stage
+        // Drawing handled by stage
     }
 }

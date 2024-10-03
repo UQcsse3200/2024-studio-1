@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.nio.file.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +37,6 @@ import static java.lang.Math.*;
  * Factory for producing entities with a projectile themed component configuration.
  */
 public class ProjectileFactory extends LoadedFactory {
-
     private static final Logger logger = LoggerFactory.getLogger(ProjectileFactory.class);
     private final ProjectileConfigs configs = loadConfigs();
 
@@ -142,8 +142,7 @@ public class ProjectileFactory extends LoadedFactory {
                                    Vector2 direction, Vector2 parentPosition,
                                    AnimationRenderComponent animator) {
 
-        Entity projectile =
-                new Entity()
+        Entity projectile = new Entity()
                         .addComponent(new NameComponent(name))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new PhysicsMovementComponent())
@@ -208,7 +207,8 @@ public class ProjectileFactory extends LoadedFactory {
      *                         (-0.7)
      * NOTE - Magic numbers should not be tested.
      **/
-     public void createShotGunProjectile (ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {
+     public List<Entity> createShotGunProjectile (ProjectileConfig stats, Vector2 direction,
+                                       Vector2 parentPosition) {
         Double polarAngle = atan(direction.y / direction.x);
         float followSpeed = 0.9F;
         float scale = 1;
@@ -220,9 +220,11 @@ public class ProjectileFactory extends LoadedFactory {
         Vector2 rectCordLess = new Vector2(scale * (float)  (cos(polarAngle - plusMinus)), (float) ( sin(polarAngle - plusMinus)));
         Vector2 follower = new Vector2(followSpeed * direction.x, followSpeed * direction.y);
         List<Vector2> directions = Arrays.asList(rectCordMore, direction, rectCordLess, follower);
+        List<Entity> projectiles = new ArrayList<>();
         for (Vector2 dir : directions) {
-            createProjectile(stats, dir, parentPosition);
+            projectiles.add(createProjectile(stats, dir, parentPosition));
         }
+        return projectiles;
     }
 
 

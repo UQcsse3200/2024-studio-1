@@ -46,7 +46,7 @@ public class BearTrap extends UsableItem {
      */
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/trap_open.png");
+        return new Texture("images/items/trap_close.png");
     }
 
     /**
@@ -56,6 +56,6 @@ public class BearTrap extends UsableItem {
      */
     @Override
     public String getItemSpecification() {
-        return "bearTrap";
+        return "beartrap";
     }
 }

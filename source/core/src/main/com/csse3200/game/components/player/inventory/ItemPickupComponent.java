@@ -1,16 +1,22 @@
 package com.csse3200.game.components.player.inventory;
 
-
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Timer;
+import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
+import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.ui.UIComponent;
+import com.csse3200.game.utils.RandomNumberGenerator;
 import java.util.Random;
-
 
 /**
  * A component that allows a player to interact with items
@@ -116,10 +122,12 @@ public class ItemPickupComponent extends Component {
         GridPoint2 itemEntityPosition = new GridPoint2(xPosition, yPosition);
         markEntityForRemoval(collisionItemEntity);
 
-        int randomInt = this.random.nextInt(6);
+        int randomInt = this.random.nextInt(15);
         Entity newItem = this.randomItemGenerator(randomInt);
+//        Entity newItem = testCollectibleFactory.createCollectibleEntity("item:shieldpotion");
 
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(newItem, itemEntityPosition, true, true);
+//        area.spawnEntityAt(newItem, itemEntityPosition, true, true);
         entity.getEvents().trigger("updateItemsReroll", newItem, collisionItemEntity);
         itemEntity = newItem;
         item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
@@ -139,13 +147,20 @@ public class ItemPickupComponent extends Component {
      * @param itemEntity the entity representation of the item that the player is attempting to purhase
      */
     public void checkItemPurchase(Collectible item, Entity itemEntity) {
-        int playerFunds = getTestFunds();
+        if (entity.getComponent(CoinsComponent.class) == null) {
+            entity.getEvents().trigger("insufficientFunds");
+            // Depending on how you want to handle no coins component
+            return;
+        }
+        CoinsComponent coinsComponent = entity.getComponent(CoinsComponent.class);
+        int playerFunds = coinsComponent.getCoins();
         if (item == null || itemEntity == null) {
             return;
         }
         if ((itemEntity.getComponent(BuyableComponent.class) != null) && contact) {
             int cost = itemEntity.getComponent(BuyableComponent.class).getCost();
             if (playerFunds >= cost) {
+                coinsComponent.spend(cost);
                 entity.getComponent(InventoryComponent.class).pickup(item);
                 markEntityForRemoval(itemEntity);
             }
@@ -169,6 +184,7 @@ public class ItemPickupComponent extends Component {
         if(contact) {
             inventory.pickup(item);
             markEntityForRemoval(itemEntity);
+            this.itemEntity.getEvents().trigger("itemChose");
         }
 
         lastPickedUpEntity = itemEntity; //Update the last picked up entity
@@ -198,6 +214,15 @@ public class ItemPickupComponent extends Component {
             case 3 -> specification = "buff:energydrink:High";
             case 4 -> specification = "buff:energydrink:Low";
             case 5 -> specification = "buff:energydrink:Medium";
+            case 6 -> specification = "buff:syringe";
+            case 7 -> specification = "buff:armor";
+            case 8 -> specification = "buff:damagebuff";
+            case 9 -> specification = "item:beartrap";
+            case 10 -> specification = "item:targetdummy";
+            case 11 -> specification = "item:reroll";
+            case 12 -> specification = "buff:feather";
+            case 13 -> specification = "item:heart";
+            case 14 -> specification = "buff:divinepotion";
         }
 
         return this.collectibleFactory.createCollectibleEntity(specification);

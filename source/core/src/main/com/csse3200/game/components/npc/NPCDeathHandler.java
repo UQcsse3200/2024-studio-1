@@ -2,6 +2,7 @@ package com.csse3200.game.components.npc;
 
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
@@ -31,6 +32,7 @@ public class NPCDeathHandler extends Component {
     private boolean isDead = false;
     private Entity target;
     private int npcStrength;
+    private static int deadCount;
 
     public NPCDeathHandler(Entity target, int npcStrength) {
         this.target = target;
@@ -60,11 +62,12 @@ public class NPCDeathHandler extends Component {
         if (!isDead) {
             isDead = true;
             deadEntities.add(entity.getId());
+            deadCount++;
+            target.getEvents().trigger("defeatedEnemy", deadCount);
             // triggering event for player to get animal's strength as coins
-            String event = "collectCoin:" + npcStrength;
-            target.getEvents().trigger(event);
+            String event = "collectCoin";
+            target.getEvents().trigger(event, npcStrength);
             logger.info(event + "   is triggered");
-
 
             // Play death animation if available
             if (animator != null && animator.hasAnimation("death")) {
@@ -82,8 +85,11 @@ public class NPCDeathHandler extends Component {
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    ServiceLocator.getGameAreaService().getGameArea().disposeEntity(entity);
-                    deadEntities.remove(Integer.valueOf(entity.getId()));
+                    GameAreaService gameAreaService = ServiceLocator.getGameAreaService();
+                    if (gameAreaService != null) {
+                        gameAreaService.getGameArea().disposeEntity(entity);
+                        deadEntities.remove(Integer.valueOf(entity.getId()));
+                    }
                 }
             }, DEATH_ANIMATION_DURATION);
         }

@@ -29,6 +29,7 @@ public class MainMenuActions extends Component {
         entity.getEvents().addListener("player_select", this::onPlayerSelect);
         entity.getEvents().addListener("exit", this::onExit);
         entity.getEvents().addListener("settings", this::onSettings);
+        entity.getEvents().addListener("achievements", this::achievements);
         entity.getEvents().addListener("how-to-play", this::onHowToPlay);
     }
 
@@ -41,6 +42,11 @@ public class MainMenuActions extends Component {
         game.gameOptions.difficulty = difficulty;
         game.gameOptions.shouldLoad = shouldLoad;
         game.setScreen(ScreenType.PLAYER_SELECT);
+    }
+
+    private void achievements() {
+        logger.info("Going to achievements screen");
+        game.setScreen(ScreenType.ACHIEVEMENTS);
     }
 
     /**

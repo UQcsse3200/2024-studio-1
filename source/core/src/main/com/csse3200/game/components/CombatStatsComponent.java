@@ -1,16 +1,15 @@
 package com.csse3200.game.components;
 
-import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 
 import com.csse3200.game.components.player.ShieldComponent;
 
+import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.RandomNumberGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.csse3200.game.ai.tasks.AITaskComponent;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,6 +38,9 @@ public class CombatStatsComponent extends Component {
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
 
+    private String lastAttackName;
+    private String filePath = "configs/LastAttack.json";
+
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
@@ -53,6 +55,11 @@ public class CombatStatsComponent extends Component {
         setInvincible(false);
         this.timerIFrames = new Timer();
         this.timerFlashSprite = new Timer();
+    }
+
+    public CombatStatsComponent(int health, int baseAttack, boolean neverDies){
+        this(health, baseAttack, false, 0, 0);
+        setInvincible(neverDies);
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
@@ -230,17 +237,34 @@ public class CombatStatsComponent extends Component {
         if (getIsInvincible()) {
             return;
         }
+        if (isDead()){
+            return;
+        }
         ShieldComponent shield = entity.getComponent(ShieldComponent.class);
         if (shield != null && shield.isActive()) {
             entity.getEvents().trigger("hit");
             return;
         }
 
-        if (getCanBeInvincible()) {
+        if (getCanBeInvincible()) { // Only player currently
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
+
+            if (attacker.getEntity() == null
+                    || attacker.getEntity().getName().equals("Unknown Entity")) {
+                lastAttackName = "Unknown";
+            }
+            else {
+                lastAttackName = attacker.getEntity().getName();
+            }
+
+            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
+            //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
+            //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
+            //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
             entity.getEvents().trigger("playerHit");
+            if (isDead()){ return; }
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);

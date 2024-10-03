@@ -43,7 +43,7 @@ public class PlayerStatsDisplay extends UIComponent {
     private ArrayList<Label> labels;
     public static final String HEART_TEXTURE = "images/heart.png";
     public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
-    public static final String DAMAGE_BUFF_TEXTURE = "images/items/armor.png";
+    public static final String DAMAGE_BUFF_TEXTURE = "images/items/damage_buff.png";
 
 
     /**
@@ -61,6 +61,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("ranged_activate", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
+        entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
     }
 
     /**
@@ -226,7 +227,7 @@ public class PlayerStatsDisplay extends UIComponent {
      *
      * @param speedPercentage the player's new speed percentage to update the UI to
      */
-    public void updateSpeedPercentageUI(float speedPercentage) {
+    public void updateSpeedPercentageUI(float speedPercentage, String speedType) {
         //Temporarily commented out in case design team prefers text over a progress bar
 //        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
 //        speedLabelText.setText(text);

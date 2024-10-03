@@ -58,6 +58,10 @@ public class KeyMapping {
         USE_2,
         USE_3,
         USE_4,
+        USE_5,
+        USE_6,
+        USE_7,
+
         /**
          * The player action to jump to boss room.
          */
@@ -76,7 +80,11 @@ public class KeyMapping {
         /**
          * The player action to attempt to purchase a buyable item
          */
-        PURCHASE_ITEM
+        PURCHASE_ITEM,
+        /**
+         * Necromancer Target Switching 
+         */
+        NECROMANCER_BINDING
     }
 
     /**
@@ -107,10 +115,14 @@ public class KeyMapping {
             keyMap.put(Input.Keys.NUM_2, USE_2);
             keyMap.put(Input.Keys.NUM_3, USE_3);
             keyMap.put(Input.Keys.NUM_4, USE_4);
+            keyMap.put(Input.Keys.NUM_5, USE_5);
+            keyMap.put(Input.Keys.NUM_6, USE_6);
+            keyMap.put(Input.Keys.NUM_7, USE_7);
             keyMap.put(Input.Keys.B, ENTER_BOSS);
             keyMap.put(Input.Keys.E, PICK_UP);
             keyMap.put(Input.Keys.R, RE_ROLL);
             keyMap.put(Input.Keys.P, PURCHASE_ITEM);
+            keyMap.put(Input.Keys.Q, NECROMANCER_BINDING);
             this.keyMap = keyMap;
 
     }

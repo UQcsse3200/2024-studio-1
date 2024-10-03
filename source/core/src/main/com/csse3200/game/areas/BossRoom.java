@@ -1,10 +1,10 @@
 package com.csse3200.game.areas;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
-import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.StairFactory;
 
 import java.util.List;
@@ -22,24 +22,25 @@ public class BossRoom extends EnemyRoom {
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
                 List.of("Werewolf"), // boss 1
-                List.of("Minotaur"), // boss 2
-                List.of("Bear")      // boss 3
+                List.of("Kitsune"), // boss 2
+                List.of("Birdman")  // boss 3
         );
     }
 
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-                List.of("buff:energydrink:High", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
-                List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink:High", "item:shieldpotion"),
-                List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High")
+                //List of three lists of items for 3 different levels to be spawned in base on which level player is in.
+                List.of("buff:energydrink:High", "item:medkit", "melee:Knife", "ranged:Shotgun", "item:shieldpotion"),
+                List.of("item:bandage", "melee:Knife", "ranged:Shotgun", "buff:energydrink:High", "item:shieldpotion"),
+                List.of("ranged:Shotgun", "item:medkit", "melee:Knife", "item:bandage", "buff:energydrink:High")
         );
     }
 
     /**
      * A boss room with particular features.
      *
-     * @param npcFactory         the NPC factory to use.
+     * @param npcFactory         the NPC factory to use
      * @param collectibleFactory the Collectible factory to use.
      * @param terrainFactory     the terrain factory to use.
      * @param roomConnections    the keys for all the adjacent rooms.
@@ -65,7 +66,7 @@ public class BossRoom extends EnemyRoom {
 
     private void spawnStairs(Entity player, MainGameArea area) {
         Entity stairs = StairFactory.createStair(player.getId());
-        int x = maxGridPoint.x / 2;
+        int x = maxGridPoint.x;
         int y = maxGridPoint.y;
         GridPoint2 pos = new GridPoint2(x, y);
         area.spawnEntityAt(stairs, pos, true, true);

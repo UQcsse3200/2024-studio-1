@@ -1,0 +1,13 @@
+{
+  "name": "player 3",
+  "health": 100,
+  "coins": 0,
+  "speed": {
+    "x": 6,
+    "y": 6
+  },
+  "textureFilename": "images/player/homeless2.png",
+  "textureAtlasFilename": "images/player/homeless2.atlas",
+  "melee": "melee:Axe",
+  "ranged": "ranged:Shotgun"
+}

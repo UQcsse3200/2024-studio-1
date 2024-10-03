@@ -60,17 +60,24 @@ public class WeaponDisplay extends UIComponent{
     private Table makeHowToPlayTable() {
         Table table = new Table();
 
-        Label introLabel = new Label("Below are the available weapons in the game:", skin);
+        Label introLabel = new Label("The available weapons in the game are listed below:", skin);
         table.add(introLabel).colspan(2).pad(10).row();
 
         String[] animalDescriptions = {
-                "Shotgun - 30 dmg, 5 range, 5 rounds per second, 20 rounds per magazine",
-                "Sword - 100 dmg, 0 range, 10 fire rate, no need to reload",
+                "Shotgun - Damage 10, Range 10, Fire Rate 5, Ammo 20, Max Ammo 20, Reload Time 3 seconds",
+                "PlasmaBlaster - Damage 10, Range 10, Fire Rate 5, Ammo 20, Max Ammo 20, Reload Time 3 seconds",
+                "SuperSoaker - Damage 10, Range 10, Fire Rate 5, Ammo 20, Max Ammo 20, Reload Time 3 seconds",
+                "Knife - Damage 10, Range 4, Fire Rate 0 (instant use)",
+                "Axe - Damage 50, Range 10, Fire Rate 1 (slow swing)"
         };
 
         String[] animalImagePaths = {
-                "images/Weapons/Centered/Shotgun4_center.png",
-                "images/Weapons/Centered/Sword1_center.png",
+                "images/Weapons/Centered/Shotgun.png",
+                "images/Weapons/Centered/PlasmaBlaster.png",
+                "images/Weapons/Centered/SuperSoaker.png",
+                "images/Weapons/Centered/Knife.png",
+                "images/Weapons/Centered/Axe.png",
+
         };
 
         for (int i = 0; i < animalDescriptions.length; i++) {

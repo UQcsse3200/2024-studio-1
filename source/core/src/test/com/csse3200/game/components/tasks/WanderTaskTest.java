@@ -2,7 +2,7 @@ package com.csse3200.game.components.tasks;
 
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.events.listeners.EventListener0;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
@@ -30,7 +30,7 @@ class WanderTaskTest {
 
   @Test
   void shouldTriggerEvent() {
-    NPCConfigs.NPCConfig.TaskConfig.WanderTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.WanderTaskConfig();
+    TaskConfig.WanderTaskConfig config = new TaskConfig.WanderTaskConfig();
     config.wanderRadius = 1f;
     config.waitTime = 1f;
     config.wanderSpeed = 1f;

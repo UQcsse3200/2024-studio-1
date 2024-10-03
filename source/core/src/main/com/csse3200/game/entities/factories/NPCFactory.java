@@ -12,6 +12,7 @@ import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
@@ -129,7 +130,7 @@ public class NPCFactory extends LoadedFactory {
    * @param target The target entity (e.g., the player)
    * @param tasks  The task configuration for the NPC
    */
-  private void addAIComponent(Entity npc, Entity target, NPCConfigs.NPCConfig.TaskConfig tasks) {
+  private void addAIComponent(Entity npc, Entity target, TaskConfig tasks) {
     AITaskComponent aiComponent = new AITaskComponent();
 
     // Add wander task

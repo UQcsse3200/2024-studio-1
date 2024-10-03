@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class FollowTask extends DefaultTask implements PriorityTask {
    *
    * @param config Configuration for the chase task.
    */
-  public FollowTask(NPCConfigs.NPCConfig.TaskConfig.FollowTaskConfig config) {
+  public FollowTask(TaskConfig.FollowTaskConfig config) {
     this.followRange = new Vector2(config.followRadius, config.followRadius);
     this.waitTime = config.waitTime;
     this.followSpeed = config.followSpeed;

@@ -10,6 +10,7 @@ import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.FollowTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
@@ -156,7 +157,7 @@ public class PetFactory extends LoadedFactory {
    * @param tasks The task configuration for the NPC
    * @return The created AITaskComponent
    */
-  private AITaskComponent createAIComponent(NPCConfigs.NPCConfig.TaskConfig tasks) {
+  private AITaskComponent createAIComponent(TaskConfig tasks) {
     AITaskComponent aiComponent = new AITaskComponent();
     // Add follow task
     if (tasks.follow != null) {

@@ -5,6 +5,7 @@ import com.csse3200.game.ai.tasks.Task;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.physics.components.PhysicsComponent;
@@ -57,7 +58,7 @@ class ChargeTaskTest {
         chargingEntity.setPosition(0f, 0f);
 
         // Configuring ChargeTask
-        NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig();
+        TaskConfig.ChargeTaskConfig config = new TaskConfig.ChargeTaskConfig();
         config.activationMinRange = ACTIVATION_MIN_RANGE;
         config.activationMaxRange = ACTIVATION_MAX_RANGE;
         config.chaseSpeed = CHASE_SPEED;

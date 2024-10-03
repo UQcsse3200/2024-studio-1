@@ -5,7 +5,7 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.GameTime;
@@ -56,7 +56,7 @@ public class JumpTaskTest {
         target.setPosition(10, 0);
 
         // Create a simple config for JumpTask
-        NPCConfigs.NPCConfig.TaskConfig.JumpTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.JumpTaskConfig();
+        TaskConfig.JumpTaskConfig config = new TaskConfig.JumpTaskConfig();
         config.activationMinRange = 5f;
         config.activationMaxRange = 15f;
         config.jumpDuration = 1f;

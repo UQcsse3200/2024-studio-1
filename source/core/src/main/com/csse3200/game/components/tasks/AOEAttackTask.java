@@ -4,7 +4,7 @@ import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -26,7 +26,7 @@ public class AOEAttackTask extends DefaultTask implements PriorityTask {
     private AOEAttackComponent aoeAttackComponent;
     private WaitTask waitTask;
 
-    public AOEAttackTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.AOEAttackTaskConfig config) {
+    public AOEAttackTask(Entity target, TaskConfig.AOEAttackTaskConfig config) {
         this.target = target;
         this.activationMinRange = config.activationMinRange;
         this.activationMaxRange = config.activationMaxRange;

@@ -4,6 +4,7 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.physics.components.PhysicsComponent;
@@ -40,7 +41,7 @@ class ChaseTaskTest {
     Entity target = new Entity();
     target.setPosition(2f, 2f);
 
-    NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig();
+    TaskConfig.ChaseTaskConfig config = new TaskConfig.ChaseTaskConfig();
     config.viewDistance = 5;
     config.chaseDistance = 10;
     config.chaseSpeed = 10;
@@ -72,7 +73,7 @@ class ChaseTaskTest {
     entity.create();
     entity.setPosition(0f, 0f);
 
-    NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig();
+    TaskConfig.ChaseTaskConfig config = new TaskConfig.ChaseTaskConfig();
     config.viewDistance = 5;
     config.chaseDistance = 10;
     config.chaseSpeed = 1;

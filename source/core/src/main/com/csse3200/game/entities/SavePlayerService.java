@@ -18,7 +18,7 @@ public class SavePlayerService {
     public void savePlayerState(Entity player) {
         PlayerConfigGenerator generator = new PlayerConfigGenerator();
         PlayerConfig config = generator.savePlayerState(player);
-        FileLoader.writeClass(config, "configs/player_save.json");
+        FileLoader.writeClass(config, "configs/player_save.json", FileLoader.Location.EXTERNAL);
     }
 
 }

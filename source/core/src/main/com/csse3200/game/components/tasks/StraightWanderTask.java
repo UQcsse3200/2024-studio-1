@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public class StraightWanderTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(StraightWanderTask.class);
+    private static final int PRIORITY = 1;
     private static final float MAX_WANDER_LIMIT = 50;
     private final float wanderSpeed;
     private MovementTask movementTask;
@@ -26,7 +27,7 @@ public class StraightWanderTask extends DefaultTask implements PriorityTask {
 
     @Override
     public int getPriority() {
-        return 1; // Low priority task
+        return PRIORITY; // Low priority task
     }
 
     @Override

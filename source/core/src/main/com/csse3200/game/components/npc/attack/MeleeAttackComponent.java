@@ -2,7 +2,7 @@ package com.csse3200.game.components.npc.attack;
 
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
 
 
 /**
@@ -16,7 +16,7 @@ public class MeleeAttackComponent extends AttackComponent {
      * @param target The target entity for the attack.
      * @param config The melee attack configuration.
      */
-    public MeleeAttackComponent(Entity target, NPCConfigs.NPCConfig.AttackConfig.MeleeAttack config) {
+    public MeleeAttackComponent(Entity target, AttackConfig.MeleeAttack config) {
         super(target, config.range, config.rate, config.effects);
         this.setEnabled(false);
     }

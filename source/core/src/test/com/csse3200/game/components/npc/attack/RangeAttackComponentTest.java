@@ -7,7 +7,7 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsService;
@@ -27,7 +27,8 @@ import org.mockito.Mock;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
 class RangeAttackComponentTest {
@@ -148,9 +149,8 @@ class RangeAttackComponentTest {
 
     private Entity createAttacker(Entity target) {
         // Setup attacker configs
-        NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
-        NPCConfigs.NPCConfig.AttackConfig.RangeAttack rangeAttackConfig
-                = new NPCConfigs.NPCConfig.AttackConfig.RangeAttack();
+        AttackConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
+        AttackConfig.RangeAttack rangeAttackConfig = new AttackConfig.RangeAttack();
         rangeAttackConfig.range = 5f;
         rangeAttackConfig.rate = 1f;
         rangeAttackConfig.type = 0;

@@ -11,6 +11,7 @@ import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.files.FileLoader;
@@ -70,10 +71,12 @@ public class NPCFactory extends LoadedFactory {
   public Entity create(String npcType, Entity target) {
     NPCConfigs.NPCConfig config = configs.getConfig(npcType.toLowerCase());
     if (config == null) {
+      logger.error("NPC type '{}' not found in configurations.", npcType);
       throw new IllegalArgumentException("Unknown NPC type: " + npcType);
     }
 
     Entity npc = new Entity();
+    logger.debug("Creating NPC of type '{}'", npcType);
 
     // Add components to the NPC entity
     addBaseComponents(npc, target, config);
@@ -162,7 +165,7 @@ public class NPCFactory extends LoadedFactory {
    * @param target  The target entity
    * @param attacks The attack configuration for the NPC
    */
-  private void addAttackComponents(Entity npc, Entity target, NPCConfigs.NPCConfig.AttackConfig attacks) {
+  private void addAttackComponents(Entity npc, Entity target, AttackConfig attacks) {
     if (attacks.melee != null) {
       npc.addComponent(new MeleeAttackComponent(target, attacks.melee));
     }

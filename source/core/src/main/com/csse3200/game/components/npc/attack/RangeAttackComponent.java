@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -30,7 +30,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param target the player
      * @param config the attack configuration
      */
-    public RangeAttackComponent(Entity target, NPCConfigs.NPCConfig.AttackConfig.RangeAttack config) {
+    public RangeAttackComponent(Entity target, AttackConfig.RangeAttack config) {
         super(target, config.range, config.rate, config.effects);
         if (config.type == 0) {
             type = ShootType.SINGLE;

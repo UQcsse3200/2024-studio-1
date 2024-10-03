@@ -23,58 +23,33 @@ public class NPCConfigs {
     return npcConfigs.keySet();
   }
 
+  /**
+   * Configuration for an NPC entity.
+   */
   public static class NPCConfig extends BaseEntityConfig {
-
-    public NPCConfig() {
-    }
-
+    public String name;
+    public int strength;
+    public boolean isBoss = false;
+    public boolean isDirectional;
     public TaskConfig tasks = new TaskConfig();
     public AttackConfig attacks = new AttackConfig();
     public AnimationData[] animations = new AnimationData[0];
-    public String name;
-    public boolean isBoss = false;
-    public boolean isDirectional;
-    public int strength;
 
-    public int getStrength() {
-      return strength;
-    }
-
-    public static class AttackConfig {
-      public MeleeAttack melee = null;
-      public RangeAttack ranged = null;
-      public AOEAttack aoe = null;
-
-      public static class MeleeAttack {
-        public float range;
-        public float rate;
-        public EffectConfig[] effects = new EffectConfig[0];
-      }
-
-      public static class RangeAttack {
-        public float range;
-        public float rate;
-        public int type;
-        public EffectConfig[] effects = new EffectConfig[0];
-      }
-      public static class AOEAttack {
-        public float range;
-        public float rate;
-        public EffectConfig[] effects = new EffectConfig[0];
-      }
-    }
-
-    public static class EffectConfig {
-      public String type;
-      public float force; // For knockback
-      public float duration; // For stun or poison
-      public int damagePerSecond; // For poison
-    }
-
+    /**
+     * Configuration for an animation.
+     */
     public static class AnimationData {
+
       public String name;
       public float frameDuration;
       public Animation.PlayMode playMode;
+    }
+
+    /**
+     * Configuration for an attack.
+     */
+    public int getStrength() {
+      return strength;
     }
   }
 }

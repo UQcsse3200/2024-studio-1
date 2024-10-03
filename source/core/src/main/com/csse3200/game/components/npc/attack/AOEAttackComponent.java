@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
 
 /**
  * AOEAttackComponent manages Area of Effect attacks for NPCs.
@@ -19,7 +19,7 @@ public class AOEAttackComponent extends AttackComponent {
      * @param target The target entity for the attack.
      * @param config The AOE attack configuration.
      */
-    public AOEAttackComponent(Entity target, NPCConfigs.NPCConfig.AttackConfig.AOEAttack config) {
+    public AOEAttackComponent(Entity target, AttackConfig.AOEAttack config) {
         super(target, config.range, config.rate, config.effects);
         this.origin = new Vector2();
         this.setEnabled(false); // Component starts disabled

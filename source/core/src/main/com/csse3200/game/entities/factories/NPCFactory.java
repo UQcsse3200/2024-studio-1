@@ -132,44 +132,25 @@ public class NPCFactory extends LoadedFactory {
    */
   private void addAIComponent(Entity npc, Entity target, TaskConfig tasks) {
     AITaskComponent aiComponent = new AITaskComponent();
+    Map<TaskType, Object> taskConfigs = tasks.getTaskConfigs();
 
-    // Add wander task
-    if (tasks.wander != null) {
-      aiComponent.addTask(new WanderTask(tasks.wander));
-    }
-    // Add follow task
-    if (tasks.follow != null) {
-      aiComponent.addTask(new FollowTask(tasks.follow));
-    }
-    // Add straight wander task
-    if (tasks.straightWander != null) {
-      aiComponent.addTask(new StraightWanderTask(tasks.straightWander.wanderSpeed));
-    }
-    // Add chase task
-    if (tasks.chase != null) {
-      aiComponent.addTask(new ChaseTask(target, tasks.chase));
-    }
-    // Add charge task
-    if (tasks.charge != null) {
-      aiComponent.addTask(new ChargeTask(target, tasks.charge));
-    }
-    // Add jump task
-    if (tasks.jump != null) {
-      aiComponent.addTask(new JumpTask(target, tasks.jump));
-    }
-    // Add run away task
-    if (tasks.runAway != null) {
-      aiComponent.addTask(new RunAwayTask(target, tasks.runAway));
-    }
-    // Add range attack tasks
-    if (tasks.rangeAttack != null) {
-        aiComponent.addTask(new RangeAttackTask(target, tasks.rangeAttack, "single"));
-    }
-    if (tasks.spreadRangeAttack != null) {
-        aiComponent.addTask(new RangeAttackTask(target, tasks.spreadRangeAttack, "spread"));
-    }
-    if (tasks.aoeAttack != null) {
-        aiComponent.addTask(new AOEAttackTask(target, tasks.aoeAttack));
+    for (Map.Entry<TaskType, Object> entry : taskConfigs.entrySet()) {
+      switch (entry.getKey()) {
+        case WANDER -> aiComponent.addTask(new WanderTask((TaskConfig.WanderTaskConfig) entry.getValue()));
+        case STRAIGHT_WANDER
+                -> aiComponent.addTask(new StraightWanderTask((TaskConfig.StraightWanderTaskConfig) entry.getValue()));
+        case FOLLOW -> aiComponent.addTask(new FollowTask((TaskConfig.FollowTaskConfig) entry.getValue()));
+        case CHASE -> aiComponent.addTask(new ChaseTask(target, (TaskConfig.ChaseTaskConfig) entry.getValue()));
+        case CHARGE -> aiComponent.addTask(new ChargeTask(target, (TaskConfig.ChargeTaskConfig) entry.getValue()));
+        case JUMP -> aiComponent.addTask(new JumpTask(target, (TaskConfig.JumpTaskConfig) entry.getValue()));
+        case RUN_AWAY -> aiComponent.addTask(new RunAwayTask(target, (TaskConfig.RunAwayTaskConfig) entry.getValue()));
+        case RANGE_ATTACK
+                -> aiComponent.addTask(new RangeAttackTask(target, (TaskConfig.RangeAttackTaskConfig) entry.getValue(), "single"));
+        case SPREAD_RANGE_ATTACK
+                -> aiComponent.addTask(new RangeAttackTask(target, (TaskConfig.RangeAttackTaskConfig) entry.getValue(), "spread"));
+        case AOE_ATTACK
+                -> aiComponent.addTask(new AOEAttackTask(target, (TaskConfig.AOEAttackTaskConfig) entry.getValue()));
+      }
     }
 
     npc.addComponent(aiComponent);

@@ -34,7 +34,6 @@ import java.util.Objects;
 /**
  * Handles the setup of various player components, including animations,
  * inventory, weapons, and physics.
- *
  */
 public class LoadPlayer {
     private final ItemFactory itemFactory;
@@ -42,8 +41,7 @@ public class LoadPlayer {
     private final PlayerActions playerActions;
     private static final float playerScale = 0.75f;
     private static final Logger logger = getLogger(LoadPlayer.class);
-    private CollectibleFactory collectibleFactory;
-
+    private final CollectibleFactory collectibleFactory;
 
     /**
      * Constructs a new LoadPlayer instance, initializing factories and inventory component.
@@ -59,7 +57,6 @@ public class LoadPlayer {
      * Create a player entity based on provided config file
      *
      * @param config the config for the player.
-     *
      * @return entity
      */
     public Entity createPlayer(PlayerConfig config) {
@@ -78,24 +75,21 @@ public class LoadPlayer {
      * Adds texture atlas and default texture settings to the player entity.
      *
      * @param player the player entity to which the atlas will be added.
-     *
      * @param config the config file that contain the texture atlas filename.
      */
-    public  void addAtlas(Entity player, PlayerConfig config) {
+    public void addAtlas(Entity player, PlayerConfig config) {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         System.out.println(config.textureAtlasFilename);
         if (!config.textureAtlasFilename.equals("images/player/player.atlas")) {
             TextureRegion defaultTexture = atlas.findRegion("idle");
             player.setScale(2f, 2f);
         } else {
-            if(config.name.equals("Bear")){
-                player.setScale(0.3f,0.3f);
-            }
-            else{
+            if (config.name.equals("Bear")) {
+                player.setScale(0.3f, 0.3f);
+            } else {
                 player.setScale(playerScale, playerScale);
             }
         }
-
     }
 
     /**
@@ -105,7 +99,7 @@ public class LoadPlayer {
      * @param config the configuration object containing player settings.
      */
     public void addComponents(Entity player, PlayerConfig config) {
-        if(config.name.equals("bear")){
+        if (config.name.equals("bear")) {
 
         }
         player.addComponent(new NameComponent("Main Player"))
@@ -142,7 +136,6 @@ public class LoadPlayer {
      * Creates and adds a melee weapon to the player entity.
      *
      * @param config file containing melee weapon details.
-     *
      * @param player the player entity to which the melee weapon will be added.
      */
     public void createMelee(PlayerConfig config, Entity player) {
@@ -157,7 +150,6 @@ public class LoadPlayer {
      * Creates and adds a ranged weapon to the player entity
      *
      * @param config file containing ranged weapon details.
-     *
      * @param player the player entity to which the ranged weapon will be added.
      */
     public void createRanged(PlayerConfig config, Entity player) {
@@ -172,15 +164,14 @@ public class LoadPlayer {
      * Adds weapons and items to the player entity
      *
      * @param player the player entity to which weapons and items will be added.
-     *
      * @param config the configuration object containing weapon and item details.
      */
     public void addWeaponsAndItems(Entity player, PlayerConfig config) {
-        if (config.melee!=null && !config.melee.isEmpty()) {
+        if (config.melee != null && !config.melee.isEmpty()) {
             createMelee(config, player);
         }
 
-        if (config.ranged!=null && !config.ranged.isEmpty()) {
+        if (config.ranged != null && !config.ranged.isEmpty()) {
             createRanged(config, player);
         }
 
@@ -192,13 +183,6 @@ public class LoadPlayer {
         }
     }
 
-    /**
-     * Creates an AnimationRenderComponent for handling player animations.
-     *
-     * @param textureAtlasFilename the filename of the texture atlas containing animations.
-     *
-     * @return the created AnimationRenderComponent.
-     */
     /**
      * Creates an AnimationRenderComponent for handling player animations.
      *
@@ -225,7 +209,7 @@ public class LoadPlayer {
                 animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
                 break;
             case ("images/player/homeless1.atlas"), ("images/player/homeless2.atlas"),
-                    ("images/player/homeless3.atlas"):
+                 ("images/player/homeless3.atlas"):
                 animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("Walk", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("Dead", 0.15f, Animation.PlayMode.NORMAL);

@@ -185,10 +185,7 @@ public class PlayerInventoryDisplay extends UIComponent {
         shapeRenderer.setColor(Color.LIGHT_GRAY);
         shapeRenderer.rect(START_X, START_Y, WIDTH, HEIGHT);
         shapeRenderer.end();
-
         batch.begin();
-
-
     }
 
     /**

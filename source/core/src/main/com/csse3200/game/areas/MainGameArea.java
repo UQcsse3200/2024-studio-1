@@ -95,7 +95,7 @@ public class MainGameArea extends GameArea {
      */
     @Override
     public void create() {
-        load(logger);
+        load();
         logger.error("loaded all assets");
 
         displayUI();

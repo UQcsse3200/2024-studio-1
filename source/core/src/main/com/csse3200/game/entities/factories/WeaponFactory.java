@@ -27,6 +27,10 @@ public class WeaponFactory extends LoadedFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
 
+    public WeaponFactory() {
+        super(logger);
+    }
+
     /**
      * Create a collectible melee weapon from specification
      *

@@ -7,14 +7,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class LoadedFactory implements Disposable {
-    private static final Logger logger = LoggerFactory.getLogger(LoadedFactory.class);
+    private static final Logger defaultLogger = LoggerFactory.getLogger(LoadedFactory.class);
+
+    private final Logger logger;
 
     protected LoadedFactory() {
-        this(logger);
+        this(defaultLogger);
     }
 
     protected LoadedFactory(Logger logger) {
-        load(logger);
+        this.logger = logger;
+        load();
     }
 
     /**
@@ -22,7 +25,7 @@ public abstract class LoadedFactory implements Disposable {
      *
      * @return the filepaths needed.
      */
-    protected String[] getSoundFilepaths(){
+    protected String[] getSoundFilepaths() {
         return new String[]{};
     }
 
@@ -31,7 +34,7 @@ public abstract class LoadedFactory implements Disposable {
      *
      * @return the filepaths needed.
      */
-    protected String[] getTextureAtlasFilepaths(){
+    protected String[] getTextureAtlasFilepaths() {
         return new String[]{};
     }
 
@@ -40,7 +43,7 @@ public abstract class LoadedFactory implements Disposable {
      *
      * @return the filepaths needed.
      */
-    protected String[] getTextureFilepaths(){
+    protected String[] getTextureFilepaths() {
         return new String[]{};
     }
 
@@ -49,12 +52,12 @@ public abstract class LoadedFactory implements Disposable {
      *
      * @return the filepaths needed.
      */
-    protected String[] getMusicFilepaths(){
+    protected String[] getMusicFilepaths() {
         return new String[]{};
     }
 
-    private void logLoaded(String type, String[] paths){
-        if (paths.length == 0){
+    private void logLoaded(String type, String[] paths) {
+        if (paths.length == 0) {
             return;
         }
         logger.info("Loaded {} Files:\n{}", type, String.join("\n", paths));
@@ -62,10 +65,8 @@ public abstract class LoadedFactory implements Disposable {
 
     /**
      * load all the assets needed by this factory.
-     *
-     * @param logger which logger to report to.
      */
-    public void load(Logger logger) {
+    public void load() {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(getTextureFilepaths());
         resourceService.loadTextureAtlases(getTextureAtlasFilepaths());
@@ -79,13 +80,6 @@ public abstract class LoadedFactory implements Disposable {
         logLoaded("Atlas", getTextureAtlasFilepaths());
         logLoaded("Sound", getSoundFilepaths());
         logLoaded("Music", getMusicFilepaths());
-    }
-
-    /**
-     * load all the assets needed by this factory.
-     */
-    public void load() {
-        load(logger);
     }
 
     @Override

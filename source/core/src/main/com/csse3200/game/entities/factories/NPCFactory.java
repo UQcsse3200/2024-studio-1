@@ -97,6 +97,13 @@ public class NPCFactory extends LoadedFactory {
     return npc;
   }
 
+    /**
+     * Helper method to add base components to an NPC entity.
+     *
+     * @param npc    The NPC entity to add components to.
+     * @param target The target entity for the NPC.
+     * @param config The configuration for the NPC.
+     */
   private static void addBaseComponents(Entity npc, Entity target, NPCConfigs.NPCConfig config) {
     npc.addComponent(new NameComponent(config.name))
         .addComponent(new PhysicsComponent())
@@ -112,10 +119,11 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
-   * Helper method to create an AnimationRenderComponent for an NPC.
+   * Helper method to create and add an AnimationRenderComponent for an NPC.
    *
-   * @param atlasPath  The path to the texture atlas for the NPC
-   * @param animations An array of animations for the NPC
+   * @param npc        The NPC entity to add the AnimationRenderComponent to.
+   * @param atlasPath  The path to the texture atlas for the NPC.
+   * @param animations An array of animations for the NPC.
    */
   private static void addAnimator(
           Entity npc, String atlasPath, NPCConfigs.NPCConfig.AnimationData[] animations) {
@@ -128,10 +136,11 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
-   * Helper method to create an AI component for the NPC based on its tasks.
+   * Helper method to create and add an AI component to a NPC based on its tasks.
    *
-   * @param target The target entity (e.g., the player)
-   * @param tasks  The task configuration for the NPC
+   * @param npc     The NPC entity to add the AI component to.
+   * @param target  The target entity.
+   * @param tasks   The task configuration for the NPC.
    */
   private void addAIComponent(Entity npc, Entity target, TaskConfig tasks) {
     AITaskComponent aiComponent = new AITaskComponent();
@@ -160,10 +169,11 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
-   * Helper method to create attack components for the NPC.
+   * Helper method to create and add attack components for a NPC.
    *
-   * @param target  The target entity
-   * @param attacks The attack configuration for the NPC
+   * @param npc     The NPC entity.
+   * @param target  The target entity.
+   * @param attacks The attack configuration for the NPC.
    */
   private void addAttackComponents(Entity npc, Entity target, AttackConfig attacks) {
     if (attacks.melee != null) {
@@ -180,14 +190,14 @@ public class NPCFactory extends LoadedFactory {
   /**
    * Get the filepath to the texture atlas for the NPC.
    *
-   * @param npcType The type of NPC
-   * @return The filepath to the texture atlas
+   * @param npcType The type of NPC.
+   * @return The filepath to the texture atlas.
    */
   private String getAtlasFilepath(String npcType) {
     return String.format("images/npc/%s/%s.atlas", npcType, npcType);
   }
 
-// assets below are cited in core/assets/images/npc/citation.txt
+  // assets below are cited in core/assets/images/npc/citation.txt
   @Override
   protected String[] getTextureAtlasFilepaths() {
     if (textureAtlasFilepaths == null) {
@@ -198,13 +208,13 @@ public class NPCFactory extends LoadedFactory {
     return textureAtlasFilepaths;
   }
 
-    @Override
-    protected String[] getTextureFilepaths() {
-      if (textureFilepaths == null) {
-        textureFilepaths = configs.getNpcTypes().stream()
-                .map(npcType -> String.format("images/npc/%s/%s.png", npcType, npcType))
-                .toArray(String[]::new);
-      }
-      return textureFilepaths;
+  @Override
+  protected String[] getTextureFilepaths() {
+    if (textureFilepaths == null) {
+      textureFilepaths = configs.getNpcTypes().stream()
+              .map(npcType -> String.format("images/npc/%s/%s.png", npcType, npcType))
+              .toArray(String[]::new);
     }
+    return textureFilepaths;
+  }
 }

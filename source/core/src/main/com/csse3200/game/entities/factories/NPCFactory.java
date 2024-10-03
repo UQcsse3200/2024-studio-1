@@ -3,7 +3,6 @@ package com.csse3200.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.Component;
 import com.csse3200.game.components.DialogComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.*;
@@ -30,12 +29,7 @@ import java.util.Map;
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
  *
- * <p>Each NPC entity type should have a creation method that returns a corresponding entity.
- * Predefined entity properties can be loaded from configs stored as json files which are defined in
- * "NPCConfigs".
- *
- * <p>If needed, this factory can be separated into more specific factories for entities with
- * similar characteristics.
+ * <p>Uses configurations from NPCConfigs to dynamically create NPCs based on type.</p>
  */
 public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
@@ -66,11 +60,11 @@ public class NPCFactory extends LoadedFactory {
   }
 
   /**
-   * Create a new NPC from specification
+   * Creates an NPC based on the provided type and target.
    *
-   * @param npcType the type of npc to be created
-   * @param target entity to chase
-   * @return the created npc
+   * @param npcType The type of NPC to create.
+   * @param target  The target entity for the NPC.
+   * @return The created NPC entity.
    */
   public Entity create(String npcType, Entity target) {
     NPCConfigs.NPCConfig config = configs.getConfig(npcType.toLowerCase());
@@ -78,11 +72,13 @@ public class NPCFactory extends LoadedFactory {
       throw new IllegalArgumentException("Unknown NPC type: " + npcType);
     }
 
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    String atlasPath = String.format("images/npc/%s/%s.atlas", npcType.toLowerCase(), npcType.toLowerCase());
-    AnimationRenderComponent animator = createAnimator(atlasPath, config.animations);
+    Entity npc = new Entity();
 
-    Entity npc = createBaseNPC(npcType, target, aiComponent, config, animator);
+    // Add components to the NPC entity
+    addBaseComponents(npc, target, config);
+    addAIComponent(npc, target, config.tasks);
+    addAnimator(npc, getAtlasFilepath(npcType.toLowerCase()), config.animations);
+    addAttackComponents(npc, target, config.attacks);
 
     // Additional components for bosses
     if (config.isBoss) {
@@ -90,66 +86,50 @@ public class NPCFactory extends LoadedFactory {
       npc.addComponent(new DialogComponent());
     }
 
+    // Scale entity
+    PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+    npc.getComponent(AnimationRenderComponent.class).scaleEntity();
+
     return npc;
   }
 
-  private static Entity createBaseNPC(String name, Entity target, Component aiComponent, NPCConfigs.NPCConfig config,
-                                      AnimationRenderComponent animator) {
-    Entity npc = new Entity()
-            .addComponent(new NameComponent(name))
-            .addComponent(new PhysicsComponent())
-            .addComponent(new PhysicsMovementComponent())
-            .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(aiComponent)
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-            .addComponent(animator)
-            .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler(target, config.getStrength()))
-            .addComponent(new DirectionalNPCComponent(config.isDirectional))
-            .addComponent(new NPCAnimationController())
-            .addComponent(new NPCConfigComponent(config));
-
-    if (config.attacks.melee != null) {
-      npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee));
-    }
-    if (config.attacks.ranged != null) {
-      npc.addComponent(new RangeAttackComponent(target, config.attacks.ranged));
-    }
-    if (config.attacks.aoe != null) {
-      npc.addComponent(new AOEAttackComponent(target, config.attacks.aoe));
-    }
-
-    PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
-    npc.getComponent(AnimationRenderComponent.class).scaleEntity();
-    return npc;
+  private static void addBaseComponents(Entity npc, Entity target, NPCConfigs.NPCConfig config) {
+    npc.addComponent(new NameComponent(config.name))
+        .addComponent(new PhysicsComponent())
+        .addComponent(new PhysicsMovementComponent())
+        .addComponent(new ColliderComponent())
+        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new NPCHealthBarComponent())
+        .addComponent(new NPCDeathHandler(target, config.getStrength()))
+        .addComponent(new DirectionalNPCComponent(config.isDirectional))
+        .addComponent(new NPCAnimationController())
+        .addComponent(new NPCConfigComponent(config));
   }
 
   /**
    * Helper method to create an AnimationRenderComponent for an NPC.
    *
-   * @param atlasPath The path to the texture atlas for the NPC
+   * @param atlasPath  The path to the texture atlas for the NPC
    * @param animations An array of animations for the NPC
-   * @return The created AnimationRenderComponent
    */
-  private static AnimationRenderComponent createAnimator(String atlasPath,
-                                                         NPCConfigs.NPCConfig.AnimationData[] animations) {
+  private static void addAnimator(
+          Entity npc, String atlasPath, NPCConfigs.NPCConfig.AnimationData[] animations) {
     AnimationRenderComponent animator = new AnimationRenderComponent(
             ServiceLocator.getResourceService().getAsset(atlasPath, TextureAtlas.class));
     for (NPCConfigs.NPCConfig.AnimationData animation : animations) {
       animator.addAnimation(animation.name, animation.frameDuration, animation.playMode);
     }
-    return animator;
+    npc.addComponent(animator);
   }
 
   /**
    * Helper method to create an AI component for the NPC based on its tasks.
    *
    * @param target The target entity (e.g., the player)
-   * @param tasks The task configuration for the NPC
-   * @return The created AITaskComponent
+   * @param tasks  The task configuration for the NPC
    */
-  private AITaskComponent createAIComponent(Entity target, NPCConfigs.NPCConfig.TaskConfig tasks) {
+  private void addAIComponent(Entity npc, Entity target, NPCConfigs.NPCConfig.TaskConfig tasks) {
     AITaskComponent aiComponent = new AITaskComponent();
 
     // Add wander task
@@ -191,7 +171,35 @@ public class NPCFactory extends LoadedFactory {
         aiComponent.addTask(new AOEAttackTask(target, tasks.aoeAttack));
     }
 
-    return aiComponent;
+    npc.addComponent(aiComponent);
+  }
+
+  /**
+   * Helper method to create attack components for the NPC.
+   *
+   * @param target  The target entity
+   * @param attacks The attack configuration for the NPC
+   */
+  private void addAttackComponents(Entity npc, Entity target, NPCConfigs.NPCConfig.AttackConfig attacks) {
+    if (attacks.melee != null) {
+      npc.addComponent(new MeleeAttackComponent(target, attacks.melee));
+    }
+    if (attacks.ranged != null) {
+      npc.addComponent(new RangeAttackComponent(target, attacks.ranged));
+    }
+    if (attacks.aoe != null) {
+      npc.addComponent(new AOEAttackComponent(target, attacks.aoe));
+    }
+  }
+
+  /**
+   * Get the filepath to the texture atlas for the NPC.
+   *
+   * @param npcType The type of NPC
+   * @return The filepath to the texture atlas
+   */
+  private String getAtlasFilepath(String npcType) {
+    return String.format("images/npc/%s/%s.atlas", npcType, npcType);
   }
 
 // assets below are cited in core/assets/images/npc/citation.txt

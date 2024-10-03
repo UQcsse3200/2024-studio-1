@@ -29,25 +29,25 @@ public class MainGameLevelFactory implements LevelFactory {
     private boolean shouldLoad;
     private String loadedSeed = "";
     private List<String> loadedRooms;
+    private MapLoadConfig config;
 
 
-    public MainGameLevelFactory(boolean shouldLoad) {
+    public MainGameLevelFactory(boolean shouldLoad, MapLoadConfig config) {
         this.shouldLoad = shouldLoad;
-        rooms = new HashMap<>();
-        loadedRooms = new ArrayList<>();
+        this.config = config;
+        this.rooms = new HashMap<>();
+        this.loadedRooms = new ArrayList<>();
     }
 
     @Override
     public Level create(int levelNumber) {
-        String seed;
+        String seed = "seed";
         // default seed for junit tests
         if (!shouldLoad) {
-            seed = "seed";
             map = new LevelMap(seed + levelNumber, DEFAULT_MAP_SIZE);
         } else {
             // For loaded games, append the level number to the loaded seed
-            loadFromJson(MAP_SAVE_PATH);
-            map = new LevelMap(loadedSeed , DEFAULT_MAP_SIZE);
+            map = new LevelMap(config.seed + config.currentLevel, DEFAULT_MAP_SIZE);
         }
 
         RoomFactory roomFactory = new RoomFactory(
@@ -89,7 +89,6 @@ public class MainGameLevelFactory implements LevelFactory {
             setRoomsComplete(loadedRooms);
             shouldLoad = false;
         }
-
         // Store the current level number
         this.levelNum = levelNumber;
 
@@ -110,39 +109,19 @@ public class MainGameLevelFactory implements LevelFactory {
         config.seed = seedOnly;
         config.currentLevel = ServiceLocator.getGameAreaService().getGameArea().getCurrentLevel().toString();
         config.currentRoom = ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getRoomName();
-        if(rooms.values() != null) {
             for (Room room : rooms.values()) {
                 if (room.getIsRoomComplete()){
                     String roomName = room.getRoomName();
                     if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
                         if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1)
                             compRooms.add(room.getRoomName());
-                    }
-                }
-            }
+                    }}
             config.roomsCompleted = compRooms;
             FileLoader.writeClass(config, filePath, FileLoader.Location.EXTERNAL);
         }
 
     }
 
-
-    /**
-     * Loads map data from the save file and extracts the completed rooms into a list which
-     * is later set to completed in the create method above
-     * @param filePath: Path for the save file
-     */
-    public void loadFromJson(String filePath) {
-        MapLoadConfig mapLoadConfig = new MapLoadConfig();
-        mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, filePath, FileLoader.Location.EXTERNAL);
-        /*
-        = mapLoadConfig.seed;
-               loadedSeed = mapLoadConfig.savedMap.getFirst();
-        mapLoadConfig.savedMap.remove(0);
-        loadedRooms.addAll(mapLoadConfig.savedMap);
-         */
-        String roomName = mapLoadConfig.currentRoom;
-    }
     /**
      * Sets the rooms that have been completed in the saved game as completed in the loaded
      * game.

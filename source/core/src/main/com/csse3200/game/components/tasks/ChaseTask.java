@@ -185,8 +185,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
         float newX = currentX + (currentX - targetX);
         float newY = currentY + (currentY - targetY);
 
-        Vector2 newPos = new Vector2(newX, newY);
-        return newPos;
+        return new Vector2(newX, newY);
       }
 
     /**

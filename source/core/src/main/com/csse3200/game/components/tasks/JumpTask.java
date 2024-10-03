@@ -35,9 +35,8 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private Vector2 targetPos;
     private PhysicsComponent physicsComponent;
     private ColliderComponent colliderComponent;
-    private DirectionalNPCComponent directionalComponent;
     private AOEAttackComponent aoeAttackComponent;
-    private GameTime gameTime;
+    private final GameTime gameTime;
     private long startTime;
     private long lastExecutionTime;
     private WaitTask waitTask;
@@ -64,7 +63,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         super.start();
         this.physicsComponent = owner.getEntity().getComponent(PhysicsComponent.class);
         this.colliderComponent = owner.getEntity().getComponent(ColliderComponent.class);
-        this.directionalComponent = owner.getEntity().getComponent(DirectionalNPCComponent.class);
+        DirectionalNPCComponent directionalComponent = owner.getEntity().getComponent(DirectionalNPCComponent.class);
         this.aoeAttackComponent = owner.getEntity().getComponent(AOEAttackComponent.class);
         startTime = gameTime.getTime();
         hasAttacked = false;

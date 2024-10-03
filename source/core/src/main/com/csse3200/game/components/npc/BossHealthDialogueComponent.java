@@ -94,9 +94,9 @@ public class BossHealthDialogueComponent extends Component {
     private void spawnAdditionalEnemies() {
         GameAreaService gameAreaService = ServiceLocator.getGameAreaService();
         if (gameAreaService.getGameArea() != null) {
-            MainGameArea area = (MainGameArea) gameAreaService.getGameArea();
+            MainGameArea area = gameAreaService.getGameArea();
             if (area.getCurrentRoom() instanceof BossRoom bossRoom) {
-                bossRoom.spawnOtherAnimals(entity);
+                bossRoom.spawnOtherAnimals();
             }
         }
     }

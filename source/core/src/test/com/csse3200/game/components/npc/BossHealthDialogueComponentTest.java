@@ -63,7 +63,7 @@ class BossHealthDialogueComponentTest {
         when(mockCombatStats.getHealth()).thenReturn(49);
         component.update();
         verify(mockAlertBoxService).confirmDialogBox(eq(mockEntity), eq("Half of my strength is gone, but my resolve remains unbroken!"), any());
-        verify(mockBossRoom).spawnOtherAnimals(mockEntity);
+        verify(mockBossRoom).spawnOtherAnimals();
 
         // Test 25% health threshold
         when(mockCombatStats.getHealth()).thenReturn(24);

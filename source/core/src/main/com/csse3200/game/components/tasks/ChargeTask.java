@@ -36,7 +36,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
   private final PhysicsEngine physics;
   private final DebugRenderer debugRenderer;
   private final RaycastHit hit = new RaycastHit();
-  private GameTime gameTime;
+  private final GameTime gameTime;
   private long lastExecutionTime;
   private MovementTask movementTask;
   private WaitTask waitTask;

@@ -18,9 +18,8 @@ import org.slf4j.LoggerFactory;
 public class FollowTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(FollowTask.class);
   private final float followSpeed;
-  private String direction;
   private final float waitTime;
-  private Vector2 followRange;
+  private final Vector2 followRange;
   private MovementTask movementTask;
   private WaitTask waitTask;
   private Task currentTask;

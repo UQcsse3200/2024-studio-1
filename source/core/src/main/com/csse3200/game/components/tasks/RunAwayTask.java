@@ -28,7 +28,7 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
     private final float maxRunTime;  // Maximum time to run for
     private final float cooldownTime;
     private MovementTask movementTask;
-    private GameTime gameTime;
+    private final GameTime gameTime;
     private long startTime;
     private long lastExecutionTime;
 

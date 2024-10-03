@@ -18,7 +18,6 @@ public class NPCHealthBarComponent extends RenderComponent {
     public static final float OFFSET_Y = 1f;
 
     private CombatStatsComponent combatStats;
-    private NameComponent nameComponent;
     ShapeRenderer shapeRenderer;
 
     /**
@@ -29,7 +28,7 @@ public class NPCHealthBarComponent extends RenderComponent {
         super.create();
         // Get the CombatStatsComponent and initialize the ShapeRenderer
         combatStats = entity.getComponent(CombatStatsComponent.class);
-        nameComponent = entity.getComponent(NameComponent.class);
+        entity.getComponent(NameComponent.class);
         shapeRenderer = new ShapeRenderer();
 
         fnt_16.setColor(Color.BLACK);

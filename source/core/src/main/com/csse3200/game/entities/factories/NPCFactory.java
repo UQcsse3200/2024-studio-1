@@ -97,13 +97,13 @@ public class NPCFactory extends LoadedFactory {
     return npc;
   }
 
-    /**
-     * Helper method to add base components to an NPC entity.
-     *
-     * @param npc    The NPC entity to add components to.
-     * @param target The target entity for the NPC.
-     * @param config The configuration for the NPC.
-     */
+  /**
+   * Helper method to add base components to an NPC entity.
+   *
+   * @param npc    The NPC entity to add components to.
+   * @param target The target entity for the NPC.
+   * @param config The configuration for the NPC.
+   */
   private static void addBaseComponents(Entity npc, Entity target, NPCConfigs.NPCConfig config) {
     npc.addComponent(new NameComponent(config.name))
         .addComponent(new PhysicsComponent())
@@ -197,7 +197,7 @@ public class NPCFactory extends LoadedFactory {
     return String.format("images/npc/%s/%s.atlas", npcType, npcType);
   }
 
-  // assets below are cited in core/assets/images/npc/citation.txt
+  // Assets below are cited in core/assets/images/npc/citation.txt
   @Override
   protected String[] getTextureAtlasFilepaths() {
     if (textureAtlasFilepaths == null) {

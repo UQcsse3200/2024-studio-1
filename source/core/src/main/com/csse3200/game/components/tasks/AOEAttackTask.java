@@ -19,7 +19,7 @@ public class AOEAttackTask extends DefaultTask implements PriorityTask {
     private final float activationMaxRange;
     private final float cooldownTime;
     private final float preparationTime;
-    private GameTime gameTime;
+    private final GameTime gameTime;
     private long lastExecutionTime;
     private long preparationStartTime;
     private boolean isPreparing = false;

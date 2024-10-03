@@ -5,5 +5,8 @@ import com.csse3200.game.entities.Room;
 import java.util.List;
 
 public class MapLoadConfig extends BaseEntityConfig {
-    public List<String> savedMap;
+    public List<String> roomsCompleted;
+    public String currentLevel;
+    public String currentRoom;
+    public String seed;
 }

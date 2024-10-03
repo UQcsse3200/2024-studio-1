@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;

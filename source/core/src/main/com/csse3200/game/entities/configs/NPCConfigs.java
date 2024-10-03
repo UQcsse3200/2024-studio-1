@@ -9,7 +9,7 @@ import java.util.Set;
  * Defines all NPC configs to be loaded by the NPC Factory.
  */
 public class NPCConfigs {
-  private Map<String, NPCConfig> npcConfigs;
+  private final Map<String, NPCConfig> npcConfigs;
 
   public NPCConfigs(Map<String, NPCConfig> npcConfigs) {
     this.npcConfigs = npcConfigs;
@@ -60,7 +60,6 @@ public class NPCConfigs {
       public static class AOEAttack {
         public float range;
         public float rate;
-        public float radius;
         public EffectConfig[] effects = new EffectConfig[0];
       }
     }

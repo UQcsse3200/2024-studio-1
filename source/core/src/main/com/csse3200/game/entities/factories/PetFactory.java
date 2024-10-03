@@ -34,17 +34,16 @@ import org.slf4j.LoggerFactory;
  * similar characteristics.
  */
 public class PetFactory extends LoadedFactory {
-  private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static final NPCConfigs configs =
-          loadConfigs();
+  private static final Logger logger = LoggerFactory.getLogger(PetFactory.class);
+  private static final NPCConfigs configs = loadConfigs();
 
   public static NPCConfigs loadConfigs() {
     NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/pets.json");
-    System.out.println("Loaded configs: " + configs); // Add debug printout
+    logger.debug("Loaded configs: {}", configs);
     if (configs.rat.attacks == null) {
-      System.out.println("Rat attacks are null!"); // Check if attacks are being loaded
+      logger.warn("Rat attacks are null!");
     } else {
-      System.out.println("Rat melee attack range: " + configs.rat.attacks.melee.range); // Log specific fields
+      logger.debug("Rat melee attack range: {}", configs.rat.attacks.melee.range);
     }
     return configs;
   }
@@ -52,7 +51,7 @@ public class PetFactory extends LoadedFactory {
   /**
    * Construct a new NPC Factory.
    */
-  public PetFactory(){
+  public PetFactory() {
     super(logger);
   }
 
@@ -64,13 +63,13 @@ public class PetFactory extends LoadedFactory {
    */
   public Entity create(String specification) {
     return switch (specification) {
-      case "Rat" -> this.createRat();
-      case "Bear" -> this.createBear();
-      case "Snake" -> this.createSnake();
-      case "Bat" -> this.createBat();
-      case "Dog" -> this.createDog();
-      case "Minotaur" -> this.createMinotaur();
-      case "ringFire" -> this.createRingFire();
+      case "Rat" -> createRat();
+      case "Bear" -> createBear();
+      case "Snake" -> createSnake();
+      case "Bat" -> createBat();
+      case "Dog" -> createDog();
+      case "Minotaur" -> createMinotaur();
+      case "ringFire" -> createRingFire();
       default -> throw new IllegalArgumentException("Unknown animal: " + specification);
     };
   }
@@ -84,11 +83,8 @@ public class PetFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
-    Entity rat = createBaseNPC("Rat",  aiComponent, config, animator);
-
-    return rat;
+    return createBaseNPC("Rat", aiComponent, config, animator);
   }
-
 
   /**
    * Creates a bear entity.
@@ -99,9 +95,7 @@ public class PetFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.bear;
     AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
-    Entity bear = createBaseNPC("Bear", aiComponent, config, animator);
-
-    return bear;
+    return createBaseNPC("Bear", aiComponent, config, animator);
   }
 
   /**
@@ -113,9 +107,7 @@ public class PetFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.snake;
     AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/snake/snake.atlas", config.animations);
-    Entity snake = createBaseNPC("Snake",aiComponent, config, animator);
-
-    return snake;
+    return createBaseNPC("Snake", aiComponent, config, animator);
   }
 
   /**
@@ -127,9 +119,7 @@ public class PetFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.bat;
     AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bat/bat.atlas", config.animations);
-    Entity bat = createBaseNPC("Bat", aiComponent, config, animator);
-
-    return bat;
+    return createBaseNPC("Bat", aiComponent, config, animator);
   }
 
   /**
@@ -141,45 +131,45 @@ public class PetFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.dog;
     AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
-    Entity dog = createBaseNPC("Dog",aiComponent, config, animator);
-
-    return dog;
+    return createBaseNPC("Dog", aiComponent, config, animator);
   }
 
   /**
    * Creates a Minotaur entity.
    *
+   * @return the created Minotaur entity
    */
   public Entity createMinotaur() {
     NPCConfigs.NPCConfig config = configs.minotaur;
     AITaskComponent aiComponent = createAIComponent(config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/minotaur/minotaur.atlas", config.animations);
-    Entity minotaur = createBaseNPC("Minotaur", aiComponent, config, animator);
-
-    return minotaur;
+    return createBaseNPC("Minotaur", aiComponent, config, animator);
   }
 
+  /**
+   * Creates a Ring of Fire entity.
+   *
+   * @return the created Ring of Fire entity
+   */
   public Entity createRingFire() {
     NPCConfigs.NPCConfig config = configs.ringFire;
     AITaskComponent aiComponent = createAIComponent(config.tasks);
     TextureRenderComponent animator = new TextureRenderComponent("images/items/Ring_Of_Fire.png");
-    Entity ringFire = createBaseNPCTexture("ringFire", aiComponent, config, animator);
-
-    return ringFire;
+    return createBaseNPCTexture("ringFire", aiComponent, config, animator);
   }
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
-   * @param name
+   * @param name The name of the NPC.
    * @param aiComponent The AI component to be added to the NPC.
-   * @param config      The configuration for the NPC.
-   * @param animator    The animator component for the NPC.
+   * @param config The configuration for the NPC.
+   * @param animator The animator component for the NPC.
    * @return The created NPC entity.
    */
   private static Entity createBaseNPC(String name, Component aiComponent, NPCConfigs.NPCConfig config,
                                       AnimationRenderComponent animator) {
-    Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer(); 
+    Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
     Entity npc = new Entity()
             .addComponent(new NameComponent(name))
             .addComponent(new PhysicsComponent())
@@ -187,10 +177,10 @@ public class PetFactory extends LoadedFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PET))
             .addComponent(aiComponent)
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack,true))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
-            .addComponent(new NPCDeathHandler()) 
+            .addComponent(new NPCDeathHandler())
             .addComponent(new DirectionalNPCComponent(config.isDirectional))
             .addComponent(new NPCAnimationController())
             .addComponent(new NPCConfigComponent(config));
@@ -205,8 +195,8 @@ public class PetFactory extends LoadedFactory {
   }
 
   private static Entity createBaseNPCTexture(String name, Component aiComponent, NPCConfigs.NPCConfig config,
-                                      TextureRenderComponent animator) {
-    Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer(); 
+                                             TextureRenderComponent animator) {
+    Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
     Entity npc = new Entity()
             .addComponent(new NameComponent(name))
             .addComponent(new PhysicsComponent())
@@ -214,7 +204,7 @@ public class PetFactory extends LoadedFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PET))
             .addComponent(aiComponent)
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack,true))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true))
             .addComponent(animator)
             .addComponent(new NPCHealthBarComponent())
             .addComponent(new NPCDeathHandler())
@@ -256,14 +246,12 @@ public class PetFactory extends LoadedFactory {
    */
   private AITaskComponent createAIComponent(NPCConfigs.NPCConfig.TaskConfig tasks) {
     AITaskComponent aiComponent = new AITaskComponent();
-    // Add follow task
     if (tasks.follow != null) {
       aiComponent.addTask(new FollowTask(tasks.follow));
     }
     return aiComponent;
   }
 
-// assets below are cited in core/assets/images/npc/citation.txt
   @Override
   protected String[] getTextureAtlasFilepaths() {
     return new String[] {
@@ -272,7 +260,7 @@ public class PetFactory extends LoadedFactory {
             "images/npc/minotaur/minotaur.atlas",
             "images/npc/bat/bat.atlas",
             "images/npc/bear/bear.atlas",
-            "images/npc/dog/dog.atlas" 
+            "images/npc/dog/dog.atlas"
     };
   }
 
@@ -284,7 +272,7 @@ public class PetFactory extends LoadedFactory {
             "images/npc/snake/snake.png",
             "images/npc/bat/bat.png",
             "images/npc/bear/bear.png",
-            "images/npc/dog/dog.png" 
+            "images/npc/dog/dog.png"
     };
   }
 }

@@ -28,12 +28,11 @@ public abstract class AttackComponent extends Component implements AttackBehavio
 
 
     /**
-     * Makes an attack component 
-     *
-     * @param target 
-     * @param attackRange 
-     * @param attackRate 
-     * @param effectConfigs 
+     * Makes an attack component
+     * @param target The target entity to attack
+     * @param attackRange The range at which the entity can attack
+     * @param attackRate The rate at which the entity can attack
+     * @param effectConfigs The effects to apply to the target
      */
     public AttackComponent(Entity target, float attackRange, float attackRate,
                                 NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {

@@ -80,7 +80,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
-      return createBaseNPC("Rat", target, aiComponent, config, animator);
+    return createBaseNPC("Rat", target, aiComponent, config, animator);
   }
 
   /**
@@ -93,9 +93,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.bear;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
-    Entity bear = createBaseNPC("Bear", target, aiComponent, config, animator);
-
-    return bear;
+    return createBaseNPC("Bear", target, aiComponent, config, animator);
   }
 
   /**
@@ -108,9 +106,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.snake;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/snake/snake.atlas", config.animations);
-    Entity snake = createBaseNPC("Snake", target, aiComponent, config, animator);
-
-    return snake;
+    return createBaseNPC("Snake", target, aiComponent, config, animator);
   }
 
   /**
@@ -123,9 +119,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.dino;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dino/dino.atlas", config.animations);
-    Entity dino = createBaseNPC("Dino", target, aiComponent, config, animator);
-
-    return dino;
+    return createBaseNPC("Dino", target, aiComponent, config, animator);
   }
 
   /**
@@ -138,9 +132,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.bat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/bat/bat.atlas", config.animations);
-    Entity bat = createBaseNPC("Bat", target, aiComponent, config, animator);
-
-    return bat;
+    return createBaseNPC("Bat", target, aiComponent, config, animator);
   }
 
   /**
@@ -153,9 +145,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.dog;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
-    Entity dog = createBaseNPC("Dog", target, aiComponent, config, animator);
-
-    return dog;
+    return createBaseNPC("Dog", target, aiComponent, config, animator);
   }
 
   /**
@@ -168,9 +158,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.minotaur;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/minotaur/minotaur.atlas", config.animations);
-    Entity minotaur = createBaseNPC("Minotaur", target, aiComponent, config, animator);
-
-    return minotaur;
+    return createBaseNPC("Minotaur", target, aiComponent, config, animator);
   }
 
   /**
@@ -183,9 +171,7 @@ public class NPCFactory extends LoadedFactory {
     NPCConfigs.NPCConfig config = configs.dragon;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
-    Entity dragon = createBaseNPC("Dragon", target, aiComponent, config, animator);
-
-    return dragon;
+    return createBaseNPC("Dragon", target, aiComponent, config, animator);
   }
 
   /**
@@ -199,11 +185,9 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
     Entity birdman = createBaseNPC("Birdman", target, aiComponent, config, animator);
-
-    // Add the BossHealthDialogueComponent
+    // Add the BossHealthDialogueComponent to the birdman
     birdman.addComponent(new BossHealthDialogueComponent());
     birdman.addComponent(new DialogComponent());
-
     return birdman;
   }
 
@@ -218,24 +202,11 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
     Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
-
     // Add the BossHealthDialogueComponent to the werewolf
     werewolf.addComponent(new BossHealthDialogueComponent());
     werewolf.addComponent(new DialogComponent());
-
     return werewolf;
   }
-
-  /**
-   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
-   *
-   * @param name
-   * @param target      The target entity for the NPC to chase.
-   * @param aiComponent The AI component to be added to the NPC.
-   * @param config      The configuration for the NPC.
-   * @param animator    The animator component for the NPC.
-   * @return The created NPC entity.
-   */
 
   /**
    * Creates a kitsune boss entity with predefined components and behaviour.
@@ -248,11 +219,9 @@ public class NPCFactory extends LoadedFactory {
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
     AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
     Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
-
     // Add the BossHealthDialogueComponent to the kitsune
-      kitsune.addComponent(new BossHealthDialogueComponent());
-      kitsune.addComponent(new DialogComponent());
-
+    kitsune.addComponent(new BossHealthDialogueComponent());
+    kitsune.addComponent(new DialogComponent());
     return kitsune;
   }
 
@@ -318,49 +287,41 @@ public class NPCFactory extends LoadedFactory {
   private AITaskComponent createAIComponent(Entity target, NPCConfigs.NPCConfig.TaskConfig tasks) {
     AITaskComponent aiComponent = new AITaskComponent();
 
-    // Add wander task
     if (tasks.wander != null) {
       aiComponent.addTask(new WanderTask(tasks.wander));
     }
-    // Add follow task
     if (tasks.follow != null) {
       aiComponent.addTask(new FollowTask(tasks.follow));
     }
-    // Add straight wander task
     if (tasks.straightWander != null) {
       aiComponent.addTask(new StraightWanderTask(tasks.straightWander.wanderSpeed));
     }
-    // Add chase task
     if (tasks.chase != null) {
       aiComponent.addTask(new ChaseTask(target, tasks.chase));
     }
-    // Add charge task
     if (tasks.charge != null) {
       aiComponent.addTask(new ChargeTask(target, tasks.charge));
     }
-    // Add jump task
     if (tasks.jump != null) {
       aiComponent.addTask(new JumpTask(target, tasks.jump));
     }
-    // Add run away task
     if (tasks.runAway != null) {
       aiComponent.addTask(new RunAwayTask(target, tasks.runAway));
     }
-    // Add range attack tasks
     if (tasks.rangeAttack != null) {
-        aiComponent.addTask(new RangeAttackTask(target, tasks.rangeAttack, "single"));
+      aiComponent.addTask(new RangeAttackTask(target, tasks.rangeAttack, "single"));
     }
     if (tasks.spreadRangeAttack != null) {
-        aiComponent.addTask(new RangeAttackTask(target, tasks.spreadRangeAttack, "spread"));
+      aiComponent.addTask(new RangeAttackTask(target, tasks.spreadRangeAttack, "spread"));
     }
     if (tasks.aoeAttack != null) {
-        aiComponent.addTask(new AOEAttackTask(target, tasks.aoeAttack));
+      aiComponent.addTask(new AOEAttackTask(target, tasks.aoeAttack));
     }
 
     return aiComponent;
   }
 
-// assets below are cited in core/assets/images/npc/citation.txt
+  // Assets below are cited in core/assets/images/npc/citation.txt
   @Override
   protected String[] getTextureAtlasFilepaths() {
     return new String[] {

@@ -28,7 +28,6 @@ public class NPCDeathHandler extends Component {
     public static final List<Integer> deadEntities = new ArrayList<>();
 
     private AnimationRenderComponent animator;
-    private CombatStatsComponent combatStats;
     private boolean isDead = false;
     private Entity target;
     private int npcStrength;
@@ -48,7 +47,7 @@ public class NPCDeathHandler extends Component {
     @Override
     public void create() {
         animator = entity.getComponent(AnimationRenderComponent.class);
-        combatStats = entity.getComponent(CombatStatsComponent.class);
+        entity.getComponent(CombatStatsComponent.class);
         entity.getEvents().addListener("died", this::onDeath);
     }
 
@@ -67,7 +66,7 @@ public class NPCDeathHandler extends Component {
             // triggering event for player to get animal's strength as coins
             String event = "collectCoin";
             target.getEvents().trigger(event, npcStrength);
-            logger.info(event + "   is triggered");
+            logger.info("{}   is triggered", event);
 
             // Play death animation if available
             if (animator != null && animator.hasAnimation("death")) {

@@ -14,7 +14,7 @@ import java.util.List;
  * these often have unique animals and rewards.
  */
 public class BossRoom extends EnemyRoom {
-    private NPCFactory npcFactory;
+    private final NPCFactory npcFactory;
     private MainGameArea area;
     private Entity player;
 
@@ -75,9 +75,8 @@ public class BossRoom extends EnemyRoom {
     /**
      * Spawns a dog and a snake near the boss when health reaches 50%.
      *
-     * @param bossEntity The boss entity.
      */
-    public void spawnOtherAnimals(Entity bossEntity) {
+    public void spawnOtherAnimals() {
         // Create dog and snake entities using NPCFactory
         Entity dog = npcFactory.create("Dog", player);
         Entity snake = npcFactory.create("Snake", player);

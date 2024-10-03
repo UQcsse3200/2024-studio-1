@@ -10,9 +10,14 @@ import com.csse3200.game.entities.configs.NPCConfigs;
  */
 public class MeleeAttackComponent extends AttackComponent {
 
-    public MeleeAttackComponent(Entity target, float attackRange, float attackRate,
-                                NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
-        super(target, attackRange, attackRate, effectConfigs);
+    /**
+     * Constructs a new MeleeAttackComponent.
+     *
+     * @param target The target entity for the attack.
+     * @param config The melee attack configuration.
+     */
+    public MeleeAttackComponent(Entity target, NPCConfigs.NPCConfig.AttackConfig.MeleeAttack config) {
+        super(target, config.range, config.rate, config.effects);
         this.setEnabled(false);
     }
 

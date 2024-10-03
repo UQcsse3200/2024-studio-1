@@ -115,10 +115,18 @@ class AOEAttackComponentTest {
     }
 
     private Entity createAttacker(Entity target, float aoeRadius) {
+        // Setup attacker configs
         NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects
+        NPCConfigs.NPCConfig.AttackConfig.AOEAttack aoeAttackConfig
+                = new NPCConfigs.NPCConfig.AttackConfig.AOEAttack();
+        aoeAttackConfig.range = aoeRadius;
+        aoeAttackConfig.rate = 1f;
+        aoeAttackConfig.effects = effectConfigs;
+
+        // Create attacker
         Entity attacker = new Entity()
                 .addComponent(new CombatStatsComponent(10, 10))
-                .addComponent(new AOEAttackComponent(target, aoeRadius, 1f, effectConfigs));
+                .addComponent(new AOEAttackComponent(target, aoeAttackConfig));
         attacker.create();
         return attacker;
     }

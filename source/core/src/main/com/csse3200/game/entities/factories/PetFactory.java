@@ -100,8 +100,7 @@ public class PetFactory extends LoadedFactory {
             .addComponent(new NPCConfigComponent(config));
 
     if (config.attacks.melee != null) {
-      npc.addComponent(new MeleeAttackComponent(player, config.attacks.melee.range, config.attacks.melee.rate,
-              config.attacks.melee.effects));
+      npc.addComponent(new MeleeAttackComponent(player, config.attacks.melee));
     }
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();
@@ -127,8 +126,7 @@ public class PetFactory extends LoadedFactory {
             .addComponent(new NPCConfigComponent(config));
 
     if (config.attacks.melee != null) {
-      npc.addComponent(new MeleeAttackComponent(player, config.attacks.melee.range, config.attacks.melee.rate,
-              config.attacks.melee.effects));
+      npc.addComponent(new MeleeAttackComponent(player, config.attacks.melee));
     }
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     npc.getComponent(AnimationRenderComponent.class).scaleEntity();

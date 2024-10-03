@@ -97,10 +97,18 @@ class MeleeAttackComponentTest {
     }
 
     private Entity createAttacker(Entity target) {
+        // Setup attacker configs
         NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects
+        NPCConfigs.NPCConfig.AttackConfig.MeleeAttack meleeAttackConfig
+                = new NPCConfigs.NPCConfig.AttackConfig.MeleeAttack();
+        meleeAttackConfig.range = 2f;
+        meleeAttackConfig.rate = 1f;
+        meleeAttackConfig.effects = effectConfigs;
+
+        // Create attacker
         Entity attacker = new Entity()
                 .addComponent(new CombatStatsComponent(10, 10))
-                .addComponent(new MeleeAttackComponent(target, 2f, 1f, effectConfigs));
+                .addComponent(new MeleeAttackComponent(target, meleeAttackConfig));
         attacker.create();
         attacker.getComponent(MeleeAttackComponent.class).setEnabled(true);
         return attacker;

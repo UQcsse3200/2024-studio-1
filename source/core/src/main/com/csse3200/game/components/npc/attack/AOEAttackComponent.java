@@ -11,22 +11,16 @@ import com.csse3200.game.entities.configs.NPCConfigs;
  * This component extends the basic AttackComponent to provide AOE functionality.
  */
 public class AOEAttackComponent extends AttackComponent {
-    private final float aoeRadius;
     private Vector2 origin;
 
     /**
      * Constructs a new AOEAttackComponent.
      *
      * @param target The target entity for the attack.
-     * @param attackRange The radius of the area of effect for the attack.
-     * @param attackRate The frequency of attacks (attacks per second).
-     * @param effectConfigs An array of effect configurations to be applied with the attack.
+     * @param config The AOE attack configuration.
      */
-    public AOEAttackComponent(Entity target, float attackRange, float attackRate,
-                              NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
-        super(target, attackRange, attackRate, effectConfigs);
-        this.target = target;
-        this.aoeRadius = attackRange; // Using attackRange as the AOE radius
+    public AOEAttackComponent(Entity target, NPCConfigs.NPCConfig.AttackConfig.AOEAttack config) {
+        super(target, config.range, config.rate, config.effects);
         this.origin = new Vector2();
         this.setEnabled(false); // Component starts disabled
     }
@@ -50,7 +44,7 @@ public class AOEAttackComponent extends AttackComponent {
         logger.info("{} executes AOE attack at {}", entity, origin);
 
         // Create an AOE circle centered on the entity
-        Circle aoeCircle = new Circle(entity.getCenterPosition(), aoeRadius);
+        Circle aoeCircle = new Circle(entity.getCenterPosition(), attackRange);
 
         // Check if the target is within the AOE and has combat stats
         if (target.getComponent(CombatStatsComponent.class) != null

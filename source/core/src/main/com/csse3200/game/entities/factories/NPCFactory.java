@@ -111,16 +111,13 @@ public class NPCFactory extends LoadedFactory {
             .addComponent(new NPCConfigComponent(config));
 
     if (config.attacks.melee != null) {
-      npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee.range, config.attacks.melee.rate,
-              config.attacks.melee.effects));
+      npc.addComponent(new MeleeAttackComponent(target, config.attacks.melee));
     }
     if (config.attacks.ranged != null) {
-      npc.addComponent(new RangeAttackComponent(target, config.attacks.ranged.range, config.attacks.ranged.rate,
-              config.attacks.ranged.type, config.attacks.ranged.effects));
+      npc.addComponent(new RangeAttackComponent(target, config.attacks.ranged));
     }
     if (config.attacks.aoe != null) {
-      npc.addComponent(new AOEAttackComponent(target, config.attacks.aoe.range, config.attacks.aoe.rate,
-              config.attacks.aoe.effects));
+      npc.addComponent(new AOEAttackComponent(target, config.attacks.aoe));
     }
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);

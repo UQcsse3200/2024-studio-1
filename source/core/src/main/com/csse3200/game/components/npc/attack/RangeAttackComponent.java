@@ -28,15 +28,11 @@ public class RangeAttackComponent extends AttackComponent {
      * Makes a ranged attack component
      *
      * @param target the player
-     * @param attackRange the range that animals begin to shoot projectiles
-     * @param attackRate the rate of shooting
-     * @param shootType determine single shot or spread shot
-     8 @param effectConfigs the list of effects that apply on target
+     * @param config the attack configuration
      */
-    public RangeAttackComponent(Entity target, float attackRange, float attackRate, int shootType,
-                                NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
-        super(target, attackRange, attackRate, effectConfigs);
-        if (shootType == 0) {
+    public RangeAttackComponent(Entity target, NPCConfigs.NPCConfig.AttackConfig.RangeAttack config) {
+        super(target, config.range, config.rate, config.effects);
+        if (config.type == 0) {
             type = ShootType.SINGLE;
         }
         else {

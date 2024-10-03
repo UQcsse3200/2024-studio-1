@@ -147,7 +147,16 @@ class RangeAttackComponentTest {
     }
 
     private Entity createAttacker(Entity target) {
+        // Setup attacker configs
         NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
+        NPCConfigs.NPCConfig.AttackConfig.RangeAttack rangeAttackConfig
+                = new NPCConfigs.NPCConfig.AttackConfig.RangeAttack();
+        rangeAttackConfig.range = 5f;
+        rangeAttackConfig.rate = 1f;
+        rangeAttackConfig.type = 0;
+        rangeAttackConfig.effects = effectConfigs;
+
+        // Create attacker
         Entity attacker = new Entity()
                 .addComponent(new NameComponent("attacker"))
                 .addComponent(new PhysicsComponent())
@@ -155,7 +164,7 @@ class RangeAttackComponentTest {
                 .addComponent(new ColliderComponent())
                 .addComponent(new CombatStatsComponent(10, 10))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-                .addComponent(new RangeAttackComponent(target, 5f, 1f, 0, effectConfigs));
+                .addComponent(new RangeAttackComponent(target, rangeAttackConfig));
         attacker.create();
         attacker.getComponent(RangeAttackComponent.class).setEnabled(true);
         return attacker;

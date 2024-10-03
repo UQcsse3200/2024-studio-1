@@ -39,20 +39,30 @@ import java.util.Map;
  */
 public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static NPCConfigs configs;
+  private static final NPCConfigs configs = loadConfigs();
+  private String[] textureAtlasFilepaths;
+  private String[] textureFilepaths;
 
   /**
    * Construct a new NPC Factory.
    */
   public NPCFactory(){
     super(logger);
+  }
+
+  /**
+   * Load the NPC configs from file.
+   *
+   * @return the loaded NPC configs
+   */
+  private static NPCConfigs loadConfigs() {
     Map<String, NPCConfigs.NPCConfig> npcConfigMap = FileLoader.readMap(NPCConfigs.NPCConfig.class, "configs/NPCs.json");
     if (npcConfigMap == null || npcConfigMap.isEmpty()) {
       logger.error("NPC Config map is empty or null");
     } else {
       logger.debug("Loaded NPC Config map with keys: {}", npcConfigMap.keySet());
     }
-    configs = new NPCConfigs(npcConfigMap);
+    return new NPCConfigs(npcConfigMap);
   }
 
   /**
@@ -190,35 +200,21 @@ public class NPCFactory extends LoadedFactory {
 // assets below are cited in core/assets/images/npc/citation.txt
   @Override
   protected String[] getTextureAtlasFilepaths() {
-    return new String[] {
-            "images/npc/rat/rat.atlas",
-            "images/npc/dragon/dragon.atlas",
-            "images/npc/snake/snake.atlas",
-            "images/npc/minotaur/minotaur.atlas",
-            "images/npc/dino/dino.atlas",
-            "images/npc/bat/bat.atlas",
-            "images/npc/bear/bear.atlas",
-            "images/npc/dog/dog.atlas",
-            "images/npc/werewolf/werewolf.atlas",
-            "images/npc/kitsune/kitsune.atlas",
-            "images/npc/birdman/birdman.atlas"
-    };
+    if (textureAtlasFilepaths == null) {
+      textureAtlasFilepaths = configs.getNpcTypes().stream()
+              .map(npcType -> String.format("images/npc/%s/%s.atlas", npcType, npcType))
+              .toArray(String[]::new);
+    }
+    return textureAtlasFilepaths;
   }
 
-  @Override
-  protected String[] getTextureFilepaths() {
-    return new String[]{
-            "images/npc/rat/rat.png",
-            "images/npc/dragon/dragon.png",
-            "images/npc/minotaur/minotaur.png",
-            "images/npc/snake/snake.png",
-            "images/npc/dino/dino.png",
-            "images/npc/bat/bat.png",
-            "images/npc/bear/bear.png",
-            "images/npc/dog/dog.png",
-            "images/npc/werewolf/werewolf.png",
-            "images/npc/kitsune/kitsune.png",
-            "images/npc/birdman/birdman.png"
-    };
-  }
+    @Override
+    protected String[] getTextureFilepaths() {
+      if (textureFilepaths == null) {
+        textureFilepaths = configs.getNpcTypes().stream()
+                .map(npcType -> String.format("images/npc/%s/%s.png", npcType, npcType))
+                .toArray(String[]::new);
+      }
+      return textureFilepaths;
+    }
 }

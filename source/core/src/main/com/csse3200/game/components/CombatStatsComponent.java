@@ -38,9 +38,6 @@ public class CombatStatsComponent extends Component {
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
 
-    private String lastAttackName;
-    private String filePath = "configs/LastAttack.json";
-
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
@@ -251,6 +248,7 @@ public class CombatStatsComponent extends Component {
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
 
+            String lastAttackName;
             if (attacker.getEntity() == null
                     || attacker.getEntity().getName().equals("Unknown Entity")) {
                 lastAttackName = "Unknown";
@@ -259,6 +257,7 @@ public class CombatStatsComponent extends Component {
                 lastAttackName = attacker.getEntity().getName();
             }
 
+            String filePath = "configs/LastAttack.json";
             FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
             //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
             //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");

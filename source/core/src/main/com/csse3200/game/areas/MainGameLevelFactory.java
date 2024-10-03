@@ -24,7 +24,6 @@ public class MainGameLevelFactory implements LevelFactory {
     private static final Logger log = LoggerFactory.getLogger(MainGameLevelFactory.class);
     private int levelNum;
     private final Map<String, Room> rooms;
-    private final List<String> completedRooms;
     private final Map<String, String> mapSaveData = new HashMap<>();
     private LevelMap map;
     private boolean shouldLoad;
@@ -36,7 +35,6 @@ public class MainGameLevelFactory implements LevelFactory {
         this.shouldLoad = shouldLoad;
         rooms = new HashMap<>();
         loadedRooms = new ArrayList<>();
-        completedRooms = new ArrayList<>();
     }
 
     @Override
@@ -105,19 +103,27 @@ public class MainGameLevelFactory implements LevelFactory {
      * @param filePath The path of the file to write the JSON data to.
      */
     public void exportToJson(String filePath) {
+        List<String> compRooms = new ArrayList<String>();
+        MapLoadConfig config = new MapLoadConfig();
         String gameSeed = map.mapData.getMapSeed();
         String seedOnly = gameSeed.substring(0, gameSeed.length() - 1);
-        completedRooms.add(seedOnly);
-        completedRooms.add(ServiceLocator.getGameAreaService().getGameArea().getCurrentLevel().toString());
-        completedRooms.add(ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getRoomName());
-        for (Room room : rooms.values()) {
-
-            if (room.getIsRoomComplete()) {
-
-                completedRooms.add(room.getRoomName());
+        config.seed = seedOnly;
+        config.currentLevel = ServiceLocator.getGameAreaService().getGameArea().getCurrentLevel().toString();
+        config.currentRoom = ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getRoomName();
+        if(rooms.values() != null) {
+            for (Room room : rooms.values()) {
+                if (room.getIsRoomComplete()){
+                    String roomName = room.getRoomName();
+                    if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
+                        if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1)
+                            compRooms.add(room.getRoomName());
+                    }
+                }
             }
+            config.roomsCompleted = compRooms;
+            FileLoader.writeClass(config, filePath, FileLoader.Location.EXTERNAL);
         }
-        FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.EXTERNAL);
+
     }
 
 
@@ -129,13 +135,13 @@ public class MainGameLevelFactory implements LevelFactory {
     public void loadFromJson(String filePath) {
         MapLoadConfig mapLoadConfig = new MapLoadConfig();
         mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, filePath, FileLoader.Location.EXTERNAL);
-        loadedSeed = mapLoadConfig.seed;
         /*
+        = mapLoadConfig.seed;
                loadedSeed = mapLoadConfig.savedMap.getFirst();
         mapLoadConfig.savedMap.remove(0);
         loadedRooms.addAll(mapLoadConfig.savedMap);
          */
-
+        String roomName = mapLoadConfig.currentRoom;
     }
     /**
      * Sets the rooms that have been completed in the saved game as completed in the loaded

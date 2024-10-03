@@ -2,39 +2,44 @@ package com.csse3200.game.entities.configs;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Defines all NPC configs to be loaded by the NPC Factory.
  */
 public class NPCConfigs {
-  public NPCConfig rat = new NPCConfig();
-  public NPCConfig bear = new NPCConfig();
-  public NPCConfig bat = new NPCConfig();
-  public NPCConfig dog = new NPCConfig();
-  public NPCConfig snake = new NPCConfig();
-  public NPCConfig dino = new NPCConfig();
-  public NPCConfig minotaur = new NPCConfig();
-  public NPCConfig dragon = new NPCConfig();
-  public NPCConfig werewolf = new NPCConfig();
-  public NPCConfig birdman = new NPCConfig();
-  public NPCConfig kitsune = new NPCConfig();
-  public NPCConfig ringFire = new NPCConfig();
+  private Map<String, NPCConfig> npcConfigs;
+
+  public NPCConfigs(Map<String, NPCConfig> npcConfigs) {
+    this.npcConfigs = npcConfigs;
+  }
+
+  public NPCConfig getConfig(String npcType) {
+    return npcConfigs.get(npcType.toLowerCase());
+  }
+
+  public Set<String> getNpcTypes() {
+    return npcConfigs.keySet();
+  }
 
   public static class NPCConfig extends BaseEntityConfig {
 
     public NPCConfig() {
     }
 
+    public TaskConfig tasks = new TaskConfig();
+    public AttackConfig attacks = new AttackConfig();
+    public AnimationData[] animations = new AnimationData[0];
+    public String name;
+    public boolean isBoss = false;
+    public boolean isDirectional;
     public int strength;
 
     public int getStrength() {
       return strength;
     }
 
-
-    public TaskConfig tasks = new TaskConfig();
-    public AttackConfig attacks = new AttackConfig();
-    public AnimationData[] animations = new AnimationData[0];
-    public boolean isDirectional;
 
 
     public static class TaskConfig {

@@ -336,6 +336,7 @@
     "strength": 9,
     "baseAttack": 40,
     "isDirectional": true,
+    "isBoss": true,
     "tasks": {
       "wander": {
         "wanderRadius": 4,
@@ -424,6 +425,7 @@
     "health": 1000,
     "baseAttack": 40,
     "isDirectional": true,
+    "isBoss": true,
     "tasks": {
     "wander": {
       "wanderRadius": 4,
@@ -504,6 +506,7 @@
     "strength": 9,
     "baseAttack": 40,
     "isDirectional": true,
+    "isBoss": true,
     "tasks": {
       "wander": {
         "wanderRadius": 4,

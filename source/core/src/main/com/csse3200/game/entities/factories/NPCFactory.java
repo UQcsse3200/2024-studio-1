@@ -25,6 +25,8 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
  *
@@ -37,223 +39,48 @@ import org.slf4j.LoggerFactory;
  */
 public class NPCFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static final NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+  private static NPCConfigs configs;
 
   /**
    * Construct a new NPC Factory.
    */
   public NPCFactory(){
     super(logger);
+    Map<String, NPCConfigs.NPCConfig> npcConfigMap = FileLoader.readMap(NPCConfigs.NPCConfig.class, "configs/NPCs.json");
+    if (npcConfigMap == null || npcConfigMap.isEmpty()) {
+      logger.error("NPC Config map is empty or null");
+    } else {
+      logger.debug("Loaded NPC Config map with keys: {}", npcConfigMap.keySet());
+    }
+    configs = new NPCConfigs(npcConfigMap);
   }
 
   /**
    * Create a new NPC from specification
    *
-   * @param specification the specification of the npc
+   * @param npcType the type of npc to be created
    * @param target entity to chase
    * @return the created npc
    */
-  public Entity create(String specification, Entity target) {
-    return switch (specification) {
-      case "Rat" -> this.createRat(target);
-      case "Bear" -> this.createBear(target);
-      case "Snake" -> this.createSnake(target);
-      case "Dino" -> this.createDino(target);
-      case "Bat" -> this.createBat(target);
-      case "Dog" -> this.createDog(target);
-      case "Minotaur" -> this.createMinotaur(target);
-      case "Werewolf" -> this.createWerewolf(target);
-      case "Birdman" -> this.createBirdman(target);
-      case "Kitsune" -> this.createKitsune(target);
-      case "Dragon" -> this.createDragon(target);
-      default -> throw new IllegalArgumentException("Unknown animal: " + specification);
-    };
-  }
+  public Entity create(String npcType, Entity target) {
+    NPCConfigs.NPCConfig config = configs.getConfig(npcType.toLowerCase());
+    if (config == null) {
+      throw new IllegalArgumentException("Unknown NPC type: " + npcType);
+    }
 
-  /**
-   * Creates a rat entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created rat entity
-   */
-  public Entity createRat(Entity target) {
-    NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
-      return createBaseNPC("Rat", target, aiComponent, config, animator);
-  }
+    String atlasPath = String.format("images/npc/%s/%s.atlas", npcType.toLowerCase(), npcType.toLowerCase());
+    AnimationRenderComponent animator = createAnimator(atlasPath, config.animations);
 
-  /**
-   * Creates a bear entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createBear(Entity target) {
-    NPCConfigs.NPCConfig config = configs.bear;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
-    Entity bear = createBaseNPC("Bear", target, aiComponent, config, animator);
+    Entity npc = createBaseNPC(npcType, target, aiComponent, config, animator);
 
-    return bear;
-  }
+    // Additional components for bosses
+    if (config.isBoss) {
+      npc.addComponent(new BossHealthDialogueComponent());
+      npc.addComponent(new DialogComponent());
+    }
 
-  /**
-   * Creates a Snake entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createSnake(Entity target) {
-    NPCConfigs.NPCConfig config = configs.snake;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/snake/snake.atlas", config.animations);
-    Entity snake = createBaseNPC("Snake", target, aiComponent, config, animator);
-
-    return snake;
-  }
-
-  /**
-   * Creates a Dino entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createDino(Entity target) {
-    NPCConfigs.NPCConfig config = configs.dino;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/dino/dino.atlas", config.animations);
-    Entity dino = createBaseNPC("Dino", target, aiComponent, config, animator);
-
-    return dino;
-  }
-
-  /**
-   * Creates a bat entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created bat entity
-   */
-  public Entity createBat(Entity target) {
-    NPCConfigs.NPCConfig config = configs.bat;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/bat/bat.atlas", config.animations);
-    Entity bat = createBaseNPC("Bat", target, aiComponent, config, animator);
-
-    return bat;
-  }
-
-  /**
-   * Creates a dog entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created dog entity
-   */
-  public Entity createDog(Entity target) {
-    NPCConfigs.NPCConfig config = configs.dog;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
-    Entity dog = createBaseNPC("Dog", target, aiComponent, config, animator);
-
-    return dog;
-  }
-
-  /**
-   * Creates a Minotaur entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createMinotaur(Entity target) {
-    NPCConfigs.NPCConfig config = configs.minotaur;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/minotaur/minotaur.atlas", config.animations);
-    Entity minotaur = createBaseNPC("Minotaur", target, aiComponent, config, animator);
-
-    return minotaur;
-  }
-
-  /**
-   * Creates a dragon entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the created dragon entity
-   */
-  public Entity createDragon(Entity target) {
-    NPCConfigs.NPCConfig config = configs.dragon;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
-    Entity dragon = createBaseNPC("Dragon", target, aiComponent, config, animator);
-
-    return dragon;
-  }
-
-  /**
-   * Creates a Birdman entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createBirdman(Entity target) {
-    NPCConfigs.NPCConfig config = configs.birdman;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/birdman/birdman.atlas", config.animations);
-    Entity birdman = createBaseNPC("Birdman", target, aiComponent, config, animator);
-
-    // Add the BossHealthDialogueComponent
-    birdman.addComponent(new BossHealthDialogueComponent());
-    birdman.addComponent(new DialogComponent());
-
-    return birdman;
-  }
-
-  /**
-   * Creates a Werewolf entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public Entity createWerewolf(Entity target) {
-    NPCConfigs.NPCConfig config = configs.werewolf;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/werewolf/werewolf.atlas", config.animations);
-    Entity werewolf = createBaseNPC("Werewolf", target, aiComponent, config, animator);
-
-    // Add the BossHealthDialogueComponent to the werewolf
-    werewolf.addComponent(new BossHealthDialogueComponent());
-    werewolf.addComponent(new DialogComponent());
-
-    return werewolf;
-  }
-
-  /**
-   * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
-   *
-   * @param name
-   * @param target      The target entity for the NPC to chase.
-   * @param aiComponent The AI component to be added to the NPC.
-   * @param config      The configuration for the NPC.
-   * @param animator    The animator component for the NPC.
-   * @return The created NPC entity.
-   */
-
-  /**
-   * Creates a kitsune boss entity with predefined components and behaviour.
-   *
-   * @param target entity to chase
-   * @return the kitsune entity
-   */
-  public Entity createKitsune(Entity target) {
-    NPCConfigs.NPCConfig config = configs.kitsune;
-    AITaskComponent aiComponent = createAIComponent(target, config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune.atlas", config.animations);
-    Entity kitsune = createBaseNPC("Kitsune", target, aiComponent, config, animator);
-
-    // Add the BossHealthDialogueComponent to the kitsune
-      kitsune.addComponent(new BossHealthDialogueComponent());
-      kitsune.addComponent(new DialogComponent());
-
-    return kitsune;
+    return npc;
   }
 
   private static Entity createBaseNPC(String name, Entity target, Component aiComponent, NPCConfigs.NPCConfig config,

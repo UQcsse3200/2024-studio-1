@@ -23,6 +23,8 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
  *
@@ -35,143 +37,45 @@ import org.slf4j.LoggerFactory;
  */
 public class PetFactory extends LoadedFactory {
   private static final Logger logger = LoggerFactory.getLogger(NPCFactory.class);
-  private static final NPCConfigs configs =
-          loadConfigs();
-
-  public static NPCConfigs loadConfigs() {
-    NPCConfigs configs = FileLoader.readClass(NPCConfigs.class, "configs/pets.json");
-    System.out.println("Loaded configs: " + configs); // Add debug printout
-    if (configs.rat.attacks == null) {
-      System.out.println("Rat attacks are null!"); // Check if attacks are being loaded
-    } else {
-      System.out.println("Rat melee attack range: " + configs.rat.attacks.melee.range); // Log specific fields
-    }
-    return configs;
-  }
+  private static NPCConfigs configs;
 
   /**
    * Construct a new NPC Factory.
    */
   public PetFactory(){
     super(logger);
+    Map<String, NPCConfigs.NPCConfig> npcConfigMap = FileLoader.readMap(NPCConfigs.NPCConfig.class, "configs/pets.json");
+    configs = new NPCConfigs(npcConfigMap);
   }
 
   /**
    * Create a new pet from specification
    *
-   * @param specification the specification of the npc
+   * @param npcType the type of the npc to be created
    * @return the created npc
    */
-  public Entity create(String specification) {
-    return switch (specification) {
-      case "Rat" -> this.createRat();
-      case "Bear" -> this.createBear();
-      case "Snake" -> this.createSnake();
-      case "Bat" -> this.createBat();
-      case "Dog" -> this.createDog();
-      case "Minotaur" -> this.createMinotaur();
-      case "ringFire" -> this.createRingFire();
-      default -> throw new IllegalArgumentException("Unknown animal: " + specification);
-    };
-  }
+  public Entity create(String npcType) {
+    NPCConfigs.NPCConfig config = configs.getConfig(npcType.toLowerCase());
+    if (config == null) {
+      throw new IllegalArgumentException("Unknown NPC type: " + npcType);
+    }
 
-  /**
-   * Creates a rat entity with predefined components and behaviour.
-   *
-   * @return the created rat entity
-   */
-  public Entity createRat() {
-    NPCConfigs.NPCConfig config = configs.rat;
     AITaskComponent aiComponent = createAIComponent(config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/rat/rat.atlas", config.animations);
-    Entity rat = createBaseNPC("Rat",  aiComponent, config, animator);
-
-    return rat;
-  }
-
-
-  /**
-   * Creates a bear entity.
-   *
-   * @return entity
-   */
-  public Entity createBear() {
-    NPCConfigs.NPCConfig config = configs.bear;
-    AITaskComponent aiComponent = createAIComponent(config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/bear/bear.atlas", config.animations);
-    Entity bear = createBaseNPC("Bear", aiComponent, config, animator);
-
-    return bear;
-  }
-
-  /**
-   * Creates a Snake entity.
-   *
-   * @return entity
-   */
-  public Entity createSnake() {
-    NPCConfigs.NPCConfig config = configs.snake;
-    AITaskComponent aiComponent = createAIComponent(config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/snake/snake.atlas", config.animations);
-    Entity snake = createBaseNPC("Snake",aiComponent, config, animator);
-
-    return snake;
-  }
-
-  /**
-   * Creates a bat entity with predefined components and behaviour.
-   *
-   * @return the created bat entity
-   */
-  public Entity createBat() {
-    NPCConfigs.NPCConfig config = configs.bat;
-    AITaskComponent aiComponent = createAIComponent(config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/bat/bat.atlas", config.animations);
-    Entity bat = createBaseNPC("Bat", aiComponent, config, animator);
-
-    return bat;
-  }
-
-  /**
-   * Creates a dog entity with predefined components and behaviour.
-   *
-   * @return the created dog entity
-   */
-  public Entity createDog() {
-    NPCConfigs.NPCConfig config = configs.dog;
-    AITaskComponent aiComponent = createAIComponent(config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/dog/dog.atlas", config.animations);
-    Entity dog = createBaseNPC("Dog",aiComponent, config, animator);
-
-    return dog;
-  }
-
-  /**
-   * Creates a Minotaur entity.
-   *
-   */
-  public Entity createMinotaur() {
-    NPCConfigs.NPCConfig config = configs.minotaur;
-    AITaskComponent aiComponent = createAIComponent(config.tasks);
-    AnimationRenderComponent animator = createAnimator("images/npc/minotaur/minotaur.atlas", config.animations);
-    Entity minotaur = createBaseNPC("Minotaur", aiComponent, config, animator);
-
-    return minotaur;
-  }
-
-  public Entity createRingFire() {
-    NPCConfigs.NPCConfig config = configs.ringFire;
-    AITaskComponent aiComponent = createAIComponent(config.tasks);
-    TextureRenderComponent animator = new TextureRenderComponent("images/items/Ring_Of_Fire.png");
-    Entity ringFire = createBaseNPCTexture("ringFire", aiComponent, config, animator);
-
-    return ringFire;
+    if (!npcType.equals("ringFire")) {
+      String atlasPath = String.format("images/npc/%s/%s.atlas", npcType.toLowerCase(), npcType.toLowerCase());
+      AnimationRenderComponent animator = createAnimator(atlasPath, config.animations);
+      return createBaseNPC(npcType, aiComponent, config, animator);
+    } else {
+      String atlasPath = "images/items/Ring_Of_Fire.png";
+      TextureRenderComponent animator = new TextureRenderComponent(atlasPath);
+      return createBaseNPCTexture(npcType, aiComponent, config, animator);
+    }
   }
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
-   * @param name
+   * @param name        The name of the NPC.
    * @param aiComponent The AI component to be added to the NPC.
    * @param config      The configuration for the NPC.
    * @param animator    The animator component for the NPC.

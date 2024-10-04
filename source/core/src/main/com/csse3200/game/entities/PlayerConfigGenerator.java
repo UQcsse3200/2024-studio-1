@@ -33,15 +33,15 @@ public class PlayerConfigGenerator {
 
         // store the string representation of items player has collected
         InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class);
-        config.items = itemsToString(inventoryComponent.getInventory().getItems());
+        config.items = itemsToString(inventoryComponent.getItems());
 
         // obtain the specification of melee of player, if any
-        config.melee = inventoryComponent.getInventory().getMelee()
+        config.melee = inventoryComponent.getMelee()
                 .map(MeleeWeapon::getSpecification)
                 .orElse("");
 
         //obtain the specification of ranged weapon of player, if any
-        config.ranged = inventoryComponent.getInventory().getRanged()
+        config.ranged = inventoryComponent.getRanged()
                 .map(RangedWeapon::getSpecification)
                 .orElse("");
 
@@ -57,7 +57,7 @@ public class PlayerConfigGenerator {
      *
      * @return an array of strings containing specification of all items
      */
-    private String[] itemsToString(Array<Collectible> items) {
+    private String[] itemsToString(Array<UsableItem> items) {
         String[] allItems = new String[items.size];
         for (int i = 0; i < items.size; i++) {
             allItems[i] = items.get(i).getSpecification();

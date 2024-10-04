@@ -3,7 +3,6 @@ package com.csse3200.game.entities;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.*;
@@ -17,7 +16,6 @@ import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
-
 import org.slf4j.Logger;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -73,7 +71,7 @@ public class LoadPlayer {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
         logger.info("Texture Atlas Filename: {}", config.textureAtlasFilename);
         if (!config.textureAtlasFilename.equals("images/player/player.atlas")) {
-            TextureRegion defaultTexture = atlas.findRegion("idle");
+            atlas.findRegion("idle");
             player.setScale(2f, 2f);
         } else {
             if (config.name.equals("Bear")) {
@@ -116,7 +114,7 @@ public class LoadPlayer {
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay());
 
-        CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
+        CoinsComponent coinsComponent = new CoinsComponent();
 
         player.addComponent(coinsComponent)
                 .addComponent(new PlayerCoinDisplay(coinsComponent));

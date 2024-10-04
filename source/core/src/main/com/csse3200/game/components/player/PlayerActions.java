@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.components.player.inventory.usables.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
 
 /**
@@ -123,9 +124,8 @@ public class PlayerActions extends Component {
      */
     private void attack() {
         entity.getComponent(InventoryComponent.class)
-                .getInventory()
                 .getMelee()
-                .ifPresent(meleeWeapon -> meleeWeapon.attack());
+                .ifPresent(MeleeWeapon::attack);
     }
 
     /**
@@ -133,7 +133,6 @@ public class PlayerActions extends Component {
      */
     private void shoot(Vector2 direction) {
         entity.getComponent(InventoryComponent.class)
-                .getInventory()
                 .getRanged()
                 .ifPresent(rangedWeapon -> rangedWeapon.shoot(direction));
     }
@@ -183,8 +182,7 @@ public class PlayerActions extends Component {
 
     private void use(UsableItem item) {
         if (!dead) {
-            Inventory inventory = inventoryComponent.getInventory();
-            for (Collectible collectedItem : inventory.getItems()) {
+            for (Collectible collectedItem : inventoryComponent.getItems()) {
                 if (collectedItem.getClass() == item.getClass()) {
                     item.apply(entity);
                     entity.getEvents().trigger("itemUsed");

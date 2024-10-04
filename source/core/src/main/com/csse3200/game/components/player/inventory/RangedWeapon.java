@@ -20,6 +20,7 @@ public abstract class RangedWeapon implements Collectible {
     /**
      * Get the Type of this item.
      * The type determines how it ought to be used by the player.
+     *
      * @return Type.RANGED_WEAPON
      */
     @Override
@@ -27,24 +28,9 @@ public abstract class RangedWeapon implements Collectible {
         return Type.RANGED_WEAPON;
     }
 
-    @Override
-    public void pickup(Inventory inventory) {
-        logger.info("Picking up ranged weapon - no entity");
-        inventory.setRanged(this);
-    }
-
-    @Override
-    public void drop(Inventory inventory) {
-        inventory.resetRanged();
-    }
-
-    @Override
-    public String getSpecification() {
-        return "ranged:" + getName();
-    }
-
     /**
      * Get the name of the weapon.
+     *
      * @return The name of the weapon.
      */
     @Override
@@ -54,6 +40,7 @@ public abstract class RangedWeapon implements Collectible {
 
     /**
      * Set the name of the weapon.
+     *
      * @param name The name of the weapon.
      */
     public void setName(String name) {
@@ -62,11 +49,28 @@ public abstract class RangedWeapon implements Collectible {
 
     /**
      * Get the ranged weapon icon.
+     *
      * @return The ranged weapon icon.
      */
     @Override
     public Texture getIcon() {
         return new Texture(iconPath);
+    }
+
+    @Override
+    public String getSpecification() {
+        return "ranged:" + getName();
+    }
+
+    @Override
+    public void pickup(Inventory inventory) {
+        logger.info("Picking up ranged weapon - no entity");
+        inventory.getContainer(RangedWeapon.class).add(this);
+    }
+
+    @Override
+    public void drop(Inventory inventory) {
+        inventory.getContainer(RangedWeapon.class).remove(this);
     }
 
     public int getDamage() {

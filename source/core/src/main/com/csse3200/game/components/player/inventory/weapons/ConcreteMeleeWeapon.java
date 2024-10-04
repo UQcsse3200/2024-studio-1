@@ -1,6 +1,7 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.weapons;
 
-import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.player.inventory.Inventory;
+import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.components.weapon.PositionTracker;
 import com.csse3200.game.components.weapon.WeaponAnimationController;
@@ -10,7 +11,7 @@ import com.csse3200.game.services.ServiceLocator;
 /**
  * A ranged weapon that can be picked up by the player.
  */
-public class ConcreteRangedWeapon extends RangedWeapon {
+public class ConcreteMeleeWeapon extends MeleeWeapon {
     /**
      * Contains the entity which has all the characteristic of this weapon
      */
@@ -19,24 +20,27 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     /**
      * Constructor for ranged weapons.
      *
-     * @param name       The name of the weapon.
-     * @param iconPath   The path to the icon of the weapon.
-     * @param damage     The damage of the weapon.
-     * @param range      The range of the weapon.
-     * @param fireRate   The fire rate of the weapon.
-     * @param ammo       The current ammo of the weapon.
-     * @param maxAmmo    The maximum ammo of the weapon.
-     * @param reloadTime The reload time of the weapon.
+     * @param name     The name of the weapon.
+     * @param iconPath The path to the icon of the weapon.
+     * @param damage   The damage of the weapon.
+     * @param range    The range of the weapon.
+     * @param fireRate The fire rate of the weapon.
      */
-    public ConcreteRangedWeapon(String name, String iconPath, int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime) {
+    public ConcreteMeleeWeapon(String name, String iconPath, int damage, int range, int fireRate) {
         this.name = name;
         this.iconPath = iconPath;
         this.damage = damage;
         this.range = range;
         this.fireRate = fireRate;
-        this.ammo = ammo;
-        this.maxAmmo = maxAmmo;
-        this.reloadTime = reloadTime;
+    }
+
+    /**
+     * Get the weaponEntity
+     *
+     * @return The entity that contains this weapon
+     */
+    public Entity getWeaponEntity() {
+        return this.weaponEntity;
     }
 
     /**
@@ -52,29 +56,19 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     }
 
     /**
-     * Get the weaponEntity
-     *
-     * @return The entity that contains this weapon
-     */
-    public Entity getWeaponEntity() {
-        return this.weaponEntity;
-    }
-
-    /**
-     * Pick up the ranged weapon and put it in the inventory.
+     * Pick up the melee weapon and put it in the inventory.
      *
      * @param inventory The inventory to be put in.
      */
     @Override
     public void pickup(Inventory inventory) {
-        logger.info("Picking up ranged weapon - no entity");
+        super.pickup(inventory);
         Entity player = inventory.getEntity();
-        inventory.setRanged(this);
         try {
             connectPlayer(player);
             this.weaponEntity.setEnabled(true);
             // Trigger weapon pick up event for UI
-            player.getEvents().trigger("ranged_pickup", this.maxAmmo);
+            player.getEvents().trigger("melee_pickup");
         } catch (NullPointerException e) {
             logger.info("Weapon entity is null or components not found");
         }
@@ -87,8 +81,7 @@ public class ConcreteRangedWeapon extends RangedWeapon {
      */
     @Override
     public void drop(Inventory inventory) {
-        logger.info("Dropping ranged weapon - " + this.name);
-        inventory.resetRanged();
+        super.drop(inventory);
         try {
             disconnectPlayer();
             ServiceLocator.getEntityService().markEntityForRemoval(this.weaponEntity);
@@ -98,7 +91,15 @@ public class ConcreteRangedWeapon extends RangedWeapon {
     }
 
     /**
-     * Set up the weapon components to connect with the player
+     * Activate this melee weapon in the walk direction of the player
+     */
+    @Override
+    public void attack() {
+        this.weaponEntity.getComponent(FiringController.class).activate(null);
+    }
+
+    /**
+     * Set up the components to connect with the player
      *
      * @param player the player who holds this weapon
      */
@@ -107,8 +108,8 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         // Update weapon entity to link with player
         try {
             this.weaponEntity.getComponent(FiringController.class).connectPlayer(player);
-            this.weaponEntity.getComponent(WeaponAnimationController.class).connectPlayer(player);
             this.weaponEntity.getComponent(PositionTracker.class).connectPlayer(player);
+            this.weaponEntity.getComponent(WeaponAnimationController.class).connectPlayer(player);
         } catch (NullPointerException e) {
             logger.info("Weapon entity is null or components not found");
         }
@@ -127,36 +128,5 @@ public class ConcreteRangedWeapon extends RangedWeapon {
         } catch (NullPointerException e) {
             logger.info("Weapon entity is null or components not found");
         }
-    }
-
-    /**
-     * Create a projectile and launch it in the direction specified
-     *
-     * @param direction direction to shoot in
-     */
-    @Override
-    public void shoot(Vector2 direction) {
-        this.weaponEntity.getComponent(FiringController.class).activate(direction);
-    }
-
-
-    /**
-     * Get the clip size of this weapon
-     * i.e how many shots it can fire before reloading
-     *
-     * @return integer represent the clip size
-     */
-    public int getClipSize() {
-        return this.maxAmmo;
-    }
-
-    /**
-     * Set the clip size of this weapon
-     * i.e how many shots it can fire before reloading
-     *
-     * @param i the desired clip size
-     */
-    public void setClipSize(int i) {
-        this.maxAmmo = i;
     }
 }

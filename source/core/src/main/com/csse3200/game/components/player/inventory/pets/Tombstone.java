@@ -1,16 +1,16 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.pets;
 
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.components.player.inventory.Pet;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.factories.PetFactory;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.services.ServiceLocator;
+
 import java.util.Random;
 
 
-public class Tombstone extends BuffItem {
+public class Tombstone extends Pet {
     Random random = new Random();
 
     /**
@@ -19,7 +19,7 @@ public class Tombstone extends BuffItem {
      * @return string of the item
      */
     @Override
-    public String getBuffSpecification() {
+    public String getPetSpecification() {
         return "tombstone";
     }
 
@@ -30,18 +30,19 @@ public class Tombstone extends BuffItem {
      * @param entity The player entity
      */
     @Override
-    public void effect(Entity entity) {
-        //markEntityForRemoval(collisionItemEntity);
-
+    public Entity spawn(Entity entity) {
         int randomInt = this.random.nextInt(1, 5);
+
         Entity newPet = this.randomPetGenerator(randomInt);
-        entity.getComponent(InventoryComponent.class).getInventory().addPet(newPet); 
         ServiceLocator.getEntityService().register(newPet);
-        newPet.setPosition(5,7);
+        newPet.setPosition(5, 7);
+
+        return newPet;
     }
 
     /**
      * Uses a random number generator to spawn a pet entity
+     *
      * @param randomNum Random number generated from effect()
      * @return creates pet entity
      */
@@ -77,15 +78,4 @@ public class Tombstone extends BuffItem {
     public Texture getIcon() {
         return new Texture("images/items/tombstone.png");
     }
-
-    /**
-     * Removes the item from inventory
-     *
-     * @param inventory The inventory to be dropped out of.
-     */
-    @Override
-    public void drop(Inventory inventory) {
-
-    }
-
 }

@@ -1,7 +1,7 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.usables;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -30,6 +30,7 @@ public class Reroll extends UsableItem {
 
     /**
      * Gets the specification associated with this item
+     *
      * @return string representation of this item's specification
      */
     @Override

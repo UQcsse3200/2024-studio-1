@@ -1,8 +1,11 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Optional;
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -43,11 +46,49 @@ public class InventoryComponent extends Component {
     }
 
     /**
-     * Get the underlying inventory model.
+     * Get a list of Pets this player has.
      *
-     * @return the inventory
+     * @return the pets.
      */
-    public Inventory getInventory() {
-        return inventory;
+    public Array<Pet> getPets() {
+        return inventory.getContainer(Pet.class).get();
+    }
+
+    /**
+     * Get a list of Usable Items this player has.
+     *
+     * @return the items.
+     */
+    public Array<UsableItem> getItems() {
+        return inventory.getContainer(UsableItem.class).get();
+    }
+
+    /**
+     * Get a list of buffs this player has.
+     *
+     * @return the buffs.
+     */
+    public Array<BuffItem> getBuffs() {
+        return inventory.getContainer(BuffItem.class).get();
+    }
+
+    /**
+     * Get this player's melee weapon.
+     *
+     * @return the ranged weapon, if it exists
+     */
+    public Optional<MeleeWeapon> getMelee() {
+        Array<MeleeWeapon> meleeWeapons = inventory.getContainer(MeleeWeapon.class).get();
+        return meleeWeapons.size > 0 ? Optional.of(meleeWeapons.get(0)) : Optional.empty();
+    }
+
+    /**
+     * Get this player's ranged weapon.
+     *
+     * @return the ranged weapon, if it exists
+     */
+    public Optional<RangedWeapon> getRanged() {
+        Array<RangedWeapon> rangedWeapons = inventory.getContainer(RangedWeapon.class).get();
+        return rangedWeapons.size > 0 ? Optional.of(rangedWeapons.get(0)) : Optional.empty();
     }
 }

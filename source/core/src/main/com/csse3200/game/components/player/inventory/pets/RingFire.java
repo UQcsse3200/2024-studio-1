@@ -1,11 +1,12 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.pets;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.csse3200.game.components.player.inventory.Pet;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.factories.PetFactory;
+import com.csse3200.game.services.ServiceLocator;
 
-public class RingFire extends BuffItem {
+public class RingFire extends Pet {
     @Override
     public String getName() {
         return "Ring of Fire";
@@ -17,27 +18,24 @@ public class RingFire extends BuffItem {
     }
 
     @Override
-    public void drop(Inventory inventory) {
-        // do nothing for now.
-    }
-
-    @Override
     public Texture getMysteryIcon() {
         return super.getMysteryIcon();
     }
 
     @Override
-    public String getBuffSpecification() {
+    protected String getPetSpecification() {
         return "ringfire";
     }
 
     @Override
-    public void effect(Entity entity) {
+    protected Entity spawn(Entity player) {
         Entity ringFire = new PetFactory().createRingFire();
-        int xPos = (int) entity.getPosition().x;
-        int yPos = (int) entity.getPosition().y;
-        entity.getComponent(InventoryComponent.class).getInventory().addPet(ringFire);
+
+        int xPos = (int) player.getPosition().x;
+        int yPos = (int) player.getPosition().y;
         ServiceLocator.getEntityService().register(ringFire);
         ringFire.setPosition(xPos, yPos);
+
+        return ringFire;
     }
 }

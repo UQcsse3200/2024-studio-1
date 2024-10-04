@@ -90,7 +90,8 @@ public class PlayerConfig extends BaseEntityConfig  {
             Objects.equals(coins, config.coins) &&
             Arrays.equals(items, config.items) &&
             Objects.equals(melee, config.melee) &&
-            Objects.equals(ranged, config.ranged);
+            Objects.equals(ranged, config.ranged)&&
+            Objects.equals(difficulty, config.difficulty);
   }
 
   /**

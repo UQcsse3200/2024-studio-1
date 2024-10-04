@@ -113,7 +113,6 @@ public class MainGameLevelFactory implements LevelFactory {
         config.currentRoom = ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getRoomName();
         for (Room room : rooms.values()) {
             if (room.getIsRoomComplete()){
-                String roomName = room.getRoomName();
                 if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
                     if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1)
                         compRooms.add(room.getRoomName());

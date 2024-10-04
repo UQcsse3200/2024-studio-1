@@ -15,6 +15,7 @@ import com.csse3200.game.components.maingame.MainGameExitDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.PlayerSelection;
+import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.entities.factories.RenderFactory;
@@ -36,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
+import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
 import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
@@ -139,14 +141,24 @@ public class MainGameScreen extends ScreenAdapter {
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
-
-        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad);
-
+        MapLoadConfig mapLoadConfig = loadFromJson(MAP_SAVE_PATH);
+        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad, mapLoadConfig);
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
             new MainGameArea(levelFactory, player, shouldLoad);
         }
+    }
+
+    /**
+     * Loads map data from the save file and extracts the completed rooms into a list which
+     * is later set to completed in the create method above
+     * @param filePath: Path for the save file
+     */
+    public MapLoadConfig loadFromJson(String filePath) {
+        MapLoadConfig mapLoadConfig = new MapLoadConfig();
+        mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, filePath, FileLoader.Location.EXTERNAL);
+        return mapLoadConfig;
     }
 
     private Entity loadPlayer(boolean shouldLoad, GameOptions gameOptions, String chosenPlayer) {

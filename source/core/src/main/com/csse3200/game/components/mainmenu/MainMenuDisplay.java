@@ -143,7 +143,7 @@ public class MainMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("Load Button Pressed");
-                        entity.getEvents().trigger("loadGame");
+                        entity.getEvents().trigger("load-game");
                     }
                 });
 

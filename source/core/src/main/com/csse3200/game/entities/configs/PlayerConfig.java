@@ -21,6 +21,7 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String[] items;
 
   public Vector2 speed;
+  public Difficulty difficulty;
 
   /** Player's current health */
   public int health = 100;

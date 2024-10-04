@@ -1,30 +1,20 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.weapons;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.csse3200.game.components.player.inventory.OffHandItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class MeleeWeapon implements Collectible {
+public abstract class MeleeWeapon extends OffHandItem {
     /**
      * Logger for debugging purposes.
      */
-    protected static final Logger logger = LoggerFactory.getLogger(RangedWeapon.class);
+    protected static final Logger logger = LoggerFactory.getLogger(MeleeWeapon.class);
     protected String name;        // name of the weapon
     protected String iconPath;    // path to the icon of the weapon
     protected int damage;         // weapon damage
     protected int range;          // range of the weapon
     protected int fireRate;       // fire rate of the weapon
-
-    /**
-     * Get the Type of this item.
-     * The type determines how it ought to be used by the player.
-     *
-     * @return mType.MELEE_WEAPON
-     */
-    @Override
-    public Type getType() {
-        return Type.MELEE_WEAPON;
-    }
 
     /**
      * Get the name of the weapon.
@@ -36,6 +26,16 @@ public abstract class MeleeWeapon implements Collectible {
         return name;
     }
 
+
+    /**
+     * Get the filepath of the icon.
+     *
+     * @return the icons filepath.
+     */
+    public String getIconPath() {
+        return iconPath;
+    }
+
     /**
      * Get the ranged weapon icon.
      *
@@ -43,26 +43,6 @@ public abstract class MeleeWeapon implements Collectible {
      */
     public Texture getIcon() {
         return new Texture(iconPath);
-    }
-
-    @Override
-    public String getSpecification() {
-        return "melee:" + getName();
-    }
-
-    /**
-     * Pick up the melee weapon and put it in the inventory.
-     *
-     * @param inventory The inventory to be put in.
-     */
-    @Override
-    public void pickup(Inventory inventory) {
-        inventory.getContainer(MeleeWeapon.class).add(this);
-    }
-
-    @Override
-    public void drop(Inventory inventory) {
-        inventory.getContainer(MeleeWeapon.class).remove(this);
     }
 
     /**
@@ -97,9 +77,4 @@ public abstract class MeleeWeapon implements Collectible {
     public void setFireRate(int fireRate) {
         this.fireRate = fireRate;
     }
-
-    /**
-     * Activate this melee weapon in the walk direction of the player
-     */
-    public abstract void attack();
 }

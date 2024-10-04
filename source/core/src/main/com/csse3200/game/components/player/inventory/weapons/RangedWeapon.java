@@ -1,11 +1,11 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.weapons;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.player.inventory.MainHandItem;
 
 import java.util.logging.Logger;
 
-public abstract class RangedWeapon implements Collectible {
+public abstract class RangedWeapon extends MainHandItem {
     protected static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
 
     protected String name;        // name of the weapon
@@ -25,7 +25,7 @@ public abstract class RangedWeapon implements Collectible {
      */
     @Override
     public Type getType() {
-        return Type.RANGED_WEAPON;
+        return Type.MAIN_HAND;
     }
 
     /**
@@ -55,22 +55,6 @@ public abstract class RangedWeapon implements Collectible {
     @Override
     public Texture getIcon() {
         return new Texture(iconPath);
-    }
-
-    @Override
-    public String getSpecification() {
-        return "ranged:" + getName();
-    }
-
-    @Override
-    public void pickup(Inventory inventory) {
-        logger.info("Picking up ranged weapon - no entity");
-        inventory.getContainer(RangedWeapon.class).add(this);
-    }
-
-    @Override
-    public void drop(Inventory inventory) {
-        inventory.getContainer(RangedWeapon.class).remove(this);
     }
 
     public int getDamage() {
@@ -120,6 +104,4 @@ public abstract class RangedWeapon implements Collectible {
     public void setReloadTime(int reloadTime) {
         this.reloadTime = reloadTime;
     }
-
-    public abstract void shoot(Vector2 direction);
 }

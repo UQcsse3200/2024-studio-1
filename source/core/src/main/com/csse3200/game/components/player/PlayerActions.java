@@ -124,8 +124,8 @@ public class PlayerActions extends Component {
      */
     private void attack() {
         entity.getComponent(InventoryComponent.class)
-                .getMelee()
-                .ifPresent(MeleeWeapon::attack);
+                .getOffhand()
+                .ifPresent(OffHandItem::attack);
     }
 
     /**
@@ -133,8 +133,8 @@ public class PlayerActions extends Component {
      */
     private void shoot(Vector2 direction) {
         entity.getComponent(InventoryComponent.class)
-                .getRanged()
-                .ifPresent(rangedWeapon -> rangedWeapon.shoot(direction));
+                .getMainWeapon()
+                .ifPresent(weapon -> weapon.shoot(direction));
     }
 
     private void updateSpeed() {

@@ -12,8 +12,8 @@ import com.csse3200.game.entities.Entity;
 public class Inventory {
     private final InventoryComponent component;
 
-    private final Container<MeleeWeapon> meleeWeapons = new Container<>(1);
-    private final Container<RangedWeapon> rangedWeapons = new Container<>(1);
+    private final Container<OffHandItem> offhandItems = new Container<>(1);
+    private final Container<MainHandItem> mainHandItems = new Container<>(1);
     private final Container<UsableItem> usableItems = new Container<>(9);
     private final Container<BuffItem> buffs = new Container<>();
     private final Container<Pet> pets = new Container<>();
@@ -47,8 +47,8 @@ public class Inventory {
     public <T extends Collectible> Container<T> getContainer(Class<T> type) {
         var container = switch (Collectible.Type.getByClass(type)) {
             case ITEM -> usableItems;
-            case MELEE_WEAPON -> meleeWeapons;
-            case RANGED_WEAPON -> rangedWeapons;
+            case OFF_HAND -> offhandItems;
+            case MAIN_HAND -> mainHandItems;
             case BUFF_ITEM -> buffs;
             case PET -> pets;
             default -> throw new IllegalStateException("Unexpected value: " + type.getSimpleName());

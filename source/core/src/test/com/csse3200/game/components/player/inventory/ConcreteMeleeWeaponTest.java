@@ -1,6 +1,7 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.components.player.inventory.weapons.ConcreteMeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
@@ -80,7 +81,7 @@ public class ConcreteMeleeWeaponTest {
 
         Entity player = new Entity().addComponent(inventory);
         inventory.pickup(meleeWeapon);
-        assert inventory.getMelee().isPresent();
+        assert inventory.getOffhand().isPresent();
     }
 
     @org.junit.jupiter.api.Test
@@ -92,7 +93,7 @@ public class ConcreteMeleeWeaponTest {
         new Entity().addComponent(inventory);
         inventory.pickup(meleeWeapon);
         inventory.drop(meleeWeapon);
-        assert inventory.getMelee().isEmpty();
+        assert inventory.getOffhand().isEmpty();
     }
 
     @org.junit.jupiter.api.Test
@@ -110,7 +111,7 @@ public class ConcreteMeleeWeaponTest {
     @org.junit.jupiter.api.Test
     public void testGetIconPath() {
         ConcreteMeleeWeapon meleeWeapon = new ConcreteMeleeWeapon("knife", "knife.png", 10, 10, 10);
-        assert meleeWeapon.iconPath.equals("knife.png");
+        assert meleeWeapon.getIconPath().equals("knife.png");
     }
 
     @org.junit.jupiter.api.Test
@@ -141,6 +142,6 @@ public class ConcreteMeleeWeaponTest {
         new Entity().addComponent(inventory);
         inventory.pickup(meleeWeapon);
         meleeWeapon.attack();
-        assert inventory.getMelee().isPresent();
+        assert inventory.getOffhand().isPresent();
     }
 }

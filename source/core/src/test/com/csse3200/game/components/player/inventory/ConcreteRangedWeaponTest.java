@@ -3,6 +3,7 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.components.player.inventory.weapons.ConcreteRangedWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
@@ -103,7 +104,7 @@ public class ConcreteRangedWeaponTest {
 
         new Entity().addComponent(inventory);
         inventory.pickup(rangeWeapon);
-        assert inventory.getRanged().isPresent();
+        assert inventory.getMainWeapon().isPresent();
     }
 
     @org.junit.jupiter.api.Test
@@ -116,7 +117,7 @@ public class ConcreteRangedWeaponTest {
         new Entity().addComponent(inventory);
         inventory.pickup(rangeWeapon);
         inventory.drop(rangeWeapon);
-        assert inventory.getRanged().isEmpty();
+        assert inventory.getMainWeapon().isEmpty();
     }
 
     @org.junit.jupiter.api.Test
@@ -170,7 +171,7 @@ public class ConcreteRangedWeaponTest {
         new Entity().addComponent(inventory);
         inventory.pickup(rangeWeapon);
         rangeWeapon.shoot(Vector2.Zero);
-        assert inventory.getRanged().isPresent();
+        assert inventory.getMainWeapon().isPresent();
     }
 
 }

@@ -6,10 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.components.player.inventory.weapons.ConcreteMeleeWeapon;
 import com.csse3200.game.components.player.inventory.weapons.ConcreteRangedWeapon;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.components.weapon.PositionTracker;
 import com.csse3200.game.components.weapon.WeaponAnimationController;
@@ -84,8 +84,8 @@ public class WeaponFactory extends LoadedFactory {
      */
     public Collectible create(Collectible.Type type, String specification) throws IllegalArgumentException {
         return switch (type) {
-            case MELEE_WEAPON -> createMelee(specification);
-            case RANGED_WEAPON -> createRanged(specification);
+            case OFF_HAND -> createMelee(specification);
+            case MAIN_HAND -> createRanged(specification);
             default -> throw new IllegalArgumentException("invalid weapon type: " + type);
         };
     }
@@ -98,9 +98,9 @@ public class WeaponFactory extends LoadedFactory {
      */
     public Entity createWeaponEntity(Collectible collectible) throws IllegalArgumentException {
         try {
-            if (collectible.getType() == Collectible.Type.MELEE_WEAPON) {
+            if (collectible.getType() == Collectible.Type.OFF_HAND) {
                 return createMeleeEntity((MeleeWeapon) collectible);
-            } else if (collectible.getType() == Collectible.Type.RANGED_WEAPON) {
+            } else if (collectible.getType() == Collectible.Type.MAIN_HAND) {
                 return createRangeEntity((RangedWeapon) collectible);
             }
             throw new IllegalArgumentException();
@@ -184,12 +184,11 @@ public class WeaponFactory extends LoadedFactory {
         animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
         animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
         // Only for shotguns
-        if (weapon.getType() == Collectible.Type.RANGED_WEAPON) {
+        if (weapon.getType() == Collectible.Type.MAIN_HAND) {
             animator.addAnimation("left", 0.04f, Animation.PlayMode.LOOP);
             animator.addAnimation("up", 0.04f, Animation.PlayMode.LOOP);
             animator.addAnimation("down", 0.04f, Animation.PlayMode.LOOP);
-        }
-        else if (weapon.getType() == Collectible.Type.MELEE_WEAPON) {
+        } else if (weapon.getType() == Collectible.Type.OFF_HAND) {
             // Only for swords
             animator.addAnimation("item", 0.05f, Animation.PlayMode.NORMAL);
         }

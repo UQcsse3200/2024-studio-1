@@ -7,12 +7,8 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.PetFactory;
 import com.csse3200.game.services.ServiceLocator;
 
-import java.util.Random;
-
 
 public class Tombstone extends Pet {
-    Random random = new Random();
-
     /**
      * Returns the string of the tombstone item
      *
@@ -23,6 +19,11 @@ public class Tombstone extends Pet {
         return "tombstone";
     }
 
+    private int getRandomInt(int min, int max) {
+        return ServiceLocator.getRandomService().getRandomNumberGenerator(Tombstone.class)
+                .getRandomInt(min, max);
+    }
+
 
     /**
      * Spawns pet entity to assist player
@@ -31,9 +32,8 @@ public class Tombstone extends Pet {
      */
     @Override
     public Entity spawn(Entity entity) {
-        int randomInt = this.random.nextInt(1, 5);
+        Entity newPet = this.randomPetGenerator(getRandomInt(1, 5));
 
-        Entity newPet = this.randomPetGenerator(randomInt);
         ServiceLocator.getEntityService().register(newPet);
         newPet.setPosition(5, 7);
 

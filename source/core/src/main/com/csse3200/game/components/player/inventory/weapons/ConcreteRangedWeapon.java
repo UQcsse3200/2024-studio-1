@@ -2,7 +2,6 @@ package com.csse3200.game.components.player.inventory.weapons;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.inventory.Inventory;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.components.weapon.PositionTracker;
 import com.csse3200.game.components.weapon.WeaponAnimationController;

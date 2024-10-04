@@ -3,6 +3,8 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.inventory.usables.MedKit;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.extensions.GameExtension;
 import org.junit.Assert;
@@ -19,8 +21,8 @@ class InventoryComponentTest {
     public void testWeaponsAreEmpty() {
         InventoryComponent inventory = new InventoryComponent();
         new Entity().addComponent(inventory);
-        assertTrue(inventory.getMelee().isEmpty());
-        assertTrue(inventory.getRanged().isEmpty());
+        assertTrue(inventory.getOffhand().isEmpty());
+        assertTrue(inventory.getMainWeapon().isEmpty());
     }
 
     @Test
@@ -44,8 +46,8 @@ class InventoryComponentTest {
         };
         inventory.pickup(knife);
 
-        assertTrue(inventory.getMelee().isPresent());
-        assertEquals(knife, inventory.getMelee().get());
+        assertTrue(inventory.getOffhand().isPresent());
+        assertEquals(knife, inventory.getOffhand().get());
     }
 
     @Test
@@ -64,8 +66,8 @@ class InventoryComponentTest {
         };
         inventory.pickup(shotgun);
 
-        assertTrue(inventory.getRanged().isPresent());
-        assertEquals(shotgun, inventory.getRanged().get());
+        assertTrue(inventory.getMainWeapon().isPresent());
+        assertEquals(shotgun, inventory.getMainWeapon().get());
     }
 
     @Test
@@ -88,7 +90,7 @@ class InventoryComponentTest {
         inventory.pickup(shotgun);
 
         Assert.assertThrows(TestException.class, () -> inventory.drop(shotgun));
-        assertTrue(inventory.getRanged().isEmpty());
+        assertTrue(inventory.getMainWeapon().isEmpty());
     }
 
     @Test
@@ -110,7 +112,7 @@ class InventoryComponentTest {
         inventory.pickup(knife);
 
         Assert.assertThrows(TestException.class, () -> inventory.drop(knife));
-        assertTrue(inventory.getMelee().isEmpty());
+        assertTrue(inventory.getOffhand().isEmpty());
     }
 
     @Test

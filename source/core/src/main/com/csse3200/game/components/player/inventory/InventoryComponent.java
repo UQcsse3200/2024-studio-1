@@ -73,22 +73,22 @@ public class InventoryComponent extends Component {
     }
 
     /**
-     * Get this player's melee weapon.
+     * Get this player's offhand weapon.
      *
-     * @return the ranged weapon, if it exists
+     * @return the offhand weapon, if it exists
      */
-    public Optional<MeleeWeapon> getMelee() {
-        Array<MeleeWeapon> meleeWeapons = inventory.getContainer(MeleeWeapon.class).get();
-        return meleeWeapons.size > 0 ? Optional.of(meleeWeapons.get(0)) : Optional.empty();
+    public Optional<OffHandItem> getOffhand() {
+        Array<OffHandItem> offHandItems = inventory.getContainer(OffHandItem.class).get();
+        return offHandItems.size > 0 ? Optional.of(offHandItems.get(0)) : Optional.empty();
     }
 
     /**
-     * Get this player's ranged weapon.
+     * Get this player's main weapon.
      *
-     * @return the ranged weapon, if it exists
+     * @return the main weapon, if it exists
      */
-    public Optional<RangedWeapon> getRanged() {
-        Array<RangedWeapon> rangedWeapons = inventory.getContainer(RangedWeapon.class).get();
-        return rangedWeapons.size > 0 ? Optional.of(rangedWeapons.get(0)) : Optional.empty();
+    public Optional<MainHandItem> getMainWeapon() {
+        Array<MainHandItem> mainWeapons = inventory.getContainer(MainHandItem.class).get();
+        return mainWeapons.size > 0 ? Optional.of(mainWeapons.get(0)) : Optional.empty();
     }
 }

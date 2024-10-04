@@ -63,8 +63,8 @@ public interface Collectible {
      */
     enum Type {
         ITEM(UsableItem.class),
-        MELEE_WEAPON(MeleeWeapon.class),
-        RANGED_WEAPON(RangedWeapon.class),
+        OFF_HAND(OffHandItem.class),
+        MAIN_HAND(MainHandItem.class),
         BUFF_ITEM(BuffItem.class),
         PET(Pet.class),
         NONE(null);

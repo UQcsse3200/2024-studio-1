@@ -1,7 +1,6 @@
 package com.csse3200.game.components.player.inventory.weapons;
 
 import com.csse3200.game.components.player.inventory.Inventory;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.components.weapon.PositionTracker;
 import com.csse3200.game.components.weapon.WeaponAnimationController;

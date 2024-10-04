@@ -60,7 +60,6 @@ public class LoadGameScreen extends ScreenAdapter {
     // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
 
-    private PlayerSelection playerSelection = new PlayerSelection();
 
     private static final String[] textureAtlases = {"skins/rainbow/skin/rainbow-ui.atlas"};
 
@@ -128,7 +127,7 @@ public class LoadGameScreen extends ScreenAdapter {
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
         PlayerConfig config = FileLoader.readClass(
                 PlayerConfig.class,
-                "configs/player_save.json",
+                "saves/player_save.json",
                 FileLoader.Location.EXTERNAL);
         if (config == null) {
             throw new RuntimeException("Tried to load player and failed");
@@ -136,11 +135,10 @@ public class LoadGameScreen extends ScreenAdapter {
         Entity player = playerFactory.createPlayer(config);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
-        logger.debug("Initialising main game screen entities");
-        MapLoadConfig mapLoadConfig = new MapLoadConfig();
-        mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        logger.debug("Initialising load game screen entities");
+        MapLoadConfig mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
         LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad, mapLoadConfig);
-        new MainGameArea(levelFactory, player, shouldLoad);
+        new MainGameArea(levelFactory, player, shouldLoad, mapLoadConfig);
     }
 
 
@@ -187,7 +185,7 @@ public class LoadGameScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing main game screen");
+        logger.debug("Disposing load game screen");
 
         renderer.dispose();
         playerFactory.dispose();

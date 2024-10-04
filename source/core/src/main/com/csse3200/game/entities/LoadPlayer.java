@@ -44,6 +44,7 @@ public class LoadPlayer {
     private static final float playerScale = 0.75f;
     private static final Logger logger = getLogger(LoadPlayer.class);
     private CollectibleFactory collectibleFactory;
+    private PetFactory petFactory;
 
 
     /**
@@ -54,6 +55,7 @@ public class LoadPlayer {
         this.itemFactory = new ItemFactory();
         this.inventoryComponent = new InventoryComponent();
         this.playerActions = new PlayerActions();
+        this.petFactory = new PetFactory();
     }
 
     /**
@@ -194,8 +196,10 @@ public class LoadPlayer {
 
         if (config.pets != null) {
             for (String petName : config.pets) {
-                Entity pet = new PetFactory().create(petName);
+                Entity pet = petFactory.create(petName);
                 player.getComponent(InventoryComponent.class).getInventory().addPet(pet);
+                ServiceLocator.getEntityService().register(pet);
+                pet.setPosition(5,7);
             }
         }
     }

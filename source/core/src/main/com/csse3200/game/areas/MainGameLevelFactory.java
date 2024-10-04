@@ -40,6 +40,7 @@ public class MainGameLevelFactory implements LevelFactory {
         this.loadedRooms = new ArrayList<>();
     }
 
+
     @Override
     public Level create(int levelNumber) {
         String seed = "seed";
@@ -50,6 +51,7 @@ public class MainGameLevelFactory implements LevelFactory {
         } else {
             // For loaded games, append the level number to the loaded seed
             map = new LevelMap(config.seed + config.currentLevel, config.mapSize);
+            System.out.println("here");
         }
 
         RoomFactory roomFactory = new RoomFactory(
@@ -103,14 +105,13 @@ public class MainGameLevelFactory implements LevelFactory {
      *
      * @param filePath The path of the file to write the JSON data to.
      */
-    public void saveMapData(String filePath) {
+    public void saveMapData(String filePath, String level) {
         List<String> compRooms = new ArrayList<String>();
         MapLoadConfig config = new MapLoadConfig();
         String gameSeed = map.mapData.getMapSeed();
         String seedOnly = gameSeed.substring(0, gameSeed.length() - 1);
         config.seed = seedOnly;
-        config.currentLevel = Integer.parseInt(ServiceLocator.getGameAreaService()
-                .getGameArea().getCurrentLevel().toString());
+        config.currentLevel = level; 
         config.currentRoom = ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getRoomName();
         for (Room room : rooms.values()) {
             if (room.getIsRoomComplete()){

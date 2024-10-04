@@ -142,13 +142,13 @@ public class MainGameScreen extends ScreenAdapter {
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
-        MapLoadConfig mapLoadConfig = new MapLoadConfig(); 
-        mapLoadConfig.currentLevel = 0;
-        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad, mapLoadConfig);
+        MapLoadConfig mapConfig= new MapLoadConfig(); 
+        mapConfig.currentLevel = "0";
+        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad, mapConfig);
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
-            new MainGameArea(levelFactory, player, shouldLoad);
+            new MainGameArea(levelFactory, player, shouldLoad, mapConfig);
         }
     }
 

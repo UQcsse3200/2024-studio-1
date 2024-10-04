@@ -28,7 +28,6 @@ import java.util.*;
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
-    public static final String PLAYER_SAVE_PATH = "saves/PlayerLocationSave.json";
     public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
     /** The main player entity */
@@ -79,7 +78,6 @@ public class MainGameArea extends GameArea {
         this.levelFactory = levelFactory;
         this.shouldLoad = shouldLoad;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getBossRoom()));
-        player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
         player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkIfRoomComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
@@ -93,7 +91,7 @@ public class MainGameArea extends GameArea {
      * @param player the main player entity.
      */
     public MainGameArea(LevelFactory levelFactory, Entity player) {
-        this(levelFactory, player, false, null);
+        this(levelFactory, player, false, new MapLoadConfig());
     }
 
     /**
@@ -104,7 +102,7 @@ public class MainGameArea extends GameArea {
      * @param player the main player entity.
      */
     public MainGameArea(LevelFactory levelFactory, Entity player, Boolean shouldLoad) {
-        this(levelFactory, player, false, null);
+        this(levelFactory, player, false, new MapLoadConfig());
     }
 
     /**
@@ -117,7 +115,8 @@ public class MainGameArea extends GameArea {
 
         displayUI();
         if (shouldLoad) {
-            loadMapLocation();
+            changeLevel(Integer.parseInt(config.currentLevel));
+            changeRooms(config.currentRoom);
 
         } else {
             changeLevel(0);
@@ -170,28 +169,6 @@ public class MainGameArea extends GameArea {
         return currentRoom;
     }
 
-    /**
-     * Exports the current Level number and Room number of the player
-     * as well as the complete map details of the current map generated into a JSON file
-     * which can then be loaded and set as the starting position of the player when player
-     * loads the game.
-     */
-    public void saveMapLocation() {
-        String levelNum = "" + currentLevelNumber;
-        currentPosition.put("LevelNum", levelNum);
-        currentPosition.put("RoomNum", currentRoomName);
-        //exports the current player location (room and level details into a json).
-        System.out.println("roomComplete?:" + currentRoom.getIsRoomComplete());
-        FileLoader.writeClass(currentPosition, PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
-    }
-
-    /**
-     * Loads the saved Level number and Room number of the player
-     */
-    public void loadMapLocation() {
-        changeLevel(config.currentLevel);
-        changeRooms(config.currentRoom);
-    }
 
     /**
      * Uses MainGameLevelFactory to save all the completed room numbers and the seed of the map as JSON file
@@ -199,7 +176,8 @@ public class MainGameArea extends GameArea {
      */
     public void saveMapData() {
         //exports the rooms and map data into the filePath below after Save button is pressed
-        levelFactory.saveMapData(MAP_SAVE_PATH);
+        String levelNum = "" + currentLevelNumber;
+        levelFactory.saveMapData(MAP_SAVE_PATH, levelNum);
     }
 
     /**

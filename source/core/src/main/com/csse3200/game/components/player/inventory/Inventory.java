@@ -2,7 +2,9 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.entities.Entity;
+
 import java.util.List;
+
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.npc.NPCConfigComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
@@ -22,7 +24,7 @@ import java.util.Optional;
 public class Inventory {
     private final InventoryComponent component;
     private final Array<Collectible> items = new Array<>();
-    private Array<Entity> pets = new Array<>();
+    private final Array<Entity> pets = new Array<>();
 
     private Optional<MeleeWeapon> meleeWeapon = Optional.empty();
     private Optional<RangedWeapon> rangedWeapon = Optional.empty();
@@ -69,7 +71,7 @@ public class Inventory {
      * Reset the player's currently held melee weapon to the default.
      */
     public void resetMelee() {
-        if (this.meleeWeapon.isEmpty()){
+        if (this.meleeWeapon.isEmpty()) {
             return;
         }
 
@@ -101,7 +103,7 @@ public class Inventory {
      * Reset the player's currently held ranged weapon to the default.
      */
     public void resetRanged() {
-        if (this.rangedWeapon.isEmpty()){
+        if (this.rangedWeapon.isEmpty()) {
             return;
         }
 
@@ -130,7 +132,11 @@ public class Inventory {
         getEntity().getEvents().trigger("addToInventory");
     }
 
-
+    /**
+     * Remove an item from the inventory.
+     *
+     * @param item the item to remove.
+     */
     public void removeItem(Collectible item) {
         this.items.removeValue(item, true);
     }
@@ -138,7 +144,7 @@ public class Inventory {
     /**
      * Get the current list of pets.
      *
-     * @return current list of pets 
+     * @return current list of pets
      */
     public Array<Entity> getPets() {
         return new Array<>(pets);
@@ -147,21 +153,18 @@ public class Inventory {
     /**
      * Get the current list of pets.
      *
-     * @return current list of pets 
+     * @return current list of pets
      */
     public boolean petsExist() {
-        if(pets.size > 0){
-            return true;
-        }
-        return false;
+        return pets.size > 0;
     }
 
     /**
      * Add to the list of pets.
      *
-     * @param addPet the pet to be added 
+     * @param addPet the pet to be added
      */
-    public void addPet(Entity addPet ) {
+    public void addPet(Entity addPet) {
         this.pets.add(addPet);
     }
 
@@ -169,38 +172,40 @@ public class Inventory {
     /**
      * Remove from the list of pets
      *
-     * @param removePet the pet to be removed  
+     * @param removePet the pet to be removed
      */
     public void removePet(Entity removePet) {
         this.pets.removeValue(removePet, true);
     }
 
     /**
-     * Set the target for the pet 
+     * Set the target for the pet
      *
-     * @param targets that the pets spawn into a room to attack to  
+     * @param targets that the pets spawn into a room to attack to
      */
     public void initialisePetAggro(List<Entity> targets) {
         //For each pet, find the closest enemy and set it as its target  
-        for(Entity pet:pets){
+        for (Entity pet : pets) {
             Entity closestEnemy = getClosestEnemy(pet, targets);
-            setPetTarget(pet,closestEnemy);
-        }
-    }
-    /**
-     * Set the target for the pet 
-     *
-     * @param targets for the pets 
-     */
-    public void setPetsAggro(List<Entity> targets) {
-        //get the closest enemy to the player make all pets target it  
-        Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer(); 
-        Entity closestEnemy = getClosestEnemy(player, targets);
-        for(Entity pet:pets){
             setPetTarget(pet, closestEnemy);
         }
     }
-    private void setPetTarget(Entity pet, Entity target){
+
+    /**
+     * Set the target for the pet
+     *
+     * @param targets for the pets
+     */
+    public void setPetsAggro(List<Entity> targets) {
+        //get the closest enemy to the player make all pets target it  
+        Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+        Entity closestEnemy = getClosestEnemy(player, targets);
+        for (Entity pet : pets) {
+            setPetTarget(pet, closestEnemy);
+        }
+    }
+
+    private void setPetTarget(Entity pet, Entity target) {
         NPCConfigs.NPCConfig config = pet.getComponent(NPCConfigComponent.class).config;
         NPCConfigs.NPCConfig.TaskConfig tasks = config.tasks;
 
@@ -220,22 +225,19 @@ public class Inventory {
         }
         pet.getComponent(AITaskComponent.class).update();
     }
-        
-    private Entity getClosestEnemy(Entity origin, List<Entity> targets){
-        Entity closestEnemy = new Entity(); 
+
+    private Entity getClosestEnemy(Entity origin, List<Entity> targets) {
+        Entity closestEnemy = new Entity();
         double distance = 10000000.0;
-        int originX = (int) origin.getPosition().x;
-        int originY = (int) origin.getPosition().y;
         //make sure animal is alive
-        for(Entity enemy: targets){
-            int enemyX = (int) enemy.getPosition().x;
-            int enemyY = (int) enemy.getPosition().y;
-            double enemyDistance = Math.sqrt(Math.pow((originX- enemyX), 2) + Math.pow((originY- enemyY), 2));
-            if(enemyDistance < distance){
+        for (Entity enemy : targets) {
+
+            double enemyDistance = origin.getPosition().sub(enemy.getPosition()).len();
+            if (enemyDistance < distance) {
                 closestEnemy = enemy;
                 distance = enemyDistance;
             }
-        }  
+        }
         return closestEnemy;
     }
 }

@@ -8,13 +8,13 @@ import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
 
 /**
- * Generates a PlayerCofig object based on current state of player’s entity by
+ * Generates a PlayerConfig object based on current state of player’s entity by
  * extracting combat stats, inventory and equipped weapons. This converts them
  * into a configuration format that can be saved and loaded as needed.
  */
 public class PlayerConfigGenerator {
     /**
-     * Generates a playerconfig object based on current state of given entity.
+     * Generates a player config object based on current state of given entity.
      *
      * @param player the entity player whose state needs to be saved
      *
@@ -25,7 +25,6 @@ public class PlayerConfigGenerator {
 
         // obtain the stats and inventory components of the player
         CombatStatsComponent statsComponent = player.getComponent(CombatStatsComponent.class);
-        InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class);
 
         config.health = statsComponent.getHealth();
         config.baseAttack = statsComponent.getBaseAttack();
@@ -33,6 +32,7 @@ public class PlayerConfigGenerator {
         config.speed = player.getComponent(PlayerActions.class).getCurrSpeed();
 
         // store the string representation of items player has collected
+        InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class);
         config.items = itemsToString(inventoryComponent.getInventory().getItems());
 
         // obtain the specification of melee of player, if any

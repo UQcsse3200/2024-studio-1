@@ -1,12 +1,8 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.components.Component;
-import com.csse3200.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -17,8 +13,6 @@ import java.util.Map;
 public class InventoryComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
     private final Inventory inventory;
-    private int rangedWeaponCount = 0;
-    private int meleeWeaponCount = 0;
 
     /**
      * Construct a new empty inventory component
@@ -55,9 +49,5 @@ public class InventoryComponent extends Component {
      */
     public Inventory getInventory() {
         return inventory;
-    }
-
-    public int getRangedWeaponCount(){
-        return rangedWeaponCount;
     }
 }

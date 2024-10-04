@@ -6,15 +6,24 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A factory that uses a default strategy for loading assets from the resource service.
+ */
 public abstract class LoadedFactory implements Disposable {
-    private static final Logger defaultLogger = LoggerFactory.getLogger(LoadedFactory.class);
-
     private final Logger logger;
 
+    /**
+     * Create a loaded factory that uses default logging.
+     */
     protected LoadedFactory() {
-        this(defaultLogger);
+        this(LoggerFactory.getLogger(LoadedFactory.class));
     }
 
+    /**
+     * Create a loaded factory that uses a provided logger.
+     *
+     * @param logger the logger this factory should send log messages to.
+     */
     protected LoadedFactory(Logger logger) {
         this.logger = logger;
         load();

@@ -10,7 +10,6 @@ import com.csse3200.game.options.GameOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,13 +43,12 @@ public class PlayerFactoryFactory extends LoadedFactory {
         super();
         this.options = options;
         this.load();
-        logger.info("Loaded {} players", options.size());
-        logger.info("{}", options.entrySet().stream().map(e -> e.getKey() + ": " + e.getValue().getClass().getSimpleName()).collect(Collectors.joining("\n")));
+        logger.info("Loaded {} players\n{}", options.size(), String.join("\n", options.keySet()));
     }
 
     /**
      * Construct the Factory from a list of configs
-     * (this is useful for loading a saved player from a list of savefiles.)
+     * (this is useful for loading a saved player from a list of save files.)
      *
      * @param configs the configs for all the player options.
      */
@@ -64,8 +62,7 @@ public class PlayerFactoryFactory extends LoadedFactory {
     public PlayerFactoryFactory() {
         this(DEFAULT_PLAYER_OPTIONS.stream()
                      .map(s -> FileLoader.readClass(PlayerConfig.class, "configs/" + s))
-                     .toList()
-        );
+                     .toList());
     }
 
     /**
@@ -108,7 +105,6 @@ public class PlayerFactoryFactory extends LoadedFactory {
             }
             return new String[]{
                     this.config.textureAtlasFilename
-
             };
         }
 
@@ -151,7 +147,8 @@ public class PlayerFactoryFactory extends LoadedFactory {
         if (this.options == null) {
             return new String[]{};
         }
-        List<String> result = new ArrayList<>(options.values().stream().map(config -> config.textureFilename).toList());
-        return result.toArray(String[]::new);
+        return options.values().stream()
+                       .map(config -> config.textureFilename)
+                       .toArray(String[]::new);
     }
 }

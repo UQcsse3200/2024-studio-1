@@ -1,6 +1,8 @@
 package com.csse3200.game.entities.configs;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.options.GameOptions.Difficulty;
 
 import java.util.Arrays;
@@ -22,6 +24,8 @@ public class PlayerConfig extends BaseEntityConfig  {
 
   /** Player's current health */
   public int health = 100;
+
+  public String[] pets;
   public int coins = 0;
   /** The specification of player's equipped melee weapon */
   public String melee;

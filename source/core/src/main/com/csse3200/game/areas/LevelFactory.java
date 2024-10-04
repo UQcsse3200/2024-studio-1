@@ -19,7 +19,7 @@ public interface LevelFactory {
      *
      * @param filePath The path of the file to write the JSON data to.
      */
-    public void exportToJson(String filePath);
+    public void saveMapData(String filePath);
 }
 
 

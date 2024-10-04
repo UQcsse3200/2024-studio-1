@@ -23,7 +23,6 @@ import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.input.InputComponent;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.input.InputService;
-import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
@@ -138,21 +137,12 @@ public class LoadGameScreen extends ScreenAdapter {
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
-        MapLoadConfig mapLoadConfig = loadFromJson(MAP_SAVE_PATH);
+        MapLoadConfig mapLoadConfig = new MapLoadConfig();
+        mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
         LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad, mapLoadConfig);
         new MainGameArea(levelFactory, player, shouldLoad);
     }
 
-    /**
-     * Loads map data from the save file and extracts the completed rooms into a list which
-     * is later set to completed in the create method above
-     * @param filePath: Path for the save file
-     */
-    public MapLoadConfig loadFromJson(String filePath) {
-        MapLoadConfig mapLoadConfig = new MapLoadConfig();
-        mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, filePath, FileLoader.Location.EXTERNAL);
-        return mapLoadConfig;
-    }
 
     @Override
     public void render(float delta) {

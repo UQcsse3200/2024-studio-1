@@ -15,6 +15,7 @@ import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
+import com.csse3200.game.entities.configs.MapLoadConfig;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,6 +61,8 @@ public class MainGameArea extends GameArea {
     /** Factory for creating minimaps */
     private MinimapFactory minimapFactory;
 
+    private MapLoadConfig config;
+
     /**
      * Initialise this Game Area to use the provided levelFactory.
      *
@@ -67,8 +70,11 @@ public class MainGameArea extends GameArea {
      * @param player the main player entity.
      * @param shouldLoad flag to determine if a saved state should be loaded.
      */
-    public MainGameArea(LevelFactory levelFactory, Entity player, boolean shouldLoad) {
+    public MainGameArea(LevelFactory levelFactory, Entity player, boolean shouldLoad, MapLoadConfig config) {
         super();
+        if(config != null){
+            this.config = config;
+        }
         this.player = player;
         this.levelFactory = levelFactory;
         this.shouldLoad = shouldLoad;
@@ -87,7 +93,18 @@ public class MainGameArea extends GameArea {
      * @param player the main player entity.
      */
     public MainGameArea(LevelFactory levelFactory, Entity player) {
-        this(levelFactory, player, false);
+        this(levelFactory, player, false, null);
+    }
+
+    /**
+     * Initialise this Game Area to use the provided levelFactory without loading a saved state.
+     *
+     * @param levelFactory the provided levelFactory.
+     * @param shouldLoad if the game should be loaded
+     * @param player the main player entity.
+     */
+    public MainGameArea(LevelFactory levelFactory, Entity player, Boolean shouldLoad) {
+        this(levelFactory, player, false, null);
     }
 
     /**
@@ -172,10 +189,8 @@ public class MainGameArea extends GameArea {
      * Loads the saved Level number and Room number of the player
      */
     public void loadMapLocation() {
-        PlayerLocationConfig playerLocationConfig = new PlayerLocationConfig();
-        playerLocationConfig.savedLoc = FileLoader.readClass(HashMap.class, PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
-        changeLevel(Integer.parseInt(playerLocationConfig.savedLoc.get("LevelNum")));
-        changeRooms(playerLocationConfig.savedLoc.get("RoomNum"));
+        changeLevel(config.currentLevel);
+        changeRooms(config.currentRoom);
     }
 
     /**
@@ -184,7 +199,7 @@ public class MainGameArea extends GameArea {
      */
     public void saveMapData() {
         //exports the rooms and map data into the filePath below after Save button is pressed
-        levelFactory.exportToJson(MAP_SAVE_PATH);
+        levelFactory.saveMapData(MAP_SAVE_PATH);
     }
 
     /**

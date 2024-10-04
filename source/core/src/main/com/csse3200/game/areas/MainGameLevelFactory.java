@@ -109,7 +109,8 @@ public class MainGameLevelFactory implements LevelFactory {
         String gameSeed = map.mapData.getMapSeed();
         String seedOnly = gameSeed.substring(0, gameSeed.length() - 1);
         config.seed = seedOnly;
-        config.currentLevel = getCurrentLevel(); 
+        config.currentLevel = Integer.parseInt(ServiceLocator.getGameAreaService()
+                .getGameArea().getCurrentLevel().toString());
         config.currentRoom = ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getRoomName();
         for (Room room : rooms.values()) {
             if (room.getIsRoomComplete()){

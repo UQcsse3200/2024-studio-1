@@ -7,6 +7,8 @@ import com.csse3200.game.components.player.PlayerConfigComponent;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
 
+import java.util.stream.Stream;
+
 /**
  * Generates a PlayerCofig object based on current state of player’s entity by
  * extracting combat stats, inventory and equipped weapons. This converts them
@@ -31,7 +33,7 @@ public class PlayerConfigGenerator {
         config.baseAttack = statsComponent.getBaseAttack();
         config.coins = player.getComponent(CoinsComponent.class).getCoins();
         config.speed = player.getComponent(PlayerActions.class).getCurrSpeed();
-
+        config.pets = petsToString(inventoryComponent.getInventory().getPets());
         // store the string representation of items player has collected
         config.items = itemsToString(inventoryComponent.getInventory().getItems());
 
@@ -63,6 +65,14 @@ public class PlayerConfigGenerator {
             allItems[i] = items.get(i).getSpecification();
         }
         return allItems;
+    }
+
+    private String[] petsToString(Array<Entity> pets) {
+        String[] allPets = new String[pets.size];
+        for (int i = 0; i < pets.size; i++) {
+            allPets[i] = pets.get(i).getName();
+        }
+        return allPets;
     }
 }
 

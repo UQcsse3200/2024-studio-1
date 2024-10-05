@@ -37,7 +37,8 @@ public class MainGameLevelFactory implements LevelFactory {
         this.shouldLoad = shouldLoad;
         this.config = config;
         this.rooms = new HashMap<>();
-        this.loadedRooms = new ArrayList<>();
+        if (shouldLoad) loadedRooms = config.roomsCompleted;
+        else loadedRooms = new ArrayList<>();
     }
 
 
@@ -112,15 +113,16 @@ public class MainGameLevelFactory implements LevelFactory {
         config.seed = seedOnly;
         config.currentLevel = level; 
         config.currentRoom = ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getRoomName();
+        config.mapSize = mapSize;
         for (Room room : rooms.values()) {
             if (room.getIsRoomComplete()){
                 if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
                     if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1)
                         compRooms.add(room.getRoomName());
-                }}
-        config.roomsCompleted = compRooms;
+                }
+            }
         }
-        config.mapSize = mapSize;  
+        config.roomsCompleted = compRooms;
         FileLoader.writeClass(config, filePath, FileLoader.Location.EXTERNAL);
     }
 

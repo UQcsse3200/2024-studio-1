@@ -16,6 +16,10 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String name;
   /** Player's base attack by default*/
   public int baseAttack = 10;
+  public int armour = 0;
+  public int buff = 0;
+  public boolean canCrit = false;
+  public double critChance = 0.0;
 
   /** The items player has collected/picked up during the game */
   public String[] items;

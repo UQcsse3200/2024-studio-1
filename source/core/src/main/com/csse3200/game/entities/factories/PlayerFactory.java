@@ -56,7 +56,7 @@ public class PlayerFactory extends LoadedFactory {
         LoadPlayer loader = new LoadPlayer();
         PlayerConfig config = options.get("default");
 
-        return loader.createPlayer(config);
+        return loader.createPlayer(config, false);
     }
 
 
@@ -68,10 +68,8 @@ public class PlayerFactory extends LoadedFactory {
      * @return the player entity.
      */
     public Entity createPlayer(PlayerConfig config, Difficulty difficulty) {
-        LoadPlayer loader = new LoadPlayer();
-        config.adjustForDifficulty(difficulty);
         config.difficulty = difficulty;
-        return loader.createPlayer(config);
+        return createPlayer(config); 
     }
 
     /**
@@ -84,6 +82,7 @@ public class PlayerFactory extends LoadedFactory {
     public Entity createPlayer(String name, Difficulty difficulty) {
         return createPlayer(options.get(name), difficulty);
     }
+
     /**
      * Create a player.
      *
@@ -92,7 +91,19 @@ public class PlayerFactory extends LoadedFactory {
      * @return the player entity.
      */
     public Entity createPlayer(PlayerConfig config) {
-        return createPlayer(config.name, config.difficulty); 
+        return createPlayer(config, false);
+    }
+
+    /**
+     * Create a player.
+     *
+     * @param name       the name of the default character to create.
+     * @param difficulty difficulty chosen by the player, affects player attributes
+     * @return the player entity.
+     */
+    public Entity createPlayer(PlayerConfig config, boolean shouldLoad) {
+        LoadPlayer loader = new LoadPlayer();
+        return loader.createPlayer(config, shouldLoad);
     }
 
     /**

@@ -132,7 +132,7 @@ public class LoadGameScreen extends ScreenAdapter {
         if (config == null) {
             throw new RuntimeException("Tried to load player and failed");
         }
-        Entity player = playerFactory.createPlayer(config);
+        Entity player = playerFactory.createPlayer(config, shouldLoad);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising load game screen entities");

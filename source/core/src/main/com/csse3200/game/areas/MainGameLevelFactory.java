@@ -51,7 +51,6 @@ public class MainGameLevelFactory implements LevelFactory {
         } else {
             // For loaded games, append the level number to the loaded seed
             map = new LevelMap(config.seed + config.currentLevel, config.mapSize);
-            System.out.println("here");
         }
 
         RoomFactory roomFactory = new RoomFactory(

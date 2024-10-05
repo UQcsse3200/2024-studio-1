@@ -34,6 +34,10 @@ public class PlayerConfigGenerator {
         config.coins = player.getComponent(CoinsComponent.class).getCoins();
         config.speed = player.getComponent(PlayerActions.class).getCurrSpeed();
         config.pets = petsToString(inventoryComponent.getInventory().getPets());
+        config.armour = statsComponent.getArmor();
+        config.buff = statsComponent.getDamageBuff();
+        config.canCrit = statsComponent.getCanCrit();
+        config.critChance = statsComponent.getCritChance();
         // store the string representation of items player has collected
         config.items = itemsToString(inventoryComponent.getInventory().getItems());
 

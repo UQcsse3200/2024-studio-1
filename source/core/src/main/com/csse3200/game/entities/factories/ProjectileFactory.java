@@ -149,7 +149,7 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
+                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition, stats.range))
                         .addComponent(new DirectionalNPCComponent(stats.isDirectional))
                         .addComponent(new ProjectileActions())
                         .addComponent(new ProjectileAnimationController())
@@ -186,7 +186,7 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
+                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition, stats.range))
                         .addComponent(new ProjectileActions())
                         .addComponent(animator);
 

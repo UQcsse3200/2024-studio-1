@@ -3,8 +3,12 @@ package com.csse3200.game.components.projectile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.factories.ObstacleFactory;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
+import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.utils.math.Vector2Utils;
 
 /**
  * Handles projectile actions currently including shoot(), and stopShoot().
@@ -18,6 +22,7 @@ public class ProjectileActions extends Component {
     private boolean moving = false;
     private Vector2 speed = new Vector2(3f, 3f);
     private Vector2 parentPosition;
+    private float range;
 
 
 
@@ -29,6 +34,11 @@ public class ProjectileActions extends Component {
     @Override
     public void update() {
         if (moving) {
+            double travel = Math.hypot(parentPosition.x - entity.getPosition().x, parentPosition.y - entity.getPosition().y );
+            if (travel > range) {
+                // just trigger any collision to dispose when the projectile is out of range.
+                ServiceLocator.getEntityService().markEntityForRemoval(entity);
+            }
             updateSpeed();
         } else {
             this.getEntity().setPosition(parentPosition);
@@ -53,10 +63,11 @@ public class ProjectileActions extends Component {
      * @param speed speed to move at.
      *
      */
-    void shoot(Vector2 direction, Vector2 speed, Vector2 parentPosition) {
+    void shoot(Vector2 direction, Vector2 speed, Vector2 parentPosition, float range) {
         this.walkDirection = direction;
         this.speed = speed;
         this.parentPosition = parentPosition;
+        this.range = range;
 
     }
 

@@ -73,7 +73,7 @@ public class PlayerAnimationController extends Component {
     /**
      * Starts the player stationary animation.
      */
-    void stationaryAnimation() {
+    private void stationaryAnimation() {
         if (!death) {
             switch (playerNum) {
                 case Bear -> animationController.startAnimation("idle_bottom");
@@ -85,12 +85,12 @@ public class PlayerAnimationController extends Component {
     /**
      * Starts the player walking left animation.
      */
-    void walkLeft() {
+    private void walkLeft() {
         if (!death) {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-left");
                 case Bear -> animationController.startAnimation("walk_left");
-                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
+                case Player2, Player3, Player4 -> animationController.startAnimation("Walk_left");
             }
         }
     }
@@ -98,12 +98,12 @@ public class PlayerAnimationController extends Component {
     /**
      * Starts the player walking right animation.
      */
-    void walkRight() {
+    private void walkRight() {
         if (!death) {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-right");
                 case Bear -> animationController.startAnimation("walk_right");
-                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
+                case Player2, Player3, Player4 -> animationController.startAnimation("Walk_right");
             }
         }
     }
@@ -111,12 +111,12 @@ public class PlayerAnimationController extends Component {
     /**
      * Starts the player walking down animation.
      */
-    void walkDown() {
+    private void walkDown() {
         if (!death) {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-down");
                 case Bear -> animationController.startAnimation("walk_bottom");
-                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
+                case Player2, Player3, Player4 -> animationController.startAnimation("Walk_right");
             }
         }
     }
@@ -124,11 +124,11 @@ public class PlayerAnimationController extends Component {
     /**
      * Starts the player walking up animation.
      */
-    void walkUp() {
+    private void walkUp() {
         if (!death) {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation("walk-up");
-                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
+                case Player2, Player3, Player4 -> animationController.startAnimation("Walk_left");
                 case Bear -> animationController.startAnimation("walk_bottom");
             }
         }
@@ -140,7 +140,7 @@ public class PlayerAnimationController extends Component {
     void deathAnimation() {
         switch (playerNum) {
             case Player1 -> animationController.startAnimation( "death-down");
-            case Player2, Player3, Player4 -> animationController.startAnimation( "Dead");
+            case Player2, Player3, Player4 -> animationController.startAnimation( "Dead_left");
             case Bear -> animationController.startAnimation("death_left");
         }
         death = true;
@@ -149,7 +149,7 @@ public class PlayerAnimationController extends Component {
     /**
      * Stops the player death animation.
      */
-    boolean stopAnimation() {
+    public boolean stopAnimation() {
         if (animationController.isFinished()) {
             animationController.stopAnimation();
             animationStopped = true;
@@ -160,12 +160,12 @@ public class PlayerAnimationController extends Component {
     /**
      * Starts the player damage animation.
      */
-    void damageAnimation() {
+    private void damageAnimation() {
         if (!death) {
             switch (playerNum) {
                 case Player1 -> animationController.startAnimation( "damage-down");
-                case Player2, Player3, Player4 -> animationController.startAnimation( "Hurt");
-                case Bear -> animationController.startAnimation("atack_right");
+                case Player2, Player3, Player4 -> animationController.startAnimation( "Hurt_right");
+                case Bear -> animationController.startAnimation("attack_right");
             }
         }
     }

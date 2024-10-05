@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -49,6 +50,7 @@ public abstract class GameArea extends LoadedFactory {
      */
     @Override
     public void dispose() {
+        ServiceLocator.getResourceService().getAsset(BACKGROUND_MUSIC, Music.class).stop();
         for (Entity entity : areaEntities) {
             entity.dispose();
         }
@@ -123,8 +125,6 @@ public abstract class GameArea extends LoadedFactory {
         CopyOnWriteArrayList<Entity> newAreaEntities = new CopyOnWriteArrayList<>(areaEntities);
         return newAreaEntities;
     }
-
-    //stuff moved from maingamearea??
 
     /**
      * Plays the background music for the game area.
@@ -206,37 +206,30 @@ public abstract class GameArea extends LoadedFactory {
      */
     @Override
     public String[] getTextureFilepaths() {
-        List<String> filepaths = new ArrayList<>();
-        String[] commonTextures = {
-                "images/box_boy_leaf.png",
-                "images/rounded_door_v.png",
-                "images/rounded_door_h.png",
-                "images/staircase.png",
-                "skins/levels/level1/level1_skin.png",
-                "skins/levels/level2/level2_skin.png",
-                "skins/levels/level3/level3_skin.png",
-                "skins/minimap/minimap.png"
-        };
-        Collections.addAll(filepaths, commonTextures);
-
+        List<String> filepaths = new ArrayList<>(Arrays.asList(
+            "images/box_boy_leaf.png",
+            "images/rounded_door_v.png",
+            "images/rounded_door_h.png",
+            "images/staircase.png",
+            "skins/levels/level1/level1_skin.png",
+            "skins/levels/level2/level2_skin.png",
+            "skins/levels/level3/level3_skin.png",
+            "skins/minimap/minimap.png"
+        ));
+    
+        List<String> tileTypes = Arrays.asList(
+            "tile_1_level", "tile_2_level", "tile_3_level", "tile_4_level",
+            "tile_5_level", "tile_6_level", "tile_7_level", "tile_8_level",
+            "tile_middle_level", "tile_broken1_level", "tile_broken2_level",
+            "tile_broken3_level", "tile_blood_level", "tile_staircase_level"
+        );
+    
         for (int level = 1; level <= 3; level++) {
-            filepaths.add("images/tile_1_level" + level + ".png");
-            filepaths.add("images/tile_2_level" + level + ".png");
-            filepaths.add("images/tile_3_level" + level + ".png");
-            filepaths.add("images/tile_4_level" + level + ".png");
-            filepaths.add("images/tile_5_level" + level + ".png");
-            filepaths.add("images/tile_6_level" + level + ".png");
-            filepaths.add("images/tile_7_level" + level + ".png");
-            filepaths.add("images/tile_8_level" + level + ".png");
-            filepaths.add("images/tile_middle_level" + level + ".png");
-            filepaths.add("images/tile_broken1_level" + level + ".png");
-            filepaths.add("images/tile_broken2_level" + level + ".png");
-            filepaths.add("images/tile_broken3_level" + level + ".png");
-            filepaths.add("images/tile_blood_level" + level + ".png");
-            filepaths.add("images/tile_staircase_level" + level + ".png");
+            for (String tileType : tileTypes) {
+                filepaths.add("images/" + tileType + level + ".png");
+            }
         }
-
-        // Convert the list to an array and return
+    
         return filepaths.toArray(new String[0]);
     }
 

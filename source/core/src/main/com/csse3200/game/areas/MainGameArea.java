@@ -304,13 +304,4 @@ public class MainGameArea extends GameArea {
     public Level getCurrentLevel() {
         return currentLevel;
     }
-
-    /**
-     * Disposes of the game area resources, including stopping the background music.
-     */
-    @Override
-    public void dispose() {
-        ServiceLocator.getResourceService().getAsset(BACKGROUND_MUSIC, Music.class).stop();
-        super.dispose();
-    }
 }

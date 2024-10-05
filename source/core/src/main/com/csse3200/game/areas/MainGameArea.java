@@ -98,7 +98,6 @@ public class MainGameArea extends GameArea {
         load(logger);
         logger.error("loaded all assets");
 
-        displayUI();
         if (shouldLoad) {
             loadMapLocation();
 
@@ -294,35 +293,6 @@ public class MainGameArea extends GameArea {
         Entity minimap = new Entity();
         minimap.addComponent(minimapComponent);
         spawnEntity(minimap);
-    }
-
-    /**
-     * Displays the user interface for the game area.
-     */
-    private void displayUI() {
-        Entity ui = new Entity();
-        ui.addComponent(new GameAreaDisplay("BEAST BREAKOUT FACILITY"));
-        ui.addComponent(new NameComponent("Main Game Area UI"));
-        spawnEntity(ui);
-    }
-
-    /**
-     * Plays the background music for the game area.
-     */
-    private void playMusic() {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        if (!resourceService.containsAsset(BACKGROUND_MUSIC, Music.class)) {
-            logger.error("Music not loaded");
-            return;
-        }
-        Music music = resourceService.getAsset(BACKGROUND_MUSIC, Music.class);
-        music.setLooping(true);
-        if (!UserSettings.get().mute) {
-            music.setVolume(UserSettings.get().musicVolume);
-        } else {
-            music.setVolume(0);
-        }
-        music.play();
     }
 
     /**

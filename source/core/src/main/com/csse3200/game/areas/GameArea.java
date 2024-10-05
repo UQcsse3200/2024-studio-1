@@ -4,6 +4,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
+import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.LoadedFactory;
 import com.csse3200.game.files.UserSettings;
@@ -46,6 +48,16 @@ public abstract class GameArea extends LoadedFactory {
         for (Entity entity : areaEntities) {
             entity.dispose();
         }
+    }
+
+    /**
+     * Displays the user interface for the game area.
+     */
+    protected void displayUI(String areaName) {
+        Entity ui = new Entity();
+        ui.addComponent(new GameAreaDisplay(areaName));
+        ui.addComponent(new NameComponent(areaName + " UI"));
+        spawnEntity(ui);
     }
 
     /**
@@ -108,6 +120,27 @@ public abstract class GameArea extends LoadedFactory {
     }
 
     //stuff moved from maingamearea??
+
+    /**
+     * Plays the background music for the game area.
+     */
+    public void playMusic() {
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        if (!resourceService.containsAsset(BACKGROUND_MUSIC, Music.class)) {
+            log.error("Music not loaded");
+            return;
+        }
+
+        Music music = resourceService.getAsset(BACKGROUND_MUSIC, Music.class);
+        music.setLooping(true);
+        if (!UserSettings.get().mute) {
+            music.setVolume(UserSettings.get().musicVolume);
+        } else {
+            music.setVolume(0);
+        }
+        music.play();
+    }
+
 
     protected void playBackgroundMusic() {
         ResourceService resourceService = ServiceLocator.getResourceService();

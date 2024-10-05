@@ -1,5 +1,3 @@
-
-
 package com.csse3200.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;

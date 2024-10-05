@@ -54,7 +54,7 @@ public class MainMenuDisplay extends UIComponent {
         MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class,
                 MainGameArea.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
         PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class,
-                "configs/player_save.json", FileLoader.Location.EXTERNAL);
+                "saves/player_save.json", FileLoader.Location.EXTERNAL);
 
         logger.info("{}\n{}\n{}", playerConfig, mapLoadConfig);
         return  mapLoadConfig != null && playerConfig != null;

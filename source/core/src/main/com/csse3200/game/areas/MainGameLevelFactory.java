@@ -37,7 +37,8 @@ public class MainGameLevelFactory implements LevelFactory {
         this.shouldLoad = shouldLoad;
         this.config = config;
         this.rooms = new HashMap<>();
-        this.loadedRooms = new ArrayList<>();
+        if (!shouldLoad) this.loadedRooms = new ArrayList<>();
+        else this.loadedRooms = config.roomsCompleted;
     }
 
 
@@ -51,6 +52,7 @@ public class MainGameLevelFactory implements LevelFactory {
         } else {
             // For loaded games, append the level number to the loaded seed
             map = new LevelMap(config.seed + config.currentLevel, config.mapSize);
+            mapSize = config.mapSize;
         }
 
         RoomFactory roomFactory = new RoomFactory(
@@ -115,11 +117,15 @@ public class MainGameLevelFactory implements LevelFactory {
         for (Room room : rooms.values()) {
             if (room.getIsRoomComplete()){
                 if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
-                    if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1)
+                    if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1) {
                         compRooms.add(room.getRoomName());
+                    }
                 }}
-        config.roomsCompleted = compRooms;
         }
+        for (int i = 0; i < compRooms.size(); i++) {
+            System.out.println(compRooms.get(i));
+        }
+        config.roomsCompleted = compRooms;
         config.mapSize = mapSize;  
         FileLoader.writeClass(config, filePath, FileLoader.Location.EXTERNAL);
     }

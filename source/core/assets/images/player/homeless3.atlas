@@ -201,7 +201,7 @@ Idle2_right
 index:9
 bounds:1605,116,37,67
 offsets:48,0,128,128
-Idle_left
+Idle_left-Error
 index:2
 bounds:1143,116,39,66
 offsets:41,0,128,128
@@ -225,7 +225,7 @@ Idle_left
 index:1
 bounds:535,49,34,66
 offsets:47,0,128,128
-Idle_right
+Idle_right-Error
 index:2
 bounds:982,115,39,66
 offsets:48,0,128,128

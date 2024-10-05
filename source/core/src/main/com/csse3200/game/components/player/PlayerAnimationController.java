@@ -94,9 +94,9 @@ public class PlayerAnimationController extends Component {
             } else {
                 animationName = switch (previousDirection) {
                     case down -> (playerNum == PlayerNum.Bear) ? "idle_bottom" : "idle";
-                    case left -> (playerNum == PlayerNum.Bear) ? "idle_left" : "idle";
-                    case right -> (playerNum == PlayerNum.Bear) ? "idle_right" : "idle";
-                    case up -> (playerNum == PlayerNum.Bear) ? "idle_top" : "idle";
+                    case left -> (playerNum == PlayerNum.Bear) ? "idle_left" : "idle-left";
+                    case right -> (playerNum == PlayerNum.Bear) ? "idle_right" : "idle-right";
+                    case up -> (playerNum == PlayerNum.Bear) ? "idle_top" : "idle-up";
                 };
             }
             animationController.startAnimation(animationName);

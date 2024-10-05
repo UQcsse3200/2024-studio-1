@@ -121,11 +121,11 @@ Hurt_right
 index:1
 bounds:1703,183,45,65
 offsets:41,0,128,128
-Idle_left
+Idle_left-Error
 index:2
 bounds:937,114,37,67
 offsets:46,0,128,128
-Idle_right
+Idle_right-Error
 index:2
 bounds:898,114,37,67
 offsets:45,0,128,128

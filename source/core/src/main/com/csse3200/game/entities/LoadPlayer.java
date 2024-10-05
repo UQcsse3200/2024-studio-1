@@ -189,6 +189,9 @@ public class LoadPlayer {
         switch (textureAtlasFilename) {
             case ("images/player/player.atlas"):
                 animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle-left", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle-right", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle-up", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);

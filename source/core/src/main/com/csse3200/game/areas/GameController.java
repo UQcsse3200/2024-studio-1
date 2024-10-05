@@ -1,20 +1,13 @@
 package com.csse3200.game.areas;
-
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
-import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.configs.PlayerLocationConfig;
-import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.files.FileLoader;
-import com.csse3200.game.files.UserSettings;
-import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.components.gamearea.GameAreaDisplay;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +17,9 @@ import java.util.*;
 /**
  * Forest area for the demo game with trees, a player, and some enemies.
  */
-public class MainGameArea extends GameArea {
-    private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
-    private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
+public class GameController {
+    private static final Logger logger = LoggerFactory.getLogger(GameController.class);
+    
     public static final String PLAYER_SAVE_PATH = "saves/PlayerLocationSave.json";
     public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
@@ -60,6 +53,8 @@ public class MainGameArea extends GameArea {
     /** Factory for creating minimaps */
     private MinimapFactory minimapFactory;
 
+    private GameArea gameArea;
+
     /**
      * Initialise this Game Area to use the provided levelFactory.
      *
@@ -67,11 +62,11 @@ public class MainGameArea extends GameArea {
      * @param player the main player entity.
      * @param shouldLoad flag to determine if a saved state should be loaded.
      */
-    public MainGameArea(LevelFactory levelFactory, Entity player, boolean shouldLoad) {
-        super();
+    public GameController(GameArea gameArea, LevelFactory levelFactory, Entity player, boolean shouldLoad) {
         this.player = player;
         this.levelFactory = levelFactory;
         this.shouldLoad = shouldLoad;
+        this.gameArea = gameArea;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getFlaggedRoom("Boss")));
         player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
@@ -86,15 +81,15 @@ public class MainGameArea extends GameArea {
      * @param levelFactory the provided levelFactory.
      * @param player the main player entity.
      */
-    public MainGameArea(LevelFactory levelFactory, Entity player) {
-        this(levelFactory, player, false);
+    public GameController(GameArea gameArea, LevelFactory levelFactory, Entity player) {
+        this(gameArea, levelFactory, player, false);
     }
 
     /**
      * Create the game area, including terrain, static entities (trees), dynamic entities (player)
      */
     public void create() {
-        load(logger);
+        this.gameArea.load(logger);
         logger.error("loaded all assets");
 
         if (shouldLoad) {
@@ -103,7 +98,7 @@ public class MainGameArea extends GameArea {
         } else {
             changeLevel(0);
         }
-        playMusic();
+        this.gameArea.playMusic();
     }
 
     /**
@@ -234,15 +229,15 @@ public class MainGameArea extends GameArea {
         }
 
         logger.info("Spawning new room, {}", ServiceLocator.getEntityService());
-        this.currentRoom.spawn(player, this);
+        this.currentRoom.spawn(player, this.gameArea);
 
         Vector2 nextRoomPos = this.getNewPlayerPosition(player);
         player.setPosition(nextRoomPos.x,nextRoomPos.y);
-        spawnEntity(player);
+        this.gameArea.spawnEntity(player);
 
         if(player.getComponent(InventoryComponent.class).getInventory().petsExist()){
             //do here
-            if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+            if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
                 List<Entity> enemies = room.getEnemies();
                 player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
             }
@@ -274,7 +269,7 @@ public class MainGameArea extends GameArea {
 
         Entity minimap = new Entity();
         minimap.addComponent(minimapComponent);
-        spawnEntity(minimap);
+        this.gameArea.spawnEntity(minimap);
     }
 
     /**
@@ -285,4 +280,15 @@ public class MainGameArea extends GameArea {
     public Level getCurrentLevel() {
         return currentLevel;
     }
+
+     /**
+     * Gets the GameArea.
+     *
+     * @return the current Level object.
+     */
+    public GameArea getGameArea() {
+        return this.gameArea;
+    }
+
+
 }

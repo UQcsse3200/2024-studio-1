@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class BossRoom extends EnemyRoom {
     private NPCFactory npcFactory;
-    private MainGameArea area;
+    private GameArea area;
     private Entity player;
 
     @Override
@@ -57,14 +57,14 @@ public class BossRoom extends EnemyRoom {
     }
 
     @Override
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
         this.area = area;
         this.player = player;
         spawnStairs(player, area);
     }
 
-    private void spawnStairs(Entity player, MainGameArea area) {
+    private void spawnStairs(Entity player, GameArea area) {
         Entity stairs = StairFactory.createStair(player.getId());
         int x = maxGridPoint.x;
         int y = maxGridPoint.y;

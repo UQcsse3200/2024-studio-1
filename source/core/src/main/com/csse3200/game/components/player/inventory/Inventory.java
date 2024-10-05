@@ -194,7 +194,7 @@ public class Inventory {
      */
     public void setPetsAggro(List<Entity> targets) {
         //get the closest enemy to the player make all pets target it  
-        Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer(); 
+        Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer(); 
         Entity closestEnemy = getClosestEnemy(player, targets);
         for(Entity pet:pets){
             setPetTarget(pet, closestEnemy);

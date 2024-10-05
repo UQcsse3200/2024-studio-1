@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
@@ -50,8 +50,8 @@ public class MainMenuDisplay extends UIComponent {
      * @return true if all load files exist, false otherwise.
      */
     private static boolean loadFilesExist() {
-        HashMap playerLocationConfig = FileLoader.readClass(HashMap.class, MainGameArea.PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
-        ArrayList mapLoadConfig = FileLoader.readClass(ArrayList.class, MainGameArea.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        HashMap playerLocationConfig = FileLoader.readClass(HashMap.class, GameController.PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        ArrayList mapLoadConfig = FileLoader.readClass(ArrayList.class, GameController.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
         PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class, "configs/player_save.json", FileLoader.Location.EXTERNAL);
 
         logger.info("{}\n{}\n{}", playerConfig, mapLoadConfig, playerLocationConfig);

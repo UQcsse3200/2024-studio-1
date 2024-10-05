@@ -31,9 +31,10 @@ public class GameArea extends LoadedFactory {
     protected TerrainComponent terrain;
     protected List<Entity> areaEntities;
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
+    
 
 
-    protected GameArea() {
+    public GameArea() {
         super();
         areaEntities = new ArrayList<>();
     }
@@ -94,10 +95,6 @@ public class GameArea extends LoadedFactory {
         spawnEntity(entity);
     }
 
-
-
-
-
     public void disposeEntity(Entity entity) {
         if (areaEntities != null && !areaEntities.isEmpty()) {
             for (int i = 0; i < areaEntities.size(); i++) {
@@ -105,10 +102,7 @@ public class GameArea extends LoadedFactory {
                     ServiceLocator.getEntityService().markEntityForRemoval(entity);
                     areaEntities.remove(i);
                     break;
-                }
-            }
-        }
-    }
+                }}}}
 
     public void setTerrain(TerrainComponent terrain) {
         this.terrain = terrain;

@@ -180,8 +180,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * @return true
      */
     private boolean petTargetSwitch() {
-        Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+        Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
             List<Entity> enemies = room.getEnemies();
             player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
         }

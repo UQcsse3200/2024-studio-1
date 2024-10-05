@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.services.ResourceService;
@@ -23,7 +23,7 @@ public class TargetDummyTest {
     private Entity targetDummy;
     private TargetDummy targetDummyItem;
     private GameAreaService gameAreaService;
-    private MainGameArea mainGameArea;
+    private GameController gameController;
     private EnemyRoom enemyRoom;
     private ResourceService resourceService;
     private AITaskComponent aiTaskComponent;
@@ -34,7 +34,7 @@ public class TargetDummyTest {
         playerEntity = mock(Entity.class);
         targetDummy = mock(Entity.class);
         gameAreaService = mock(GameAreaService.class);
-        mainGameArea = mock(MainGameArea.class);
+        gameController = mock(GameController.class);
         enemyRoom = mock(EnemyRoom.class);
         aiTaskComponent = mock(AITaskComponent.class);
         resourceService = mock(ResourceService.class); // Mock ResourceService
@@ -54,7 +54,7 @@ public class TargetDummyTest {
         when(playerEntity.getPosition()).thenReturn(playerPosition);
 
         // Mock GameAreaService
-        when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
+        when(gameAreaService.getGameController()).thenReturn(gameController);
 
     }
 

@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
+import static com.csse3200.game.areas.GameController.MAP_SAVE_PATH;
 
 /**
  * This is the main game mode.

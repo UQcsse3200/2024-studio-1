@@ -1,6 +1,6 @@
 package com.csse3200.game.entities;
 
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameArea;
 
 /**
  * A room of the main game,
@@ -13,7 +13,7 @@ public interface Room {
      * @param player the player that will play this room.
      * @param mainGameArea the game area to spawn this room into.
      */
-    void spawn(Entity player, MainGameArea mainGameArea);
+    void spawn(Entity player, GameArea mainGameArea);
 
     String getRoomName();
 

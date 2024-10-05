@@ -2,7 +2,7 @@ package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.services.ServiceLocator;
@@ -21,7 +21,7 @@ public class BigRedButtonTest {
     private Entity player;
     private Entity enemy;
     @Mock
-    private MainGameArea mainGameArea;
+    private GameController mainGameArea;
     @Mock
     private GameAreaService gameAreaService;
     @Mock
@@ -34,7 +34,7 @@ public class BigRedButtonTest {
         player = new Entity().addComponent(new CombatStatsComponent(100, 5, true, 0, 0));
         enemy = new Entity().addComponent(new CombatStatsComponent(100, 15));
         gameAreaService = mock(GameAreaService.class);
-        mainGameArea = mock(MainGameArea.class);
+        mainGameArea = mock(GameController.class);
         enemyRoom = mock(EnemyRoom.class);
     }
     @Test

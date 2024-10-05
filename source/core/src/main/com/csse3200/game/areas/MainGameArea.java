@@ -220,23 +220,19 @@ public class MainGameArea extends GameArea {
     /**
      * Generate the corresponding player position to the door they stepped in
      */
-    private Vector2 getNewPlayerPosition(Entity player){
-        Vector2 curPos = player.getPosition();
-        curPos.x = Math.round(curPos.x);
-        curPos.y = Math.round(curPos.y);
-        if(curPos.x == 0.0f && curPos.y == 5.0f){
-            return new Vector2(13,5);
-        }
-        if(curPos.x == 14.0f && curPos.y == 5.0f){
-            return new Vector2(1,5);
-        }
-        if(curPos.x == 7.0f && curPos.y == 0.0f){
-            return new Vector2(7,9);
-        }
-        if(curPos.x == 7.0f && curPos.y == 10.0f){
-            return new Vector2(7,1);
-        }
-        return new Vector2(7,5);
+    private Vector2 getNewPlayerPosition(Entity player) {
+        Map<Vector2, Vector2> doorPositions = new HashMap<>();
+        doorPositions.put(new Vector2(0, 5), new Vector2(13, 5));
+        doorPositions.put(new Vector2(14, 5), new Vector2(1, 5));
+        doorPositions.put(new Vector2(7, 0), new Vector2(7, 9));
+        doorPositions.put(new Vector2(7, 10), new Vector2(7, 1));
+    
+        Vector2 curPos = new Vector2(
+            Math.round(player.getPosition().x),
+            Math.round(player.getPosition().y)
+        );
+        
+        return doorPositions.getOrDefault(curPos, new Vector2(7, 5));
     }
 
     /**

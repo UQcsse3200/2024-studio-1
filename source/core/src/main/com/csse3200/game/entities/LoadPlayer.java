@@ -2,11 +2,8 @@
 
 package com.csse3200.game.entities;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.*;
@@ -14,7 +11,6 @@ import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.ItemFactory;
-import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -24,12 +20,8 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 
-import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
-
-import java.util.Objects;
-
 
 /**
  * Handles the setup of various player components, including animations,
@@ -84,7 +76,7 @@ public class LoadPlayer {
     public  void addAtlas(Entity player, PlayerConfig config) {
         String playerName = config.name;
         switch (playerName) {
-            case ("Bear") -> player.setScale(0.3f, 0.3f);
+            case ("bear") -> player.setScale(1f, 1f);
             case ("default") -> player.setScale(playerScale, playerScale);
             case ("player 3") -> player.setScale(0.4615f, 1.2f);
             default -> player.setScale(0.6f, 1.2f);

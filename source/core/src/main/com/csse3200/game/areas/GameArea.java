@@ -130,6 +130,12 @@ public abstract class GameArea extends LoadedFactory {
     }
 
     // Asset-related methods moved from MainGameArea
+
+    /**
+     * Gets the file paths for all sound effects used in the game area.
+     *
+     * @return An array of String paths for sound effects.
+     */
     @Override
     protected String[] getSoundFilepaths() {
         return new String[]{
@@ -137,6 +143,11 @@ public abstract class GameArea extends LoadedFactory {
         };
     }
 
+    /**
+     * Gets the file paths for all texture atlases used in the game area.
+     *
+     * @return An array of String paths for texture atlases.
+     */
     @Override
     protected String[] getTextureAtlasFilepaths() {
         return new String[]{
@@ -148,6 +159,13 @@ public abstract class GameArea extends LoadedFactory {
         };
     }
 
+    /**
+     * Gets the file paths for all textures used in the game area.
+     *
+     * @return An array of String paths for textures, including:
+     * - Common textures (player, doors, etc.)
+     * - Tile textures for levels 1-3
+     */
     @Override
     protected String[] getTextureFilepaths() {
         List<String> filepaths = new ArrayList<>();
@@ -183,6 +201,12 @@ public abstract class GameArea extends LoadedFactory {
         // Convert the list to an array and return
         return filepaths.toArray(new String[0]);
     }
+
+    /**
+     * Gets the file paths for all music files used in the game area.
+     *
+     * @return An array of String paths for music files.
+     */
     @Override
     protected String[] getMusicFilepaths() {
         return new String[]{BACKGROUND_MUSIC};

@@ -105,9 +105,6 @@ public class LoadPlayer {
      * @param config the configuration object containing player settings.
      */
     public void addComponents(Entity player, PlayerConfig config) {
-        if(config.name.equals("bear")){
-
-        }
         player.addComponent(new NameComponent("Main Player"))
                 .addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
@@ -199,13 +196,6 @@ public class LoadPlayer {
      *
      * @return the created AnimationRenderComponent.
      */
-    /**
-     * Creates an AnimationRenderComponent for handling player animations.
-     *
-     * @param textureAtlasFilename the filename of the texture atlas containing animations.
-     *
-     * @return the created AnimationRenderComponent.
-     */
     private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
@@ -224,16 +214,47 @@ public class LoadPlayer {
                 animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
                 animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
                 break;
-            case ("images/player/homeless1.atlas"), ("images/player/homeless2.atlas"),
-                    ("images/player/homeless3.atlas"):
-                animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
-                animator.addAnimation("Walk", 0.2f, Animation.PlayMode.LOOP);
-                animator.addAnimation("Dead", 0.15f, Animation.PlayMode.NORMAL);
-                animator.addAnimation("Attack_1", 0.35f, Animation.PlayMode.NORMAL);
-                animator.addAnimation("Hurt", 0.35f, Animation.PlayMode.NORMAL);
+            case ("images/player/homeless1.atlas"), ("images/player/homeless3.atlas"):
+                animator.addAnimation("idle", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Idle2_left", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Idle2_right", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Idle_left", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Idle_right", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Walk_left", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Walk_right", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Run_left", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Run_right", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Dead_left", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Dead_right", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack1_left", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack1_right", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack2_left", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack2_right", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Hurt_left", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Hurt_right", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Special_left", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Special_right", 0.35f, Animation.PlayMode.LOOP);
+                break;
+            case ("images/player/homeless2.atlas"):
+                animator.addAnimation("idle", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Walk_left", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Walk_right", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Run_left", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Run_right", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Dead_left", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Dead_right", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack1_left", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack1_right", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack2_left", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Attack2_right", 0.15f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Hurt_left", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Hurt_right", 0.35f, Animation.PlayMode.NORMAL);
+                animator.addAnimation("Idle_left", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Idle_right", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Idle2_left", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Idle2_right", 0.35f, Animation.PlayMode.LOOP);
                 break;
             case ("images/npc/bear/bear.atlas"):
-                System.out.println("Bear Animations Added");
                 animator.addAnimation("idle_left", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("idle_right", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("idle_bottom", 0.1f, Animation.PlayMode.LOOP);

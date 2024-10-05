@@ -6,7 +6,7 @@ import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.GameTime;
@@ -47,7 +47,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      *
      * @param target Entity to jump towards.
      */
-    public JumpTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.JumpTaskConfig config) {
+    public JumpTask(Entity target, TaskConfig.JumpTaskConfig config) {
         this.target = target;
         this.activationMinRange = config.activationMinRange;
         this.activationMaxRange = config.activationMaxRange;

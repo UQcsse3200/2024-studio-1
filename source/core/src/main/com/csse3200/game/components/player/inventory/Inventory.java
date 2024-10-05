@@ -1,16 +1,17 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.utils.Array;
-import com.csse3200.game.entities.Entity;
-import java.util.List;
-import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.npc.NPCConfigComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.ChargeTask;
 import com.csse3200.game.components.tasks.ChaseTask;
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
-import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.entities.configs.TaskConfig;
+import com.csse3200.game.services.ServiceLocator;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -202,7 +203,7 @@ public class Inventory {
     }
     private void setPetTarget(Entity pet, Entity target){
         NPCConfigs.NPCConfig config = pet.getComponent(NPCConfigComponent.class).config;
-        NPCConfigs.NPCConfig.TaskConfig tasks = config.tasks;
+        TaskConfig tasks = config.tasks;
 
         MeleeAttackComponent meleeAttack = pet.getComponent(MeleeAttackComponent.class);
 

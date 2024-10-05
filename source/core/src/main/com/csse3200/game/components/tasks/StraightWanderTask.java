@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
+import com.csse3200.game.entities.configs.TaskConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +24,13 @@ public class StraightWanderTask extends DefaultTask implements PriorityTask {
      */
     public StraightWanderTask(float wanderSpeed) {
         this.wanderSpeed = wanderSpeed;
+    }
+
+    /**
+     * @param config The configuration for the task.
+     */
+    public StraightWanderTask(TaskConfig.StraightWanderTaskConfig config) {
+        this.wanderSpeed = config.wanderSpeed;
     }
 
     @Override

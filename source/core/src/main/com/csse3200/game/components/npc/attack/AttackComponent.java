@@ -4,11 +4,12 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.npc.attack.attackeffects.Effect;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.entities.factories.EffectFactory;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,20 +23,21 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected float timeSinceLastAttack;
     protected CombatStatsComponent combatStats;
     protected List<Effect> effects;
-    protected NPCConfigs.NPCConfig.EffectConfig[] effectConfigs;
+    protected AttackConfig.EffectConfig[] effectConfigs;
     protected int remainingAttacks = -1;
     protected static final Logger logger = LoggerFactory.getLogger(MeleeAttackComponent.class);
 
 
     /**
-     * Makes an attack component
-     * @param target The target entity to attack
-     * @param attackRange The range at which the entity can attack
-     * @param attackRate The rate at which the entity can attack
-     * @param effectConfigs The effects to apply to the target
+     * Makes an attack component 
+     *
+     * @param target        The target entity for the attack.
+     * @param attackRange   The range of the attack.
+     * @param attackRate    The rate of the attack.
+     * @param effectConfigs The effect configurations to apply on the target.
      */
     public AttackComponent(Entity target, float attackRange, float attackRate,
-                                NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
+                           AttackConfig.EffectConfig[] effectConfigs) {
         this.target = target;
         this.attackRange = attackRange;
         this.attackCooldown = 1/attackRate;
@@ -85,10 +87,10 @@ public abstract class AttackComponent extends Component implements AttackBehavio
      * @param effectConfigs Effect configurations
      * @return List of effects
      */
-    private List<Effect> createEffects(NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
+    private List<Effect> createEffects(AttackConfig.EffectConfig[] effectConfigs) {
         List<Effect> effects = new ArrayList<>();
         if (effectConfigs != null) {
-            for (NPCConfigs.NPCConfig.EffectConfig config : effectConfigs) {
+            for (AttackConfig.EffectConfig config : effectConfigs) {
                 logger.info("Creating effect of type {} for entity {}", config.type, entity);
                 effects.add(EffectFactory.createEffect(config, entity));
             }

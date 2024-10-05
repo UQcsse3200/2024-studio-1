@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -28,15 +28,11 @@ public class RangeAttackComponent extends AttackComponent {
      * Makes a ranged attack component
      *
      * @param target the player
-     * @param attackRange the range that animals begin to shoot projectiles
-     * @param attackRate the rate of shooting
-     * @param shootType determine single shot or spread shot
-     8 @param effectConfigs the list of effects that apply on target
+     * @param config the attack configuration
      */
-    public RangeAttackComponent(Entity target, float attackRange, float attackRate, int shootType,
-                                NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
-        super(target, attackRange, attackRate, effectConfigs);
-        if (shootType == 0) {
+    public RangeAttackComponent(Entity target, AttackConfig.RangeAttack config) {
+        super(target, config.range, config.rate, config.effects);
+        if (config.type == 0) {
             type = ShootType.SINGLE;
         }
         else {

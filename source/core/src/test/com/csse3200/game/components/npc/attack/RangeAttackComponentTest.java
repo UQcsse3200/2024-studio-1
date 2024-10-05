@@ -7,7 +7,7 @@ import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsService;
@@ -27,7 +27,8 @@ import org.mockito.Mock;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
 class RangeAttackComponentTest {
@@ -147,7 +148,15 @@ class RangeAttackComponentTest {
     }
 
     private Entity createAttacker(Entity target) {
-        NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
+        // Setup attacker configs
+        AttackConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
+        AttackConfig.RangeAttack rangeAttackConfig = new AttackConfig.RangeAttack();
+        rangeAttackConfig.range = 5f;
+        rangeAttackConfig.rate = 1f;
+        rangeAttackConfig.type = 0;
+        rangeAttackConfig.effects = effectConfigs;
+
+        // Create attacker
         Entity attacker = new Entity()
                 .addComponent(new NameComponent("attacker"))
                 .addComponent(new PhysicsComponent())
@@ -155,7 +164,7 @@ class RangeAttackComponentTest {
                 .addComponent(new ColliderComponent())
                 .addComponent(new CombatStatsComponent(10, 10))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-                .addComponent(new RangeAttackComponent(target, 5f, 1f, 0, effectConfigs));
+                .addComponent(new RangeAttackComponent(target, rangeAttackConfig));
         attacker.create();
         attacker.getComponent(RangeAttackComponent.class).setEnabled(true);
         return attacker;

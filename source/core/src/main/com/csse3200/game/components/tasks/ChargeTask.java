@@ -7,7 +7,7 @@ import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
@@ -49,7 +49,7 @@ public class ChargeTask extends DefaultTask implements PriorityTask {
    * @param target Entity to charge towards.
    * @param config Configuration for the charge task.
    */
-  public ChargeTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.ChargeTaskConfig config) {
+  public ChargeTask(Entity target, TaskConfig.ChargeTaskConfig config) {
     this.target = target;
     this.activationMinRange = config.activationMinRange;
     this.activationMaxRange = config.activationMaxRange;

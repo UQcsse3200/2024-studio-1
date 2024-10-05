@@ -82,24 +82,24 @@ public class PlayerAnimationController extends Component {
     }
 
     /**
-     * Starts the player stationary animation.
+     * Starts the player stationary animation, directionally based.
      */
     private void stationaryAnimation() {
         if (!death) {
-            String animationKey;
+            String animationName;
 
             // Determine the animation name based on previous direction and player
             if (playerNum != PlayerNum.Player1 && playerNum != PlayerNum.Bear) {
-                animationKey = (previousDirectionHorizontal == Direction.right) ? "Idle_right" : "Idle_left";
+                animationName = (previousDirectionHorizontal == Direction.right) ? "Idle_right" : "Idle_left";
             } else {
-                animationKey = switch (previousDirection) {
+                animationName = switch (previousDirection) {
                     case down -> (playerNum == PlayerNum.Bear) ? "idle_bottom" : "idle";
                     case left -> (playerNum == PlayerNum.Bear) ? "idle_left" : "idle";
                     case right -> (playerNum == PlayerNum.Bear) ? "idle_right" : "idle";
                     case up -> (playerNum == PlayerNum.Bear) ? "idle_top" : "idle";
                 };
             }
-            animationController.startAnimation(animationKey);
+            animationController.startAnimation(animationName);
         }
     }
 
@@ -134,7 +134,8 @@ public class PlayerAnimationController extends Component {
     }
 
     /**
-     * Starts the player walking down animation.
+     * Starts the player walking down animation, or the left/right walking animations
+     *      * for players without the vertical animations.
      */
     private void walkDown() {
         if (!death) {
@@ -154,7 +155,8 @@ public class PlayerAnimationController extends Component {
     }
 
     /**
-     * Starts the player walking up animation.
+     * Starts the player walking up animation, or the left/right walking animations
+     * for players without the vertical animations.
      */
     private void walkUp() {
         if (!death) {
@@ -177,29 +179,26 @@ public class PlayerAnimationController extends Component {
      * Starts the player death animation.
      */
     void deathAnimation() {
-        String animationKey;
+        String animationName;
 
         // Determine the animation name based on previous direction and player
         if (playerNum != PlayerNum.Player1 && playerNum != PlayerNum.Bear) {
-            animationKey = switch (previousDirectionHorizontal) {
-                case left -> "Dead_left";
-                case right -> "Dead_right";
-                default -> "Dead_left"; // Keep the original animation key if neither condition is met
-            };
+            animationName =
+                    (previousDirectionHorizontal == Direction.right) ? "Dead_right" : "Dead_left";
         } else {
             switch (previousDirection) {
-                case down -> animationKey =
+                case down -> animationName =
                         (playerNum == PlayerNum.Player1) ? "death-down" : "death-left";
-                case left -> animationKey =
+                case left -> animationName =
                         (playerNum == PlayerNum.Player1) ? "death-left" : "death_left";
-                case right -> animationKey =
+                case right -> animationName =
                         (playerNum == PlayerNum.Player1) ? "death-right" : "death_left";
-                default -> animationKey =
+                default -> animationName =
                         (playerNum == PlayerNum.Player1) ? "death-up" : "death-down";
             }
         }
 
-        animationController.startAnimation(animationKey);
+        animationController.startAnimation(animationName);
         death = true;
     }
 
@@ -222,7 +221,7 @@ public class PlayerAnimationController extends Component {
         if (!death) {
             String animationName;
 
-            // Adjust the animation based on direction
+            // Determine the animation name based on previous direction and player
             switch (playerNum) {
                 case Player1 -> animationName = "damage-down" ;
                 case Player2, Player3, Player4 -> animationName =

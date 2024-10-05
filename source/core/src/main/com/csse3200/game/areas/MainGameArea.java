@@ -105,6 +105,7 @@ public class MainGameArea extends GameArea {
             changeLevel(0);
         }
         playMusic();
+
     }
 
     /**

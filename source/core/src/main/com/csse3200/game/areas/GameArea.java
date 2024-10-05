@@ -31,6 +31,7 @@ public abstract class GameArea extends LoadedFactory {
     protected List<Entity> areaEntities;
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
 
+
     protected GameArea() {
         super();
         areaEntities = new ArrayList<>();
@@ -39,15 +40,19 @@ public abstract class GameArea extends LoadedFactory {
     /**
      * Create the game area in the world.
      */
+
     public abstract void create();
+
 
     /**
      * Dispose of all internal entities in the area
      */
+    @Override
     public void dispose() {
         for (Entity entity : areaEntities) {
             entity.dispose();
         }
+        super.dispose();
     }
 
     /**
@@ -170,7 +175,7 @@ public abstract class GameArea extends LoadedFactory {
      * @return An array of String paths for sound effects.
      */
     @Override
-    protected String[] getSoundFilepaths() {
+    public String[] getSoundFilepaths() {
         return new String[]{
                 "sounds/Impact4.ogg"
         };
@@ -182,7 +187,7 @@ public abstract class GameArea extends LoadedFactory {
      * @return An array of String paths for texture atlases.
      */
     @Override
-    protected String[] getTextureAtlasFilepaths() {
+    public String[] getTextureAtlasFilepaths() {
         return new String[]{
                 "images/terrain_iso_grass.atlas",
                 "skins/levels/level1/level1_skin.atlas",
@@ -200,7 +205,7 @@ public abstract class GameArea extends LoadedFactory {
      * - Tile textures for levels 1-3
      */
     @Override
-    protected String[] getTextureFilepaths() {
+    public String[] getTextureFilepaths() {
         List<String> filepaths = new ArrayList<>();
         String[] commonTextures = {
                 "images/box_boy_leaf.png",
@@ -241,7 +246,7 @@ public abstract class GameArea extends LoadedFactory {
      * @return An array of String paths for music files.
      */
     @Override
-    protected String[] getMusicFilepaths() {
+    public String[] getMusicFilepaths() {
         return new String[]{BACKGROUND_MUSIC};
     }
 

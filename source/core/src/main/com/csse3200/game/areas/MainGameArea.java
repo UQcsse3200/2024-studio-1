@@ -339,28 +339,14 @@ public class MainGameArea extends GameArea {
      *
      * @return An array of String paths for sound effects.
      */
-    @Override
-    protected String[] getSoundFilepaths() {
-        return new String[]{
-                "sounds/Impact4.ogg"
-        };
-    }
+
 
     /**
      * Gets the file paths for all texture atlases used in the game area.
      *
      * @return An array of String paths for texture atlases.
      */
-    @Override
-    protected String[] getTextureAtlasFilepaths() {
-        return new String[]{
-                "images/terrain_iso_grass.atlas",
-                "skins/levels/level1/level1_skin.atlas",
-                "skins/levels/level2/level2_skin.atlas",
-                "skins/levels/level3/level3_skin.atlas",
-                "skins/minimap/minimap.atlas"
-        };
-    }
+
 
     /**
      * Gets the file paths for all textures used in the game area.
@@ -369,51 +355,15 @@ public class MainGameArea extends GameArea {
      * - Common textures (player, doors, etc.)
      * - Tile textures for levels 1-3
      */
-    @Override
-    protected String[] getTextureFilepaths() {
-        List<String> filepaths = new ArrayList<>();
-        String[] commonTextures = {
-                "images/box_boy_leaf.png",
-                "images/rounded_door_v.png",
-                "images/rounded_door_h.png",
-                "images/staircase.png",
-                "skins/levels/level1/level1_skin.png",
-                "skins/levels/level2/level2_skin.png",
-                "skins/levels/level3/level3_skin.png",
-                "skins/minimap/minimap.png"
-        };
-        Collections.addAll(filepaths, commonTextures);
 
-        for (int level = 1; level <= 3; level++) {
-            filepaths.add("images/tile_1_level" + level + ".png");
-            filepaths.add("images/tile_2_level" + level + ".png");
-            filepaths.add("images/tile_3_level" + level + ".png");
-            filepaths.add("images/tile_4_level" + level + ".png");
-            filepaths.add("images/tile_5_level" + level + ".png");
-            filepaths.add("images/tile_6_level" + level + ".png");
-            filepaths.add("images/tile_7_level" + level + ".png");
-            filepaths.add("images/tile_8_level" + level + ".png");
-            filepaths.add("images/tile_middle_level" + level + ".png");
-            filepaths.add("images/tile_broken1_level" + level + ".png");
-            filepaths.add("images/tile_broken2_level" + level + ".png");
-            filepaths.add("images/tile_broken3_level" + level + ".png");
-            filepaths.add("images/tile_blood_level" + level + ".png");
-            filepaths.add("images/tile_staircase_level" + level + ".png");
-        }
 
-        // Convert the list to an array and return
-        return filepaths.toArray(new String[0]);
-    }
 
     /**
      * Gets the file paths for all music files used in the game area.
      *
      * @return An array of String paths for music files.
      */
-    @Override
-    protected String[] getMusicFilepaths() {
-        return new String[]{BACKGROUND_MUSIC};
-    }
+
 
     /**
      * Disposes of the game area resources, including stopping the background music.

@@ -26,7 +26,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * <p>Support for enabling/disabling game areas could be added by making this a Component instead.
  */
-public abstract class GameArea extends LoadedFactory {
+public class GameArea extends LoadedFactory {
     private static final Logger log = LoggerFactory.getLogger(GameArea.class);
     protected TerrainComponent terrain;
     protected List<Entity> areaEntities;
@@ -37,13 +37,6 @@ public abstract class GameArea extends LoadedFactory {
         super();
         areaEntities = new ArrayList<>();
     }
-
-    /**
-     * Create the game area in the world.
-     */
-
-    public abstract void create();
-
 
     /**
      * Dispose of all internal entities in the area
@@ -100,6 +93,10 @@ public abstract class GameArea extends LoadedFactory {
         entity.setPosition(worldPos);
         spawnEntity(entity);
     }
+
+
+
+
 
     public void disposeEntity(Entity entity) {
         if (areaEntities != null && !areaEntities.isEmpty()) {

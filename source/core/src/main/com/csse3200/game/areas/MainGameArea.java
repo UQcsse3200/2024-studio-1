@@ -72,7 +72,7 @@ public class MainGameArea extends GameArea {
         this.player = player;
         this.levelFactory = levelFactory;
         this.shouldLoad = shouldLoad;
-        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getBossRoom()));
+        player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getFlaggedRoom("Boss")));
         player.getEvents().addListener("saveMapLocation", this::saveMapLocation);
         player.getEvents().addListener("saveMapData", this::saveMapData);
         player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkIfRoomComplete());
@@ -93,7 +93,6 @@ public class MainGameArea extends GameArea {
     /**
      * Create the game area, including terrain, static entities (trees), dynamic entities (player)
      */
-    @Override
     public void create() {
         load(logger);
         logger.error("loaded all assets");
@@ -105,34 +104,20 @@ public class MainGameArea extends GameArea {
             changeLevel(0);
         }
         playMusic();
-
     }
 
     /**
-     * Get the room key for the boss room.
-     *
-     * @return the room key for the boss room.
-     */
-    public String getBossRoom() {
-        return currentLevel.getMap().mapData.RoomKeys.get("Boss");
-    }
-
-    /**
-     * Get the room key for the NPC room.
-     *
-     * @return the room key for the NPC room.
-     */
-    public String getNpcRoom() {
-        return currentLevel.getMap().mapData.RoomKeys.get("NPC");
-    }
-
-    /**
-     * Get the room key for the game room.
-     *
-     * @return the room key for the game room.
-     */
-    public String getGameRoom() {
-        return currentLevel.getMap().mapData.RoomKeys.get("GameRoom");
+    * Get the room key for a specified flagged room type.
+    *
+    * @param roomType The type of room to get the key for. Valid values are "Boss", "NPC", and "GameRoom".
+    * @return The room key for the specified room type, or null if the room type is invalid.
+    * @throws IllegalArgumentException if an invalid room type is provided.
+    */
+    public String getFlaggedRoom(String roomType) {
+        if (!List.of("Boss", "NPC", "GameRoom").contains(roomType)) {
+            throw new IllegalArgumentException("Invalid room type: " + roomType);
+        }
+        return currentLevel.getMap().mapData.RoomKeys.get(roomType);
     }
 
     /**

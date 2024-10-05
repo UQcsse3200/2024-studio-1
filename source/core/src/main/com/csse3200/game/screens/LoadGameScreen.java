@@ -14,7 +14,6 @@ import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.PlayerFactory;
@@ -38,7 +37,6 @@ import java.util.Arrays;
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
 import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
 import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
-import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
 /**
  * The game screen loading the game  
@@ -119,6 +117,7 @@ public class LoadGameScreen extends ScreenAdapter {
                 ServiceLocator.getResourceService().getAsset("skins/rainbow/skin/rainbow-ui.atlas", TextureAtlas.class));
         Stage stage = ServiceLocator.getRenderService().getStage();
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
+
         /*
          * based on the characters selected, changed the link
          * If Player choose Load, then create
@@ -230,7 +229,7 @@ public class LoadGameScreen extends ScreenAdapter {
                 ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
         ui = new Entity();
-        ui.addComponent(new NameComponent("Main Game Screen UI"))
+        ui.addComponent(new NameComponent("Load Game Screen UI"))
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new PerformanceDisplay())
                 .addComponent(new MainGameActions(this.game))

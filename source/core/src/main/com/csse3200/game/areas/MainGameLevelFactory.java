@@ -8,46 +8,50 @@ import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
 import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.csse3200.game.areas.GameController.MAP_SAVE_PATH;
 
 /**
  * This is the main game mode.
  */
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
+    private int mapSize;
     private static final Logger log = LoggerFactory.getLogger(MainGameLevelFactory.class);
     private int levelNum;
     private final Map<String, Room> rooms;
-    private final List<String> completedRooms;
+    private final Map<String, String> mapSaveData = new HashMap<>();
     private LevelMap map;
     private boolean shouldLoad;
     private String loadedSeed = "";
     private List<String> loadedRooms;
+    private MapLoadConfig config;
 
 
-    public MainGameLevelFactory(boolean shouldLoad) {
+    public MainGameLevelFactory(boolean shouldLoad, MapLoadConfig config) {
         this.shouldLoad = shouldLoad;
-        rooms = new HashMap<>();
-        loadedRooms = new ArrayList<>();
-        completedRooms = new ArrayList<>();
+        this.config = config;
+        this.rooms = new HashMap<>();
+        if (!shouldLoad) this.loadedRooms = new ArrayList<>();
+        else this.loadedRooms = config.roomsCompleted;
     }
+
 
     @Override
     public Level create(int levelNumber) {
-        String seed;
+        String seed = "seed";
         // default seed for junit tests
         if (!shouldLoad) {
-            seed = "seed";
             map = new LevelMap(seed + levelNumber, DEFAULT_MAP_SIZE);
+            mapSize = DEFAULT_MAP_SIZE;
         } else {
             // For loaded games, append the level number to the loaded seed
-            loadFromJson(MAP_SAVE_PATH);
-            map = new LevelMap(loadedSeed, DEFAULT_MAP_SIZE);
+            map = new LevelMap(config.seed + config.currentLevel, config.mapSize);
+            mapSize = config.mapSize;
         }
 
         RoomFactory roomFactory = new RoomFactory(
@@ -89,7 +93,6 @@ public class MainGameLevelFactory implements LevelFactory {
             setRoomsComplete(loadedRooms);
             shouldLoad = false;
         }
-
         // Store the current level number
         this.levelNum = levelNumber;
 
@@ -102,29 +105,28 @@ public class MainGameLevelFactory implements LevelFactory {
      *
      * @param filePath The path of the file to write the JSON data to.
      */
-    public void exportToJson(String filePath) {
-        completedRooms.add(map.mapData.getMapSeed());
+    public void saveMapData(String filePath, String level) {
+        List<String> compRooms = new ArrayList<String>();
+        MapLoadConfig config = new MapLoadConfig();
+        String gameSeed = map.mapData.getMapSeed();
+        String seedOnly = gameSeed.substring(0, gameSeed.length() - 1);
+        config.seed = seedOnly;
+        config.currentLevel = level; 
+        config.currentRoom = ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().getRoomName();
+        config.mapSize = mapSize;
         for (Room room : rooms.values()) {
-            if (room.getIsRoomComplete()) {
-                completedRooms.add(room.getRoomName());
+            if (room.getIsRoomComplete()){
+                if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
+                    if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1)
+                        compRooms.add(room.getRoomName());
+                }
             }
         }
-        FileLoader.writeClass(completedRooms, filePath, FileLoader.Location.EXTERNAL);
+        config.roomsCompleted = compRooms;
+        config.mapSize = mapSize;
+        FileLoader.writeClass(config, filePath, FileLoader.Location.EXTERNAL);
     }
 
-
-    /**
-     * Loads map data from the save file and extracts the completed rooms into a list which
-     * is later set to completed in the create method above
-     * @param filePath: Path for the save file
-     */
-    public void loadFromJson(String filePath) {
-        MapLoadConfig mapLoadConfig = new MapLoadConfig();
-        mapLoadConfig.savedMap = FileLoader.readClass(ArrayList.class, filePath, FileLoader.Location.EXTERNAL);
-        loadedSeed = mapLoadConfig.savedMap.getFirst();
-        mapLoadConfig.savedMap.remove(0);
-        loadedRooms.addAll(mapLoadConfig.savedMap);
-    }
     /**
      * Sets the rooms that have been completed in the saved game as completed in the loaded
      * game.

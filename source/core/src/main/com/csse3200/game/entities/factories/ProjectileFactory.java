@@ -210,14 +210,19 @@ public class ProjectileFactory extends LoadedFactory {
      public List<Entity> createShotGunProjectile (ProjectileConfig stats, Vector2 direction,
                                        Vector2 parentPosition) {
         Double polarAngle = atan(direction.y / direction.x);
-        float followSpeed = 0.9F;
         float scale = 1;
         if (direction.x < 0) {
              scale = -1;
         }
-        Double plusMinus = 0.07;
-        Vector2 rectCordMore = new Vector2(scale * (float) (cos(polarAngle + plusMinus)), (float) ( sin(polarAngle + plusMinus)));
-        Vector2 rectCordLess = new Vector2(scale * (float)  (cos(polarAngle - plusMinus)), (float) ( sin(polarAngle - plusMinus)));
+
+        // edit to adjust the shots spread
+        Double spread = 0.12;
+
+        // two projectiles fire straight - this is the % speed of the follower
+         float followSpeed = 0.9F;
+
+        Vector2 rectCordMore = new Vector2(scale * (float) (cos(polarAngle + spread)), (float) ( sin(polarAngle + spread)));
+        Vector2 rectCordLess = new Vector2(scale * (float)  (cos(polarAngle - spread)), (float) ( sin(polarAngle - spread)));
         Vector2 follower = new Vector2(followSpeed * direction.x, followSpeed * direction.y);
         List<Vector2> directions = Arrays.asList(rectCordMore, direction, rectCordLess, follower);
         List<Entity> projectiles = new ArrayList<>();

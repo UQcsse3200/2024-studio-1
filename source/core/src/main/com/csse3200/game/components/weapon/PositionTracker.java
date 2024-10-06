@@ -47,6 +47,10 @@ public class PositionTracker extends Component {
      */
     public void connectPlayer(Entity player) {
         setPlayer(player);
+        if (player == null || player.getComponent(NameComponent.class) == null) {
+            offset = new Vector2(0, 0);
+            return;
+        }
         switch (player.getComponent(NameComponent.class).getName()) {
             case "Player":
                 offset = new Vector2(1, 1);

@@ -192,15 +192,6 @@ public class LoadPlayer {
                 inventoryComponent.getInventory().addItem(item);
             }
         }
-
-        if (config.pets != null) {
-            for (String petName : config.pets) {
-                Entity pet = petFactory.create(petName);
-                player.getComponent(InventoryComponent.class).getInventory().addPet(pet);
-                ServiceLocator.getEntityService().register(pet);
-                pet.setPosition(5,7);
-            }
-        }
     }
 
     /**

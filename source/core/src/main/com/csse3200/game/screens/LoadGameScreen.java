@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
@@ -17,6 +18,7 @@ import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.PlayerFactory;
+import com.csse3200.game.entities.factories.PetFactory;
 import com.csse3200.game.entities.factories.RenderFactory;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.input.InputComponent;
@@ -138,8 +140,21 @@ public class LoadGameScreen extends ScreenAdapter {
         MapLoadConfig mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
         LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad, mapLoadConfig);
         new MainGameArea(levelFactory, player, shouldLoad, mapLoadConfig);
+        spawnPets(player, config);
     }
 
+    private void spawnPets(Entity player, PlayerConfig config){
+      if (config.pets != null) {
+            PetFactory petFactory = new PetFactory();
+            for (String petName : config.pets) {
+                Entity pet = petFactory.create(petName);
+                player.getComponent(InventoryComponent.class).getInventory().addPet(pet);
+                ServiceLocator.getEntityService().register(pet);
+                pet.setPosition(5,7);
+            }
+        }
+
+    }
 
     @Override
     public void render(float delta) {

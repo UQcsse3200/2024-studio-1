@@ -23,6 +23,7 @@ public class ProjectileActions extends Component {
     private Vector2 speed = new Vector2(3f, 3f);
     private Vector2 parentPosition;
     private float range;
+    private double initSpeed = 3;
 
 
 
@@ -35,10 +36,18 @@ public class ProjectileActions extends Component {
     public void update() {
         if (moving) {
             double travel = Math.hypot(parentPosition.x - entity.getPosition().x, parentPosition.y - entity.getPosition().y );
-            if (travel > range) {
+
+            // juicy effect projectiles slow in last 10% of range.
+            if((travel + range / 10) > range) {
+                speed.setLength((float) (initSpeed * 0.5));
+            }
+
+
+            if (travel >= range) {
                 // just trigger any collision to dispose when the projectile is out of range.
                 ServiceLocator.getEntityService().markEntityForRemoval(entity);
             }
+
             updateSpeed();
         } else {
             this.getEntity().setPosition(parentPosition);
@@ -64,10 +73,11 @@ public class ProjectileActions extends Component {
      *
      */
     void shoot(Vector2 direction, Vector2 speed, Vector2 parentPosition, float range) {
-        this.walkDirection = direction;
-        this.speed = speed;
-        this.parentPosition = parentPosition;
+        this.walkDirection = direction.cpy();
+        this.speed = speed.cpy();
+        this.parentPosition = parentPosition.cpy();
         this.range = range;
+        this.initSpeed = Math.hypot(speed.x, speed.y);
 
     }
 

@@ -1,6 +1,7 @@
 package com.csse3200.game.components.effects;
 
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.components.player.PlayerActions;
 
 /**
  * Stun effect that can be applied to an entity.
@@ -17,6 +18,7 @@ public class StunEffect implements Effect {
     @Override
     public void apply(Entity target) {
         target.getEvents().trigger("stunned");
+        target.getComponent(PlayerActions.class).setEnabled(false);
     }
 
     @Override
@@ -38,6 +40,7 @@ public class StunEffect implements Effect {
     @Override
     public void remove(Entity target) {
         target.getEvents().trigger("stunExpired");
+        target.getComponent(PlayerActions.class).setEnabled(true);
     }
 
     @Override

@@ -38,6 +38,25 @@ public class CombatStatsComponent extends Component {
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
 
+    private String lastAttackName;
+    private String filePath = "configs/LastAttack.json";
+
+    public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance) {
+        this.canBeInvincible = canBeInvincible;
+        this.maxHealth = health;
+        this.health = health;
+        this.baseAttack = baseAttack;
+        this.armor = armor;
+        this.buff = buff;
+        this.critAbility = canCrit;
+        this.critChance = critChance;
+        setHealth(health);
+        setBaseAttack(baseAttack);
+        setInvincible(false);
+        this.timerIFrames = new Timer();
+        this.timerFlashSprite = new Timer();
+    }
+
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;

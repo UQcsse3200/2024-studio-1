@@ -1,7 +1,5 @@
 package com.csse3200.game.entities.configs;
 
-import com.csse3200.game.components.effects.EffectType;
-
 /**
  * Defines the configuration for NPC attacks.
  */
@@ -36,24 +34,5 @@ public class AttackConfig {
         public float range;
         public float rate;
         public EffectConfig[] effects = new EffectConfig[0];
-    }
-
-    /**
-     * Configuration for an attack's effect.
-     */
-    public static class EffectConfig {
-        public String type;
-        public float force; // For knockback
-        public float duration; // For stun or poison
-        public int damagePerSecond; // For poison
-
-        public EffectType getEffectType() {
-            return switch (type.toLowerCase()) {
-                case "knockback" -> EffectType.KNOCKBACK;
-                case "poison" -> EffectType.POISON;
-                case "stun" -> EffectType.STUN;
-                default -> throw new IllegalArgumentException("Unknown effect type: " + type);
-            };
-        }
     }
 }

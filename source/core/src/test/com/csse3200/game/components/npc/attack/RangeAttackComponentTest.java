@@ -8,6 +8,7 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.AttackConfig;
+import com.csse3200.game.entities.configs.EffectConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsService;
@@ -149,7 +150,7 @@ class RangeAttackComponentTest {
 
     private Entity createAttacker(Entity target) {
         // Setup attacker configs
-        AttackConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
+        EffectConfig[] effectConfigs = {}; // No effects for simplicity
         AttackConfig.RangeAttack rangeAttackConfig = new AttackConfig.RangeAttack();
         rangeAttackConfig.range = 5f;
         rangeAttackConfig.rate = 1f;

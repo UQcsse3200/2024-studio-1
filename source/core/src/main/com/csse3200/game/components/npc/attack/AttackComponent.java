@@ -5,7 +5,7 @@ import com.csse3200.game.components.Component;
 import com.csse3200.game.components.effects.Effect;
 import com.csse3200.game.components.effects.EffectComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.AttackConfig;
+import com.csse3200.game.entities.configs.EffectConfig;
 import com.csse3200.game.entities.factories.EffectFactory;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected float attackCooldown;
     protected float timeSinceLastAttack;
     protected CombatStatsComponent combatStats;
-    protected AttackConfig.EffectConfig[] effectConfigs;
+    protected EffectConfig[] effectConfigs;
     protected int remainingAttacks = -1;
     protected static final Logger logger = LoggerFactory.getLogger(MeleeAttackComponent.class);
 
@@ -34,7 +34,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
      * @param effectConfigs The effect configurations to apply on the target.
      */
     public AttackComponent(Entity target, float attackRange, float attackRate,
-                           AttackConfig.EffectConfig[] effectConfigs) {
+                           EffectConfig[] effectConfigs) {
         this.target = target;
         this.attackRange = attackRange;
         this.attackCooldown = 1/attackRate;
@@ -82,7 +82,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
             return;
         }
         if (effectConfigs != null) {
-            for (AttackConfig.EffectConfig config : effectConfigs) {
+            for (EffectConfig config : effectConfigs) {
                 try {
                     Effect effect = EffectFactory.createEffect(config, entity);
                     effectComponent.addEffect(effect);

@@ -63,7 +63,7 @@
         "rate": 0.5,
         "effects": [
           {
-            "type": "knockback",
+            "type": "KNOCKBACK",
             "force": 3
           }
         ]
@@ -142,8 +142,8 @@
         "rate": 1,
         "effects": [
           {
-            "type": "knockback",
-            "force": 3
+            "type": "KNOCKBACK",
+            "force": 1
           }
         ]
       }
@@ -191,7 +191,7 @@
         "rate": 2,
         "effects": [
           {
-            "type": "poison",
+            "type": "POISON",
             "duration": 5,
             "damagePerSecond": 5
           }
@@ -270,7 +270,7 @@
         "rate": 0.5,
         "effects": [
           {
-            "type": "knockback",
+            "type": "KNOCKBACK",
             "force": 1
           }
         ]
@@ -393,7 +393,7 @@
         "rate": 0.8,
         "effects": [
           {
-            "type": "knockback",
+            "type": "KNOCKBACK",
             "force": 3
           }
         ]
@@ -403,7 +403,7 @@
         "range": 3,
         "effects": [
           {
-            "type": "knockback",
+            "type": "KNOCKBACK",
             "force": 5
           }
         ]
@@ -480,7 +480,7 @@
         "rate": 0.8,
         "effects": [
             {
-            "type": "knockback",
+            "type": "KNOCKBACK",
             "force": 2
             }
           ]
@@ -557,7 +557,7 @@
         "rate": 0.5,
         "effects": [
             {
-              "type": "knockback",
+              "type": "KNOCKBACK",
               "force": 2
             }
           ]
@@ -567,7 +567,7 @@
         "range": 2,
         "effects": [
           {
-            "type": "knockback",
+            "type": "KNOCKBACK",
             "force": 2
           }
         ]

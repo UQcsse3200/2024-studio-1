@@ -98,7 +98,7 @@ public class MainMenuDisplay extends UIComponent {
                     public void changed(ChangeEvent event, Actor actor) {
                         logger.debug("{} difficulty button clicked", difficulty.toString());
                         entity.getEvents().trigger(
-                                "player_select", difficulty, canLoad);
+                                "player_select", difficulty);
                     }
                 }
         ));

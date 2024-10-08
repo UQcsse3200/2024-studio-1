@@ -90,6 +90,11 @@ public interface Collectible {
             return NONE;
         }
 
+        /**
+         * Get the class that this type represents
+         *
+         * @return the java.lang.Class
+         */
         public Class<? extends Collectible> getType() {
             return type;
         }

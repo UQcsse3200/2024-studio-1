@@ -64,13 +64,13 @@ public class PlayerSelectDisplay extends UIComponent {
         float percentWidth = PROPORTION / PLAYERS.length;
         Value valueWidth = Value.percentWidth(percentWidth, rootTable);
         rootTable.defaults()
-                .pad(ROOT_PADDING).fill().uniformX()
+                .pad(ROOT_PADDING).fill()
                 .width(valueWidth);
 
         Map<String, PlayerConfig> configs =
                 PlayerSelection.getPlayerConfigs(Arrays.stream(PlayerSelection.PLAYERS).toList());
 
-        rootTable.row().height(valueWidth);
+        rootTable.row().height(valueWidth); // make each image cell square
         configs.forEach((filename, config) -> {
             String textureAtlasFilename = config.textureAtlasFilename;
 
@@ -88,8 +88,8 @@ public class PlayerSelectDisplay extends UIComponent {
         rootTable.row();
         configs.forEach((filename, config) -> {
             Table statTable = new Table();
-            statTable.defaults().pad(STAT_TABLE_PADDING);
-            statTable.columnDefaults(1).growX();
+            statTable.defaults().pad(STAT_TABLE_PADDING).fill();
+            statTable.columnDefaults(1).expandX(); // stat
             addStat(statTable, "HLTH", config.health, PlayerConfig.MAX_HEALTH);
             addStat(statTable, "SPD", config.speed.len(), PlayerConfig.MAX_SPEED.len());
             rootTable.add(statTable);

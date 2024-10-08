@@ -1,7 +1,6 @@
 package com.csse3200.game.components.npc.attack;
 
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.Component;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 
@@ -19,20 +18,15 @@ public class MeleeAttackComponent extends AttackComponent {
 
     @Override
     public void performAttack() {
-        if(target != null){
-            Component combatComponent = target.getComponent(CombatStatsComponent.class);
-            if(combatComponent != null){
-                // Apply damage to the target
-                target.getComponent(CombatStatsComponent.class).hit(combatStats);
-                logger.info("{} attacks {} for {} damage", entity, target, combatStats.getBaseAttack());
+        logger.info("{} attacks {} for {} damage", entity, target, combatStats.getBaseAttack());
+        // Apply damage to the target
+        target.getComponent(CombatStatsComponent.class).hit(combatStats);
 
-                // Trigger attack animation
-                entity.getEvents().trigger("attack");
+        // Trigger attack animation
+        entity.getEvents().trigger("attack");
 
-                // Attack effects
-                applyEffects(target);
-            }
-        }
+        // Attack effects
+        applyEffects(target);
     }
 
     /**

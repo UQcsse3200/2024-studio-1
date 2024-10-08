@@ -2,7 +2,6 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -68,8 +67,7 @@ public class DoorFactory {
             if (fixture2.getUserData() instanceof Entity entity2 &&
                     entity2.getId() == playerId) {
                 log.info("this is the room {}", room);
-                EnemyRoom enemyRoom = (EnemyRoom)ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom();
-                if (enemyRoom.isAllAnimalDead()) {
+                if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getIsRoomComplete()) {
                     ServiceLocator.getGameAreaService().getGameArea().changeRooms(room);
                 }
             }

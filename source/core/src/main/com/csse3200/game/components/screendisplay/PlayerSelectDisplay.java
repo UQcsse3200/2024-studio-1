@@ -1,10 +1,12 @@
 package com.csse3200.game.components.screendisplay;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
@@ -12,6 +14,7 @@ import com.csse3200.game.GdxGame.ScreenType;
 import com.csse3200.game.actors.StatBar;
 import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.Map;
 
+import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
 import static com.csse3200.game.screens.PlayerSelectScreen.BG_IMAGE;
 import static com.csse3200.game.services.ServiceLocator.getResourceService;
 
@@ -34,8 +38,7 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float ROOT_PADDING = 10f;
     private static final float STAT_TABLE_PADDING = 2f;
     private static final float BAR_HEIGHT = 20;
-    private static final float PROPORTION = 0.9f;
-    private static final float X_PADDING = 10f;
+    private static final float PROPORTION = 0.8f;
 
     /**
      * Make the component.
@@ -58,37 +61,42 @@ public class PlayerSelectDisplay extends UIComponent {
     private void addActors() {
         rootTable = new Table();
         rootTable.setFillParent(true);
-        rootTable.defaults().pad(ROOT_PADDING);
+        float percentWidth = PROPORTION / PLAYERS.length;
+        Value valueWidth = Value.percentWidth(percentWidth, rootTable);
+        rootTable.defaults()
+                .pad(ROOT_PADDING).fill().uniformX()
+                .width(valueWidth);
 
         Map<String, PlayerConfig> configs =
                 PlayerSelection.getPlayerConfigs(Arrays.stream(PlayerSelection.PLAYERS).toList());
 
+        rootTable.row().height(valueWidth);
         configs.forEach((filename, config) -> {
-            TextureRegion idleTexture;
-            if(config.name.equals("bear")){
-                idleTexture = new TextureAtlas(config.textureAtlasFilename)
-                        .findRegion("default");
-            }
-            else{
-                idleTexture = new TextureAtlas(config.textureAtlasFilename)
-                        .findRegion("idle");
-            }
-            Image playerImage = new Image(idleTexture);
-            rootTable.add(playerImage);
+            String textureAtlasFilename = config.textureAtlasFilename;
+
+            // Create new AnimationRenderComponent to control animations for each player
+            AnimationRenderComponent animator =
+                    new AnimationRenderComponent(new TextureAtlas(textureAtlasFilename));
+
+            PlayerSelectAnimation animatedImage = new PlayerSelectAnimation(animator, config.textureAtlasFilename);
+            animatedImage.startAnimation();
+
+            rootTable.add(animatedImage);
         });
 
         // Add stat bars
-        rootTable.row().fill().uniform();
+        rootTable.row();
         configs.forEach((filename, config) -> {
             Table statTable = new Table();
             statTable.defaults().pad(STAT_TABLE_PADDING);
+            statTable.columnDefaults(1).growX();
             addStat(statTable, "HLTH", config.health, PlayerConfig.MAX_HEALTH);
             addStat(statTable, "SPD", config.speed.len(), PlayerConfig.MAX_SPEED.len());
             rootTable.add(statTable);
         });
 
         // Add buttons to choose each player
-        rootTable.row().fillX();
+        rootTable.row();
         configs.forEach((filename, config) -> {
             TextButton button = new TextButton("%s".formatted(config.name), skin, "action");
             button.addListener(new ChangeListener() {
@@ -100,6 +108,7 @@ public class PlayerSelectDisplay extends UIComponent {
             });
             button.getLabel().setWrap(true);
             rootTable.add(button);
+            button.getLabel().setFontScale((float) Gdx.graphics.getWidth() / 1600);
         });
 
         Image bgImage = new Image(getResourceService().getAsset(BG_IMAGE, Texture.class));
@@ -119,10 +128,10 @@ public class PlayerSelectDisplay extends UIComponent {
     private void addStat(Table table, String name, float value, float maxValue) {
         float proportion = value / maxValue;
         Label statName = new Label(name, skin);
-        table.add(statName).pad(STAT_TABLE_PADDING);
+        table.add(statName);
 
         StatBar statBar = new StatBar(proportion);
-        table.add(statBar).pad(STAT_TABLE_PADDING).expandX().fillX().height(BAR_HEIGHT);
+        table.add(statBar).height(BAR_HEIGHT);
 
         table.row();
     }

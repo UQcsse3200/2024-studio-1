@@ -69,6 +69,7 @@ public class PlayerFactory extends LoadedFactory {
      */
     public Entity createPlayer(PlayerConfig config, Difficulty difficulty) {
         config.difficulty = difficulty;
+        config.adjustForDifficulty(difficulty); 
         return createPlayer(config); 
     }
 

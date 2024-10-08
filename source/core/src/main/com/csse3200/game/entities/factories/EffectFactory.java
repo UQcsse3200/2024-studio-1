@@ -1,9 +1,9 @@
 package com.csse3200.game.entities.factories;
 
-import com.csse3200.game.components.npc.attack.attackeffects.Effect;
-import com.csse3200.game.components.npc.attack.attackeffects.KnockbackEffect;
-import com.csse3200.game.components.npc.attack.attackeffects.PoisonEffect;
-import com.csse3200.game.components.npc.attack.attackeffects.StunEffect;
+import com.csse3200.game.components.effects.Effect;
+import com.csse3200.game.components.effects.KnockbackEffect;
+import com.csse3200.game.components.effects.PoisonEffect;
+import com.csse3200.game.components.effects.StunEffect;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.AttackConfig;
 

@@ -1,7 +1,10 @@
-package com.csse3200.game.components.npc.attack.attackeffects;
+package com.csse3200.game.components.effects;
 
 import com.csse3200.game.entities.Entity;
 
+/**
+ * Stun effect that can be applied to an entity.
+ */
 public class StunEffect implements Effect {
     private float duration;
     private float timeElapsed;
@@ -28,5 +31,10 @@ public class StunEffect implements Effect {
     @Override
     public void remove(Entity target) {
         // Remove the stun effect from the target
+    }
+
+    @Override
+    public boolean isExpired() {
+        return timeElapsed >= duration;
     }
 }

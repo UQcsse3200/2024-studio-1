@@ -1,4 +1,4 @@
-package com.csse3200.game.components.npc.attack.attackeffects;
+package com.csse3200.game.components.effects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -7,6 +7,9 @@ import com.csse3200.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Knockback effect that can be applied to an entity.
+ */
 public class KnockbackEffect implements Effect {
     private final Entity sourceEntity;
     private float force;
@@ -43,5 +46,10 @@ public class KnockbackEffect implements Effect {
     @Override
     public void remove(Entity target) {
         // Knockback is instantaneous, nothing to remove
+    }
+
+    @Override
+    public boolean isExpired() {
+        return true;
     }
 }

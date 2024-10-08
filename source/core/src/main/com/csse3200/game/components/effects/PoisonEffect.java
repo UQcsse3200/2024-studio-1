@@ -1,8 +1,11 @@
-package com.csse3200.game.components.npc.attack.attackeffects;
+package com.csse3200.game.components.effects;
 
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.components.CombatStatsComponent;
 
+/**
+ * Poison effect that can be applied to an entity.
+ */
 public class PoisonEffect implements Effect {
     private int damagePerSecond;
     private float duration;

@@ -2,7 +2,7 @@ package com.csse3200.game.components.npc.attack;
 
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.npc.attack.attackeffects.Effect;
+import com.csse3200.game.components.effects.Effect;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.entities.factories.EffectFactory;

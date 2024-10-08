@@ -29,9 +29,23 @@ public interface Effect {
     void remove(Entity target);
 
     /**
+     * Refreshes the effect's state based on a new effect instance.
+     *
+     * @param newEffect The new effect instance to refresh with.
+     */
+    void refresh(Effect newEffect);
+
+    /**
      * Checks if the effect has expired.
      *
      * @return True if the effect has expired, false otherwise.
      */
     boolean isExpired();
+
+    /**
+     * Returns the type of the effect.
+     *
+     * @return EffectType enum.
+     */
+    EffectType getType();
 }

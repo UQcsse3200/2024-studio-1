@@ -7,42 +7,58 @@ import com.csse3200.game.components.CombatStatsComponent;
  * Poison effect that can be applied to an entity.
  */
 public class PoisonEffect implements Effect {
-    private int damagePerSecond;
+    private final int damagePerSecond;
     private float duration;
     private float timeElapsed;
-    private CombatStatsComponent dummyAttacker;
 
     public PoisonEffect(int damagePerSecond, float duration) {
         this.damagePerSecond = damagePerSecond;
         this.duration = duration;
         this.timeElapsed = 0;
-        this.dummyAttacker = new CombatStatsComponent(1, damagePerSecond);
     }
 
     @Override
     public void apply(Entity target) {
-        // Initial application logic, if needed
+        target.getEvents().trigger("poisoned");
     }
 
     @Override
     public void update(Entity target, float deltaTime) {
         timeElapsed += deltaTime;
-        if (timeElapsed >= 1) {
-            CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
-            if (targetStats != null) {
-                targetStats.hit(dummyAttacker);
+        CombatStatsComponent stats = target.getComponent(CombatStatsComponent.class);
+        if (stats != null) {
+            // Apply damage every second
+            if (timeElapsed >= 1.0f) {
+                stats.addHealth(-damagePerSecond);
+                target.getEvents().trigger("poisonDamage", damagePerSecond);
+                timeElapsed -= 1.0f;
             }
-            timeElapsed = 0;
         }
-        duration -= deltaTime;
+        if (duration > 0) {
+            duration -= deltaTime;
+        }
     }
 
     @Override
-    public void remove(Entity entity) {
-        // Clean up any visuals or status markers
+    public void refresh(Effect newEffect) {
+        if (newEffect instanceof PoisonEffect poison) {
+            this.duration = Math.max(this.duration, poison.duration);
+            this.timeElapsed = 0;
+        }
     }
 
+    @Override
+    public void remove(Entity target) {
+        target.getEvents().trigger("poisonExpired");
+    }
+
+    @Override
     public boolean isExpired() {
         return duration <= 0;
+    }
+
+    @Override
+    public EffectType getType() {
+        return EffectType.POISON;
     }
 }

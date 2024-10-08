@@ -137,13 +137,13 @@
       }
     },
     "attacks": {
-      "aoe": {
-        "range": 2,
+      "melee": {
+        "range": 1.5,
         "rate": 1,
         "effects": [
           {
             "type": "knockback",
-            "force": 5
+            "force": 3
           }
         ]
       }
@@ -188,7 +188,14 @@
     "attacks": {
       "melee": {
         "range": 1.2,
-        "rate": 2
+        "rate": 2,
+        "effects": [
+          {
+            "type": "poison",
+            "duration": 5,
+            "damagePerSecond": 5
+          }
+        ]
       }
     },
     "animations": [

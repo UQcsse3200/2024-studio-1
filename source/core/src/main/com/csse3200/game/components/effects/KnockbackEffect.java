@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class KnockbackEffect implements Effect {
     private final Entity sourceEntity;
-    private float force;
+    private final float force;
     private static final Logger logger = LoggerFactory.getLogger(KnockbackEffect.class);
 
     public KnockbackEffect(Entity sourceEntity, float force) {
@@ -44,6 +44,11 @@ public class KnockbackEffect implements Effect {
     }
 
     @Override
+    public void refresh(Effect newEffect) {
+        // Knockback is instantaneous, nothing to refresh
+    }
+
+    @Override
     public void remove(Entity target) {
         // Knockback is instantaneous, nothing to remove
     }
@@ -51,5 +56,10 @@ public class KnockbackEffect implements Effect {
     @Override
     public boolean isExpired() {
         return true;
+    }
+
+    @Override
+    public EffectType getType() {
+        return EffectType.KNOCKBACK;
     }
 }

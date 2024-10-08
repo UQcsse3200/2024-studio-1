@@ -16,12 +16,11 @@ public class StunEffect implements Effect {
 
     @Override
     public void apply(Entity target) {
-        // Apply the stun effect
+        target.getEvents().trigger("stunned");
     }
 
     @Override
     public void update(Entity target, float deltaTime) {
-        // Update effect
         timeElapsed += deltaTime;
         if (timeElapsed >= duration) {
             remove(target);
@@ -29,12 +28,25 @@ public class StunEffect implements Effect {
     }
 
     @Override
+    public void refresh(Effect newEffect) {
+        if (newEffect instanceof StunEffect stun) {
+            this.duration = Math.max(this.duration - this.timeElapsed, stun.duration);
+            this.timeElapsed = 0;
+        }
+    }
+
+    @Override
     public void remove(Entity target) {
-        // Remove the stun effect from the target
+        target.getEvents().trigger("stunExpired");
     }
 
     @Override
     public boolean isExpired() {
         return timeElapsed >= duration;
+    }
+
+    @Override
+    public EffectType getType() {
+        return EffectType.STUN;
     }
 }

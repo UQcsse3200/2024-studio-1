@@ -81,8 +81,8 @@ public class StairFactory {
      */
 
     private static void moveToNextLevel() {
-        int currentLevel = ServiceLocator.getGameAreaService().getGameArea().getCurrentLevel().getLevelNumber();
+        int currentLevel = ServiceLocator.getGameAreaService().getGameController().getCurrentLevel().getLevelNumber();
         ServiceLocator.getEntityService().markEntityForRemoval(stair);
-        ServiceLocator.getGameAreaService().getGameArea().changeLevel(currentLevel + 1);
+        ServiceLocator.getGameAreaService().getGameController().changeLevel(currentLevel + 1);
     }
 }

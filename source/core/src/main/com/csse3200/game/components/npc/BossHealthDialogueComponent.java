@@ -7,7 +7,7 @@ import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 
 /**
  * A component that manages the boss's health-based dialogue during a battle.
@@ -94,7 +94,7 @@ public class BossHealthDialogueComponent extends Component {
     private void spawnAdditionalEnemies() {
         GameAreaService gameAreaService = ServiceLocator.getGameAreaService();
         if (gameAreaService.getGameArea() != null) {
-            MainGameArea area = (MainGameArea) gameAreaService.getGameArea();
+            GameController area = (GameController) gameAreaService.getGameController();
             if (area.getCurrentRoom() instanceof BossRoom bossRoom) {
                 bossRoom.spawnOtherAnimals(entity);
             }

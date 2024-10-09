@@ -4,19 +4,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class GameAreaServiceTest {
 
-    private MainGameArea mockGameArea;
+    private GameController mockGameArea;
     private GameAreaService gameAreaService;
 
     @BeforeEach
     void setUp() {
-        mockGameArea = mock(MainGameArea.class);
+        mockGameArea = mock(GameController.class);
         gameAreaService = new GameAreaService(mockGameArea);
     }
 
@@ -27,7 +27,7 @@ class GameAreaServiceTest {
 
     @Test
     void testGetGameArea() {
-        MainGameArea result = gameAreaService.getGameArea();
+        GameController result = gameAreaService.getGameController();
         assertEquals(mockGameArea, result, "getGameArea should return the game area passed in the constructor");
     }
 

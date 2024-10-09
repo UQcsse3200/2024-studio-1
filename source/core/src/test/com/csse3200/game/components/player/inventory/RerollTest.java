@@ -2,7 +2,7 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.components.player.PlayerActions;

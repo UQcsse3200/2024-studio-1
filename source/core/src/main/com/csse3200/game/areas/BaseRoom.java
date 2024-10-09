@@ -260,7 +260,7 @@ public abstract class BaseRoom implements Room {
      * @param enemy The enemy entity to spawn.
      * @param position The position to spawn the entity at.
      */
-    protected void spawnAnimalEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
+    protected void spawnAnimalEntity(GameArea area, Entity enemy, GridPoint2 position) {
         area.spawnEntityAt(enemy, position, true, true);
     }
 
@@ -271,7 +271,7 @@ public abstract class BaseRoom implements Room {
      * @param specification The specification of the item to spawn.
      * @param pos The position to spawn the item at.
      */
-    protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
+    protected void spawnItem(GameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
         item.getEvents().addListener("itemChose",()->deleteRemainingItems(item));
         entities.add(item);
@@ -307,7 +307,7 @@ public abstract class BaseRoom implements Room {
      * @param player The player entity.
      * @param area The game area to spawn the room in.
      */
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         ServiceLocator.getPhysicsService().getPhysics().update();
         logger.info("spawning terrain");
         this.spawnTerrain(area, WALL_THICKNESS, false);

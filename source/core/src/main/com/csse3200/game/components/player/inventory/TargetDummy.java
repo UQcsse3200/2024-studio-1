@@ -48,7 +48,7 @@ public class TargetDummy extends UsableItem {
         int xPos = (int) entity.getPosition().x;
         int yPos = (int) entity.getPosition().y;
 
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
             room.SpawnDeployable(targetDummy, new GridPoint2(xPos, yPos), true, true);
             List<Entity> enemies = room.getEnemies();
             updateEnemyTargets(enemies, targetDummy);

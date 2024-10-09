@@ -47,7 +47,7 @@ class MainGameLevelFactoryTest {
         // Set up ResourceService (or mock it if necessary)
         ServiceLocator.registerResourceService(new ResourceService());
 
-        levelFactory = new MainGameLevelFactory(false);
+        levelFactory = new MainGameLevelFactory(false, null);
     }
 
     @AfterEach

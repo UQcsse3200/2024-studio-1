@@ -66,6 +66,7 @@ public class GdxGame extends Game {
   private Screen newScreen(ScreenType screenType) {
       return switch (screenType) {
           case MAIN_MENU -> new MainMenuScreen(this);
+          case LOAD_GAME-> new LoadGameScreen(this);
           case MAIN_GAME -> new MainGameScreen(this);
           case SETTINGS -> new SettingsScreen(this);
           case ACHIEVEMENTS -> new AchievementsScreen(this);
@@ -81,7 +82,7 @@ public class GdxGame extends Game {
 
   public enum ScreenType {
     MAIN_MENU, MAIN_GAME,
-    SETTINGS, HOW_TO_PLAY, ANIMALS, WEAPONS, ACHIEVEMENTS,
+    SETTINGS, HOW_TO_PLAY, ANIMALS, WEAPONS, ACHIEVEMENTS,LOAD_GAME,
     PLAYER_SELECT, CUTSCENE,
     WIN, LOSE
   }

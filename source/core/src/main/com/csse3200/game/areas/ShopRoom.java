@@ -53,7 +53,7 @@ public class ShopRoom extends BaseRoom {
      * @param area the game area to spawn this room into.
      */
     @Override
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
         spawnItems(area);
         ShopRoomDisplay messageDisplay = new ShopRoomDisplay();
@@ -65,7 +65,7 @@ public class ShopRoom extends BaseRoom {
      * Randomly position items on the board for user to purchase
      * @param area the game are to spawn room into
      */
-    private void spawnItems(MainGameArea area) {
+    private void spawnItems(GameArea area) {
         List<String> items = this.itemSpecifications.get(this.itemGroup);
         if(items != null && items.size() != 6) {
             //Cooper's code: spawn the items randomly

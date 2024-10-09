@@ -2,17 +2,21 @@ package com.csse3200.game.areas;
 
 public class GameAreaService {
 //    private static final Logger log = LoggerFactory.getLogger(GameAreaService.class);
-    private final MainGameArea gameArea;
+    private final GameController gameController;
 
-    public GameAreaService(MainGameArea gameArea) {
-        this.gameArea = gameArea;
+    public GameAreaService(GameController gameArea) {
+        this.gameController = gameArea;
     }
 
-    public MainGameArea getGameArea() {
-        return this.gameArea;
+    public GameArea getGameArea() {
+        return this.gameController.getGameArea();
+    }
+
+    public GameController getGameController() {
+        return this.gameController;
     }
 
     public void update() {
-        this.gameArea.spawnCurrentRoom();
+        this.gameController.spawnCurrentRoom();
     }
 }

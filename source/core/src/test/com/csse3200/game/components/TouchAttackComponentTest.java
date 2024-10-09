@@ -2,7 +2,7 @@ package com.csse3200.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;
@@ -25,7 +25,7 @@ class TouchAttackComponentTest {
   private GameAreaService gameAreaService;
 
   @Mock
-  private MainGameArea mainGameArea;
+  private GameController gameController;
 
   @Mock
   private Entity player;
@@ -34,7 +34,7 @@ class TouchAttackComponentTest {
   void beforeEach() {
     // Mock GameAreaService and MainGameArea
     gameAreaService = mock(GameAreaService.class);
-    mainGameArea = mock(MainGameArea.class);
+    gameController = mock(GameController.class);
     player = mock(Entity.class);
     player = new Entity().addComponent(new CombatStatsComponent(100, 10));
 
@@ -43,8 +43,8 @@ class TouchAttackComponentTest {
     ServiceLocator.registerPhysicsService(new PhysicsService());
 
     // Mock the GameAreaService behavior
-    when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
-    when(mainGameArea.getPlayer()).thenReturn(player);
+    when(gameAreaService.getGameController()).thenReturn(gameController);
+    when(gameController.getPlayer()).thenReturn(player);
   }
 
   @Test

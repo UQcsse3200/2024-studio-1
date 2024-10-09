@@ -31,6 +31,7 @@ public class MainMenuActions extends Component {
         entity.getEvents().addListener("settings", this::onSettings);
         entity.getEvents().addListener("achievements", this::achievements);
         entity.getEvents().addListener("how-to-play", this::onHowToPlay);
+        entity.getEvents().addListener("load-game", this::loadGame);
     }
 
     /**
@@ -69,6 +70,10 @@ public class MainMenuActions extends Component {
     private void onHowToPlay() {
         logger.info("Launching how to play screen");
         game.setScreen(ScreenType.HOW_TO_PLAY);
+    }
+    private void loadGame() {
+        logger.info("Loading Game");
+        game.setScreen(ScreenType.LOAD_GAME);
     }
 
 }

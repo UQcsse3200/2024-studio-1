@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.areas.*;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
@@ -15,11 +14,8 @@ import com.csse3200.game.components.maingame.MainGameExitDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.PlayerSelection;
-import com.csse3200.game.entities.configs.MapLoadConfig;
-import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.entities.factories.RenderFactory;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.input.InputComponent;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.input.InputService;
@@ -33,22 +29,19 @@ import com.csse3200.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
-import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
-import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
-import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
 /**
- * The game screen loading the game  
+ * The game screen containing the main game.
  *
  * <p>Details on libGDX screens: <a href="https://happycoding.io/tutorials/libgdx/game-screens">...</a>
  */
-public class LoadGameScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-    private final PlayerFactory playerFactory;
-    private static final String[] mainGameTextures = {
+public class GameScreen extends ScreenAdapter {
+    public static final Logger logger = LoggerFactory.getLogger(GameScreen.class);
+    public PlayerFactory playerFactory;
+    public boolean shouldLoad;
+    public static final String[] mainGameTextures = {
             "images/heart.png",
             "images/ui_white_icons.png",
             "images/ui_white_icons_over.png",
@@ -58,36 +51,36 @@ public class LoadGameScreen extends ScreenAdapter {
             "images/black_dot_transparent.png"
     };
     // todo may not be needed
-    private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
+    public static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
 
+    public PlayerSelection playerSelection = new PlayerSelection();
 
-    private static final String[] textureAtlases = {"skins/rainbow/skin/rainbow-ui.atlas"};
+    public static final String[] textureAtlases = {"skins/rainbow/skin/rainbow-ui.atlas"};
 
     /**
      * Array of font file paths used in the game.
      * These fonts are loaded as assets and can be used for various UI elements.
      */
 
-    private static final String[] fonts = {
+    public static final String[] fonts = {
             "skins/rainbow/skin/font-button-export.fnt", "skins/rainbow/skin/font-export.fnt",
             "skins/rainbow/skin/font-title-export.fnt"
     };
 
 
-    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
-    private static final Vector2 MINIMAP_CAMERA_POSITION = new Vector2(-7.5f, 4.8f);
+    public static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 5.5f);
+    public static final Vector2 MINIMAP_CAMERA_POSITION = new Vector2(-7.5f, 4.8f);
 
-    private final GdxGame game;
-    private final Renderer renderer;
-    private final PhysicsEngine physicsEngine;
-    private Entity ui;
+    public final GdxGame game;
+    public final Renderer renderer;
+    public final PhysicsEngine physicsEngine;
+    public Entity ui;
     public static boolean isPaused = false;
 
-    public LoadGameScreen(GdxGame game) {
+    public GameScreen(GdxGame game) {
         this.game = game;
         game.setScreenColour(GdxGame.ScreenColour.GREY);
         isPaused = false;
-        boolean shouldLoad = true;
 
         logger.debug("Initialising game screen services");
         ServiceLocator.registerTimeSource(new GameTime());
@@ -119,28 +112,8 @@ public class LoadGameScreen extends ScreenAdapter {
                 ServiceLocator.getResourceService().getAsset("skins/rainbow/skin/rainbow-ui.atlas", TextureAtlas.class));
         Stage stage = ServiceLocator.getRenderService().getStage();
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
-        /*
-         * based on the characters selected, changed the link
-         * If Player choose Load, then create
-         */
 
-        this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
-        PlayerConfig config = FileLoader.readClass(
-                PlayerConfig.class,
-                "saves/player_save.json",
-                FileLoader.Location.EXTERNAL);
-        if (config == null) {
-            throw new RuntimeException("Tried to load player and failed");
-        }
-        Entity player = playerFactory.createPlayer(config, shouldLoad);
-        player.getEvents().addListener("player_finished_dying", this::loseGame);
-
-        logger.debug("Initialising load game screen entities");
-        MapLoadConfig mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
-        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad, mapLoadConfig);
-        new MainGameArea(levelFactory, player, shouldLoad, mapLoadConfig);
     }
-
 
     @Override
     public void render(float delta) {
@@ -185,7 +158,7 @@ public class LoadGameScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing load game screen");
+        logger.debug("Disposing game screen");
 
         renderer.dispose();
         playerFactory.dispose();
@@ -198,7 +171,7 @@ public class LoadGameScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
-    private void loadAssets() {
+    public void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(mainGameTextures);
@@ -208,13 +181,13 @@ public class LoadGameScreen extends ScreenAdapter {
         ServiceLocator.getResourceService().loadAll();
     }
 
-    private void unloadAssets() {
+    public void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(mainGameTextures);
     }
 
-    private void loseGame() {
+    public void loseGame() {
         logger.info("Received event: player finished dying");
         game.setScreen(LOSE);
     }
@@ -223,14 +196,14 @@ public class LoadGameScreen extends ScreenAdapter {
      * Creates the main game's ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
-    private void createUI() {
+    public void createUI() {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         InputComponent inputComponent =
                 ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
         ui = new Entity();
-        ui.addComponent(new NameComponent("Main Game Screen UI"))
+        ui.addComponent(new NameComponent("Game Screen UI"))
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new PerformanceDisplay())
                 .addComponent(new MainGameActions(this.game))

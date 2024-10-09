@@ -52,4 +52,9 @@ public class StunEffect implements Effect {
     public EffectType getType() {
         return EffectType.STUN;
     }
+
+    @Override
+    public float getDuration() {
+        return duration;
+    }
 }

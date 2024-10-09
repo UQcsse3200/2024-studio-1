@@ -61,4 +61,9 @@ public class PoisonEffect implements Effect {
     public EffectType getType() {
         return EffectType.POISON;
     }
+
+    @Override
+    public float getDuration() {
+        return duration;
+    }
 }

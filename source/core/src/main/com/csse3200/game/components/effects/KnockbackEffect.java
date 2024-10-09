@@ -2,8 +2,8 @@ package com.csse3200.game.components.effects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.physics.components.PhysicsComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,5 +61,10 @@ public class KnockbackEffect implements Effect {
     @Override
     public EffectType getType() {
         return EffectType.KNOCKBACK;
+    }
+
+    @Override
+    public float getDuration() {
+        return 0;
     }
 }

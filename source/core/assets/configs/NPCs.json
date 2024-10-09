@@ -22,7 +22,14 @@
     "attacks": {
       "melee": {
         "range": 1.2,
-        "rate": 2
+        "rate": 2,
+        "effects": [
+          {
+            "type": "POISON",
+            "duration": 4,
+            "damagePerSecond": 2
+          }
+        ]
       }
     },
     "animations": [
@@ -46,25 +53,29 @@
       },
       "chase": {
         "chaseSpeed": 1.5,
-        "viewDistance": 3,
-        "chaseDistance": 4
+        "viewDistance": 5,
+        "chaseDistance": 5.5
       },
       "charge": {
         "activationMinRange": 4,
         "activationMaxRange": 5,
         "distanceMultiplier": 1.2,
         "chaseSpeed": 3,
-        "waitTime": 2
+        "waitTime": 2.5
       }
     },
     "attacks": {
       "melee": {
         "range": 1.5,
-        "rate": 0.5,
+        "rate": 1,
         "effects": [
           {
             "type": "KNOCKBACK",
             "force": 3
+          },
+          {
+            "type": "STUN",
+            "duration": 2
           }
         ]
       }
@@ -106,7 +117,14 @@
     "attacks": {
       "melee": {
         "range": 1,
-        "rate": 1.2
+        "rate": 1.2,
+        "effects": [
+          {
+            "type": "POISON",
+            "duration": 3,
+            "damagePerSecond": 3
+          }
+        ]
       }
     },
     "animations": [
@@ -133,13 +151,13 @@
         "activationMaxRange": 5,
         "distanceMultiplier": 1.3,
         "chaseSpeed": 2.5,
-        "waitTime": 2
+        "waitTime": 3
       }
     },
     "attacks": {
       "melee": {
         "range": 1.5,
-        "rate": 1,
+        "rate": 0.5,
         "effects": [
           {
             "type": "KNOCKBACK",
@@ -164,7 +182,7 @@
   "snake": {
     "health": 300,
     "strength":6,
-    "baseAttack": 10,
+    "baseAttack": 5,
     "isDirectional": true,
     "tasks": {
       "wander": {
@@ -254,8 +272,8 @@
       },
       "chase": {
         "chaseSpeed": 1.5,
-        "viewDistance": 3,
-        "chaseDistance": 4
+        "viewDistance": 4,
+        "chaseDistance": 5
       },
       "charge": {
         "activationMinRange": 4,
@@ -341,7 +359,7 @@
   "werewolf": {
     "health": 1000,
     "strength": 9,
-    "baseAttack": 40,
+    "baseAttack": 30,
     "isDirectional": true,
     "isBoss": true,
     "tasks": {
@@ -393,8 +411,9 @@
         "rate": 0.8,
         "effects": [
           {
-            "type": "KNOCKBACK",
-            "force": 3
+            "type": "POISON",
+            "duration": 3,
+            "damagePerSecond": 5
           }
         ]
       },
@@ -471,7 +490,7 @@
         "activationMinRange": 5,
         "activationMaxRange": 6,
         "attackNum": 4,
-        "cooldownTime": 5
+        "cooldownTime": 8
       }
     },
     "attacks": {
@@ -557,8 +576,8 @@
         "rate": 0.5,
         "effects": [
             {
-              "type": "KNOCKBACK",
-              "force": 2
+              "type": "STUN",
+              "duration": 1
             }
           ]
       },
@@ -568,7 +587,7 @@
         "effects": [
           {
             "type": "KNOCKBACK",
-            "force": 2
+            "force": 4
           }
         ]
       }

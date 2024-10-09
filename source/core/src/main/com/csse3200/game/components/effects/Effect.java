@@ -48,4 +48,11 @@ public interface Effect {
      * @return EffectType enum.
      */
     EffectType getType();
+
+    /**
+     * Returns the duration of the effect.
+     *
+     * @return Seconds as a float.
+     */
+    float getDuration();
 }

@@ -8,6 +8,8 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
 /**
  * Represents an effect animation entity (e.g., stun, poison) attached to a target entity.
  */
@@ -16,19 +18,23 @@ public class EffectEntity extends Entity {
     private final String animationName;
     private float duration;
     private final Entity targetEntity;
+    private final Runnable disposeCallback;
 
     /**
      * Constructs an EffectEntity.
      *
-     * @param atlas         The texture atlas containing the effect animation.
-     * @param animationName The name of the animation within the atlas.
-     * @param duration      Duration of the effect in seconds.
-     * @param target        The entity to which the effect is applied.
+     * @param atlas             The texture atlas containing the effect animation.
+     * @param animationName     The name of the animation within the atlas.
+     * @param duration          Duration of the effect in seconds.
+     * @param target            The entity to which the effect is overlaid on.
+     * @param disposeCallback   Callback to run when the effect entity is disposed.
      */
-    public EffectEntity(TextureAtlas atlas, String animationName, float duration, Entity target) {
+    public EffectEntity(TextureAtlas atlas, String animationName, float duration, Entity target,
+                        Runnable disposeCallback) {
         this.animationName = animationName;
         this.duration = duration;
         this.targetEntity = target;
+        this.disposeCallback = disposeCallback;
 
         // Set up the AnimationRenderComponent
         AnimationRenderComponent animator = new AnimationRenderComponent(atlas);
@@ -39,14 +45,18 @@ public class EffectEntity extends Entity {
         animator.setOpacity(0.8f);
         animator.startAnimation(animationName);
         addComponent(animator);
+
+        // Scale the effect entity
+        scaleEffectEntity();
     }
 
     @Override
     public void update() {
         super.update();
         // Update position to follow the target entity
-        Vector2 targetPos = targetEntity.getPosition();
-        this.setPosition(targetPos.x, targetPos.y);
+        Vector2 targetPos = targetEntity.getCenterPosition();
+        Vector2 entitySize = this.getScale();
+        this.setPosition(targetPos.x - entitySize.x/2, targetPos.y - entitySize.y/2);
 
         // Update the effect duration
         duration -= ServiceLocator.getTimeSource().getDeltaTime();
@@ -55,4 +65,23 @@ public class EffectEntity extends Entity {
             dispose();
         }
     }
+
+    private void scaleEffectEntity() {
+        // Scale the effect entity based on the target entity's size and the effect type
+        Vector2 targetSize = targetEntity.getScale();
+        float scaleFactor = 1.0f; // Default scale factor
+        if (Objects.equals(animationName, "stun")) {
+            scaleFactor = 0.5f;
+        }
+        this.setScale(targetSize.x * scaleFactor, targetSize.y * scaleFactor);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        if (disposeCallback != null) {
+            disposeCallback.run();
+        }
+    }
+
 }

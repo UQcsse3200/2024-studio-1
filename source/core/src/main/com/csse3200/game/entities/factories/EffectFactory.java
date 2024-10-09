@@ -45,24 +45,41 @@ public class EffectFactory extends LoadedFactory {
     /**
      * Creates an EffectEntity based on the provided configuration and source entity.
      *
-     * @param config        The effect configuration.
-     * @param target  The entity to which the effect is applied.
+     * @param target            The entity to which the effect is applied.
+     * @param type              The type of effect to create.
+     * @param duration          Duration of the effect in seconds.
+     * @param disposeCallback   Callback to run when the effect entity is disposed.
      */
-    public static void createEffectEntity(EffectConfig config, Entity target) {
-        if (config.type == EffectType.KNOCKBACK) {
+    public static void createOrUpdateEffectEntity(Entity target, EffectType type, float duration,
+                                                  Runnable disposeCallback) {
+        if (type == EffectType.KNOCKBACK) {
             logger.debug("No animation for knockback effect");
             return;
         }
 
-        String effectType = config.type.name().toLowerCase();
+        String effectType = type.name().toLowerCase();
         String atlasPath = String.format("images/effects/%s.atlas", effectType);
+
+        // Load the effect atlas
+        try {
+            ServiceLocator.getResourceService().getAsset(atlasPath, TextureAtlas.class);
+        } catch (Exception e) {
+            logger.error("Failed to load effect atlas for '{}'", effectType);
+            return;
+        }
         TextureAtlas atlas = ServiceLocator.getResourceService().getAsset(atlasPath, TextureAtlas.class);
 
         // Create the EffectEntity with the loaded atlas, effect name, and duration
-        EffectEntity effectEntity = new EffectEntity(atlas, effectType, config.duration, target);
+        EffectEntity effectEntity = new EffectEntity(atlas, effectType, duration, target, disposeCallback);
         ServiceLocator.getEntityService().register(effectEntity);
 
         logger.info("Created EffectEntity '{}' for Entity ID {}", effectType, target.getId());
+
+        // Associate the EffectEntity with the target's EffectComponent
+        EffectComponent effectComponent = target.getComponent(EffectComponent.class);
+        if (effectComponent != null) {
+            effectComponent.setEffectEntity(effectEntity);
+        }
     }
 
     @Override

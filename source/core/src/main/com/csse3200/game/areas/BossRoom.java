@@ -10,6 +10,8 @@ import com.csse3200.game.services.ServiceLocator;
 
 import java.util.List;
 
+import static com.badlogic.gdx.math.MathUtils.random;
+
 /**
  * A boss room of the game,
  * these often have unique animals and rewards.
@@ -92,5 +94,22 @@ public class BossRoom extends EnemyRoom {
         bossRoom.spawnEnemyEntity(area, dog, dogPos);
         bossRoom.spawnEnemyEntity(area, snake, snakePos);
 //        area.spawnEntityAt(snake, snakePos, true, true);
+    }
+
+    public void spawnRandomEnemies(String enemy1, String enemy2) {
+        Entity firstEnemy = npcFactory.create(enemy1, player);
+        Entity secondEnemy = npcFactory.create(enemy2, player);
+
+        GridPoint2 pos1 = getRandomPosition();
+        GridPoint2 pos2 = getRandomPosition();
+
+        spawnEnemyEntity(area, firstEnemy, pos1);
+        spawnEnemyEntity(area, secondEnemy, pos2);
+    }
+
+    private GridPoint2 getRandomPosition() {
+        int x = random.nextInt(maxGridPoint.x - minGridPoint.x + 1) + minGridPoint.x;
+        int y = random.nextInt(maxGridPoint.y - minGridPoint.y + 1) + minGridPoint.y;
+        return new GridPoint2(x, y);
     }
 }

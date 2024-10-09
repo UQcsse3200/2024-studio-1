@@ -12,13 +12,10 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
+import com.csse3200.game.components.player.PlayerFactoryFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.PlayerSelection;
-import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.entities.factories.RenderFactory;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.input.InputComponent;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.input.InputService;
@@ -33,10 +30,7 @@ import com.csse3200.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
-import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
 /**
@@ -46,7 +40,6 @@ import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
  */
 public class MainGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-    private final PlayerFactory playerFactory;
     private static final String[] mainGameTextures = {
             "images/heart.png",
             "images/ui_white_icons.png",
@@ -58,8 +51,6 @@ public class MainGameScreen extends ScreenAdapter {
     };
     // todo may not be needed
     private static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
-
-    private PlayerSelection playerSelection = new PlayerSelection();
 
     private static final String[] textureAtlases = {"skins/rainbow/skin/rainbow-ui.atlas"};
 
@@ -116,9 +107,6 @@ public class MainGameScreen extends ScreenAdapter {
         loadAssets();
         createUI();
 
-        String chosenPlayer = gameOptions.chosenPlayer;
-        logger.info("Starting with chosen player file: {}", chosenPlayer);
-
         // Register AlertBoxService
         Skin skin = new Skin(Gdx.files.internal("skins/rainbow/skin/rainbow-ui.json"),
                 ServiceLocator.getResourceService().getAsset("skins/rainbow/skin/rainbow-ui.atlas", TextureAtlas.class));
@@ -129,13 +117,7 @@ public class MainGameScreen extends ScreenAdapter {
         boolean shouldLoad = gameOptions.shouldLoad;
         logger.info("Should start from save file: {}", shouldLoad);
 
-        /*
-         * based on the characters selected, changed the link
-         * If Player choose Load, then create
-         */
-        this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
-        Entity player = loadPlayer(shouldLoad, gameOptions, chosenPlayer);
-
+        Entity player = gameOptions.playerFactory.create(gameOptions.difficulty);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
@@ -147,23 +129,6 @@ public class MainGameScreen extends ScreenAdapter {
         } else {
             new MainGameArea(levelFactory, player, shouldLoad);
         }
-    }
-
-    private Entity loadPlayer(boolean shouldLoad, GameOptions gameOptions, String chosenPlayer) {
-        Entity player;
-        if (shouldLoad) {
-            PlayerConfig config = FileLoader.readClass(
-                    PlayerConfig.class,
-                    "configs/player_save.json",
-                    FileLoader.Location.EXTERNAL);
-            if (config == null) {
-                throw new RuntimeException("Tried to load player and failed");
-            }
-            player = playerFactory.createPlayer(config, gameOptions.difficulty);
-        } else {
-            player = playerFactory.createPlayer(chosenPlayer, gameOptions.difficulty);
-        }
-        return player;
     }
 
     @Override
@@ -212,7 +177,6 @@ public class MainGameScreen extends ScreenAdapter {
         logger.debug("Disposing main game screen");
 
         renderer.dispose();
-        playerFactory.dispose();
         unloadAssets();
 
         ServiceLocator.getEntityService().dispose();

@@ -1,6 +1,8 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.usables;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.player.ShieldComponent;
+import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,19 +21,6 @@ public class ShieldPotion extends UsableItem {
      * The number of hits the shield can negate before being depleted (initially inactive).
      */
     private int charges = 0;
-
-    /**
-     * Applies the effects of the shield potion to a specified entity.
-     *
-     * @param entity the entity to which the shield potion effects are applied to.
-     */
-    @Override
-    public void apply(Entity entity) {
-        charges = 2; // Activate the shield with full charges
-        entity.getEvents().trigger("shieldActivated");
-         entity.getEvents().addListener("hit", () -> negateHit(entity));
-        entity.getComponent(ShieldComponent.class).activateShield();
-    }
 
     /**
      * Negates a hit against the entity, reducing the number of charges by one.
@@ -60,24 +49,32 @@ public class ShieldPotion extends UsableItem {
         return charges;
     }
 
-    /**
-     * Handles the pickup of the shield potion by adding it to the player's inventory.
-     *
-     * @param inventory The inventory to be put in.
-     */
     @Override
-    public void pickup(Inventory inventory) {
-        super.pickup(inventory);
+    public String getItemSpecification() {
+        return "shieldpotion";
     }
 
     /**
-     * Handles dropping the shield potion from the player's inventory after being used.
+     * Applies the effects of the shield potion to a specified entity.
      *
-     * @param inventory The inventory to be dropped out of.
+     * @param entity the entity to which the shield potion effects are applied to.
      */
     @Override
-    public void drop(Inventory inventory) {
-        super.drop(inventory);
+    public void apply(Entity entity) {
+        charges = 2; // Activate the shield with full charges
+        entity.getEvents().trigger("shieldActivated");
+        entity.getEvents().addListener("hit", () -> negateHit(entity));
+        entity.getComponent(ShieldComponent.class).activateShield();
+    }
+
+    /**
+     * Returns the name of the item.
+     *
+     * @return the item name.
+     */
+    @Override
+    public String getName() {
+        return "Shield Potion";
     }
 
     /**
@@ -92,26 +89,12 @@ public class ShieldPotion extends UsableItem {
 
     /**
      * Get mystery box icon for this specific item
+     *
      * @return mystery box icon
      */
     @Override
     public Texture getMysteryIcon() {
         return new Texture("images/items/mystery_box_red.png");
-    }
-    
-    /**
-     * Returns the name of the item.
-     *
-     * @return the item name.
-     */
-    @Override
-    public String getName() {
-        return "Shield Potion";
-    }
-
-    @Override
-    public String getItemSpecification() {
-        return "shieldpotion";
     }
 
     /**

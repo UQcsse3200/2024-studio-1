@@ -13,6 +13,7 @@ import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
+import com.csse3200.game.entities.factories.PetFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -35,6 +36,8 @@ public class LoadPlayer {
     private static final float playerScale = 0.75f;
     private static final Logger logger = getLogger(LoadPlayer.class);
     private final CollectibleFactory collectibleFactory;
+    private final PetFactory petFactory;
+
 
     /**
      * Constructs a new LoadPlayer instance, initializing factories and inventory component.
@@ -43,6 +46,7 @@ public class LoadPlayer {
         this.collectibleFactory = new CollectibleFactory();
         this.inventoryComponent = new InventoryComponent();
         this.playerActions = new PlayerActions();
+        this.petFactory = new PetFactory();
     }
 
     /**
@@ -84,6 +88,7 @@ public class LoadPlayer {
                 player.setScale(playerScale, playerScale);
             }
         }
+
     }
 
     /**
@@ -172,6 +177,15 @@ public class LoadPlayer {
                 inventoryComponent.pickup(item);
             }
         }
+
+        if (config.pets != null) {
+            for (String petName : config.pets) {
+                Entity pet = petFactory.create(petName);
+                player.getComponent(InventoryComponent.class).getInventory().addPet(pet);
+                ServiceLocator.getEntityService().register(pet);
+                pet.setPosition(5,7);
+            }
+        }
     }
 
     /**
@@ -210,7 +224,6 @@ public class LoadPlayer {
                 animator.addAnimation("Hurt", 0.35f, Animation.PlayMode.NORMAL);
                 break;
             case ("images/npc/bear/bear.atlas"):
-                System.out.println("Bear Animations Added");
                 animator.addAnimation("idle_left", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("idle_right", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("idle_bottom", 0.1f, Animation.PlayMode.LOOP);

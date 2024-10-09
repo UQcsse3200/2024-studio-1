@@ -1,6 +1,8 @@
 package com.csse3200.game.entities.configs;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.options.GameOptions.Difficulty;
 
 import java.util.Arrays;
@@ -14,14 +16,21 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String name;
   /** Player's base attack by default*/
   public int baseAttack = 10;
+  public int armour = 0;
+  public int buff = 0;
+  public boolean canCrit = false;
+  public double critChance = 0.0;
 
   /** The items player has collected/picked up during the game */
   public String[] items;
 
   public Vector2 speed;
+  public Difficulty difficulty;
 
   /** Player's current health */
   public int health = 100;
+
+  public String[] pets;
   public int coins = 0;
   /** The specification of player's equipped melee weapon */
   public String melee;
@@ -80,7 +89,8 @@ public class PlayerConfig extends BaseEntityConfig  {
             Objects.equals(coins, config.coins) &&
             Arrays.equals(items, config.items) &&
             Objects.equals(melee, config.melee) &&
-            Objects.equals(ranged, config.ranged);
+            Objects.equals(ranged, config.ranged)&&
+            Objects.equals(difficulty, config.difficulty);
   }
 
   /**

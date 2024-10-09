@@ -20,13 +20,15 @@ public class PositionTracker extends Component {
     public void update() {
         // No action by default.
         if (player != null) {
-            Vector2 updatedPosition = new Vector2(player.getPosition().x + offset.x, player.getPosition().y + offset.y);
+            Vector2 updatedPosition = new Vector2(player.getPosition().x + offset.x,
+                    player.getPosition().y + offset.y);
             this.getEntity().setPosition(updatedPosition);
         }
     }
 
     /**
      * Get the player entity
+     *
      * @return the player entity
      */
     public Entity getPlayer() {
@@ -35,6 +37,7 @@ public class PositionTracker extends Component {
 
     /**
      * Set the player entity
+     *
      * @param player the player entity
      */
     private void setPlayer(Entity player) {
@@ -43,6 +46,7 @@ public class PositionTracker extends Component {
 
     /**
      * Connect this component to the player who is using the weapon to get the position
+     *
      * @param player the player entity
      */
     public void connectPlayer(Entity player) {
@@ -55,8 +59,18 @@ public class PositionTracker extends Component {
             case "Player":
                 offset = new Vector2(1, 1);
                 break;
+            case "Player 2":
+                offset = new Vector2(0.5f, 0.5f);
+                break;
+            case "Player 3":
+                offset = new Vector2(0.5f, 0.5f);
+                break;
+            case "Player 4":
+                offset = new Vector2(0.5f, 0.5f);
+                break;
             default:
-                offset = new Vector2(0, 0);
+                // for the bear
+                offset = new Vector2(0.5f, 0.4f);
         }
     }
 

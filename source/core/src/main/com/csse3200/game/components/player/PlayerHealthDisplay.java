@@ -19,11 +19,13 @@ public class PlayerHealthDisplay extends UIComponent{
     private final static float Y_BAR = 1.2f;
     /** Shape rendered for drawing the health bar */
     private ShapeRenderer shapeRenderer;
+    private final static float MAX_HEALTH = 100;
     private boolean sheildActivated = false;
 
 
 
     public PlayerHealthDisplay() {
+
 
     }
     /**
@@ -32,9 +34,10 @@ public class PlayerHealthDisplay extends UIComponent{
     @Override
     public void create() {
         super.create();
+
         if (entity.getEvents() != null) {
-            entity.getEvents().addListener("shieldActivated",this::activateShield);
-            entity.getEvents().addListener("shieldDeactivated", this::deactivateShield);
+            entity.getEvents().addListener("shieldActivated", () -> sheildActivated = true);
+            entity.getEvents().addListener("shieldDeactivated", () -> sheildActivated=false);
         }
         shapeRenderer = new ShapeRenderer();
 
@@ -46,14 +49,6 @@ public class PlayerHealthDisplay extends UIComponent{
             shapeRenderer.rect(entity.getPosition().x - X_BAR,
                     entity.getPosition().y + Y_BAR + HEIGHT, WIDTH, HEIGHT);
         }
-    }
-
-    public void activateShield() {
-        sheildActivated = true;
-    }
-    public void deactivateShield() {
-        sheildActivated = false;
-        updateHealth();
     }
 
     /**
@@ -73,8 +68,8 @@ public class PlayerHealthDisplay extends UIComponent{
         // get player's current health percentage
         CombatStatsComponent stats = entity.getComponent(CombatStatsComponent.class);
 
-        float maxHealth = stats.getMaxHealth();
-        float healthPercent = (float) stats.getHealth() / maxHealth;
+
+        float healthPercent = (float) stats.getHealth() / MAX_HEALTH;
 
         // Draw full health bar in red with defined position and size
         shapeRenderer.setColor(Color.RED);
@@ -98,7 +93,6 @@ public class PlayerHealthDisplay extends UIComponent{
      */
     public void dispose() {
         super.dispose();
-//        shapeRenderer.dispose();
     }
 
 }

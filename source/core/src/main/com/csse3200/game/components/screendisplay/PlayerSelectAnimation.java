@@ -1,5 +1,6 @@
 package com.csse3200.game.components.screendisplay;
 
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -15,11 +16,21 @@ public class PlayerSelectAnimation extends Actor {
     private final PlayerNum player;
 
     public enum PlayerNum {
-        Player1,
-        Player2,
-        Player3,
-        Bear,
-        Player4
+        Player1("idle", 0.2f, PlayMode.LOOP),
+        Player2("Walk_right", 0.2f, PlayMode.LOOP),
+        Player3("Run_right", 0.2f, PlayMode.LOOP_PINGPONG),
+        Bear("idle_right", 0.5f, PlayMode.LOOP),
+        Player4("Attack1_right", 0.2f, PlayMode.LOOP_RANDOM);
+
+        public final String animationName;
+        public final float animationDuration;
+        public final PlayMode animationPlayMode;
+
+        PlayerNum(String animationName, float animationDuration, PlayMode animationPlayMode) {
+            this.animationName = animationName;
+            this.animationDuration = animationDuration;
+            this.animationPlayMode = animationPlayMode;
+        }
     }
 
     public PlayerSelectAnimation(AnimationRenderComponent animator, String textureAtlas) {
@@ -42,22 +53,8 @@ public class PlayerSelectAnimation extends Actor {
 
     // Add texture region relative to each player
     private void initializeAnimations() {
-        animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
-        switch (player) {
-            case Player2:
-                animator.addAnimation("Special", 0.2f, Animation.PlayMode.LOOP);
-                break;
-            case Player3:
-                animator.addAnimation("Run", 0.2f, Animation.PlayMode.LOOP_PINGPONG);
-                break;
-            case Player4:
-                animator.addAnimation("Attack_1", 0.2f, Animation.PlayMode.LOOP_RANDOM);
-                break;
-            case Bear:
-                animator.addAnimation("idle_right", 0.5f, Animation.PlayMode.LOOP);
-                animator.addAnimation("attack_right", 0.5f, Animation.PlayMode.LOOP);
-                break;
-        }
+        animator.addAnimation(
+                player.animationName, player.animationDuration, player.animationPlayMode);
     }
 
     @Override
@@ -82,13 +79,6 @@ public class PlayerSelectAnimation extends Actor {
     }
 
     public void startAnimation() {
-        String animationName = switch (player) {
-            case Player4 -> "Attack_1";
-            case Player2 -> "Special";
-            case Player3 -> "Run";
-            case Bear-> "idle_right";
-            default -> "idle";
-        };
-        animator.startAnimation(animationName);
+        animator.startAnimation(player.animationName);
     }
 }

@@ -96,15 +96,10 @@ public class BossRoom extends EnemyRoom {
 //        area.spawnEntityAt(snake, snakePos, true, true);
     }
 
-    public void spawnRandomEnemies(String enemy1, String enemy2) {
-        Entity firstEnemy = npcFactory.create(enemy1, player);
-        Entity secondEnemy = npcFactory.create(enemy2, player);
-
-        GridPoint2 pos1 = getRandomPosition();
-        GridPoint2 pos2 = getRandomPosition();
-
-        spawnEnemyEntity(area, firstEnemy, pos1);
-        spawnEnemyEntity(area, secondEnemy, pos2);
+    public void spawnRandomEnemies(String enemy) {
+        Entity newEnemy = npcFactory.create(enemy, player);
+        GridPoint2 pos = getRandomPosition();
+        spawnEnemyEntity(area, newEnemy, pos);
     }
 
     private GridPoint2 getRandomPosition() {

@@ -14,7 +14,7 @@ public class BossHealthDialogueComponent extends Component {
     private CombatStatsComponent combatStats;
     private final float[] healthThresholds = {0.75f, 0.5f, 0.25f};
     private int currentThresholdIndex = 0;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     @Override
     public void create() {
@@ -62,19 +62,22 @@ public class BossHealthDialogueComponent extends Component {
     private String getRandomBossDialogue(int index) {
         String[][] dialogueOptions = {
                 {
-                        "Ouch! That tickled... I mean, hurt! You're in for it now!",
-                        "Is that all you've got? My grandma hits harder!",
-                        "Oh no, I'm at 75% health! ...Said no boss ever!"
+                        "Your looks hurt more than your attacks.",
+                        "If I had a nickel for every time you missed… I’d have a lot of nickels.",
+                        "You fight like someone who reads the tutorial.",
+                        "This is almost as painful as my last breakup."
                 },
                 {
-                        "Half my health gone? Time to get serious... right after this coffee break!",
-                        "You're halfway there! Too bad I have a second health bar... Kidding! Or am I?",
-                        "50% health? Perfectly balanced, as all things should be!"
+                        "I'm here because my therapist said I need to work on my anger issues.",
+                        "I should be charging you for this entertainment.",
+                        "I’ve seen bread with more fight in it!",
+                        "This is my cardio for the day."
                 },
                 {
-                        "I'm not sweating, it's just boss condensation!",
-                        "25% health? I've had worse paper cuts!",
-                        "Is it hot in here, or is it just my impending defeat?"
+                        "Just wait till I tell my mom about this—oh wait, I don't have one!",
+                        "Is this a boss battle or an awkward first date?",
+                        "I’ll send you a postcard from the respawn screen.",
+                        "You fight like a soggy biscuit."
                 }
         };
 
@@ -86,9 +89,12 @@ public class BossHealthDialogueComponent extends Component {
         if (gameAreaService.getGameArea() instanceof MainGameArea area) {
             if (area.getCurrentRoom() instanceof BossRoom bossRoom) {
                 String[] possibleEnemies = {"Dog", "Snake", "rat", "bear", "bat", "dino", "minotaur", "dragon"};
-                String enemy1 = possibleEnemies[random.nextInt(possibleEnemies.length)];
-                String enemy2 = possibleEnemies[random.nextInt(possibleEnemies.length)];
-                bossRoom.spawnRandomEnemies(enemy1, enemy2);
+                int numberOfEnemies = random.nextInt(3) + 2; // Random number of enemies between 2 and 5
+
+                for (int i = 0; i < numberOfEnemies; i++) {
+                    String enemy = possibleEnemies[random.nextInt(possibleEnemies.length)];
+                    bossRoom.spawnRandomEnemies(enemy);
+                }
             }
         }
     }

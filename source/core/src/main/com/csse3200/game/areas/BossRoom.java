@@ -75,27 +75,6 @@ public class BossRoom extends EnemyRoom {
         area.spawnEntityAt(stairs, pos, true, true);
     }
 
-    /**
-     * Spawns a dog and a snake near the boss when health reaches 50%.
-     *
-     */
-    public void spawnOtherAnimals() {
-        // Create dog and snake entities using NPCFactory
-        Entity dog = npcFactory.create("Dog", player);
-        Entity snake = npcFactory.create("Snake", player);
-
-        // Fixed positions to spawn the dog and snake
-        GridPoint2 dogPos = new GridPoint2(5, 5);  // Example fixed position
-        GridPoint2 snakePos = new GridPoint2(10, 10);  // Example fixed position
-
-        // Spawn the animals at the fixed positions
-        BossRoom bossRoom = (BossRoom) ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom();
-
-        bossRoom.spawnEnemyEntity(area, dog, dogPos);
-        bossRoom.spawnEnemyEntity(area, snake, snakePos);
-//        area.spawnEntityAt(snake, snakePos, true, true);
-    }
-
     public void spawnRandomEnemies(String enemy) {
         Entity newEnemy = npcFactory.create(enemy, player);
         GridPoint2 pos = getRandomPosition();

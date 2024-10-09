@@ -13,7 +13,6 @@ import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
-import com.csse3200.game.entities.factories.PetFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -36,7 +35,6 @@ public class LoadPlayer {
     private static final float playerScale = 0.75f;
     private static final Logger logger = getLogger(LoadPlayer.class);
     private final CollectibleFactory collectibleFactory;
-    private final PetFactory petFactory;
 
 
     /**
@@ -46,7 +44,6 @@ public class LoadPlayer {
         this.collectibleFactory = new CollectibleFactory();
         this.inventoryComponent = new InventoryComponent();
         this.playerActions = new PlayerActions();
-        this.petFactory = new PetFactory();
     }
 
     /**
@@ -180,10 +177,7 @@ public class LoadPlayer {
 
         if (config.pets != null) {
             for (String petName : config.pets) {
-                Entity pet = petFactory.create(petName);
-                player.getComponent(InventoryComponent.class).getInventory().addPet(pet);
-                ServiceLocator.getEntityService().register(pet);
-                pet.setPosition(5,7);
+                inventoryComponent.pickup(collectibleFactory.create("pet:" + petName));
             }
         }
     }

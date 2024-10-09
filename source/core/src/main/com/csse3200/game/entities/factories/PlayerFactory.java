@@ -121,4 +121,10 @@ public class PlayerFactory extends LoadedFactory {
         return result.toArray(String[]::new);
 //        return options.values().stream().map(config -> config.textureFilename).toArray(String[]::new);
     }
+    @Override
+    protected String[] getSoundFilepaths() {
+        return new String[]{
+                "sounds/hit2.ogg"
+        };
+    }
 }

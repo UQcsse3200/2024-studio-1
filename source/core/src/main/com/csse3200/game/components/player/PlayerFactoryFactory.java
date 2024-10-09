@@ -119,6 +119,13 @@ public class PlayerFactoryFactory extends LoadedFactory {
                     this.config.textureFilename
             };
         }
+
+        @Override
+        protected String[] getSoundFilepaths() {
+            return new String[]{
+                    "sounds/hit2.ogg"
+            };
+        }
     }
 
     /**

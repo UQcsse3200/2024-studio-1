@@ -32,6 +32,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private RepeatShoot taskShoot;
     private RepeatMelee taskMelee;
     private static final int inputDelay = 15; // time between 'button held' method calls in milliseconds
+    private boolean upPressed = false;
+    private boolean downPressed = false;
+    private boolean leftPressed = false;
+    private boolean rightPressed = false;
 
     /**
      * TimerTask used to repeatedly shoot in a direction
@@ -82,16 +86,56 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     private boolean walk(Vector2 direction) {
-        walkDirection.add(direction);
-        triggerWalkEvent();
+        if (direction.equals(Vector2Utils.UP)) {
+            upPressed = true;
+        } else if (direction.equals(Vector2Utils.DOWN)) {
+            downPressed = true;
+        } else if (direction.equals(Vector2Utils.LEFT)) {
+            leftPressed = true;
+        } else if (direction.equals(Vector2Utils.RIGHT)) {
+            rightPressed = true;
+        }
+        updateWalkDirection();
         return true;
     }
 
     private boolean unWalk(Vector2 direction) {
-        walkDirection.sub(direction);
-        triggerWalkEvent();
+        if (direction.equals(Vector2Utils.UP)) {
+            upPressed = false;
+        } else if (direction.equals(Vector2Utils.DOWN)) {
+            downPressed = false;
+        } else if (direction.equals(Vector2Utils.LEFT)) {
+            leftPressed = false;
+        } else if (direction.equals(Vector2Utils.RIGHT)) {
+            rightPressed = false;
+        }
+        updateWalkDirection();
         return true;
     }
+
+    private void updateWalkDirection() {
+        walkDirection.set(0, 0);
+        if (upPressed) {
+            walkDirection.y += 1;
+        }
+        if (downPressed) {
+            walkDirection.y -= 1;
+        }
+        if (leftPressed) {
+            walkDirection.x -= 1;
+        }
+        if (rightPressed) {
+            walkDirection.x += 1;
+        }
+
+        if (walkDirection.len() > 0) {
+            walkDirection.nor();  // Normalize to prevent faster diagonal movement
+            entity.getEvents().trigger("walk", walkDirection);
+        } else {
+            entity.getEvents().trigger("walkStop");
+        }
+    }
+
 
     /**
      * Method used to setup the timer to hold the shoot button

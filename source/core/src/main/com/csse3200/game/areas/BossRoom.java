@@ -6,6 +6,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.StairFactory;
+import com.csse3200.game.services.ServiceLocator;
 
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class BossRoom extends EnemyRoom {
     private GameArea area;
     private Entity player;
     private boolean isBossRoom = true;
-   // private boolean stairsSpawned = false;
+    private Entity stairs;
+   private boolean stairsSpawned = false;
 
     @Override
     protected List<List<String>> getAnimalSpecifications() {
@@ -67,9 +69,8 @@ public class BossRoom extends EnemyRoom {
         super.spawn(player, area);
         this.area = area;
         this.player = player;
-        //if (!stairsSpawned)
-        spawnStairs(player, area);
-           // stairsSpawned = true; // Set the flag to true after spawning stairs
+        if (!stairsSpawned)
+         spawnStairs(player, area);
 
     }
 
@@ -79,6 +80,7 @@ public class BossRoom extends EnemyRoom {
         int y = maxGridPoint.y;
         GridPoint2 pos = new GridPoint2(x, y);
         area.spawnEntityAt(stairs, pos, true, true);
+        stairsSpawned = true; // Set the flag to true after spawning stairs
     }
 
     /**
@@ -100,7 +102,13 @@ public class BossRoom extends EnemyRoom {
         area.spawnEntityAt(snake, snakePos, true, true);
     }
 
-    //public void resetRoom() {
-       // stairsSpawned = false;
-    //}
+    @Override
+    public void removeRoom() {
+        super.removeRoom();
+        if (stairs != null) {
+            ServiceLocator.getEntityService().markEntityForRemoval(stairs);
+            stairs = null;
+        }
+        stairsSpawned = false;
+    }
 }

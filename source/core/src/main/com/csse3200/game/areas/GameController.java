@@ -2,13 +2,11 @@ package com.csse3200.game.areas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
-import com.csse3200.game.entities.configs.PlayerLocationConfig;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 
 
@@ -137,6 +135,8 @@ public class GameController {
         return currentLevel.getMap().mapData.RoomKeys.get(roomType);
     }
 
+
+
     /**
      * Get the main player of this game area.
      *
@@ -190,8 +190,14 @@ public class GameController {
      * @param roomKey the key of the room to change to.
      */
     public void changeRooms(String roomKey) {
+        Room oldRoom = this.currentRoom;
         this.currentRoom.removeRoom();
         selectRoom(roomKey);
+        // If we're moving from a BossRoom to a normal, ensure stairs are removed
+        if (oldRoom instanceof BossRoom && !(this.currentRoom instanceof BossRoom)) {
+            removeStairsFromNormalRooms();
+        }
+
         // update minimap
         minimapFactory.updateMinimap(roomKey);
     }
@@ -205,12 +211,12 @@ public class GameController {
         doorPositions.put(new Vector2(14, 5), new Vector2(1, 5));
         doorPositions.put(new Vector2(7, 0), new Vector2(7, 9));
         doorPositions.put(new Vector2(7, 10), new Vector2(7, 1));
-    
+
         Vector2 curPos = new Vector2(
             Math.round(player.getPosition().x),
             Math.round(player.getPosition().y)
         );
-        
+
         return doorPositions.getOrDefault(curPos, new Vector2(7, 5));
     }
 
@@ -238,12 +244,12 @@ public class GameController {
             //do here
             if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
                 List<Entity> enemies = room.getEnemies();
-                player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
+                player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies);
             }
             else{
                 //do nothing I guess and pray
             }
-        } 
+        }
 
         logger.info("Spawned new room, {}", ServiceLocator.getEntityService());
         spawnRoom = false;
@@ -287,5 +293,19 @@ public class GameController {
      */
     public GameArea getGameArea() {
         return this.gameArea;
+    }
+
+
+    private void removeStairsFromNormalRooms() {
+        List<Entity> entitiesToRemove = new ArrayList<>();
+        for (Entity entity : this.gameArea.getListOfEntities()) {
+            if (entity.getComponent(NameComponent.class) != null &&
+                    entity.getComponent(NameComponent.class).getName().equals("stairs to next level")) {
+                entitiesToRemove.add(entity);
+            }
+        }
+        for (Entity entity : entitiesToRemove) {
+            this.gameArea.disposeEntity(entity);
+        }
     }
 }

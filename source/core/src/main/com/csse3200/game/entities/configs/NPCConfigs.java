@@ -16,8 +16,8 @@ public class NPCConfigs {
   }
 
   public NPCConfig getConfig(String npcType) {
-    NPCConfig config = npcConfigs.get(npcType.toLowerCase());
-    config.name = npcType.toLowerCase();
+    NPCConfig config = npcConfigs.get(npcType);
+    config.name = npcType;
     return config;
   }
 

@@ -21,6 +21,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected float timeSinceLastAttack;
     protected CombatStatsComponent combatStats;
     protected EffectConfig[] effectConfigs;
+    protected EffectFactory effectFactory;
     protected int remainingAttacks = -1;
     protected static final Logger logger = LoggerFactory.getLogger(MeleeAttackComponent.class);
 
@@ -45,6 +46,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     @Override
     public void create() {
         super.create();
+        effectFactory = EffectFactory.getInstance();
         combatStats = entity.getComponent(CombatStatsComponent.class);
     }
 
@@ -86,6 +88,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
                 try {
                     Effect effect = EffectFactory.createEffect(config, entity);
                     effectComponent.addEffect(effect);
+                    EffectFactory.createEffectEntity(config, target);
                 } catch (IllegalArgumentException e) {
                     logger.error("Failed to create effect: {}", e.getMessage());
                 }

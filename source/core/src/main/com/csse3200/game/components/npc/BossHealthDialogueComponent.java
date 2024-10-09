@@ -1,60 +1,46 @@
 package com.csse3200.game.components.npc;
 
+import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.screens.MainGameScreen;
-import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.BossRoom;
+import java.util.Random;
 
-/**
- * A component that manages the boss's health-based dialogue during a battle.
- * It triggers dialogue boxes at specific health thresholds and pauses the game.
- */
 public class BossHealthDialogueComponent extends Component {
     private CombatStatsComponent combatStats;
     private final float[] healthThresholds = {0.75f, 0.5f, 0.25f};
     private int currentThresholdIndex = 0;
+    private Random random = new Random();
 
-    /**
-     * Initializes the component by getting the CombatStatsComponent from the entity.
-     */
     @Override
     public void create() {
         combatStats = entity.getComponent(CombatStatsComponent.class);
     }
 
-    /**
-     * Updates the component every frame.
-     * Checks if the boss's health has reached a new threshold and triggers dialogue if so.
-     */
     @Override
     public void update() {
         if (currentThresholdIndex >= healthThresholds.length) {
-            return; // All dialogues have been shown
+            return;
         }
 
         float healthPercentage = (float) combatStats.getHealth() / combatStats.getMaxHealth();
 
         if (healthPercentage <= healthThresholds[currentThresholdIndex]) {
             if (healthThresholds[currentThresholdIndex] == 0.5f) {
-                // At 50% health, spawn dog and snake
-                spawnAdditionalEnemies();
+                spawnRandomAdditionalEnemies();
             }
-            showDialogueAndPause();
+            showRandomDialogueAndPause();
             currentThresholdIndex++;
         }
     }
 
-    /**
-     * Displays a dialogue box with the boss's message and pauses the game.
-     * The game resumes when the player closes the dialogue box.
-     */
-    private void showDialogueAndPause() {
+    private void showRandomDialogueAndPause() {
         MainGameScreen.isPaused = true;
-        String message = getBossDialogue(currentThresholdIndex);
+        String message = getRandomBossDialogue(currentThresholdIndex);
 
         ServiceLocator.getAlertBoxService().confirmDialogBox(
                 entity,
@@ -73,30 +59,36 @@ public class BossHealthDialogueComponent extends Component {
         );
     }
 
-    /**
-     * Returns the appropriate boss dialogue based on the current health threshold.
-     *
-     * @param index The index of the current health threshold.
-     * @return A string containing the boss's dialogue.
-     */
-    private String getBossDialogue(int index) {
-        return switch (index) {
-            case 0 -> "You've managed to hurt me. But this battle is far from over!";
-            case 1 -> "Half of my strength is gone, but my resolve remains unbroken!";
-            case 2 -> "I'm on my last legs, but I won't go down without a fight!";
-            default -> "You'll never defeat me!";
+    private String getRandomBossDialogue(int index) {
+        String[][] dialogueOptions = {
+                {
+                        "Ouch! That tickled... I mean, hurt! You're in for it now!",
+                        "Is that all you've got? My grandma hits harder!",
+                        "Oh no, I'm at 75% health! ...Said no boss ever!"
+                },
+                {
+                        "Half my health gone? Time to get serious... right after this coffee break!",
+                        "You're halfway there! Too bad I have a second health bar... Kidding! Or am I?",
+                        "50% health? Perfectly balanced, as all things should be!"
+                },
+                {
+                        "I'm not sweating, it's just boss condensation!",
+                        "25% health? I've had worse paper cuts!",
+                        "Is it hot in here, or is it just my impending defeat?"
+                }
         };
+
+        return dialogueOptions[index][random.nextInt(dialogueOptions[index].length)];
     }
 
-    /**
-     * Spawns additional enemies (dog and snake) near the boss when health reaches 50%.
-     */
-    private void spawnAdditionalEnemies() {
+    private void spawnRandomAdditionalEnemies() {
         GameAreaService gameAreaService = ServiceLocator.getGameAreaService();
-        if (gameAreaService.getGameArea() != null) {
-            MainGameArea area = gameAreaService.getGameArea();
+        if (gameAreaService.getGameArea() instanceof MainGameArea area) {
             if (area.getCurrentRoom() instanceof BossRoom bossRoom) {
-                bossRoom.spawnOtherAnimals();
+                String[] possibleEnemies = {"Dog", "Snake", "rat", "bear", "bat", "dino", "minotaur", "dragon"};
+                String enemy1 = possibleEnemies[random.nextInt(possibleEnemies.length)];
+                String enemy2 = possibleEnemies[random.nextInt(possibleEnemies.length)];
+                bossRoom.spawnRandomEnemies(enemy1, enemy2);
             }
         }
     }

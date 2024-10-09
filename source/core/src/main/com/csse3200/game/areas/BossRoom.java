@@ -13,23 +13,32 @@ import java.util.List;
 import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
- * A boss room of the game,
- * these often have unique animals and rewards.
+ * Represents a boss room in the game.
+ * Boss rooms often have unique animals and rewards.
+ * This class extends EnemyRoom to include boss-specific functionality.
  */
 public class BossRoom extends EnemyRoom {
     private final NPCFactory npcFactory;
     private MainGameArea area;
     private Entity player;
 
+    /**
+     * Retrieves the specifications for animals in the boss room.
+     * @return A list of lists containing animal specifications for different boss levels.
+     */
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
                 List.of("Werewolf"), // boss 1
-                List.of("Kitsune"), // boss 2
-                List.of("Birdman")  // boss 3
+                List.of("Kitsune"),  // boss 2
+                List.of("Birdman")   // boss 3
         );
     }
 
+    /**
+     * Retrieves the specifications for items in the boss room.
+     * @return A list of lists containing item specifications for different boss levels.
+     */
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
@@ -41,13 +50,14 @@ public class BossRoom extends EnemyRoom {
     }
 
     /**
-     * A boss room with particular features.
+     * Constructs a BossRoom with specific features.
      *
-     * @param npcFactory         the NPC factory to use
-     * @param collectibleFactory the Collectible factory to use.
-     * @param terrainFactory     the terrain factory to use.
-     * @param roomConnections    the keys for all the adjacent rooms.
-     * @param specification      the specification for this room.
+     * @param npcFactory         The NPC factory to use for creating NPCs.
+     * @param collectibleFactory The Collectible factory to use for creating collectible items.
+     * @param terrainFactory     The terrain factory to use for creating terrain.
+     * @param roomConnections    The keys for all the adjacent rooms.
+     * @param specification      The specification for this room.
+     * @param roomName           The name of the room.
      */
     public BossRoom(NPCFactory npcFactory,
                     CollectibleFactory collectibleFactory,
@@ -59,6 +69,12 @@ public class BossRoom extends EnemyRoom {
         this.npcFactory = npcFactory;
     }
 
+    /**
+     * Spawns entities in the boss room, including the player and stairs.
+     *
+     * @param player The player entity to spawn.
+     * @param area   The main game area where spawning occurs.
+     */
     @Override
     public void spawn(Entity player, MainGameArea area) {
         super.spawn(player, area);
@@ -67,6 +83,12 @@ public class BossRoom extends EnemyRoom {
         spawnStairs(player, area);
     }
 
+    /**
+     * Spawns stairs in the boss room.
+     *
+     * @param player The player entity.
+     * @param area   The main game area where spawning occurs.
+     */
     private void spawnStairs(Entity player, MainGameArea area) {
         Entity stairs = StairFactory.createStair(player.getId());
         int x = maxGridPoint.x;
@@ -75,12 +97,22 @@ public class BossRoom extends EnemyRoom {
         area.spawnEntityAt(stairs, pos, true, true);
     }
 
+    /**
+     * Spawns random enemies in the boss room.
+     *
+     * @param enemy The type of enemy to spawn.
+     */
     public void spawnRandomEnemies(String enemy) {
         Entity newEnemy = npcFactory.create(enemy, player);
         GridPoint2 pos = getRandomPosition();
         spawnEnemyEntity(area, newEnemy, pos);
     }
 
+    /**
+     * Generates a random position within the room's boundaries.
+     *
+     * @return A GridPoint2 representing a random position in the room.
+     */
     private GridPoint2 getRandomPosition() {
         int x = random.nextInt(maxGridPoint.x - minGridPoint.x + 1) + minGridPoint.x;
         int y = random.nextInt(maxGridPoint.y - minGridPoint.y + 1) + minGridPoint.y;

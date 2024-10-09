@@ -10,17 +10,28 @@ import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.BossRoom;
 import java.util.Random;
 
+/**
+ * Component responsible for managing boss dialogue and behavior based on health thresholds.
+ * This component triggers dialogue and spawns additional enemies at specific health percentages.
+ */
 public class BossHealthDialogueComponent extends Component {
     private CombatStatsComponent combatStats;
     private final float[] healthThresholds = {0.75f, 0.5f, 0.25f};
     private int currentThresholdIndex = 0;
     private final Random random = new Random();
 
+    /**
+     * Initializes the component by getting the CombatStatsComponent of the entity.
+     */
     @Override
     public void create() {
         combatStats = entity.getComponent(CombatStatsComponent.class);
     }
 
+    /**
+     * Updates the component's state. Checks if the boss's health has reached a new threshold
+     * and triggers appropriate actions if so.
+     */
     @Override
     public void update() {
         if (currentThresholdIndex >= healthThresholds.length) {
@@ -38,6 +49,10 @@ public class BossHealthDialogueComponent extends Component {
         }
     }
 
+    /**
+     * Displays a random dialogue message and pauses the game.
+     * The game resumes when the player confirms the dialogue.
+     */
     private void showRandomDialogueAndPause() {
         MainGameScreen.isPaused = true;
         String message = getRandomBossDialogue(currentThresholdIndex);
@@ -59,24 +74,30 @@ public class BossHealthDialogueComponent extends Component {
         );
     }
 
+    /**
+     * Retrieves a random dialogue message based on the current health threshold.
+     *
+     * @param index The index of the current health threshold.
+     * @return A randomly selected dialogue message.
+     */
     private String getRandomBossDialogue(int index) {
         String[][] dialogueOptions = {
                 {
                         "Your looks hurt more than your attacks.",
-                        "If I had a nickel for every time you missed… I’d have a lot of nickels.",
+                        "If I had a nickel for every time you missed… I'd have a lot of nickels.",
                         "You fight like someone who reads the tutorial.",
                         "This is almost as painful as my last breakup."
                 },
                 {
                         "I'm here because my therapist said I need to work on my anger issues.",
                         "I should be charging you for this entertainment.",
-                        "I’ve seen bread with more fight in it!",
+                        "I've seen bread with more fight in it!",
                         "This is my cardio for the day."
                 },
                 {
                         "Just wait till I tell my mom about this—oh wait, I don't have one!",
                         "Is this a boss battle or an awkward first date?",
-                        "I’ll send you a postcard from the respawn screen.",
+                        "I'll send you a postcard from the respawn screen.",
                         "You fight like a soggy biscuit."
                 }
         };
@@ -84,6 +105,10 @@ public class BossHealthDialogueComponent extends Component {
         return dialogueOptions[index][random.nextInt(dialogueOptions[index].length)];
     }
 
+    /**
+     * Spawns a random number of additional enemies in the boss room.
+     * This method is called when the boss's health reaches 50%.
+     */
     private void spawnRandomAdditionalEnemies() {
         GameAreaService gameAreaService = ServiceLocator.getGameAreaService();
         if (gameAreaService.getGameArea() instanceof MainGameArea area) {

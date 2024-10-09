@@ -28,12 +28,12 @@ public class WeaponConfig {
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/fnscar.png"));
 
-        weaponConfigs.put("knife", new WeaponData("knife", 30,
-                4, 0, "images/Weapons/Centered" +
+        weaponConfigs.put("knife", new WeaponData("knife", 40,
+                10, 0, "images/Weapons/Centered" +
                 "/Knife" +
                 ".png"));
-        weaponConfigs.put("axe", new WeaponData("axe", 50,
-                10, 1, "images/Weapons/Centered/axe.png"));
+        weaponConfigs.put("axe", new WeaponData("axe", 80,
+                20, 1, "images/Weapons/Centered/axe.png"));
 
     }
 

@@ -1,0 +1,16 @@
+stun.png
+size:64,16
+repeat:none
+stun
+index:1
+bounds:0,0,16,16
+stun
+index:2
+bounds:16,0,16,16
+stun
+index:3
+bounds:32,0,16,16
+stun
+index:4
+bounds:48,0,16,16
+stun

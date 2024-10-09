@@ -35,14 +35,4 @@ public class AttackConfig {
         public float rate;
         public EffectConfig[] effects = new EffectConfig[0];
     }
-
-    /**
-     * Configuration for an attack's effect.
-     */
-    public static class EffectConfig {
-        public String type;
-        public float force; // For knockback
-        public float duration; // For stun or poison
-        public int damagePerSecond; // For poison
-    }
 }

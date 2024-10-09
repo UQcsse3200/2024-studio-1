@@ -5,6 +5,7 @@ import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.AttackConfig;
+import com.csse3200.game.entities.configs.EffectConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
@@ -116,7 +117,7 @@ class AOEAttackComponentTest {
 
     private Entity createAttacker(Entity target, float aoeRadius) {
         // Setup attacker configs
-        AttackConfig.EffectConfig[] effectConfigs = {}; // No effects
+        EffectConfig[] effectConfigs = {}; // No effects
         AttackConfig.AOEAttack aoeAttackConfig
                 = new AttackConfig.AOEAttack();
         aoeAttackConfig.range = aoeRadius;

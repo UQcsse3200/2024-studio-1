@@ -8,6 +8,6 @@
   },
   "textureFilename": "images/npc/bear/bear.png",
   "textureAtlasFilename": "images/npc/bear/bear.atlas",
-  "melee": "melee:Axe",
-  "ranged": "ranged:Shotgun"
+  "melee": "melee:axe",
+  "ranged": "ranged:shotgun"
 }

@@ -191,22 +191,6 @@ public class WeaponFactory extends LoadedFactory {
         return animator;
     }
 
-//    /**
-//     * Get all the filepath to textures needed by this Factory
-//     *
-//     * @return the filepath needed.
-//     */
-//    @Override
-//    protected String[] getTextureFilepaths() {
-//        return new String[]{
-//                "images/Weapons/sword1.png",
-//                "images/Weapons/shotgun4.png",
-//                "images/Weapons/shotgun_1.png",
-//                "images/Weapons/shotgun_2.png",
-//                "images/Weapons/winchester.png"
-//        };
-//    }
-
     /**
      * Get all the filepath to sounds needed by this Factory
      *

@@ -6,6 +6,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.StairFactory;
+import com.csse3200.game.services.ServiceLocator;
 
 import java.util.List;
 
@@ -87,7 +88,10 @@ public class BossRoom extends EnemyRoom {
         GridPoint2 snakePos = new GridPoint2(10, 10);  // Example fixed position
 
         // Spawn the animals at the fixed positions
-        area.spawnEntityAt(dog, dogPos, true, true);
-        area.spawnEntityAt(snake, snakePos, true, true);
+        BossRoom bossRoom = (BossRoom) ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom();
+
+        bossRoom.spawnEnemyEntity(area, dog, dogPos);
+        bossRoom.spawnEnemyEntity(area, snake, snakePos);
+//        area.spawnEntityAt(snake, snakePos, true, true);
     }
 }

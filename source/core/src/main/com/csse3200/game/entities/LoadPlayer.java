@@ -1,20 +1,14 @@
-
-
 package com.csse3200.game.entities;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
-import com.csse3200.game.entities.factories.ItemFactory;
-import com.csse3200.game.entities.factories.WeaponFactory;
+import com.csse3200.game.entities.factories.PetFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsUtils;
 import com.csse3200.game.physics.components.ColliderComponent;
@@ -24,12 +18,7 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 
-import java.util.Objects;
-
 import static org.slf4j.LoggerFactory.getLogger;
-
-import java.util.Objects;
-
 
 /**
  * Handles the setup of various player components, including animations,
@@ -37,12 +26,12 @@ import java.util.Objects;
  *
  */
 public class LoadPlayer {
-    private final ItemFactory itemFactory;
     private final InventoryComponent inventoryComponent;
     private final PlayerActions playerActions;
     private static final float playerScale = 0.75f;
     private static final Logger logger = getLogger(LoadPlayer.class);
     private CollectibleFactory collectibleFactory;
+    private PetFactory petFactory;
 
 
     /**
@@ -50,9 +39,9 @@ public class LoadPlayer {
      */
     public LoadPlayer() {
         this.collectibleFactory = new CollectibleFactory();
-        this.itemFactory = new ItemFactory();
         this.inventoryComponent = new InventoryComponent();
         this.playerActions = new PlayerActions();
+        this.petFactory = new PetFactory();
     }
 
     /**
@@ -62,11 +51,11 @@ public class LoadPlayer {
      *
      * @return entity
      */
-    public Entity createPlayer(PlayerConfig config) {
+    public Entity createPlayer(PlayerConfig config, boolean shouldLoad) {
         logger.info("Creating player with health {}", config.health);
         Entity player = new Entity();
-        addComponents(player, config);
-        addWeaponsAndItems(player, config);
+        addComponents(player, config, shouldLoad);
+        addWeaponsAndItems(player, config, shouldLoad);
         addAtlas(player, config);
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
@@ -82,10 +71,7 @@ public class LoadPlayer {
      * @param config the config file that contain the texture atlas filename.
      */
     public  void addAtlas(Entity player, PlayerConfig config) {
-        TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
-        System.out.println(config.textureAtlasFilename);
         if (!config.textureAtlasFilename.equals("images/player/player.atlas")) {
-            TextureRegion defaultTexture = atlas.findRegion("idle");
             player.setScale(2f, 2f);
         } else {
             if(config.name.equals("Bear")){
@@ -104,16 +90,12 @@ public class LoadPlayer {
      * @param player the player entity to which components will be added.
      * @param config the configuration object containing player settings.
      */
-    public void addComponents(Entity player, PlayerConfig config) {
-        if(config.name.equals("bear")){
-
-        }
+    public void addComponents(Entity player, PlayerConfig config, boolean shouldLoad) {
         player.addComponent(new NameComponent("Main Player"))
                 .addComponent(new PlayerConfigComponent(config))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-                .addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0))
                 .addComponent(inventoryComponent)
                 .addComponent(playerActions)
                 .addComponent(new PlayerAchievementComponent())
@@ -128,6 +110,15 @@ public class LoadPlayer {
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay());
 
+        if(!shouldLoad){
+            player.addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0));
+            
+        }
+        else{
+            player.addComponent(new CombatStatsComponent(config.health,config.MAX_HEALTH, 
+                config.baseAttack, true, config.armour, config.buff, config.canCrit, 
+                config.critChance));
+        }
         CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
 
         player.addComponent(coinsComponent)
@@ -146,7 +137,6 @@ public class LoadPlayer {
      * @param player the player entity to which the melee weapon will be added.
      */
     public void createMelee(PlayerConfig config, Entity player) {
-        System.out.printf("-- config name is %s\n", config.name);
         Collectible melee = collectibleFactory.create(config.melee);
         if (melee instanceof MeleeWeapon meleeWeapon) {
             inventoryComponent.pickup(meleeWeapon); // Set melee weapon in the inventory
@@ -175,7 +165,7 @@ public class LoadPlayer {
      *
      * @param config the configuration object containing weapon and item details.
      */
-    public void addWeaponsAndItems(Entity player, PlayerConfig config) {
+    public void addWeaponsAndItems(Entity player, PlayerConfig config, boolean shouldLoad) {
         if (config.melee!=null && !config.melee.isEmpty()) {
             createMelee(config, player);
         }
@@ -233,7 +223,6 @@ public class LoadPlayer {
                 animator.addAnimation("Hurt", 0.35f, Animation.PlayMode.NORMAL);
                 break;
             case ("images/npc/bear/bear.atlas"):
-                System.out.println("Bear Animations Added");
                 animator.addAnimation("idle_left", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("idle_right", 0.1f, Animation.PlayMode.LOOP);
                 animator.addAnimation("idle_bottom", 0.1f, Animation.PlayMode.LOOP);

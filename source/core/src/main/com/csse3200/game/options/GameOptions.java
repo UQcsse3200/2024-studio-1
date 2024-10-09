@@ -12,10 +12,7 @@ public class GameOptions {
      * The path to the json file of the selected player.
      */
     public String chosenPlayer;
-    /**
-     * Whether to load from save files when the game starts.
-     */
-    public boolean shouldLoad;
+
 
     /**
      * The difficulty of the game. Will likely affect map creation (number of rooms). May affect

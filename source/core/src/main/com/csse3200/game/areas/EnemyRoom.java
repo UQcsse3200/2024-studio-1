@@ -190,11 +190,12 @@ public abstract class EnemyRoom extends BaseRoom {
                                 ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
                         );
                     }
-                    SpawnEnemyEntity(area, enemy, randomPos);
+                    spawnEnemyEntity(area, enemy, randomPos);
                 }
             }
         }
-        // makeAllAnimalDead();
+        //makeAllAnimalDead();
+        //isAllAnimalDead();
     }
 
     /**
@@ -232,7 +233,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param enemy The enemy entity to spawn.
      * @param position The position to spawn the enemy at.
      */
-    protected void SpawnEnemyEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
+    public void spawnEnemyEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
         enemy.getEvents().addListener("checkAnimalsDead", () -> checkIfRoomComplete());
         this.spawnAnimalEntity(area, enemy, position);
         enemies.add(enemy);

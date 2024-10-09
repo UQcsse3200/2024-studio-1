@@ -149,7 +149,7 @@ public class LoadPlayer {
         System.out.printf("-- config name is %s\n", config.name);
         Collectible melee = collectibleFactory.create(config.melee);
         if (melee instanceof MeleeWeapon meleeWeapon) {
-            inventoryComponent.getInventory().setMelee(meleeWeapon); // Set melee weapon in the inventory
+            inventoryComponent.pickup(meleeWeapon); // Set melee weapon in the inventory
         }
     }
 

@@ -51,11 +51,13 @@ public class FiringController extends Component {
     private Sprite weaponSprite;
     // Tracking weapon state
     private long lastActivation;                        // Time of last ranged weapon activation, in seconds
-    private final long activationInterval;              // Interval between ranged weapon activation, in seconds
+    private final long activationInterval;              // Interval between ranged weapon
+    // activation, in miliseconds
 
     private Entity player;
     private short targetLayer;                          // Layer to target for melee weapon
     private final boolean isMelee;
+    private boolean isReady = true;
 
     /**
      * Initialize the firing controller for ranged weapon
@@ -134,6 +136,7 @@ public class FiringController extends Component {
      * Activate weapon on the direction specified
      * If the weapon is ranged, it will shoot in the direction specified (direction not null)
      * If the weapon is melee, it will attack in the direction the player is walking
+     *
      * @param direction direction to shoot in, set to null for melees
      * @return message to indicate the weapon attack
      */
@@ -173,45 +176,29 @@ public class FiringController extends Component {
             logger.info("Player not connected");
             return;
         }
-        Entity entity = this.getEntity();
-        long currentTime = System.currentTimeMillis();
-        if (entity != null) {
-            if (currentTime - this.lastActivation <= this.activationInterval) {
+        if (this.getEntity() != null) {
+            if (!isReady) {
                 // Weapon not ready
                 logger.info("Ranged weapon not ready");
                 return;
             }
-            if (this.getAmmo() == 0) {
-                // Reloading
-                this.setAmmo(-2);
-                // Offset time so that the weapon must wait extra long for reload time
-                currentTime += this.getReloadTime() * 1000L - this.activationInterval;
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        getPlayer().getEvents().trigger("ranged_activate", getMaxAmmo());
-                    }
-                }, this.reloadTime * 1000L);
-                logger.info("Ranged weapon reloading");
-                ServiceLocator.getResourceService().playSound("sounds/shotgun1_r.ogg");
-            } else {
-                // Shooting
-                this.setAmmo(-1);
+            // Shooting
+            this.setAmmo(-1);
+            // Set ready state
 
-                // Create projectiles
-                for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
-                        direction, this.getEntity().getPosition())) {
-                    ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
-                            new GridPoint2(9, 9), true, true);
-                }
-                ServiceLocator.getResourceService().playSound("sounds/shotgun1_f.ogg");
-                // Trigger event for animation controller
-                triggerEvent(direction);
-                logger.info("Ranged weapon shoot");
-                entity.getEvents().trigger("RANGED_ATTACK");
+            // Create projectiles
+            for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
+                    direction, this.getEntity().getPosition())) {
+                ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
+                        new GridPoint2(9, 9), true, true);
             }
-            // Reset last Attack time
-            this.lastActivation = currentTime;
+            // Trigger sound
+            ServiceLocator.getResourceService().playSound("sounds/shotgun1_f.ogg");
+            // Trigger event for animation controller
+            triggerEvent(direction);
+            logger.info("Ranged weapon shoot");
+            // Check if the weapon needs to be reload or not
+            checkState();
         } else {
             logger.info("No ranged weapon");
         }
@@ -228,16 +215,20 @@ public class FiringController extends Component {
             logger.info("Player not connected");
             return;
         }
-        Entity entity = this.getEntity();
-        long currentTime = System.currentTimeMillis();
-        if (entity != null) {
-            if (currentTime - this.lastActivation <= this.activationInterval) {
+        if (this.getEntity() != null) {
+            if (!isReady) {
                 // Weapon not ready
                 logger.info("Melee weapon not ready");
                 return;
             }
-            // Render attack here using
-            this.lastActivation = currentTime;
+            // Set ready state
+            isReady = false;
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    isReady = true;
+                }
+            }, (float) this.activationInterval / 1000L);
             ServiceLocator.getResourceService().playSound("sounds/sword1.ogg");
             logger.info("Melee weapon attack");
             triggerEvent(this.player.getComponent(PlayerActions.class).getWalkDirection());
@@ -318,6 +309,37 @@ public class FiringController extends Component {
         // Trigger event for weapon UI
         if (this.player != null) {
             this.player.getEvents().trigger("ranged_activate", this.ammo);
+        }
+    }
+
+    /**
+     * Set isReady to false.
+     * If the weapon still have ammo, create timer to set isReady to true after activation
+     * interval.
+     * Else, create timer to set isReady to true after reload time.
+     */
+    private void checkState() {
+        // Check for reloading
+        isReady = false;
+        if (this.getAmmo() != 0) {
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    isReady = true;
+                }
+            }, (float) this.activationInterval / 1000L);
+        }
+        else {
+            logger.info("Ranged weapon reloading");
+            ServiceLocator.getResourceService().playSound("sounds/shotgun1_r.ogg");
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    setAmmo(-2);
+                    getPlayer().getEvents().trigger("ranged_activate", getMaxAmmo());
+                    isReady = true;
+                }
+            }, this.reloadTime);
         }
     }
 
@@ -483,6 +505,7 @@ public class FiringController extends Component {
 
     /**
      * Get the player that is using this weapon
+     *
      * @return the player entity
      */
     public Entity getPlayer() {
@@ -491,6 +514,7 @@ public class FiringController extends Component {
 
     /**
      * Get the target layer of the weapon
+     *
      * @return the target layer
      */
     public short getTargetLayer() {

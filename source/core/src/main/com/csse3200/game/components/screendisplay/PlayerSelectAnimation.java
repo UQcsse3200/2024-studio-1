@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
 /**
@@ -70,9 +69,22 @@ public class PlayerSelectAnimation extends Actor {
 
         // Get the current frame from the animator
         TextureRegion currentFrame = animator.getCurrentFrame();
-        if (currentFrame != null) {
-            batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
+
+        // Calculate width, height to draw at
+        float cellRatio = getHeight() / getWidth();
+        float regionRatio = (float) currentFrame.getRegionHeight() / currentFrame.getRegionWidth();
+        float width, height;
+        if (cellRatio > regionRatio) {
+            width = getWidth();
+            height = width * regionRatio;
+        } else {
+            height = getHeight();
+            width = height / regionRatio;
         }
+        float x = getX() + (getWidth() - width) / 2;
+        float y = getY() + (getHeight() - height) / 2;
+
+        batch.draw(currentFrame, x, y, width, height);
 
         // Reset batch color
         batch.setColor(1f, 1f, 1f, 1f);

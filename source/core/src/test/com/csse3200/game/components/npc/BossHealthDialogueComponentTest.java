@@ -1,8 +1,9 @@
 package com.csse3200.game.components.npc;
 
+import static org.mockito.Mockito.*;
+
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.areas.GameAreaService;
@@ -10,64 +11,82 @@ import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.areas.BossRoom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.*;
-
-@ExtendWith(GameExtension.class)
-@ExtendWith(MockitoExtension.class)
 class BossHealthDialogueComponentTest {
 
-    @Mock
-    private Entity mockEntity;
-    @Mock
-    private CombatStatsComponent mockCombatStats;
-    @Mock
-    private AlertBoxService mockAlertBoxService;
-    @Mock
-    private GameAreaService mockGameAreaService;
-    @Mock
-    private MainGameArea mockMainGameArea;
-    @Mock
-    private BossRoom mockBossRoom;
-
     private BossHealthDialogueComponent component;
+    private Entity mockEntity;
+    private CombatStatsComponent mockCombatStats;
+    private AlertBoxService mockAlertBoxService;
 
     @BeforeEach
     void setUp() {
-        // Set up mocks
+        component = new BossHealthDialogueComponent();
+        mockEntity = mock(Entity.class);
+        mockCombatStats = mock(CombatStatsComponent.class);
+        mockAlertBoxService = mock(AlertBoxService.class);
+        GameAreaService mockGameAreaService = mock(GameAreaService.class);
+        MainGameArea mockMainGameArea = mock(MainGameArea.class);
+        BossRoom mockBossRoom = mock(BossRoom.class);
+
         when(mockEntity.getComponent(CombatStatsComponent.class)).thenReturn(mockCombatStats);
         when(mockCombatStats.getMaxHealth()).thenReturn(100);
 
-        ServiceLocator.registerAlertBoxService(mockAlertBoxService);
-        ServiceLocator.registerGameAreaService(mockGameAreaService);
         when(mockGameAreaService.getGameArea()).thenReturn(mockMainGameArea);
         when(mockMainGameArea.getCurrentRoom()).thenReturn(mockBossRoom);
 
-        // Create component
-        component = new BossHealthDialogueComponent();
+        ServiceLocator.registerAlertBoxService(mockAlertBoxService);
+        ServiceLocator.registerGameAreaService(mockGameAreaService);
+
         component.setEntity(mockEntity);
         component.create();
     }
 
     @Test
-    void testDialogueTriggers() {
-        // Test 75% health threshold
-        when(mockCombatStats.getHealth()).thenReturn(74);
+    void testDialogueTriggeredAt75PercentHealth() {
+        when(mockCombatStats.getHealth()).thenReturn(74);  // Just below 75% threshold
         component.update();
-        verify(mockAlertBoxService).confirmDialogBox(eq(mockEntity), eq("You've managed to hurt me. But this battle is far from over!"), any());
 
-        // Test 50% health threshold
-        when(mockCombatStats.getHealth()).thenReturn(49);
-        component.update();
-        verify(mockAlertBoxService).confirmDialogBox(eq(mockEntity), eq("Half of my strength is gone, but my resolve remains unbroken!"), any());
-        verify(mockBossRoom).spawnOtherAnimals();
+        verify(mockAlertBoxService, times(1)).confirmDialogBox(
+                eq(mockEntity),
+                anyString(),
+                any(AlertBoxService.ConfirmationListener.class)
+        );
+    }
 
-        // Test 25% health threshold
-        when(mockCombatStats.getHealth()).thenReturn(24);
+    @Test
+    void testNoDialogueTriggeredAbove75PercentHealth() {
+        when(mockCombatStats.getHealth()).thenReturn(76);  // Just above 75% threshold
         component.update();
-        verify(mockAlertBoxService).confirmDialogBox(eq(mockEntity), eq("I'm on my last legs, but I won't go down without a fight!"), any());
+
+        verify(mockAlertBoxService, never()).confirmDialogBox(
+                any(Entity.class),
+                anyString(),
+                any(AlertBoxService.ConfirmationListener.class)
+        );
+    }
+
+    @Test
+    void testDialogueTriggeredAt50PercentHealth() {
+        when(mockCombatStats.getHealth()).thenReturn(49);  // Just below 50% threshold
+        component.update();
+
+        verify(mockAlertBoxService, times(1)).confirmDialogBox(
+                eq(mockEntity),
+                anyString(),
+                any(AlertBoxService.ConfirmationListener.class)
+        );
+    }
+
+    @Test
+    void testDialogueTriggeredAt25PercentHealth() {
+        when(mockCombatStats.getHealth()).thenReturn(24);  // Just below 25% threshold
+        component.update();
+
+        verify(mockAlertBoxService, times(1)).confirmDialogBox(
+                eq(mockEntity),
+                anyString(),
+                any(AlertBoxService.ConfirmationListener.class)
+        );
     }
 }

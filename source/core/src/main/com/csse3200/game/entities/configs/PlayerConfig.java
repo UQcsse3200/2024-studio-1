@@ -32,11 +32,6 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String textureFilename;
   /** The texture atlas this player uses*/
   public String textureAtlasFilename;
-  
-  /** The highest possible initial health a player can have. */
-  public static final int MAX_HEALTH = 100;
-  /** The highest possible initial speed a player can have. */
-  public static final Vector2 MAX_SPEED = new Vector2(5, 5);
 
   /**
    * Make a copy of the config, used for testing.

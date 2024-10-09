@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
-import com.csse3200.game.actors.StatBar;
 import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.rendering.AnimationRenderComponent;
@@ -86,12 +85,19 @@ public class PlayerSelectDisplay extends UIComponent {
 
         // Add stat bars
         rootTable.row();
+        // calculate highest health/speed out of all players
+        int maxHealth = configs.values().stream()
+                .map(player -> player.health)
+                .max(Integer::compareTo).orElseThrow();
+        float maxSpeed = configs.values().stream()
+                .map(player -> player.speed.len())
+                .max(Float::compareTo).orElseThrow();
         configs.forEach((filename, config) -> {
             Table statTable = new Table();
             statTable.defaults().pad(STAT_TABLE_PADDING).fill();
-            statTable.columnDefaults(1).expandX(); // stat
-            addStat(statTable, "HLTH", config.health, PlayerConfig.MAX_HEALTH);
-            addStat(statTable, "SPD", config.speed.len(), PlayerConfig.MAX_SPEED.len());
+            statTable.columnDefaults(1).growX().minWidth(0); // stat bars
+            addStat(statTable, "HLTH", config.health, maxHealth);
+            addStat(statTable, "SPD", config.speed.len(), maxSpeed);
             rootTable.add(statTable);
         });
 
@@ -126,14 +132,13 @@ public class PlayerSelectDisplay extends UIComponent {
      * @param maxValue The max possible value of this stat.
      */
     private void addStat(Table table, String name, float value, float maxValue) {
-        float proportion = value / maxValue;
+        table.row();
         Label statName = new Label(name, skin);
         table.add(statName);
-
-        StatBar statBar = new StatBar(proportion);
-        table.add(statBar).height(BAR_HEIGHT);
-
-        table.row();
+        ProgressBar statBar = new ProgressBar(0, maxValue, 0.1f, false, skin);
+        statBar.setAnimateDuration(.6f);
+        statBar.setValue(value);
+        table.add(statBar);
     }
 
     private void playerSelected(String filename) {

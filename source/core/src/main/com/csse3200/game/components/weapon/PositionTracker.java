@@ -3,6 +3,7 @@ package com.csse3200.game.components.weapon;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.player.PlayerConfigComponent;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -55,10 +56,8 @@ public class PositionTracker extends Component {
             offset = new Vector2(0, 0);
             return;
         }
-        switch (player.getComponent(NameComponent.class).getName()) {
-            case "Player":
-                offset = new Vector2(1, 1);
-                break;
+        // Specify the offset for each character model
+        switch (player.getComponent(PlayerConfigComponent.class).getPlayerConfig().name) {
             case "Player 2":
                 offset = new Vector2(0.5f, 0.5f);
                 break;
@@ -68,9 +67,11 @@ public class PositionTracker extends Component {
             case "Player 4":
                 offset = new Vector2(0.5f, 0.5f);
                 break;
+            case "bear":
+                offset = new Vector2(0.7f, 1);
+                break;
             default:
-                // for the bear
-                offset = new Vector2(0.5f, 0.4f);
+                offset = new Vector2(0, 0);
         }
     }
 

@@ -1,10 +1,11 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.csse3200.game.components.player.inventory.weapons.ConcreteMeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
-import com.csse3200.game.entities.factories.WeaponFactory;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.DebugRenderer;
@@ -76,25 +77,23 @@ public class ConcreteMeleeWeaponTest {
     public void testPickup() {
         ConcreteMeleeWeapon meleeWeapon = new ConcreteMeleeWeapon("knife", "knife.png", 10, 10, 10);
         meleeWeapon.setWeaponEntity(weaponEntity);
-        InventoryComponent inventoryComponent = new InventoryComponent();
+        InventoryComponent inventory = new InventoryComponent();
 
-        Entity player = new Entity().addComponent(inventoryComponent);
-        Inventory inventory = new Inventory(inventoryComponent);
-        meleeWeapon.pickup(inventory);
-        assert inventory.getMelee().isPresent();
+        Entity player = new Entity().addComponent(inventory);
+        inventory.pickup(meleeWeapon);
+        assert inventory.getOffhand().isPresent();
     }
 
     @org.junit.jupiter.api.Test
     public void testDrop() {
         ConcreteMeleeWeapon meleeWeapon = new ConcreteMeleeWeapon("knife", "knife.png", 10, 10, 10);
         meleeWeapon.setWeaponEntity(weaponEntity);
-        InventoryComponent inventoryComponent = new InventoryComponent();
+        InventoryComponent inventory = new InventoryComponent();
 
-        new Entity().addComponent(inventoryComponent);
-        Inventory inventory = new Inventory(inventoryComponent);
-        meleeWeapon.pickup(inventory);
-        meleeWeapon.drop(inventory);
-        assert !inventory.getMelee().isPresent();
+        new Entity().addComponent(inventory);
+        inventory.pickup(meleeWeapon);
+        inventory.drop(meleeWeapon);
+        assert inventory.getOffhand().isEmpty();
     }
 
     @org.junit.jupiter.api.Test
@@ -112,7 +111,7 @@ public class ConcreteMeleeWeaponTest {
     @org.junit.jupiter.api.Test
     public void testGetIconPath() {
         ConcreteMeleeWeapon meleeWeapon = new ConcreteMeleeWeapon("knife", "knife.png", 10, 10, 10);
-        assert meleeWeapon.iconPath.equals("knife.png");
+        assert meleeWeapon.getIconPath().equals("knife.png");
     }
 
     @org.junit.jupiter.api.Test
@@ -138,12 +137,11 @@ public class ConcreteMeleeWeaponTest {
     public void testAttack() {
         ConcreteMeleeWeapon meleeWeapon = new ConcreteMeleeWeapon("knife", "knife.png", 10, 10, 10);
         meleeWeapon.setWeaponEntity(weaponEntity);
-        InventoryComponent inventoryComponent = new InventoryComponent();
+        InventoryComponent inventory = new InventoryComponent();
 
-        new Entity().addComponent(inventoryComponent);
-        Inventory inventory = new Inventory(inventoryComponent);
-        meleeWeapon.pickup(inventory);
+        new Entity().addComponent(inventory);
+        inventory.pickup(meleeWeapon);
         meleeWeapon.attack();
-        assert inventory.getMelee().isPresent();
+        assert inventory.getOffhand().isPresent();
     }
 }

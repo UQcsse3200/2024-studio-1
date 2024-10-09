@@ -1,11 +1,14 @@
 package com.csse3200.game.components.player.inventory;
+
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.buffs.Syringe;
 import com.csse3200.game.entities.Entity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

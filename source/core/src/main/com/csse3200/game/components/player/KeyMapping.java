@@ -1,7 +1,6 @@
 package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.Input;
-import com.csse3200.game.components.player.inventory.MedKit;
 
 import java.util.HashMap;
 import java.util.Map;

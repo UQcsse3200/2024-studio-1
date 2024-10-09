@@ -2,50 +2,40 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.usables.MedKit;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.extensions.GameExtension;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(GameExtension.class)
 class InventoryComponentTest {
 
-    private static class TestException extends RuntimeException {
-    }
-
-    @Test
-    public void testEntityIsSame() {
-        InventoryComponent inventoryComponent = new InventoryComponent();
-        Entity entity = new Entity().addComponent(inventoryComponent);
-        Inventory inventory = inventoryComponent.getInventory();
-        assertEquals(entity, inventory.getEntity());
-    }
-
     @Test
     public void testWeaponsAreEmpty() {
-        InventoryComponent inventoryComponent = new InventoryComponent();
-        new Entity().addComponent(inventoryComponent);
-        Inventory inventory = inventoryComponent.getInventory();
-        assertTrue(inventory.getMelee().isEmpty());
-        assertTrue(inventory.getRanged().isEmpty());
+        InventoryComponent inventory = new InventoryComponent();
+        new Entity().addComponent(inventory);
+        assertTrue(inventory.getOffhand().isEmpty());
+        assertTrue(inventory.getMainWeapon().isEmpty());
     }
 
     @Test
     public void testItemsAreEmpty() {
-        InventoryComponent inventoryComponent = new InventoryComponent();
-        new Entity().addComponent(inventoryComponent);
-        Inventory inventory = inventoryComponent.getInventory();
+        InventoryComponent inventory = new InventoryComponent();
+        new Entity().addComponent(inventory);
         assertTrue(inventory.getItems().isEmpty());
     }
 
     @Test
     public void testPickupMelee() {
-        InventoryComponent inventoryComponent = new InventoryComponent();
-        new Entity().addComponent(inventoryComponent);
-        Inventory inventory = inventoryComponent.getInventory();
+        InventoryComponent inventory = new InventoryComponent();
+        new Entity().addComponent(inventory);
 
         //Knife knife = new Knife();
         MeleeWeapon knife = new MeleeWeapon(){
@@ -54,17 +44,16 @@ class InventoryComponentTest {
 
             }
         };
-        inventory.setMelee(knife);
+        inventory.pickup(knife);
 
-        assertTrue(inventory.getMelee().isPresent());
-        assertEquals(knife, inventory.getMelee().get());
+        assertTrue(inventory.getOffhand().isPresent());
+        assertEquals(knife, inventory.getOffhand().get());
     }
 
     @Test
     public void testPickupRanged() {
-        InventoryComponent inventoryComponent = new InventoryComponent();
-        new Entity().addComponent(inventoryComponent);
-        Inventory inventory = inventoryComponent.getInventory();
+        InventoryComponent inventory = new InventoryComponent();
+        new Entity().addComponent(inventory);
 
         RangedWeapon shotgun = new RangedWeapon() {
             @Override
@@ -75,19 +64,18 @@ class InventoryComponentTest {
             @Override
             public void shoot(Vector2 direction) {}
         };
-        inventoryComponent.pickup(shotgun);
+        inventory.pickup(shotgun);
 
-        assertTrue(inventory.getRanged().isPresent());
-        assertEquals(shotgun, inventory.getRanged().get());
+        assertTrue(inventory.getMainWeapon().isPresent());
+        assertEquals(shotgun, inventory.getMainWeapon().get());
     }
 
     @Test
     public void testRangedDrop() {
 
 
-        InventoryComponent inventoryComponent = new InventoryComponent();
-        new Entity().addComponent(inventoryComponent);
-        Inventory inventory = inventoryComponent.getInventory();
+        InventoryComponent inventory = new InventoryComponent();
+        new Entity().addComponent(inventory);
 
         RangedWeapon shotgun = new RangedWeapon() {
             @Override
@@ -99,17 +87,16 @@ class InventoryComponentTest {
             public void shoot(Vector2 direction) {}
         };
 
-        inventoryComponent.pickup(shotgun);
+        inventory.pickup(shotgun);
 
-        Assert.assertThrows(TestException.class, () -> inventoryComponent.drop(shotgun));
-        assertTrue(inventory.getRanged().isEmpty());
+        Assert.assertThrows(TestException.class, () -> inventory.drop(shotgun));
+        assertTrue(inventory.getMainWeapon().isEmpty());
     }
 
     @Test
     public void testMeleeDrop() {
-        InventoryComponent inventoryComponent = new InventoryComponent();
-        new Entity().addComponent(inventoryComponent);
-        Inventory inventory = inventoryComponent.getInventory();
+        InventoryComponent inventory = new InventoryComponent();
+        new Entity().addComponent(inventory);
 
         MeleeWeapon knife = new MeleeWeapon() {
             @Override
@@ -122,24 +109,27 @@ class InventoryComponentTest {
             public void attack() {}
         };
 
-        inventoryComponent.pickup(knife);
+        inventory.pickup(knife);
 
-        Assert.assertThrows(TestException.class, () -> inventoryComponent.drop(knife));
-        assertTrue(inventory.getMelee().isEmpty());
+        Assert.assertThrows(TestException.class, () -> inventory.drop(knife));
+        assertTrue(inventory.getOffhand().isEmpty());
     }
 
     @Test
     public void testItemAdded() {
-        InventoryComponent inventoryComponent = new InventoryComponent();
+        InventoryComponent inventory = new InventoryComponent();
         new Entity()
-                .addComponent(inventoryComponent)
+                .addComponent(inventory)
                 .addComponent(new CombatStatsComponent(10, 10));
-        Inventory inventory = inventoryComponent.getInventory();
 
         MedKit medkit = new MedKit();
-        inventoryComponent.pickup(medkit);
+        inventory.pickup(medkit);
 
         assertTrue(inventory.getItems().contains(medkit, true));
+    }
+
+    private static class TestException extends RuntimeException {
+        // Simple Exception
     }
 
 }

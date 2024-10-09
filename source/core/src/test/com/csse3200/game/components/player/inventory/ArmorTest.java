@@ -1,15 +1,15 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.ShieldComponent;
+import com.csse3200.game.components.player.inventory.buffs.Armor;
 import com.csse3200.game.entities.Entity;
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-
-import static org.mockito.Mockito.*;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 public class ArmorTest {
 
     Armor armor = new Armor();

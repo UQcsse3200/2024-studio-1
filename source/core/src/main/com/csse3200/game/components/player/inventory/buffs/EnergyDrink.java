@@ -1,8 +1,10 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.buffs;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
+import com.csse3200.game.components.player.inventory.BuffItem;
+import com.csse3200.game.components.player.inventory.Inventory;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -91,6 +93,16 @@ public class EnergyDrink extends BuffItem {
     }
 
     /**
+     * Get the mystery box icon representation of this item
+     *
+     * @return the mystery box icon representation of this item
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_blue.png");
+    }
+
+    /**
      * Remove this collectible from the entity
      *
      * @param inventory The inventory to be dropped out of.
@@ -98,6 +110,16 @@ public class EnergyDrink extends BuffItem {
     @Override
     public void drop(Inventory inventory) {
 
+    }
+
+    /**
+     * Return a string representation of this collectible that can be parsed by CollectibleFactory
+     *
+     * @return the string representation of this collectible.
+     */
+    @Override
+    public String getBuffSpecification() {
+        return "energydrink:" + this.speedType;
     }
 
     /**
@@ -168,25 +190,5 @@ public class EnergyDrink extends BuffItem {
                 this.speedPercentage = 0.1f;
             }
         }
-    }
-
-    /**
-     * Return a string representation of this collectible that can be parsed by CollectibleFactory
-     *
-     * @return the string representation of this collectible.
-     */
-    @Override
-    public String getBuffSpecification() {
-        return "energydrink:" + this.speedType;
-    }
-
-    /**
-     * Get the mystery box icon representation of this item
-     *
-     * @return the mystery box icon representation of this item
-     */
-    @Override
-    public Texture getMysteryIcon() {
-        return new Texture("images/items/mystery_box_blue.png");
     }
 }

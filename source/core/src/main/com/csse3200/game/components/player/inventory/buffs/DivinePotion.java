@@ -1,45 +1,15 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.buffs;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerActions;
+import com.csse3200.game.components.player.inventory.BuffItem;
 import com.csse3200.game.entities.Entity;
 
-public class DivinePotion extends BuffItem{
+public class DivinePotion extends BuffItem {
     private static final int potionBoost = 30;
     Vector2 maxSpeed = new Vector2(6f, 6f);
-
-    /**
-     * Make the entity pick the item up, and apply effects immediately instead of being added to the inventory
-     *
-     * @param inventory The inventory to be put in.
-     */
-    @Override
-    public void pickup(Inventory inventory) {
-        inventory.addItem(this);
-        effect(inventory.getEntity());
-    }
-
-    /**
-     * Get the name of this item
-     *
-     * @return the String representation of the name of this item
-     */
-    @Override
-    public String getName() {
-        return "Divine Potion";
-    }
-
-
-    /**
-     * Remove this collectible from the entity
-     *
-     * @param inventory The inventory to be dropped out of.
-     */
-    @Override
-    public void drop(Inventory inventory) {
-    }
-
 
     /**
      * Return a string representation of this collectible that can be parsed by CollectibleFactory
@@ -49,17 +19,6 @@ public class DivinePotion extends BuffItem{
     @Override
     public String getBuffSpecification() {
         return "Divine potion";
-    }
-
-
-    /**
-     * Return texture related with divine potion item
-     *
-     * @return texture representing icon of divine potion item.
-     */
-    @Override
-    public Texture getIcon() {
-        return new Texture("images/items/divine_potion.png");
     }
 
     /**
@@ -74,6 +33,25 @@ public class DivinePotion extends BuffItem{
         speed(entity);
     }
 
+    /**
+     * Get the name of this item
+     *
+     * @return the String representation of the name of this item
+     */
+    @Override
+    public String getName() {
+        return "Divine Potion";
+    }
+
+    /**
+     * Return texture related with divine potion item
+     *
+     * @return texture representing icon of divine potion item.
+     */
+    @Override
+    public Texture getIcon() {
+        return new Texture("images/items/divine_potion.png");
+    }
 
     /**
      * Increases health by using entity's CombatStatsComponent to set Health
@@ -83,7 +61,7 @@ public class DivinePotion extends BuffItem{
     public void Boost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + potionBoost,combatStats.getMaxHealth());
+        int newHealth = Math.min(currentHealth + potionBoost, combatStats.getMaxHealth());
         combatStats.setHealth(newHealth);
     }
 

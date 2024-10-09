@@ -12,9 +12,9 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
+import com.csse3200.game.components.player.PlayerFactoryFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.PlayerSelection;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.PlayerFactory;
@@ -33,15 +33,13 @@ import com.csse3200.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
+import java.util.List;
 
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
 import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
-import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
-import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
 /**
- * The game screen loading the game  
+ * The game screen loading the game
  *
  * <p>Details on libGDX screens: <a href="https://happycoding.io/tutorials/libgdx/game-screens">...</a>
  */
@@ -119,24 +117,20 @@ public class LoadGameScreen extends ScreenAdapter {
                 ServiceLocator.getResourceService().getAsset("skins/rainbow/skin/rainbow-ui.atlas", TextureAtlas.class));
         Stage stage = ServiceLocator.getRenderService().getStage();
         ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
-        /*
-         * based on the characters selected, changed the link
-         * If Player choose Load, then create
-         */
-
-        this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
-        PlayerConfig config = FileLoader.readClass(
-                PlayerConfig.class,
+        PlayerConfig config = FileLoader.readClass(PlayerConfig.class,
                 "saves/player_save.json",
                 FileLoader.Location.EXTERNAL);
         if (config == null) {
             throw new RuntimeException("Tried to load player and failed");
         }
-        Entity player = playerFactory.createPlayer(config, shouldLoad);
+        PlayerFactoryFactory playerSelection = new PlayerFactoryFactory(List.of(config));
+
+        this.playerFactory = playerSelection.create(config.name);
+        Entity player = playerFactory.create(game.gameOptions.difficulty);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising load game screen entities");
-        MapLoadConfig mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class, MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
         LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad, mapLoadConfig);
         new MainGameArea(levelFactory, player, shouldLoad, mapLoadConfig);
     }
@@ -188,7 +182,6 @@ public class LoadGameScreen extends ScreenAdapter {
         logger.debug("Disposing load game screen");
 
         renderer.dispose();
-        playerFactory.dispose();
         unloadAssets();
 
         ServiceLocator.getEntityService().dispose();

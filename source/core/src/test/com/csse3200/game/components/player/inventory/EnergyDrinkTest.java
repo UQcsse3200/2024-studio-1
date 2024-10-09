@@ -3,8 +3,8 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerActions;
+import com.csse3200.game.components.player.inventory.buffs.EnergyDrink;
 import com.csse3200.game.entities.Entity;
-
 import com.csse3200.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

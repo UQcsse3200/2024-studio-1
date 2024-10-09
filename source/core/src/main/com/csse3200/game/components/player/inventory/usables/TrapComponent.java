@@ -1,10 +1,9 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.usables;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
@@ -18,17 +17,18 @@ public class TrapComponent extends Component {
      * Register a collision event listener and method is
      * called when trap is initialized.
      */
-    public void create(){
-        entity.getEvents().addListener("collisionStart",this::onCollisionStart);
+    public void create() {
+        entity.getEvents().addListener("collisionStart", this::onCollisionStart);
     }
 
     /**
      * Handles collision detection when other entity collides with the trap
      * If animal collides, it does damage to the animal.
-     * @param me represents the trap
+     *
+     * @param me    represents the trap
      * @param other represents the animals (other entity) in the game
      */
-    public void onCollisionStart(Fixture me, Fixture other){
+    public void onCollisionStart(Fixture me, Fixture other) {
 
         Entity otherEntity = ((BodyUserData) other.getBody().getUserData()).entity;
 
@@ -49,15 +49,17 @@ public class TrapComponent extends Component {
 
     /**
      * Checks whether entity is an enemy
+     *
      * @param enemy entity to check
      * @return true if entity is an enemy
      */
-    public boolean isEnemy(Entity enemy){
+    public boolean isEnemy(Entity enemy) {
         return enemy.getComponent(AITaskComponent.class) != null;
     }
 
     /**
      * Marks entity for removal after it is used
+     *
      * @param trap the item to be removed.
      */
     private void markEntityForRemoval(Entity trap) {

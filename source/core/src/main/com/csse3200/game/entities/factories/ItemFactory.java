@@ -1,6 +1,10 @@
 package com.csse3200.game.entities.factories;
 
-import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.buffs.*;
+import com.csse3200.game.components.player.inventory.pets.RingFire;
+import com.csse3200.game.components.player.inventory.pets.Tombstone;
+import com.csse3200.game.components.player.inventory.usables.*;
 
 /**
  * A factory that creates usable items and buffs.
@@ -46,7 +50,7 @@ public class ItemFactory {
             throw new IllegalArgumentException("Energy drink must have a type. Choose: Low, Medium, High");
         }
 
-        return switch (specification){
+        return switch (specification) {
             case "medkit" -> createMedKit();
             case "bandage" -> createBandage();
             case "energydrink" -> createEnergyDrink(type);
@@ -65,12 +69,14 @@ public class ItemFactory {
             case "bleedbuff" -> createBleedBuff();
             case "BigRedButton" -> createBigRedButton();
             case "Teleporter" -> createTeleporter();
-            default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
+            default ->
+                    throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
 
     /**
      * Creates a MedKit that restores players health.
+     *
      * @return MedKit item
      */
     private Collectible createMedKit() {
@@ -83,6 +89,7 @@ public class ItemFactory {
 
     /**
      * Creates a Bandage that provides minimal health restoration to player.
+     *
      * @return Bandage item
      */
     private Collectible createBandage() {
@@ -91,6 +98,7 @@ public class ItemFactory {
 
     /**
      * Creates an EnergyDrink that permanently increases the players movement speed.
+     *
      * @return EnergyDrink item
      */
     private Collectible createEnergyDrink(String speedType) {
@@ -99,6 +107,7 @@ public class ItemFactory {
 
     /**
      * Creates a Shield Potion that provides the player with temporary immunity against damage.
+     *
      * @return ShieldPotion item
      */
     private Collectible createShieldPotion() {
@@ -107,6 +116,7 @@ public class ItemFactory {
 
     /**
      * Creates a Syringe that provides player with an edge by exceeding their maximum health.
+     *
      * @return Syringe item
      */
     private Collectible createSyringe() {
@@ -115,24 +125,34 @@ public class ItemFactory {
 
     /**
      * Creates an Armor item that increases the armor statistics of the player.
+     *
      * @return Armor item
      */
-    private Collectible createArmor() { return new Armor();}
+    private Collectible createArmor() {
+        return new Armor();
+    }
 
     /**
      * Creates a damage buff item that increase the damage the player does
+     *
      * @return damage buff item
      */
-    private Collectible createDamageBuff() { return new DamageBuff();}
+    private Collectible createDamageBuff() {
+        return new DamageBuff();
+    }
 
     /**
      * Creates a bleed buff item that does bleed damage to the enemies
+     *
      * @return Bleed buff item
      */
-    private Collectible createBleedBuff() { return new BleedBuff();}
+    private Collectible createBleedBuff() {
+        return new BleedBuff();
+    }
 
     /**
      * Creates a target dummy item which spawns in a target dummy entity for enemies to attack
+     *
      * @return TargetDummy item
      */
     private Collectible createTargetDummy() {
@@ -141,6 +161,7 @@ public class ItemFactory {
 
     /**
      * Creates a Bear trap that provides damage to the enemy entity upon collision.
+     *
      * @return Bear Trap item
      */
     private Collectible createBearTrap() {
@@ -149,6 +170,7 @@ public class ItemFactory {
 
     /**
      * Creates a Heart item that increases the player's maximum health
+     *
      * @return Heart item
      */
     private Collectible createHeart() {
@@ -157,6 +179,7 @@ public class ItemFactory {
 
     /**
      * Creates a Feather item that give the player the ability to crit hit enemies
+     *
      * @return Feather item
      */
     private Collectible createFeather() {
@@ -166,9 +189,14 @@ public class ItemFactory {
     private Collectible createTombstone() {
         return new Tombstone();
     }
-    private Collectible createRingFire() {return new RingFire();}
+
+    private Collectible createRingFire() {
+        return new RingFire();
+    }
+
     /**
      * Creates a divine potion item that increases the player's health and speed
+     *
      * @return divine potion item
      */
     private Collectible createDivinePotion() {
@@ -177,14 +205,20 @@ public class ItemFactory {
 
     /**
      * Creates a big red button item that kills all enemies in the current room
+     *
      * @return BigRedButton item
      */
-    private Collectible createBigRedButton() {return new BigRedButton();}
+    private Collectible createBigRedButton() {
+        return new BigRedButton();
+    }
 
     /**
      * Creates an item that teleports the player to the boss room
+     *
      * @return teleporter item
      */
-    private Collectible createTeleporter() {return new TeleporterItem();}
+    private Collectible createTeleporter() {
+        return new TeleporterItem();
+    }
 }
 

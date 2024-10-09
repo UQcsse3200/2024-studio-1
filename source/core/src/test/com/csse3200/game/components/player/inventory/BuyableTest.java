@@ -2,14 +2,13 @@ package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.player.CollectibleComponent;
+import com.csse3200.game.components.player.inventory.usables.MedKit;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.factories.ItemFactory;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -35,8 +34,7 @@ public class BuyableTest {
         entity = new Entity()
                 .addComponent(new InventoryComponent())
                 .addComponent(new ItemPickupComponent());
-        Inventory inventory = entity.getComponent(InventoryComponent.class).getInventory();
-                entity.addComponent(new CoinsComponent(inventory));
+        entity.addComponent(new CoinsComponent());
         itemEntity = new Entity()
                 .addComponent(new BuyableComponent(10))
                 .addComponent(new CollectibleComponent(new MedKit()));
@@ -54,11 +52,11 @@ public class BuyableTest {
         ItemPickupComponent itemPickupComponent = entity.getComponent(ItemPickupComponent.class);
         itemPickupComponent.setContact(true);
         Collectible item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
-        Array<Collectible> expectedAfterInventory = entity.getComponent(InventoryComponent.class).getInventory().getItems();
-        expectedAfterInventory.add(item);
+        Array<UsableItem> expectedAfterInventory = entity.getComponent(InventoryComponent.class).getItems();
+        expectedAfterInventory.add((UsableItem) item);
 
         itemPickupComponent.checkItemPurchase(item, itemEntity);
-        Array<Collectible> inventoryAfter = entity.getComponent(InventoryComponent.class).getInventory().getItems();
+        Array<UsableItem> inventoryAfter = entity.getComponent(InventoryComponent.class).getItems();
 
         //It is expected that when the item is affordable, the inventory should be the original, but with the
         //newly purchased item appended
@@ -72,10 +70,10 @@ public class BuyableTest {
         ItemPickupComponent itemPickupComponent = entity.getComponent(ItemPickupComponent.class);
         itemPickupComponent.setContact(true);
         Collectible item = itemEntity.getComponent(CollectibleComponent.class).getCollectible();
-        Array<Collectible> expectedAfterInventory = entity.getComponent(InventoryComponent.class).getInventory().getItems();
+        Array<UsableItem> expectedAfterInventory = entity.getComponent(InventoryComponent.class).getItems();
 
         itemPickupComponent.checkItemPurchase(item, itemEntity);
-        Array<Collectible> inventoryAfter = entity.getComponent(InventoryComponent.class).getInventory().getItems();
+        Array<UsableItem> inventoryAfter = entity.getComponent(InventoryComponent.class).getItems();
 
         //It is expected that the inventory should not append any new items, since the buyable item cannot be
         //purchased as it is unaffordable

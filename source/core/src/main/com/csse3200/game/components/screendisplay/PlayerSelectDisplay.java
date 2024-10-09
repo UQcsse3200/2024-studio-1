@@ -10,13 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
 import com.csse3200.game.actors.StatBar;
-import com.csse3200.game.entities.PlayerSelection;
+import com.csse3200.game.components.player.PlayerFactoryFactory;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import static com.csse3200.game.screens.PlayerSelectScreen.BG_IMAGE;
@@ -36,6 +35,8 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float BAR_HEIGHT = 20;
     private static final float PROPORTION = 0.9f;
     private static final float X_PADDING = 10f;
+
+    private final PlayerFactoryFactory playerFactoryFactory = new PlayerFactoryFactory();
 
     /**
      * Make the component.
@@ -60,8 +61,7 @@ public class PlayerSelectDisplay extends UIComponent {
         rootTable.setFillParent(true);
         rootTable.defaults().pad(ROOT_PADDING);
 
-        Map<String, PlayerConfig> configs =
-                PlayerSelection.getPlayerConfigs(Arrays.stream(PlayerSelection.PLAYERS).toList());
+        Map<String, PlayerConfig> configs = playerFactoryFactory.getOptions();
 
         configs.forEach((filename, config) -> {
             TextureRegion idleTexture;
@@ -127,9 +127,9 @@ public class PlayerSelectDisplay extends UIComponent {
         table.row();
     }
 
-    private void playerSelected(String filename) {
-        logger.info("Player chosen: {}", filename);
-        game.gameOptions.chosenPlayer = filename;
+    private void playerSelected(String name) {
+        logger.info("Player chosen: {}", name);
+        game.gameOptions.playerFactory = playerFactoryFactory.create(name);
         game.setScreen(ScreenType.CUTSCENE);
     }
 

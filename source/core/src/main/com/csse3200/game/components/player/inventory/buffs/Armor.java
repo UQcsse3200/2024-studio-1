@@ -1,7 +1,9 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.buffs;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.BuffItem;
+import com.csse3200.game.components.player.inventory.Inventory;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -13,32 +15,12 @@ public class Armor extends BuffItem {
     private final int armor = 20;
 
     /**
-     * Applies the armor effect to the player which increases the armor value.
-     *
-     * @param entity The player entity
-     */
-    @Override
-    public void effect(Entity entity) {
-        entity.getComponent(CombatStatsComponent.class).increaseArmor(armor);
-    }
-
-    /**
      * Returns the armor value of this item.
      *
      * @return the armor value
      */
     public int getArmorValue() {
         return armor;
-    }
-
-    /**
-     * Returns the buff specification for this item, identifying it as an "armor" type.
-     *
-     * @return a string that identifies the type of buff
-     */
-    @Override
-    public String getBuffSpecification() {
-        return "armor";
     }
 
     /**
@@ -63,6 +45,7 @@ public class Armor extends BuffItem {
 
     /**
      * Get mystery box icon for this specific item
+     *
      * @return mystery box icon
      */
     @Override
@@ -78,5 +61,25 @@ public class Armor extends BuffItem {
     @Override
     public void drop(Inventory inventory) {
 
+    }
+
+    /**
+     * Returns the buff specification for this item, identifying it as an "armor" type.
+     *
+     * @return a string that identifies the type of buff
+     */
+    @Override
+    public String getBuffSpecification() {
+        return "armor";
+    }
+
+    /**
+     * Applies the armor effect to the player which increases the armor value.
+     *
+     * @param entity The player entity
+     */
+    @Override
+    public void effect(Entity entity) {
+        entity.getComponent(CombatStatsComponent.class).increaseArmor(armor);
     }
 }

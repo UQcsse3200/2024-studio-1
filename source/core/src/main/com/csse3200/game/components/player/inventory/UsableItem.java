@@ -1,6 +1,5 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -13,26 +12,18 @@ public abstract class UsableItem implements Collectible {
     }
 
     @Override
+    public String getSpecification() {
+        return "item:" + getItemSpecification();
+    }
+
+    @Override
     public void pickup(Inventory inventory) {
-
-        inventory.addItem(this);
-
-        //Apply method just for testing purpose of Health items(Sprint 1)
-//        apply(inventory.getEntity());
-
-        //FIXME This currently "uses" every item in the inventory at once.
-        //inventory.getEntity().getEvents().addListener("use", () -> this.apply(inventory.getEntity()));
-        // Add anything needed to add to the user upon pickup.
+        inventory.getContainer(UsableItem.class).add(this);
     }
 
     @Override
     public void drop(Inventory inventory) {
-        inventory.removeItem(this);
-    }
-
-    @Override
-    public String getSpecification() {
-        return "item:" + getItemSpecification();
+        inventory.getContainer(UsableItem.class).remove(this);
     }
 
     /**

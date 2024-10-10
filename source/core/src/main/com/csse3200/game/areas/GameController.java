@@ -110,6 +110,7 @@ public class GameController {
      * Create the game area, including terrain, static entities (trees), dynamic entities (player)
      */
     public void create() {
+        this.gameArea.displayUI("BEAST BREAKOUT FACILITY");
         this.gameArea.load(logger);
         logger.error("loaded all assets");
 

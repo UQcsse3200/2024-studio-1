@@ -283,56 +283,56 @@ death-up
   orig: 800, 160
   offset: 319, 9
   index: -1
-idle-0
+idle-right
   rotate: true
   xy: 487, 613
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-idle-1
+idle-right
   rotate: true
   xy: 487, 613
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-idle-2
+idle-right
   rotate: true
   xy: 1549, 565
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-idle-3
+idle-right
   rotate: true
   xy: 1549, 565
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-idle-4
+idle-left
   rotate: false
   xy: 993, 433
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-idle-5
+idle-left
   rotate: false
   xy: 993, 433
   size: 112, 142
   orig: 160, 160
   offset: 29, 9
   index: -1
-idle-6
+idle-left
   rotate: true
   xy: 1683, 555
   size: 112, 132
   orig: 160, 160
   offset: 29, 9
   index: -1
-idle-7
+idle-left
   rotate: true
   xy: 1683, 555
   size: 112, 132
@@ -367,28 +367,28 @@ idle
   orig: 160, 160
   offset: 19, 9
   index: -1
-idle-12
+idle-up
   rotate: false
   xy: 547, 1015
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-idle-13
+idle-up
   rotate: false
   xy: 547, 1015
   size: 132, 142
   orig: 160, 160
   offset: 19, 9
   index: -1
-idle-14
+idle-up
   rotate: false
   xy: 1449, 431
   size: 132, 132
   orig: 160, 160
   offset: 19, 9
   index: -1
-idle-15
+idle-up
   rotate: false
   xy: 1449, 431
   size: 132, 132

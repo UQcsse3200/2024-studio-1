@@ -37,10 +37,22 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * TimerTask used to repeatedly shoot in a direction
      */
     private class RepeatShoot extends Timer.Task {
-        private final Vector2 directionShooting;
+        private Vector2 directionShooting;
 
         public RepeatShoot(Vector2 direction) {
             this.directionShooting = direction;
+        }
+
+        public void addVector(Vector2 direction){
+            this.directionShooting.add(direction);
+        }
+
+        public void subVector(Vector2 direction){
+            this.directionShooting.sub(direction);
+        }
+
+        public Vector2 getDirectionShooting(){
+            return this.directionShooting;
         }
 
         @Override

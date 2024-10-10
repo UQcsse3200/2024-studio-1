@@ -76,12 +76,13 @@ public class RangeAttackComponent extends AttackComponent {
         } else {
             baseName = baseEntity.getComponent(NameComponent.class).getName();
         }
+
         System.out.println("Ranged animals shooting:");
         System.out.println(baseName);
-        if (baseName.equals("Dragon")) {
+        if (baseName.equals("dragon")) {
             projectileNames = new String[]{"dragonProjectile"};
             attackTriggers = new String[]{"fire_attack"};
-        } else if (baseName.equals("Kitsune")) {
+        } else if (baseName.equals("kitsune")) {
             projectileNames = new String[]{"kitsuneProjectile1", "kitsuneProjectile2"};
             attackTriggers = new String[]{"fire1", "fire2"};
         } else {

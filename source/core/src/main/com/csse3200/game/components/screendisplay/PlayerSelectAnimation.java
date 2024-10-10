@@ -12,9 +12,9 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
  */
 public class PlayerSelectAnimation extends Actor {
     private final AnimationRenderComponent animator;
-    private final PlayerNum player;
+    private final PlayerAnimationType player;
 
-    public enum PlayerNum {
+    public enum PlayerAnimationType {
         Player1("idle", 0.2f, PlayMode.LOOP),
         Player2("Walk_right", 0.2f, PlayMode.LOOP),
         Player3("Run_right", 0.2f, PlayMode.LOOP_PINGPONG),
@@ -25,29 +25,31 @@ public class PlayerSelectAnimation extends Actor {
         public final float animationDuration;
         public final PlayMode animationPlayMode;
 
-        PlayerNum(String animationName, float animationDuration, PlayMode animationPlayMode) {
+        PlayerAnimationType(String animationName, float animationDuration, PlayMode animationPlayMode) {
             this.animationName = animationName;
             this.animationDuration = animationDuration;
             this.animationPlayMode = animationPlayMode;
+        }
+
+        // Assign player number to the texture atlas
+        static PlayerAnimationType createFromAtlas(String textureAtlas) {
+            return switch (textureAtlas) {
+                case "images/player/player.atlas" -> Player1;
+                case "images/player/homeless1.atlas" -> Player2;
+                case "images/npc/bear/bear.atlas" -> Bear;
+                case "images/player/homeless2.atlas" -> Player3;
+                case "images/player/homeless3.atlas" -> Player4;
+                default -> throw new IllegalArgumentException(
+                        "Unknown texture atlas: " + textureAtlas);
+            };
+            // necromancer uses normal player atlas
         }
     }
 
     public PlayerSelectAnimation(AnimationRenderComponent animator, String textureAtlas) {
         this.animator = animator;
-        this.player = mapTextureAtlasToPlayerNum(textureAtlas);
+        this.player = PlayerAnimationType.createFromAtlas(textureAtlas);
         initializeAnimations();
-    }
-
-    // Assign player number to the texture atlas
-    private PlayerNum mapTextureAtlasToPlayerNum(String textureAtlas) {
-        return switch (textureAtlas) {
-            case "images/player/player.atlas" -> PlayerNum.Player1;
-            case "images/player/homeless1.atlas" -> PlayerNum.Player2;
-            case "images/npc/bear/bear.atlas" -> PlayerNum.Bear;
-            case "images/player/homeless2.atlas" -> PlayerNum.Player3;
-            case "images/player/homeless3.atlas" -> PlayerNum.Player4;
-            default -> throw new IllegalArgumentException("Unknown texture atlas: " + textureAtlas);
-        };
     }
 
     // Add texture region relative to each player

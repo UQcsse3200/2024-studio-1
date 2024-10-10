@@ -4,12 +4,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.PlayerConfigComponent;
+import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.entities.Entity;
+
+import java.util.logging.Logger;
 
 /**
  * Component to track the player's position and set it to the weapon entity.
  */
 public class PositionTracker extends Component {
+
+    protected static final Logger logger = Logger.getLogger(PositionTracker.class.getName());
     private Entity player; // The player entity
 
     private Vector2 offset; // The offset of the weapon entity from the player entity
@@ -51,6 +56,13 @@ public class PositionTracker extends Component {
      * @param player the player entity
      */
     public void connectPlayer(Entity player) {
+        boolean isMelee = false;
+        try {
+            isMelee = getEntity().getComponent(NameComponent.class).getName().equals("Melee");
+        } catch (NullPointerException e) {
+            logger.warning("The position tracker is not connected to a weapon entity");
+        }
+
         setPlayer(player);
         if (player == null || player.getComponent(NameComponent.class) == null) {
             offset = new Vector2(0, 0);
@@ -59,19 +71,15 @@ public class PositionTracker extends Component {
         // Specify the offset for each character model
         switch (player.getComponent(PlayerConfigComponent.class).getPlayerConfig().name) {
             case "Player 2":
-                offset = new Vector2(0.5f, 0.5f);
-                break;
-            case "Player 3":
-                offset = new Vector2(0.5f, 0.5f);
-                break;
-            case "Player 4":
-                offset = new Vector2(0.5f, 0.5f);
+            case "player 3":
+            case "player 4":
+                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.5f, 0.5f);
                 break;
             case "bear":
-                offset = new Vector2(0.7f, 1);
+                offset = isMelee ? new Vector2(- 0.2f, - 0.2f) : new Vector2(0.7f, 1);
                 break;
             default:
-                offset = new Vector2(0, 0);
+                offset = isMelee ? new Vector2(-0.5f, -0.5f) : new Vector2(0f, 0f);
         }
     }
 
@@ -80,5 +88,14 @@ public class PositionTracker extends Component {
      */
     public void disconnectPlayer() {
         setPlayer(null);
+    }
+
+    /**
+     * Get the copy of offset of the weapon entity from the player entity
+     * @return the offset of the weapon entity from the player entity
+     */
+    public Vector2 getOffset() {
+        Vector2 offset = new Vector2(this.offset);
+        return offset;
     }
 }

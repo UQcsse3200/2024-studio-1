@@ -34,13 +34,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attackMelee", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
-        entity.getEvents().addListener("use1", () -> use(new MedKit()));
-        entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
-        entity.getEvents().addListener("use3", () -> use(new Bandage()));
-        entity.getEvents().addListener("use4", () -> use(new TargetDummy()));
-        entity.getEvents().addListener("use5", () -> use(new BearTrap()));
-        entity.getEvents().addListener("use6", () -> use(new BigRedButton()));
-        entity.getEvents().addListener("use7", ()-> use(new TeleporterItem()));
+        entity.getEvents().addListener("useItem", this::use);
         entity.getEvents().addListener("useReroll", () -> handleReroll(new Reroll()));
         setSpeedPercentage(1.0f);
 
@@ -174,21 +168,20 @@ public class PlayerActions extends Component {
      */
     public void handleReroll(UsableItem reroll) {
         if (entity.getComponent(ItemPickupComponent.class).isInContact() && entity.getComponent(ItemPickupComponent.class).getItem() != null) {
-            use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
+            use(inventoryComponent.getItems().indexOf(reroll, true)); //Ensures that the reroll item can only be used when it is in collision with another item
         } else {
             //Otherwise the reroll item cannot be used
         }
     }
 
-    private void use(UsableItem item) {
+    private void use(int itemNum) {
         if (!dead) {
-            for (Collectible collectedItem : inventoryComponent.getItems()) {
-                if (collectedItem.getClass() == item.getClass()) {
-                    item.apply(entity);
-                    entity.getEvents().trigger("itemUsed");
-                    inventoryComponent.drop(collectedItem);
-                    break;
-                }
+            UsableItem item = inventoryComponent.getItems().get(itemNum);
+            if (inventoryComponent.getItems().size <= itemNum
+                    && inventoryComponent.getItems().get(itemNum)  != null) {
+                inventoryComponent.getItems().get(itemNum).apply(entity);
+                entity.getEvents().trigger("itemUsed");
+                inventoryComponent.drop(item);
             }
         }
     }

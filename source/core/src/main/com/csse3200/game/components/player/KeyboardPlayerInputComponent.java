@@ -151,17 +151,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
 
-    private boolean useItem(Integer num) {
-        switch (num) {
-            case 1 -> entity.getEvents().trigger("use1");
-            case 2 -> entity.getEvents().trigger("use2");
-            case 3 -> entity.getEvents().trigger("use3");
-            case 4 -> entity.getEvents().trigger("use4");
-            case 5 -> entity.getEvents().trigger("use5");
-            case 6 -> entity.getEvents().trigger("use6");
-            case 7 -> entity.getEvents().trigger("use7");
-            case 8 -> entity.getEvents().trigger("useReroll");
-        }
+    private boolean useItem(int itemNum) {
+        entity.getEvents().trigger("useItem", itemNum);
         return true;
     }
 
@@ -229,6 +220,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_5, (i) -> useItem(5));
         actionMap.put(USE_6, (i) -> useItem(6));
         actionMap.put(USE_7, (i) -> useItem(7));
+        actionMap.put(USE_8, (i) -> useItem(8));
+        actionMap.put(USE_9, (i) -> useItem(9));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
 

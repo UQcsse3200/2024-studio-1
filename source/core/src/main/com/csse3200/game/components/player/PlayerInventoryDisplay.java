@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.components.player.inventory.usables.*;
 import com.csse3200.game.ui.UIComponent;
 
@@ -109,14 +110,10 @@ public class PlayerInventoryDisplay extends UIComponent {
      * to player's inventory
      */
     private void addItems() {
-        addItem("Medkit", new MedKit().getIcon());
-        addItem("Shield", new ShieldPotion().getIcon());
-        addItem("Bandage", new Bandage().getIcon());
-        addItem("Target Dummy", new TargetDummy().getIcon());
-        addItem("Bear Trap", new BearTrap().getIcon());
-        //addItem("Big Red Button", new BigRedButton().getIcon());
-        addItem("Teleport Item", new TeleporterItem().getIcon());
-        addItem("ReRoll", new Reroll().getIcon());
+        for (UsableItem item : inventoryComponent.getItems()) {
+            System.out.println(item.getName());
+            addItem(item.getName(), item.getIcon());
+        }
     }
 
     /**
@@ -182,12 +179,15 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     @Override
     public void draw(SpriteBatch batch) {
+        /*
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.LIGHT_GRAY);
         shapeRenderer.rect(START_X, START_Y, WIDTH, HEIGHT);
         shapeRenderer.end();
         batch.begin();
+
+         */
     }
 
     /**

@@ -78,6 +78,7 @@ public class MainGameArea extends GameArea {
         this.levelFactory = levelFactory;
         this.shouldLoad = shouldLoad;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getBossRoom()));
+        player.getEvents().addListener("teleportToShop", () -> this.changeRooms(getNpcRoom()));
         player.getEvents().addListener("saveMapData", this::saveMapData);
         player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkIfRoomComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));

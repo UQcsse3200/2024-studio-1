@@ -107,10 +107,8 @@ public class LoadPlayer {
                 .addComponent(new PlayerHealthDisplay());
 
         if(!shouldLoad){
-            player.addComponent(new CombatStatsComponent(config.maxHealth, config.maxHealth,
-                    config.baseAttack, true, config.armour, 0, true,
-                    0));
-
+            player.addComponent(new CombatStatsComponent(config.maxHealth, config.baseAttack, true,
+                    0, 0));
         }
         else{
             player.addComponent(new CombatStatsComponent(config.health, config.maxHealth,

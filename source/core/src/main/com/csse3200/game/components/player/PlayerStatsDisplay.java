@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -62,6 +61,17 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
         entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
+        initializeShotgunAndAmmo();
+    }
+
+    private void initializeShotgunAndAmmo() {
+        // Initialize full ammo and shotgun
+        int maxAmmo = 20;  // Set this to your maximum ammo value
+        updateRangedWeaponUI(maxAmmo);  // Update the shotgun UI with full ammo
+
+        // Set initial shotgun to 1
+        CharSequence text = String.format("Shotgun x %d", 1);
+        shotgunLabel.setText(text);
     }
 
     /**

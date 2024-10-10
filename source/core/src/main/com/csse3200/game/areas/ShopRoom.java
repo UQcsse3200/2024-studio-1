@@ -67,25 +67,8 @@ public class ShopRoom extends BaseRoom {
      */
     private void spawnItems(MainGameArea area) {
         List<String> items = this.itemSpecifications.get(this.itemGroup);
-        if(items != null && items.size() != 6) {
-            //Cooper's code: spawn the items randomly
-            Set<String> usedCoordinates = new HashSet<>();
-            final int MAXGENERATED = 10;
-            String coordinate;
-            if (items != null) {
-                while (usedCoordinates.size() < items.size() && items.size() < MAXGENERATED) {
-                    int x = rng.getRandomInt(1, 8);
-                    int y = rng.getRandomInt(1, 8);
-                    coordinate = x + "_" + y;
-                    if (!usedCoordinates.contains(coordinate)) {
-                        spawnItem(area, items.get(usedCoordinates.size()), new GridPoint2(x, y));
-                        usedCoordinates.add(coordinate);
-                    }
-                }
-            }
-        }
         //Zack's code: spawn in 1 line (if there is 6 item)
-        else if(items != null) {
+        if(items != null) {
             for (int i = 0; i < items.size(); i++){
                 spawnItem(area, items.get(i), new GridPoint2(i * 2 + 2, 8));
             }

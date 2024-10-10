@@ -14,16 +14,16 @@ public class PlayerSelectAnimation extends Actor {
     private final AnimationRenderComponent animator;
     private final PlayerAnimationType player;
 
-    public enum PlayerAnimationType {
+    private enum PlayerAnimationType {
         Player1("idle", 0.2f, PlayMode.LOOP),
         Player2("Walk_right", 0.2f, PlayMode.LOOP),
         Player3("Run_right", 0.2f, PlayMode.LOOP_PINGPONG),
         Bear("idle_right", 0.5f, PlayMode.LOOP),
         Player4("Attack1_right", 0.2f, PlayMode.LOOP_RANDOM);
 
-        public final String animationName;
-        public final float animationDuration;
-        public final PlayMode animationPlayMode;
+        final String animationName;
+        final float animationDuration;
+        final PlayMode animationPlayMode;
 
         PlayerAnimationType(String animationName, float animationDuration, PlayMode animationPlayMode) {
             this.animationName = animationName;

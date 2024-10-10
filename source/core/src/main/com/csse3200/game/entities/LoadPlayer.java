@@ -1,5 +1,3 @@
-
-
 package com.csse3200.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -178,15 +176,6 @@ public class LoadPlayer {
             for (String itemName : config.items) {
                 Collectible item = collectibleFactory.create(itemName);
                 inventoryComponent.getInventory().addItem(item);
-            }
-        }
-
-        if (config.pets != null) {
-            for (String petName : config.pets) {
-                Entity pet = petFactory.create(petName);
-                player.getComponent(InventoryComponent.class).getInventory().addPet(pet);
-                ServiceLocator.getEntityService().register(pet);
-                pet.setPosition(5,7);
             }
         }
     }

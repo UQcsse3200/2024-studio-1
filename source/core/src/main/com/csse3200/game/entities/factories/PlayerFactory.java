@@ -69,6 +69,7 @@ public class PlayerFactory extends LoadedFactory {
      */
     public Entity createPlayer(PlayerConfig config, Difficulty difficulty) {
         config.difficulty = difficulty;
+        config.adjustForDifficulty(difficulty); 
         return createPlayer(config); 
     }
 
@@ -85,9 +86,6 @@ public class PlayerFactory extends LoadedFactory {
 
     /**
      * Create a player.
-     *
-     * @param name       the name of the default character to create.
-     * @param difficulty difficulty chosen by the player, affects player attributes
      * @return the player entity.
      */
     public Entity createPlayer(PlayerConfig config) {
@@ -96,9 +94,6 @@ public class PlayerFactory extends LoadedFactory {
 
     /**
      * Create a player.
-     *
-     * @param name       the name of the default character to create.
-     * @param difficulty difficulty chosen by the player, affects player attributes
      * @return the player entity.
      */
     public Entity createPlayer(PlayerConfig config, boolean shouldLoad) {

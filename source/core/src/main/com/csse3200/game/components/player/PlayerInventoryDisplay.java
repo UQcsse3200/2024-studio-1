@@ -54,7 +54,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      * Height of the background box drawn behind the inventory items.
      * Estimated through trial and error
      */
-    private static final float HEIGHT = 55f;
+    private static final float HEIGHT = 53f;
 
     /**
      * Map for storing labels associated with each item for easy access and

@@ -63,8 +63,8 @@ public class ItemFactory {
             case "ringfire" -> createRingFire();
             case "divinepotion" -> createDivinePotion();
             case "bleedbuff" -> createBleedBuff();
-            case "BigRedButton" -> createBigRedButton();
-            case "Teleporter" -> createTeleporter();
+            case "bigredbutton" -> createBigRedButton();
+            case "teleporter" -> createTeleporter();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }

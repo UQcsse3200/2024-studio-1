@@ -1,8 +1,6 @@
 package com.csse3200.game.entities.configs;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.csse3200.game.entities.Entity;
 import com.csse3200.game.options.GameOptions.Difficulty;
 
 import java.util.Arrays;
@@ -24,12 +22,15 @@ public class PlayerConfig extends BaseEntityConfig  {
   /** The items player has collected/picked up during the game */
   public String[] items;
 
+  /** Speed of the plauer */
   public Vector2 speed;
+
   public Difficulty difficulty;
 
   /** Player's current health */
   public int health = 100;
-
+  /** Max health a player can have */
+  public int maxHealth;
   public String[] pets;
   public int coins = 0;
   /** The specification of player's equipped melee weapon */
@@ -41,11 +42,7 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String textureFilename;
   /** The texture atlas this player uses*/
   public String textureAtlasFilename;
-  
-  /** The highest possible initial health a player can have. */
-  public static final int MAX_HEALTH = 100;
-  /** The highest possible initial speed a player can have. */
-  public static final Vector2 MAX_SPEED = new Vector2(5, 5);
+
 
   /**
    * Make a copy of the config, used for testing.

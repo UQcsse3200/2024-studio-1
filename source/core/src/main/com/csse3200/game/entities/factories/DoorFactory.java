@@ -65,13 +65,10 @@ public class DoorFactory {
      */
     private void createCollision(Entity door, String room, int playerId) {
         door.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
-            if (fixture2.getUserData() instanceof Entity entity2 &&
-                    entity2.getId() == playerId) {
-                log.info("this is the room {}", room);
-                EnemyRoom enemyRoom = (EnemyRoom)ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom();
-                if (enemyRoom.isAllAnimalDead()) {
-                    ServiceLocator.getGameAreaService().getGameArea().changeRooms(room);
-                }
+            if (fixture2.getUserData() instanceof Entity entity2 
+                && entity2.getId() == playerId 
+                && ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getIsRoomComplete()) {
+                    ServiceLocator.getGameAreaService().getGameArea().changeRooms(room);                    
             }
         });
     }

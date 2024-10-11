@@ -147,6 +147,8 @@ public class WeaponFactory extends LoadedFactory {
 
         // Load atlas and animation
         WeaponAnimationRenderComponent animator = createAnimator(collectible);
+        ProjectileConfig projectileConfig = new ProjectileConfig();
+        projectileConfig.baseAttack = collectible.getDamage();
 
         Entity rangedEntity = new Entity()
                 .addComponent(new NameComponent("Ranged"))
@@ -154,7 +156,7 @@ public class WeaponFactory extends LoadedFactory {
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(animator)
-                .addComponent(new FiringController(collectible, new ProjectileConfig()))
+                .addComponent(new FiringController(collectible, projectileConfig))
                 .addComponent(new PositionTracker())
                 .addComponent(new WeaponAnimationController());
 

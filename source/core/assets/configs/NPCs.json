@@ -331,7 +331,7 @@
       {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
   },
-  "werewolf": {
+  "cthulu": {
     "health": 1000,
     "strength": 9,
     "baseAttack": 40,
@@ -407,18 +407,16 @@
         {"name": "idle_right", "frameDuration": 0.125, "playMode": "LOOP"},
         {"name": "walk_left", "frameDuration": 0.07, "playMode": "LOOP"},
         {"name": "walk_right", "frameDuration": 0.07, "playMode": "LOOP"},
-        {"name": "run_left", "frameDuration": 0.07, "playMode": "LOOP"},
-        {"name": "run_right", "frameDuration": 0.07, "playMode": "LOOP"},
-        {"name": "attack_left", "frameDuration": 0.33, "playMode": "NORMAL"},
-        {"name": "attack_right", "frameDuration": 0.33, "playMode": "NORMAL"},
-        {"name": "run+attack_left", "frameDuration": 0.14, "playMode": "NORMAL"},
-        {"name": "run+attack_right", "frameDuration": 0.14, "playMode": "NORMAL"},
+        {"name": "1atk_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+        {"name": "1atk_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+        {"name": "2atk_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+        {"name": "2atk_right", "frameDuration": 0.1, "playMode": "NORMAL"},
+        {"name": "fly_left", "frameDuration": 0.1, "playMode": "NORMAL"},
+        {"name": "fly_right", "frameDuration": 0.1, "playMode": "NORMAL"},
         {"name": "hurt_left", "frameDuration": 0.5, "playMode": "NORMAL"},
         {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
         {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
-        {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
-        {"name": "jump_left", "frameDuration": 0.15, "playMode": "NORMAL"},
-        {"name": "jump_right", "frameDuration": 0.15, "playMode": "NORMAL"}
+        {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"}
       ]
   },
   "kitsune": {

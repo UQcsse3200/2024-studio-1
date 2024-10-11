@@ -29,7 +29,7 @@ public class BossRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                List.of("Werewolf"), // boss 1
+                List.of("Cthulu"), // boss 1
                 List.of("Kitsune"),  // boss 2
                 List.of("Birdman")   // boss 3
         );

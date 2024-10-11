@@ -27,7 +27,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private final Map<Integer, Action> downBindings;
     private final Map<Integer, Action> upBindings;
-    private Vector2 directionShooting = null;
+    private Vector2 directionShooting = new Vector2(0, 0);
     // Timer and task for holding down a shoot button
     private RepeatShoot taskShoot;
     private RepeatMelee taskMelee;
@@ -41,18 +41,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
         public RepeatShoot(Vector2 direction) {
             this.directionShooting = direction;
-        }
-
-        public void addVector(Vector2 direction){
-            this.directionShooting.add(direction);
-        }
-
-        public void subVector(Vector2 direction){
-            this.directionShooting.sub(direction);
-        }
-
-        public Vector2 getDirectionShooting(){
-            return this.directionShooting;
         }
 
         @Override
@@ -112,11 +100,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * @param direction The direction to shoot in
      */
     private boolean holdShoot(Vector2 direction) {
+        this.directionShooting.add(direction);
         if (this.taskShoot != null) {
             this.taskShoot.cancel();
         }
-        this.directionShooting = direction;
-        this.taskShoot = new RepeatShoot(direction);
+        if (this.directionShooting.isZero()){
+            this.taskShoot.cancel();
+            return true;
+        }
+        Vector2 scaledVct = this.directionShooting.cpy().setLength(1);
+        this.taskShoot = new RepeatShoot(scaledVct);
         Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
         return true;
     }
@@ -134,9 +127,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * @return (not sure why this needs to return)
      */
     private boolean unShoot(Vector2 direction) {
-        if (this.directionShooting == direction) {
+        this.directionShooting.sub((direction));
+        if (this.directionShooting.isZero()) {
             this.taskShoot.cancel();
-            this.directionShooting = null;
+        } else { // reshoot in different direction
+            if (this.taskShoot != null) {
+                this.taskShoot.cancel();
+            }
+            Vector2 scaledVct = this.directionShooting.cpy().setLength(1);
+            this.taskShoot = new RepeatShoot(scaledVct);
+            Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
         }
         return true;
     }

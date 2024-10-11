@@ -98,7 +98,7 @@ public abstract class EnemyRoom extends BaseRoom {
                     spawnItems();
                 }
             }, 1.0f);
-            setIsRoomComplete();
+            setRoomComplete();
         }
     }
 

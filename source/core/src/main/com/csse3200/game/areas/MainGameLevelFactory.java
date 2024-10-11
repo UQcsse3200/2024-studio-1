@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
-
 /**
  * This is the main game mode.
  */
@@ -24,10 +22,8 @@ public class MainGameLevelFactory implements LevelFactory {
     private static final Logger log = LoggerFactory.getLogger(MainGameLevelFactory.class);
     private int levelNum;
     private final Map<String, Room> rooms;
-    private final Map<String, String> mapSaveData = new HashMap<>();
     private LevelMap map;
     private boolean shouldLoad;
-    private String loadedSeed = "";
     private List<String> loadedRooms;
     private MapLoadConfig config;
 
@@ -71,9 +67,16 @@ public class MainGameLevelFactory implements LevelFactory {
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.NPCROOM:
-                    rooms.put(roomKey, roomFactory.createShopRoom(
+                    ShopRoom shop = (ShopRoom) roomFactory.createShopRoom(
                             map.mapData.getPositions().get(roomKey),
-                            "0,0,14,10," + 0 + "," + levelNumber, roomKey));
+                            "0,0,14,10," + 0 + "," + levelNumber, roomKey);
+                    rooms.put(roomKey, shop);
+                    if (shouldLoad) {
+                        shop.setItems(config.shopRoomItems);
+                    }
+//                    rooms.put(roomKey, roomFactory.createShopRoom(
+//                            map.mapData.getPositions().get(roomKey),
+//                            "0,0,14,10," + 0 + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.GAMEROOM:
                     rooms.put(roomKey, roomFactory.createGambleRoom(
@@ -106,6 +109,7 @@ public class MainGameLevelFactory implements LevelFactory {
      */
     public void saveMapData(String filePath, String level) {
         List<String> compRooms = new ArrayList<String>();
+        List<String> items = new ArrayList<String>();
         MapLoadConfig config = new MapLoadConfig();
         String gameSeed = map.mapData.getMapSeed();
         String seedOnly = gameSeed.substring(0, gameSeed.length() - 1);
@@ -115,10 +119,17 @@ public class MainGameLevelFactory implements LevelFactory {
         for (Room room : rooms.values()) {
             if (room.getIsRoomComplete()){
                 if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
-                    if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1)
+                    if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1) {
                         compRooms.add(room.getRoomName());
+                    }
                 }
             }
+        }
+
+        ShopRoom shopRoom1 = (ShopRoom) rooms.get(ServiceLocator.getGameAreaService().getGameArea().getNpcRoom());
+        if(shopRoom1.getItems() != null) {
+            items = shopRoom1.getItems();
+            config.shopRoomItems.addAll(items);
         }
         config.roomsCompleted = compRooms;
         config.mapSize = map.getMapSize();
@@ -133,7 +144,7 @@ public class MainGameLevelFactory implements LevelFactory {
 
     public void setRoomsComplete(List<String> roomNames) {
         for (String roomName : roomNames) {
-            rooms.get(roomName).setIsRoomComplete();
+            rooms.get(roomName).setRoomComplete();
         }
     }
 

@@ -1,6 +1,5 @@
 package com.csse3200.game.entities;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.areas.MainGameArea;
 
 /**
@@ -25,7 +24,7 @@ public interface Room {
 
     public boolean getIsRoomComplete();
 
-    public void setIsRoomComplete();
+    public void setRoomComplete();
 
     public void checkIfRoomComplete();
 

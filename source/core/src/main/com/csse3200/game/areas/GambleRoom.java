@@ -39,7 +39,7 @@ public class GambleRoom extends BaseRoom {
     }
 
     public void checkIfRoomComplete() {
-        setIsRoomComplete();
+        setRoomComplete();
     }
 }
 

@@ -1,9 +1,8 @@
 
 package com.csse3200.game.areas;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
@@ -11,7 +10,6 @@ import com.csse3200.game.components.gamearea.ShopRoomDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
 /**
@@ -19,7 +17,7 @@ import com.csse3200.game.utils.RandomNumberGenerator;
  */
 public class ShopRoom extends BaseRoom {
     public RandomNumberGenerator rng;
-
+    private List<String> items;
     /**
      * A shop room (NPC Room) that users can buy items in
      * @param npcFactory         the NPC factory to use
@@ -32,6 +30,7 @@ public class ShopRoom extends BaseRoom {
             List<String> roomConnections, String specification, String roomName) {
                 super(terrainFactory, collectibleFactory, roomConnections, specification, roomName);
                 this.rng = new RandomNumberGenerator(this.getClass().toString());
+
     }
 
     /**
@@ -69,7 +68,7 @@ public class ShopRoom extends BaseRoom {
      * @param area the game are to spawn room into
      */
     private void spawnItems(MainGameArea area) {
-        List<String> items = this.itemSpecifications.get(this.itemGroup);
+        items = this.itemSpecifications.get(this.itemGroup);
         //Zack's code: spawn in 1 line (if there is 6 item)
         if(items != null) {
             for (int i = 0; i < items.size(); i++){
@@ -78,12 +77,24 @@ public class ShopRoom extends BaseRoom {
         }
     }
 
-
     /**
      * Check room is complete and set it as always complete
      */
     public void checkIfRoomComplete() {
-        setIsRoomComplete();
+        setRoomComplete();
     }
 
+    /**
+     * Get list of Items in Shop Room.
+     */
+    public List<String> getItems() {
+        return items;
+    }
+
+    /**
+     * Set list of Items when loaded
+     */
+    public  void setItems(List<String> items) {
+        this.items = items;
+    }
 }

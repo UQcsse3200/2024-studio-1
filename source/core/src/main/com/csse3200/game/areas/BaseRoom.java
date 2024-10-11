@@ -297,7 +297,7 @@ public abstract class BaseRoom implements Room {
     /**
      * Sets the room as completed when loading the map.
      */
-    public void setIsRoomComplete() {
+    public void setRoomComplete() {
         this.isRoomCompleted = true;
     }
 

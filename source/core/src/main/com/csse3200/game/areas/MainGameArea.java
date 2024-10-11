@@ -51,9 +51,6 @@ public class MainGameArea extends GameArea {
     /** Name of the current room */
     public String currentRoomName;
 
-    /** Map to store the current position of the player */
-    private Map <String, String> currentPosition = new HashMap<>();
-
     /** Flag to determine if the game should load a saved state */
     private final boolean shouldLoad;
 
@@ -118,7 +115,6 @@ public class MainGameArea extends GameArea {
         if (shouldLoad) {
             changeLevel(Integer.parseInt(config.currentLevel));
             changeRooms(config.currentRoom);
-
         } else {
             changeLevel(0);
         }

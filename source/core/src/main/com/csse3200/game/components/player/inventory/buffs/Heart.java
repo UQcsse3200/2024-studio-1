@@ -17,7 +17,7 @@ public class Heart extends BuffItem {
      */
     @Override
     public String getBuffSpecification() {
-        return "Heart";
+        return "heart";
     }
 
     /**

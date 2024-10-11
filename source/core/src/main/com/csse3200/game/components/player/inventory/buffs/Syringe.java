@@ -18,6 +18,18 @@ public class Syringe extends BuffItem {
         return "Syringe";
     }
 
+
+    /**
+     * Return a string representation of this collectible that can be parsed by CollectibleFactory
+     *
+     * @return the string representation of this collectible.
+     */
+    @Override
+    public String getBuffSpecification() {
+        return "syringe";
+    }
+
+
     /**
      * Return texture related with Syringe item
      *
@@ -38,15 +50,6 @@ public class Syringe extends BuffItem {
         return new Texture("images/items/mystery_box_green.png");
     }
 
-    /**
-     * Return a string representation of this collectible that can be parsed by CollectibleFactory
-     *
-     * @return the string representation of this collectible.
-     */
-    @Override
-    public String getBuffSpecification() {
-        return "Syringe";
-    }
 
     /**
      * Applies the Syringe to an entity, increasing the health by an instant boost,

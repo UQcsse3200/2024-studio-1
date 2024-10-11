@@ -7,7 +7,7 @@ import com.csse3200.game.entities.Entity;
 public class TeleporterItem extends UsableItem {
     @Override
     public String getItemSpecification() {
-        return "Teleporter";
+        return "teleporter";
     }
 
     /**

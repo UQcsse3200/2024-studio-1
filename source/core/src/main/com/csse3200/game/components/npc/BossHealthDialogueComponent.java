@@ -3,11 +3,15 @@ package com.csse3200.game.components.npc;
 import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerConfigComponent;
+import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.screens.MainGameScreen;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.BossRoom;
+
+import java.security.Provider;
 import java.util.Random;
 
 /**
@@ -15,10 +19,10 @@ import java.util.Random;
  * This component triggers dialogue and spawns additional enemies at specific health percentages.
  */
 public class BossHealthDialogueComponent extends Component {
-    private CombatStatsComponent combatStats;
     private final float[] healthThresholds = {0.75f, 0.5f, 0.25f};
-    private int currentThresholdIndex = 0;
     private final Random random = new Random();
+    private CombatStatsComponent combatStats;
+    private int currentThresholdIndex = 0;
 
     /**
      * Initializes the component by getting the CombatStatsComponent of the entity.
@@ -114,8 +118,17 @@ public class BossHealthDialogueComponent extends Component {
         if (gameAreaService.getGameArea() instanceof MainGameArea area) {
             if (area.getCurrentRoom() instanceof BossRoom bossRoom) {
                 String[] possibleEnemies = {"Dog", "Snake", "rat", "bear", "bat", "dino", "minotaur", "dragon"};
-                int numberOfEnemies = random.nextInt(3) + 2; // Random number of enemies between 2 and 5
+                int numberOfEnemies; // Number of enemies to spawn based on difficulty
 
+                if (ServiceLocator.getGameAreaService().getGameArea().getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().difficulty == GameOptions.Difficulty.EASY) {
+                    numberOfEnemies = random.nextInt(2) + 1;
+                } else if (ServiceLocator.getGameAreaService().getGameArea().getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().difficulty == GameOptions.Difficulty.MEDIUM) {
+                    numberOfEnemies = random.nextInt(3) + 2;
+                } else if (ServiceLocator.getGameAreaService().getGameArea().getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().difficulty == GameOptions.Difficulty.HARD) {
+                    numberOfEnemies = random.nextInt(4) + 3;
+                } else {
+                    numberOfEnemies = random.nextInt(2) + 1;
+                }
                 for (int i = 0; i < numberOfEnemies; i++) {
                     String enemy = possibleEnemies[random.nextInt(possibleEnemies.length)];
                     bossRoom.spawnRandomEnemies(enemy);

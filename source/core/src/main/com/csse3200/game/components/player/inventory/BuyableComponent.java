@@ -60,7 +60,9 @@ public class BuyableComponent extends UIComponent {
      * Removes the label
      */
     public void removeLabel() {
-        this.priceTag.remove();
+        if (this.priceTag != null) {
+            this.priceTag.remove();
+        }
     }
 
     /**

@@ -19,6 +19,7 @@ public class BossRoom extends EnemyRoom {
     private MainGameArea area;
     private Entity player;
     private boolean stairsSpawned = false;
+    private boolean isBossRoom = true;
 
     @Override
     protected List<List<String>> getAnimalSpecifications() {
@@ -58,15 +59,22 @@ public class BossRoom extends EnemyRoom {
         this.npcFactory = npcFactory;
     }
 
+    public boolean isBossRoom() {
+        return isBossRoom;
+    }
+
     @Override
     public void spawn(Entity player, MainGameArea area) {
         super.spawn(player, area);
         this.area = area;
         this.player = player;
-        if (!stairsSpawned) {
-            spawnStairs(player, area);
-            stairsSpawned = true; // Set the flag to true after spawning stairs
-        }
+        spawnStairs(player, area);
+
+        //if (!stairsSpawned) {
+           // spawnStairs(player, area);
+          //  stairsSpawned = true; // Set the flag to true after spawning stairs
+        //}
+
     }
 
     private void spawnStairs(Entity player, MainGameArea area) {
@@ -77,9 +85,9 @@ public class BossRoom extends EnemyRoom {
         area.spawnEntityAt(stairs, pos, true, true);
     }
 
-    public void resetRoom() {
-        stairsSpawned = false;
-    }
+    //public void resetRoom() {
+       // stairsSpawned = false;
+   // }
 
     /**
      * Spawns a dog and a snake near the boss when health reaches 50%.

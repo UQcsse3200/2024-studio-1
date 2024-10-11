@@ -3,6 +3,7 @@ package com.csse3200.game.components.player;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.input.InputComponent;
 import com.csse3200.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
@@ -199,6 +200,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     private boolean bossTeleport() {
+        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof BossRoom) {
+            // Already in boss room so just do nothing !!
+            return true;
+        }
         entity.getEvents().trigger("teleportToBoss");
         return true;
     }

@@ -3,7 +3,7 @@ package com.csse3200.game.entities;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.rendering.AnimationRenderComponent;
+import com.csse3200.game.rendering.EffectAnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class EffectEntity extends Entity {
         this.disposeCallback = disposeCallback;
 
         // Set up the AnimationRenderComponent
-        AnimationRenderComponent animator = new AnimationRenderComponent(atlas);
+        EffectAnimationRenderComponent animator = new EffectAnimationRenderComponent(atlas);
         boolean added = animator.addAnimation(animationName, 0.2f, Animation.PlayMode.LOOP);
         if (!added) {
             logger.error("Failed to add animation '{}' to EffectEntity.", animationName);

@@ -27,7 +27,6 @@ import java.util.*;
  */
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
-    private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
     public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
     /** The main player entity */
@@ -61,10 +60,6 @@ public class MainGameArea extends GameArea {
     private MinimapFactory minimapFactory;
 
     private MapLoadConfig config;
-    /**
-     * Current music playing, null if no music is playing.
-     */
-    private MusicType currentMusic = null;
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -307,7 +302,7 @@ public class MainGameArea extends GameArea {
         NORMAL("bgm_new.wav"), BOSS("BGM_03_mp3.mp3"); // todo change boss music file
 
         private final String path;
-        private static final String BASE = "sounds/";
+        private static final String BASE = "sounds/music/";
 
         MusicType(String filename) {
             this.path = BASE + filename;
@@ -318,20 +313,7 @@ public class MainGameArea extends GameArea {
      * Plays the background music for the game area.
      */
     private void playMusic(MusicType musicType) {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        if (!resourceService.containsAsset(musicType.path, Music.class)) {
-            logger.error("Music not loaded");
-            return;
-        }
-        Music music = resourceService.getAsset(musicType.path, Music.class);
-        music.setLooping(true);
-        if (!UserSettings.get().mute) {
-            music.setVolume(UserSettings.get().musicVolume);
-        } else {
-            music.setVolume(0);
-        }
-        this.currentMusic = musicType;
-        music.play();
+        ServiceLocator.getResourceService().playMusic(musicType.path, true);
     }
 
     /**
@@ -430,9 +412,7 @@ public class MainGameArea extends GameArea {
      */
     @Override
     public void dispose() {
-        if (currentMusic != null) {
-            ServiceLocator.getResourceService().getAsset(currentMusic.path, Music.class).stop();
-        }
+        ServiceLocator.getResourceService().stopCurrentMusic();
         super.dispose();
     }
 }

@@ -24,6 +24,10 @@ public class ResourceService implements Disposable {
   private static final Logger logger = LoggerFactory.getLogger(ResourceService.class);
   private final AssetManager assetManager;
   private final Settings settings;
+  /**
+   * Path to current playing music or null if none is playing.
+   */
+  private String currentMusic = null;
 
   private final Map<String, Integer> referenceCounts = new HashMap<>();
 
@@ -229,6 +233,42 @@ public class ResourceService implements Disposable {
             sound.play(settings.soundVolume);
         }
     }
+
+  /**
+   * Play music. The volume is determined by {@link UserSettings}. No music is played
+   * when mute is on.
+   *
+   * @param musicName The path of the music relative to the assets folder.
+   * @param loop true to loop the music, false for single play-through.
+   */
+  public void playMusic(String musicName, boolean loop) {
+    currentMusic = musicName;
+    if (settings.mute) {
+      return;
+    }
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    if (!resourceService.containsAsset(musicName, Music.class)) {
+      logger.error("Music not loaded");
+      return;
+    }
+    Music music = resourceService.getAsset(musicName, Music.class);
+    music.setLooping(loop);
+    music.setVolume(UserSettings.get().musicVolume);
+    music.play();
+  }
+
+  /**
+   * Stop the currently playing music.
+   */
+  public void stopCurrentMusic() {
+    if (currentMusic == null) {
+      logger.warn("Tried to stop music but none was playing");
+      return;
+    }
+    if (containsAsset(currentMusic, Music.class)) {
+      getAsset(currentMusic, Music.class).stop();
+    }
+  }
 
   @Override
   public void dispose() {

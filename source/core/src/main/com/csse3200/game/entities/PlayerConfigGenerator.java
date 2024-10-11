@@ -34,6 +34,7 @@ public class PlayerConfigGenerator {
         config.coins = player.getComponent(CoinsComponent.class).getCoins();
         config.maxHealth = statsComponent.getMaxHealth();
         config.speed = player.getComponent(PlayerActions.class).getCurrSpeed();
+        config.baseSpeed = player.getComponent(PlayerActions.class).getBaseSpeed();
         config.pets = petsToString(inventoryComponent.getInventory().getPets());
         config.armour = statsComponent.getArmor();
         config.buff = statsComponent.getDamageBuff();

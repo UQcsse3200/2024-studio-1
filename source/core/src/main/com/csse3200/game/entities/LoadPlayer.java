@@ -54,6 +54,9 @@ public class LoadPlayer {
     public Entity createPlayer(PlayerConfig config, boolean shouldLoad) {
         logger.info("Creating player with health {}", config.health);
         Entity player = new Entity();
+        if(!shouldLoad){
+            config.baseSpeed = config.speed;
+        }
         addComponents(player, config, shouldLoad);
         addWeaponsAndItems(player, config, shouldLoad);
         addAtlas(player, config);
@@ -109,8 +112,10 @@ public class LoadPlayer {
         if(!shouldLoad){
             player.addComponent(new CombatStatsComponent(config.maxHealth, config.baseAttack, true,
                     0, 0));
+            player.getComponent(PlayerActions.class).setBaseSpeed(config.speed);
         }
         else{
+            player.getComponent(PlayerActions.class).setBaseSpeed(config.baseSpeed);
             player.addComponent(new CombatStatsComponent(config.health, config.maxHealth,
                 config.baseAttack, true, config.armour, config.buff, config.canCrit,
                 config.critChance));
@@ -121,8 +126,6 @@ public class LoadPlayer {
                 .addComponent(new PlayerCoinDisplay(coinsComponent));
         player.getComponent(CoinsComponent.class).setCoins(config.coins);
         player.getComponent(PlayerActions.class).setSpeed(config.speed);
-
-
     }
 
     /**

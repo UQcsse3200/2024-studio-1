@@ -20,6 +20,7 @@ public class PlayerActions extends Component {
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
+    private Vector2 baseSpeed = new Vector2(3f, 3f); // Metres per second;
     private boolean dead = false;
     private float maxSpeed = 1.5f;
     private float speedPercentage;
@@ -80,6 +81,15 @@ public class PlayerActions extends Component {
     }
 
     /**
+     * Gets the base speed limit of the player
+     *
+     * @return the maximum speed limit
+     */
+    public Vector2 getBaseSpeed() {
+        return this.baseSpeed;
+    }
+
+    /**
      * Sets the current speed percentage stat to a new value
      *
      * @param speedPercentage the new speed percentage to set to
@@ -105,6 +115,15 @@ public class PlayerActions extends Component {
     public void setSpeed(Vector2 speed) {
         this.speed = speed;
         update();
+    }
+
+    /**
+     * Gets the base speed of the player 
+     *
+     * @param speed the speed (in m/s)
+     */
+    public void setBaseSpeed(Vector2 speed) {
+        this.baseSpeed= speed;
     }
 
     /**

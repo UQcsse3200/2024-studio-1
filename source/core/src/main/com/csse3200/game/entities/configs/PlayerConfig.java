@@ -27,6 +27,7 @@ public class PlayerConfig extends BaseEntityConfig  {
 
   public Difficulty difficulty;
 
+  public Vector2 baseSpeed;
   /** Player's current health */
   public int health = 100;
   /** Max health a player can have */

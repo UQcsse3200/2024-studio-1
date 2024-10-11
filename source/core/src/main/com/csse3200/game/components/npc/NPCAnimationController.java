@@ -168,6 +168,8 @@ public class NPCAnimationController extends Component {
                 triggerDirectionalAnimation("attack");
             } else if (animator.hasAnimation("attack")) {
                 animator.startAnimation("attack");
+            } else if(animator.hasAnimation("1atk_left") && animator.hasAnimation("1atk_right")){
+                triggerDirectionalAnimation("1atk");
             } else {
                 throw new IllegalStateException("No attack animation found");
             }
@@ -205,8 +207,12 @@ public class NPCAnimationController extends Component {
                 triggerDirectionalAnimation("jump");
             } else if (animator.hasAnimation("jump")) {
                 animator.startAnimation("jump");
+            } else if (animator.hasAnimation("fly_right") && animator.hasAnimation("fly_left")) {
+                triggerDirectionalAnimation("fly");
+            } else if (animator.hasAnimation("fly")) {
+                animator.startAnimation("fly");
             } else {
-                throw new IllegalStateException("No jump animation found");
+                throw new IllegalStateException("No jump or fly animation found");
             }
         }
     }

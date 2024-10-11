@@ -14,13 +14,13 @@ import com.csse3200.game.services.ServiceLocator;
  */
 public class RangeAttackComponent extends AttackComponent {
 
-    private final float spreadAngle = 0.1f;
+    final float spreadAngle = 0.1f;
     private ShootType type;
     private Entity latestProjectile;
-    private String[] projectileNames;
-    private String[] attackTriggers;
+    String[] projectileNames;
+    String[] attackTriggers;
 
-    private int animationID = 0;
+    int animationID = 0;
 
     private final ProjectileFactory projectileFactory = new ProjectileFactory();
 
@@ -76,12 +76,13 @@ public class RangeAttackComponent extends AttackComponent {
         } else {
             baseName = baseEntity.getComponent(NameComponent.class).getName();
         }
+
         System.out.println("Ranged animals shooting:");
         System.out.println(baseName);
-        if (baseName.equals("Dragon")) {
+        if (baseName.equals("dragon")) {
             projectileNames = new String[]{"dragonProjectile"};
             attackTriggers = new String[]{"fire_attack"};
-        } else if (baseName.equals("Kitsune")) {
+        } else if (baseName.equals("kitsune")) {
             projectileNames = new String[]{"kitsuneProjectile1", "kitsuneProjectile2"};
             attackTriggers = new String[]{"fire1", "fire2"};
         } else {
@@ -122,7 +123,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param target The target entity
      * @return direction from this entity towards its target
      */
-    private Vector2 getDirection(Entity target) {
+    Vector2 getDirection(Entity target) {
         if (target == null) {
             return new Vector2(0, 0);
         }
@@ -178,7 +179,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param projectile projectile entity
      * @param direction direction that projectile is flying toward
      */
-    private void updateDirection(Entity projectile, Vector2 direction) {
+    void updateDirection(Entity projectile, Vector2 direction) {
         if (direction.x >= 0) {
             projectile.getComponent(DirectionalNPCComponent.class).setDirection("right");
         } else {
@@ -192,7 +193,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param direction The direction to shoot at
      * @param numShot number of spreads
      */
-    private void spreadShoot(Vector2 direction, int numShot) {
+    void spreadShoot(Vector2 direction, int numShot) {
         if (numShot == 1) {
             shoot(direction);
             return;
@@ -208,7 +209,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param angle The rotated angle
      * @return The rotated vector
      */
-    private Vector2 rotate(Vector2 mainRay, float angle) {
+    Vector2 rotate(Vector2 mainRay, float angle) {
         float cos = (float) Math.cos(angle);
         float sin = (float) Math.sin(angle);
 

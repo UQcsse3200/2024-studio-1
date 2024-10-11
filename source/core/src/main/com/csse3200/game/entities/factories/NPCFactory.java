@@ -7,6 +7,7 @@ import com.csse3200.game.components.DialogComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.AOEAttackComponent;
+import com.csse3200.game.components.npc.attack.BossRangeAttackComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
@@ -88,6 +89,10 @@ public class NPCFactory extends LoadedFactory {
     if (config.isBoss) {
       npc.addComponent(new BossHealthDialogueComponent());
       npc.addComponent(new DialogComponent());
+    }
+
+    if (config.name.equals("kitsune")) {
+      npc.addComponent(new BossRangeAttackComponent(target, config.attacks.ranged));
     }
 
     // Scale entity

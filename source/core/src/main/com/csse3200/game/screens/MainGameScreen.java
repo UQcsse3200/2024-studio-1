@@ -72,8 +72,8 @@ public class MainGameScreen extends GameScreen{
          * based on the characters selected, changed the link
          * If Player choose Load, then create
          */
-        this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
-        Entity player = loadPlayer(shouldLoad, gameOptions, chosenPlayer);
+        playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
+        Entity player = playerFactory.createPlayer(chosenPlayer, gameOptions.difficulty);
 
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
@@ -88,20 +88,4 @@ public class MainGameScreen extends GameScreen{
         }
     }
 
-    private Entity loadPlayer(boolean shouldLoad, GameOptions gameOptions, String chosenPlayer) {
-        Entity player;
-        if (shouldLoad) {
-            PlayerConfig config = FileLoader.readClass(
-                    PlayerConfig.class,
-                    "configs/player_save.json",
-                    FileLoader.Location.EXTERNAL);
-            if (config == null) {
-                throw new RuntimeException("Tried to load player and failed");
-            }
-            player = playerFactory.createPlayer(config, gameOptions.difficulty);
-        } else {
-            player = playerFactory.createPlayer(chosenPlayer, gameOptions.difficulty);
-        }
-        return player;
-    }
 }

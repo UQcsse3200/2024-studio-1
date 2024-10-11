@@ -81,9 +81,9 @@ public class PlayerActions extends Component {
     }
 
     /**
-     * Gets the base speed limit of the player
+     * Gets the base speed of the player
      *
-     * @return the maximum speed limit
+     * @return the base speed 
      */
     public Vector2 getBaseSpeed() {
         return this.baseSpeed;

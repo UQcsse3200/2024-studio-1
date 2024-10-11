@@ -6,6 +6,10 @@
     "x": 3,
     "y": 3
   },
+  "baseSpeed": {
+    "x": 3,
+    "y": 3
+  },
   "textureFilename": "images/npc/bear/bear.png",
   "textureAtlasFilename": "images/npc/bear/bear.atlas",
   "melee": "melee:Axe",

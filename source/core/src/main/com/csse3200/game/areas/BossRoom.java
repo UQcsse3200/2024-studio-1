@@ -18,7 +18,6 @@ public class BossRoom extends EnemyRoom {
     private NPCFactory npcFactory;
     private MainGameArea area;
     private Entity player;
-    private boolean stairsSpawned = false;
     private boolean isBossRoom = true;
 
     @Override
@@ -70,11 +69,6 @@ public class BossRoom extends EnemyRoom {
         this.player = player;
         spawnStairs(player, area);
 
-        //if (!stairsSpawned) {
-           // spawnStairs(player, area);
-          //  stairsSpawned = true; // Set the flag to true after spawning stairs
-        //}
-
     }
 
     private void spawnStairs(Entity player, MainGameArea area) {
@@ -84,10 +78,6 @@ public class BossRoom extends EnemyRoom {
         GridPoint2 pos = new GridPoint2(x, y);
         area.spawnEntityAt(stairs, pos, true, true);
     }
-
-    //public void resetRoom() {
-       // stairsSpawned = false;
-   // }
 
     /**
      * Spawns a dog and a snake near the boss when health reaches 50%.

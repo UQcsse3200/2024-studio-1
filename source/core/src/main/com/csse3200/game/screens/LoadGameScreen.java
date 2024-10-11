@@ -37,6 +37,7 @@ public class LoadGameScreen extends GameScreen{
         if (config == null) {
             throw new RuntimeException("Tried to load player and failed");
         }
+        logger.info("{} is the baseSpeed",config.baseSpeed);
         Entity player = playerFactory.createPlayer(config, shouldLoad);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 

@@ -6,6 +6,10 @@
     "x": 5,
     "y": 6
   },
+  "baseSpeed": {
+    "x": 5,
+    "y": 6
+  },
   "textureFilename": "images/player/homeless3.png",
   "textureAtlasFilename": "images/player/homeless3.atlas",
   "melee": "melee:Axe",

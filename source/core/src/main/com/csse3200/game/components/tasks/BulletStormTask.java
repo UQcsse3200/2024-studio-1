@@ -14,17 +14,17 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Task for the boss to perform a Bullet Storm:
- * - Move to the center of the room at (5,7).
+ * - Move to the center of the room at (7,5).
  * - Enable BossRangeAttackComponent.
  * - Become immune to damage.
- * - Runs once when boss health is between 40-50%.
- * - Deactivates after 30 seconds.
+ * - Runs once when boss health is under 50%.
+ * - Deactivates after a given amount of time.
  */
 public class BulletStormTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(BulletStormTask.class);
     private static final int TASK_PRIORITY = 15; // Highest priority
     private static final float ACTIVATION_HEALTH_PERCENTAGE = 50f;
-    private final Vector2 centerPosition = new Vector2(7, 5);
+    private final Vector2 centerPosition = new Vector2(7, 5); // Centre of room
     private final float duration; // In seconds
     private final GameTime gameTime;
     private long startTime;
@@ -41,6 +41,9 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
 
     @Override
     public void start() {
+        if (hasRun) {
+            return;
+        }
         super.start();
         logger.info("Starting BulletStormTask.");
         startTime = gameTime.getTime();
@@ -56,7 +59,7 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
         movementTask = new MovementTask(centerPosition);
         movementTask.create(owner);
         movementTask.start();
-        movementTask.setVelocity(5f); // Set appropriate movement speed
+        movementTask.setVelocity(2f);
         logger.debug("Boss is moving to the center of the room at {}", centerPosition);
 
         // Enable the BossRangeAttackComponent
@@ -71,10 +74,6 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
 
     @Override
     public void update() {
-        if (hasRun) {
-            return;
-        }
-
         long currentTime = gameTime.getTime();
         float elapsedTime = (currentTime - startTime) / 1000f; // Convert to seconds
 
@@ -114,7 +113,7 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
     @Override
     public int getPriority() {
         if (hasRun) {
-            return -1; // Do not run again
+            return -1;
         }
         CombatStatsComponent combatStats = owner.getEntity().getComponent(CombatStatsComponent.class);
         if (combatStats == null) {
@@ -127,5 +126,14 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
         }
 
         return -1;
+    }
+
+    /**
+     * Returns whether the task has run.
+     *
+     * @return true if the task has run, false otherwise
+     */
+    public boolean hasRun() {
+        return hasRun;
     }
 }

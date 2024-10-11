@@ -18,6 +18,7 @@ public class BossRoom extends EnemyRoom {
     private NPCFactory npcFactory;
     private MainGameArea area;
     private Entity player;
+    private boolean stairsSpawned = false;
 
     @Override
     protected List<List<String>> getAnimalSpecifications() {
@@ -62,7 +63,10 @@ public class BossRoom extends EnemyRoom {
         super.spawn(player, area);
         this.area = area;
         this.player = player;
-        spawnStairs(player, area);
+        if (!stairsSpawned) {
+            spawnStairs(player, area);
+            stairsSpawned = true; // Set the flag to true after spawning stairs
+        }
     }
 
     private void spawnStairs(Entity player, MainGameArea area) {
@@ -71,6 +75,10 @@ public class BossRoom extends EnemyRoom {
         int y = maxGridPoint.y;
         GridPoint2 pos = new GridPoint2(x, y);
         area.spawnEntityAt(stairs, pos, true, true);
+    }
+
+    public void resetRoom() {
+        stairsSpawned = false;
     }
 
     /**

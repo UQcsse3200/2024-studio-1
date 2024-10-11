@@ -34,5 +34,7 @@ public class Level {
     }
 
     public LevelMap getMap() {return map;}
-
+    public String toString(){
+        return ""+levelNumber;
+    }
 }

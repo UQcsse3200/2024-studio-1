@@ -5,6 +5,7 @@ import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.AttackConfig;
+import com.csse3200.game.entities.configs.EffectConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
@@ -98,7 +99,7 @@ class MeleeAttackComponentTest {
 
     private Entity createAttacker(Entity target) {
         // Setup attacker configs
-        AttackConfig.EffectConfig[] effectConfigs = {}; // No effects
+        EffectConfig[] effectConfigs = {}; // No effects
         AttackConfig.MeleeAttack meleeAttackConfig = new AttackConfig.MeleeAttack();
         meleeAttackConfig.range = 2f;
         meleeAttackConfig.rate = 1f;

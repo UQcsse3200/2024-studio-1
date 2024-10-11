@@ -25,6 +25,14 @@ public class RangeAttackComponent extends AttackComponent {
     private final ProjectileFactory projectileFactory = new ProjectileFactory();
 
     /**
+     * Enum type that control different shooting methods
+     */
+    enum ShootType {
+        SINGLE, // Single shot
+        SPREAD, // Spread shot
+    }
+
+    /**
      * Makes a ranged attack component
      *
      * @param target the player
@@ -105,9 +113,7 @@ public class RangeAttackComponent extends AttackComponent {
 //        setAnimationID(0);
         shoot(direction);
         // Attack effects
-        if (effects != null) {
-            applyEffects(target);
-        }
+        applyEffects(target);
     }
 
     /**
@@ -232,10 +238,4 @@ public class RangeAttackComponent extends AttackComponent {
     }
 }
 
-/**
- * Enum type that control different shooting methods
- */
-enum ShootType {
-    SINGLE, // Single shot
-    SPREAD, // Spread shot
-}
+

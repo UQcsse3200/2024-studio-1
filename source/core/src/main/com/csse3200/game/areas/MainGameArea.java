@@ -61,6 +61,10 @@ public class MainGameArea extends GameArea {
     private MinimapFactory minimapFactory;
 
     private MapLoadConfig config;
+    /**
+     * Current music playing, null if no music is playing.
+     */
+    private MusicType currentMusic = null;
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -121,7 +125,7 @@ public class MainGameArea extends GameArea {
         } else {
             changeLevel(0);
         }
-        playMusic();
+        playMusic(MusicType.NORMAL);
     }
 
     /**
@@ -299,22 +303,34 @@ public class MainGameArea extends GameArea {
         spawnEntity(ui);
     }
 
+    private enum MusicType {
+        NORMAL("bgm_new.wav"), BOSS("BGM_03_mp3.mp3"); // todo change boss music file
+
+        private final String path;
+        private static final String BASE = "sounds/";
+
+        MusicType(String filename) {
+            this.path = BASE + filename;
+        }
+    }
+
     /**
      * Plays the background music for the game area.
      */
-    private void playMusic() {
+    private void playMusic(MusicType musicType) {
         ResourceService resourceService = ServiceLocator.getResourceService();
-        if (!resourceService.containsAsset(BACKGROUND_MUSIC, Music.class)) {
+        if (!resourceService.containsAsset(musicType.path, Music.class)) {
             logger.error("Music not loaded");
             return;
         }
-        Music music = resourceService.getAsset(BACKGROUND_MUSIC, Music.class);
+        Music music = resourceService.getAsset(musicType.path, Music.class);
         music.setLooping(true);
         if (!UserSettings.get().mute) {
             music.setVolume(UserSettings.get().musicVolume);
         } else {
             music.setVolume(0);
         }
+        this.currentMusic = musicType;
         music.play();
     }
 
@@ -405,15 +421,18 @@ public class MainGameArea extends GameArea {
      */
     @Override
     protected String[] getMusicFilepaths() {
-        return new String[]{BACKGROUND_MUSIC};
+        return Arrays.stream(MusicType.values()).map(type -> type.path).toArray(String[]::new);
     }
 
     /**
-     * Disposes of the game area resources, including stopping the background music.
+     * Disposes of the game area resources, including stopping the background music if any is
+     * playing.
      */
     @Override
     public void dispose() {
-        ServiceLocator.getResourceService().getAsset(BACKGROUND_MUSIC, Music.class).stop();
+        if (currentMusic != null) {
+            ServiceLocator.getResourceService().getAsset(currentMusic.path, Music.class).stop();
+        }
         super.dispose();
     }
 }

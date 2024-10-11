@@ -162,6 +162,7 @@ public class ItemPickupComponent extends Component {
             if (playerFunds >= cost) {
                 coinsComponent.spend(cost);
                 entity.getComponent(InventoryComponent.class).pickup(item);
+                itemEntity.getComponent(BuyableComponent.class).removeLabel();
                 markEntityForRemoval(itemEntity);
             }
             else {

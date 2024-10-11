@@ -100,6 +100,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
         //Speed text
         speedProgressBar = new ProgressBar(0f, 1.5f, 0.1f, false, skin);
+        speedProgressBar.setValue(entity.getComponent(PlayerActions.class).getCurrSpeedPercentage());
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
         /*

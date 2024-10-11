@@ -10,6 +10,7 @@ import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
+import com.csse3200.game.components.player.inventory.BuyableComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
@@ -42,6 +43,7 @@ public abstract class BaseRoom implements Room {
     /** List of all entities in the room. */
     protected List<Entity> entities;
 
+
     /** Specification string for the room. */
     protected final String specification;
 
@@ -65,6 +67,8 @@ public abstract class BaseRoom implements Room {
 
     /** Name of the room. */
     protected final String roomName;
+
+
 
     /**
      * Constructs a new BaseRoom with the given parameters.
@@ -275,6 +279,7 @@ public abstract class BaseRoom implements Room {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
         item.getEvents().addListener("itemChose",()->deleteRemainingItems(item));
         entities.add(item);
+
         area.spawnEntityAt(item, pos, true, true);
     }
     private void deleteRemainingItems(Entity item){

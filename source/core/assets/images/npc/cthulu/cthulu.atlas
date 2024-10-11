@@ -1,523 +1,526 @@
 cthulu.png
-size:2048,512
-repeat:none
+	size: 2048, 2048
+	repeat: none
 1atk_left
-index:3
-bounds:2,373,134,65
-offsets:4,16,192,112
+	index: 3
+	bounds: 0, 1756, 271, 134
+	offsets: 7, 30, 384, 224
 1atk_left
-index:4
-bounds:2,308,126,63
-offsets:6,16,192,112
+	index: 4
+	bounds: 0, 1624, 254, 130
+	offsets: 12, 30, 384, 224
 1atk_left
-index:6
-bounds:1036,443,104,62
-offsets:18,16,192,112
+	index: 6
+	bounds: 1596, 1766, 211, 128
+	offsets: 35, 30, 384, 224
 1atk_left
-index:5
-bounds:1248,443,104,62
-offsets:17,16,192,112
+	index: 5
+	bounds: 0, 640, 211, 128
+	offsets: 33, 30, 384, 224
 1atk_left
-index:2
-bounds:1291,376,63,65
-offsets:69,16,192,112
+	index: 7
+	bounds: 1687, 1634, 118, 130
+	offsets: 132, 30, 384, 224
 1atk_left
-index:1
-bounds:411,297,62,67
-offsets:64,16,192,112
+	index: 2
+	bounds: 1724, 1495, 130, 135
+	offsets: 136, 29, 384, 224
 1atk_left
-index:7
-bounds:284,8,57,63
-offsets:67,16,192,112
+	index: 1
+	bounds: 214, 1284, 127, 138
+	offsets: 126, 30, 384, 224
 1atk_right
-index:3
-bounds:2,440,134,65
-offsets:54,16,192,112
+	index: 3
+	bounds: 0, 1892, 271, 134
+	offsets: 106, 30, 384, 224
 1atk_right
-index:4
-bounds:689,442,126,63
-offsets:60,16,192,112
+	index: 4
+	bounds: 1383, 1896, 254, 130
+	offsets: 118, 30, 384, 224
 1atk_right
-index:6
-bounds:930,443,104,62
-offsets:70,16,192,112
+	index: 6
+	bounds: 1383, 1766, 211, 128
+	offsets: 138, 30, 384, 224
 1atk_right
-index:5
-bounds:1142,443,104,62
-offsets:71,16,192,112
+	index: 5
+	bounds: 0, 770, 211, 128
+	offsets: 140, 30, 384, 224
 1atk_right
-index:1
-bounds:347,297,62,67
-offsets:66,16,192,112
+	index: 1
+	bounds: 1856, 1492, 127, 138
+	offsets: 131, 30, 384, 224
 1atk_right
-index:2
-bounds:609,312,63,65
-offsets:60,16,192,112
+	index: 2
+	bounds: 343, 1287, 130, 135
+	offsets: 118, 29, 384, 224
 1atk_right
-index:7
-bounds:1542,233,57,63
-offsets:68,16,192,112
+	index: 7
+	bounds: 723, 846, 118, 130
+	offsets: 134, 30, 384, 224
 2atk_left
-index:4
-bounds:138,379,136,62
-offsets:2,16,192,112
+	index: 4
+	bounds: 273, 1768, 276, 128
+	offsets: 2, 30, 384, 224
 2atk_left
-index:6
-bounds:276,443,136,62
-offsets:1,16,192,112
+	index: 6
+	bounds: 551, 1898, 276, 128
+	offsets: 0, 30, 384, 224
 2atk_left
-index:5
-bounds:414,379,136,62
-offsets:2,16,192,112
+	index: 5
+	bounds: 829, 1768, 276, 128
+	offsets: 2, 30, 384, 224
 2atk_left
-index:7
-bounds:552,443,135,62
-offsets:2,16,192,112
+	index: 7
+	bounds: 1107, 1898, 274, 128
+	offsets: 2, 30, 384, 224
 2atk_left
-index:3
-bounds:817,442,111,63
-offsets:27,16,192,112
+	index: 3
+	bounds: 1639, 1896, 226, 130
+	offsets: 52, 30, 384, 224
 2atk_left
-index:8
-bounds:1909,442,85,63
-offsets:40,16,192,112
+	index: 8
+	bounds: 1809, 1764, 174, 130
+	offsets: 78, 30, 384, 224
 2atk_left
-index:2
-bounds:213,300,65,64
-offsets:74,16,192,112
+	index: 2
+	bounds: 1180, 1502, 134, 132
+	offsets: 146, 30, 384, 224
 2atk_left
-index:1
-bounds:475,313,65,64
-offsets:73,16,192,112
+	index: 1
+	bounds: 1452, 1500, 134, 132
+	offsets: 144, 30, 384, 224
 2atk_left
-index:9
-bounds:987,312,61,63
-offsets:68,16,192,112
+	index: 9
+	bounds: 339, 803, 126, 130
+	offsets: 134, 30, 384, 224
 2atk_right
-index:5
-bounds:138,443,136,62
-offsets:54,16,192,112
+	index: 5
+	bounds: 273, 1898, 276, 128
+	offsets: 106, 30, 384, 224
 2atk_right
-index:4
-bounds:276,379,136,62
-offsets:54,16,192,112
+	index: 4
+	bounds: 551, 1768, 276, 128
+	offsets: 106, 30, 384, 224
 2atk_right
-index:6
-bounds:414,443,136,62
-offsets:55,16,192,112
+	index: 6
+	bounds: 829, 1898, 276, 128
+	offsets: 108, 30, 384, 224
 2atk_right
-index:7
-bounds:552,379,135,62
-offsets:55,16,192,112
+	index: 7
+	bounds: 1107, 1768, 274, 128
+	offsets: 108, 30, 384, 224
 2atk_right
-index:3
-bounds:2,243,111,63
-offsets:54,16,192,112
+	index: 3
+	bounds: 0, 1492, 226, 130
+	offsets: 106, 30, 384, 224
 2atk_right
-index:8
-bounds:1822,442,85,63
-offsets:67,16,192,112
+	index: 8
+	bounds: 1867, 1896, 174, 130
+	offsets: 132, 30, 384, 224
 2atk_right
-index:2
-bounds:280,300,65,64
-offsets:53,16,192,112
+	index: 2
+	bounds: 1316, 1500, 134, 132
+	offsets: 104, 30, 384, 224
 2atk_right
-index:1
-bounds:542,313,65,64
-offsets:54,16,192,112
+	index: 1
+	bounds: 1588, 1500, 134, 132
+	offsets: 106, 30, 384, 224
 2atk_right
-index:9
-bounds:983,247,61,63
-offsets:63,16,192,112
+	index: 9
+	bounds: 864, 1240, 126, 130
+	offsets: 124, 30, 384, 224
 death_left
-index:2
-bounds:1736,438,84,67
-offsets:46,16,192,112
+	index: 2
+	bounds: 657, 1628, 172, 138
+	offsets: 90, 30, 384, 224
 death_left
-index:1
-bounds:1356,381,81,63
-offsets:47,16,192,112
+	index: 1
+	bounds: 1519, 1634, 166, 130
+	offsets: 92, 30, 384, 224
 hurt_left
-index:5
-bounds:1356,381,81,63
-offsets:47,16,192,112
+	index: 5
+	bounds: 1519, 1634, 166, 130
+	offsets: 92, 30, 384, 224
 death_left
-index:6
-bounds:2,2,69,23
-offsets:59,16,192,112
+	index: 11
+	bounds: 1054, 1474, 166, 26
+	offsets: 100, 30, 384, 224
 death_left
-index:11
-bounds:221,366,81,11
-offsets:51,16,192,112
+	index: 10
+	bounds: 1054, 1474, 166, 26
+	offsets: 100, 30, 384, 224
 death_left
-index:10
-bounds:221,366,81,11
-offsets:51,16,192,112
+	index: 5
+	bounds: 324, 935, 142, 86
+	offsets: 120, 30, 384, 224
 death_left
-index:9
-bounds:304,366,76,11
-offsets:51,16,192,112
+	index: 3
+	bounds: 601, 1376, 138, 118
+	offsets: 124, 36, 384, 224
 death_left
-index:8
-bounds:382,366,76,11
-offsets:51,16,192,112
+	index: 4
+	bounds: 1031, 1372, 148, 100
+	offsets: 114, 30, 384, 224
 death_left
-index:4
-bounds:341,247,72,48
-offsets:58,16,192,112
+	index: 6
+	bounds: 570, 1058, 142, 50
+	offsets: 116, 30, 384, 224
 death_left
-index:3
-bounds:605,253,67,57
-offsets:63,19,192,112
+	index: 9
+	bounds: 597, 766, 156, 26
+	offsets: 100, 30, 384, 224
 death_left
-index:7
-bounds:1506,363,70,15
-offsets:56,16,192,112
+	index: 8
+	bounds: 597, 738, 156, 26
+	offsets: 100, 30, 384, 224
 death_left
-index:5
-bounds:186,204,69,41
-offsets:61,16,192,112
+	index: 7
+	bounds: 969, 780, 144, 34
+	offsets: 110, 30, 384, 224
 death_right
-index:2
-bounds:1650,438,84,67
-offsets:62,16,192,112
+	index: 2
+	bounds: 0, 0, 172, 138
+	offsets: 122, 30, 384, 224
 death_right
-index:1
-bounds:1828,377,81,63
-offsets:64,16,192,112
+	index: 1
+	bounds: 424, 1532, 166, 130
+	offsets: 126, 30, 384, 224
 hurt_right
-index:5
-bounds:1828,377,81,63
-offsets:64,16,192,112
+	index: 5
+	bounds: 424, 1532, 166, 130
+	offsets: 126, 30, 384, 224
 death_right
-index:10
-bounds:138,366,81,11
-offsets:60,16,192,112
+	index: 10
+	bounds: 886, 1474, 166, 26
+	offsets: 118, 30, 384, 224
 death_right
-index:11
-bounds:138,366,81,11
-offsets:60,16,192,112
+	index: 11
+	bounds: 886, 1474, 166, 26
+	offsets: 118, 30, 384, 224
 death_right
-index:4
-bounds:267,250,72,48
-offsets:62,16,192,112
+	index: 5
+	bounds: 214, 1196, 142, 86
+	offsets: 122, 30, 384, 224
 death_right
-index:9
-bounds:477,235,76,11
-offsets:65,16,192,112
+	index: 3
+	bounds: 741, 1374, 138, 118
+	offsets: 122, 36, 384, 224
 death_right
-index:8
-bounds:1356,368,76,11
-offsets:65,16,192,112
+	index: 4
+	bounds: 881, 1372, 148, 100
+	offsets: 122, 30, 384, 224
 death_right
-index:3
-bounds:856,317,67,57
-offsets:62,19,192,112
+	index: 6
+	bounds: 723, 794, 142, 50
+	offsets: 126, 30, 384, 224
 death_right
-index:7
-bounds:1434,363,70,15
-offsets:66,16,192,112
+	index: 7
+	bounds: 721, 628, 144, 34
+	offsets: 130, 30, 384, 224
 death_right
-index:5
-bounds:115,205,69,41
-offsets:62,16,192,112
+	index: 9
+	bounds: 721, 600, 156, 26
+	offsets: 128, 30, 384, 224
 death_right
-index:6
-bounds:1828,352,69,23
-offsets:64,16,192,112
+	index: 8
+	bounds: 969, 816, 156, 26
+	offsets: 128, 30, 384, 224
+default
+	bounds: 988, 1108, 124, 130
+	offsets: 126, 30, 384, 224
+idle_right
+	index: 1
+	bounds: 988, 1108, 124, 130
+	offsets: 126, 30, 384, 224
 fly_left
-index:2
-bounds:2,103,104,68
-offsets:45,19,192,112
+	index: 2
+	bounds: 0, 1208, 212, 140
+	offsets: 88, 36, 384, 224
 fly_left
-index:4
-bounds:1354,446,101,59
-offsets:45,20,192,112
+	index: 3
+	bounds: 0, 900, 192, 152
+	offsets: 100, 34, 384, 224
 fly_left
-index:1
-bounds:1457,445,95,60
-offsets:49,20,192,112
+	index: 4
+	bounds: 0, 392, 206, 122
+	offsets: 88, 38, 384, 224
 fly_left
-index:3
-bounds:1554,431,94,74
-offsets:51,18,192,112
+	index: 1
+	bounds: 0, 140, 194, 124
+	offsets: 96, 38, 384, 224
 fly_left
-index:6
-bounds:1650,387,93,49
-offsets:50,21,192,112
+	index: 6
+	bounds: 465, 1664, 190, 102
+	offsets: 98, 40, 384, 224
 fly_left
-index:5
-bounds:115,248,74,51
-offsets:59,19,192,112
+	index: 5
+	bounds: 228, 1424, 152, 106
+	offsets: 116, 36, 384, 224
 fly_right
-index:2
-bounds:2,173,104,68
-offsets:43,19,192,112
+	index: 2
+	bounds: 0, 1350, 212, 140
+	offsets: 84, 36, 384, 224
 fly_right
-index:3
-bounds:2,27,94,74
-offsets:47,18,192,112
+	index: 3
+	bounds: 0, 1054, 192, 152
+	offsets: 92, 34, 384, 224
 fly_right
-index:4
-bounds:689,381,101,59
-offsets:46,20,192,112
+	index: 4
+	bounds: 0, 516, 206, 122
+	offsets: 90, 38, 384, 224
 fly_right
-index:1
-bounds:792,380,95,60
-offsets:48,20,192,112
+	index: 1
+	bounds: 0, 266, 194, 124
+	offsets: 94, 38, 384, 224
 fly_right
-index:6
-bounds:1522,380,93,49
-offsets:49,21,192,112
+	index: 6
+	bounds: 273, 1664, 190, 102
+	offsets: 96, 40, 384, 224
 fly_right
-index:5
-bounds:191,247,74,51
-offsets:59,19,192,112
+	index: 5
+	bounds: 382, 1424, 152, 106
+	offsets: 116, 36, 384, 224
 hurt_left
-index:3
-bounds:951,377,83,64
-offsets:44,16,192,112
+	index: 3
+	bounds: 831, 1634, 170, 132
+	offsets: 86, 30, 384, 224
 hurt_left
-index:4
-bounds:1206,378,83,63
-offsets:44,16,192,112
+	index: 4
+	bounds: 1347, 1634, 170, 130
+	offsets: 86, 30, 384, 224
 hurt_left
-index:2
-bounds:1745,373,81,63
-offsets:47,16,192,112
+	index: 2
+	bounds: 256, 1532, 166, 130
+	offsets: 92, 30, 384, 224
 hurt_left
-index:1
-bounds:1911,377,81,63
-offsets:47,16,192,112
+	index: 1
+	bounds: 592, 1496, 166, 130
+	offsets: 92, 30, 384, 224
 hurt_right
-index:3
-bounds:1036,377,83,64
-offsets:65,16,192,112
+	index: 3
+	bounds: 1003, 1634, 170, 132
+	offsets: 128, 30, 384, 224
 hurt_right
-index:4
-bounds:1121,378,83,63
-offsets:65,16,192,112
+	index: 4
+	bounds: 1175, 1636, 170, 130
+	offsets: 128, 30, 384, 224
 hurt_right
-index:1
-bounds:1439,380,81,63
-offsets:64,16,192,112
+	index: 1
+	bounds: 1807, 1632, 166, 130
+	offsets: 126, 30, 384, 224
 hurt_right
-index:2
-bounds:130,301,81,63
-offsets:64,16,192,112
+	index: 2
+	bounds: 886, 1502, 166, 130
+	offsets: 126, 30, 384, 224
 idle_left
-index:7
-bounds:674,313,60,64
-offsets:68,16,192,112
+	index: 7
+	bounds: 213, 798, 124, 132
+	offsets: 134, 30, 384, 224
 idle_left
-index:6
-bounds:674,313,60,64
-offsets:68,16,192,112
+	index: 6
+	bounds: 213, 798, 124, 132
+	offsets: 134, 30, 384, 224
 idle_left
-index:2
-bounds:1046,247,60,63
-offsets:68,16,192,112
+	index: 9
+	bounds: 339, 669, 124, 132
+	offsets: 134, 30, 384, 224
 idle_left
-index:9
-bounds:108,139,60,64
-offsets:68,16,192,112
+	index: 10
+	bounds: 475, 1290, 124, 132
+	offsets: 134, 30, 384, 224
 idle_left
-index:11
-bounds:170,139,60,63
-offsets:68,16,192,112
+	index: 2
+	bounds: 992, 1240, 124, 130
+	offsets: 134, 30, 384, 224
 idle_left
-index:10
-bounds:232,138,60,64
-offsets:68,16,192,112
+	index: 11
+	bounds: 610, 1110, 124, 130
+	offsets: 134, 30, 384, 224
 idle_left
-index:13
-bounds:232,73,60,63
-offsets:68,16,192,112
+	index: 13
+	bounds: 213, 532, 124, 130
+	offsets: 134, 30, 384, 224
 idle_left
-index:4
-bounds:222,8,60,63
-offsets:68,16,192,112
+	index: 8
+	bounds: 208, 398, 124, 132
+	offsets: 134, 30, 384, 224
 idle_left
-index:1
-bounds:1113,312,60,63
-offsets:68,16,192,112
+	index: 4
+	bounds: 465, 501, 124, 130
+	offsets: 134, 30, 384, 224
 idle_left
-index:15
-bounds:1294,246,60,63
-offsets:68,16,192,112
+	index: 1
+	bounds: 594, 926, 124, 130
+	offsets: 134, 30, 384, 224
 idle_left
-index:8
-bounds:1418,297,60,64
-offsets:68,16,192,112
+	index: 15
+	bounds: 972, 976, 124, 130
+	offsets: 134, 30, 384, 224
 idle_left
-index:3
-bounds:1418,232,60,63
-offsets:68,16,192,112
+	index: 3
+	bounds: 969, 844, 124, 130
+	offsets: 134, 30, 384, 224
 idle_left
-index:12
-bounds:1480,233,60,63
-offsets:68,16,192,112
+	index: 12
+	bounds: 1095, 844, 124, 130
+	offsets: 134, 30, 384, 224
 idle_left
-index:14
-bounds:915,183,60,63
-offsets:68,16,192,112
+	index: 14
+	bounds: 843, 336, 124, 130
+	offsets: 134, 30, 384, 224
 idle_left
-index:5
-bounds:977,182,60,63
-offsets:68,16,192,112
+	index: 5
+	bounds: 1224, 976, 124, 130
+	offsets: 134, 30, 384, 224
 idle_right
-index:8
-bounds:889,376,60,64
-offsets:64,16,192,112
+	index: 8
+	bounds: 760, 1494, 124, 132
+	offsets: 126, 30, 384, 224
 idle_right
-index:14
-bounds:674,248,60,63
-offsets:64,16,192,112
+	index: 7
+	bounds: 213, 664, 124, 132
+	offsets: 126, 30, 384, 224
 idle_right
-index:7
-bounds:857,251,60,64
-offsets:64,16,192,112
+	index: 6
+	bounds: 213, 664, 124, 132
+	offsets: 126, 30, 384, 224
 idle_right
-index:6
-bounds:857,251,60,64
-offsets:64,16,192,112
+	index: 14
+	bounds: 358, 1155, 124, 130
+	offsets: 126, 30, 384, 224
 idle_right
-index:5
-bounds:108,74,60,63
-offsets:64,16,192,112
+	index: 10
+	bounds: 484, 1156, 124, 132
+	offsets: 126, 30, 384, 224
 idle_right
-index:11
-bounds:170,74,60,63
-offsets:64,16,192,112
+	index: 9
+	bounds: 610, 1242, 124, 132
+	offsets: 126, 30, 384, 224
 idle_right
-index:2
-bounds:160,9,60,63
-offsets:64,16,192,112
+	index: 5
+	bounds: 736, 1110, 124, 130
+	offsets: 126, 30, 384, 224
 idle_right
-index:13
-bounds:1961,312,60,63
-offsets:64,16,192,112
+	index: 11
+	bounds: 862, 1108, 124, 130
+	offsets: 126, 30, 384, 224
 idle_right
-index:10
-bounds:1175,312,60,64
-offsets:64,16,192,112
+	index: 2
+	bounds: 1114, 1108, 124, 130
+	offsets: 126, 30, 384, 224
 idle_right
-index:4
-bounds:1237,311,60,63
-offsets:64,16,192,112
+	index: 13
+	bounds: 465, 369, 124, 130
+	offsets: 126, 30, 384, 224
 idle_right
-index:9
-bounds:1356,302,60,64
-offsets:64,16,192,112
+	index: 4
+	bounds: 846, 976, 124, 130
+	offsets: 126, 30, 384, 224
 idle_right
-index:15
-bounds:1356,237,60,63
-offsets:64,16,192,112
+	index: 15
+	bounds: 1098, 976, 124, 130
+	offsets: 126, 30, 384, 224
 idle_right
-index:1
-bounds:1480,298,60,63
-offsets:64,16,192,112
+	index: 12
+	bounds: 591, 476, 124, 130
+	offsets: 126, 30, 384, 224
 idle_right
-index:12
-bounds:667,183,60,63
-offsets:64,16,192,112
-idle_right
-index:3
-bounds:791,186,60,63
-offsets:64,16,192,112
+	index: 3
+	bounds: 717, 468, 124, 130
+	offsets: 126, 30, 384, 224
 walk_left
-index:12
-bounds:415,232,60,63
-offsets:68,16,192,112
+	index: 12
+	bounds: 1054, 1502, 124, 130
+	offsets: 134, 30, 384, 224
 walk_left
-index:8
-bounds:477,248,62,63
-offsets:67,16,192,112
+	index: 8
+	bounds: 194, 1064, 128, 130
+	offsets: 132, 30, 384, 224
 walk_left
-index:3
-bounds:736,316,54,63
-offsets:71,16,192,112
+	index: 6
+	bounds: 468, 893, 124, 128
+	offsets: 134, 30, 384, 224
 walk_left
-index:6
-bounds:925,312,60,62
-offsets:68,16,192,112
+	index: 9
+	bounds: 465, 633, 128, 128
+	offsets: 132, 30, 384, 224
 walk_left
-index:7
-bounds:1050,312,61,63
-offsets:67,16,192,112
+	index: 7
+	bounds: 736, 1242, 126, 130
+	offsets: 132, 30, 384, 224
 walk_left
-index:9
-bounds:919,248,62,62
-offsets:67,16,192,112
+	index: 3
+	bounds: 1118, 1240, 112, 130
+	offsets: 140, 30, 384, 224
 walk_left
-index:11
-bounds:1899,312,60,63
-offsets:68,16,192,112
+	index: 11
+	bounds: 339, 407, 124, 130
+	offsets: 134, 30, 384, 224
 walk_left
-index:2
-bounds:1542,298,56,63
-offsets:70,16,192,112
+	index: 10
+	bounds: 595, 608, 124, 128
+	offsets: 134, 30, 384, 224
 walk_left
-index:10
-bounds:605,189,60,62
-offsets:68,16,192,112
+	index: 2
+	bounds: 174, 8, 116, 130
+	offsets: 138, 30, 384, 224
 walk_left
-index:1
-bounds:853,186,60,63
-offsets:68,16,192,112
+	index: 1
+	bounds: 717, 336, 124, 130
+	offsets: 134, 30, 384, 224
 walk_left
-index:5
-bounds:1039,183,56,62
-offsets:70,16,192,112
+	index: 5
+	bounds: 1221, 846, 116, 128
+	offsets: 138, 30, 384, 224
 walk_left
-index:4
-bounds:1211,183,54,62
-offsets:71,16,192,112
+	index: 4
+	bounds: 196, 262, 112, 128
+	offsets: 140, 30, 384, 224
 walk_right
-index:8
-bounds:541,248,62,63
-offsets:63,16,192,112
+	index: 8
+	bounds: 194, 932, 128, 130
+	offsets: 124, 30, 384, 224
 walk_right
-index:9
-bounds:792,316,62,62
-offsets:63,16,192,112
+	index: 7
+	bounds: 324, 1023, 126, 130
+	offsets: 126, 30, 384, 224
 walk_right
-index:7
-bounds:736,251,61,63
-offsets:64,16,192,112
+	index: 2
+	bounds: 452, 1023, 116, 130
+	offsets: 130, 30, 384, 224
 walk_right
-index:2
-bounds:799,251,56,63
-offsets:66,16,192,112
+	index: 9
+	bounds: 467, 763, 128, 128
+	offsets: 124, 30, 384, 224
 walk_right
-index:10
-bounds:98,10,60,62
-offsets:64,16,192,112
+	index: 10
+	bounds: 339, 539, 124, 128
+	offsets: 126, 30, 384, 224
 walk_right
-index:1
-bounds:1108,247,60,63
-offsets:64,16,192,112
+	index: 1
+	bounds: 597, 794, 124, 130
+	offsets: 126, 30, 384, 224
 walk_right
-index:12
-bounds:1170,247,60,63
-offsets:64,16,192,112
+	index: 12
+	bounds: 720, 978, 124, 130
+	offsets: 126, 30, 384, 224
 walk_right
-index:6
-bounds:1232,247,60,62
-offsets:64,16,192,112
+	index: 6
+	bounds: 843, 846, 124, 128
+	offsets: 126, 30, 384, 224
 walk_right
-index:3
-bounds:1299,311,54,63
-offsets:67,16,192,112
+	index: 11
+	bounds: 591, 344, 124, 130
+	offsets: 126, 30, 384, 224
 walk_right
-index:11
-bounds:729,183,60,63
-offsets:64,16,192,112
+	index: 4
+	bounds: 755, 664, 112, 128
+	offsets: 132, 30, 384, 224
 walk_right
-index:5
-bounds:1097,183,56,62
-offsets:66,16,192,112
+	index: 3
+	bounds: 843, 468, 112, 130
+	offsets: 132, 30, 384, 224
 walk_right
-index:4
-bounds:1155,183,54,62
-offsets:67,16,192,112
+	index: 5
+	bounds: 310, 268, 116, 128
+	offsets: 130, 30, 384, 224

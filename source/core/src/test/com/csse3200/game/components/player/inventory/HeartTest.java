@@ -54,6 +54,6 @@ public class HeartTest {
 
     @Test
     public void testGetBuffSpecification() {
-        assertEquals("Heart", heart.getBuffSpecification());
+        assertEquals("heart", heart.getBuffSpecification());
     }
 }

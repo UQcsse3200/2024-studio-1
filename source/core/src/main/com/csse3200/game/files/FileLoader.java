@@ -47,7 +47,7 @@ public class FileLoader {
    * @param type class type
    * @param filename file to read from
    * @param location File storage type. See
-   *     <a href="https://github.com/libgdx/libgdx/wiki/File-handling#file-storage-types">github</a>
+   *     <a href="https://libgdx.com/wiki/file-handling#file-storage-types">github</a>
    * @param <T> Class type to read JSON into
    * @return instance of class, may be null
    */

@@ -330,7 +330,97 @@
       {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
       {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
+  },"werewolf": {
+  "health": 1000,
+  "strength": 9,
+  "baseAttack": 30,
+  "isDirectional": true,
+  "isBoss": true,
+  "tasks": {
+    "wander": {
+      "wanderRadius": 4,
+      "waitTime": 4,
+      "wanderSpeed": 0.4
+    },
+    "chase": {
+      "chaseSpeed": 2.5,
+      "viewDistance": 9,
+      "chaseDistance": 9.5,
+      "maxTime": 5
+    },
+    "charge": {
+      "activationMinRange": 3,
+      "activationMaxRange": 8,
+      "chaseSpeed": 4,
+      "distanceMultiplier": 1.5,
+      "waitTime": 1,
+      "cooldownTime": 3
+    },
+    "jump": {
+      "activationMinRange": 4,
+      "activationMaxRange": 6,
+      "jumpDuration": 1.5,
+      "waitTime": 1,
+      "cooldownTime": 5
+    },
+    "runAway": {
+      "activationMinRange": 0,
+      "activationMaxRange": 2,
+      "activationHealth": 0.5,
+      "runSpeed": 3,
+      "stopDistance": 4,
+      "maxRunTime": 3,
+      "cooldownTime": 10
+    },
+    "aoeAttack": {
+      "activationMinRange": 0,
+      "activationMaxRange": 1.5,
+      "preparationTime": 3,
+      "cooldownTime": 10
+    }
   },
+  "attacks": {
+    "melee": {
+      "range": 1.2,
+      "rate": 0.8,
+      "effects": [
+        {
+          "type": "POISON",
+          "duration": 3,
+          "damagePerSecond": 5
+        }
+      ]
+    },
+    "aoe": {
+      "rate": 10,
+      "range": 3,
+      "effects": [
+        {
+          "type": "KNOCKBACK",
+          "force": 5
+        }
+      ]
+    }
+  },
+  "animations": [
+    {"name": "idle_left", "frameDuration": 0.125, "playMode": "LOOP"},
+    {"name": "idle_right", "frameDuration": 0.125, "playMode": "LOOP"},
+    {"name": "walk_left", "frameDuration": 0.07, "playMode": "LOOP"},
+    {"name": "walk_right", "frameDuration": 0.07, "playMode": "LOOP"},
+    {"name": "run_left", "frameDuration": 0.07, "playMode": "LOOP"},
+    {"name": "run_right", "frameDuration": 0.07, "playMode": "LOOP"},
+    {"name": "attack_left", "frameDuration": 0.33, "playMode": "NORMAL"},
+    {"name": "attack_right", "frameDuration": 0.33, "playMode": "NORMAL"},
+    {"name": "run+attack_left", "frameDuration": 0.14, "playMode": "NORMAL"},
+    {"name": "run+attack_right", "frameDuration": 0.14, "playMode": "NORMAL"},
+    {"name": "hurt_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+    {"name": "hurt_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+    {"name": "death_left", "frameDuration": 0.5, "playMode": "NORMAL"},
+    {"name": "death_right", "frameDuration": 0.5, "playMode": "NORMAL"},
+    {"name": "jump_left", "frameDuration": 0.15, "playMode": "NORMAL"},
+    {"name": "jump_right", "frameDuration": 0.15, "playMode": "NORMAL"}
+  ]
+},
   "cthulu": {
     "health": 1000,
     "strength": 9,

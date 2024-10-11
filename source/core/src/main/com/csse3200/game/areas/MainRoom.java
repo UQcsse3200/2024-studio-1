@@ -17,7 +17,7 @@ public class MainRoom extends EnemyRoom {
                 List.of("Bat", "Bat", "Bat"),
                 List.of("Minotaur", "Minotaur", "Minotaur"),
                 List.of("Rat", "Bat", "Bear"),
-                List.of("Cthulu", "Cthulu", "Bear")
+                List.of("Werewolf", "Werewolf", "Bear")
         );
     }
 

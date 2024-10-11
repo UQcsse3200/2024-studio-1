@@ -251,6 +251,6 @@
       {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
-  },
+  }
 }
 

@@ -5,6 +5,7 @@ import com.csse3200.game.components.effects.*;
 import com.csse3200.game.entities.EffectEntity;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.EffectConfig;
+import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,20 +13,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Factory to create Effect instances based on configuration.
  */
-public class EffectFactory extends LoadedFactory {
+public class EffectFactory {
     private static final Logger logger = LoggerFactory.getLogger(EffectFactory.class);
-    private static EffectFactory instance;
-
-    private EffectFactory() {
-        super(logger);
-    }
-
-    public static synchronized EffectFactory getInstance() {
-        if (instance == null) {
-            instance = new EffectFactory();
-        }
-        return instance;
-    }
 
     /**
      * Creates an Effect instance based on the provided configuration and source entity.
@@ -82,15 +71,24 @@ public class EffectFactory extends LoadedFactory {
         }
     }
 
-    @Override
-    protected String[] getTextureAtlasFilepaths() {
+    /**
+     * Load assets required for effects.
+     */
+    public static void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextureAtlases(getTextureAtlasFilepaths());
+        resourceService.loadTextures(getTextureFilepaths());
+        resourceService.loadAll();
+    }
+
+    private static String[] getTextureAtlasFilepaths() {
         return new String[] {
             "images/effects/stun.atlas", "images/effects/poison.atlas"
         };
     }
 
-    @Override
-    protected String[] getTextureFilepaths() {
+    private static String[] getTextureFilepaths() {
         return new String[] {
             "images/effects/stun.png", "images/effects/poison.png"
         };

@@ -22,7 +22,7 @@ public class EffectComponent extends Component {
     @Override
     public void create() {
         super.create();
-        EffectFactory effectFactory = EffectFactory.getInstance(); // Load effect assets
+        EffectFactory.loadAssets();
         createOrUpdateEffectEntity();
     }
 

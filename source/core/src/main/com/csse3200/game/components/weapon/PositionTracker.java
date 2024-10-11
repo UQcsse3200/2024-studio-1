@@ -56,22 +56,26 @@ public class PositionTracker extends Component {
             offset = new Vector2(0, 0);
             return;
         }
-        // Specify the offset for each character model
-        switch (player.getComponent(PlayerConfigComponent.class).getPlayerConfig().name) {
-            case "Player 2":
-                offset = new Vector2(0.5f, 0.5f);
-                break;
-            case "Player 3":
-                offset = new Vector2(0.5f, 0.5f);
-                break;
-            case "Player 4":
-                offset = new Vector2(0.5f, 0.5f);
-                break;
-            case "bear":
-                offset = new Vector2(0.7f, 1);
-                break;
-            default:
-                offset = new Vector2(0, 0);
+        if (this.getEntity().getComponent(NameComponent.class).getName().equals("Ranged")) {
+            // Specify the offset of ranged weapon for each character model
+            switch (player.getComponent(PlayerConfigComponent.class).getPlayerConfig().name) {
+                case "Player 2":
+                    offset = new Vector2(0.5f, 0.5f);
+                    break;
+                case "Player 3":
+                    offset = new Vector2(0.5f, 0.5f);
+                    break;
+                case "Player 4":
+                    offset = new Vector2(0.5f, 0.5f);
+                    break;
+                case "bear":
+                    offset = new Vector2(0.7f, 1);
+                    break;
+                default:
+                    offset = new Vector2(0, 0);
+            }
+        } else {
+            offset = new Vector2(0, 0);
         }
     }
 

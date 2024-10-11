@@ -72,7 +72,7 @@
         "rate": 0.5,
         "effects": [
           {
-            "type": "knockback",
+            "type": "KNOCKBACK",
             "force": 3
           }
         ]
@@ -149,7 +149,7 @@
         "rate": 1,
         "effects": [
           {
-            "type": "knockback",
+            "type": "KNOCKBACK",
             "force": 5
           }
         ]
@@ -238,7 +238,7 @@
         "rate": 0.5,
         "effects": [
           {
-            "type": "knockback",
+            "type": "KNOCKBACK",
             "force": 1
           }
         ]

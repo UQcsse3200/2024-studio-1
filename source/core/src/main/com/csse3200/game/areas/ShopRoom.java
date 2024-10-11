@@ -10,6 +10,7 @@ import com.csse3200.game.components.gamearea.ShopRoomDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
 /**
@@ -72,7 +73,8 @@ public class ShopRoom extends BaseRoom {
         //Zack's code: spawn in 1 line (if there is 6 item)
         if(items != null) {
             for (int i = 0; i < items.size(); i++){
-                spawnItem(area, items.get(i), new GridPoint2(i * 2 + 2, 8));
+                int itemIndex = ServiceLocator.getRandomService().getRandomNumberGenerator(getClass()).getRandomInt(0,3);
+                spawnItem(area, items.get(itemIndex), new GridPoint2(i * 2 + 2, 8));
             }
         }
     }

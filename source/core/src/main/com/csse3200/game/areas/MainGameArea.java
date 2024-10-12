@@ -318,7 +318,6 @@ public class MainGameArea extends GameArea {
 
     private Music normalMusic;
     private Music bossMusic;
-    private MusicType currentMusicType;
 
     /**
      * Plays the specified type of music.
@@ -326,23 +325,12 @@ public class MainGameArea extends GameArea {
      * @param musicType type of music to play (normal/boss).
      */
     public void playMusic(MusicType musicType) {
-        if (currentMusicType == musicType) {
-            return; // Music is already playing, no need to change
-        }
-
-        stopCurrentMusic();
-
-        Music newMusic = ServiceLocator.getResourceService().getAsset(musicType.path, Music.class);
-        newMusic.setLooping(true);
-        newMusic.play();
-
+        Music newMusic = ServiceLocator.getResourceService().playMusic(musicType.path, true);
         if (musicType == MusicType.BOSS) {
             bossMusic = newMusic;
         } else {
             normalMusic = newMusic;
         }
-
-        currentMusicType = musicType;
     }
 
     /**

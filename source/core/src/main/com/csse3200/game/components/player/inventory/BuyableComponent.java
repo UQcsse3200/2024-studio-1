@@ -1,5 +1,7 @@
 package com.csse3200.game.components.player.inventory;
+
 import com.csse3200.game.components.Component;
+
 public class BuyableComponent extends Component {
     int cost;
 
@@ -8,12 +10,12 @@ public class BuyableComponent extends Component {
         this.cost = defaultCost;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
     public int getCost() {
         return this.cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
 

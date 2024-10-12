@@ -3,18 +3,19 @@ package com.csse3200.game.components.player;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.csse3200.game.areas.BossRoom;
+import com.csse3200.game.areas.EnemyRoom;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputComponent;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
-import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.areas.EnemyRoom;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
+import java.util.Map;
 
 import static com.csse3200.game.components.player.KeyMapping.KeyBinding.*;
 
@@ -183,7 +184,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
         if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
             List<Entity> enemies = room.getEnemies();
-            player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
+            player.getComponent(InventoryComponent.class).getPets().forEach(p -> p.setAggro(enemies));
         }
         return true;
     }
@@ -198,7 +199,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    /**
+     *
+     * @return true if the key binding is done or if the entity is already in the boss room
+     */
+
     private boolean bossTeleport() {
+        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof BossRoom) {
+            // Already in boss room so just do nothing !!
+            return true;
+        }
         entity.getEvents().trigger("teleportToBoss");
         return true;
     }

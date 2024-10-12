@@ -91,10 +91,6 @@ public class NPCFactory extends LoadedFactory {
       npc.addComponent(new DialogComponent());
     }
 
-    if (config.name.equals("kitsune")) {
-      npc.addComponent(new BossRangeAttackComponent(target, config.attacks.ranged));
-    }
-
     // Scale entity
     if(config.isScaled){
         npc.setScale(config.scale); 
@@ -175,6 +171,8 @@ public class NPCFactory extends LoadedFactory {
                 -> aiComponent.addTask(new RangeAttackTask(target, (TaskConfig.RangeAttackTaskConfig) entry.getValue(), "spread"));
         case AOE_ATTACK
                 -> aiComponent.addTask(new AOEAttackTask(target, (TaskConfig.AOEAttackTaskConfig) entry.getValue()));
+        case BULLET_STORM
+                -> aiComponent.addTask(new BulletStormTask((TaskConfig.BulletStormTaskConfig) entry.getValue()));
       }
     }
 
@@ -197,6 +195,10 @@ public class NPCFactory extends LoadedFactory {
     }
     if (attacks.aoe != null) {
       npc.addComponent(new AOEAttackComponent(target, attacks.aoe));
+    }
+    String name = npc.getComponent(NameComponent.class).getName();
+    if (name.equals("kitsune") || name.equals("cthulu")) {
+      npc.addComponent(new BossRangeAttackComponent(target, attacks.ranged));
     }
   }
 

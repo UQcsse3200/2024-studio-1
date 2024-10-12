@@ -1,15 +1,10 @@
 package com.csse3200.game.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.options.GameOptions;
-import com.csse3200.game.services.*;
 
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
@@ -20,17 +15,15 @@ import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
  */
 public class MainGameScreen extends GameScreen {
 
+    /**
+     * The main game when creating a new game.
+     * @param game the game to run it on.
+     */
     public MainGameScreen(GdxGame game) {
         super(game);
+
         GameOptions gameOptions = game.gameOptions;
         logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
-
-
-        // Register AlertBoxService
-        Skin skin = new Skin(Gdx.files.internal("skins/rainbow/skin/rainbow-ui.json"),
-                ServiceLocator.getResourceService().getAsset("skins/rainbow/skin/rainbow-ui.atlas", TextureAtlas.class));
-        Stage stage = ServiceLocator.getRenderService().getStage();
-        ServiceLocator.registerAlertBoxService(new AlertBoxService(stage, skin));
 
         Entity player = gameOptions.playerFactory.create(gameOptions.difficulty);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
@@ -45,5 +38,4 @@ public class MainGameScreen extends GameScreen {
             new MainGameArea(levelFactory, player, false, mapConfig);
         }
     }
-
 }

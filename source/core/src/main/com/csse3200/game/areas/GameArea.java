@@ -31,8 +31,8 @@ public class GameArea extends LoadedFactory {
     protected TerrainComponent terrain;
     protected List<Entity> areaEntities;
     private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
-    
-
+    private Music normalMusic;
+    private Music bossMusic;
 
     public GameArea() {
         super();
@@ -106,6 +106,43 @@ public class GameArea extends LoadedFactory {
 
     public void setTerrain(TerrainComponent terrain) {
         this.terrain = terrain;
+    }
+
+    public enum MusicType {
+        NORMAL("bgm_new.wav"), BOSS("boss_room_music.mp3");
+
+        private final String path;
+        private static final String BASE = "sounds/music/";
+
+        MusicType(String filename) {
+            this.path = BASE + filename;
+        }
+    }
+
+    /**
+     * Plays the specified type of music.
+     *
+     * @param musicType type of music to play (normal/boss).
+     */
+    public void playMusic(MusicType musicType) {
+        Music newMusic = ServiceLocator.getResourceService().playMusic(musicType.path, true);
+        if (musicType == MusicType.BOSS) {
+            bossMusic = newMusic;
+        } else {
+            normalMusic = newMusic;
+        }
+    }
+
+    /**
+     * Stops the currently playing music.
+     */
+    private void stopCurrentMusic() {
+        if (normalMusic != null) {
+            normalMusic.stop();
+        }
+        if (bossMusic != null) {
+            bossMusic.stop();
+        }
     }
 
     /**

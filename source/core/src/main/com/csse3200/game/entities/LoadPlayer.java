@@ -30,7 +30,7 @@ public class LoadPlayer {
     private final PlayerActions playerActions;
     private static final float playerScale = 0.75f;
     private static final Logger logger = getLogger(LoadPlayer.class);
-    private CollectibleFactory collectibleFactory;
+    private final CollectibleFactory collectibleFactory;
     private PetFactory petFactory;
 
 
@@ -55,7 +55,7 @@ public class LoadPlayer {
         logger.info("Creating player with health {}", config.health);
         Entity player = new Entity();
         addComponents(player, config, shouldLoad);
-        addWeaponsAndItems(player, config, shouldLoad);
+        addWeaponsAndItems(config);
         addAtlas(player, config);
         PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
         player.getComponent(ColliderComponent.class).setDensity(1.5f);
@@ -130,9 +130,8 @@ public class LoadPlayer {
      *
      * @param config file containing melee weapon details.
      *
-     * @param player the player entity to which the melee weapon will be added.
      */
-    public void createMelee(PlayerConfig config, Entity player) {
+    public void createMelee(PlayerConfig config) {
         Collectible melee = collectibleFactory.create(config.melee);
         if (melee instanceof MeleeWeapon meleeWeapon) {
             inventoryComponent.getInventory().setMelee(meleeWeapon); // Set melee weapon in the inventory
@@ -144,9 +143,8 @@ public class LoadPlayer {
      *
      * @param config file containing ranged weapon details.
      *
-     * @param player the player entity to which the ranged weapon will be added.
      */
-    public void createRanged(PlayerConfig config, Entity player) {
+    public void createRanged(PlayerConfig config) {
 
         Collectible ranged = collectibleFactory.create(config.ranged);
         if (ranged instanceof RangedWeapon rangedWeapon) {
@@ -157,17 +155,15 @@ public class LoadPlayer {
     /**
      * Adds weapons and items to the player entity
      *
-     * @param player the player entity to which weapons and items will be added.
-     *
      * @param config the configuration object containing weapon and item details.
      */
-    public void addWeaponsAndItems(Entity player, PlayerConfig config, boolean shouldLoad) {
+    public void addWeaponsAndItems(PlayerConfig config) {
         if (config.melee!=null && !config.melee.isEmpty()) {
-            createMelee(config, player);
+            createMelee(config);
         }
 
         if (config.ranged!=null && !config.ranged.isEmpty()) {
-            createRanged(config, player);
+            createRanged(config);
         }
 
         if (config.items != null) {

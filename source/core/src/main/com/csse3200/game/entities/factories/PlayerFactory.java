@@ -1,9 +1,6 @@
 package com.csse3200.game.entities.factories;
 
-import com.csse3200.game.components.player.PlayerHealthDisplay;
-import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.components.player.PlayerStatsDisplay;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.LoadPlayer;
 import com.csse3200.game.entities.configs.PlayerConfig;

@@ -8,8 +8,6 @@ import com.csse3200.game.entities.factories.ItemFactory;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -35,7 +33,6 @@ public class BuyableTest {
         entity = new Entity()
                 .addComponent(new InventoryComponent())
                 .addComponent(new ItemPickupComponent());
-        Inventory inventory = entity.getComponent(InventoryComponent.class).getInventory();
                 entity.addComponent(new CoinsComponent());
         itemEntity = new Entity()
                 .addComponent(new BuyableComponent(10))

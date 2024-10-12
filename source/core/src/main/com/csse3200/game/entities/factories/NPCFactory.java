@@ -7,6 +7,7 @@ import com.csse3200.game.components.DialogComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.*;
 import com.csse3200.game.components.npc.attack.AOEAttackComponent;
+import com.csse3200.game.components.npc.attack.BossRangeAttackComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.components.tasks.*;
@@ -162,6 +163,8 @@ public class NPCFactory extends LoadedFactory {
                 -> aiComponent.addTask(new RangeAttackTask(target, (TaskConfig.RangeAttackTaskConfig) entry.getValue(), "spread"));
         case AOE_ATTACK
                 -> aiComponent.addTask(new AOEAttackTask(target, (TaskConfig.AOEAttackTaskConfig) entry.getValue()));
+        case BULLET_STORM
+                -> aiComponent.addTask(new BulletStormTask((TaskConfig.BulletStormTaskConfig) entry.getValue()));
       }
     }
 
@@ -184,6 +187,10 @@ public class NPCFactory extends LoadedFactory {
     }
     if (attacks.aoe != null) {
       npc.addComponent(new AOEAttackComponent(target, attacks.aoe));
+    }
+    String name = npc.getComponent(NameComponent.class).getName();
+    if (name.equals("kitsune") || name.equals("cthulu")) {
+      npc.addComponent(new BossRangeAttackComponent(target, attacks.ranged));
     }
   }
 

@@ -46,6 +46,7 @@ public class MeleeAttackComponent extends AttackComponent {
      */
     public void updateTarget(Entity newTarget) {
         this.target = newTarget;
+        logger.debug("Updated attack target to {}", newTarget);
     }
 
 }

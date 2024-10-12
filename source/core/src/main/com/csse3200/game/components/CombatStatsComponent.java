@@ -32,7 +32,7 @@ public class CombatStatsComponent extends Component {
     private double critChance;
     private boolean isInvincible;
     // change requested by character team
-    private static final int timeInvincible = 2000;
+    private static final float timeInvincible = 2f;
     private final Timer timerIFrames;
     private static final int timeFlash = 250;
     private final Timer timerFlashSprite;
@@ -283,11 +283,7 @@ public class CombatStatsComponent extends Component {
             //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
             entity.getEvents().trigger("playerHit");
             if (isDead()){ return; }
-            setInvincible(true);
-            InvincibilityRemover task = new InvincibilityRemover();
-            timerIFrames.schedule(task, timeInvincible);
-            flashTask = new CombatStatsComponent.flashSprite();
-            timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+            makeInvincible(timeInvincible);
         } else {
             Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
             int damage;
@@ -312,6 +308,19 @@ public class CombatStatsComponent extends Component {
         }
     }
 
+    /**
+     * Makes the entity invincible for a set duration.
+     * Also flashes the entity's sprite to indicate invincibility.
+     *
+     * @param duration duration of invincibility in seconds
+     */
+    public void makeInvincible(float duration) {
+        setInvincible(true);
+        InvincibilityRemover task = new InvincibilityRemover();
+        timerIFrames.schedule(task, (int) duration * 1000L);
+        flashTask = new flashSprite();
+        timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+    }
 
     /**
      *Returns if the entity can be invincible

@@ -19,7 +19,7 @@ import com.csse3200.game.components.NameComponent;
 public class DialogComponent extends RenderComponent {
     public static final float PADDING = 0.1f;
     private static float width = 0f;
-    public static float height = 0.4f + PADDING * 2;
+    public static float height = 2.4f + PADDING * 2;
     public static final float OFFSET_Y = 1.5f;
 
     private static String text = "";
@@ -105,7 +105,7 @@ public class DialogComponent extends RenderComponent {
 
             // Calculate position
             float x = 0f;
-            float y = -fnt_18.getCapHeight()*2f*projectionFactor-PADDING*2;
+            float y = -fnt_18.getCapHeight()*2f*projectionFactor-PADDING*2+OFFSET_Y;
 
             float overflowWidth = 0f;
             if(x+width > MAX_WIDTH)

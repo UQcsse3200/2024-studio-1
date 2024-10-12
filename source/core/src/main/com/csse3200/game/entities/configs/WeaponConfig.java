@@ -27,6 +27,9 @@ public class WeaponConfig {
         weaponConfigs.put("fnscar", new WeaponData("fnscar", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/fnscar.png"));
+        weaponConfigs.put("pistol", new WeaponData("pistol", 10,
+                10, 5, 20, 20, 3,
+                "images" + "/Weapons/Centered/pistol.png"));
 
         weaponConfigs.put("knife", new WeaponData("knife", 40,
                 10, 0, "images/Weapons/Centered" +

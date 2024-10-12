@@ -1,9 +1,11 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.components.player.ShieldComponent;
+import com.csse3200.game.components.player.inventory.usables.ShieldPotion;
 import com.csse3200.game.entities.Entity;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ShieldPotionTest {
 

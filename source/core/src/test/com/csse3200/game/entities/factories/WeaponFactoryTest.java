@@ -2,8 +2,8 @@
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;

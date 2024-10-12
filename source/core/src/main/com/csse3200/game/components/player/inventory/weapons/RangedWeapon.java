@@ -1,11 +1,11 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.weapons;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.player.inventory.MainHandItem;
 
 import java.util.logging.Logger;
 
-public abstract class RangedWeapon implements Collectible {
+public abstract class RangedWeapon extends MainHandItem {
     protected static final Logger logger = Logger.getLogger(RangedWeapon.class.getName());
 
     protected String name;        // name of the weapon
@@ -20,31 +20,17 @@ public abstract class RangedWeapon implements Collectible {
     /**
      * Get the Type of this item.
      * The type determines how it ought to be used by the player.
+     *
      * @return Type.RANGED_WEAPON
      */
     @Override
     public Type getType() {
-        return Type.RANGED_WEAPON;
-    }
-
-    @Override
-    public void pickup(Inventory inventory) {
-        logger.info("Picking up ranged weapon - no entity");
-        inventory.setRanged(this);
-    }
-
-    @Override
-    public void drop(Inventory inventory) {
-        inventory.resetRanged();
-    }
-
-    @Override
-    public String getSpecification() {
-        return "ranged:" + getName();
+        return Type.MAIN_HAND;
     }
 
     /**
      * Get the name of the weapon.
+     *
      * @return The name of the weapon.
      */
     @Override
@@ -54,6 +40,7 @@ public abstract class RangedWeapon implements Collectible {
 
     /**
      * Set the name of the weapon.
+     *
      * @param name The name of the weapon.
      */
     public void setName(String name) {
@@ -62,6 +49,7 @@ public abstract class RangedWeapon implements Collectible {
 
     /**
      * Get the ranged weapon icon.
+     *
      * @return The ranged weapon icon.
      */
     @Override
@@ -116,6 +104,4 @@ public abstract class RangedWeapon implements Collectible {
     public void setReloadTime(int reloadTime) {
         this.reloadTime = reloadTime;
     }
-
-    public abstract void shoot(Vector2 direction);
 }

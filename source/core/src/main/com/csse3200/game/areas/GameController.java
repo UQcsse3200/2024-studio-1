@@ -2,13 +2,18 @@ package com.csse3200.game.areas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
+import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.gamearea.GameAreaDisplay;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.configs.PlayerLocationConfig;
+import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.files.UserSettings;
+import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 
 
@@ -24,37 +29,47 @@ public class GameController {
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
     
     public static final String MAP_SAVE_PATH = "saves/MapSave.json";
-    
 
-
-    /** The main player entity */
+    /**
+     * The main player entity
+     */
     private final Entity player;
 
-    /** Factory for creating game levels */
+    /**
+     * Factory for creating game levels
+     */
     private final LevelFactory levelFactory;
-
-    /** Current level of the game */
-    private Level currentLevel;
-
-    /** Current level number */
-    private int currentLevelNumber;
-
-    /** Current room the player is in */
-    private Room currentRoom;
-
-    /** Flag to determine if a new room should be spawned */
-    private boolean spawnRoom = true;
-
-    /** Name of the current room */
-    public String currentRoomName;
-
-    /** Map to store the current position of the player */
-    private Map <String, String> currentPosition = new HashMap<>();
-
-    /** Flag to determine if the game should load a saved state */
+    /**
+     * Flag to determine if the game should load a saved state
+     */
     private final boolean shouldLoad;
-
-    /** Factory for creating minimaps */
+    /**
+     * Map to store the current position of the player
+     */
+    private final Map<String, String> currentPosition = new HashMap<>();
+    /**
+     * Name of the current room
+     */
+    public String currentRoomName;
+    /**
+     * Current level of the game
+     */
+    private Level currentLevel;
+    /**
+     * Current level number
+     */
+    private int currentLevelNumber;
+    /**
+     * Current room the player is in
+     */
+    private Room currentRoom;
+    /**
+     * Flag to determine if a new room should be spawned
+     */
+    private boolean spawnRoom = true;
+    /**
+     * Factory for creating minimaps
+     */
     private MinimapFactory minimapFactory;
 
     private GameArea gameArea;
@@ -65,8 +80,8 @@ public class GameController {
      * Initialise this Game Area to use the provided levelFactory.
      *
      * @param levelFactory the provided levelFactory.
-     * @param player the main player entity.
-     * @param shouldLoad flag to determine if a saved state should be loaded.
+     * @param player       the main player entity.
+     * @param shouldLoad   flag to determine if a saved state should be loaded.
      */
 
     public GameController(GameArea gameArea, LevelFactory levelFactory, Entity player, boolean shouldLoad, MapLoadConfig config) {
@@ -88,7 +103,7 @@ public class GameController {
      * Initialise this Game Area to use the provided levelFactory without loading a saved state.
      *
      * @param levelFactory the provided levelFactory.
-     * @param player the main player entity.
+     * @param player       the main player entity.
      */
 
     public GameController(GameArea gameArea, LevelFactory levelFactory, Entity player) {
@@ -110,7 +125,7 @@ public class GameController {
      * Create the game area, including terrain, static entities (trees), dynamic entities (player)
      */
     public void create() {
-        this.gameArea.load(logger);
+        this.gameArea.load();
         logger.error("loaded all assets");
 
         if (shouldLoad) {
@@ -199,19 +214,23 @@ public class GameController {
     /**
      * Generate the corresponding player position to the door they stepped in
      */
-    private Vector2 getNewPlayerPosition(Entity player) {
-        Map<Vector2, Vector2> doorPositions = new HashMap<>();
-        doorPositions.put(new Vector2(0, 5), new Vector2(13, 5));
-        doorPositions.put(new Vector2(14, 5), new Vector2(1, 5));
-        doorPositions.put(new Vector2(7, 0), new Vector2(7, 9));
-        doorPositions.put(new Vector2(7, 10), new Vector2(7, 1));
-    
-        Vector2 curPos = new Vector2(
-            Math.round(player.getPosition().x),
-            Math.round(player.getPosition().y)
-        );
-        
-        return doorPositions.getOrDefault(curPos, new Vector2(7, 5));
+    private Vector2 getNewPlayerPosition(Entity player){
+        Vector2 curPos = player.getPosition();
+        curPos.x = Math.round(curPos.x);
+        curPos.y = Math.round(curPos.y);
+        if(curPos.x == 0.0f && curPos.y == 5.0f){
+            return new Vector2(13,5);
+        }
+        if(curPos.x == 14.0f && curPos.y == 5.0f){
+            return new Vector2(1,5);
+        }
+        if(curPos.x == 7.0f && curPos.y == 0.0f){
+            return new Vector2(7,9);
+        }
+        if(curPos.x == 7.0f && curPos.y == 10.0f){
+            return new Vector2(7,1);
+        }
+        return new Vector2(7,5);
     }
 
     /**
@@ -232,18 +251,14 @@ public class GameController {
 
         Vector2 nextRoomPos = this.getNewPlayerPosition(player);
         player.setPosition(nextRoomPos.x,nextRoomPos.y);
-        this.gameArea.spawnEntity(player);
+        getGameArea().spawnEntity(player);
 
-        if(player.getComponent(InventoryComponent.class).getInventory().petsExist()){
-            //do here
+        if (!player.getComponent(InventoryComponent.class).getPets().isEmpty()) {
             if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
                 List<Entity> enemies = room.getEnemies();
-                player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
+                player.getComponent(InventoryComponent.class).getPets().forEach(p -> p.setAggro(enemies));
             }
-            else{
-                //do nothing I guess and pray
-            }
-        } 
+        }
 
         logger.info("Spawned new room, {}", ServiceLocator.getEntityService());
         spawnRoom = false;

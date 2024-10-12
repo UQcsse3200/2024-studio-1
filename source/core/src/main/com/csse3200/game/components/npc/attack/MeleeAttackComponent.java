@@ -19,11 +19,11 @@ public class MeleeAttackComponent extends AttackComponent {
 
     @Override
     public void performAttack() {
-        if(target != null){
-            Component combatComponent = target.getComponent(CombatStatsComponent.class);
-            if(combatComponent != null){
+        if (target != null) {
+            CombatStatsComponent combatComponent = target.getComponent(CombatStatsComponent.class);
+            if (combatComponent != null) {
                 // Apply damage to the target
-                target.getComponent(CombatStatsComponent.class).hit(combatStats);
+                combatComponent.hit(combatStats);
                 logger.info("{} attacks {} for {} damage", entity, target, combatStats.getBaseAttack());
 
                 // Trigger attack animation
@@ -37,6 +37,7 @@ public class MeleeAttackComponent extends AttackComponent {
 
     /**
      * Updates the attack target
+     *
      * @param newTarget the new target
      */
     public void updateTarget(Entity newTarget) {

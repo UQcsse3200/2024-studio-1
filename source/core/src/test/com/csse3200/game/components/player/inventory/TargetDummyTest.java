@@ -1,21 +1,23 @@
 package com.csse3200.game.components.player.inventory;
 
-import static org.mockito.Mockito.*;
-
 import com.badlogic.gdx.graphics.Texture;
-import static org.junit.jupiter.api.Assertions.*;
+import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.GameController;
+import com.csse3200.game.components.player.inventory.usables.TargetDummy;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
 public class TargetDummyTest {

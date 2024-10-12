@@ -7,23 +7,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.areas.*;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.PerformanceDisplay;
 import com.csse3200.game.components.maingame.MainGameActions;
 import com.csse3200.game.components.maingame.MainGameExitDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.PlayerSelection;
-import com.csse3200.game.entities.configs.MapLoadConfig;
-import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.entities.factories.PlayerFactory;
 import com.csse3200.game.entities.factories.RenderFactory;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.input.InputComponent;
 import com.csse3200.game.input.InputDecorator;
 import com.csse3200.game.input.InputService;
-import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.rendering.RenderService;
@@ -31,14 +24,11 @@ import com.csse3200.game.rendering.Renderer;
 import com.csse3200.game.services.*;
 import com.csse3200.game.ui.terminal.Terminal;
 import com.csse3200.game.ui.terminal.TerminalDisplay;
-import com.csse3200.game.options.GameOptions.Difficulty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
-
 
 /**
  * The game screen containing the main game.
@@ -47,8 +37,6 @@ import static com.csse3200.game.GdxGame.ScreenType.LOSE;
  */
 public class GameScreen extends ScreenAdapter {
     public static final Logger logger = LoggerFactory.getLogger(GameScreen.class);
-    public PlayerFactory playerFactory;
-    public boolean shouldLoad;
     public static final String[] mainGameTextures = {
             "images/heart.png",
             "images/ui_white_icons.png",
@@ -60,8 +48,6 @@ public class GameScreen extends ScreenAdapter {
     };
     // todo may not be needed
     public static final String[] mainGameAtlases = {"flat-earth/skin/flat-earth-ui.atlas"};
-
-    public PlayerSelection playerSelection = new PlayerSelection();
 
     public static final String[] textureAtlases = {"skins/rainbow/skin/rainbow-ui.atlas"};
 
@@ -169,7 +155,6 @@ public class GameScreen extends ScreenAdapter {
         logger.debug("Disposing game screen");
 
         renderer.dispose();
-        playerFactory.dispose();
         unloadAssets();
 
         ServiceLocator.getEntityService().dispose();

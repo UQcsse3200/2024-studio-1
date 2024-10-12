@@ -108,12 +108,12 @@ public class LoadPlayer {
 
         if(!shouldLoad){
             player.addComponent(new CombatStatsComponent(config.maxHealth, config.baseAttack, true,
-                    0, 0));
+                    0, 0, config.timeInvincible));
         }
         else{
             player.addComponent(new CombatStatsComponent(config.health, config.maxHealth,
                 config.baseAttack, true, config.armour, config.buff, config.canCrit,
-                config.critChance));
+                config.critChance, config.timeInvincible));
         }
         CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
 

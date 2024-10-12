@@ -36,6 +36,27 @@ public class MainGameLevelFactory implements LevelFactory {
         else this.loadedRooms = config.roomsCompleted;
     }
 
+    protected List<String> getShopRoomItems() {
+        return List.of("buff:heart:buyable","item:medkit:buyable", "item:shieldpotion:buyable",
+                        "item:bandage:buyable", "buff:energydrink:Low:buyable", "buff:energydrink:Low:buyable",
+                        "buff:syringe:buyable", "buff:armor:buyable", "buff:damagebuff:buyable",
+                        "item:beartrap:buyable", "item:targetdummy:buyable", "item:reroll:buyable",
+                        "buff:feather:buyable", "item:heart:buyable", "buff:divinepotion:buyable"
+        );
+    }
+
+    private List<String> createShopItemsList() {
+        List<String> items = getShopRoomItems();
+        List<String> itemsToSpawn = new ArrayList<>();
+        //Zack's code: spawn in 1 line (if there is 6 item)
+        if(items != null) {
+            for (int i = 0; i < 6; i++){
+                int itemIndex = ServiceLocator.getRandomService().getRandomNumberGenerator(getClass()).getRandomInt(0,14);
+                itemsToSpawn.add(items.get(itemIndex));
+            }
+        }
+        return itemsToSpawn;
+    }
 
     @Override
     public Level create(int levelNumber) {
@@ -67,16 +88,17 @@ public class MainGameLevelFactory implements LevelFactory {
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.NPCROOM:
+
+                    List<String> itemsToBeSpawned = new ArrayList<>();
+                    if (shouldLoad) {
+                        itemsToBeSpawned = config.shopRoomItems;
+                    } else {
+                        itemsToBeSpawned = createShopItemsList();
+                    }
                     ShopRoom shop = (ShopRoom) roomFactory.createShopRoom(
                             map.mapData.getPositions().get(roomKey),
-                            "0,0,14,10," + 0 + "," + levelNumber, roomKey);
+                            "0,0,14,10," + 0 + "," + levelNumber, roomKey, itemsToBeSpawned);
                     rooms.put(roomKey, shop);
-                    if (shouldLoad) {
-                        shop.setItems(config.shopRoomItems);
-                    }
-//                    rooms.put(roomKey, roomFactory.createShopRoom(
-//                            map.mapData.getPositions().get(roomKey),
-//                            "0,0,14,10," + 0 + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.GAMEROOM:
                     rooms.put(roomKey, roomFactory.createGambleRoom(
@@ -125,12 +147,9 @@ public class MainGameLevelFactory implements LevelFactory {
                 }
             }
         }
-
-        ShopRoom shopRoom1 = (ShopRoom) rooms.get(ServiceLocator.getGameAreaService().getGameArea().getNpcRoom());
-        if(shopRoom1.getItems() != null) {
-            items = shopRoom1.getItems();
-            config.shopRoomItems.addAll(items);
-        }
+        ShopRoom shopRoom = (ShopRoom)rooms.get(ServiceLocator.getGameAreaService().getGameArea().getNpcRoom());
+        List<String> shopSave = shopRoom.itemsSpawned;
+        config.shopRoomItems.addAll(shopSave);
         config.roomsCompleted = compRooms;
         config.mapSize = map.getMapSize();
         FileLoader.writeClass(config, filePath, FileLoader.Location.EXTERNAL);

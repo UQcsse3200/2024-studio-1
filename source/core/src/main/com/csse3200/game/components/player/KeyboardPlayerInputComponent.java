@@ -199,6 +199,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    /**
+     *
+     * @return true if the key binding is done or if the entity is already in the boss room
+     */
+
     private boolean bossTeleport() {
         if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof BossRoom) {
             // Already in boss room so just do nothing !!

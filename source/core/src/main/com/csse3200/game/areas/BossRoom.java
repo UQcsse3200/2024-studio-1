@@ -18,7 +18,6 @@ public class BossRoom extends EnemyRoom {
     private NPCFactory npcFactory;
     private MainGameArea area;
     private Entity player;
-    private boolean isBossRoom = true;
     private Entity stairs;
 
     @Override
@@ -59,10 +58,6 @@ public class BossRoom extends EnemyRoom {
         this.npcFactory = npcFactory;
     }
 
-    public boolean isBossRoom() {
-        return isBossRoom;
-    }
-
     @Override
     public void spawn(Entity player, MainGameArea area) {
         super.spawn(player, area);
@@ -71,6 +66,12 @@ public class BossRoom extends EnemyRoom {
         spawnStairs(player, area);
 
     }
+
+    /**
+     *
+     * @param player  the player entity of the game
+     * @param area   the main game area for stairs
+     */
 
     private void spawnStairs(Entity player, MainGameArea area) {
         if (stairs == null) {
@@ -103,6 +104,8 @@ public class BossRoom extends EnemyRoom {
         bossRoom.spawnEnemyEntity(area, snake, snakePos);
 //        area.spawnEntityAt(snake, snakePos, true, true);
     }
+
+
 
     @Override
     public void removeRoom() {

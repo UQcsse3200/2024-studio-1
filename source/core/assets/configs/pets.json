@@ -3,6 +3,11 @@
     "health": 100,
     "strength": 3,
     "baseAttack": 10,
+    "isScaled": true,
+    "scale": {
+        "x": 0.7,
+        "y": 0.7
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,
@@ -41,6 +46,11 @@
     "health": 600,
     "baseAttack": 35,
     "isDirectional": true,
+    "isScaled": true,
+    "scale": {
+        "x": 0.65,
+        "y": 0.65
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,
@@ -89,6 +99,11 @@
     "health": 50,
     "strength": 3,
     "baseAttack": 10,
+    "isScaled": true,
+    "scale": {
+        "x": 0.8,
+        "y": 0.8
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,
@@ -128,6 +143,11 @@
     "strength": 3,
     "baseAttack": 20,
     "isDirectional": true,
+    "isScaled": true,
+    "scale": {
+        "x": 1.0,
+        "y": 1.0
+    },
     "tasks": {
       "charge": {
         "activationMinRange": 0,
@@ -161,6 +181,11 @@
     "strength":6,
     "baseAttack": 10,
     "isDirectional": true,
+    "isScaled": true,
+    "scale": {
+        "x": 0.8,
+        "y": 0.8
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,
@@ -201,6 +226,11 @@
     "health": 400,
     "strength":10,
     "baseAttack": 35,
+    "isScaled": true,
+    "scale": {
+        "x": 1.5,
+        "y": 1.5
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,

@@ -88,7 +88,7 @@ public class BossRoom extends EnemyRoom {
         GridPoint2 snakePos = new GridPoint2(10, 10);  // Example fixed position
 
         // Spawn the animals at the fixed positions
-        BossRoom bossRoom = (BossRoom) ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom();
+        BossRoom bossRoom = (BossRoom) ServiceLocator.getGameAreaService().getGameController().getCurrentRoom();
 
         bossRoom.spawnEnemyEntity(area, dog, dogPos);
         bossRoom.spawnEnemyEntity(area, snake, snakePos);

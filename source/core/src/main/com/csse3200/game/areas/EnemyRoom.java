@@ -233,7 +233,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param enemy The enemy entity to spawn.
      * @param position The position to spawn the enemy at.
      */
-    public void spawnEnemyEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
+    public void spawnEnemyEntity(GameArea area, Entity enemy, GridPoint2 position) {
         enemy.getEvents().addListener("checkAnimalsDead", () -> checkIfRoomComplete());
         this.spawnAnimalEntity(area, enemy, position);
         enemies.add(enemy);

@@ -111,7 +111,6 @@ public class MainGameLevelFactory implements LevelFactory {
         config.seed = seedOnly;
         config.currentLevel = level; 
         config.currentRoom = ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().getRoomName();
-        config.mapSize = mapSize;
 
         for (Room room : rooms.values()) {
             if (room.getIsRoomComplete()){

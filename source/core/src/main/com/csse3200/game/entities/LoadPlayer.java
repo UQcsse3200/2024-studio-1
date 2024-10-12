@@ -111,13 +111,13 @@ public class LoadPlayer {
                 .addComponent(new PlayerHealthDisplay());
 
         if(!shouldLoad){
-            player.addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0));
+            player.addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0, config.timeInvincible));
             
         }
         else{
             player.addComponent(new CombatStatsComponent(config.health,config.MAX_HEALTH, 
                 config.baseAttack, true, config.armour, config.buff, config.canCrit, 
-                config.critChance));
+                config.critChance, config.timeInvincible));
         }
         CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
 

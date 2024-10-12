@@ -30,6 +30,8 @@ public class PlayerConfig extends BaseEntityConfig  {
   /** Player's current health */
   public int health = 100;
 
+  /** Player's IFrames (in milliseconds) */
+  public int timeInvincible = 750;
   public String[] pets;
   public int coins = 0;
   /** The specification of player's equipped melee weapon */
@@ -107,6 +109,7 @@ public class PlayerConfig extends BaseEntityConfig  {
     float multiplier = difficulty.getMultiplier();
     health = (int) (health * multiplier);
     speed.scl(multiplier);
+    timeInvincible = (int) (timeInvincible * multiplier);;
     return this;
   }
 

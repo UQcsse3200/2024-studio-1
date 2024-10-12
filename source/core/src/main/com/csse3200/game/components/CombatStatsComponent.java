@@ -32,7 +32,7 @@ public class CombatStatsComponent extends Component {
     private double critChance;
     private boolean isInvincible;
     // change requested by character team
-    private static final int timeInvincible = 2000;
+    private int timeInvincible = 2000;
     private final Timer timerIFrames; 
     private static final int timeFlash = 250;
     private final Timer timerFlashSprite;
@@ -41,7 +41,7 @@ public class CombatStatsComponent extends Component {
     private String lastAttackName;
     private String filePath = "configs/LastAttack.json";
 
-    public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance) {
+    public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance, int timeInvincible) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
@@ -53,11 +53,12 @@ public class CombatStatsComponent extends Component {
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
+        this.timeInvincible = timeInvincible;
         this.timerIFrames = new Timer();
         this.timerFlashSprite = new Timer();
     }
 
-    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff, int timeInvincible) {
         this.canBeInvincible = canBeInvincible;
         this.maxHealth = health;
         this.health = health;
@@ -69,17 +70,18 @@ public class CombatStatsComponent extends Component {
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
+        this.timeInvincible = timeInvincible;
         this.timerIFrames = new Timer();
         this.timerFlashSprite = new Timer();
     }
 
     public CombatStatsComponent(int health, int baseAttack, boolean neverDies){
-        this(health, baseAttack, false, 0, 0);
+        this(health, baseAttack, false, 0, 0, 0);
         setInvincible(neverDies);
     }
 
     public CombatStatsComponent(int health, int baseAttack) {
-        this(health, baseAttack, false, 0, 0);
+        this(health, baseAttack, false, 0, 0, 0);
     }
 
     /**

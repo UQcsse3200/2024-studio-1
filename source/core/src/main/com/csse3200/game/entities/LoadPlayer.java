@@ -22,6 +22,10 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.slf4j.LoggerFactory.getLogger;
 
 
@@ -110,7 +114,7 @@ public class LoadPlayer {
                 .addComponent(new PlayerAnimationController(config.textureAtlasFilename))
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay()) ;
+                .addComponent(new PlayerHealthDisplay());
 
         CoinsComponent coinsComponent = new CoinsComponent();
 
@@ -160,17 +164,15 @@ public class LoadPlayer {
             createRanged(config);
         }
 
+        List<String> itemSpecs = new ArrayList<>();
         if (config.items != null) {
-            for (String itemName : config.items) {
-                Collectible item = collectibleFactory.create(itemName);
-                inventoryComponent.pickup(item);
-            }
+            itemSpecs.addAll(Arrays.stream(config.items).toList());
         }
 
-        if (config.pets != null) {
-            for (String petName : config.pets) {
-                inventoryComponent.pickup(collectibleFactory.create("pet:" + petName));
-            }
+        // Do not load pets here, the game area isn't initialised so pets can't be spawned.
+
+        for (String itemSpec : itemSpecs) {
+            inventoryComponent.pickup(collectibleFactory.create(itemSpec));
         }
     }
 

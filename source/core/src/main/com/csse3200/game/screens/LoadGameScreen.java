@@ -2,6 +2,7 @@ package com.csse3200.game.screens;
 
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
+import com.csse3200.game.components.player.PlayerFactoryFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.MapLoadConfig;
@@ -9,6 +10,8 @@ import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.options.GameOptions;
+
+import java.util.List;
 
 import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
 
@@ -36,6 +39,9 @@ public class LoadGameScreen extends GameScreen {
             throw new RuntimeException("Tried to load player and failed");
         }
 
+        PlayerFactoryFactory playerFactoryFactory = new PlayerFactoryFactory(List.of(config));
+        gameOptions.playerFactory = playerFactoryFactory.create(config.name);
+        
         Entity player = gameOptions.playerFactory.create(config.difficulty);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 

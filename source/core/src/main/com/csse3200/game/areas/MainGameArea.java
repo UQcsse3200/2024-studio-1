@@ -311,6 +311,8 @@ public class MainGameArea extends GameArea {
 
     /**
      * Plays the background music for the game area.
+     *
+     * @param musicType type of music to play (normal/boss).
      */
     private void playMusic(MusicType musicType) {
         ServiceLocator.getResourceService().playMusic(musicType.path, true);

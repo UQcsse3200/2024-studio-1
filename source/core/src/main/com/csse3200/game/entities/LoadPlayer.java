@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.effects.EffectComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.PlayerConfig;
@@ -104,7 +105,8 @@ public class LoadPlayer {
                 .addComponent(new PlayerAnimationController(config.textureAtlasFilename))
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay());
+                .addComponent(new PlayerHealthDisplay())
+                .addComponent(new EffectComponent());
 
         if(!shouldLoad){
             player.addComponent(new CombatStatsComponent(config.maxHealth, config.baseAttack, true,

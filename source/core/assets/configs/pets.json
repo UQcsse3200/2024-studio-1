@@ -69,13 +69,7 @@
     "attacks": {
       "melee": {
         "range": 1.5,
-        "rate": 0.5,
-        "effects": [
-          {
-            "type": "knockback",
-            "force": 3
-          }
-        ]
+        "rate": 0.5
       }
     },
     "animations": [
@@ -146,13 +140,7 @@
     "attacks": {
       "aoe": {
         "range": 2,
-        "rate": 1,
-        "effects": [
-          {
-            "type": "knockback",
-            "force": 5
-          }
-        ]
+        "rate": 1
       }
     },
     "animations": [
@@ -235,13 +223,7 @@
     "attacks": {
       "melee": {
         "range": 1.5,
-        "rate": 0.5,
-        "effects": [
-          {
-            "type": "knockback",
-            "force": 1
-          }
-        ]
+        "rate": 0.5
       }
     },
     "animations": [
@@ -251,6 +233,6 @@
       {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
-  },
+  }
 }
 

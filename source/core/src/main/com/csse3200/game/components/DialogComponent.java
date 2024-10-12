@@ -1,12 +1,16 @@
 package com.csse3200.game.components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.utils.Align;
 import com.csse3200.game.rendering.RenderComponent;
 import com.csse3200.game.files.UserSettings;
+import com.csse3200.game.components.NameComponent;
 
 /**
  * This component renders a health bar for NPCs.
@@ -15,14 +19,18 @@ import com.csse3200.game.files.UserSettings;
 public class DialogComponent extends RenderComponent {
     public static final float PADDING = 0.1f;
     private static float width = 0f;
-    public static final float HEIGHT = 0.4f + PADDING * 2;
+    public static float height = 2.4f + PADDING * 2;
     public static final float OFFSET_Y = 1.5f;
 
     private static String text = "";
     private static String glyphText = "";
     private static float textLength = 0f;
     private static final float FRAMES_PER_CHAR = 5f;
+    private static final float MAX_WIDTH = 15f;
 
+    private static Texture texture;
+
+    private NameComponent nameComponent;
     private ShapeRenderer shapeRenderer;
     private GlyphLayout layout;
 
@@ -32,7 +40,10 @@ public class DialogComponent extends RenderComponent {
     @Override
     public void create() {
         super.create();
-        entity.getComponent(CombatStatsComponent.class);
+
+        nameComponent = entity.getComponent(NameComponent.class);
+        texture = new Texture(Gdx.files.internal("images/npc/"+nameComponent.getName()+".png"));
+
         shapeRenderer = new ShapeRenderer();
 
         UserSettings.get();
@@ -50,9 +61,10 @@ public class DialogComponent extends RenderComponent {
 
     private void completeDialog() {
         glyphText = text;
-        layout.setText(fnt_18, glyphText);
-        textLength = text.length();
+        layout.setText(fnt_18, glyphText, Color.WHITE, MAX_WIDTH/projectionFactor, Align.left, true);
         width = layout.width * projectionFactor + PADDING * 2;
+        height = layout.height * projectionFactor + PADDING * 4;
+        textLength = text.length();
     }
 
     //returns true if dialog is dismissed
@@ -79,8 +91,9 @@ public class DialogComponent extends RenderComponent {
                 textLength += 1 / FRAMES_PER_CHAR;
                 if ((int) textLength > glyphText.length()) {
                     glyphText = text.substring(0, (int) textLength);
-                    layout.setText(fnt_18, glyphText);
+                    layout.setText(fnt_18, glyphText, Color.WHITE, MAX_WIDTH/projectionFactor, Align.left, true);
                     width = layout.width * projectionFactor + PADDING * 2;
+                    height = layout.height * projectionFactor + PADDING * 4;
                 }
             }
             batch.end();
@@ -91,17 +104,26 @@ public class DialogComponent extends RenderComponent {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
             // Calculate position
-            float x = entity.getPosition().x;
-            float y = entity.getPosition().y + OFFSET_Y;
+            float x = 0f;
+            float y = -fnt_18.getCapHeight()*2f*projectionFactor-PADDING*2+OFFSET_Y;
+
+            float overflowWidth = 0f;
+            if(x+width > MAX_WIDTH)
+                overflowWidth = x+width-MAX_WIDTH;
+
+            float overflowHeight = 0f;
+            if(layout.height > fnt_18.getCapHeight())
+                overflowHeight = layout.height-fnt_18.getCapHeight();
 
             shapeRenderer.setColor(Color.GRAY);
-            shapeRenderer.rect(x, y, width, HEIGHT);
+            shapeRenderer.rect(x - overflowWidth, y, width, height);
 
             shapeRenderer.end();
 
             batch.begin();
             batch.setProjectionMatrix(projectionMatrix.cpy().scale(projectionFactor, projectionFactor, 1));
-            fnt_18.draw(batch, glyphText, (x + PADDING) / projectionFactor, (y + PADDING) / projectionFactor + fnt_18.getCapHeight() * 1.5f);
+            batch.draw(texture, (x - overflowWidth) / projectionFactor, (y + PADDING*2) / projectionFactor + fnt_18.getCapHeight()*1.5f + overflowHeight);
+            fnt_18.draw(batch, layout, (x + PADDING - overflowWidth) / projectionFactor, (y + PADDING) / projectionFactor + fnt_18.getCapHeight()*1.5f + overflowHeight);
             batch.setProjectionMatrix(projectionMatrix);
         }
     }

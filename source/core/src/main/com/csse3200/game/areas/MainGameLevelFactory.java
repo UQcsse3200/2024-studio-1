@@ -51,8 +51,10 @@ public class MainGameLevelFactory implements LevelFactory {
         //Zack's code: spawn in 1 line (if there is 6 item)
         if(items != null) {
             for (int i = 0; i < 6; i++){
-                int itemIndex = ServiceLocator.getRandomService().getRandomNumberGenerator(getClass()).getRandomInt(0,14);
-                itemsToSpawn.add(items.get(itemIndex));
+                if (ServiceLocator.getRandomService() != null) {
+                    int itemIndex = ServiceLocator.getRandomService().getRandomNumberGenerator(getClass()).getRandomInt(0, 14);
+                    itemsToSpawn.add(items.get(itemIndex));
+                }
             }
         }
         return itemsToSpawn;

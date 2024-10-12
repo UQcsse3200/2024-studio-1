@@ -139,7 +139,12 @@
     "health": 300,
     "strength": 3,
     "baseAttack": 20,
+    "isScaled": true,
     "isDirectional": true,
+    "scale": {
+        "x": 3,
+        "y": 3
+    },
     "tasks": {
       "wander": {
         "wanderRadius": 4,

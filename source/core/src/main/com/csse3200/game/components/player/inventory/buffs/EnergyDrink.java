@@ -1,9 +1,13 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.buffs;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.player.PlayerActions;
+import com.csse3200.game.components.player.inventory.BuffItem;
+import com.csse3200.game.components.player.inventory.Inventory;
 import com.csse3200.game.entities.Entity;
+
+import java.util.List;
 
 /**
  * An energy drink item that immediately affects the player's speed upon pickup. An energy drink has three different
@@ -34,18 +38,6 @@ public class EnergyDrink extends BuffItem {
      */
     Texture EnergyDrinkIcon;
 
-    /***
-     * A constructor used simply for testing in JUnit (The only difference is that this constructor does not
-     * call setIcon(), avoiding issues. This is because JUnit cannot access Textures.
-     *
-     * @param speedType
-     * @param flag
-     */
-    public EnergyDrink(String speedType, boolean flag) {
-        this.speedType = speedType;
-        setScalar(speedType);
-    }
-
     /**
      * A constructor to initialise an EnergyDrink item
      *
@@ -53,6 +45,9 @@ public class EnergyDrink extends BuffItem {
      */
     public EnergyDrink(String speedType) {
         this.speedType = speedType;
+        if (!List.of("High", "Medium", "Low").contains(speedType)) {
+            throw new IllegalArgumentException("Invalid speedType: " + speedType);
+        }
         setScalar(speedType);
         setIcon(speedType);
     }
@@ -91,6 +86,16 @@ public class EnergyDrink extends BuffItem {
     }
 
     /**
+     * Get the mystery box icon representation of this item
+     *
+     * @return the mystery box icon representation of this item
+     */
+    @Override
+    public Texture getMysteryIcon() {
+        return new Texture("images/items/mystery_box_blue.png");
+    }
+
+    /**
      * Remove this collectible from the entity
      *
      * @param inventory The inventory to be dropped out of.
@@ -98,6 +103,16 @@ public class EnergyDrink extends BuffItem {
     @Override
     public void drop(Inventory inventory) {
 
+    }
+
+    /**
+     * Return a string representation of this collectible that can be parsed by CollectibleFactory
+     *
+     * @return the string representation of this collectible.
+     */
+    @Override
+    public String getBuffSpecification() {
+        return "energydrink:" + this.speedType;
     }
 
     /**
@@ -167,26 +182,7 @@ public class EnergyDrink extends BuffItem {
                 this.speed = baseSpeed.scl(0.1f);
                 this.speedPercentage = 0.1f;
             }
+            default -> throw new IllegalStateException("Unexpected value: " + speedType);
         }
-    }
-
-    /**
-     * Return a string representation of this collectible that can be parsed by CollectibleFactory
-     *
-     * @return the string representation of this collectible.
-     */
-    @Override
-    public String getBuffSpecification() {
-        return "energydrink:" + this.speedType;
-    }
-
-    /**
-     * Get the mystery box icon representation of this item
-     *
-     * @return the mystery box icon representation of this item
-     */
-    @Override
-    public Texture getMysteryIcon() {
-        return new Texture("images/items/mystery_box_blue.png");
     }
 }

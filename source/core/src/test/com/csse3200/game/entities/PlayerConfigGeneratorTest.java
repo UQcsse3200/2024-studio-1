@@ -5,14 +5,19 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerConfigComponent;
-import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.components.player.inventory.CoinsComponent;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.UsableItem;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.extensions.GameExtension;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * As gdx files are not initialise properly in test environment, instead of
@@ -35,14 +40,11 @@ public class PlayerConfigGeneratorTest {
         statsComponent = new CombatStatsComponent(100, 30, true, 0, 0);
         playerActions = new PlayerActions();
 
-        player.addComponent(inventoryComponent)
-                .addComponent(statsComponent)
-                .addComponent(playerActions);
+        player.addComponent(inventoryComponent).addComponent(statsComponent).addComponent(playerActions);
 
-        coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
+        coinsComponent = new CoinsComponent();
 
-        player.addComponent(new PlayerConfigComponent(new PlayerConfig()))
-                .addComponent(coinsComponent);
+        player.addComponent(new PlayerConfigComponent(new PlayerConfig())).addComponent(coinsComponent);
     }
 
     /**
@@ -52,7 +54,7 @@ public class PlayerConfigGeneratorTest {
     public void testInit() {
         PlayerConfig playerConfig = generator.savePlayerState(player);
         assertEquals(30, playerConfig.baseAttack);
-        assertEquals(100,playerConfig.health);
+        assertEquals(100, playerConfig.health);
         assertEquals(0, playerConfig.items.length);
     }
 
@@ -82,14 +84,17 @@ public class PlayerConfigGeneratorTest {
         PlayerConfig playerConfig = generator.savePlayerState(player);
         assertEquals(new Vector2(5f, 5f), playerConfig.speed);
     }
+
     /**
      * Test saved player's melee weapon
      */
     @Test
     public void testMeleeWeapon() {
-        inventoryComponent.getInventory().setMelee(new MeleeWeapon() {
+        inventoryComponent.pickup(new MeleeWeapon() {
             @Override
-            public void attack(){}
+            public void attack() {
+            }
+
             @Override
             public String getName() {
                 return "Knife";
@@ -106,12 +111,12 @@ public class PlayerConfigGeneratorTest {
     }
 
 
-
-
-    /** Test player's saved Ranged weapon */
+    /**
+     * Test player's saved Ranged weapon
+     */
     @Test
     public void testRangedWeapon() {
-        inventoryComponent.getInventory().setRanged(new RangedWeapon() {
+        inventoryComponent.pickup(new RangedWeapon() {
 
             @Override
             public void shoot(Vector2 direction) {
@@ -132,7 +137,9 @@ public class PlayerConfigGeneratorTest {
         assertEquals("ranged:Shotgun", playerConfig.ranged);
     }
 
-    /** Test player with no weapon */
+    /**
+     * Test player with no weapon
+     */
     @Test
     public void testNoWeapon() {
         PlayerConfig playerConfig = generator.savePlayerState(player);
@@ -145,17 +152,13 @@ public class PlayerConfigGeneratorTest {
         PlayerConfig playerConfig = generator.savePlayerState(player);
         assertEquals(0, playerConfig.items.length);
     }
+
     /**
      * Test player with only one item collected
      */
     @Test
     public void testOneItemInventory() {
-        inventoryComponent.getInventory().addItem(new Collectible() {
-            @Override
-            public Type getType() {
-                return null;
-            }
-
+        inventoryComponent.pickup(new UsableItem() {
             @Override
             public String getName() {
                 return null;
@@ -172,12 +175,12 @@ public class PlayerConfigGeneratorTest {
             }
 
             @Override
-            public void pickup(Inventory inventory) {
-
+            public String getItemSpecification() {
+                return "";
             }
 
             @Override
-            public void drop(Inventory inventory) {
+            public void apply(Entity entity) {
 
             }
         });
@@ -192,12 +195,7 @@ public class PlayerConfigGeneratorTest {
     @Test
     public void testMultipleItemsInventory() {
         // add a new item to player's inventory
-        inventoryComponent.getInventory().addItem(new Collectible() {
-            @Override
-            public Type getType() {
-                return null;
-            }
-
+        inventoryComponent.pickup(new UsableItem() {
             @Override
             public String getName() {
                 return null;
@@ -214,21 +212,16 @@ public class PlayerConfigGeneratorTest {
             }
 
             @Override
-            public void pickup(Inventory inventory) {
-
+            public String getItemSpecification() {
+                return "";
             }
 
             @Override
-            public void drop(Inventory inventory) {
+            public void apply(Entity entity) {
 
             }
         });
-        inventoryComponent.getInventory().addItem(new Collectible() {
-            @Override
-            public Type getType() {
-                return null;
-            }
-
+        inventoryComponent.pickup(new UsableItem() {
             @Override
             public String getName() {
                 return null;
@@ -245,12 +238,12 @@ public class PlayerConfigGeneratorTest {
             }
 
             @Override
-            public void pickup(Inventory inventory) {
-
+            public String getItemSpecification() {
+                return "";
             }
 
             @Override
-            public void drop(Inventory inventory) {
+            public void apply(Entity entity) {
 
             }
         });

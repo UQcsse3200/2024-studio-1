@@ -20,7 +20,7 @@ public class DialogComponent extends RenderComponent {
     public static final float PADDING = 0.1f;
     private static float width = 0f;
     public static float height = 2.4f + PADDING * 2;
-    public static final float OFFSET_Y = 0f;
+    public static final float OFFSET_Y = 1.5f;
 
     private static String text = "";
     private static String glyphText = "";
@@ -126,6 +126,12 @@ public class DialogComponent extends RenderComponent {
             fnt_18.draw(batch, layout, (x + PADDING - overflowWidth) / projectionFactor, (y + PADDING) / projectionFactor + fnt_18.getCapHeight()*1.5f + overflowHeight);
             batch.setProjectionMatrix(projectionMatrix);
         }
+    }
+
+    @Override
+    public float getZIndex() {
+    // The smaller the Y value, the higher the Z index, so that closer entities are drawn in front
+    return 1f;
     }
 
     /**

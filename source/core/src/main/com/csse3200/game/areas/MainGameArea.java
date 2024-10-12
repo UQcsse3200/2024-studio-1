@@ -27,8 +27,7 @@ import java.util.*;
  */
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
-//    private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
-    private static final String BACKGROUND_MUSIC = "sounds/bgm_beast_breakout.wav";
+    private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
     public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
     /** The main player entity */

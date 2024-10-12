@@ -19,6 +19,7 @@ public class TaskConfig {
     public RangeAttackTaskConfig rangeAttack = null;
     public RangeAttackTaskConfig spreadRangeAttack = null;
     public AOEAttackTaskConfig aoeAttack = null;
+    public BulletStormTaskConfig bulletStorm = null;
 
     /**
      * Get the task configurations for the NPC.
@@ -37,6 +38,7 @@ public class TaskConfig {
         if (rangeAttack != null) configs.put(TaskType.RANGE_ATTACK, rangeAttack);
         if (spreadRangeAttack != null) configs.put(TaskType.SPREAD_RANGE_ATTACK, spreadRangeAttack);
         if (aoeAttack != null) configs.put(TaskType.AOE_ATTACK, aoeAttack);
+        if (bulletStorm != null) configs.put(TaskType.BULLET_STORM, bulletStorm);
         return configs;
     }
 
@@ -139,5 +141,13 @@ public class TaskConfig {
         public float activationMaxRange;
         public float preparationTime;
         public float cooldownTime;
+    }
+
+    /**
+     * Bullet storm task configurations for the NPC.
+     *
+     */
+    public static class BulletStormTaskConfig {
+        public float duration;
     }
 }

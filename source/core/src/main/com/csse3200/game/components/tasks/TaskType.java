@@ -10,5 +10,6 @@ public enum TaskType {
     RUN_AWAY,
     RANGE_ATTACK,
     SPREAD_RANGE_ATTACK,
-    AOE_ATTACK
+    AOE_ATTACK,
+    BULLET_STORM
 }

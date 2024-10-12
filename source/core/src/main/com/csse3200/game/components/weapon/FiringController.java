@@ -200,7 +200,7 @@ public class FiringController extends Component {
 
                 // Create projectiles
                 for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
-                        direction, (this.getEntity().getPosition().mulAdd(direction, 0.5F)))) {
+                        direction, this.getEntity().getPosition())) {
                     ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
                             new GridPoint2(9, 9), true, true);
                 }

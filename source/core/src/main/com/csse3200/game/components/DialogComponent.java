@@ -128,6 +128,12 @@ public class DialogComponent extends RenderComponent {
         }
     }
 
+    @Override
+    public float getZIndex() {
+    // The smaller the Y value, the higher the Z index, so that closer entities are drawn in front
+    return 1f;
+    }
+
     /**
      * Disposes of the resources used by this component, specifically the ShapeRenderer.
      */

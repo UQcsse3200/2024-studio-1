@@ -207,6 +207,13 @@ public class MainGameArea extends GameArea {
         selectRoom(roomKey);
         // update minimap
         minimapFactory.updateMinimap(roomKey);
+
+        // Play appropriate music based on room type
+        if (this.currentRoom instanceof BossRoom) {
+            playMusic(MusicType.BOSS);
+        } else {
+            playMusic(MusicType.NORMAL);
+        }
     }
 
     /**
@@ -298,8 +305,8 @@ public class MainGameArea extends GameArea {
         spawnEntity(ui);
     }
 
-    private enum MusicType {
-        NORMAL("bgm_new.wav"), BOSS("BGM_03_mp3.mp3"); // todo change boss music file
+    public enum MusicType {
+        NORMAL("bgm_new.wav"), BOSS("boss_room_music.mp3");
 
         private final String path;
         private static final String BASE = "sounds/music/";
@@ -309,13 +316,45 @@ public class MainGameArea extends GameArea {
         }
     }
 
+    private Music normalMusic;
+    private Music bossMusic;
+    private MusicType currentMusicType;
+
     /**
-     * Plays the background music for the game area.
+     * Plays the specified type of music.
      *
      * @param musicType type of music to play (normal/boss).
      */
-    private void playMusic(MusicType musicType) {
-        ServiceLocator.getResourceService().playMusic(musicType.path, true);
+    public void playMusic(MusicType musicType) {
+        if (currentMusicType == musicType) {
+            return; // Music is already playing, no need to change
+        }
+
+        stopCurrentMusic();
+
+        Music newMusic = ServiceLocator.getResourceService().getAsset(musicType.path, Music.class);
+        newMusic.setLooping(true);
+        newMusic.play();
+
+        if (musicType == MusicType.BOSS) {
+            bossMusic = newMusic;
+        } else {
+            normalMusic = newMusic;
+        }
+
+        currentMusicType = musicType;
+    }
+
+    /**
+     * Stops the currently playing music.
+     */
+    private void stopCurrentMusic() {
+        if (normalMusic != null) {
+            normalMusic.stop();
+        }
+        if (bossMusic != null) {
+            bossMusic.stop();
+        }
     }
 
     /**
@@ -414,7 +453,13 @@ public class MainGameArea extends GameArea {
      */
     @Override
     public void dispose() {
-        ServiceLocator.getResourceService().stopCurrentMusic();
+        stopCurrentMusic();
+        if (normalMusic != null) {
+            normalMusic.dispose();
+        }
+        if (bossMusic != null) {
+            bossMusic.dispose();
+        }
         super.dispose();
     }
 }

@@ -148,7 +148,7 @@ public class LoadPlayer {
     private void createRanged(PlayerConfig config) {
         Collectible ranged = collectibleFactory.create(config.ranged);
         if (ranged instanceof RangedWeapon rangedWeapon) {
-            inventoryComponent.pickup(rangedWeapon); // Set melee weapon in the inventory
+            inventoryComponent.pickup(rangedWeapon);
         }
     }
 

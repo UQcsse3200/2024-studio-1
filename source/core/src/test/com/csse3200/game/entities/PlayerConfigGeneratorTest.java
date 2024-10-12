@@ -113,7 +113,7 @@ public class PlayerConfigGeneratorTest {
 
     /**
      * Test player's saved Ranged weapon
-     * */
+     */
     @Test
     public void testRangedWeapon() {
         inventoryComponent.pickup(new RangedWeapon() {

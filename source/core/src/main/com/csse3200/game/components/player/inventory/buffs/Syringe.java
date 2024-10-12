@@ -1,21 +1,12 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.buffs;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.BuffItem;
 import com.csse3200.game.entities.Entity;
 
 public class Syringe extends BuffItem {
     private static final int syringeBoost = 50;
-
-    /**
-     * Make the entity pick the item up, and apply effects immediately instead of being added to the inventory
-     *
-     * @param inventory The inventory to be put in.
-     */
-    @Override
-    public void pickup(Inventory inventory) {
-        inventory.addItem(this); // FIXME
-        effect(inventory.getEntity());
-    }
 
     /**
      * Get the name of this item
@@ -25,16 +16,6 @@ public class Syringe extends BuffItem {
     @Override
     public String getName() {
         return "Syringe";
-    }
-
-
-    /**
-     * Remove this collectible from the entity
-     *
-     * @param inventory The inventory to be dropped out of.
-     */
-    @Override
-    public void drop(Inventory inventory) {
     }
 
 
@@ -61,12 +42,14 @@ public class Syringe extends BuffItem {
 
     /**
      * Get mystery box icon for this specific item
+     *
      * @return mystery box icon
      */
     @Override
     public Texture getMysteryIcon() {
         return new Texture("images/items/mystery_box_green.png");
     }
+
 
     /**
      * Applies the Syringe to an entity, increasing the health by an instant boost,
@@ -85,10 +68,9 @@ public class Syringe extends BuffItem {
      *
      * @param entity whose health is increased.
      */
-    public void syringeBoost(Entity entity) {
+    private void syringeBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         combatStats.addHealth(syringeBoost);
     }
-
 }
 

@@ -9,6 +9,8 @@ import com.csse3200.game.components.player.inventory.CoinsComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.components.player.inventory.ItemPickupComponent;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -143,7 +145,7 @@ public class LoadPlayer {
      * @param config file containing ranged weapon details.
      *
      */
-    private void createRanged(PlayerConfig config, Entity player) {
+    private void createRanged(PlayerConfig config) {
         Collectible ranged = collectibleFactory.create(config.ranged);
         if (ranged instanceof RangedWeapon rangedWeapon) {
             inventoryComponent.pickup(rangedWeapon); // Set melee weapon in the inventory

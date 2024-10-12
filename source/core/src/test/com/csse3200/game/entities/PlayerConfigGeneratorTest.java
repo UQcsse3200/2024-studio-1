@@ -39,8 +39,7 @@ public class PlayerConfigGeneratorTest {
                 .addComponent(statsComponent)
                 .addComponent(playerActions);
 
-        coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
-
+        coinsComponent = new CoinsComponent();
         player.addComponent(new PlayerConfigComponent(new PlayerConfig()))
                 .addComponent(coinsComponent);
     }

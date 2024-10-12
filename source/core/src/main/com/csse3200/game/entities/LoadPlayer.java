@@ -115,7 +115,7 @@ public class LoadPlayer {
                 config.baseAttack, true, config.armour, config.buff, config.canCrit,
                 config.critChance));
         }
-        CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
+        CoinsComponent coinsComponent = new CoinsComponent();
 
         player.addComponent(coinsComponent)
                 .addComponent(new PlayerCoinDisplay(coinsComponent));

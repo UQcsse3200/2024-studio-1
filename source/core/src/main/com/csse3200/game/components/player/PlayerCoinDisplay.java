@@ -17,6 +17,10 @@ public class PlayerCoinDisplay extends UIComponent {
      */
     private Label coinLabel;
     /**
+     * Path to coin image
+     */
+    private static final String IMAGE_PATH = "images/items/coin.png";
+    /**
      * An instance of CoinsComponent which contains information about the coins
      */
     private final CoinsComponent coinsComponent;
@@ -36,14 +40,13 @@ public class PlayerCoinDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
-        entity.getEvents().addListener("updateCoins", this::updateCoinLabel);
+        this.getEntity().getEvents().addListener("updateCoins", this::updateCoinLabel);
 
         // create a table for display and set it to the top of the screen
         Table table = new Table();
-        table.top();
-        table.setFillParent(true);
+        table.top().setFillParent(true);
 
-        Image coinImage = new Image(new Texture("images/items/coin.png"));
+        Image coinImage = new Image(new Texture(IMAGE_PATH));
         table.add(coinImage).size(40f).padTop(15f).padRight(10f);
 
         coinLabel = new Label("Coins: x0", skin, "small");

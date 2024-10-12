@@ -34,7 +34,8 @@ public class CoinsComponentTest {
         player.addComponent(inventoryComponent);
 
         // Instantiate the CoinsComponent with the player's inventory
-        coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
+        coinsComponent = new CoinsComponent();
+        coinsComponent.setEntity(player);
         player.addComponent(coinsComponent);
         player.addComponent(new CombatStatsComponent(100, 10));
 

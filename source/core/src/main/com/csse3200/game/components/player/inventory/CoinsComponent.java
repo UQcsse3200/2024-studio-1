@@ -5,20 +5,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CoinsComponent extends Component {
-    private int coins;
-    private final Inventory inventory;
     private static final Logger logger = LoggerFactory.getLogger(CoinsComponent.class);
-
+    private int coins;
 
     /**
      * Constructor for CoinComponent
      *
-     * @param inventory Player's inventory
      */
-    public CoinsComponent(Inventory inventory) {
+    public CoinsComponent() {
         this.coins = 0;
-        this.inventory = inventory;
-        inventory.getEntity().getEvents().addListener("collectCoin", this::addCoins);
+    }
+
+    @Override
+    public void create() {
+        this.getEntity().getEvents().addListener("collectCoin", this::addCoins);
     }
 
     /**
@@ -31,24 +31,11 @@ public class CoinsComponent extends Component {
     }
 
     /**
-     * Returns if the player has a certain amount of coins.
-     *
-     * @param coins required amount
-     *
-     * @return player has greater than or equal to the required amount of coin
-     */
-    public Boolean hasCoins(int coins) {
-        return this.coins >= coins;
-    }
-
-    /**
      * Sets the player's coin count. The count has a minimum bound of 0.
      *
-     * @requires coins >= 0
-     *
-     * @ensures coins >= 0
-     *
      * @param coins coins to set the player's coins to
+     * @requires coins >= 0
+     * @ensures coins >= 0
      */
     public void setCoins(int coins) {
         try {
@@ -59,17 +46,26 @@ public class CoinsComponent extends Component {
         } catch (IllegalArgumentException e) {
             System.out.println("coins value cannot be negative...Setting it to 0");
         }
-        inventory.getEntity().getEvents().trigger("updateCoins");
+        this.getEntity().getEvents().trigger("updateCoins");
 
 
     }
 
     /**
-     * @requires coins > 0
+     * Returns if the player has a certain amount of coins.
      *
-     * @ensures coins > 0
-     *
+     * @param coins required amount
+     * @return player has greater than or equal to the required amount of coin
+     */
+    public Boolean hasCoins(int coins) {
+        return this.coins >= coins;
+    }
+
+    /**
      * Adds to the player's coins. The amount added can be negative.
+     *
+     * @requires coins > 0
+     * @ensures coins > 0
      */
     public void addCoins(int coins) {
         try {
@@ -77,8 +73,8 @@ public class CoinsComponent extends Component {
                 throw new IllegalArgumentException("Coin value cannot be negative");
             }
             setCoins(this.coins + coins);
-            logger.info("Added coins: " + coins);
-            logger.info("Total coins: " + getCoins());
+            logger.info("Added coins: {}", coins);
+            logger.info("Total coins: {}", getCoins());
         } catch (IllegalArgumentException e) {
             logger.error("coins value cannot be negative...Setting it to 0");
         }
@@ -92,11 +88,11 @@ public class CoinsComponent extends Component {
      */
     public void spend(int cost) {
         try {
-            if (cost >  getCoins()) {
+            if (cost > getCoins()) {
                 throw new IllegalArgumentException();
             }
             this.coins = getCoins() - cost;
-            inventory.getEntity().getEvents().trigger("updateCoins");
+            this.getEntity().getEvents().trigger("updateCoins");
         } catch (IllegalArgumentException e) {
             logger.error("Cannot spend more than you own");
         }

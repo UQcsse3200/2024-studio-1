@@ -36,7 +36,7 @@ public class BuyableTest {
                 .addComponent(new InventoryComponent())
                 .addComponent(new ItemPickupComponent());
         Inventory inventory = entity.getComponent(InventoryComponent.class).getInventory();
-                entity.addComponent(new CoinsComponent(inventory));
+                entity.addComponent(new CoinsComponent());
         itemEntity = new Entity()
                 .addComponent(new BuyableComponent(10))
                 .addComponent(new CollectibleComponent(new MedKit()));

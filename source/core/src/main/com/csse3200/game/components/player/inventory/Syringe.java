@@ -45,7 +45,7 @@ public class Syringe extends BuffItem {
      */
     @Override
     public String getBuffSpecification() {
-        return "Syringe";
+        return "syringe";
     }
 
 

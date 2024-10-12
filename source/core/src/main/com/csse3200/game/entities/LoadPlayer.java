@@ -71,17 +71,13 @@ public class LoadPlayer {
      * @param config the config file that contain the texture atlas filename.
      */
     public  void addAtlas(Entity player, PlayerConfig config) {
-        if (!config.textureAtlasFilename.equals("images/player/player.atlas")) {
-            player.setScale(2f, 2f);
-        } else {
-            if(config.name.equals("Bear")){
-                player.setScale(0.3f,0.3f);
-            }
-            else{
-                player.setScale(playerScale, playerScale);
-            }
+        String playerName = config.name;
+        switch (playerName) {
+            case ("bear") -> player.setScale(1f, 1f);
+            case ("default") -> player.setScale(playerScale, playerScale);
+            case ("player 3") -> player.setScale(0.4615f, 1.2f);
+            default -> player.setScale(0.6f, 1.2f);
         }
-
     }
 
     /**
@@ -111,12 +107,12 @@ public class LoadPlayer {
                 .addComponent(new PlayerHealthDisplay());
 
         if(!shouldLoad){
-            player.addComponent(new CombatStatsComponent(config.health, config.baseAttack, true, 0, 0, config.timeInvincible));
-            
+            player.addComponent(new CombatStatsComponent(config.maxHealth, config.baseAttack, true,
+                    0, 0, config.timeInvincible));
         }
         else{
-            player.addComponent(new CombatStatsComponent(config.health,config.MAX_HEALTH, 
-                config.baseAttack, true, config.armour, config.buff, config.canCrit, 
+            player.addComponent(new CombatStatsComponent(config.health, config.maxHealth,
+                config.baseAttack, true, config.armour, config.buff, config.canCrit,
                 config.critChance, config.timeInvincible));
         }
         CoinsComponent coinsComponent = new CoinsComponent(inventoryComponent.getInventory());
@@ -189,13 +185,6 @@ public class LoadPlayer {
      *
      * @return the created AnimationRenderComponent.
      */
-    /**
-     * Creates an AnimationRenderComponent for handling player animations.
-     *
-     * @param textureAtlasFilename the filename of the texture atlas containing animations.
-     *
-     * @return the created AnimationRenderComponent.
-     */
     private AnimationRenderComponent createAnimationComponent(String textureAtlasFilename) {
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
@@ -204,6 +193,9 @@ public class LoadPlayer {
         switch (textureAtlasFilename) {
             case ("images/player/player.atlas"):
                 animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle-left", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle-right", 0.2f, Animation.PlayMode.LOOP);
+                animator.addAnimation("idle-up", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("walk-left", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("walk-up", 0.2f, Animation.PlayMode.LOOP);
                 animator.addAnimation("walk-right", 0.2f, Animation.PlayMode.LOOP);
@@ -214,13 +206,22 @@ public class LoadPlayer {
                 animator.addAnimation("death-right", 0.35f, Animation.PlayMode.NORMAL);
                 animator.addAnimation("damage-down", 0.35f, Animation.PlayMode.NORMAL);
                 break;
-            case ("images/player/homeless1.atlas"), ("images/player/homeless2.atlas"),
-                    ("images/player/homeless3.atlas"):
-                animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
-                animator.addAnimation("Walk", 0.2f, Animation.PlayMode.LOOP);
-                animator.addAnimation("Dead", 0.15f, Animation.PlayMode.NORMAL);
-                animator.addAnimation("Attack_1", 0.35f, Animation.PlayMode.NORMAL);
-                animator.addAnimation("Hurt", 0.35f, Animation.PlayMode.NORMAL);
+            case ("images/player/homeless1.atlas"):
+                addCommonAnimations(animator);
+                animator.addAnimation("Special_left", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Special_right", 0.35f, Animation.PlayMode.LOOP);
+                break;
+            case ("images/player/homeless2.atlas"):
+                addCommonAnimations(animator);
+                animator.addAnimation("Idle2_left", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Idle2_right", 0.35f, Animation.PlayMode.LOOP);
+                break;
+            case ("images/player/homeless3.atlas"):
+                addCommonAnimations(animator);
+                animator.addAnimation("Idle2_left", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Idle2_right", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Special_left", 0.35f, Animation.PlayMode.LOOP);
+                animator.addAnimation("Special_right", 0.35f, Animation.PlayMode.LOOP);
                 break;
             case ("images/npc/bear/bear.atlas"):
                 animator.addAnimation("idle_left", 0.1f, Animation.PlayMode.LOOP);
@@ -240,6 +241,29 @@ public class LoadPlayer {
         }
         return animator;
 
+    }
+
+    /**
+     * Add common animations for the characters with duplicate animation names.
+     *
+     * @param animator AnimationRenderComponent linked to the Player entity
+     */
+    private void addCommonAnimations(AnimationRenderComponent animator) {
+        animator.addAnimation("idle", 0.35f, Animation.PlayMode.LOOP);
+        animator.addAnimation("Idle_left", 0.35f, Animation.PlayMode.LOOP);
+        animator.addAnimation("Idle_right", 0.35f, Animation.PlayMode.LOOP);
+        animator.addAnimation("Walk_left", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("Walk_right", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("Run_left", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("Run_right", 0.2f, Animation.PlayMode.LOOP);
+        animator.addAnimation("Dead_left", 0.15f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("Dead_right", 0.15f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("Attack1_left", 0.15f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("Attack1_right", 0.15f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("Attack2_left", 0.15f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("Attack2_right", 0.15f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("Hurt_left", 0.35f, Animation.PlayMode.NORMAL);
+        animator.addAnimation("Hurt_right", 0.35f, Animation.PlayMode.NORMAL);
     }
 }
 

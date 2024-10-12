@@ -1,10 +1,10 @@
 {
   "name": "player 4",
-  "health": 100,
+  "maxHealth": 100,
   "coins": 0,
   "speed": {
-    "x": 4,
-    "y": 4
+    "x": 5,
+    "y": 6
   },
   "textureFilename": "images/player/homeless3.png",
   "textureAtlasFilename": "images/player/homeless3.atlas",

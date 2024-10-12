@@ -30,8 +30,8 @@ public class ItemFactory {
         creators.put("beartrap", (args) -> new BearTrap());
         creators.put("heart", (args) -> new Heart());
         creators.put("feather", (args) -> new Feather());
-        creators.put("tombstone", (args) -> args.length > 1 ? new Tombstone(args[0])
-                                                            : new Tombstone());
+        creators.put("tombstone", (args) -> args.length < 1 ? new Tombstone()
+                                                            : new Tombstone(args[0]));
         creators.put("ringfire", (args) -> new RingFire());
         creators.put("divinepotion", (args) -> new DivinePotion());
         creators.put("bleedbuff", (args) -> new BleedBuff());

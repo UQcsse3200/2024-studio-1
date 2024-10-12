@@ -142,7 +142,16 @@ loadScripts(document, 'script');</script>
  org.slf4j.Logger&nbsp;logger,
  <a href="../GdxGame.ScreenColour.html" title="enum class in com.csse3200.game">GdxGame.ScreenColour</a>&nbsp;bgColour)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Create a new static screen.</div>
+<div class="block">Create a new static screen with no music.</div>
+</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.GdxGame,java.lang.String%5B%5D,org.slf4j.Logger,com.csse3200.game.GdxGame.ScreenColour,java.lang.String,boolean)" class="member-name-link">StaticScreen</a><wbr>(<a href="../GdxGame.html" title="class in com.csse3200.game">GdxGame</a>&nbsp;game,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;textures,
+ org.slf4j.Logger&nbsp;logger,
+ <a href="../GdxGame.ScreenColour.html" title="enum class in com.csse3200.game">GdxGame.ScreenColour</a>&nbsp;bgColour,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;music,
+ boolean&nbsp;loop)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Create a new static screen with music.</div>
 </div>
 </div>
 </section>
@@ -233,13 +242,34 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="&lt;init&gt;(com.csse3200.game.GdxGame,java.lang.String[],org.slf4j.Logger,com.csse3200.game.GdxGame.ScreenColour,java.lang.String,boolean)">
+<h3>StaticScreen</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">StaticScreen</span><wbr><span class="parameters">(<a href="../GdxGame.html" title="class in com.csse3200.game">GdxGame</a>&nbsp;game,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;textures,
+ org.slf4j.Logger&nbsp;logger,
+ <a href="../GdxGame.ScreenColour.html" title="enum class in com.csse3200.game">GdxGame.ScreenColour</a>&nbsp;bgColour,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;music,
+ boolean&nbsp;loop)</span></div>
+<div class="block">Create a new static screen with music.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>game</code> - the game that this screen is associated with.</dd>
+<dd><code>textures</code> - array of textures to load.</dd>
+<dd><code>logger</code> - the logger for this class.</dd>
+<dd><code>bgColour</code> - screen background colour.</dd>
+<dd><code>music</code> - music path.</dd>
+<dd><code>loop</code> - whether to loop the music.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="&lt;init&gt;(com.csse3200.game.GdxGame,java.lang.String[],org.slf4j.Logger,com.csse3200.game.GdxGame.ScreenColour)">
 <h3>StaticScreen</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">StaticScreen</span><wbr><span class="parameters">(<a href="../GdxGame.html" title="class in com.csse3200.game">GdxGame</a>&nbsp;game,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;textures,
  org.slf4j.Logger&nbsp;logger,
  <a href="../GdxGame.ScreenColour.html" title="enum class in com.csse3200.game">GdxGame.ScreenColour</a>&nbsp;bgColour)</span></div>
-<div class="block">Create a new static screen.</div>
+<div class="block">Create a new static screen with no music.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>game</code> - the game that this screen is associated with.</dd>

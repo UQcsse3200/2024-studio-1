@@ -194,10 +194,21 @@ implements com.badlogic.gdx.utils.Disposable</span></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Loads a list of texture assets into the asset manager.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#playSound(java.lang.String)" class="member-name-link">playSound</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;soundName)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.audio.Music</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#playMusic(java.lang.String,boolean)" class="member-name-link">playMusic</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;musicName,
+ boolean&nbsp;loop)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Play music.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#playSound(java.lang.String)" class="member-name-link">playSound</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;soundName)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Play a sound effect.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stopCurrentMusic()" class="member-name-link">stopCurrentMusic</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Stop the currently playing music.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#unloadAssets(java.lang.String%5B%5D)" class="member-name-link">unloadAssets</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;assetNames)</code></div>
@@ -436,6 +447,30 @@ implements com.badlogic.gdx.utils.Disposable</span></div>
 <dt>Parameters:</dt>
 <dd><code>soundName</code> - The path of the asset relative to the assets folder.</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="playMusic(java.lang.String,boolean)">
+<h3>playMusic</h3>
+<div class="member-signature"><span class="annotations">@Null
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.audio.Music</span>&nbsp;<span class="element-name">playMusic</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;musicName,
+ boolean&nbsp;loop)</span></div>
+<div class="block">Play music. The volume is determined by <a href="../files/UserSettings.html" title="class in com.csse3200.game.files"><code>UserSettings</code></a>. No music is played
+ when mute is on. If any other music was already playing, it is stopped.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>musicName</code> - The path of the music relative to the assets folder.</dd>
+<dd><code>loop</code> - true to loop the music, false for single play-through.</dd>
+<dt>Returns:</dt>
+<dd>the chosen music asset or null if it wasn't loaded.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="stopCurrentMusic()">
+<h3>stopCurrentMusic</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">stopCurrentMusic</span>()</div>
+<div class="block">Stop the currently playing music.</div>
 </section>
 </li>
 <li>

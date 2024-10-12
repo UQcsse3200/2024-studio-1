@@ -75,6 +75,10 @@ public class CombatStatsComponent extends Component {
         this.timerFlashSprite = new Timer();
     }
 
+    public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
+        this(health, baseAttack, canBeInvincible, armor, buff, 0);
+    }
+
     public CombatStatsComponent(int health, int baseAttack, boolean neverDies){
         this(health, baseAttack, false, 0, 0, 0);
         setInvincible(neverDies);

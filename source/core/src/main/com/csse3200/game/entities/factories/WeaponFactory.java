@@ -121,7 +121,7 @@ public class WeaponFactory extends LoadedFactory {
                 .addComponent(new ColliderComponent())
                 .addComponent(animator)
                 .addComponent(new FiringController(collectible))
-                .addComponent(new CombatStatsComponent(1, collectible.getDamage(), true, 0, 0, 0))
+                .addComponent(new CombatStatsComponent(1, collectible.getDamage(), true, 0, 0))
                 .addComponent(new PositionTracker())
                 .addComponent(new WeaponAnimationController());
 

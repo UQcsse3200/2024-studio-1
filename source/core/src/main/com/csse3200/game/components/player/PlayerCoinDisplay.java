@@ -76,6 +76,7 @@ public class PlayerCoinDisplay extends UIComponent {
      * @param coins the amount of coins an animal gave from defeating
      */
     private void showCoins(int coins) {
+        ServiceLocator.getResourceService().playSound("sounds/collectCoin.mp3");
         String text = String.format("+%d coins added", coins);
         Label coinText = new Label(text, skin, "small");
         Table table = new Table();

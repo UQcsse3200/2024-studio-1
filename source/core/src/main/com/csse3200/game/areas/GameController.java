@@ -108,6 +108,7 @@ public class GameController {
 
     public GameController(GameArea gameArea, LevelFactory levelFactory, Entity player) {
         this(gameArea, levelFactory, player, false, new MapLoadConfig());
+
     }
 
     /**
@@ -125,8 +126,11 @@ public class GameController {
      * Create the game area, including terrain, static entities (trees), dynamic entities (player)
      */
     public void create() {
-        this.gameArea.load();
+
+        this.gameArea.displayUI("BEAST BREAKOUT FACILITY");
+        getGameArea().load();
         logger.error("loaded all assets");
+
 
         if (shouldLoad) {
             changeLevel(Integer.parseInt(config.currentLevel));

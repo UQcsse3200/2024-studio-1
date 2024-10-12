@@ -52,7 +52,7 @@ public class BigRedButton extends UsableItem {
      */
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/Big_red_button.png");
+        return new Texture("images/items/big_red_button.png");
     }
 
     /**

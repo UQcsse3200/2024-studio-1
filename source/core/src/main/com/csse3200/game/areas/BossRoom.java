@@ -111,7 +111,7 @@ public class BossRoom extends EnemyRoom {
     public void removeRoom() {
         super.removeRoom();
         if (stairs != null) {
-            area.disposeEntity(stairs);
+            ServiceLocator.getEntityService().markEntityForRemoval(stairs);
             stairs = null;
         }
     }

@@ -246,12 +246,11 @@ public class ResourceService implements Disposable {
     if (settings.mute) {
       return;
     }
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    if (!resourceService.containsAsset(musicName, Music.class)) {
+    if (!containsAsset(musicName, Music.class)) {
       logger.error("Music not loaded");
       return;
     }
-    Music music = resourceService.getAsset(musicName, Music.class);
+    Music music = getAsset(musicName, Music.class);
     music.setLooping(loop);
     music.setVolume(UserSettings.get().musicVolume);
     music.play();

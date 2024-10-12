@@ -173,4 +173,20 @@ class ResourceServiceTest {
     resourceService.playSound(TEST_SOUND);
     verify(resourceService, never()).getAsset(TEST_SOUND, Sound.class);
   }
+
+  @Test
+  void musicPlays() {
+    Settings settings = new Settings();
+    settings.mute = false;
+
+    Music music = mock(Music.class);
+    ResourceService resourceService = spy(new ResourceService(settings));
+    when(resourceService.containsAsset(TEST_SOUND, Music.class)).thenReturn(true);
+    doReturn(music).when(resourceService).getAsset(TEST_SOUND, Music.class);
+
+    resourceService.playMusic(TEST_SOUND, true);
+    verify(resourceService).getAsset(TEST_SOUND, Music.class);
+    verify(music).setLooping(true);
+    verify(music).play();
+  }
 }

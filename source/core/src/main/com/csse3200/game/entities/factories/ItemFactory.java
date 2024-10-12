@@ -65,6 +65,7 @@ public class ItemFactory {
             case "bleedbuff" -> createBleedBuff();
             case "bigredbutton" -> createBigRedButton();
             case "teleporter" -> createTeleporter();
+            case "goblinsgamble" -> createGoblinsGamble();
             default -> throw new IllegalArgumentException("Invalid item specification: " + specification);
         };
     }
@@ -186,5 +187,13 @@ public class ItemFactory {
      * @return teleporter item
      */
     private Collectible createTeleporter() {return new TeleporterItem();}
+
+    /**
+     * Creates a new goblins gamble item which the player can pick up to either win or lose coins
+     * @return GoblinsGamble item
+     */
+    private Collectible createGoblinsGamble() {
+        return new GoblinsGamble();
+    }
 }
 

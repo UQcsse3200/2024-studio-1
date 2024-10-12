@@ -1,7 +1,8 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.usables;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -10,17 +11,6 @@ import com.csse3200.game.entities.Entity;
  */
 public class MedKit extends UsableItem {
     private static final int Large_Health_Boost = 100;
-
-    /**
-     * The pickup function handles the pickup of Medkit item into player's inventory.
-     *
-     * @param inventory The inventory to be put in.
-     */
-    @Override
-    public void pickup(Inventory inventory) {
-        super.pickup(inventory);
-    }
-
 
     /**
      * Get the specification of this item.
@@ -33,14 +23,14 @@ public class MedKit extends UsableItem {
     }
 
     /**
-     * Handles the dropping of item from player's inventory after being used
+     * Applies the Medkit to an entity, increasing its health by a large amount,
+     * calls the increaseLargeBoost(entity) method
      *
-     * @param inventory The inventory to be dropped out of.
+     * @param entity to which Medkit item effect is applied to.
      */
     @Override
-    public void drop(Inventory inventory) {
-        super.drop(inventory);
-
+    public void apply(Entity entity) {
+        increaseLargeBoost(entity);
     }
 
     /**
@@ -65,22 +55,12 @@ public class MedKit extends UsableItem {
 
     /**
      * Get mystery box icon for this specific item
+     *
      * @return mystery box icon
      */
     @Override
     public Texture getMysteryIcon() {
         return new Texture("images/items/mystery_box_green.png");
-    }
-
-    /**
-     * Applies the Medkit to an entity, increasing its health by a large amount,
-     * calls the increaseLargeBoost(entity) method
-     *
-     * @param entity to which Medkit item effect is applied to.
-     */
-    @Override
-    public void apply(Entity entity) {
-        increaseLargeBoost(entity);
     }
 
     /**
@@ -91,7 +71,7 @@ public class MedKit extends UsableItem {
     public void increaseLargeBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + Large_Health_Boost,combatStats.getMaxHealth());
+        int newHealth = Math.min(currentHealth + Large_Health_Boost, combatStats.getMaxHealth());
         combatStats.setHealth(newHealth);
     }
 }

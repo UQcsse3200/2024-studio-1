@@ -1,7 +1,8 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.usables;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -11,29 +12,20 @@ import com.csse3200.game.entities.Entity;
 public class Bandage extends UsableItem {
     public static final int Small_Health_Boost = 20;
 
-    /**
-     * The pickup function handles the pickup of Bandage item into player's inventory.
-     *
-     * @param inventory The inventory to be put in.
-     */
-    @Override
-    public void pickup(Inventory inventory) {
-        super.pickup(inventory);
-    }
-
     @Override
     public String getItemSpecification() {
         return "bandage";
     }
 
     /**
-     * Handles the dropping of item from player's inventory after being used
+     * Applies the bandage to an entity, increasing its health by a small amount,
+     * calls the increaseSmallBoost(entity) method
      *
-     * @param inventory The inventory to be dropped out of.
+     * @param entity to which Bandage item effect is applied to.
      */
     @Override
-    public void drop(Inventory inventory) {
-        super.drop(inventory);
+    public void apply(Entity entity) {
+        increaseSmallBoost(entity);
     }
 
     /**
@@ -58,22 +50,12 @@ public class Bandage extends UsableItem {
 
     /**
      * Get mystery box icon for this specific item
+     *
      * @return mystery box icon
      */
     @Override
     public Texture getMysteryIcon() {
         return new Texture("images/items/mystery_box_green.png");
-    }
-
-    /**
-     * Applies the bandage to an entity, increasing its health by a small amount,
-     * calls the increaseSmallBoost(entity) method
-     *
-     * @param entity to which Bandage item effect is applied to.
-     */
-    @Override
-    public void apply(Entity entity) {
-        increaseSmallBoost(entity);
     }
 
     /**

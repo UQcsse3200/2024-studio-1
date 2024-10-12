@@ -1,19 +1,19 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
+import com.csse3200.game.components.player.inventory.usables.BearTrap;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.DeployableItemFactory;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class BearTrapTest {
 

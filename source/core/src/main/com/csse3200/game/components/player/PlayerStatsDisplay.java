@@ -22,7 +22,7 @@ public class PlayerStatsDisplay extends UIComponent {
     Table ammoTable;
     private Image heartImage;
     private Label healthLabel;
-    private Label pickaxeLabel;
+    private Label swordLabel;
     private Label shotgunLabel;
 
     private Texture ammoTexture;
@@ -66,8 +66,8 @@ public class PlayerStatsDisplay extends UIComponent {
 
     private void initializeShotgunAndAmmo() {
         // Initialize full ammo and shotgun
-        int maxAmmo = 20;  // Set this to your maximum ammo value
-        updateRangedWeaponUI(maxAmmo);  // Update the shotgun UI with full ammo
+        int maxAmmo = 20;
+        updateRangedWeaponUI(maxAmmo);
 
         // Set initial shotgun to 1
         CharSequence text = String.format("Shotgun x %d", 1);
@@ -112,46 +112,33 @@ public class PlayerStatsDisplay extends UIComponent {
         speedProgressBar = new ProgressBar(0f, 1.5f, 0.1f, false, skin);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
-        /*
-        //Temporarily commented out in case design team prefers text instead of progress bar
-        float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
-        CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
-        speedLabelText = new Label(speedText, skin, "small");
-         */
 
         //Damage Progress bar
-        //Will need to check values
         float damageSideLength = 50f;
-//        damageImage = new Image(
-//                ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
         damageImage = new Image(ServiceLocator.getResourceService().getAsset(DAMAGE_BUFF_TEXTURE, Texture.class));
         damageProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
         damageProgressBar.setWidth(200f);
         damageProgressBar.setAnimateDuration(2.0f);
 
         //Weapon text, like the name of weapon
-        //entity.getComponent(WeaponComponent.class).getWeaponType();
-        pickaxeLabel = new Label("Pickaxe: 0", skin, "small");
+        swordLabel = new Label("Sword: 0", skin, "small");
         shotgunLabel = new Label("Shotgun: 0", skin, "small");
-
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
         labels.add(healthLabel);
 
-
         table.row().padTop(10);
         table.add(speedImage).size(speedSideLength).pad(5);
         table.add(speedProgressBar).padLeft(10).left().width(200);
 
-        //Don't know if values are correct, may overlap
         table.row().padTop(10);
         table.add(damageImage).size(damageSideLength).pad(5);
         table.add(damageProgressBar).padLeft(10).left().width(200);
 
         table.row().padTop(10);
-        table.add(pickaxeLabel).colspan(2).padLeft(10).left();
-        labels.add(pickaxeLabel);
+        table.add(swordLabel).colspan(2).padLeft(10).left();
+        labels.add(swordLabel);
         table.row().padTop(10);
         table.add(shotgunLabel).colspan(2).padLeft(10).left();
         table.row().padTop(10);
@@ -165,7 +152,7 @@ public class PlayerStatsDisplay extends UIComponent {
             for(Label label : labels)
                 label.setFontScale(width/1100f);
     }
-    
+
     @Override
     public void draw(SpriteBatch batch) {
 
@@ -182,8 +169,8 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
     public void updateMeleeWeaponUI() {
-        CharSequence text = String.format("Pickaxe x %d", 1);
-        pickaxeLabel.setText(text);
+        CharSequence text = String.format("Sword x %d", 1);
+        swordLabel.setText(text);
     }
 
     public void updateRangedWeaponUI(int maxAmmo) {
@@ -206,7 +193,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
         // Always display ammo up to currentAmmo
         for (int i = 0; i < currentAmmo; i++) {
-            if (itemsInRow == 8) {
+            if (itemsInRow == 5) {
                 ammoTable.row().padTop(2f); // Start a new row after 8 ammo items
                 itemsInRow = 0;
             }
@@ -238,9 +225,6 @@ public class PlayerStatsDisplay extends UIComponent {
      * @param speedPercentage the player's new speed percentage to update the UI to
      */
     public void updateSpeedPercentageUI(float speedPercentage, String speedType) {
-        //Temporarily commented out in case design team prefers text over a progress bar
-//        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
-//        speedLabelText.setText(text);
         speedProgressBar.setValue(speedPercentage);
     }
 

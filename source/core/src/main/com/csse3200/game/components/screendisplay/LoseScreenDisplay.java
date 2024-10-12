@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.components.scorescreen.ScoreListComponent;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -28,6 +29,7 @@ public class LoseScreenDisplay extends UIComponent {
     private final GdxGame game;
     private Table table;
     private String LastAttackAnimal;
+    private ScoreListComponent scoreList;
 
     String[] animalImagePaths = {
             "images/how-to-play/animals/rat.png",
@@ -52,55 +54,55 @@ public class LoseScreenDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
+        scoreList = entity.getComponent(ScoreListComponent.class);
         addActors();
     }
 
     private void addActors() {
+
+
         table = new Table();
         table.setFillParent(true);
+        table.center();  // Center the table in the stage
         LastAttackAnimal = readClass(String.class, "configs/LastAttack.json", FileLoader.Location.EXTERNAL);
+
         Label youDied = new Label("You died...", skin, "cutscene");
         Label animalName;
         Image playerDead;
-        if (LastAttackAnimal.equals("Rat")){
+
+// Setup the playerDead image and animalName based on LastAttackAnimal
+        if (LastAttackAnimal.equals("Rat")) {
             playerDead = new Image(new Texture(Gdx.files.internal(animalImagePaths[0])));
             animalName = new Label("Rat:", skin, "cutscene");
-        }
-        else if (LastAttackAnimal.equals("Bear")){
+        } else if (LastAttackAnimal.equals("Bear")) {
             playerDead = new Image(new Texture(Gdx.files.internal(animalImagePaths[1])));
             animalName = new Label("Bear:", skin, "cutscene");
-        }
-        else if (LastAttackAnimal.equals("Bat")){
+        } else if (LastAttackAnimal.equals("Bat")) {
             playerDead = new Image(new Texture(Gdx.files.internal(animalImagePaths[2])));
             animalName = new Label("Bat:", skin, "cutscene");
-        }
-        else if (LastAttackAnimal.equals("Dog")){
+        } else if (LastAttackAnimal.equals("Dog")) {
             playerDead = new Image(new Texture(Gdx.files.internal(animalImagePaths[3])));
             animalName = new Label("Dog:", skin, "cutscene");
-        }
-        else if (LastAttackAnimal.equals("Snake")){
+        } else if (LastAttackAnimal.equals("Snake")) {
             playerDead = new Image(new Texture(Gdx.files.internal(animalImagePaths[4])));
             animalName = new Label("Snake:", skin, "cutscene");
-        }
-        else if (LastAttackAnimal.equals("Dino")){
+        } else if (LastAttackAnimal.equals("Dino")) {
             playerDead = new Image(new Texture(Gdx.files.internal(animalImagePaths[5])));
             animalName = new Label("Dino:", skin, "cutscene");
-        }
-        else if (LastAttackAnimal.equals("Minotaur")){
+        } else if (LastAttackAnimal.equals("Minotaur")) {
             playerDead = new Image(new Texture(Gdx.files.internal(animalImagePaths[6])));
             animalName = new Label("Minotaur:", skin, "cutscene");
-        }
-        else{
-            // See assets/images/player/player_asset_citation.txt
-            playerDead = new Image(
-                    ServiceLocator.getResourceService().getAsset(PLAYER_DEAD, Texture.class)
-            );
+        } else {
+            playerDead = new Image(ServiceLocator.getResourceService().getAsset(PLAYER_DEAD, Texture.class));
             animalName = new Label("", skin, "cutscene");
         }
-        table.add(playerDead).padTop(Y_PADDING);
-        table.row();
-        table.add(animalName).padTop(Y_PADDING);
 
+// Add the player image and animal name
+        table.add(playerDead).padTop(Y_PADDING).center();
+        table.row();
+        table.add(animalName).padTop(Y_PADDING).center();
+
+// Add descriptive labels based on LastAttackAnimal
         Label Rat = new Label("You thought you were the predator, but turns out you are just prey!", skin, "cutscene");
         Label Bear = new Label("Too slow, too soft. You didn't stand a chance against my claws!", skin, "cutscene");
         Label Bat = new Label("Couldn't see in the dark, huh? My world, my rules. Better luck next time, human!", skin, "cutscene");
@@ -110,42 +112,55 @@ public class LoseScreenDisplay extends UIComponent {
         Label Minotaur = new Label("Lost in my labyrinth of power, and now you are just another trophy!", skin, "cutscene");
 
         table.row();
-        if (LastAttackAnimal.equals("Rat")){
-            table.add(Rat).padTop(30f);
-        }
-        else if (LastAttackAnimal.equals("Bear")){
-            table.add(Bear).padTop(30f);
-        }
-        else if (LastAttackAnimal.equals("Bat")){
-            table.add(Bat).padTop(30f);
-        }
-        else if (LastAttackAnimal.equals("Dog")){
-            table.add(Dog).padTop(30f);
-        }
-        else if (LastAttackAnimal.equals("Snake")){
-            table.add(Snake).padTop(30f);
-        }
-        else if (LastAttackAnimal.equals("Dino")){
-            table.add(Dino).padTop(30f);
-        }
-        else if (LastAttackAnimal.equals("Minotaur")){
-            table.add(Minotaur).padTop(30f);
-        }
-        else{
-            table.add(youDied).padTop(30f);
+        if (LastAttackAnimal.equals("Rat")) {
+            table.add(Rat).padTop(30f).center();
+        } else if (LastAttackAnimal.equals("Bear")) {
+            table.add(Bear).padTop(30f).center();
+        } else if (LastAttackAnimal.equals("Bat")) {
+            table.add(Bat).padTop(30f).center();
+        } else if (LastAttackAnimal.equals("Dog")) {
+            table.add(Dog).padTop(30f).center();
+        } else if (LastAttackAnimal.equals("Snake")) {
+            table.add(Snake).padTop(30f).center();
+        } else if (LastAttackAnimal.equals("Dino")) {
+            table.add(Dino).padTop(30f).center();
+        } else if (LastAttackAnimal.equals("Minotaur")) {
+            table.add(Minotaur).padTop(30f).center();
+        } else {
+            table.add(youDied).padTop(30f).center();
         }
 
-        Button exitBtn = new TextButton("Back to menu", skin);
+// Exit button
+        Button exitBtn = new TextButton("Go to Main Screen", skin);
         exitBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                logger.debug("Going back to menu from death screen");
+                logger.debug("Going to score screen");
                 game.setScreen(MAIN_MENU);
             }
         });
-        table.row();
-        table.add(exitBtn).padTop(Y_PADDING);
 
+// Score section
+        Image coins = new Image(new Texture(Gdx.files.internal("images/items/coin.png")));
+        Image kills = new Image(new Texture(Gdx.files.internal("images/player/player_dead.png")));
+
+        table.row();
+        Label scoreLabel = new Label("Final Scores", skin, "title");
+        table.add(scoreLabel).center().padBottom(20).padTop(10);
+
+        table.row();
+        Label coinsLabel = new Label("Coins:     "+String.valueOf(scoreList.getScore().get("coins")), skin, "title");
+        table.add(coinsLabel).padLeft(10);
+        table.add(coins).center().width(50).height(50);
+        table.row();
+        Label killsLabel = new Label("Kills:     "+String.valueOf(scoreList.getScore().get("kills") ),skin, "title");
+        table.add(killsLabel);
+        table.add(kills).width(50).height(50).center();
+
+        table.row();
+        table.add(exitBtn).colspan(3).center().padTop(Y_PADDING);
+
+// Add table to the stage
         stage.addActor(table);
     }
 

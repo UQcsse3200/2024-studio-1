@@ -2,15 +2,13 @@ package com.csse3200.game.screens;
 
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.areas.*;
-import com.csse3200.game.components.player.PlayerFactoryFactory;
+import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.options.GameOptions;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.configs.MapLoadConfig;
-import com.csse3200.game.entities.configs.PlayerConfig;
-import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.files.FileLoader;
-
-import java.util.List;
 
 import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
 
@@ -22,7 +20,12 @@ import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
 public class LoadGameScreen extends GameScreen {
     public LoadGameScreen(GdxGame game) {
         super(game);
-        shouldLoad = true;
+        boolean shouldLoad = true;
+        GameOptions gameOptions = game.gameOptions;
+        /*
+         * based on the characters selected, changed the link
+         * If Player choose Load, then create
+         */
         PlayerConfig config = FileLoader.readClass(
                 PlayerConfig.class,
                 "saves/player_save.json",
@@ -30,8 +33,7 @@ public class LoadGameScreen extends GameScreen {
         if (config == null) {
             throw new RuntimeException("Tried to load player and failed");
         }
-        PlayerFactoryFactory playerSelection = new PlayerFactoryFactory(List.of(config));
-        Entity player = playerSelection.create(config.name).create(game.gameOptions.difficulty);
+        Entity player = gameOptions.playerFactory.create(config.difficulty);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising load game screen entities");

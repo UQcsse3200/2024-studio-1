@@ -203,27 +203,28 @@ public class AnimationRenderComponent extends RenderComponent {
       return;
     }
 
+    // Used to adjust position of rendering
+    float scaleX;
+
     // Get the current frame of the animation.
     TextureRegion region = currentAnimation.getKeyFrame(animationPlayTime);
     Vector2 pos = entity.getPosition();
     Vector2 scale = entity.getScale();
 
-    float textureWidth = region.getRegionWidth();
-    float textureHeight = region.getRegionHeight();
-    float aspectRatio =  textureWidth / textureHeight;
-
-    // Set default scale for drawing the animation.
-    float scaleX = 0.5f;
-    float scaleY = 0.5f * aspectRatio;
-
+    // Calculate scale factor to center rendering
+    if (scale.x != 1) {
+      scaleX = (1 - scale.x) / 2;
+    } else {
+      scaleX = 0f;
+    }
 
     batch.setColor(1f, 1f, 1f, this.opacity);
-    // Check if the current frame is a rotated AtlasRegion
-    // If true, rotate it by 180 degrees when rendering
-    if (region instanceof TextureAtlas.AtlasRegion && ((TextureAtlas.AtlasRegion) region).rotate) {
-      batch.draw(region, pos.x, pos.y, scaleX, scaleY, 1f, aspectRatio, 1f, 1f, 180, false);
+    // Rotate current frame if specified in AtlasRegion
+    // Note: This may be unique to the default character
+    if (region instanceof AtlasRegion && ((AtlasRegion) region).rotate) {
+      batch.draw(region, pos.x, pos.y, 0.43f, 0.38f, scale.x, scale.y, 1f, 1f, 180, false);
     } else {
-      batch.draw(region, pos.x, pos.y, scale.x, scale.y);
+      batch.draw(region, pos.x + scaleX, pos.y, scale.x, scale.y);
     }
     batch.setColor(1f, 1f, 1f, 1);
 

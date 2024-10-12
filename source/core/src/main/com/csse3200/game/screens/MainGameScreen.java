@@ -18,12 +18,10 @@ import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
  *
  * <p>Details on libGDX screens: <a href="https://happycoding.io/tutorials/libgdx/game-screens">...</a>
  */
-public class MainGameScreen extends GameScreen{
+public class MainGameScreen extends GameScreen {
 
     public MainGameScreen(GdxGame game) {
         super(game);
-        shouldLoad = false;
-
         GameOptions gameOptions = game.gameOptions;
         logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
 
@@ -40,11 +38,12 @@ public class MainGameScreen extends GameScreen{
         logger.debug("Initialising main game screen entities");
         MapLoadConfig mapConfig = new MapLoadConfig();
         mapConfig.currentLevel = "0";
-        LevelFactory levelFactory = new MainGameLevelFactory(shouldLoad, mapConfig);
+        LevelFactory levelFactory = new MainGameLevelFactory(false, mapConfig);
         if (gameOptions.difficulty == TEST) {
             new TestGameArea(levelFactory, player);
         } else {
-            new MainGameArea(levelFactory, player, shouldLoad, mapConfig);
+            new MainGameArea(levelFactory, player, false, mapConfig);
         }
     }
+
 }

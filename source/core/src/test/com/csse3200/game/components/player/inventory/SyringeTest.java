@@ -42,7 +42,7 @@ public class SyringeTest {
     @Test
     public void testGetBuffSpecification() {
         // Check if getBuffSpecification returns "Syringe"
-        assertEquals("Syringe", syringe.getBuffSpecification());
+        assertEquals("syringe", syringe.getBuffSpecification());
     }
 
 

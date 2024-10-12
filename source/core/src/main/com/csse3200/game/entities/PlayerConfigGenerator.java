@@ -29,6 +29,7 @@ public class PlayerConfigGenerator {
         config.health = statsComponent.getHealth();
         config.baseAttack = statsComponent.getBaseAttack();
         config.coins = player.getComponent(CoinsComponent.class).getCoins();
+        config.maxHealth = statsComponent.getMaxHealth();
         config.speed = player.getComponent(PlayerActions.class).getCurrSpeed();
         config.pets = petsToString(player.getComponent(InventoryComponent.class).getPets());
         config.armour = statsComponent.getArmor();
@@ -72,7 +73,9 @@ public class PlayerConfigGenerator {
     private String[] petsToString(Array<Pet> pets) {
         String[] allPets = new String[pets.size];
         for (int i = 0; i < pets.size; i++) {
-            allPets[i] = pets.get(i).getName();
+            if(pets.get(i).getName() != "Tombstone"){
+                allPets[i] = pets.get(i).getName();
+            }
         }
         return allPets;
     }

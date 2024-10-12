@@ -24,7 +24,6 @@ import java.util.*;
  */
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
-    private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
     public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
     /**
@@ -130,7 +129,7 @@ public class MainGameArea extends GameArea {
         } else {
             changeLevel(0);
         }
-        playMusic();
+        playMusic(MusicType.NORMAL);
     }
 
     /**
@@ -217,6 +216,13 @@ public class MainGameArea extends GameArea {
         selectRoom(roomKey);
         // update minimap
         minimapFactory.updateMinimap(roomKey);
+
+        // Play appropriate music based on room type
+        if (this.currentRoom instanceof BossRoom) {
+            playMusic(MusicType.BOSS);
+        } else {
+            playMusic(MusicType.NORMAL);
+        }
     }
 
     /**
@@ -304,23 +310,44 @@ public class MainGameArea extends GameArea {
         spawnEntity(ui);
     }
 
+    public enum MusicType {
+        NORMAL("bgm_new.wav"), BOSS("boss_room_music.mp3");
+
+        private final String path;
+        private static final String BASE = "sounds/music/";
+
+        MusicType(String filename) {
+            this.path = BASE + filename;
+        }
+    }
+
+    private Music normalMusic;
+    private Music bossMusic;
+
     /**
-     * Plays the background music for the game area.
+     * Plays the specified type of music.
+     *
+     * @param musicType type of music to play (normal/boss).
      */
-    private void playMusic() {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        if (!resourceService.containsAsset(BACKGROUND_MUSIC, Music.class)) {
-            logger.error("Music not loaded");
-            return;
-        }
-        Music music = resourceService.getAsset(BACKGROUND_MUSIC, Music.class);
-        music.setLooping(true);
-        if (!UserSettings.get().mute) {
-            music.setVolume(UserSettings.get().musicVolume);
+    public void playMusic(MusicType musicType) {
+        Music newMusic = ServiceLocator.getResourceService().playMusic(musicType.path, true);
+        if (musicType == MusicType.BOSS) {
+            bossMusic = newMusic;
         } else {
-            music.setVolume(0);
+            normalMusic = newMusic;
         }
-        music.play();
+    }
+
+    /**
+     * Stops the currently playing music.
+     */
+    private void stopCurrentMusic() {
+        if (normalMusic != null) {
+            normalMusic.stop();
+        }
+        if (bossMusic != null) {
+            bossMusic.stop();
+        }
     }
 
     /**
@@ -410,15 +437,22 @@ public class MainGameArea extends GameArea {
      */
     @Override
     protected String[] getMusicFilepaths() {
-        return new String[]{BACKGROUND_MUSIC};
+        return Arrays.stream(MusicType.values()).map(type -> type.path).toArray(String[]::new);
     }
 
     /**
-     * Disposes of the game area resources, including stopping the background music.
+     * Disposes of the game area resources, including stopping the background music if any is
+     * playing.
      */
     @Override
     public void dispose() {
-        ServiceLocator.getResourceService().getAsset(BACKGROUND_MUSIC, Music.class).stop();
+        stopCurrentMusic();
+        if (normalMusic != null) {
+            normalMusic.dispose();
+        }
+        if (bossMusic != null) {
+            bossMusic.dispose();
+        }
         super.dispose();
     }
 }

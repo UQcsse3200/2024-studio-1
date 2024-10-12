@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Null;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.files.UserSettings.Settings;
 import org.slf4j.Logger;
@@ -24,6 +25,10 @@ public class ResourceService implements Disposable {
   private static final Logger logger = LoggerFactory.getLogger(ResourceService.class);
   private final AssetManager assetManager;
   private final Settings settings;
+  /**
+   * Path to current playing music or null if none is playing.
+   */
+  private @Null String currentMusic = null;
 
   private final Map<String, Integer> referenceCounts = new HashMap<>();
 
@@ -229,6 +234,48 @@ public class ResourceService implements Disposable {
             sound.play(settings.soundVolume);
         }
     }
+
+  /**
+   * Play music. The volume is determined by {@link UserSettings}. No music is played
+   * when mute is on. If any other music was already playing, it is stopped.
+   *
+   * @param musicName The path of the music relative to the assets folder.
+   * @param loop true to loop the music, false for single play-through.
+   *
+   * @return the chosen music asset or null if it wasn't loaded.
+   */
+  public @Null Music playMusic(String musicName, boolean loop) {
+    if (!containsAsset(musicName, Music.class)) {
+      logger.error("Music {} not loaded", musicName);
+      return null;
+    }
+    Music music = getAsset(musicName, Music.class);
+    if (currentMusic != null && currentMusic.equals(musicName)) {
+      // This music is already playing
+      return music;
+    }
+    stopCurrentMusic();
+    currentMusic = musicName;
+    if (!settings.mute) {
+      music.setLooping(loop);
+      music.setVolume(UserSettings.get().musicVolume);
+      music.play();
+    }
+    return music;
+  }
+
+  /**
+   * Stop the currently playing music.
+   */
+  public void stopCurrentMusic() {
+    if (currentMusic == null) {
+      logger.info("No music playing, stopping music has no effect");
+      return;
+    }
+    if (containsAsset(currentMusic, Music.class)) {
+      getAsset(currentMusic, Music.class).stop();
+    }
+  }
 
   @Override
   public void dispose() {

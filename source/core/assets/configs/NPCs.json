@@ -341,7 +341,7 @@
       },
       "ranged": {
         "range": 12,
-        "rate": 1,
+        "rate": 1.5,
         "type": 0
       }
     },
@@ -355,7 +355,8 @@
       {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
       {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
     ]
-  },"werewolf": {
+  },
+  "werewolf": {
   "health": 1000,
   "strength": 9,
   "baseAttack": 30,
@@ -493,6 +494,9 @@
         "activationMaxRange": 1.5,
         "preparationTime": 3,
         "cooldownTime": 10
+      },
+      "bulletStorm": {
+        "duration": 20
       }
     },
     "attacks": {
@@ -516,6 +520,11 @@
             "force": 5
           }
         ]
+      },
+      "ranged": {
+        "range": 12,
+        "rate": 1.2,
+        "type": 0
       }
     },
     "animations": [
@@ -579,6 +588,9 @@
         "activationMaxRange": 6,
         "attackNum": 4,
         "cooldownTime": 8
+      },
+      "bulletStorm": {
+        "duration": 15
       }
     },
     "attacks": {

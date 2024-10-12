@@ -1,10 +1,11 @@
 package com.csse3200.game.entities.factories;
 
-import com.csse3200.game.components.player.inventory.Bandage;
-import com.csse3200.game.components.player.inventory.MedKit;
-import static org.junit.jupiter.api.Assertions.*;
-import com.csse3200.game.components.player.inventory.ShieldPotion;
+import com.csse3200.game.components.player.inventory.usables.Bandage;
+import com.csse3200.game.components.player.inventory.usables.MedKit;
+import com.csse3200.game.components.player.inventory.usables.ShieldPotion;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemFactoryTest {
 

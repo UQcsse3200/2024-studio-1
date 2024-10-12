@@ -37,7 +37,7 @@ loadScripts(document, 'script');</script>
 <li>
 <p>Summary:</p>
 <ul>
-<li>Nested</li>
+<li><a href="#nested-class-summary">Nested</a></li>
 <li>Field</li>
 <li><a href="#constructor-summary">Constr</a></li>
 <li><a href="#method-summary">Method</a></li>
@@ -57,7 +57,7 @@ loadScripts(document, 'script');</script>
 <div id="navbar-sub-list">
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested-class-summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
@@ -98,6 +98,23 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<li>
+<section class="nested-class-summary" id="nested-class-summary">
+<h2>Nested Class Summary</h2>
+<div class="caption"><span>Nested Classes</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="Inventory.Container.html" class="type-name-link" title="class in com.csse3200.game.components.player.inventory">Inventory.Container</a>&lt;<a href="Inventory.Container.html" title="type parameter in Inventory.Container">T</a> extends <a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&gt;</code></div>
+<div class="col-last even-row-color">
+<div class="block">The storage interface for a collection of inventory items of a shared type.</div>
+</div>
+</div>
+</section>
+</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor-summary">
@@ -124,83 +141,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addItem(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">addItem</a><wbr>(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;T extends <a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&gt;<br><a href="Inventory.Container.html" title="class in com.csse3200.game.components.player.inventory">Inventory.Container</a><wbr>&lt;T&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getContainer(java.lang.Class)" class="member-name-link">getContainer</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;type)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Add to the list of items.</div>
+<div class="block">Get one of the various Inventory containers.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addPet(com.csse3200.game.entities.Entity)" class="member-name-link">addPet</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;addPet)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getEntity()" class="member-name-link">getEntity</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Add to the list of pets.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getEntity()" class="member-name-link">getEntity</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get the entity this inventory is attached to.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.utils.Array<wbr>&lt;<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItems()" class="member-name-link">getItems</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get the current list of items.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMelee()" class="member-name-link">getMelee</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get the player's currently held melee weapon.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.utils.Array<wbr>&lt;<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPets()" class="member-name-link">getPets</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get the current list of pets.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRanged()" class="member-name-link">getRanged</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get the player's currently held ranged weapon.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#initialisePetAggro(java.util.List)" class="member-name-link">initialisePetAggro</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&gt;&nbsp;targets)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Set the target for the pet</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#petsExist()" class="member-name-link">petsExist</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get the current list of pets.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeItem(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">removeItem</a><wbr>(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removePet(com.csse3200.game.entities.Entity)" class="member-name-link">removePet</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;removePet)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Remove from the list of pets</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resetMelee()" class="member-name-link">resetMelee</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Reset the player's currently held melee weapon to the default.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resetRanged()" class="member-name-link">resetRanged</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Reset the player's currently held ranged weapon to the default.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setMelee(com.csse3200.game.components.player.inventory.MeleeWeapon)" class="member-name-link">setMelee</a><wbr>(<a href="MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&nbsp;melee)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Set the player's currently held melee weapon.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setPetsAggro(java.util.List)" class="member-name-link">setPetsAggro</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&gt;&nbsp;targets)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Set the target for the pet</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setRanged(com.csse3200.game.components.player.inventory.RangedWeapon)" class="member-name-link">setRanged</a><wbr>(<a href="RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&nbsp;ranged)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Set the player's currently held ranged weapon.</div>
 </div>
 </div>
 </div>
@@ -250,154 +199,18 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getMelee()">
-<h3>getMelee</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&gt;</span>&nbsp;<span class="element-name">getMelee</span>()</div>
-<div class="block">Get the player's currently held melee weapon.</div>
+<section class="detail" id="getContainer(java.lang.Class)">
+<h3>getContainer</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&gt;</span>
+<span class="return-type"><a href="Inventory.Container.html" title="class in com.csse3200.game.components.player.inventory">Inventory.Container</a>&lt;T&gt;</span>&nbsp;<span class="element-name">getContainer</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;type)</span></div>
+<div class="block">Get one of the various Inventory containers.</div>
 <dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - the class the container holds.</dd>
+<dt>Parameters:</dt>
+<dd><code>type</code> - the class the container holds.</dd>
 <dt>Returns:</dt>
-<dd>the melee weapon currently held.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setMelee(com.csse3200.game.components.player.inventory.MeleeWeapon)">
-<h3>setMelee</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setMelee</span><wbr><span class="parameters">(<a href="MeleeWeapon.html" title="class in com.csse3200.game.components.player.inventory">MeleeWeapon</a>&nbsp;melee)</span></div>
-<div class="block">Set the player's currently held melee weapon.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>melee</code> - the melee weapon to pickup.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="resetMelee()">
-<h3>resetMelee</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">resetMelee</span>()</div>
-<div class="block">Reset the player's currently held melee weapon to the default.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getRanged()">
-<h3>getRanged</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&gt;</span>&nbsp;<span class="element-name">getRanged</span>()</div>
-<div class="block">Get the player's currently held ranged weapon.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the ranged weapon currently held.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setRanged(com.csse3200.game.components.player.inventory.RangedWeapon)">
-<h3>setRanged</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setRanged</span><wbr><span class="parameters">(<a href="RangedWeapon.html" title="class in com.csse3200.game.components.player.inventory">RangedWeapon</a>&nbsp;ranged)</span></div>
-<div class="block">Set the player's currently held ranged weapon.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>ranged</code> - the ranged weapon to pickup.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="resetRanged()">
-<h3>resetRanged</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">resetRanged</span>()</div>
-<div class="block">Reset the player's currently held ranged weapon to the default.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getItems()">
-<h3>getItems</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.utils.Array&lt;<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&gt;</span>&nbsp;<span class="element-name">getItems</span>()</div>
-<div class="block">Get the current list of items.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the current list of items</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="addItem(com.csse3200.game.components.player.inventory.Collectible)">
-<h3>addItem</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addItem</span><wbr><span class="parameters">(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item)</span></div>
-<div class="block">Add to the list of items.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>item</code> - The item to add.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="removeItem(com.csse3200.game.components.player.inventory.Collectible)">
-<h3>removeItem</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeItem</span><wbr><span class="parameters">(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getPets()">
-<h3>getPets</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.utils.Array&lt;<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&gt;</span>&nbsp;<span class="element-name">getPets</span>()</div>
-<div class="block">Get the current list of pets.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>current list of pets</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="petsExist()">
-<h3>petsExist</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">petsExist</span>()</div>
-<div class="block">Get the current list of pets.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>current list of pets</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="addPet(com.csse3200.game.entities.Entity)">
-<h3>addPet</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addPet</span><wbr><span class="parameters">(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;addPet)</span></div>
-<div class="block">Add to the list of pets.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>addPet</code> - the pet to be added</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="removePet(com.csse3200.game.entities.Entity)">
-<h3>removePet</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removePet</span><wbr><span class="parameters">(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;removePet)</span></div>
-<div class="block">Remove from the list of pets</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>removePet</code> - the pet to be removed</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="initialisePetAggro(java.util.List)">
-<h3>initialisePetAggro</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">initialisePetAggro</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&gt;&nbsp;targets)</span></div>
-<div class="block">Set the target for the pet</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>targets</code> - that the pets spawn into a room to attack to</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setPetsAggro(java.util.List)">
-<h3>setPetsAggro</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setPetsAggro</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&gt;&nbsp;targets)</span></div>
-<div class="block">Set the target for the pet</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>targets</code> - for the pets</dd>
+<dd>the container that holds that type</dd>
 </dl>
 </section>
 </li>

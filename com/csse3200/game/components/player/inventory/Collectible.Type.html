@@ -126,12 +126,14 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code><a href="#ITEM" class="member-name-link">ITEM</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="#MELEE_WEAPON" class="member-name-link">MELEE_WEAPON</a></code></div>
+<div class="col-first even-row-color"><code><a href="#MAIN_HAND" class="member-name-link">MAIN_HAND</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code><a href="#NONE" class="member-name-link">NONE</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="#RANGED_WEAPON" class="member-name-link">RANGED_WEAPON</a></code></div>
+<div class="col-first even-row-color"><code><a href="#OFF_HAND" class="member-name-link">OFF_HAND</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="#PET" class="member-name-link">PET</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -140,12 +142,22 @@ loadScripts(document, 'script');</script>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getByClass(java.lang.Class)" class="member-name-link">getByClass</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&gt;&nbsp;type)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Get the associated Collectible type from the class.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a><wbr>&lt;? extends <a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getType()" class="member-name-link">getType</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get the class that this type represents</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#valueOf(java.lang.String)" class="member-name-link">valueOf</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
@@ -184,21 +196,27 @@ the order they are declared.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="MELEE_WEAPON">
-<h3>MELEE_WEAPON</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></span>&nbsp;<span class="element-name">MELEE_WEAPON</span></div>
+<section class="detail" id="OFF_HAND">
+<h3>OFF_HAND</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></span>&nbsp;<span class="element-name">OFF_HAND</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="RANGED_WEAPON">
-<h3>RANGED_WEAPON</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></span>&nbsp;<span class="element-name">RANGED_WEAPON</span></div>
+<section class="detail" id="MAIN_HAND">
+<h3>MAIN_HAND</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></span>&nbsp;<span class="element-name">MAIN_HAND</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="BUFF_ITEM">
 <h3>BUFF_ITEM</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></span>&nbsp;<span class="element-name">BUFF_ITEM</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="PET">
+<h3>PET</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></span>&nbsp;<span class="element-name">PET</span></div>
 </section>
 </li>
 <li>
@@ -243,6 +261,30 @@ not permitted.)</div>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if this enum class has no constant with the specified name</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if the argument is null</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getByClass(java.lang.Class)">
+<h3>getByClass</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></span>&nbsp;<span class="element-name">getByClass</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&gt;&nbsp;type)</span></div>
+<div class="block">Get the associated Collectible type from the class.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - the class of the collectible.</dd>
+<dt>Returns:</dt>
+<dd>the type.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getType()">
+<h3>getType</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&gt;</span>&nbsp;<span class="element-name">getType</span>()</div>
+<div class="block">Get the class that this type represents</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the java.lang.Class</dd>
 </dl>
 </section>
 </li>

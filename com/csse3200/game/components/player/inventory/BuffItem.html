@@ -94,7 +94,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="Armor.html" title="class in com.csse3200.game.components.player.inventory">Armor</a></code>, <code><a href="BleedBuff.html" title="class in com.csse3200.game.components.player.inventory">BleedBuff</a></code>, <code><a href="DamageBuff.html" title="class in com.csse3200.game.components.player.inventory">DamageBuff</a></code>, <code><a href="DivinePotion.html" title="class in com.csse3200.game.components.player.inventory">DivinePotion</a></code>, <code><a href="EnergyDrink.html" title="class in com.csse3200.game.components.player.inventory">EnergyDrink</a></code>, <code><a href="Feather.html" title="class in com.csse3200.game.components.player.inventory">Feather</a></code>, <code><a href="Heart.html" title="class in com.csse3200.game.components.player.inventory">Heart</a></code>, <code><a href="Syringe.html" title="class in com.csse3200.game.components.player.inventory">Syringe</a></code>, <code><a href="Tombstone.html" title="class in com.csse3200.game.components.player.inventory">Tombstone</a></code></dd>
+<dd><code><a href="buffs/Armor.html" title="class in com.csse3200.game.components.player.inventory.buffs">Armor</a></code>, <code><a href="buffs/BleedBuff.html" title="class in com.csse3200.game.components.player.inventory.buffs">BleedBuff</a></code>, <code><a href="buffs/DamageBuff.html" title="class in com.csse3200.game.components.player.inventory.buffs">DamageBuff</a></code>, <code><a href="buffs/DivinePotion.html" title="class in com.csse3200.game.components.player.inventory.buffs">DivinePotion</a></code>, <code><a href="buffs/EnergyDrink.html" title="class in com.csse3200.game.components.player.inventory.buffs">EnergyDrink</a></code>, <code><a href="buffs/Feather.html" title="class in com.csse3200.game.components.player.inventory.buffs">Feather</a></code>, <code><a href="buffs/Heart.html" title="class in com.csse3200.game.components.player.inventory.buffs">Heart</a></code>, <code><a href="buffs/Syringe.html" title="class in com.csse3200.game.components.player.inventory.buffs">Syringe</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">BuffItem</span>
@@ -138,29 +138,34 @@ implements <a href="Collectible.html" title="interface in com.csse3200.game.comp
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#effect(com.csse3200.game.entities.Entity)" class="member-name-link">effect</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#drop(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">drop</a><wbr>(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Remove this collectible from the entity</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#effect(com.csse3200.game.entities.Entity)" class="member-name-link">effect</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">A method that applies the unique effect of this item, upon pickup</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getBuffSpecification()" class="member-name-link">getBuffSpecification</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getBuffSpecification()" class="member-name-link">getBuffSpecification</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Get the specification of this buff.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSpecification()" class="member-name-link">getSpecification</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSpecification()" class="member-name-link">getSpecification</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Return a string representation of this collectible that can be parsed by CollectibleFactory</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getType()" class="member-name-link">getType</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Collectible.Type.html" title="enum class in com.csse3200.game.components.player.inventory">Collectible.Type</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getType()" class="member-name-link">getType</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get the Type of this item.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pickup(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">pickup</a><wbr>(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pickup(com.csse3200.game.components.player.inventory.Inventory)" class="member-name-link">pickup</a><wbr>(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Make the entity pick the item up, and apply effects immediately instead of being added to the inventory</div>
 </div>
 </div>
@@ -171,7 +176,7 @@ implements <a href="Collectible.html" title="interface in com.csse3200.game.comp
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.components.player.inventory.Collectible">Methods inherited from interface&nbsp;com.csse3200.game.components.player.inventory.<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></h3>
-<code><a href="Collectible.html#drop(com.csse3200.game.components.player.inventory.Inventory)">drop</a>, <a href="Collectible.html#getIcon()">getIcon</a>, <a href="Collectible.html#getMysteryIcon()">getMysteryIcon</a>, <a href="Collectible.html#getName()">getName</a></code></div>
+<code><a href="Collectible.html#getIcon()">getIcon</a>, <a href="Collectible.html#getMysteryIcon()">getMysteryIcon</a>, <a href="Collectible.html#getName()">getName</a></code></div>
 </section>
 </li>
 </ul>
@@ -211,6 +216,19 @@ implements <a href="Collectible.html" title="interface in com.csse3200.game.comp
 </section>
 </li>
 <li>
+<section class="detail" id="getSpecification()">
+<h3>getSpecification</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getSpecification</span>()</div>
+<div class="block">Return a string representation of this collectible that can be parsed by CollectibleFactory</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="Collectible.html#getSpecification()">getSpecification</a></code>&nbsp;in interface&nbsp;<code><a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></code></dd>
+<dt>Returns:</dt>
+<dd>the string representation of this collectible.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="pickup(com.csse3200.game.components.player.inventory.Inventory)">
 <h3>pickup</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">pickup</span><wbr><span class="parameters">(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory)</span></div>
@@ -224,15 +242,16 @@ implements <a href="Collectible.html" title="interface in com.csse3200.game.comp
 </section>
 </li>
 <li>
-<section class="detail" id="getSpecification()">
-<h3>getSpecification</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getSpecification</span>()</div>
-<div class="block">Return a string representation of this collectible that can be parsed by CollectibleFactory</div>
+<section class="detail" id="drop(com.csse3200.game.components.player.inventory.Inventory)">
+<h3>drop</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">drop</span><wbr><span class="parameters">(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="Collectible.html#drop(com.csse3200.game.components.player.inventory.Inventory)">Collectible</a></code></span></div>
+<div class="block">Remove this collectible from the entity</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Collectible.html#getSpecification()">getSpecification</a></code>&nbsp;in interface&nbsp;<code><a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></code></dd>
-<dt>Returns:</dt>
-<dd>the string representation of this collectible.</dd>
+<dd><code><a href="Collectible.html#drop(com.csse3200.game.components.player.inventory.Inventory)">drop</a></code>&nbsp;in interface&nbsp;<code><a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>inventory</code> - The inventory to be dropped out of.</dd>
 </dl>
 </section>
 </li>

@@ -16,6 +16,10 @@ com.csse3200.game.components.npc.attack
 com.csse3200.game.components.npc.attack.attackeffects
 com.csse3200.game.components.player
 com.csse3200.game.components.player.inventory
+com.csse3200.game.components.player.inventory.buffs
+com.csse3200.game.components.player.inventory.pets
+com.csse3200.game.components.player.inventory.usables
+com.csse3200.game.components.player.inventory.weapons
 com.csse3200.game.components.projectile
 com.csse3200.game.components.screendisplay
 com.csse3200.game.components.settingsmenu

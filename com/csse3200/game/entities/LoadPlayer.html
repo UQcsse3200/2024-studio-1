@@ -128,37 +128,10 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Adds texture atlas and default texture settings to the player entity.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addComponents(com.csse3200.game.entities.Entity,com.csse3200.game.entities.configs.PlayerConfig,boolean)" class="member-name-link">addComponents</a><wbr>(<a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
- <a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- boolean&nbsp;shouldLoad)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createPlayer(com.csse3200.game.entities.configs.PlayerConfig)" class="member-name-link">createPlayer</a><wbr>(<a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Adds various components to the player entity based on the configuration.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addWeaponsAndItems(com.csse3200.game.entities.Entity,com.csse3200.game.entities.configs.PlayerConfig,boolean)" class="member-name-link">addWeaponsAndItems</a><wbr>(<a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
- <a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- boolean&nbsp;shouldLoad)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Adds weapons and items to the player entity</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createMelee(com.csse3200.game.entities.configs.PlayerConfig,com.csse3200.game.entities.Entity)" class="member-name-link">createMelee</a><wbr>(<a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- <a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates and adds a melee weapon to the player entity.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createPlayer(com.csse3200.game.entities.configs.PlayerConfig,boolean)" class="member-name-link">createPlayer</a><wbr>(<a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- boolean&nbsp;shouldLoad)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Create a player entity based on provided config file</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createRanged(com.csse3200.game.entities.configs.PlayerConfig,com.csse3200.game.entities.Entity)" class="member-name-link">createRanged</a><wbr>(<a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- <a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates and adds a ranged weapon to the player entity</div>
 </div>
 </div>
 </div>
@@ -193,10 +166,9 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="createPlayer(com.csse3200.game.entities.configs.PlayerConfig,boolean)">
+<section class="detail" id="createPlayer(com.csse3200.game.entities.configs.PlayerConfig)">
 <h3>createPlayer</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createPlayer</span><wbr><span class="parameters">(<a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- boolean&nbsp;shouldLoad)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createPlayer</span><wbr><span class="parameters">(<a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config)</span></div>
 <div class="block">Create a player entity based on provided config file</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -216,60 +188,6 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>player</code> - the player entity to which the atlas will be added.</dd>
 <dd><code>config</code> - the config file that contain the texture atlas filename.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="addComponents(com.csse3200.game.entities.Entity,com.csse3200.game.entities.configs.PlayerConfig,boolean)">
-<h3>addComponents</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addComponents</span><wbr><span class="parameters">(<a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
- <a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- boolean&nbsp;shouldLoad)</span></div>
-<div class="block">Adds various components to the player entity based on the configuration.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>player</code> - the player entity to which components will be added.</dd>
-<dd><code>config</code> - the configuration object containing player settings.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createMelee(com.csse3200.game.entities.configs.PlayerConfig,com.csse3200.game.entities.Entity)">
-<h3>createMelee</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">createMelee</span><wbr><span class="parameters">(<a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- <a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player)</span></div>
-<div class="block">Creates and adds a melee weapon to the player entity.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>config</code> - file containing melee weapon details.</dd>
-<dd><code>player</code> - the player entity to which the melee weapon will be added.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createRanged(com.csse3200.game.entities.configs.PlayerConfig,com.csse3200.game.entities.Entity)">
-<h3>createRanged</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">createRanged</span><wbr><span class="parameters">(<a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- <a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player)</span></div>
-<div class="block">Creates and adds a ranged weapon to the player entity</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>config</code> - file containing ranged weapon details.</dd>
-<dd><code>player</code> - the player entity to which the ranged weapon will be added.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="addWeaponsAndItems(com.csse3200.game.entities.Entity,com.csse3200.game.entities.configs.PlayerConfig,boolean)">
-<h3>addWeaponsAndItems</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addWeaponsAndItems</span><wbr><span class="parameters">(<a href="Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
- <a href="configs/PlayerConfig.html" title="class in com.csse3200.game.entities.configs">PlayerConfig</a>&nbsp;config,
- boolean&nbsp;shouldLoad)</span></div>
-<div class="block">Adds weapons and items to the player entity</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>player</code> - the player entity to which weapons and items will be added.</dd>
-<dd><code>config</code> - the configuration object containing weapon and item details.</dd>
 </dl>
 </section>
 </li>

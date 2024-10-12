@@ -94,7 +94,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="Bandage.html" title="class in com.csse3200.game.components.player.inventory">Bandage</a></code>, <code><a href="BearTrap.html" title="class in com.csse3200.game.components.player.inventory">BearTrap</a></code>, <code><a href="BigRedButton.html" title="class in com.csse3200.game.components.player.inventory">BigRedButton</a></code>, <code><a href="MedKit.html" title="class in com.csse3200.game.components.player.inventory">MedKit</a></code>, <code><a href="Reroll.html" title="class in com.csse3200.game.components.player.inventory">Reroll</a></code>, <code><a href="RingFire.html" title="class in com.csse3200.game.components.player.inventory">RingFire</a></code>, <code><a href="ShieldPotion.html" title="class in com.csse3200.game.components.player.inventory">ShieldPotion</a></code>, <code><a href="TargetDummy.html" title="class in com.csse3200.game.components.player.inventory">TargetDummy</a></code>, <code><a href="TeleporterItem.html" title="class in com.csse3200.game.components.player.inventory">TeleporterItem</a></code></dd>
+<dd><code><a href="usables/Bandage.html" title="class in com.csse3200.game.components.player.inventory.usables">Bandage</a></code>, <code><a href="usables/BearTrap.html" title="class in com.csse3200.game.components.player.inventory.usables">BearTrap</a></code>, <code><a href="usables/BigRedButton.html" title="class in com.csse3200.game.components.player.inventory.usables">BigRedButton</a></code>, <code><a href="usables/MedKit.html" title="class in com.csse3200.game.components.player.inventory.usables">MedKit</a></code>, <code><a href="usables/Reroll.html" title="class in com.csse3200.game.components.player.inventory.usables">Reroll</a></code>, <code><a href="usables/ShieldPotion.html" title="class in com.csse3200.game.components.player.inventory.usables">ShieldPotion</a></code>, <code><a href="usables/TargetDummy.html" title="class in com.csse3200.game.components.player.inventory.usables">TargetDummy</a></code>, <code><a href="usables/TeleporterItem.html" title="class in com.csse3200.game.components.player.inventory.usables">TeleporterItem</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">UsableItem</span>
@@ -216,6 +216,20 @@ implements <a href="Collectible.html" title="interface in com.csse3200.game.comp
 </section>
 </li>
 <li>
+<section class="detail" id="getSpecification()">
+<h3>getSpecification</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getSpecification</span>()</div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="Collectible.html#getSpecification()">Collectible</a></code></span></div>
+<div class="block">Return a string representation of this collectible that can be parsed by CollectibleFactory</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="Collectible.html#getSpecification()">getSpecification</a></code>&nbsp;in interface&nbsp;<code><a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></code></dd>
+<dt>Returns:</dt>
+<dd>the string representation of this collectible.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="pickup(com.csse3200.game.components.player.inventory.Inventory)">
 <h3>pickup</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">pickup</span><wbr><span class="parameters">(<a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a>&nbsp;inventory)</span></div>
@@ -240,20 +254,6 @@ implements <a href="Collectible.html" title="interface in com.csse3200.game.comp
 <dd><code><a href="Collectible.html#drop(com.csse3200.game.components.player.inventory.Inventory)">drop</a></code>&nbsp;in interface&nbsp;<code><a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>inventory</code> - The inventory to be dropped out of.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getSpecification()">
-<h3>getSpecification</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getSpecification</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="Collectible.html#getSpecification()">Collectible</a></code></span></div>
-<div class="block">Return a string representation of this collectible that can be parsed by CollectibleFactory</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="Collectible.html#getSpecification()">getSpecification</a></code>&nbsp;in interface&nbsp;<code><a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a></code></dd>
-<dt>Returns:</dt>
-<dd>the string representation of this collectible.</dd>
 </dl>
 </section>
 </li>

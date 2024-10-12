@@ -140,17 +140,34 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Remove an item to your inventory.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getInventory()" class="member-name-link">getInventory</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.utils.Array<wbr>&lt;<a href="BuffItem.html" title="class in com.csse3200.game.components.player.inventory">BuffItem</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBuffs()" class="member-name-link">getBuffs</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get the underlying inventory model.</div>
+<div class="block">Get a list of buffs this player has.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRangedWeaponCount()" class="member-name-link">getRangedWeaponCount</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pickup(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">pickup</a><wbr>(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.utils.Array<wbr>&lt;<a href="UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItems()" class="member-name-link">getItems</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get a list of Usable Items this player has.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="MainHandItem.html" title="class in com.csse3200.game.components.player.inventory">MainHandItem</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMainWeapon()" class="member-name-link">getMainWeapon</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get this player's main weapon.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="OffHandItem.html" title="class in com.csse3200.game.components.player.inventory">OffHandItem</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getOffhand()" class="member-name-link">getOffhand</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get this player's offhand weapon.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.utils.Array<wbr>&lt;<a href="Pet.html" title="class in com.csse3200.game.components.player.inventory">Pet</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPets()" class="member-name-link">getPets</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get a list of Pets this player has.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pickup(com.csse3200.game.components.player.inventory.Collectible)" class="member-name-link">pickup</a><wbr>(<a href="Collectible.html" title="interface in com.csse3200.game.components.player.inventory">Collectible</a>&nbsp;item)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Add an item to your inventory.</div>
 </div>
 </div>
@@ -211,20 +228,58 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getInventory()">
-<h3>getInventory</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Inventory.html" title="class in com.csse3200.game.components.player.inventory">Inventory</a></span>&nbsp;<span class="element-name">getInventory</span>()</div>
-<div class="block">Get the underlying inventory model.</div>
+<section class="detail" id="getPets()">
+<h3>getPets</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.utils.Array&lt;<a href="Pet.html" title="class in com.csse3200.game.components.player.inventory">Pet</a>&gt;</span>&nbsp;<span class="element-name">getPets</span>()</div>
+<div class="block">Get a list of Pets this player has.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the inventory</dd>
+<dd>the pets.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="getRangedWeaponCount()">
-<h3>getRangedWeaponCount</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getRangedWeaponCount</span>()</div>
+<section class="detail" id="getItems()">
+<h3>getItems</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.utils.Array&lt;<a href="UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a>&gt;</span>&nbsp;<span class="element-name">getItems</span>()</div>
+<div class="block">Get a list of Usable Items this player has.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the items.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getBuffs()">
+<h3>getBuffs</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.utils.Array&lt;<a href="BuffItem.html" title="class in com.csse3200.game.components.player.inventory">BuffItem</a>&gt;</span>&nbsp;<span class="element-name">getBuffs</span>()</div>
+<div class="block">Get a list of buffs this player has.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the buffs.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getOffhand()">
+<h3>getOffhand</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="OffHandItem.html" title="class in com.csse3200.game.components.player.inventory">OffHandItem</a>&gt;</span>&nbsp;<span class="element-name">getOffhand</span>()</div>
+<div class="block">Get this player's offhand weapon.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the offhand weapon, if it exists</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getMainWeapon()">
+<h3>getMainWeapon</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="MainHandItem.html" title="class in com.csse3200.game.components.player.inventory">MainHandItem</a>&gt;</span>&nbsp;<span class="element-name">getMainWeapon</span>()</div>
+<div class="block">Get this player's main weapon.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the main weapon, if it exists</dd>
+</dl>
 </section>
 </li>
 </ul>

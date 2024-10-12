@@ -103,6 +103,9 @@ public class NPCFactory extends LoadedFactory {
         npc.setScale(1f,1f);
     }
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+    if(config.variableDensity){
+        npc.getComponent(ColliderComponent.class).setDensity(config.density);
+    }
 
     return npc;
   }

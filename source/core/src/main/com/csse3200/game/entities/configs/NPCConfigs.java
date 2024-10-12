@@ -36,6 +36,8 @@ public class NPCConfigs {
     public boolean isDirectional;
     public boolean isScaled = false;
     public Vector2 scale;
+    public boolean variableDensity = false;
+    public float density;
     public TaskConfig tasks = new TaskConfig();
     public AttackConfig attacks = new AttackConfig();
     public AnimationData[] animations = new AnimationData[0];

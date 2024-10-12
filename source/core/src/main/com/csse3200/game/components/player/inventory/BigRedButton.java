@@ -15,7 +15,7 @@ public class BigRedButton extends UsableItem {
 
     @Override
     public String getItemSpecification() {
-        return "BigRedButton";
+        return "bigredbutton";
     }
 
     /**

@@ -20,7 +20,6 @@ import java.util.*;
  */
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
-    private int mapSize;
     private static final Logger log = LoggerFactory.getLogger(MainGameLevelFactory.class);
     private int levelNum;
     private final Map<String, Room> rooms;
@@ -47,11 +46,10 @@ public class MainGameLevelFactory implements LevelFactory {
         // default seed for junit tests
         if (!shouldLoad) {
             map = new LevelMap(seed + levelNumber, DEFAULT_MAP_SIZE);
-            mapSize = DEFAULT_MAP_SIZE;
+
         } else {
             // For loaded games, append the level number to the loaded seed
             map = new LevelMap(config.seed + config.currentLevel, config.mapSize);
-            mapSize = config.mapSize;
         }
 
         RoomFactory roomFactory = new RoomFactory(
@@ -114,6 +112,7 @@ public class MainGameLevelFactory implements LevelFactory {
         config.currentLevel = level; 
         config.currentRoom = ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().getRoomName();
         config.mapSize = mapSize;
+
         for (Room room : rooms.values()) {
             if (room.getIsRoomComplete()){
                 if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
@@ -123,7 +122,7 @@ public class MainGameLevelFactory implements LevelFactory {
             }
         }
         config.roomsCompleted = compRooms;
-        config.mapSize = mapSize;
+        config.mapSize = map.getMapSize();
         FileLoader.writeClass(config, filePath, FileLoader.Location.EXTERNAL);
     }
 

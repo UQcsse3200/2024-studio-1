@@ -38,10 +38,9 @@ public class MainMenuActions extends Component {
      * Set the game's difficulty to the selected difficulty and go to the player select screen.
      * @param difficulty the difficulty chosen by the player.
      */
-    private void onPlayerSelect(Difficulty difficulty, boolean shouldLoad) {
+    private void onPlayerSelect(Difficulty difficulty) {
         logger.info("Going to player selection");
         game.gameOptions.difficulty = difficulty;
-        game.gameOptions.shouldLoad = shouldLoad;
         game.setScreen(ScreenType.PLAYER_SELECT);
     }
 

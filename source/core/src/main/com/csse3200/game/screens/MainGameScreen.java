@@ -61,7 +61,7 @@ public class MainGameScreen extends GameScreen{
          * If Player choose Load, then create
          */
         this.playerFactory = new PlayerFactory(Arrays.stream(PLAYERS).toList());
-        Entity player = loadPlayer(shouldLoad, gameOptions, chosenPlayer, gameOptions.difficulty);
+        Entity player = loadPlayer(shouldLoad, gameOptions, chosenPlayer);
 
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
@@ -79,18 +79,7 @@ public class MainGameScreen extends GameScreen{
         }
     }
 
-    /**
-     * Loads map data from the save file and extracts the completed rooms into a list which
-     * is later set to completed in the create method above
-     * @param filePath: Path for the save file
-     */
-    public MapLoadConfig loadFromJson(String filePath) {
-        MapLoadConfig mapLoadConfig = new MapLoadConfig();
-        mapLoadConfig  = FileLoader.readClass(MapLoadConfig.class, filePath, FileLoader.Location.EXTERNAL);
-        return mapLoadConfig;
-    }
-
-    private Entity loadPlayer(boolean shouldLoad, GameOptions gameOptions, String chosenPlayer, Difficulty difficulty) {
+    private Entity loadPlayer(boolean shouldLoad, GameOptions gameOptions, String chosenPlayer) {
         Entity player;
         if (shouldLoad) {
             PlayerConfig config = FileLoader.readClass(

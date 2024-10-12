@@ -2,6 +2,9 @@ package com.csse3200.game.entities;
 
 import com.csse3200.game.areas.GameArea;
 
+import com.badlogic.gdx.math.GridPoint2;
+
+
 /**
  * A room of the main game,
  * Rooms are individual screens of the game that have their own entities.
@@ -27,6 +30,7 @@ public interface Room {
     public void setIsRoomComplete();
 
     public void checkIfRoomComplete();
+
 }
 
 

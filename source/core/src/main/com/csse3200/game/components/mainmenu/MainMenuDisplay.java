@@ -57,7 +57,7 @@ public class MainMenuDisplay extends UIComponent {
         PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class,
                 "saves/player_save.json", FileLoader.Location.EXTERNAL);
 
-        logger.info("{}\n{}\n{}", playerConfig, mapLoadConfig);
+        logger.info("{}\n{} are read", playerConfig, mapLoadConfig);
         return  mapLoadConfig != null && playerConfig != null;
     }
 
@@ -99,7 +99,7 @@ public class MainMenuDisplay extends UIComponent {
                     public void changed(ChangeEvent event, Actor actor) {
                         logger.debug("{} difficulty button clicked", difficulty.toString());
                         entity.getEvents().trigger(
-                                "player_select", difficulty, canLoad);
+                                "player_select", difficulty);
                     }
                 }
         ));
@@ -157,22 +157,16 @@ public class MainMenuDisplay extends UIComponent {
         }
         table.add(diffBtnsTable);
         table.row();
+
         if(canLoad) {
-            for (TextButton button : new TextButton[]{ loadButton,
-                    howToPlayBtn, achievementsBtn, settingsBtn, exitBtn}) {
-                table.add(button);
-                table.row();
-            }
+            table.add(loadButton);
+            table.row();
         }
-        else{
-            for (TextButton button : new TextButton[]{
-                    howToPlayBtn, achievementsBtn, settingsBtn, exitBtn}) {
-                table.add(button);
-                table.row();
-            }
-
+        for (TextButton button : new TextButton[]{
+                howToPlayBtn, achievementsBtn, settingsBtn, exitBtn}) {
+            table.add(button);
+            table.row();
         }
-
         stage.addActor(bg_logo);
         stage.addActor(table);
     }

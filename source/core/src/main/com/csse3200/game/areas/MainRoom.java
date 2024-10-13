@@ -24,21 +24,23 @@ public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-//                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
-                List.of("item:targetdummy", "buff:tombstone"),
-                List.of("melee:knife", "ranged:fnscar"),
+                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
+                List.of("item:targetdummy", "pet:tombstone"),
+                List.of("melee:Knife", "ranged:Shotgun"),
                 List.of("item:beartrap", "buff:feather"),
-                List.of("melee:axe", "ranged:shotgun"),
-                List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff" +
-                        ":energydrink:High"),
-                List.of("item:shieldpotion", "ranged:shotgun", "melee:knife", "item:medkit",
-                        "buff:energydrink:Medium"),
-                List.of("melee:knife", "item:bandage", "ranged:shotgun", "item:shieldpotion",
-                        "item:medkit"),
-                List.of("buff:energydrink:Medium", "item:shieldpotion", "ranged:shotgun", "melee" +
-                        ":knife", "item:bandage"),
-                List.of("item:medkit", "melee:knife", "buff:energydrink:High", "ranged:shotgun",
-                        "item:shieldpotion")
+                List.of("melee:Axe", "ranged:Shotgun"),
+                List.of("ranged:Shotgun", "item:medkit"),
+                List.of("item:shieldpotion", "ranged:Shotgun"),
+                List.of("melee:Knife", "item:bandage"),
+                List.of("buff:energydrink:Medium", "item:shieldpotion"),
+                List.of("item:medkit", "melee:Knife"),
+                List.of("melee:Knife", "item:bandage"),
+                List.of("melee:Knife", "item:medkit"),
+                List.of("ranged:Shotgun", "item:shieldpotion"),
+                List.of("ranged:Shotgun", "melee:Knife"),
+                List.of("buff:energydrink:High", "ranged:Shotgun"),
+                List.of("buff:energydrink:High", "buff:energydrink:Medium"),
+                List.of("item:medkit", "item:bandage")
         );
     }
 

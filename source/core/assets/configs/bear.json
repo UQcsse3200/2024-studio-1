@@ -1,6 +1,6 @@
 {
   "name": "bear",
-  "health": 100,
+  "maxHealth": 100,
   "coins": 0,
   "speed": {
     "x": 3,
@@ -8,6 +8,6 @@
   },
   "textureFilename": "images/npc/bear/bear.png",
   "textureAtlasFilename": "images/npc/bear/bear.atlas",
-  "melee": "melee:axe",
-  "ranged": "ranged:shotgun"
+  "melee": "melee:knife",
+  "ranged": "ranged:pistol"
 }

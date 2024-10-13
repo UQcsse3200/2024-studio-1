@@ -21,21 +21,25 @@ public abstract class StaticScreen extends ScreenAdapter {
     protected final String[] textures;
     protected final GdxGame game;
     private final Renderer renderer;
+    private final String music;
     protected Entity ui;
 
     /**
-     * Create a new static screen.
+     * Create a new static screen with music.
      *
      * @param game     the game that this screen is associated with.
      * @param textures array of textures to load.
      * @param logger   the logger for this class.
      * @param bgColour screen background colour.
+     * @param music    music path.
+     * @param loop     whether to loop the music.
      */
     public StaticScreen(GdxGame game, String[] textures, Logger logger,
-                        GdxGame.ScreenColour bgColour) {
+                        GdxGame.ScreenColour bgColour, String music, boolean loop) {
         this.game = game;
         this.textures = textures;
         this.logger = logger;
+        this.music = music;
 
         game.setScreenColour(bgColour);
 
@@ -49,6 +53,29 @@ public abstract class StaticScreen extends ScreenAdapter {
 
         loadAssets();
         createUI();
+        loadAndStartMusic(loop);
+    }
+
+    /**
+     * Create a new static screen with no music.
+     *
+     * @param game     the game that this screen is associated with.
+     * @param textures array of textures to load.
+     * @param logger   the logger for this class.
+     * @param bgColour screen background colour.
+     */
+    public StaticScreen(GdxGame game, String[] textures, Logger logger,
+                        GdxGame.ScreenColour bgColour) {
+        this(game, textures, logger, bgColour, null, false);
+    }
+
+    private void loadAndStartMusic(boolean loop) {
+        if (music != null) {
+            ResourceService resourceService = ServiceLocator.getResourceService();
+            resourceService.loadMusic(new String[]{music});
+            resourceService.loadAll();
+            resourceService.playMusic(music, loop);
+        }
     }
 
     @Override
@@ -79,6 +106,9 @@ public abstract class StaticScreen extends ScreenAdapter {
 
         renderer.dispose();
         unloadAssets();
+        if (music != null) {
+            ServiceLocator.getResourceService().stopCurrentMusic();
+        }
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getEntityService().dispose();
 
@@ -96,6 +126,9 @@ public abstract class StaticScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(textures);
+        if (music != null) {
+            resourceService.unloadAssets(new String[]{music});
+        }
     }
 
     /**

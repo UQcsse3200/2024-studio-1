@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.PlayerConfigComponent;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
+import com.csse3200.game.components.player.inventory.weapons.*;
 import com.csse3200.game.entities.Entity;
 
 import java.util.logging.Logger;
@@ -71,19 +71,19 @@ public class PositionTracker extends Component {
         // Specify the offset for each character model
         switch (player.getComponent(PlayerConfigComponent.class).getPlayerConfig().name) {
             case "Player 2":
-                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.5f, 0.5f);
+                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.2f, 0.5f);
                 break;
-            case "Player 3":
-                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.5f, 0.5f);
+            case "player 3":
+                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.15f, 0.45f);
                 break;
-            case "Player 4":
-                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.5f, 0.5f);
+            case "player 4":
+                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.2f, 0.5f);
                 break;
             case "bear":
-                offset = isMelee ? new Vector2(- 0.2f, - 0.2f) : new Vector2(0.7f, 1);
+                offset = isMelee ? new Vector2(- 0.2f, - 0.2f) : new Vector2(0.2f, 0.35f);
                 break;
             default:
-                offset = isMelee ? new Vector2(-0.5f, -0.5f) : new Vector2(0f, 0f);
+                offset = isMelee ? new Vector2(-0.5f, -0.5f) : new Vector2(0.2f, 0f);
         }
     }
 

@@ -4,15 +4,14 @@ import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.usables.BigRedButton;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 
@@ -41,7 +40,7 @@ public class BigRedButtonTest {
     public void testGetName() {assertEquals("BigRedButton", brb.getName());}
 
     @Test
-    public void testGetItemSpecification() {assertEquals("BigRedButton", brb.getItemSpecification());}
+    public void testGetItemSpecification() {assertEquals("bigredbutton", brb.getItemSpecification());}
 
 //    @Test
 //    public void testKillAllAnimals() {

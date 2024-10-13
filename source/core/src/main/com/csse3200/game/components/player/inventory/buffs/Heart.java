@@ -7,8 +7,8 @@ import com.csse3200.game.entities.Entity;
 
 public class Heart extends BuffItem {
 
-    private static final int MAX_HEALTH_LIMIT = 50;
-    private static final int MAX_HEALTH_INCREASE = 150;
+    private static final int MAX_HEALTH_INCREASE= 50;
+    private static final int MAX_HEALTH_LIMIT = 150;
 
     /**
      * Provides buff specification for the item

@@ -11,35 +11,35 @@ public class WeaponConfig {
     private static final Logger logger = LoggerFactory.getLogger(WeaponConfig.class);
 
     // Store weapon data in a map
-    private static final Map<String, WeaponData> weaponConfigs = new HashMap<>();
+    public static final Map<String, WeaponData> WEAPON_CONFIGS = new HashMap<>();
 
     static {
         // Load weapon data (can be from JSON or hardcoded for now)
-        weaponConfigs.put("Shotgun", new WeaponData("Shotgun", 10, 10,
+        WEAPON_CONFIGS.put("Shotgun", new WeaponData("Shotgun", 10, 10,
                 5, 20, 20, 3, "images" +
                 "/Weapons/Centered/Shotgun.png"));
-        weaponConfigs.put("Plasmablaster", new WeaponData("plasmaBlaster", 10,
+        WEAPON_CONFIGS.put("Plasmablaster", new WeaponData("plasmaBlaster", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/PlasmaBlaster.png"));
-        weaponConfigs.put("Supersoaker", new WeaponData("superSoaker", 10,
+        WEAPON_CONFIGS.put("Supersoaker", new WeaponData("superSoaker", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/SuperSoaker.png"));
-        weaponConfigs.put("Fnscar", new WeaponData("fnScar", 10,
+        WEAPON_CONFIGS.put("Fnscar", new WeaponData("fnScar", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/FnScar.png"));
 
-        weaponConfigs.put("Knife", new WeaponData("Knife", 30,
+        WEAPON_CONFIGS.put("Knife", new WeaponData("Knife", 30,
                 4, 0, "images/Weapons/Centered" +
                 "/Knife" +
                 ".png"));
-        weaponConfigs.put("Axe", new WeaponData("Axe", 50,
+        WEAPON_CONFIGS.put("Axe", new WeaponData("Axe", 50,
                 10, 1, "images/Weapons/Centered/Axe.png"));
 
     }
 
     // Method to fetch weapon data by specification
     public static WeaponData getWeaponData(String specification) {
-        return weaponConfigs.get(specification);
+        return WEAPON_CONFIGS.get(specification);
     }
 
     // Define the WeaponData class

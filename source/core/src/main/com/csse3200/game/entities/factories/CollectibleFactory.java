@@ -12,6 +12,9 @@ import com.csse3200.game.rendering.TextureRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A factory that creates a collectible from a specification.
  */
@@ -43,6 +46,20 @@ public class CollectibleFactory extends LoadedFactory {
             case "item", "buff", "pet" -> itemFactory.create(split[1]);
             default -> throw new IllegalStateException("Unexpected value: " + split[0]);
         };
+    }
+
+    /**
+     * Generate a list of all valid specifications this factory can generate.
+     *
+     * @return the specifications as a List.
+     */
+    public List<String> getAllSpecs() {
+        List<String> specs = new ArrayList<>();
+
+        specs.addAll(itemFactory.getAllSpecs());
+        specs.addAll(weaponFactory.getAllSpecs());
+
+        return specs;
     }
 
     /**

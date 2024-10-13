@@ -137,6 +137,13 @@ public abstract class EnemyRoom extends BaseRoom {
         }
     }
 
+    @Override
+    protected Entity spawnItem(GameArea area, String specification, GridPoint2 pos) {
+        Entity item = super.spawnItem(area, specification, pos);
+        item.getEvents().addListener("itemChose", () -> deleteRemainingItems(item));
+        return item;
+    }
+
     /**
      * Checks if all animals/enemies in the room are dead.
      *

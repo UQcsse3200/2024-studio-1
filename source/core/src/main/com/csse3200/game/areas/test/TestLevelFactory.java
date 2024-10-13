@@ -16,7 +16,7 @@ public class TestLevelFactory implements LevelFactory {
         return new Level(
                 new LevelMap(new TestMapGenerator()),
                 0,
-                Map.of("0_0", new TestRoom())
+                Map.of("0_0", new ArmouryRoom())
         );
     }
 

@@ -24,6 +24,9 @@ import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * A factory that creates weapons.
  */
@@ -92,6 +95,7 @@ public class WeaponFactory extends LoadedFactory {
 
     /**
      * Create weapon entity for player to use. Should only be invoke from WeaponComponent
+     *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      * @throws IllegalArgumentException with invalid input collectible
@@ -104,8 +108,7 @@ public class WeaponFactory extends LoadedFactory {
                 return createRangeEntity((RangedWeapon) collectible);
             }
             throw new IllegalArgumentException();
-        }
-        catch (IllegalArgumentException | NullPointerException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             logger.error("Failed to create weapon entity:{}", e.toString());
             throw new IllegalArgumentException("Invalid collectible");
         }
@@ -114,6 +117,7 @@ public class WeaponFactory extends LoadedFactory {
     /**
      * Create melee for the player to use. This weapon entity will not have the collectible
      * component
+     *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      * @throws IllegalArgumentException with invalid input collectible
@@ -146,6 +150,7 @@ public class WeaponFactory extends LoadedFactory {
     /**
      * Create range weapon for the player to use. This weapon entity will not have the collectible
      * component
+     *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      * @throws IllegalArgumentException with invalid input collectible
@@ -191,8 +196,7 @@ public class WeaponFactory extends LoadedFactory {
         } else if (weapon.getType() == Collectible.Type.OFF_HAND) {
             // Only for swords
             animator.addAnimation("item", 0.05f, Animation.PlayMode.NORMAL);
-        }
-        else {
+        } else {
             logger.warn("Invalid collectible passed");
         }
         return animator;
@@ -234,7 +238,7 @@ public class WeaponFactory extends LoadedFactory {
      * @return the filepath needed.
      */
     @Override
-    protected String[] getTextureAtlasFilepaths(){
+    protected String[] getTextureAtlasFilepaths() {
         return new String[]{
                 "images/Weapons/Knife.atlas",
                 "images/Weapons/Axe.atlas",
@@ -243,5 +247,12 @@ public class WeaponFactory extends LoadedFactory {
                 "images/Weapons/SuperSoaker.atlas",
                 "images/Weapons/PlasmaBlaster.atlas"
         };
+    }
+
+    public Collection<String> getAllSpecs() {
+        return List.of(
+                "ranged:Shotgun",
+                "melee:Knife"
+        );
     }
 }

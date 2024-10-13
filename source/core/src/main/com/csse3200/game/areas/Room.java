@@ -1,8 +1,7 @@
-package com.csse3200.game.entities;
-
-import com.csse3200.game.areas.GameArea;
+package com.csse3200.game.areas;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.entities.Entity;
 
 
 

@@ -2,10 +2,10 @@ package com.csse3200.game.areas.Rooms;
 
 import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.MainRoom;
+import com.csse3200.game.areas.Room;
 import com.csse3200.game.areas.ShopRoom;
 import com.csse3200.game.areas.GambleRoom;
 import com.csse3200.game.areas.terrain.TerrainFactory;
-import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;

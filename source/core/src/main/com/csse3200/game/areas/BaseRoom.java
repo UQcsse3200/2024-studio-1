@@ -11,7 +11,6 @@ import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.GridPoint2Utils;

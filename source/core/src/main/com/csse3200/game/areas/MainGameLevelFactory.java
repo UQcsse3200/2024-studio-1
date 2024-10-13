@@ -2,7 +2,6 @@ package com.csse3200.game.areas;
 
 import com.csse3200.game.areas.generation.MapGenerator;
 import com.csse3200.game.areas.terrain.TerrainFactory;
-import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;

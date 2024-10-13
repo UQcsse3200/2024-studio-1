@@ -4,7 +4,6 @@ import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.Room;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 

@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.MainRoom;
+import com.csse3200.game.areas.Room;
 import com.csse3200.game.areas.ShopRoom;
 import com.csse3200.game.areas.GambleRoom;
 
 import com.csse3200.game.areas.terrain.TerrainFactory;
-import com.csse3200.game.entities.Room;
 
 /**
  * Factory to create room entities.

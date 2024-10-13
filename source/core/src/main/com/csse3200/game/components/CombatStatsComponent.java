@@ -51,6 +51,7 @@ public class CombatStatsComponent extends Component {
         this.critAbility = canCrit;
         this.critChance = critChance;
         setHealth(health);
+        setMaxHealth(maxHealth);
         setBaseAttack(baseAttack);
         setInvincible(false);
         this.timerIFrames = new Timer();

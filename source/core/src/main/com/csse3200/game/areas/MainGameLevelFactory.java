@@ -36,6 +36,11 @@ public class MainGameLevelFactory implements LevelFactory {
         else this.loadedRooms = config.roomsCompleted;
     }
 
+    /**
+     * List of all the items the game contains as buuyables. Will be used to randomly pick 6 items that will
+     * be spawned in the shop room.
+     * @return List of items specifications.
+     */
     protected List<String> getShopRoomItems() {
         return List.of("buff:heart:buyable","item:medkit:buyable", "item:shieldpotion:buyable",
                         "item:bandage:buyable", "buff:energydrink:Low:buyable", "buff:energydrink:Low:buyable",
@@ -45,6 +50,10 @@ public class MainGameLevelFactory implements LevelFactory {
         );
     }
 
+    /**
+     * Takes the list of all buyable items and makes a random list of 6 items to be spawned on the shop floor
+     * @return List of 6 items.
+     */
     private List<String> createShopItemsList() {
         List<String> items = getShopRoomItems();
         List<String> itemsToSpawn = new ArrayList<>();
@@ -90,7 +99,9 @@ public class MainGameLevelFactory implements LevelFactory {
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.NPCROOM:
-
+                    //If the game is loaded the items to be spawned is loaded from the config
+                    //if not uses the createShopItems method to create a random list which is then loaded into the shop
+                    // room to be spawned.
                     List<String> itemsToBeSpawned = new ArrayList<>();
                     if (shouldLoad) {
                         itemsToBeSpawned = config.shopRoomItems;

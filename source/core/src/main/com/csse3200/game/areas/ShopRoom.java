@@ -73,6 +73,10 @@ public class ShopRoom extends BaseRoom {
         }
     }
 
+    /**
+     * Removes items that have been bought from the shop room items list to be saved later.
+     * @param item: item to be removed from the list of shop items to be de-spawned.
+     */
     public void removeItemFromList(String item) {
         itemsSpawned.remove(item);
     }

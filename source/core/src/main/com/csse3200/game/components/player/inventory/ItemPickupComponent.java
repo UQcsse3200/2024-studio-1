@@ -163,6 +163,7 @@ public class ItemPickupComponent extends Component {
             if (playerFunds >= cost) {
                 coinsComponent.spend(cost);
                 entity.getComponent(InventoryComponent.class).pickup(item);
+                //Removes the items that were bought from shopRoom floor forever.
                 if(ServiceLocator.getGameAreaService().getGameArea() != null) {
                     ShopRoom room = (ShopRoom) ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom();
                     room.removeItemFromList(item.getSpecification() + ":buyable");

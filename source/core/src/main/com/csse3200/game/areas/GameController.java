@@ -110,17 +110,6 @@ public class GameController {
     }
 
     /**
-     * Initialise this Game Area to use the provided levelFactory without loading a saved state.
-     *
-     * @param levelFactory the provided levelFactory.
-     * @param shouldLoad   if the game should be loaded.
-     * @param player       the main player entity.
-     */
-    public GameController(GameArea gameArea, LevelFactory levelFactory, Entity player, Boolean shouldLoad) {
-        this(gameArea, levelFactory, player, false, new MapLoadConfig());
-    }
-
-    /**
      * Create the game area, including terrain, static entities (trees), and dynamic entities (player).
      */
     public void create() {

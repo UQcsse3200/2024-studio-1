@@ -1,30 +1,31 @@
 package com.csse3200.game.areas.Levels;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.csse3200.game.areas.Level;
 import com.csse3200.game.areas.LevelFactory;
 import com.csse3200.game.areas.MainGameLevelFactory;
 import com.csse3200.game.components.CameraComponent;
-import com.csse3200.game.files.FileLoader;
+import com.csse3200.game.entities.configs.MapLoadConfig;
+import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.options.GameOptions.Difficulty;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
-import java.util.*;
-
+@ExtendWith(GameExtension.class)
 class MainGameLevelFactoryTest {
 
     private LevelFactory levelFactory;
@@ -47,7 +48,7 @@ class MainGameLevelFactoryTest {
         // Set up ResourceService (or mock it if necessary)
         ServiceLocator.registerResourceService(new ResourceService());
 
-        levelFactory = new MainGameLevelFactory(false, null);
+        levelFactory = new MainGameLevelFactory(false, new MapLoadConfig());
     }
 
     @AfterEach
@@ -114,4 +115,21 @@ void testCreateMultipleLevels() {
     assertTrue(level1Rooms.size() > 1, "Level 1 should have multiple rooms");
     assertTrue(level2Rooms.size() > 1, "Level 2 should have multiple rooms");
     assertTrue(level3Rooms.size() > 1, "Level 3 should have multiple rooms");
-}}
+}
+
+    @Test
+    void harderDifficultyGivesBiggerLevel() {
+        LevelFactory easyFactory = new MainGameLevelFactory(
+                false, new MapLoadConfig().setSizeFromDifficulty(Difficulty.EASY));
+        LevelFactory mediumFactory = new MainGameLevelFactory(
+                false, new MapLoadConfig().setSizeFromDifficulty(Difficulty.MEDIUM));
+        LevelFactory hardFactory = new MainGameLevelFactory(
+                false, new MapLoadConfig().setSizeFromDifficulty(Difficulty.HARD));
+        assertTrue(easyFactory.create(0).getMap().getMapSize()
+                < mediumFactory.create(0).getMap().getMapSize(),
+                "Easy level should be smaller than medium");
+        assertTrue(mediumFactory.create(0).getMap().getMapSize()
+                        < hardFactory.create(0).getMap().getMapSize(),
+                "Medium level should be smaller than hard");
+    }
+}

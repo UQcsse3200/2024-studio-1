@@ -16,7 +16,6 @@ import java.util.*;
  * This is the main game mode.
  */
 public class MainGameLevelFactory implements LevelFactory {
-    private static final int DEFAULT_MAP_SIZE = 40;
     private static final Logger log = LoggerFactory.getLogger(MainGameLevelFactory.class);
     private int levelNum;
     private final Map<String, Room> rooms;
@@ -71,9 +70,9 @@ public class MainGameLevelFactory implements LevelFactory {
     public Level create(int levelNumber) {
         String seed = "seed";
         // default seed for junit tests
+        log.debug("Creating level of size {}", config.mapSize);
         if (!shouldLoad) {
-            map = new LevelMap(seed + levelNumber, DEFAULT_MAP_SIZE);
-
+            map = new LevelMap(seed + levelNumber, config.mapSize);
         } else {
             // For loaded games, append the level number to the loaded seed
             map = new LevelMap(config.seed + config.currentLevel, config.mapSize);

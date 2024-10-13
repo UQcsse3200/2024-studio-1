@@ -8,6 +8,6 @@
   },
   "textureFilename": "images/player/homeless1.png",
   "textureAtlasFilename": "images/player/homeless1.atlas",
-  "melee": "melee:axe",
-  "ranged": "ranged:shotgun"
+  "melee": "melee:knife",
+  "ranged": "ranged:pistol"
 }

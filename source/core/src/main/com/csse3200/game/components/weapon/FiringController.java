@@ -297,9 +297,9 @@ public class FiringController extends Component {
             } else {
                 this.entity.getEvents().trigger("shootDown");
             }
-        } else if (direction.x == 1.0) {
+        } else if (direction.x > 0) {
             this.entity.getEvents().trigger("shootRight");
-        } else if (direction.x == -1.0) {
+        } else if (direction.x < 0) {
             this.entity.getEvents().trigger("shootLeft");
         }
         // Trigger event for weapon UI

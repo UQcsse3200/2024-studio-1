@@ -50,8 +50,8 @@ public class DeployableItemFactory extends LoadedFactory {
     public Entity createRingFire() {
         Entity ringFire = new Entity()
                 .addComponent(new HitboxComponent())
-                .addComponent(new CombatStatsComponent(100,5))
-                .addComponent(new TextureRenderComponent(new Texture("images/items/fire.png")))
+                .addComponent(new CombatStatsComponent(200,20))
+                .addComponent(new TextureRenderComponent(new Texture("images/items/Fire.png")))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new TrapComponent());
 

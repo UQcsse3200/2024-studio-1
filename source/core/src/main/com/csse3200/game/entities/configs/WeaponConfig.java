@@ -17,10 +17,10 @@ public class WeaponConfig {
         // Load weapon data (can be from JSON or hardcoded for now)
         weaponConfigs.put("shotgun", new WeaponData("shotgun", 10, 10,
                 5, 20, 20, 3, "images" +
-                "/Weapons/Centered/Shotgun.png"));
+                "/Weapons/Centered/shotgun.png"));
         weaponConfigs.put("plasmablaster", new WeaponData("plasmablaster", 10,
                 10, 5, 20, 20, 3,
-                "images" + "/Weapons/Centered/PlasmaBlaster.png"));
+                "images" + "/Weapons/Centered/plasmablaster.png"));
         weaponConfigs.put("supersoaker", new WeaponData("supersoaker", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/supersoaker.png"));

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class BossRoom extends EnemyRoom {
     private NPCFactory npcFactory;
-    private MainGameArea area;
+    private GameArea area;
     private Entity player;
     private Entity stairs;
 
@@ -59,7 +59,7 @@ public class BossRoom extends EnemyRoom {
     }
 
     @Override
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
         this.area = area;
         this.player = player;
@@ -67,13 +67,7 @@ public class BossRoom extends EnemyRoom {
 
     }
 
-    /**
-     *
-     * @param player  the player entity of the game
-     * @param area   the main game area for stairs
-     */
-
-    private void spawnStairs(Entity player, MainGameArea area) {
+    private void spawnStairs(Entity player, GameArea area) {
         if (stairs == null) {
             stairs = StairFactory.createStair(player.getId());
             int x = maxGridPoint.x;
@@ -98,7 +92,7 @@ public class BossRoom extends EnemyRoom {
         GridPoint2 snakePos = new GridPoint2(10, 10);  // Example fixed position
 
         // Spawn the animals at the fixed positions
-        BossRoom bossRoom = (BossRoom) ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom();
+        BossRoom bossRoom = (BossRoom) ServiceLocator.getGameAreaService().getGameController().getCurrentRoom();
 
         bossRoom.spawnEnemyEntity(area, dog, dogPos);
         bossRoom.spawnEnemyEntity(area, snake, snakePos);

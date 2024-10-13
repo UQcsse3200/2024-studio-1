@@ -34,11 +34,11 @@
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "attack", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
   "bear": {
@@ -83,16 +83,16 @@
       }
     },
     "animations": [
-      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "run_left", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "run_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "attack_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
   "bat": {
@@ -131,11 +131,11 @@
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "attack", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
   "dog": {
@@ -164,16 +164,16 @@
       }
     },
     "animations": [
-      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture_right", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "attack_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
   "snake": {
@@ -213,12 +213,12 @@
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "walk_left", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "walk_right", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "attack_left", "frameDuration": 0.15, "playMode": "NORMAL"},
-      {"name": "attack_right", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "idle", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.2, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
@@ -257,10 +257,10 @@
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "idle", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "walk", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "attack", "frameDuration": 0.2, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
@@ -279,7 +279,8 @@
         "waitTime": 0,
         "followDistance": 0,
         "followSpeed": 50
-      },
-  },
+      }
+    }
+  }
 }
 

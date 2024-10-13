@@ -213,6 +213,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    private boolean shopTeleport() {
+        entity.getEvents().trigger("teleportToShop");
+        return true;
+    }
+
 
     /*
      * All the player actions that need to respond to key down
@@ -241,7 +246,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_7, (i) -> useItem(7));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
-
+        actionMap.put(ENTER_SHOP, (i) -> shopTeleport());
         actionMap.put(PICK_UP, (i) -> pickupItem());
         actionMap.put(RE_ROLL, (i) -> useItem(8)); //Rerol here
         actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());

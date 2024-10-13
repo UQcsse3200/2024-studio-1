@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +34,7 @@ class RoomFactoryTest {
     private List<String> testRoomConnections;
     private String testSpecification;
     private String testRoomName;
+    private List<String> testItemsSpawned;
 
     @BeforeEach
     void setUp() {
@@ -41,6 +43,8 @@ class RoomFactoryTest {
         testRoomConnections = Arrays.asList("North", "South", "East", "West");
         testSpecification = "0,0,14,10,1,1";
         testRoomName = "TestRoom";
+        testItemsSpawned = Arrays.asList("item:targetdummy:buyable","buff:syringe:buyable","buff:armor:buyable",
+                "item:medkit:buyable", "item:reroll:buyable","item:heart:buyable");
     }
 
     @Test
@@ -63,8 +67,7 @@ class RoomFactoryTest {
 
     @Test
     void testCreateShopRoom() {
-        Room room = roomFactory.createShopRoom(testRoomConnections, testSpecification, testRoomName);
-        
+        Room room = roomFactory.createShopRoom(testRoomConnections, testSpecification, testRoomName, testItemsSpawned);
         assertNotNull(room);
         assertTrue(room instanceof ShopRoom);
         assertEquals(testRoomName, room.getRoomName());
@@ -84,7 +87,7 @@ class RoomFactoryTest {
         Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
         
         assertFalse(room.getIsRoomComplete());
-        room.setIsRoomComplete();
+        room.setRoomComplete();
         assertTrue(room.getIsRoomComplete());
         
         // TODO can't effectively test spawn, removeRoom, and checkIfRoomComplete

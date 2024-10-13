@@ -8,14 +8,11 @@ import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.LoadedFactory;
-import com.csse3200.game.files.UserSettings;
-import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;

@@ -34,6 +34,7 @@ public class GameController {
     /**
      * Flag to determine if the game should load a saved state
      */
+
     private final boolean shouldLoad;
     /**
      * Map to store the current position of the player
@@ -85,6 +86,8 @@ public class GameController {
         this.shouldLoad = shouldLoad;
         this.gameArea = gameArea;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getFlaggedRoom("Boss")));
+        player.getEvents().addListener("teleportToShop", () -> this.changeRooms(getFlaggedRoom("NPC")));
+
         player.getEvents().addListener("saveMapData", this::saveMapData);
         player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkIfRoomComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
@@ -127,7 +130,6 @@ public class GameController {
         if (shouldLoad) {
             changeLevel(Integer.parseInt(config.currentLevel));
             changeRooms(config.currentRoom);
-
         } else {
             changeLevel(0);
         }

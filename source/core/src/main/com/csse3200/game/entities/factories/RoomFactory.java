@@ -55,10 +55,11 @@ public class RoomFactory {
     }
 
 
-    public Room createShopRoom(List<String> roomConnections, String specification, String roomName) {
+    public Room createShopRoom(List<String> roomConnections, String specification, String roomName,
+                               List<String> shopItemList) {
         // add connections to boss Room
         return new ShopRoom(this.npcFactory, this.collectibleFactory,
-                            this.terrainFactory, roomConnections, specification, roomName);
+                            this.terrainFactory, roomConnections, specification, roomName, shopItemList);
     }
 
 

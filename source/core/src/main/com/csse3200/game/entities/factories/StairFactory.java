@@ -40,8 +40,8 @@ public class StairFactory {
         stair.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
             Entity entity2 = (Entity) fixture2.getUserData();
             if (entity2.getId() == playerId) {
-                EnemyRoom enemyRoom = (EnemyRoom)ServiceLocator.getGameAreaService().getGameController().getCurrentRoom();
-                if (enemyRoom.isAllAnimalDead()) {
+
+                if(ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().getIsRoomComplete()) {
                     moveToNextLevel();
                 }
             }

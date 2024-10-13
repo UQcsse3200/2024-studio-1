@@ -2,6 +2,7 @@ package com.csse3200.game.components.player.inventory.usables;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
+import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.DeployableItemFactory;
@@ -23,8 +24,9 @@ public class Gasoline extends UsableItem {
         Entity ringFire = new DeployableItemFactory().createRingFire();
         int xPos = (int) entity.getPosition().x + offsetX;
         int yPos = (int) entity.getPosition().y + offsetY;
-        ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(ringFire, new GridPoint2(xPos, yPos), true, true);
-
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
+            room.SpawnDeployable(ringFire, new GridPoint2(xPos, yPos), true, true);
+        }
     }
 
     @Override

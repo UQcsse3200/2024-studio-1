@@ -1,13 +1,21 @@
 package com.csse3200.game.components.player.inventory;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.ai.tasks.AITaskComponent;
+import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
+import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.npc.NPCConfigComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Component to manage the trap implementation
@@ -41,9 +49,14 @@ public class TrapComponent extends Component {
         //Apply damage to the enemy using combat stats component
         CombatStatsComponent enemyStats = otherEntity.getComponent(CombatStatsComponent.class);
         CombatStatsComponent trapStats = trap.getComponent(CombatStatsComponent.class);
+
+        //reduces health of enemy by base attack value
         enemyStats.hit(trapStats);
 
-        //Remove the trap after use
+        //immobilizes enemy for a time duration
+        immobilizeEnemies(otherEntity);
+
+        // Remove the trap after use
         markEntityForRemoval(trap);
     }
 
@@ -64,4 +77,19 @@ public class TrapComponent extends Component {
         ServiceLocator.getEntityService().markEntityForRemoval(trap);
     }
 
+    public void immobilizeEnemies(Entity enemy){
+
+        List<PriorityTask> tasks = enemy.getComponent(AITaskComponent.class).getTasks();
+
+        enemy.getComponent(AITaskComponent.class).stopAllTasks();
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                for (PriorityTask task : tasks) {
+                    enemy.getComponent(AITaskComponent.class).addTask(task);
+                }
+            }
+        }, 5);
+    }
 }

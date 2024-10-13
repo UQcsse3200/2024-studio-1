@@ -37,6 +37,7 @@ public class ItemFactory {
         creators.put("bleedbuff", (args) -> new BleedBuff());
         creators.put("bigredbutton", (args) -> new BigRedButton());
         creators.put("teleporter", (args) -> new TeleporterItem());
+        creators.put("gasoline", (args) -> new Gasoline());
         return creators;
     }
 

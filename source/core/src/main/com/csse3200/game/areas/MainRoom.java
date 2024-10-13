@@ -40,7 +40,9 @@ public class MainRoom extends EnemyRoom {
                 List.of("ranged:Shotgun", "melee:Knife"),
                 List.of("buff:energydrink:High", "ranged:Shotgun"),
                 List.of("buff:energydrink:High", "buff:energydrink:Medium"),
-                List.of("item:medkit", "item:bandage")
+                List.of("item:medkit", "item:bandage"),
+                List.of("item:gasoline", "buff:damagebuff"),
+                List.of("item:bigredbutton", "item:teleporter")
         );
     }
 

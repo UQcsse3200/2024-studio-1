@@ -176,8 +176,6 @@ public class PlayerActions extends Component {
 
     private void use(int itemNum) {
         if (!dead) {
-            System.out.println(itemNum + "being used");
-            System.out.println("inventory list size" + inventoryComponent.getItems().size);
             if (itemNum <= inventoryComponent.getItems().size) {
                 UsableItem item = inventoryComponent.getItems().get(itemNum - 1);
                 if (item != null) {

@@ -6,10 +6,6 @@
     "x": 3,
     "y": 3
   },
-  "baseSpeed": {
-    "x": 3,
-    "y": 3
-  },
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
   "melee": "melee:Axe",

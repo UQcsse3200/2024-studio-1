@@ -24,7 +24,6 @@ import static com.csse3200.game.components.player.KeyMapping.KeyBinding.*;
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
-    private static final Logger log = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private final Map<Integer, Action> downBindings;
     private final Map<Integer, Action> upBindings;
@@ -119,7 +118,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * Method used to stop calling the 'shoot' method
      * Called when the player releases the input to shoot (default is arrow keys)
      *
-     * @param direction
+     * @param direction the direction to unshoot
      * @return (not sure why this needs to return)
      */
     private boolean unShoot(Vector2 direction) {

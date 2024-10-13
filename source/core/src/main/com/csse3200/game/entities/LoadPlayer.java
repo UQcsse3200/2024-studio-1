@@ -167,6 +167,10 @@ public class LoadPlayer {
             itemSpecs.addAll(Arrays.stream(config.items).toList());
         }
 
+        if (config.buffs != null) {
+            itemSpecs.addAll(Arrays.stream(config.buffs).toList());
+        }
+
         // Do not load pets here, the game area isn't initialised so pets can't be spawned.
 
         for (String itemSpec : itemSpecs) {

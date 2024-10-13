@@ -62,7 +62,7 @@ public class ItemFactory {
             case "tombstone" -> createTombstone();
             case "ringfire" -> createRingFire();
             case "divinepotion" -> createDivinePotion();
-            case "bleedbuff" -> createBleedBuff();
+            case "fang" -> createWerewolfFang();
             case "bigredbutton" -> createBigRedButton();
             case "teleporter" -> createTeleporter();
             case "goblinsgamble" -> createGoblinsGamble();
@@ -130,7 +130,7 @@ public class ItemFactory {
      * Creates a bleed buff item that does bleed damage to the enemies
      * @return Bleed buff item
      */
-    private Collectible createBleedBuff() { return new BleedBuff();}
+    private Collectible createWerewolfFang() { return new WerewolfFang();}
 
     /**
      * Creates a target dummy item which spawns in a target dummy entity for enemies to attack

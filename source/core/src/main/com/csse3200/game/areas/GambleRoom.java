@@ -24,7 +24,7 @@ public class GambleRoom extends BaseRoom {
     }
 
     private void spawnItems() {
-        MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
+        GameArea area = ServiceLocator.getGameAreaService().getGameArea();
         List<String> items = this.itemSpecifications.get(0);
         if (items != null) {
             spawnItem(area, items.get(0), new GridPoint2(7, 8));
@@ -32,14 +32,17 @@ public class GambleRoom extends BaseRoom {
     }
 
     @Override
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
         this.spawnItems();
-        this.checkIfRoomComplete();
+        this.checkComplete();
     }
 
-    public void checkIfRoomComplete() {
-        setIsRoomComplete();
+    @Override
+    public void checkComplete() {
+        setComplete();
     }
+
+
 }
 

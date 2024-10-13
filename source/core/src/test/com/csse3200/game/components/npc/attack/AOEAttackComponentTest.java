@@ -1,7 +1,7 @@
 package com.csse3200.game.components.npc.attack;
 
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
@@ -25,7 +25,7 @@ class AOEAttackComponentTest {
     private GameAreaService gameAreaService;
 
     @Mock
-    private MainGameArea mainGameArea;
+    private GameController gameController;
 
     @Mock
     private Entity player;
@@ -35,7 +35,7 @@ class AOEAttackComponentTest {
         // Mock GameTime, GameAreaService and MainGameArea
         gameTime = mock(GameTime.class);
         gameAreaService = mock(GameAreaService.class);
-        mainGameArea = mock(MainGameArea.class);
+        gameController = mock(GameController.class);
 
         player = new Entity().addComponent(new CombatStatsComponent(100, 10));
 
@@ -44,8 +44,8 @@ class AOEAttackComponentTest {
         ServiceLocator.registerGameAreaService(gameAreaService);
 
         // Mock the behavior of gameAreaService and mainGameArea
-        when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
-        when(mainGameArea.getPlayer()).thenReturn(player);
+        when(gameAreaService.getGameController()).thenReturn(gameController);
+        when(gameController.getPlayer()).thenReturn(player);
     }
 
     @Test

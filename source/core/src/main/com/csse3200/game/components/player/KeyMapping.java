@@ -69,6 +69,11 @@ public class KeyMapping {
         ENTER_BOSS,
 
         /**
+         * The player action to jump to shop room.
+         */
+        ENTER_SHOP,
+
+        /**
          * The player action to pick up an item
          */
         PICK_UP,
@@ -122,6 +127,7 @@ public class KeyMapping {
             keyMap.put(Input.Keys.NUM_8, USE_8);
             keyMap.put(Input.Keys.NUM_9, USE_9);
             keyMap.put(Input.Keys.B, ENTER_BOSS);
+            keyMap.put(Input.Keys.N, ENTER_SHOP);
             keyMap.put(Input.Keys.E, PICK_UP);
             keyMap.put(Input.Keys.R, RE_ROLL);
             keyMap.put(Input.Keys.P, PURCHASE_ITEM);

@@ -32,14 +32,13 @@ public class CombatStatsComponent extends Component {
     private double critChance;
     private boolean isInvincible;
     // change requested by character team
-    private static final int timeInvincible = 2000;
-    private final Timer timerIFrames; 
-    private static final int timeFlash = 250;
+    private static final int TIME_INVINCIBLE = 2000;
+    private final Timer timerIFrames;
+    private static final int TIME_FLASH = 250;
     private final Timer timerFlashSprite;
-    private CombatStatsComponent.flashSprite flashTask;
+    private CombatStatsComponent.FlashSprint flashTask;
 
-    private String lastAttackName;
-    private String filePath = "configs/LastAttack.json";
+    private static final String FILE_PATH = "configs/LastAttack.json";
 
     public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance) {
         this.canBeInvincible = canBeInvincible;
@@ -98,7 +97,7 @@ public class CombatStatsComponent extends Component {
     /**
      * A TimerTask used to alternate the visibility of the entity during their IFrames
      */
-    private class flashSprite extends TimerTask {
+    private class FlashSprint extends TimerTask {
         private boolean invisible = false;
         @Override
         public void run() {
@@ -267,6 +266,7 @@ public class CombatStatsComponent extends Component {
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
 
+            String lastAttackName;
             if (attacker.getEntity() == null
                     || attacker.getEntity().getName().equals("Unknown Entity")) {
                 lastAttackName = "Unknown";
@@ -275,17 +275,14 @@ public class CombatStatsComponent extends Component {
                 lastAttackName = attacker.getEntity().getName();
             }
 
-            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
-            //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
-            //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
-            //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
+            FileLoader.writeClass(lastAttackName, FILE_PATH, FileLoader.Location.EXTERNAL);
             entity.getEvents().trigger("playerHit");
             if (isDead()){ return; }
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
-            timerIFrames.schedule(task, timeInvincible);
-            flashTask = new CombatStatsComponent.flashSprite();
-            timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+            timerIFrames.schedule(task, TIME_INVINCIBLE);
+            flashTask = new CombatStatsComponent.FlashSprint();
+            timerFlashSprite.scheduleAtFixedRate(flashTask, 0, TIME_FLASH);
         } else {
             Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
             int damage;
@@ -382,3 +379,4 @@ public class CombatStatsComponent extends Component {
         return newDamage;
     }
 }
+

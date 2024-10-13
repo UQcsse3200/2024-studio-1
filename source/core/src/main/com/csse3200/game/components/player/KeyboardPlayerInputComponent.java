@@ -3,6 +3,7 @@ package com.csse3200.game.components.player;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
@@ -31,7 +32,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     // Timer and task for holding down a shoot button
     private RepeatShoot taskShoot;
     private RepeatMelee taskMelee;
-    private static final int inputDelay = 15; // time between 'button held' method calls in milliseconds
+    private static final int INPUT_DELAY = 15; // time between 'button held' method calls in milliseconds
 
     /**
      * TimerTask used to repeatedly shoot in a direction
@@ -105,7 +106,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
         this.directionShooting = direction;
         this.taskShoot = new RepeatShoot(direction);
-        Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
+        Timer.schedule(taskShoot, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         return true;
     }
 
@@ -139,7 +140,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             this.taskMelee.cancel();
         }
         this.taskMelee = new RepeatMelee();
-        Timer.schedule(taskMelee, inputDelay / 1000f, inputDelay / 1000f);
+        Timer.schedule(taskMelee, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         return true;
     }
 
@@ -151,8 +152,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
 
-    private boolean useItem(int itemNum) {
-        entity.getEvents().trigger("useItem", itemNum);
+    private boolean useItem(Integer num) {
+        switch (num) {
+            case 1 -> entity.getEvents().trigger("use1");
+            case 2 -> entity.getEvents().trigger("use2");
+            case 3 -> entity.getEvents().trigger("use3");
+            case 4 -> entity.getEvents().trigger("use4");
+            case 5 -> entity.getEvents().trigger("use5");
+            case 6 -> entity.getEvents().trigger("use6");
+            case 7 -> entity.getEvents().trigger("use7");
+            case 8 -> entity.getEvents().trigger("useReroll");
+        }
         return true;
     }
 
@@ -189,7 +199,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    /**
+     *
+     * @return true if the key binding is done or if the entity is already in the boss room
+     */
+
     private boolean bossTeleport() {
+        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof BossRoom) {
+            // Already in boss room so just do nothing !!
+            return true;
+        }
         entity.getEvents().trigger("teleportToBoss");
         return true;
     }
@@ -220,8 +239,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_5, (i) -> useItem(5));
         actionMap.put(USE_6, (i) -> useItem(6));
         actionMap.put(USE_7, (i) -> useItem(7));
-        actionMap.put(USE_8, (i) -> useItem(8));
-        actionMap.put(USE_9, (i) -> useItem(9));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
 
@@ -332,3 +349,4 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
     }
 }
+

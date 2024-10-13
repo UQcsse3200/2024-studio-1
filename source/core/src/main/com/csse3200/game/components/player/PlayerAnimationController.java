@@ -3,10 +3,7 @@ package com.csse3200.game.components.player;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
-
-
 /**
- *
  * This class listens to events triggered by the KeyboardPlayerInputComponent
  * and starts the relevant character animation based on the current event.
  */
@@ -15,16 +12,28 @@ public class PlayerAnimationController extends Component {
     private boolean death = false;
     private boolean animationStopped = false;
     private PlayerNum playerNum;
+    private Direction previousDirection;
+    private Direction previousDirectionHorizontal;
 
     /**
-    Indicate the selected player.
+     Indicate the selected player.
      */
     private enum PlayerNum {
-        Player1,
-        Player2,
-        Player3,
-        Bear,
-        Player4
+        PLAYER_1,
+        PLAYER_2,
+        PLAYER_3,
+        BEAR,
+        PLAYER_4
+    }
+
+    /**
+     Indicate the previous direction player.
+     */
+    private enum Direction {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
     }
 
     /**
@@ -34,21 +43,23 @@ public class PlayerAnimationController extends Component {
     public PlayerAnimationController(String textureAtlas) {
         switch (textureAtlas) {
             case ("images/player/player.atlas"):
-                this.playerNum = PlayerNum.Player1;
+                this.playerNum = PlayerNum.PLAYER_1;
                 break;
             case ("images/player/homeless1.atlas"):
-                this.playerNum = PlayerNum.Player2;
+                this.playerNum = PlayerNum.PLAYER_2;
                 break;
             case "images/npc/bear/bear.atlas":
-                this.playerNum = PlayerNum.Bear;
+                this.playerNum = PlayerNum.BEAR;
                 break;
             case ("images/player/homeless2.atlas"):
-                this.playerNum = PlayerNum.Player3;
+                this.playerNum = PlayerNum.PLAYER_3;
                 break;
             case ("images/player/homeless3.atlas"):
-                this.playerNum = PlayerNum.Player4;
+                this.playerNum = PlayerNum.PLAYER_4;
                 break;
         }
+        this.previousDirection = Direction.DOWN;
+        this.previousDirectionHorizontal = Direction.LEFT;
     }
 
     /**
@@ -71,66 +82,96 @@ public class PlayerAnimationController extends Component {
     }
 
     /**
-     * Starts the player stationary animation.
+     * Starts the player stationary animation, directionally based.
      */
-    void stationaryAnimation() {
+    private void stationaryAnimation() {
         if (!death) {
-            switch (playerNum) {
-                case Bear -> animationController.startAnimation("idle_bottom");
-                case Player1, Player2, Player3, Player4-> animationController.startAnimation("idle");
+            String animationName;
+
+            // Determine the animation name based on previous direction and player
+            if (playerNum != PlayerNum.PLAYER_1 && playerNum != PlayerNum.BEAR) {
+                animationName = (previousDirectionHorizontal == Direction.RIGHT) ? "Idle_right" : "Idle_left";
+            } else {
+                animationName = switch (previousDirection) {
+                    case DOWN -> (playerNum == PlayerNum.BEAR) ? "idle_bottom" : "idle";
+                    case LEFT -> (playerNum == PlayerNum.BEAR) ? "idle_left" : "idle-left";
+                    case RIGHT -> (playerNum == PlayerNum.BEAR) ? "idle_right" : "idle-right";
+                    case UP -> (playerNum == PlayerNum.BEAR) ? "idle_top" : "idle-up";
+                };
             }
+            animationController.startAnimation(animationName);
         }
     }
 
     /**
      * Starts the player walking left animation.
      */
-    void walkLeft() {
+    private void walkLeft() {
         if (!death) {
             switch (playerNum) {
-                case Player1 -> animationController.startAnimation("walk-left");
-                case Bear -> animationController.startAnimation("walk_left");
-                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
+                case PLAYER_1 -> animationController.startAnimation("walk-left");
+                case BEAR -> animationController.startAnimation("walk_left");
+                case PLAYER_2, PLAYER_3, PLAYER_4 -> animationController.startAnimation("Walk_left");
             }
+            previousDirectionHorizontal = Direction.LEFT;
+            previousDirection = Direction.LEFT;
         }
     }
 
     /**
      * Starts the player walking right animation.
      */
-    void walkRight() {
+    private void walkRight() {
         if (!death) {
             switch (playerNum) {
-                case Player1 -> animationController.startAnimation("walk-right");
-                case Bear -> animationController.startAnimation("walk_right");
-                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
+                case PLAYER_1 -> animationController.startAnimation("walk-right");
+                case BEAR -> animationController.startAnimation("walk_right");
+                case PLAYER_2, PLAYER_3, PLAYER_4 -> animationController.startAnimation("Walk_right");
             }
+            previousDirection = Direction.RIGHT;
+            previousDirectionHorizontal = Direction.RIGHT;
         }
     }
 
     /**
-     * Starts the player walking down animation.
+     * Starts the player walking down animation, or the left/right walking animations
+     *      * for players without the vertical animations.
      */
-    void walkDown() {
+    private void walkDown() {
         if (!death) {
-            switch (playerNum) {
-                case Player1 -> animationController.startAnimation("walk-down");
-                case Bear -> animationController.startAnimation("walk_bottom");
-                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
-            }
+            String animationName;
+
+            // Determine the animation name based on previous direction and player
+            animationName = switch (playerNum) {
+                case PLAYER_1 -> "walk-down";
+                case PLAYER_2, PLAYER_3, PLAYER_4 ->
+                        (previousDirectionHorizontal == Direction.LEFT) ? "Walk_left" : "Walk_right";
+                case BEAR -> "walk_bottom";
+            };
+
+            animationController.startAnimation(animationName);
+            previousDirection = Direction.DOWN;
         }
     }
 
     /**
-     * Starts the player walking up animation.
+     * Starts the player walking up animation, or the left/right walking animations
+     * for players without the vertical animations.
      */
-    void walkUp() {
+    private void walkUp() {
         if (!death) {
-            switch (playerNum) {
-                case Player1 -> animationController.startAnimation("walk-up");
-                case Player2, Player3, Player4 -> animationController.startAnimation("Walk");
-                case Bear -> animationController.startAnimation("walk_bottom");
-            }
+            String animationName;
+
+            // Determine the animation name based on previous direction and player
+            animationName = switch (playerNum) {
+                case PLAYER_1 -> "walk-up";
+                case PLAYER_2 , PLAYER_3, PLAYER_4 ->
+                        (previousDirectionHorizontal == Direction.LEFT) ? "Walk_left" : "Walk_right";
+                case BEAR -> "walk_top";
+            };
+
+            animationController.startAnimation(animationName);
+            previousDirection = Direction.UP;
         }
     }
 
@@ -138,18 +179,34 @@ public class PlayerAnimationController extends Component {
      * Starts the player death animation.
      */
     void deathAnimation() {
-        switch (playerNum) {
-            case Player1 -> animationController.startAnimation( "death-down");
-            case Player2, Player3, Player4 -> animationController.startAnimation( "Dead");
-            case Bear -> animationController.startAnimation("death_left");
+        String animationName;
+
+        // Determine the animation name based on previous direction and player
+        if (playerNum != PlayerNum.PLAYER_1 && playerNum != PlayerNum.BEAR) {
+            animationName =
+                    (previousDirectionHorizontal == Direction.RIGHT) ? "Dead_right" : "Dead_left";
+        } else {
+            switch (previousDirection) {
+                case DOWN -> animationName =
+                        (playerNum == PlayerNum.PLAYER_1) ? "death-down" : "death-left";
+                case LEFT -> animationName =
+                        (playerNum == PlayerNum.PLAYER_1) ? "death-left" : "death_left";
+                case RIGHT -> animationName =
+                        (playerNum == PlayerNum.PLAYER_1) ? "death-right" : "death_left";
+                default -> animationName =
+                        (playerNum == PlayerNum.PLAYER_1) ? "death-up" : "death-down";
+            }
         }
+
+        animationController.startAnimation(animationName);
         death = true;
     }
+
 
     /**
      * Stops the player death animation.
      */
-    boolean stopAnimation() {
+    public boolean stopAnimation() {
         if (animationController.isFinished()) {
             animationController.stopAnimation();
             animationStopped = true;
@@ -160,13 +217,22 @@ public class PlayerAnimationController extends Component {
     /**
      * Starts the player damage animation.
      */
-    void damageAnimation() {
+    private void damageAnimation() {
         if (!death) {
+            String animationName;
+
+            // Determine the animation name based on previous direction and player
             switch (playerNum) {
-                case Player1 -> animationController.startAnimation( "damage-down");
-                case Player2, Player3, Player4 -> animationController.startAnimation( "Hurt");
-                case Bear -> animationController.startAnimation("atack_right");
+                case PLAYER_1 -> animationName = "damage-down" ;
+                case PLAYER_2 , PLAYER_3, PLAYER_4 -> animationName =
+                        (previousDirectionHorizontal == Direction.RIGHT) ? "Hurt_right" : "Hurt_left";
+                case BEAR -> animationName =
+                        (previousDirectionHorizontal == Direction.RIGHT) ? "attack_right" : "attack_left";
+                default -> animationName = "idle";
             }
+
+            animationController.startAnimation(animationName);
         }
     }
 }
+

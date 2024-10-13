@@ -90,7 +90,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></dd>
+<dd><code><a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></code></dd>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
@@ -99,7 +99,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">BaseRoom</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></span></div>
+implements <a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></span></div>
 <div class="block">Abstract base class for implementing rooms in the game.
  This class provides common functionality for all room types.</div>
 </section>
@@ -213,29 +213,29 @@ implements <a href="../entities/Room.html" title="interface in com.csse3200.game
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#checkIfRoomComplete()" class="member-name-link">checkIfRoomComplete</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#checkComplete()" class="member-name-link">checkComplete</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Checks if the room is complete.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getIsRoomComplete()" class="member-name-link">getIsRoomComplete</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if the room is complete.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>protected abstract <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getItemSpecifications()" class="member-name-link">getItemSpecifications</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>protected abstract <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getItemSpecifications()" class="member-name-link">getItemSpecifications</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Gets the item specifications for the room.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRoomConnections()" class="member-name-link">getRoomConnections</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRoomConnections()" class="member-name-link">getRoomConnections</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the room connections.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRoomName()" class="member-name-link">getRoomName</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRoomName()" class="member-name-link">getRoomName</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the name of the room.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isComplete()" class="member-name-link">isComplete</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if the room is complete.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeRoom()" class="member-name-link">removeRoom</a>()</code></div>
@@ -243,18 +243,18 @@ implements <a href="../entities/Room.html" title="interface in com.csse3200.game
 <div class="block">Removes the room and all its entities.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setIsRoomComplete()" class="member-name-link">setIsRoomComplete</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setComplete()" class="member-name-link">setComplete</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the room as completed when loading the map.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)" class="member-name-link">spawn</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
- <a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a>&nbsp;area)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.GameArea)" class="member-name-link">spawn</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
+ <a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Spawns the room in the game area.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnAnimalEntity(com.csse3200.game.areas.MainGameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)" class="member-name-link">spawnAnimalEntity</a><wbr>(<a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a>&nbsp;area,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnAnimalEntity(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)" class="member-name-link">spawnAnimalEntity</a><wbr>(<a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area,
  <a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;enemy,
  com.badlogic.gdx.math.GridPoint2&nbsp;position)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -267,7 +267,7 @@ implements <a href="../entities/Room.html" title="interface in com.csse3200.game
 <div class="block">Spawns doors in the room.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnItem(com.csse3200.game.areas.MainGameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)" class="member-name-link">spawnItem</a><wbr>(<a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a>&nbsp;area,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnItem(com.csse3200.game.areas.GameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)" class="member-name-link">spawnItem</a><wbr>(<a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification,
  com.badlogic.gdx.math.GridPoint2&nbsp;pos)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -438,7 +438,7 @@ implements <a href="../entities/Room.html" title="interface in com.csse3200.game
 <div class="block">Gets the name of the room.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../entities/Room.html#getRoomName()">getRoomName</a></code>&nbsp;in interface&nbsp;<code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></dd>
+<dd><code><a href="Room.html#getRoomName()">getRoomName</a></code>&nbsp;in interface&nbsp;<code><a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></code></dd>
 <dt>Returns:</dt>
 <dd>The room name.</dd>
 </dl>
@@ -457,14 +457,14 @@ implements <a href="../entities/Room.html" title="interface in com.csse3200.game
 </section>
 </li>
 <li>
-<section class="detail" id="checkIfRoomComplete()">
-<h3>checkIfRoomComplete</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">checkIfRoomComplete</span>()</div>
+<section class="detail" id="checkComplete()">
+<h3>checkComplete</h3>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">checkComplete</span>()</div>
 <div class="block">Checks if the room is complete.
  This method should be implemented by subclasses.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../entities/Room.html#checkIfRoomComplete()">checkIfRoomComplete</a></code>&nbsp;in interface&nbsp;<code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></dd>
+<dd><code><a href="Room.html#checkComplete()">checkComplete</a></code>&nbsp;in interface&nbsp;<code><a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></code></dd>
 </dl>
 </section>
 </li>
@@ -497,9 +497,9 @@ implements <a href="../entities/Room.html" title="interface in com.csse3200.game
 </section>
 </li>
 <li>
-<section class="detail" id="spawnAnimalEntity(com.csse3200.game.areas.MainGameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)">
+<section class="detail" id="spawnAnimalEntity(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)">
 <h3>spawnAnimalEntity</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawnAnimalEntity</span><wbr><span class="parameters">(<a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a>&nbsp;area,
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawnAnimalEntity</span><wbr><span class="parameters">(<a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area,
  <a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;enemy,
  com.badlogic.gdx.math.GridPoint2&nbsp;position)</span></div>
 <div class="block">Spawns an animal entity in the room.</div>
@@ -512,9 +512,9 @@ implements <a href="../entities/Room.html" title="interface in com.csse3200.game
 </section>
 </li>
 <li>
-<section class="detail" id="spawnItem(com.csse3200.game.areas.MainGameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">
+<section class="detail" id="spawnItem(com.csse3200.game.areas.GameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">
 <h3>spawnItem</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawnItem</span><wbr><span class="parameters">(<a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a>&nbsp;area,
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawnItem</span><wbr><span class="parameters">(<a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification,
  com.badlogic.gdx.math.GridPoint2&nbsp;pos)</span></div>
 <div class="block">Spawns an item in the room.</div>
@@ -527,38 +527,38 @@ implements <a href="../entities/Room.html" title="interface in com.csse3200.game
 </section>
 </li>
 <li>
-<section class="detail" id="getIsRoomComplete()">
-<h3>getIsRoomComplete</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">getIsRoomComplete</span>()</div>
+<section class="detail" id="isComplete()">
+<h3>isComplete</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isComplete</span>()</div>
 <div class="block">Checks if the room is complete.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../entities/Room.html#getIsRoomComplete()">getIsRoomComplete</a></code>&nbsp;in interface&nbsp;<code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></dd>
+<dd><code><a href="Room.html#isComplete()">isComplete</a></code>&nbsp;in interface&nbsp;<code><a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></code></dd>
 <dt>Returns:</dt>
 <dd><code>true</code> if the room is complete, <code>false</code> otherwise.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="setIsRoomComplete()">
-<h3>setIsRoomComplete</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setIsRoomComplete</span>()</div>
+<section class="detail" id="setComplete()">
+<h3>setComplete</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setComplete</span>()</div>
 <div class="block">Sets the room as completed when loading the map.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../entities/Room.html#setIsRoomComplete()">setIsRoomComplete</a></code>&nbsp;in interface&nbsp;<code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></dd>
+<dd><code><a href="Room.html#setComplete()">setComplete</a></code>&nbsp;in interface&nbsp;<code><a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)">
+<section class="detail" id="spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.GameArea)">
 <h3>spawn</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawn</span><wbr><span class="parameters">(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
- <a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a>&nbsp;area)</span></div>
+ <a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area)</span></div>
 <div class="block">Spawns the room in the game area.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../entities/Room.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.MainGameArea)">spawn</a></code>&nbsp;in interface&nbsp;<code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></dd>
+<dd><code><a href="Room.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.GameArea)">spawn</a></code>&nbsp;in interface&nbsp;<code><a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>player</code> - The player entity.</dd>
 <dd><code>area</code> - The game area to spawn the room in.</dd>
@@ -572,7 +572,7 @@ implements <a href="../entities/Room.html" title="interface in com.csse3200.game
 <div class="block">Removes the room and all its entities.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../entities/Room.html#removeRoom()">removeRoom</a></code>&nbsp;in interface&nbsp;<code><a href="../entities/Room.html" title="interface in com.csse3200.game.entities">Room</a></code></dd>
+<dd><code><a href="Room.html#removeRoom()">removeRoom</a></code>&nbsp;in interface&nbsp;<code><a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></code></dd>
 </dl>
 </section>
 </li>

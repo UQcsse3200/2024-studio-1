@@ -37,7 +37,7 @@ loadScripts(document, 'script');</script>
 <li>
 <p>Summary:</p>
 <ul>
-<li>Nested</li>
+<li><a href="#nested-class-summary">Nested</a></li>
 <li><a href="#field-summary">Field</a></li>
 <li><a href="#constructor-summary">Constr</a></li>
 <li><a href="#method-summary">Method</a></li>
@@ -57,7 +57,7 @@ loadScripts(document, 'script');</script>
 <div id="navbar-sub-list">
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested-class-summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
@@ -94,12 +94,8 @@ loadScripts(document, 'script');</script>
 <dt>All Implemented Interfaces:</dt>
 <dd><code>com.badlogic.gdx.utils.Disposable</code></dd>
 </dl>
-<dl class="notes">
-<dt>Direct Known Subclasses:</dt>
-<dd><code><a href="MainGameArea.html" title="class in com.csse3200.game.areas">MainGameArea</a></code></dd>
-</dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">GameArea</span>
+<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GameArea</span>
 <span class="extends-implements">extends <a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></span></div>
 <div class="block">Represents an area in the game, such as a level, indoor area, etc. An area has a terrain and
  other entities to spawn on that terrain.
@@ -108,6 +104,21 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<li>
+<section class="nested-class-summary" id="nested-class-summary">
+<h2>Nested Class Summary</h2>
+<div class="caption"><span>Nested Classes</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static enum&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="GameArea.MusicType.html" class="type-name-link" title="enum class in com.csse3200.game.areas">GameArea.MusicType</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
 <!-- =========== FIELD SUMMARY =========== -->
 <li>
 <section class="field-summary" id="field-summary">
@@ -131,11 +142,9 @@ loadScripts(document, 'script');</script>
 <section class="constructor-summary" id="constructor-summary">
 <h2>Constructor Summary</h2>
 <div class="caption"><span>Constructors</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier</div>
-<div class="table-header col-second">Constructor</div>
+<div class="summary-table two-column-summary">
+<div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>protected </code></div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">GameArea</a>()</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
@@ -146,37 +155,71 @@ loadScripts(document, 'script');</script>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Create the game area in the world.</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#displayUI(java.lang.String)" class="member-name-link">displayUI</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;areaName)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Displays the user interface for the game area.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#dispose()" class="member-name-link">dispose</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Dispose of all internal entities in the area</div>
+<div class="block">Dispose of all internal entities in the area.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#disposeEntity(com.csse3200.game.entities.Entity)" class="member-name-link">disposeEntity</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Dispose of a specific entity from the game area.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/CopyOnWriteArrayList.html" title="class or interface in java.util.concurrent" class="external-link">CopyOnWriteArrayList</a><wbr>&lt;<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getListOfEntities()" class="member-name-link">getListOfEntities</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get a list of all entities in the area.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMusicFilepaths()" class="member-name-link">getMusicFilepaths</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the file paths for all music files used in the game area.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSoundFilepaths()" class="member-name-link">getSoundFilepaths</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the file paths for all sound effects used in the game area.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the file paths for all texture atlases used in the game area.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the file paths for all textures used in the game area.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#playMusic(int)" class="member-name-link">playMusic</a><wbr>(int&nbsp;musicType)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Plays music based on the specified type.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#playMusic(com.csse3200.game.areas.GameArea.MusicType)" class="member-name-link">playMusic</a><wbr>(<a href="GameArea.MusicType.html" title="enum class in com.csse3200.game.areas">GameArea.MusicType</a>&nbsp;musicType)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Plays the specified type of music.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTerrain(com.csse3200.game.areas.terrain.TerrainComponent)" class="member-name-link">setTerrain</a><wbr>(<a href="terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a>&nbsp;terrain)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Set the terrain for this game area.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnEntity(com.csse3200.game.entities.Entity)" class="member-name-link">spawnEntity</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Spawn entity at its current position</div>
+<div class="block">Spawn entity at its current position.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnEntityAt(com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)" class="member-name-link">spawnEntityAt</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity,
@@ -186,12 +229,17 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Spawn entity on a given tile.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stopCurrentMusic()" class="member-name-link">stopCurrentMusic</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Stops the currently playing music.</div>
+</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.entities.factories.LoadedFactory">Methods inherited from class&nbsp;com.csse3200.game.entities.factories.<a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></h3>
-<code><a href="../entities/factories/LoadedFactory.html#getMusicFilepaths()">getMusicFilepaths</a>, <a href="../entities/factories/LoadedFactory.html#getSoundFilepaths()">getSoundFilepaths</a>, <a href="../entities/factories/LoadedFactory.html#getTextureAtlasFilepaths()">getTextureAtlasFilepaths</a>, <a href="../entities/factories/LoadedFactory.html#getTextureFilepaths()">getTextureFilepaths</a>, <a href="../entities/factories/LoadedFactory.html#load()">load</a></code></div>
+<code><a href="../entities/factories/LoadedFactory.html#load()">load</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -229,7 +277,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="&lt;init&gt;()">
 <h3>GameArea</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="element-name">GameArea</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">GameArea</span>()</div>
 </section>
 </li>
 </ul>
@@ -241,17 +289,11 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="create()">
-<h3>create</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">create</span>()</div>
-<div class="block">Create the game area in the world.</div>
-</section>
-</li>
-<li>
 <section class="detail" id="dispose()">
 <h3>dispose</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">dispose</span>()</div>
-<div class="block">Dispose of all internal entities in the area</div>
+<div class="block">Dispose of all internal entities in the area.
+ This method stops the background music, disposes of all entities, and releases resources.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>dispose</code>&nbsp;in interface&nbsp;<code>com.badlogic.gdx.utils.Disposable</code></dd>
@@ -261,13 +303,24 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="displayUI(java.lang.String)">
+<h3>displayUI</h3>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">displayUI</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;areaName)</span></div>
+<div class="block">Displays the user interface for the game area.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>areaName</code> - The name of the area to display in the UI.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="spawnEntity(com.csse3200.game.entities.Entity)">
 <h3>spawnEntity</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawnEntity</span><wbr><span class="parameters">(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</span></div>
-<div class="block">Spawn entity at its current position</div>
+<div class="block">Spawn entity at its current position.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>entity</code> - Entity (not yet registered)</dd>
+<dd><code>entity</code> - Entity (not yet registered).</dd>
 </dl>
 </section>
 </li>
@@ -281,10 +334,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Spawn entity on a given tile. Requires the terrain to be set first.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>entity</code> - Entity (not yet registered)</dd>
-<dd><code>tilePos</code> - tile position to spawn at</dd>
-<dd><code>centerX</code> - true to center entity X on the tile, false to align the bottom left corner</dd>
-<dd><code>centerY</code> - true to center entity Y on the tile, false to align the bottom left corner</dd>
+<dd><code>entity</code> - Entity (not yet registered).</dd>
+<dd><code>tilePos</code> - Tile position to spawn at.</dd>
+<dd><code>centerX</code> - True to center entity X on the tile, false to align the bottom left corner.</dd>
+<dd><code>centerY</code> - True to center entity Y on the tile, false to align the bottom left corner.</dd>
 </dl>
 </section>
 </li>
@@ -292,12 +345,51 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="disposeEntity(com.csse3200.game.entities.Entity)">
 <h3>disposeEntity</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">disposeEntity</span><wbr><span class="parameters">(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</span></div>
+<div class="block">Dispose of a specific entity from the game area.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>entity</code> - The entity to dispose of.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setTerrain(com.csse3200.game.areas.terrain.TerrainComponent)">
 <h3>setTerrain</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setTerrain</span><wbr><span class="parameters">(<a href="terrain/TerrainComponent.html" title="class in com.csse3200.game.areas.terrain">TerrainComponent</a>&nbsp;terrain)</span></div>
+<div class="block">Set the terrain for this game area.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>terrain</code> - The TerrainComponent to set.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="playMusic(int)">
+<h3>playMusic</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">playMusic</span><wbr><span class="parameters">(int&nbsp;musicType)</span></div>
+<div class="block">Plays music based on the specified type.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>musicType</code> - An integer representing the type of music (0 for normal, 1 for boss).</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="playMusic(com.csse3200.game.areas.GameArea.MusicType)">
+<h3>playMusic</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">playMusic</span><wbr><span class="parameters">(<a href="GameArea.MusicType.html" title="enum class in com.csse3200.game.areas">GameArea.MusicType</a>&nbsp;musicType)</span></div>
+<div class="block">Plays the specified type of music.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>musicType</code> - The type of music to play (normal/boss).</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="stopCurrentMusic()">
+<h3>stopCurrentMusic</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">stopCurrentMusic</span>()</div>
+<div class="block">Stops the currently playing music.</div>
 </section>
 </li>
 <li>
@@ -307,7 +399,61 @@ loadScripts(document, 'script');</script>
 <div class="block">Get a list of all entities in the area. This list is a copy and can be modified.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>list of entities</dd>
+<dd>A CopyOnWriteArrayList of entities.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getSoundFilepaths()">
+<h3>getSoundFilepaths</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name">getSoundFilepaths</span>()</div>
+<div class="block">Gets the file paths for all sound effects used in the game area.</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="../entities/factories/LoadedFactory.html#getSoundFilepaths()">getSoundFilepaths</a></code>&nbsp;in class&nbsp;<code><a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></code></dd>
+<dt>Returns:</dt>
+<dd>An array of String paths for sound effects.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getTextureAtlasFilepaths()">
+<h3>getTextureAtlasFilepaths</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name">getTextureAtlasFilepaths</span>()</div>
+<div class="block">Gets the file paths for all texture atlases used in the game area.</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="../entities/factories/LoadedFactory.html#getTextureAtlasFilepaths()">getTextureAtlasFilepaths</a></code>&nbsp;in class&nbsp;<code><a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></code></dd>
+<dt>Returns:</dt>
+<dd>An array of String paths for texture atlases.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getTextureFilepaths()">
+<h3>getTextureFilepaths</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name">getTextureFilepaths</span>()</div>
+<div class="block">Gets the file paths for all textures used in the game area.</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="../entities/factories/LoadedFactory.html#getTextureFilepaths()">getTextureFilepaths</a></code>&nbsp;in class&nbsp;<code><a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></code></dd>
+<dt>Returns:</dt>
+<dd>An array of String paths for textures, including:
+ - Common textures (player, doors, etc.)
+ - Tile textures for levels 1-3</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getMusicFilepaths()">
+<h3>getMusicFilepaths</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</span>&nbsp;<span class="element-name">getMusicFilepaths</span>()</div>
+<div class="block">Gets the file paths for all music files used in the game area.</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="../entities/factories/LoadedFactory.html#getMusicFilepaths()">getMusicFilepaths</a></code>&nbsp;in class&nbsp;<code><a href="../entities/factories/LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></code></dd>
+<dt>Returns:</dt>
+<dd>An array of String paths for music files.</dd>
 </dl>
 </section>
 </li>

@@ -288,7 +288,7 @@ public class CombatStatsComponent extends Component {
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         } else {
-            Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+            Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
             int damage;
             if (player != null) {
                 CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);

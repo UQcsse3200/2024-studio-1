@@ -13,7 +13,7 @@ public class MapLoadConfig {
     public String seed = "seed";
     public int mapSize = SIZE_ON_MEDIUM;
 
-    private static final int SIZE_ON_MEDIUM = 40;
+    private static final int SIZE_ON_MEDIUM = 20;
 
     /**
      * Set map size based on difficulty. Harder difficulty corresponds to larger map size.
@@ -21,11 +21,11 @@ public class MapLoadConfig {
      * @return this instance
      */
     public MapLoadConfig setSizeFromDifficulty(Difficulty difficulty) {
-        // 30 on easy, 40 on medium, 50 on hard
-        mapSize = (int) (SIZE_ON_MEDIUM * (1.75 - difficulty.getMultiplier()));
+        // 10 on easy, 20 on medium, 30 on hard
+        mapSize = (int) (40 * (1.25 - difficulty.getMultiplier()));
         if (mapSize <= 0) {
             throw new IllegalStateException(
-                    "Difficulty is too easy and caused a negative-sized map");
+                    "Difficulty is too easy and caused an invalid map size");
         }
         return this;
     }

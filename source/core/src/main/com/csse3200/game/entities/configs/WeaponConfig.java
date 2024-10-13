@@ -24,19 +24,19 @@ public class WeaponConfig {
         weaponConfigs.put("supersoaker", new WeaponData("supersoaker", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/supersoaker.png"));
-        weaponConfigs.put("fnscar", new WeaponData("fnscar", 10,
-                10, 5, 20, 20, 3,
+        weaponConfigs.put("fnscar", new WeaponData("fnscar", 12,
+                0, 3, 20, 20, 3,
                 "images" + "/Weapons/Centered/fnscar.png"));
         weaponConfigs.put("pistol", new WeaponData("pistol", 10,
-                10, 5, 20, 20, 3,
+                0, 2, 7, 7, 3,
                 "images" + "/Weapons/Centered/pistol.png"));
 
         weaponConfigs.put("knife", new WeaponData("knife", 20,
-                5, 3, "images/Weapons/Centered" +
+                1, 3, "images/Weapons/Centered" +
                 "/knife" +
                 ".png"));
         weaponConfigs.put("axe", new WeaponData("axe", 80,
-                20, 1, "images/Weapons/Centered/axe.png"));
+                2, 1, "images/Weapons/Centered/axe.png"));
 
     }
 

@@ -5,9 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerConfigComponent;
-import com.csse3200.game.components.player.inventory.CoinsComponent;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.components.player.inventory.UsableItem;
+import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.components.player.inventory.buffs.Armor;
+import com.csse3200.game.components.player.inventory.buffs.DamageBuff;
 import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
 import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.configs.PlayerConfig;
@@ -37,7 +37,8 @@ public class PlayerConfigGeneratorTest {
     public void setUp() {
         player = new Entity();
         inventoryComponent = new InventoryComponent();
-        statsComponent = new CombatStatsComponent(100, 30, true, 0, 0);
+        statsComponent = new CombatStatsComponent(100, 100,
+                30, true, 0, 0,  true, 5);
         playerActions = new PlayerActions();
 
         player.addComponent(inventoryComponent).addComponent(statsComponent).addComponent(playerActions);
@@ -90,6 +91,7 @@ public class PlayerConfigGeneratorTest {
      */
     @Test
     public void testMeleeWeapon() {
+
         inventoryComponent.pickup(new MeleeWeapon() {
             @Override
             public void attack() {
@@ -251,6 +253,166 @@ public class PlayerConfigGeneratorTest {
         PlayerConfig playerConfig = generator.savePlayerState(player);
         String[] expected = {"Energy bar", "Food"};
         assertArrayEquals(expected, playerConfig.items);
+    }
+
+    /**
+     * Test saving player's max health
+     */
+    @Test
+    public void testMaxHealth() {
+        statsComponent.setMaxHealth(120);
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(120, playerConfig.maxHealth);
+    }
+
+    /**
+     * Test saving player's armor and buff
+     */
+    @Test
+    public void testArmorAndBuff() {
+        inventoryComponent.pickup(new Armor());
+       // statsComponent.setDamageBuff(2.5f);
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(20, playerConfig.armour);
+
+    }
+
+    /**
+     * Test svaing player;s damage buff
+     */
+    @Test
+    public void testBuff() {
+        inventoryComponent.pickup(new DamageBuff());
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(15.0f, playerConfig.buff, 0.01f);
+    }
+
+    /**
+     * Test saving player's crit chance and crit status
+     */
+
+    @Test
+    public void testCritStats() {
+
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(5f, playerConfig.critChance, 0.01f);
+        assertEquals(true, playerConfig.canCrit);
+    }
+
+
+    /**
+     * Test saving player with pets
+     */
+    @Test
+    public void testPets() {
+        inventoryComponent.pickup(new Pet() {
+            @Override
+            public String getName() {
+                return "pet";
+            }
+
+            @Override
+            public Texture getIcon() {
+                return null;
+            }
+
+            @Override
+            protected String getPetSpecification() {
+                return "dragon";
+            }
+
+            @Override
+            protected Entity spawn(Entity entity) {
+                return null;
+            }
+        });
+
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(1, playerConfig.pets.length);
+        assertEquals("pet:dragon", playerConfig.pets[0]);
+    }
+
+    /**
+     * Test player with multiple pets
+     */
+    @Test
+    public void testMultiplePets() {
+        inventoryComponent.pickup(new Pet() {
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public Texture getIcon() {
+                return null;
+            }
+
+            @Override
+            public String getSpecification() {
+                return "Dragon";
+            }
+
+            @Override
+            protected String getPetSpecification() {
+                return null;
+            }
+
+            @Override
+            protected Entity spawn(Entity entity) {
+                return null;
+            }
+        });
+        inventoryComponent.pickup(new Pet() {
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public Texture getIcon() {
+                return null;
+            }
+
+            @Override
+            public String getSpecification() {
+                return "Wolf";
+            }
+
+            @Override
+            protected String getPetSpecification() {
+                return null;
+            }
+
+            @Override
+            protected Entity spawn(Entity entity) {
+                return null;
+            }
+        });
+
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        String[] expectedPets = {"Dragon", "Wolf"};
+        assertArrayEquals(expectedPets, playerConfig.pets);
+    }
+
+    /**
+     * Test player with no coins
+     */
+    @Test
+    public void testNoCoins() {
+        coinsComponent.setCoins(0);
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(0, playerConfig.coins);
+    }
+
+    /**
+     * Test saving player with no pets and items
+     */
+    @Test
+    public void testEmptyInventoryAndPets() {
+        PlayerConfig playerConfig = generator.savePlayerState(player);
+        assertEquals(0, playerConfig.items.length);
+        assertEquals(0, playerConfig.pets.length);
     }
 
 

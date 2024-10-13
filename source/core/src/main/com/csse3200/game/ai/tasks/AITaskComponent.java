@@ -67,6 +67,30 @@ public class AITaskComponent extends Component implements TaskRunner {
     }
   }
 
+  /**
+   * Retrieves a copy of the current list of tasks.
+   *
+   * @return A list of current PriorityTasks.
+   */
+  public List<PriorityTask> getTasks() {
+    return new ArrayList<>(priorityTasks);
+  }
+
+  /**
+   * Stops all tasks and clears the task list.
+   */
+  public void stopAllTasks() {
+    if (currentTask != null && currentTask.getStatus() != Task.Status.INACTIVE) {
+      currentTask.stop();
+    }
+    for (PriorityTask task : priorityTasks) {
+      if (task.getStatus() != Task.Status.INACTIVE) {
+        task.stop();
+      }
+    }
+    priorityTasks.clear();
+  }
+
   private PriorityTask getHighestPriorityTask() {
     try {
       return Collections.max(priorityTasks, Comparator.comparingInt(PriorityTask::getPriority));

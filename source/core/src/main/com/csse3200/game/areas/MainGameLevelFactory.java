@@ -1,6 +1,6 @@
 package com.csse3200.game.areas;
 
-import com.csse3200.game.areas.generation.MapGenerator;
+import com.csse3200.game.areas.generation.RoomType;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+
 /**
  * This is the main game mode.
  */
@@ -25,7 +26,6 @@ public class MainGameLevelFactory implements LevelFactory {
     private List<String> loadedRooms;
     private MapLoadConfig config;
 
-
     public MainGameLevelFactory(boolean shouldLoad, MapLoadConfig config) {
         this.shouldLoad = shouldLoad;
         this.config = config;
@@ -37,27 +37,29 @@ public class MainGameLevelFactory implements LevelFactory {
     /**
      * List of all the items the game contains as buuyables. Will be used to randomly pick 6 items that will
      * be spawned in the shop room.
+     *
      * @return List of items specifications.
      */
     protected List<String> getShopRoomItems() {
-        return List.of("buff:heart:buyable","item:medkit:buyable", "item:shieldpotion:buyable",
-                        "item:bandage:buyable", "buff:energydrink:Low:buyable", "buff:energydrink:Low:buyable",
-                        "buff:syringe:buyable", "buff:armor:buyable", "buff:damagebuff:buyable",
-                        "item:beartrap:buyable", "item:targetdummy:buyable", "item:reroll:buyable",
-                        "buff:feather:buyable", "item:heart:buyable", "buff:divinepotion:buyable"
+        return List.of("buff:heart:buyable", "item:medkit:buyable", "item:shieldpotion:buyable",
+                "item:bandage:buyable", "buff:energydrink:Low:buyable", "buff:energydrink:Low:buyable",
+                "buff:syringe:buyable", "buff:armor:buyable", "buff:damagebuff:buyable",
+                "item:beartrap:buyable", "item:targetdummy:buyable", "item:reroll:buyable",
+                "buff:feather:buyable", "item:heart:buyable", "buff:divinepotion:buyable"
         );
     }
 
     /**
      * Takes the list of all buyable items and makes a random list of 6 items to be spawned on the shop floor
+     *
      * @return List of 6 items.
      */
     private List<String> createShopItemsList() {
         List<String> items = getShopRoomItems();
         List<String> itemsToSpawn = new ArrayList<>();
         //Zack's code: spawn in 1 line (if there is 6 item)
-        if(items != null) {
-            for (int i = 0; i < 6; i++){
+        if (items != null) {
+            for (int i = 0; i < 6; i++) {
                 if (ServiceLocator.getRandomService() != null) {
                     int itemIndex = ServiceLocator.getRandomService().getRandomNumberGenerator(getClass()).getRandomInt(0, 14);
                     itemsToSpawn.add(items.get(itemIndex));
@@ -72,11 +74,11 @@ public class MainGameLevelFactory implements LevelFactory {
         String seed = "seed";
         // default seed for junit tests
         if (!shouldLoad) {
-            map = new LevelMap(seed + levelNumber, DEFAULT_MAP_SIZE);
+            map = new LevelMap(DEFAULT_MAP_SIZE);
 
         } else {
             // For loaded games, append the level number to the loaded seed
-            map = new LevelMap(config.seed + config.currentLevel, config.mapSize);
+            map = new LevelMap(config.mapSize);
         }
 
         RoomFactory roomFactory = new RoomFactory(
@@ -90,13 +92,18 @@ public class MainGameLevelFactory implements LevelFactory {
             int itemIndex = map.mapData.getRoomDetails().get(roomKey).get("item_index");
             int animalIndex = map.mapData.getRoomDetails().get(roomKey).get("animal_index");
             int roomType = map.mapData.getRoomDetails().get(roomKey).get("room_type");
-            switch (roomType) {
-                case MapGenerator.BOSSROOM:
+            RoomType type = Arrays.stream(RoomType.values())
+                    .filter(t -> t.num == roomType)
+                    .findFirst()
+                    .orElse(null);
+
+            switch (type) {
+                case RoomType.BOSS_ROOM:
                     rooms.put(roomKey, roomFactory.createBossRoom(
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
-                case MapGenerator.NPCROOM:
+                case RoomType.NPC_ROOM:
                     //If the game is loaded the items to be spawned is loaded from the config
                     //if not uses the createShopItems method to create a random list which is then loaded into the shop
                     // room to be spawned.
@@ -111,11 +118,13 @@ public class MainGameLevelFactory implements LevelFactory {
                             "0,0,14,10," + 0 + "," + levelNumber, roomKey, itemsToBeSpawned);
                     rooms.put(roomKey, shop);
                     break;
-                case MapGenerator.GAMEROOM:
+                case RoomType.GAME_ROOM:
                     rooms.put(roomKey, roomFactory.createGambleRoom(
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
+                case null:
+                    throw new IllegalArgumentException("Invalid room type.");
                 default:
                     rooms.put(roomKey, roomFactory.createRoom(
                             map.mapData.getPositions().get(roomKey),
@@ -134,7 +143,6 @@ public class MainGameLevelFactory implements LevelFactory {
         return new Level(map, levelNumber, rooms);
     }
 
-
     /**
      * Exports the map data to a JSON file.
      *
@@ -147,19 +155,19 @@ public class MainGameLevelFactory implements LevelFactory {
         String gameSeed = map.mapData.getMapSeed();
         String seedOnly = gameSeed.substring(0, gameSeed.length() - 1);
         config.seed = seedOnly;
-        config.currentLevel = level; 
+        config.currentLevel = level;
         config.currentRoom = ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().getRoomName();
 
         for (Room room : rooms.values()) {
-            if (room.isComplete()){
-                if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
-                    if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1) {
+            if (room.isComplete()) {
+                if (map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
+                    if (map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1) {
                         compRooms.add(room.getRoomName());
                     }
                 }
             }
         }
-        ShopRoom shopRoom = (ShopRoom)rooms.get(ServiceLocator.getGameAreaService().getGameController().getFlaggedRoom("NPC"));
+        ShopRoom shopRoom = (ShopRoom) rooms.get(ServiceLocator.getGameAreaService().getGameController().getFlaggedRoom("NPC"));
         List<String> shopSave = shopRoom.itemsSpawned;
         config.shopRoomItems.addAll(shopSave);
         config.roomsCompleted = compRooms;
@@ -170,6 +178,7 @@ public class MainGameLevelFactory implements LevelFactory {
     /**
      * Sets the rooms that have been completed in the saved game as completed in the loaded
      * game.
+     *
      * @param roomNames Room keys that have been completed.
      */
 
@@ -178,10 +187,4 @@ public class MainGameLevelFactory implements LevelFactory {
             rooms.get(roomName).setComplete();
         }
     }
-
-    public int getCurrentLevel() {
-        return levelNum;
-    }
-
-
 }

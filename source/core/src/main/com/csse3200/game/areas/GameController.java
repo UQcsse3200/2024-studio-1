@@ -148,7 +148,7 @@ public class GameController {
         if (!List.of("Boss", "NPC", "GameRoom").contains(roomType)) {
             throw new IllegalArgumentException("Invalid room type: " + roomType);
         }
-        return currentLevel.getMap().mapData.RoomKeys.get(roomType);
+        return currentLevel.getMap().mapData.getRoomKeys().get(roomType);
     }
 
     /**

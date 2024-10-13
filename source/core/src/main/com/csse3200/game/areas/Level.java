@@ -19,6 +19,7 @@ public class Level {
         this.levelNumber = levelNumber;
         this.rooms = rooms;
     }
+
     public Room getRoom(String roomKey) {
         log.info("event recognised");
         return rooms.get(roomKey);
@@ -32,8 +33,11 @@ public class Level {
         return levelNumber;
     }
 
-    public LevelMap getMap() {return map;}
-    public String toString(){
-        return ""+levelNumber;
+    public LevelMap getMap() {
+        return map;
+    }
+
+    public String toString() {
+        return "" + levelNumber;
     }
 }

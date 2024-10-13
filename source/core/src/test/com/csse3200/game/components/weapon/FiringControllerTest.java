@@ -209,7 +209,7 @@ public class FiringControllerTest {
         assert firingController.getAmmo() == 20;
 
         assert firingController.getWeaponSprite() == null;
-        firingController.setWeaponSprite(new Sprite(new Texture("images/Weapons/Shotgun.png")));
+        firingController.setWeaponSprite(new Sprite(new Texture("images/Weapons/shotgun.png")));
         assert firingController.getWeaponSprite() != null;
     }
 }

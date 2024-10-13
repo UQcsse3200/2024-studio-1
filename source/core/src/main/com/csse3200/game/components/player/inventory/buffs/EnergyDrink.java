@@ -34,7 +34,7 @@ public class EnergyDrink extends BuffItem {
     /**
      * The icon of this energy drink type
      */
-    Texture EnergyDrinkIcon;
+    Texture energyDrinkIcon;
 
     /***
      * A constructor used simply for testing in JUnit (The only difference is that this constructor does not
@@ -76,7 +76,7 @@ public class EnergyDrink extends BuffItem {
      */
     @Override
     public Texture getIcon() {
-        return this.EnergyDrinkIcon;
+        return this.energyDrinkIcon;
     }
 
     /**
@@ -86,9 +86,9 @@ public class EnergyDrink extends BuffItem {
      */
     public void setIcon(String speedType) {
         switch (speedType) {
-            case "Low" -> this.EnergyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
-            case "Medium" -> this.EnergyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
-            case "High" -> this.EnergyDrinkIcon = new Texture("images/items/energy_drink_red.png");
+            case "Low" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
+            case "Medium" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
+            case "High" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_red.png");
         }
     }
 

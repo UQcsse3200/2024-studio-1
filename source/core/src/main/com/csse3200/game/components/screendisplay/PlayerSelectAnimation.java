@@ -15,11 +15,11 @@ public class PlayerSelectAnimation extends Actor {
     private final PlayerNum player;
 
     public enum PlayerNum {
-        Player1,
-        Player2,
-        Player3,
-        Bear,
-        Player4
+        PLAYER_1,
+        PLAYER_2,
+        PLAYER_3,
+        BEAR,
+        PLAYER_4
     }
 
     public PlayerSelectAnimation(AnimationRenderComponent animator, String textureAtlas) {
@@ -31,11 +31,11 @@ public class PlayerSelectAnimation extends Actor {
     // Assign player number to the texture atlas
     private PlayerNum mapTextureAtlasToPlayerNum(String textureAtlas) {
         return switch (textureAtlas) {
-            case "images/player/player.atlas" -> PlayerNum.Player1;
-            case "images/player/homeless1.atlas" -> PlayerNum.Player2;
-            case "images/npc/bear/bear.atlas" -> PlayerNum.Bear;
-            case "images/player/homeless2.atlas" -> PlayerNum.Player3;
-            case "images/player/homeless3.atlas" -> PlayerNum.Player4;
+            case "images/player/player.atlas" -> PlayerNum.PLAYER_1;
+            case "images/player/homeless1.atlas" -> PlayerNum.PLAYER_2;
+            case "images/npc/bear/bear.atlas" -> PlayerNum.BEAR;
+            case "images/player/homeless2.atlas" -> PlayerNum.PLAYER_3;
+            case "images/player/homeless3.atlas" -> PlayerNum.PLAYER_4;
             default -> throw new IllegalArgumentException("Unknown texture atlas: " + textureAtlas);
         };
     }
@@ -44,16 +44,16 @@ public class PlayerSelectAnimation extends Actor {
     private void initializeAnimations() {
         animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
         switch (player) {
-            case Player2:
+            case PLAYER_2:
                 animator.addAnimation("Special", 0.2f, Animation.PlayMode.LOOP);
                 break;
-            case Player3:
+            case PLAYER_3:
                 animator.addAnimation("Run", 0.2f, Animation.PlayMode.LOOP_PINGPONG);
                 break;
-            case Player4:
+            case PLAYER_4:
                 animator.addAnimation("Attack_1", 0.2f, Animation.PlayMode.LOOP_RANDOM);
                 break;
-            case Bear:
+            case BEAR:
                 animator.addAnimation("idle_right", 0.5f, Animation.PlayMode.LOOP);
                 animator.addAnimation("attack_right", 0.5f, Animation.PlayMode.LOOP);
                 break;
@@ -83,10 +83,10 @@ public class PlayerSelectAnimation extends Actor {
 
     public void startAnimation() {
         String animationName = switch (player) {
-            case Player4 -> "Attack_1";
-            case Player2 -> "Special";
-            case Player3 -> "Run";
-            case Bear-> "idle_right";
+            case PLAYER_4 -> "Attack_1";
+            case PLAYER_2 -> "Special";
+            case PLAYER_3 -> "Run";
+            case BEAR-> "idle_right";
             default -> "idle";
         };
         animator.startAnimation(animationName);

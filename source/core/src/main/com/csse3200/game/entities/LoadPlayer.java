@@ -33,7 +33,7 @@ public class LoadPlayer {
     private final InventoryComponent inventoryComponent;
     private final PlayerActions playerActions;
     private static final float playerScale = 0.75f;
-    private static final Logger logger = getLogger(LoadPlayer.class);
+    private static final Logger LOGGER = getLogger(LoadPlayer.class);
     private final CollectibleFactory collectibleFactory;
 
 
@@ -53,7 +53,7 @@ public class LoadPlayer {
      * @return entity
      */
     public Entity createPlayer(PlayerConfig config) {
-        logger.info("Creating player with config: {}", config);
+        LOGGER.info("Creating player with config: {}", config);
 
         Entity player = new Entity();
 
@@ -74,7 +74,7 @@ public class LoadPlayer {
      */
     private void addAtlas(Entity player, PlayerConfig config) {
         TextureAtlas atlas = new TextureAtlas(config.textureAtlasFilename);
-        logger.info("Texture Atlas Filename: {}", config.textureAtlasFilename);
+        LOGGER.info("Texture Atlas Filename: {}", config.textureAtlasFilename);
         if (!config.textureAtlasFilename.equals("images/player/player.atlas")) {
             atlas.findRegion("idle");
             player.setScale(2f, 2f);

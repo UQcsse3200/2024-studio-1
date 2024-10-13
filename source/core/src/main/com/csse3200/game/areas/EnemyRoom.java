@@ -51,7 +51,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param specification Room specification string.
      * @param roomName Name of the room.
      */
-    public EnemyRoom(
+    protected EnemyRoom(
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
@@ -79,7 +79,7 @@ public abstract class EnemyRoom extends BaseRoom {
     /**
      * Spawns Deployable Entity
      */
-    public void SpawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
+    public void spawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
         entities.add(entity);
         getGameAreaService().getGameArea().spawnEntityAt(entity, tilePos, centerX, centerY);
 
@@ -91,7 +91,7 @@ public abstract class EnemyRoom extends BaseRoom {
      */
     public void checkIfRoomComplete() {
         if (isAllAnimalDead()) {
-            System.out.println("room is complete");
+            logger.info("room is complete");
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
@@ -174,9 +174,9 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param max The maximum grid point for spawning.
      */
     protected void spawnAnimals(MainGameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
-        List<String> animalGroup = this.animalSpecifications.get(this.animalGroup);
-        if (animalGroup != null) {
-            createEnemyEntities(animalGroup, player);
+        List<String> animalGrouping = this.animalSpecifications.get(this.animalGroup);
+        if (animalGrouping != null) {
+            createEnemyEntities(animalGrouping, player);
             for (Entity enemy : entities) {
                 if (enemy.getComponent(CombatStatsComponent.class) != null) {
                     Vector2 playerPos = player.getPosition();
@@ -194,8 +194,6 @@ public abstract class EnemyRoom extends BaseRoom {
                 }
             }
         }
-        //makeAllAnimalDead();
-        //isAllAnimalDead();
     }
 
     /**
@@ -211,9 +209,6 @@ public abstract class EnemyRoom extends BaseRoom {
         if (!isRoomCompleted) {
             logger.info("spawning enemies");
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
-
-            //logger.info("spawning items");
-            //this.spawnItems();
         }
     }
 

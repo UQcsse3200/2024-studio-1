@@ -64,7 +64,7 @@ public class RoomFactory {
 
     public Room createGambleRoom(List<String> roomConnections, String specification, String roomName) {
         // add connections to boss Room
-        return new GambleRoom(this.npcFactory, this.collectibleFactory,
+        return new GambleRoom( this.collectibleFactory,
                             this.terrainFactory, roomConnections, specification, roomName);
     }
 

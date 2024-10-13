@@ -138,7 +138,7 @@ public class MainGameArea extends GameArea {
      * @return the room key for the boss room.
      */
     public String getBossRoom() {
-        return currentLevel.getMap().mapData.RoomKeys.get("Boss");
+        return currentLevel.getMap().mapData.getRoomKey("Boss");
     }
 
     /**
@@ -147,7 +147,7 @@ public class MainGameArea extends GameArea {
      * @return the room key for the NPC room.
      */
     public String getNpcRoom() {
-        return currentLevel.getMap().mapData.RoomKeys.get("NPC");
+        return currentLevel.getMap().mapData.getRoomKey("NPC");
     }
 
     /**
@@ -156,7 +156,7 @@ public class MainGameArea extends GameArea {
      * @return the room key for the game room.
      */
     public String getGameRoom() {
-        return currentLevel.getMap().mapData.RoomKeys.get("GameRoom");
+        return currentLevel.getMap().mapData.getRoomKey("GameRoom");
     }
 
     /**

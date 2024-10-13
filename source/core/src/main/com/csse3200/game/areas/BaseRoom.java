@@ -75,7 +75,7 @@ public abstract class BaseRoom implements Room {
      * @param specification The room specification string.
      * @param roomName The name of the room.
      */
-    public BaseRoom(
+    protected BaseRoom(
             TerrainFactory terrainFactory,
             CollectibleFactory collectibleFactory,
             List<String> roomConnections,
@@ -119,12 +119,6 @@ public abstract class BaseRoom implements Room {
      * @return A list of item specification lists.
      */
     protected abstract List<List<String>> getItemSpecifications();
-
-    /**
-     * Checks if the room is complete.
-     * This method should be implemented by subclasses.
-     */
-    public abstract void checkIfRoomComplete();
 
     /**
      * Spawns the terrain for the room, including walls and background.

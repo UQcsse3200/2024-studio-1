@@ -94,13 +94,13 @@ public class AITaskComponent extends Component implements TaskRunner {
    * @param desiredTask the desired task for AI entity to perform
    */
   private void updateTarget(PriorityTask desiredTask) {
-    if (desiredTask instanceof ChaseTask) {
+    if (desiredTask instanceof ChaseTask chaseTask) {
       Entity newTarget = ((ChaseTask) desiredTask).getTarget();
       if (newTarget != currentTarget) {
         currentTarget = newTarget;
         updateAttackTarget();
       }
-    } else if (desiredTask instanceof ChargeTask) {
+    } else if (desiredTask instanceof ChargeTask chargeTask) {
       Entity newTarget = ((ChargeTask) desiredTask).getTarget();
       if (newTarget != currentTarget) {
         currentTarget = newTarget;

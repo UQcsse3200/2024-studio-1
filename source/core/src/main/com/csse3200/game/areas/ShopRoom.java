@@ -11,14 +11,13 @@ import com.csse3200.game.components.gamearea.ShopRoomDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
 /**
  * Room for Player to Shop in to buy 'buyable' items within
  */
 public class ShopRoom extends BaseRoom {
-    public RandomNumberGenerator rng;
+    private RandomNumberGenerator rng;
 
     /**
      * A shop room (NPC Room) that users can buy items in
@@ -72,15 +71,13 @@ public class ShopRoom extends BaseRoom {
             Set<String> usedCoordinates = new HashSet<>();
             final int MAXGENERATED = 10;
             String coordinate;
-            if (items != null) {
-                while (usedCoordinates.size() < items.size() && items.size() < MAXGENERATED) {
-                    int x = rng.getRandomInt(1, 8);
-                    int y = rng.getRandomInt(1, 8);
-                    coordinate = x + "_" + y;
-                    if (!usedCoordinates.contains(coordinate)) {
-                        spawnItem(area, items.get(usedCoordinates.size()), new GridPoint2(x, y));
-                        usedCoordinates.add(coordinate);
-                    }
+            while (usedCoordinates.size() < items.size() && items.size() < MAXGENERATED) {
+                int x = rng.getRandomInt(1, 8);
+                int y = rng.getRandomInt(1, 8);
+                coordinate = x + "_" + y;
+                if (!usedCoordinates.contains(coordinate)) {
+                    spawnItem(area, items.get(usedCoordinates.size()), new GridPoint2(x, y));
+                    usedCoordinates.add(coordinate);
                 }
             }
         }

@@ -185,20 +185,14 @@ public class FiringController extends Component {
             }
             // Shooting
             this.setAmmo(-1);
-            // Set ready state
-
             // Create projectiles
-            for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
-                    direction, this.getEntity().getPosition())) {
-                ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
-                        new GridPoint2(9, 9), true, true);
-            }
+            spawnProjectile(direction);
             // Trigger sound
             ServiceLocator.getResourceService().playSound("sounds/shotgun1_f.ogg");
             // Trigger event for animation controller
             triggerEvent(direction);
             logger.info("Ranged weapon shoot");
-            // Check if the weapon needs to be reload or not
+            // Check if the weapon needs to be reloaded or not
             checkState();
         } else {
             logger.info("No ranged weapon");
@@ -315,10 +309,10 @@ public class FiringController extends Component {
     }
 
     /**
-     * Set isReady to false.
-     * If the weapon still have ammo, create timer to set isReady to true after activation
+     * Set weapon to not ready.
+     * If the weapon still have ammo, create timer to set the weapon to ready after activation
      * interval.
-     * Else, create timer to set isReady to true after reload time.
+     * Otherwise, create timer to set isReady to true after reload time.
      */
     private void checkState() {
         // Check for reloading
@@ -342,6 +336,29 @@ public class FiringController extends Component {
                     isReady = true;
                 }
             }, this.reloadTime);
+        }
+    }
+
+    /**
+     * Spawn projectile(s) for this weapon.
+     * Will spawn multiple projectiles (shotgun spray) for weapons with range > 0.
+     * Otherwise, will spawn single projectile with unlimited range.
+     * @param direction direction to shoot the projectile(s)
+     */
+    private void spawnProjectile(Vector2 direction) {
+        if (this.range == 0) {
+            // Not a shotgun
+            Entity projectile = projectileFactory.createProjectile(this.projectileConfig, direction,
+                    entity.getPosition());
+            ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile,
+                    new GridPoint2(9, 9), true, true);
+            return;
+        }
+        // Is a shotgun
+        for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
+                direction, this.getEntity().getPosition())) {
+            ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
+                    new GridPoint2(9, 9), true, true);
         }
     }
 

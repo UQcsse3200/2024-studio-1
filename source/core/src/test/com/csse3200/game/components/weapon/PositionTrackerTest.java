@@ -89,4 +89,11 @@ public class PositionTrackerTest {
         positionTracker.update();
         assertEquals(weaponEntity.getPosition(), new Vector2(20, 20));
     }
+
+    @org.junit.jupiter.api.Test
+    public void testGetOffset() {
+        PositionTracker positionTracker = new PositionTracker();
+        positionTracker.connectPlayer(player);
+        assertEquals(positionTracker.getOffset(), new Vector2(0, 0));
+    }
 }

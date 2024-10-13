@@ -175,6 +175,11 @@ public class Entity {
         T component = (T) components.get(componentType.getId());
         if (component == null && !type.equals(NameComponent.class)) {
             logger.error("{} does not have a {} component", getName(), componentType.getClass().getSimpleName());
+            try {
+                throw new RuntimeException();
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
         }
         return component;
     }

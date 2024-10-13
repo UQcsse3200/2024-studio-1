@@ -22,13 +22,18 @@ public class ArmouryRoom extends BaseRoom {
     /**
      * Constructs a new BaseRoom with the given parameters.
      */
-    public ArmouryRoom() {
+    public ArmouryRoom(List<String> connections) {
         super(new TerrainFactory(0),
                 new CollectibleFactory(),
-                List.of("", "", "", ""),
+                connections,
                 "0,0,14,10,0,0",
                 "test"
         );
+    }
+
+    @Override
+    public boolean isComplete() {
+        return true;
     }
 
     @Override

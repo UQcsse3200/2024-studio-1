@@ -70,7 +70,7 @@ public class MainGameLevelFactory implements LevelFactory {
     }
 
     @Override
-    public Level create(int levelNumber) {
+    public MainGameLevel create(int levelNumber) {
         String seed = "seed";
         // default seed for junit tests
         if (!shouldLoad) {
@@ -140,7 +140,7 @@ public class MainGameLevelFactory implements LevelFactory {
         // Store the current level number
         this.levelNum = levelNumber;
 
-        return new Level(map, levelNumber, rooms);
+        return new MainGameLevel(map, levelNumber, rooms);
     }
 
     /**

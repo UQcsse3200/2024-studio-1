@@ -16,16 +16,24 @@ public class TestMapGenerator implements MapGenerator {
 
     @Override
     public Map<String, List<String>> getPositions() {
-        return Map.of("0_0", List.of());
+        return Map.of(
+                "0_0", List.of("", "0_1", "", ""),
+                "0_1", List.of("", "", "0_0", "")
+        );
     }
 
     @Override
     public Map<String, Map<String, Integer>> getRoomDetails() {
         return Map.of("0_0", Map.of(
-                "animal_index", 0,
-                "item_index", 0,
-                "room_type", 0
-        ));
+                        "animal_index", 0,
+                        "item_index", 0,
+                        "room_type", 0),
+                "0_1", Map.of(
+                        "animal_index", 0,
+                        "item_index", 0,
+                        "room_type", 0
+                )
+        );
     }
 
     @Override

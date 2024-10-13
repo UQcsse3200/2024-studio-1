@@ -17,7 +17,6 @@ public class PlayerConfigGenerator {
      * Generates a player config object based on current state of given entity.
      *
      * @param player the entity player whose state needs to be saved
-     *
      * @return returns a player configuration that can be saved
      */
     public PlayerConfig savePlayerState(Entity player) {
@@ -29,8 +28,8 @@ public class PlayerConfigGenerator {
         config.health = statsComponent.getHealth();
         config.baseAttack = statsComponent.getBaseAttack();
         config.coins = player.getComponent(CoinsComponent.class).getCoins();
+        config.maxHealth = statsComponent.getMaxHealth();
         config.speed = player.getComponent(PlayerActions.class).getCurrSpeed();
-        config.pets = petsToString(player.getComponent(InventoryComponent.class).getPets());
         config.armour = statsComponent.getArmor();
         config.buff = statsComponent.getDamageBuff();
         config.canCrit = statsComponent.getCanCrit();
@@ -38,6 +37,7 @@ public class PlayerConfigGenerator {
         // store the string representation of items player has collected
         InventoryComponent inventoryComponent = player.getComponent(InventoryComponent.class);
         config.items = itemsToString(inventoryComponent.getItems());
+        config.pets = petsToString(inventoryComponent.getPets());
 
         // obtain the specification of melee of player, if any
         config.melee = inventoryComponent.getOffhand()
@@ -58,7 +58,6 @@ public class PlayerConfigGenerator {
      * storing their details
      *
      * @param items array of items to store
-     *
      * @return an array of strings containing specification of all items
      */
     private String[] itemsToString(Array<UsableItem> items) {
@@ -72,7 +71,7 @@ public class PlayerConfigGenerator {
     private String[] petsToString(Array<Pet> pets) {
         String[] allPets = new String[pets.size];
         for (int i = 0; i < pets.size; i++) {
-            allPets[i] = pets.get(i).getName();
+            allPets[i] = pets.get(i).getSpecification();
         }
         return allPets;
     }

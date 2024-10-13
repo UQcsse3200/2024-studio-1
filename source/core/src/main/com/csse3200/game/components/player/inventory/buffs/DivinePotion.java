@@ -18,7 +18,7 @@ public class DivinePotion extends BuffItem {
      */
     @Override
     public String getBuffSpecification() {
-        return "Divine potion";
+        return "divinepotion";
     }
 
     /**

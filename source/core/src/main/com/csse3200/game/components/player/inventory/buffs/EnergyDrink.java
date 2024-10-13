@@ -7,6 +7,8 @@ import com.csse3200.game.components.player.inventory.BuffItem;
 import com.csse3200.game.components.player.inventory.Inventory;
 import com.csse3200.game.entities.Entity;
 
+import java.util.List;
+
 /**
  * An energy drink item that immediately affects the player's speed upon pickup. An energy drink has three different
  * types, which can be chosen by changing the specification of this item to either "Low", "Medium" or "High". Each
@@ -36,18 +38,6 @@ public class EnergyDrink extends BuffItem {
      */
     Texture energyDrinkIcon;
 
-    /***
-     * A constructor used simply for testing in JUnit (The only difference is that this constructor does not
-     * call setIcon(), avoiding issues. This is because JUnit cannot access Textures.
-     *
-     * @param speedType
-     * @param flag
-     */
-    public EnergyDrink(String speedType, boolean flag) {
-        this.speedType = speedType;
-        setScalar(speedType);
-    }
-
     /**
      * A constructor to initialise an EnergyDrink item
      *
@@ -55,6 +45,9 @@ public class EnergyDrink extends BuffItem {
      */
     public EnergyDrink(String speedType) {
         this.speedType = speedType;
+        if (!List.of("High", "Medium", "Low").contains(speedType)) {
+            throw new IllegalArgumentException("Invalid speedType: " + speedType);
+        }
         setScalar(speedType);
         setIcon(speedType);
     }
@@ -189,6 +182,7 @@ public class EnergyDrink extends BuffItem {
                 this.speed = baseSpeed.scl(0.1f);
                 this.speedPercentage = 0.1f;
             }
+            default -> throw new IllegalStateException("Unexpected value: " + speedType);
         }
     }
 }

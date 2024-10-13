@@ -15,7 +15,7 @@ import java.util.List;
  * A kind of collectible that grants a pet, a follower who will assist you in combat.
  */
 public abstract class Pet implements Collectible {
-    private Entity delegate;
+    protected Entity delegate;
 
     @Override
     public Type getType() {
@@ -36,6 +36,8 @@ public abstract class Pet implements Collectible {
     @Override
     public void drop(Inventory inventory) {
         inventory.getContainer(Pet.class).remove(this);
+        ServiceLocator.getEntityService().markEntityForRemoval(this.delegate);
+        this.delegate = null;
     }
 
     /**

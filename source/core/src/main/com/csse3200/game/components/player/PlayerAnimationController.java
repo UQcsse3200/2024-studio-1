@@ -202,7 +202,6 @@ public class PlayerAnimationController extends Component {
         death = true;
     }
 
-
     /**
      * Stops the player death animation.
      */
@@ -235,4 +234,3 @@ public class PlayerAnimationController extends Component {
         }
     }
 }
-

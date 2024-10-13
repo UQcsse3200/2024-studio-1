@@ -6,6 +6,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.StairFactory;
+import com.csse3200.game.services.ServiceLocator;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class BossRoom extends EnemyRoom {
     private NPCFactory npcFactory;
     private MainGameArea area;
     private Entity player;
+    private Entity stairs;
 
     @Override
     protected List<List<String>> getAnimalSpecifications() {
@@ -62,14 +64,23 @@ public class BossRoom extends EnemyRoom {
         this.area = area;
         this.player = player;
         spawnStairs(player, area);
+
     }
 
+    /**
+     *
+     * @param player  the player entity of the game
+     * @param area   the main game area for stairs
+     */
+
     private void spawnStairs(Entity player, MainGameArea area) {
-        Entity stairs = StairFactory.createStair(player.getId());
-        int x = maxGridPoint.x;
-        int y = maxGridPoint.y;
-        GridPoint2 pos = new GridPoint2(x, y);
-        area.spawnEntityAt(stairs, pos, true, true);
+        if (stairs == null) {
+            stairs = StairFactory.createStair(player.getId());
+            int x = maxGridPoint.x;
+            int y = maxGridPoint.y;
+            GridPoint2 pos = new GridPoint2(x, y);
+            area.spawnEntityAt(stairs, pos, true, true);
+        }
     }
 
     /**
@@ -87,7 +98,21 @@ public class BossRoom extends EnemyRoom {
         GridPoint2 snakePos = new GridPoint2(10, 10);  // Example fixed position
 
         // Spawn the animals at the fixed positions
-        area.spawnEntityAt(dog, dogPos, true, true);
-        area.spawnEntityAt(snake, snakePos, true, true);
+        BossRoom bossRoom = (BossRoom) ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom();
+
+        bossRoom.spawnEnemyEntity(area, dog, dogPos);
+        bossRoom.spawnEnemyEntity(area, snake, snakePos);
+//        area.spawnEntityAt(snake, snakePos, true, true);
+    }
+
+
+
+    @Override
+    public void removeRoom() {
+        super.removeRoom();
+        if (stairs != null) {
+            ServiceLocator.getEntityService().markEntityForRemoval(stairs);
+            stairs = null;
+        }
     }
 }

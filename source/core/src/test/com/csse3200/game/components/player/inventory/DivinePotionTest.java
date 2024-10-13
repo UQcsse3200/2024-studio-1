@@ -58,7 +58,7 @@ public class DivinePotionTest {
     @Test
     public void testGetBuffSpecification() {
         // Check if getBuffSpecification returns "Divine potion"
-        assertEquals("Divine potion", divinePotion.getBuffSpecification());
+        assertEquals("divinepotion", divinePotion.getBuffSpecification());
     }
 
     @Test

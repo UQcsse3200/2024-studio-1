@@ -1,5 +1,6 @@
 package com.csse3200.game.components.screendisplay;
 
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,52 +13,50 @@ import com.csse3200.game.rendering.AnimationRenderComponent;
  */
 public class PlayerSelectAnimation extends Actor {
     private final AnimationRenderComponent animator;
-    private final PlayerNum player;
+    private final PlayerAnimationType player;
 
-    public enum PlayerNum {
-        PLAYER_1,
-        PLAYER_2,
-        PLAYER_3,
-        BEAR,
-        PLAYER_4
+    private enum PlayerAnimationType {
+        Player1("idle", 0.2f, PlayMode.LOOP),
+        Player2("Walk_right", 0.2f, PlayMode.LOOP),
+        Player3("Run_right", 0.2f, PlayMode.LOOP_PINGPONG),
+        Bear("idle_right", 0.5f, PlayMode.LOOP),
+        Player4("Attack1_right", 0.2f, PlayMode.LOOP_RANDOM);
+
+        final String animationName;
+        final float animationDuration;
+        final PlayMode animationPlayMode;
+
+        PlayerAnimationType(String animationName, float animationDuration, PlayMode animationPlayMode) {
+            this.animationName = animationName;
+            this.animationDuration = animationDuration;
+            this.animationPlayMode = animationPlayMode;
+        }
+
+        // Assign player number to the texture atlas
+        static PlayerAnimationType createFromAtlas(String textureAtlas) {
+            return switch (textureAtlas) {
+                case "images/player/player.atlas" -> Player1;
+                case "images/player/homeless1.atlas" -> Player2;
+                case "images/npc/bear/bear.atlas" -> Bear;
+                case "images/player/homeless2.atlas" -> Player3;
+                case "images/player/homeless3.atlas" -> Player4;
+                default -> throw new IllegalArgumentException(
+                        "Unknown texture atlas: " + textureAtlas);
+            };
+            // necromancer uses normal player atlas
+        }
     }
 
     public PlayerSelectAnimation(AnimationRenderComponent animator, String textureAtlas) {
         this.animator = animator;
-        this.player = mapTextureAtlasToPlayerNum(textureAtlas);
+        this.player = PlayerAnimationType.createFromAtlas(textureAtlas);
         initializeAnimations();
-    }
-
-    // Assign player number to the texture atlas
-    private PlayerNum mapTextureAtlasToPlayerNum(String textureAtlas) {
-        return switch (textureAtlas) {
-            case "images/player/player.atlas" -> PlayerNum.PLAYER_1;
-            case "images/player/homeless1.atlas" -> PlayerNum.PLAYER_2;
-            case "images/npc/bear/bear.atlas" -> PlayerNum.BEAR;
-            case "images/player/homeless2.atlas" -> PlayerNum.PLAYER_3;
-            case "images/player/homeless3.atlas" -> PlayerNum.PLAYER_4;
-            default -> throw new IllegalArgumentException("Unknown texture atlas: " + textureAtlas);
-        };
     }
 
     // Add texture region relative to each player
     private void initializeAnimations() {
-        animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
-        switch (player) {
-            case PLAYER_2:
-                animator.addAnimation("Special", 0.2f, Animation.PlayMode.LOOP);
-                break;
-            case PLAYER_3:
-                animator.addAnimation("Run", 0.2f, Animation.PlayMode.LOOP_PINGPONG);
-                break;
-            case PLAYER_4:
-                animator.addAnimation("Attack_1", 0.2f, Animation.PlayMode.LOOP_RANDOM);
-                break;
-            case BEAR:
-                animator.addAnimation("idle_right", 0.5f, Animation.PlayMode.LOOP);
-                animator.addAnimation("attack_right", 0.5f, Animation.PlayMode.LOOP);
-                break;
-        }
+        animator.addAnimation(
+                player.animationName, player.animationDuration, player.animationPlayMode);
     }
 
     @Override
@@ -73,22 +72,28 @@ public class PlayerSelectAnimation extends Actor {
 
         // Get the current frame from the animator
         TextureRegion currentFrame = animator.getCurrentFrame();
-        if (currentFrame != null) {
-            batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
+
+        // Calculate width, height to draw at
+        float cellRatio = getHeight() / getWidth();
+        float regionRatio = (float) currentFrame.getRegionHeight() / currentFrame.getRegionWidth();
+        float width, height;
+        if (cellRatio > regionRatio) {
+            width = getWidth();
+            height = width * regionRatio;
+        } else {
+            height = getHeight();
+            width = height / regionRatio;
         }
+        float x = getX() + (getWidth() - width) / 2;
+        float y = getY() + (getHeight() - height) / 2;
+
+        batch.draw(currentFrame, x, y, width, height);
 
         // Reset batch color
         batch.setColor(1f, 1f, 1f, 1f);
     }
 
     public void startAnimation() {
-        String animationName = switch (player) {
-            case PLAYER_4 -> "Attack_1";
-            case PLAYER_2 -> "Special";
-            case PLAYER_3 -> "Run";
-            case BEAR-> "idle_right";
-            default -> "idle";
-        };
-        animator.startAnimation(animationName);
+        animator.startAnimation(player.animationName);
     }
 }

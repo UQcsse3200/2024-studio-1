@@ -40,7 +40,7 @@ public class BigRedButtonTest {
     public void testGetName() {assertEquals("BigRedButton", brb.getName());}
 
     @Test
-    public void testGetItemSpecification() {assertEquals("BigRedButton", brb.getItemSpecification());}
+    public void testGetItemSpecification() {assertEquals("bigredbutton", brb.getItemSpecification());}
 
 //    @Test
 //    public void testKillAllAnimals() {

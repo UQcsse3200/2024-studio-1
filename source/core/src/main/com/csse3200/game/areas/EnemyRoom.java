@@ -89,7 +89,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * Checks if the room is complete by verifying if all animals/enemies are dead.
      * Sets the room as complete if the condition is met.
      */
-    public void checkIfRoomComplete() {
+    public void checkComplete() {
         if (isAllAnimalDead()) {
             logger.info("room is complete");
             Timer.schedule(new Timer.Task() {
@@ -98,7 +98,7 @@ public abstract class EnemyRoom extends BaseRoom {
                     spawnItems();
                 }
             }, 1.0f);
-            setIsRoomComplete();
+            setComplete();
         }
     }
 
@@ -157,7 +157,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * Items are placed at predefined positions.
      */
     private void spawnItems() {
-        MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
+        GameArea area = ServiceLocator.getGameAreaService().getGameArea();
         List<String> items = this.itemSpecifications.get(this.itemGroup);
         if (items != null && items.size() >= 2) {
             spawnItem(area, items.get(0), new GridPoint2(8, 8));
@@ -173,10 +173,10 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param min The minimum grid point for spawning.
      * @param max The maximum grid point for spawning.
      */
-    protected void spawnAnimals(MainGameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
-        List<String> animalGrouping = this.animalSpecifications.get(this.animalGroup);
-        if (animalGrouping != null) {
-            createEnemyEntities(animalGrouping, player);
+    protected void spawnAnimals(GameArea area, Entity player, GridPoint2 min, GridPoint2 max) {
+        List<String> animalGroup = this.animalSpecifications.get(this.animalGroup);
+        if (animalGroup != null) {
+            createEnemyEntities(animalGroup, player);
             for (Entity enemy : entities) {
                 if (enemy.getComponent(CombatStatsComponent.class) != null) {
                     Vector2 playerPos = player.getPosition();
@@ -203,10 +203,10 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param area The game area to spawn the room in.
      */
     @Override
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
 
-        if (!isRoomCompleted) {
+        if (!isComplete()) {
             logger.info("spawning enemies");
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
         }
@@ -228,8 +228,8 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param enemy The enemy entity to spawn.
      * @param position The position to spawn the enemy at.
      */
-    public void spawnEnemyEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
-        enemy.getEvents().addListener("checkAnimalsDead", () -> checkIfRoomComplete());
+    public void spawnEnemyEntity(GameArea area, Entity enemy, GridPoint2 position) {
+        enemy.getEvents().addListener("checkAnimalsDead", () -> checkComplete());
         this.spawnAnimalEntity(area, enemy, position);
         enemies.add(enemy);
     }

@@ -2,7 +2,8 @@ package com.csse3200.game.areas.Levels;
 
 import com.csse3200.game.areas.Level;
 import com.csse3200.game.areas.LevelMap;
-import com.csse3200.game.entities.Room;
+import com.csse3200.game.areas.Room;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

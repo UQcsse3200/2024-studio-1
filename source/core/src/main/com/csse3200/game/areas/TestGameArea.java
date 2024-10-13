@@ -5,8 +5,8 @@ import com.csse3200.game.entities.Entity;
 /**
  * This is a testing ground for difficult to test
  */
-public class TestGameArea extends MainGameArea {
-    public TestGameArea(LevelFactory levelFactory, Entity player) {
-        super(levelFactory, player);
+public class TestGameArea extends GameController {
+    public TestGameArea(GameArea gameArea, LevelFactory levelFactory, Entity player) {
+        super(gameArea, levelFactory, player);
     }
 }

@@ -286,7 +286,7 @@ public class FiringController extends Component {
 
     /**
      * Trigger shoot event base on shooting direction or walking direction of the player if this
-     * is called for melee weapons
+     * is called for melee weapons.
      *
      * @param direction The direction to shoot in
      */

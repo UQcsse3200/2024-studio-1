@@ -151,7 +151,7 @@ public class GameArea extends LoadedFactory {
     /**
      * Stops the currently playing music.
      */
-    private void stopCurrentMusic() {
+    public void stopCurrentMusic() {
         if (normalMusic != null) {
             normalMusic.stop();
         }
@@ -241,7 +241,7 @@ public class GameArea extends LoadedFactory {
      * @return An array of String paths for music files.
      */
     @Override
-    protected String[] getMusicFilepaths() {
+    public String[] getMusicFilepaths() {
         return Arrays.stream(MusicType.values()).map(type -> type.path).toArray(String[]::new);
     }
 

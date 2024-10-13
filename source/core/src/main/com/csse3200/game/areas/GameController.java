@@ -1,19 +1,10 @@
 package com.csse3200.game.areas;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
-import com.csse3200.game.components.NameComponent;
-import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
-import com.csse3200.game.entities.configs.PlayerLocationConfig;
-import com.csse3200.game.components.player.inventory.*;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.files.FileLoader;
-import com.csse3200.game.files.UserSettings;
-import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 

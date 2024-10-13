@@ -252,7 +252,10 @@ public class WeaponFactory extends LoadedFactory {
     public Collection<String> getAllSpecs() {
         return List.of(
                 "ranged:Shotgun",
-                "melee:Knife"
+                "ranged:Plasmablaster",
+                "ranged:Supersoaker",
+                "melee:Knife",
+                "melee:Axe"
         );
     }
 }

@@ -1,12 +1,11 @@
 package com.csse3200.game.components.player.inventory;
 
+import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -17,8 +16,6 @@ import java.util.Map;
 public class InventoryComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
     private final Inventory inventory;
-    private int rangedWeaponCount = 0;
-    private int meleeWeaponCount = 0;
 
     /**
      * Construct a new empty inventory component
@@ -49,15 +46,49 @@ public class InventoryComponent extends Component {
     }
 
     /**
-     * Get the underlying inventory model.
+     * Get a list of Pets this player has.
      *
-     * @return the inventory
+     * @return the pets.
      */
-    public Inventory getInventory() {
-        return inventory;
+    public Array<Pet> getPets() {
+        return inventory.getContainer(Pet.class).get();
     }
 
-    public int getRangedWeaponCount(){
-        return rangedWeaponCount;
+    /**
+     * Get a list of Usable Items this player has.
+     *
+     * @return the items.
+     */
+    public Array<UsableItem> getItems() {
+        return inventory.getContainer(UsableItem.class).get();
+    }
+
+    /**
+     * Get a list of buffs this player has.
+     *
+     * @return the buffs.
+     */
+    public Array<BuffItem> getBuffs() {
+        return inventory.getContainer(BuffItem.class).get();
+    }
+
+    /**
+     * Get this player's offhand weapon.
+     *
+     * @return the offhand weapon, if it exists
+     */
+    public Optional<OffHandItem> getOffhand() {
+        Array<OffHandItem> offHandItems = inventory.getContainer(OffHandItem.class).get();
+        return offHandItems.size > 0 ? Optional.of(offHandItems.get(0)) : Optional.empty();
+    }
+
+    /**
+     * Get this player's main weapon.
+     *
+     * @return the main weapon, if it exists
+     */
+    public Optional<MainHandItem> getMainWeapon() {
+        Array<MainHandItem> mainWeapons = inventory.getContainer(MainHandItem.class).get();
+        return mainWeapons.size > 0 ? Optional.of(mainWeapons.get(0)) : Optional.empty();
     }
 }

@@ -18,6 +18,7 @@ public class BossRoom extends EnemyRoom {
     private NPCFactory npcFactory;
     private MainGameArea area;
     private Entity player;
+    private Entity stairs;
 
     @Override
     protected List<List<String>> getAnimalSpecifications() {
@@ -63,14 +64,23 @@ public class BossRoom extends EnemyRoom {
         this.area = area;
         this.player = player;
         spawnStairs(player, area);
+
     }
 
+    /**
+     *
+     * @param player  the player entity of the game
+     * @param area   the main game area for stairs
+     */
+
     private void spawnStairs(Entity player, MainGameArea area) {
-        Entity stairs = StairFactory.createStair(player.getId());
-        int x = maxGridPoint.x;
-        int y = maxGridPoint.y;
-        GridPoint2 pos = new GridPoint2(x, y);
-        area.spawnEntityAt(stairs, pos, true, true);
+        if (stairs == null) {
+            stairs = StairFactory.createStair(player.getId());
+            int x = maxGridPoint.x;
+            int y = maxGridPoint.y;
+            GridPoint2 pos = new GridPoint2(x, y);
+            area.spawnEntityAt(stairs, pos, true, true);
+        }
     }
 
     /**
@@ -93,5 +103,16 @@ public class BossRoom extends EnemyRoom {
         bossRoom.spawnEnemyEntity(area, dog, dogPos);
         bossRoom.spawnEnemyEntity(area, snake, snakePos);
 //        area.spawnEntityAt(snake, snakePos, true, true);
+    }
+
+
+
+    @Override
+    public void removeRoom() {
+        super.removeRoom();
+        if (stairs != null) {
+            ServiceLocator.getEntityService().markEntityForRemoval(stairs);
+            stairs = null;
+        }
     }
 }

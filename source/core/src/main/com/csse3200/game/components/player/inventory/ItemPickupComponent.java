@@ -1,33 +1,26 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Timer;
-import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.PlayerInventoryDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.ui.UIComponent;
-import com.csse3200.game.utils.RandomNumberGenerator;
+
 import java.util.Random;
 
 /**
  * A component that allows a player to interact with items
  */
 public class ItemPickupComponent extends Component {
-    private Entity lastPickedUpEntity = null;
-    private boolean contact = false;
     Collectible item = null;
     Entity itemEntity = null;
     CollectibleFactory collectibleFactory;
     Random random;
+    private Entity lastPickedUpEntity = null;
+    private boolean contact = false;
 
     /**
      * Construct a new empty item pickup component
@@ -46,9 +39,9 @@ public class ItemPickupComponent extends Component {
         this.collectibleFactory = new CollectibleFactory();
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
-        entity.getEvents().addListener("pickup", ()->handleItemPickup(item, itemEntity));
-        entity.getEvents().addListener("rerollUsed", ()->handleReroll(item, itemEntity));
-        entity.getEvents().addListener("purchaseItem", ()->checkItemPurchase(item,itemEntity));
+        entity.getEvents().addListener("pickup", () -> handleItemPickup(item, itemEntity));
+        entity.getEvents().addListener("rerollUsed", () -> handleReroll(item, itemEntity));
+        entity.getEvents().addListener("purchaseItem", () -> checkItemPurchase(item, itemEntity));
     }
 
 
@@ -70,6 +63,7 @@ public class ItemPickupComponent extends Component {
 
     /**
      * A method that returns whether 'contact' flag
+     *
      * @return boolean value of the contact flag
      */
     public boolean isInContact() {
@@ -78,6 +72,7 @@ public class ItemPickupComponent extends Component {
 
     /**
      * Gets the collectible item in collision
+     *
      * @return the collectible item (null if no item is in collision)
      */
     public Collectible getItem() {
@@ -100,6 +95,7 @@ public class ItemPickupComponent extends Component {
 
     /**
      * Checks if the given entity is collectible
+     *
      * @param entity to check
      * @return true if entity is collectible, otherwise false
      */
@@ -135,6 +131,7 @@ public class ItemPickupComponent extends Component {
 
     /**
      * A method temporarily used to represent the 'funds' of the player
+     *
      * @return an integer value representing the player's funds
      */
     public int getTestFunds() {
@@ -143,7 +140,8 @@ public class ItemPickupComponent extends Component {
 
     /**
      * Handles the event where the player attempts to purchase a buyable item
-     * @param item the collectible item that the player is attempting to purchase
+     *
+     * @param item       the collectible item that the player is attempting to purchase
      * @param itemEntity the entity representation of the item that the player is attempting to purhase
      */
     public void checkItemPurchase(Collectible item, Entity itemEntity) {
@@ -164,8 +162,7 @@ public class ItemPickupComponent extends Component {
                 entity.getComponent(InventoryComponent.class).pickup(item);
                 itemEntity.getComponent(BuyableComponent.class).removeLabel();
                 markEntityForRemoval(itemEntity);
-            }
-            else {
+            } else {
                 entity.getEvents().trigger("insufficientFunds");
             }
         }
@@ -173,7 +170,8 @@ public class ItemPickupComponent extends Component {
 
     /**
      * Handles the logic for picking up the item based on its type
-     * @param item the item to be picked up
+     *
+     * @param item       the item to be picked up
      * @param itemEntity the item entity
      */
     private void handleItemPickup(Collectible item, Entity itemEntity) {
@@ -182,7 +180,7 @@ public class ItemPickupComponent extends Component {
         }
 
         InventoryComponent inventory = entity.getComponent(InventoryComponent.class);
-        if(contact) {
+        if (contact) {
             inventory.pickup(item);
             markEntityForRemoval(itemEntity);
             this.itemEntity.getEvents().trigger("itemChose");
@@ -195,6 +193,7 @@ public class ItemPickupComponent extends Component {
 
     /**
      * Marks the entity for removal from the game.
+     *
      * @param itemEntity the item to be disposed
      */
     private void markEntityForRemoval(Entity itemEntity) {
@@ -203,6 +202,7 @@ public class ItemPickupComponent extends Component {
 
     /**
      * Randomly generates a new item to spawn, based on the random integer passed in
+     *
      * @param randomNum an integer representing a random number passed in
      * @return an entity representation of a new collectible item
      */

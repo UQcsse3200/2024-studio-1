@@ -51,6 +51,7 @@ public class CombatStatsComponent extends Component {
         this.critAbility = canCrit;
         this.critChance = critChance;
         setHealth(health);
+        setMaxHealth(maxHealth);
         setBaseAttack(baseAttack);
         setInvincible(false);
         this.timerIFrames = new Timer();
@@ -287,7 +288,7 @@ public class CombatStatsComponent extends Component {
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         } else {
-            Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+            Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
             int damage;
             if (player != null) {
                 CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);

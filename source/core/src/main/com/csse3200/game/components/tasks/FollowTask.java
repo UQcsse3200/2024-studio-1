@@ -108,7 +108,7 @@ public class FollowTask extends DefaultTask implements PriorityTask {
 
   private Vector2 getRandomPosInRange() {
     // Calculate a random position within the wander range around the starting point.
-    Vector2 playerPosition = ServiceLocator.getGameAreaService().getGameArea().getPlayer().getPosition();
+    Vector2 playerPosition = ServiceLocator.getGameAreaService().getGameController().getPlayer().getPosition();
     Vector2 halfRange = followRange.cpy().scl(0.5f);
     Vector2 min = playerPosition.cpy().sub(halfRange); // Minimum boundary of the range.
     Vector2 max = playerPosition.cpy().add(halfRange); // Maximum boundary of the range.

@@ -17,6 +17,8 @@ import com.csse3200.game.components.NameComponent;
  * It displays the current health as a percentage of maximum health above the NPC.
  */
 public class DialogComponent extends RenderComponent {
+    public static final int DIALOG_LAYER = 2;
+
     public static final float PADDING = 0.1f;
     private static float width = 0f;
     public static float height = 2.4f + PADDING * 2;
@@ -126,6 +128,11 @@ public class DialogComponent extends RenderComponent {
             fnt_18.draw(batch, layout, (x + PADDING - overflowWidth) / projectionFactor, (y + PADDING) / projectionFactor + fnt_18.getCapHeight()*1.5f + overflowHeight);
             batch.setProjectionMatrix(projectionMatrix);
         }
+    }
+
+    @Override
+    public int getLayer() {
+        return DIALOG_LAYER;
     }
 
     @Override

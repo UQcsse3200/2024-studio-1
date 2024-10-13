@@ -131,6 +131,7 @@ public class PlayerFactoryFactory extends LoadedFactory {
                     "sounds/hit2.ogg"
             };
         }
+    }
 
     /**
      * Create a Factory for the player with a given name.
@@ -162,5 +163,4 @@ public class PlayerFactoryFactory extends LoadedFactory {
                        .map(config -> config.textureFilename)
                        .toArray(String[]::new);
     }
-
 }

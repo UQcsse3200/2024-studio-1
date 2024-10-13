@@ -277,6 +277,7 @@ public class CombatStatsComponent extends Component {
             }
 
             FileLoader.writeClass(lastAttackName, FILE_PATH, FileLoader.Location.EXTERNAL);
+            ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
             entity.getEvents().trigger("playerHit");
             if (isDead()){ return; }
             setInvincible(true);

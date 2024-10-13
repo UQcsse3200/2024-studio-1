@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.PlayerConfigComponent;
-import com.csse3200.game.components.player.inventory.weapons.*;
 import com.csse3200.game.entities.Entity;
 
 import java.util.logging.Logger;
@@ -70,20 +69,18 @@ public class PositionTracker extends Component {
         }
         // Specify the offset for each character model
         switch (player.getComponent(PlayerConfigComponent.class).getPlayerConfig().name) {
-            case "Player 2":
-                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.2f, 0.5f);
-                break;
-            case "player 3":
-                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.15f, 0.45f);
-                break;
-            case "player 4":
-                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.2f, 0.5f);
-                break;
-            case "bear":
-                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.2f, 0.35f);
-                break;
-            default:
-                offset = isMelee ? new Vector2(0f, -0.5f) : new Vector2(0.2f, 0f);
+            case "Player 2", "player 4" ->
+                    offset = isMelee ?
+                            new Vector2(-0.1f, -0.3f) : new Vector2(0.2f, 0.5f);
+            case "player 3" ->
+                    offset = isMelee ?
+                            new Vector2(-0.1f, -0.3f) : new Vector2(0.15f, 0.45f);
+            case "bear" ->
+                    offset = isMelee ?
+                            new Vector2(-0.1f, -0.3f) : new Vector2(0.2f, 0.35f);
+            default ->
+                    offset = isMelee ?
+                            new Vector2(0f, -0.5f) : new Vector2(0.2f, 0f);
         }
     }
 
@@ -99,7 +96,6 @@ public class PositionTracker extends Component {
      * @return the offset of the weapon entity from the player entity
      */
     public Vector2 getOffset() {
-        Vector2 offset = new Vector2(this.offset);
-        return offset;
+        return new Vector2(this.offset);
     }
 }

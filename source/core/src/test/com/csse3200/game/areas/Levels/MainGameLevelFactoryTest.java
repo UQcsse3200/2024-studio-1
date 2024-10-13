@@ -1,12 +1,11 @@
 package com.csse3200.game.areas.Levels;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.csse3200.game.areas.Level;
 import com.csse3200.game.areas.LevelFactory;
 import com.csse3200.game.areas.MainGameLevelFactory;
 import com.csse3200.game.components.CameraComponent;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.rendering.RenderService;
+import com.csse3200.game.services.RandomService;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.AfterEach;
@@ -17,8 +16,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -46,6 +43,7 @@ class MainGameLevelFactoryTest {
 
         // Set up ResourceService (or mock it if necessary)
         ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerRandomService(new RandomService(""));
 
         levelFactory = new MainGameLevelFactory(false, null);
     }

@@ -4,6 +4,8 @@ package com.csse3200.game.areas;
 import com.csse3200.game.areas.generation.RandomMapGenerator;
 
 import com.csse3200.game.areas.generation.RoomType;
+import com.csse3200.game.services.RandomService;
+import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,17 +15,22 @@ import java.util.*;
 class MapGeneratorTest {
     private RandomMapGenerator randomMapGenerator;
     private static final String TEST_SEED = "testSeed";
+    private String expectedSeed;
     private static final int TEST_MAP_SIZE = 100;
 
     @BeforeEach
     void setUp() {
+        ServiceLocator.registerRandomService(new RandomService(TEST_SEED));
+        this.expectedSeed = ServiceLocator.getRandomService()
+                .getRandomNumberGenerator(RandomMapGenerator.class)
+                .getSeed();
         randomMapGenerator = new RandomMapGenerator(TEST_MAP_SIZE);
     }
 
     @Test
     void testConstructor() {
         assertEquals(TEST_MAP_SIZE, randomMapGenerator.getMapSize(), "Map size should be set correctly");
-        assertEquals(TEST_SEED, randomMapGenerator.getMapSeed(), "Seed should be set correctly");
+        assertEquals(expectedSeed, randomMapGenerator.getMapSeed(), "Seed should be set correctly");
         assertEquals("0_0", randomMapGenerator.getPlayerPosition(), "Starting room should be '0_0'");
     }
 
@@ -60,12 +67,16 @@ class MapGeneratorTest {
     @Test
     void testConsistentMapGeneration() {
         RandomMapGenerator generator1 = new RandomMapGenerator(TEST_MAP_SIZE);
-        RandomMapGenerator generator2 = new RandomMapGenerator(TEST_MAP_SIZE);
-
         generator1.createMap();
-        generator2.createMap();
+        var first = generator1.getPositions().entrySet();
 
-        assertEquals(generator1.getPositions(), generator2.getPositions(), 
+        setUp();
+
+        RandomMapGenerator generator2 = new RandomMapGenerator(TEST_MAP_SIZE);
+        generator2.createMap();
+        var second = generator2.getPositions().entrySet();
+
+        assertEquals(first, second,
             "Maps generated with the same seed should be identical");
     }
 
@@ -143,11 +154,11 @@ class MapGeneratorTest {
         for (String key : keys) {
             types.add(roomDetails.get(key).get("room_type"));
         }
-        assertEquals(Collections.frequency(types, RoomType.BOSS_ROOM), 1,
+        assertEquals(1, Collections.frequency(types, RoomType.BOSS_ROOM.num),
                 "Should have only one boss room");
-        assertEquals(Collections.frequency(types, RoomType.NPC_ROOM), 1,
+        assertEquals(1, Collections.frequency(types, RoomType.NPC_ROOM.num),
                 "Should have only one NPC room");
-        assertEquals(Collections.frequency(types, RoomType.GAME_ROOM), 1,
+        assertEquals(1, Collections.frequency(types, RoomType.GAME_ROOM.num),
                 "Should have only one Game room");
     }
 }

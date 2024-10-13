@@ -30,7 +30,6 @@ public interface Room {
     public void setRoomComplete();
 
     public void checkIfRoomComplete();
-
 }
 
 

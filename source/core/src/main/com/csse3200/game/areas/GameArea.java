@@ -37,7 +37,8 @@ public class GameArea extends LoadedFactory {
     }
 
     /**
-     * Dispose of all internal entities in the area
+     * Dispose of all internal entities in the area.
+     * This method stops the background music, disposes of all entities, and releases resources.
      */
     @Override
     public void dispose() {
@@ -57,6 +58,8 @@ public class GameArea extends LoadedFactory {
 
     /**
      * Displays the user interface for the game area.
+     *
+     * @param areaName The name of the area to display in the UI.
      */
     protected void displayUI(String areaName) {
         Entity ui = new Entity();
@@ -66,9 +69,9 @@ public class GameArea extends LoadedFactory {
     }
 
     /**
-     * Spawn entity at its current position
+     * Spawn entity at its current position.
      *
-     * @param entity Entity (not yet registered)
+     * @param entity Entity (not yet registered).
      */
     public void spawnEntity(Entity entity) {
         areaEntities.add(entity);
@@ -78,10 +81,10 @@ public class GameArea extends LoadedFactory {
     /**
      * Spawn entity on a given tile. Requires the terrain to be set first.
      *
-     * @param entity  Entity (not yet registered)
-     * @param tilePos tile position to spawn at
-     * @param centerX true to center entity X on the tile, false to align the bottom left corner
-     * @param centerY true to center entity Y on the tile, false to align the bottom left corner
+     * @param entity   Entity (not yet registered).
+     * @param tilePos  Tile position to spawn at.
+     * @param centerX  True to center entity X on the tile, false to align the bottom left corner.
+     * @param centerY  True to center entity Y on the tile, false to align the bottom left corner.
      */
     public void spawnEntityAt(
             Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
@@ -99,6 +102,11 @@ public class GameArea extends LoadedFactory {
         spawnEntity(entity);
     }
 
+    /**
+     * Dispose of a specific entity from the game area.
+     *
+     * @param entity The entity to dispose of.
+     */
     public void disposeEntity(Entity entity) {
         if (areaEntities != null && !areaEntities.isEmpty()) {
             for (int i = 0; i < areaEntities.size(); i++) {
@@ -106,8 +114,16 @@ public class GameArea extends LoadedFactory {
                     ServiceLocator.getEntityService().markEntityForRemoval(entity);
                     areaEntities.remove(i);
                     break;
-                }}}}
+                }
+            }
+        }
+    }
 
+    /**
+     * Set the terrain for this game area.
+     *
+     * @param terrain The TerrainComponent to set.
+     */
     public void setTerrain(TerrainComponent terrain) {
         this.terrain = terrain;
     }
@@ -123,6 +139,11 @@ public class GameArea extends LoadedFactory {
         }
     }
 
+    /**
+     * Plays music based on the specified type.
+     *
+     * @param musicType An integer representing the type of music (0 for normal, 1 for boss).
+     */
     public void playMusic(int musicType) {
         if (musicType == 0) {
             playMusic(MusicType.NORMAL);
@@ -134,7 +155,7 @@ public class GameArea extends LoadedFactory {
     /**
      * Plays the specified type of music.
      *
-     * @param musicType type of music to play (normal/boss).
+     * @param musicType The type of music to play (normal/boss).
      */
     public void playMusic(MusicType musicType) {
         Music newMusic = ServiceLocator.getResourceService().playMusic(musicType.path, true);
@@ -159,7 +180,8 @@ public class GameArea extends LoadedFactory {
 
     /**
      * Get a list of all entities in the area. This list is a copy and can be modified.
-     * @return list of entities
+     *
+     * @return A CopyOnWriteArrayList of entities.
      */
     public CopyOnWriteArrayList<Entity> getListOfEntities() {
         CopyOnWriteArrayList<Entity> newAreaEntities = new CopyOnWriteArrayList<>(areaEntities);

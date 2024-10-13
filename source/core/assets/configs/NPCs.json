@@ -353,10 +353,10 @@
     "variableDensity": true,
     "density": 2.5,
     "isDirectional": true,
-    "isScaled": false,
+    "isScaled": true,
     "scale": {
-        "x": 1,
-        "y": 1
+        "x": 3.5,
+        "y": 3.5
     },
     "tasks": {
       "wander": {

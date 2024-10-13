@@ -14,7 +14,7 @@ import com.csse3200.game.rendering.RenderComponent;
 public class NPCHealthBarComponent extends RenderComponent {
     public static final float WIDTH = 1f;
     public static final float HEIGHT = 0.1f;
-    public static final float OFFSET_Y = 1f;
+    public static final float OFFSET_Y = 2f;
 
     private CombatStatsComponent combatStats;
     ShapeRenderer shapeRenderer;

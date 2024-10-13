@@ -285,7 +285,7 @@ public class CombatStatsComponent extends Component {
             if (isDead()){ return; }
             makeInvincible(timeInvincible);
         } else {
-            Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+            Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
             int damage;
             if (player != null) {
                 CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);

@@ -74,9 +74,8 @@ public class PetFactory extends LoadedFactory {
       logger.error("Pet type '{}' not found in configurations.", petType);
       throw new IllegalArgumentException("Unknown pet type: " + petType);
     }
-
     Entity pet = new Entity();
-    Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+    Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
     logger.debug("Creating pet of type '{}'", petType);
 
     // Add components to pet
@@ -88,7 +87,6 @@ public class PetFactory extends LoadedFactory {
     } else {
       addAnimator(pet, getAtlasFilepath(petType.toLowerCase()), config.animations);
     }
-
     // Scale entity
     PhysicsUtils.setScaledCollider(pet, 0.9f, 0.4f);
     pet.getComponent(AnimationRenderComponent.class).scaleEntity();

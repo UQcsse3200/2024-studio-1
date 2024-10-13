@@ -18,8 +18,8 @@ import static com.badlogic.gdx.math.MathUtils.random;
  * This class extends EnemyRoom to include boss-specific functionality.
  */
 public class BossRoom extends EnemyRoom {
-    private final NPCFactory npcFactory;
-    private MainGameArea area;
+    private NPCFactory npcFactory;
+    private GameArea area;
     private Entity player;
     private Entity stairs;
 
@@ -77,7 +77,7 @@ public class BossRoom extends EnemyRoom {
      * @param area   The main game area where spawning occurs.
      */
     @Override
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
         this.area = area;
         this.player = player;
@@ -85,13 +85,7 @@ public class BossRoom extends EnemyRoom {
 
     }
 
-    /**
-     *
-     * @param player  the player entity of the game
-     * @param area   the main game area for stairs
-     */
-
-    private void spawnStairs(Entity player, MainGameArea area) {
+    private void spawnStairs(Entity player, GameArea area) {
         if (stairs == null) {
             stairs = StairFactory.createStair(player.getId());
             int x = maxGridPoint.x;

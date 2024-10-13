@@ -75,7 +75,7 @@ public abstract class Pet implements Collectible {
      * @param targets for the pets
      */
     public void setAggro(List<Entity> targets) {
-        Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+        Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
         Entity closestEnemy = getClosestEnemy(player, targets);
         setPetTarget(delegate, closestEnemy);
     }

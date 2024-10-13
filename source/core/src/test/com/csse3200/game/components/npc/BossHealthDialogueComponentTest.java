@@ -7,7 +7,7 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.areas.BossRoom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,13 +26,13 @@ class BossHealthDialogueComponentTest {
         mockCombatStats = mock(CombatStatsComponent.class);
         mockAlertBoxService = mock(AlertBoxService.class);
         GameAreaService mockGameAreaService = mock(GameAreaService.class);
-        MainGameArea mockMainGameArea = mock(MainGameArea.class);
+        GameController mockMainGameArea = mock(GameController.class);
         BossRoom mockBossRoom = mock(BossRoom.class);
 
         when(mockEntity.getComponent(CombatStatsComponent.class)).thenReturn(mockCombatStats);
         when(mockCombatStats.getMaxHealth()).thenReturn(100);
 
-        when(mockGameAreaService.getGameArea()).thenReturn(mockMainGameArea);
+        when(mockGameAreaService.getGameController()).thenReturn(mockMainGameArea);
         when(mockMainGameArea.getCurrentRoom()).thenReturn(mockBossRoom);
 
         ServiceLocator.registerAlertBoxService(mockAlertBoxService);

@@ -1,7 +1,9 @@
-package com.csse3200.game.entities;
+package com.csse3200.game.areas;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.entities.Entity;
+
+
 
 /**
  * A room of the main game,
@@ -12,9 +14,9 @@ public interface Room {
      * Spawn all entities that form this room.
      *
      * @param player the player that will play this room.
-     * @param mainGameArea the game area to spawn this room into.
+     * @param GameArea the game area to spawn this room into.
      */
-    void spawn(Entity player, MainGameArea mainGameArea);
+    void spawn(Entity player, GameArea GameArea);
 
     String getRoomName();
 
@@ -23,12 +25,12 @@ public interface Room {
      */
     void removeRoom();
 
-    public boolean getIsRoomComplete();
 
-    public void setIsRoomComplete();
+    public abstract void checkComplete();
 
-    public void checkIfRoomComplete();
+    public boolean isComplete();
 
+    public void setComplete();
 }
 
 

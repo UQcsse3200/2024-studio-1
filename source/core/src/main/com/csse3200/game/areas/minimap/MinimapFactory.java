@@ -11,12 +11,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.areas.Level;
+import com.csse3200.game.areas.Room;
 import com.csse3200.game.services.ServiceLocator;
 
 import com.csse3200.game.areas.BossRoom;
 import com.csse3200.game.areas.GambleRoom;
-
-import com.csse3200.game.entities.Room;
 
 import java.util.List;
 

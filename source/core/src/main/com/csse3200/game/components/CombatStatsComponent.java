@@ -19,6 +19,7 @@ import java.util.TimerTask;
  * which engage it combat should have an instance of this class registered. This class can be
  * extended for more specific combat needs.
  */
+// test
 public class CombatStatsComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);

@@ -13,6 +13,7 @@ public class CoinsComponent extends Component {
 
     /**
      * Constructor for CoinComponent
+     *
      */
     public CoinsComponent() {
         this.coins = 0;
@@ -62,7 +63,10 @@ public class CoinsComponent extends Component {
      * Adds to the player's coins. The amount added can be negative.
      *
      * @requires coins > 0
+     *
      * @ensures coins > 0
+     *
+     * Adds to the player's coins. The amount added can be negative.
      */
     public void addCoins(int coins) {
         if (coins < 0) {

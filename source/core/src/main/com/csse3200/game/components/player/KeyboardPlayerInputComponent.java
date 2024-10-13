@@ -181,8 +181,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * @return true
      */
     private boolean petTargetSwitch() {
-        Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+        Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
             List<Entity> enemies = room.getEnemies();
             player.getComponent(InventoryComponent.class).getPets().forEach(p -> p.setAggro(enemies));
         }
@@ -205,11 +205,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      */
 
     private boolean bossTeleport() {
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof BossRoom) {
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof BossRoom) {
             // Already in boss room so just do nothing !!
             return true;
         }
         entity.getEvents().trigger("teleportToBoss");
+        return true;
+    }
+
+    private boolean shopTeleport() {
+        entity.getEvents().trigger("teleportToShop");
         return true;
     }
 
@@ -241,7 +246,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_7, (i) -> useItem(7));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
-
+        actionMap.put(ENTER_SHOP, (i) -> shopTeleport());
         actionMap.put(PICK_UP, (i) -> pickupItem());
         actionMap.put(RE_ROLL, (i) -> useItem(8)); //Rerol here
         actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());

@@ -23,7 +23,7 @@ public class BigRedButton extends UsableItem {
      */
     @Override
     public void apply(Entity entity) {
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom enemyRoom) {
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom enemyRoom) {
             List<Entity> entities = enemyRoom.getEnemies();
             for (Entity enemy : entities) {
                 CombatStatsComponent combatStatsComponent = enemy.getComponent(CombatStatsComponent.class);

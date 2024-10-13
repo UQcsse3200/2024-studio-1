@@ -5,7 +5,7 @@ import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
@@ -31,7 +31,7 @@ class ProjectileActionsTest {
     private GameAreaService gameAreaService;
 
     @Mock
-    private MainGameArea mainGameArea;
+    private GameController gameController;
 
     @Mock
     private Entity player;
@@ -41,15 +41,15 @@ class ProjectileActionsTest {
 
         // Mock GameAreaService and MainGameArea
         gameAreaService = mock(GameAreaService.class);
-        mainGameArea = mock(MainGameArea.class);
+        gameController = mock(GameController.class);
         player = new Entity().addComponent(new CombatStatsComponent(100, 10));
 
         // Register the mocked services with ServiceLocator
         ServiceLocator.registerGameAreaService(gameAreaService);
 
         // Mock the behavior of gameAreaService and mainGameArea
-        lenient().when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
-        lenient().when(mainGameArea.getPlayer()).thenReturn(player);
+        lenient().when(gameAreaService.getGameController()).thenReturn(gameController);
+        lenient().when(gameController.getPlayer()).thenReturn(player);
 
         RenderService renderService = new RenderService();
         renderService.setDebug(mock(DebugRenderer.class));

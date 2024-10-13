@@ -28,7 +28,8 @@ public class ConcreteRangedWeapon extends RangedWeapon {
      * @param maxAmmo    The maximum ammo of the weapon.
      * @param reloadTime The reload time of the weapon.
      */
-    public ConcreteRangedWeapon(String name, String iconPath, int damage, int range, int fireRate, int ammo, int maxAmmo, int reloadTime) {
+    public ConcreteRangedWeapon(String name, String iconPath, int damage, int range, int fireRate,
+                                int ammo, int maxAmmo, int reloadTime) {
         this.name = name;
         this.iconPath = iconPath;
         this.damage = damage;

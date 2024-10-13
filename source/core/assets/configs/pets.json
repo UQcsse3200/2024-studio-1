@@ -263,6 +263,23 @@
       {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
-  }
+  },
+  "ringFire": {
+    "health": 300,
+    "strength": 3,
+    "baseAttack": 20,
+    "isScaled": true,
+    "scale": {
+        "x": 1.0,
+        "y": 1.0
+    },
+    "tasks": {
+      "follow": {
+        "followRadius": 0,
+        "waitTime": 0,
+        "followDistance": 0,
+        "followSpeed": 50
+      },
+  },
 }
 

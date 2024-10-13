@@ -1,26 +1,16 @@
 package com.csse3200.game.components.player.inventory;
 
-import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
-import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.PlayerActions;
+import com.csse3200.game.components.player.inventory.usables.MedKit;
+import com.csse3200.game.components.player.inventory.usables.Reroll;
 import com.csse3200.game.entities.Entity;
-
-import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.extensions.GameExtension;
-import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(GameExtension.class)
 public class RerollTest {

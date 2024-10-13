@@ -5,16 +5,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.gamearea.GameAreaDisplay;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.Room;
-import com.csse3200.game.entities.configs.PlayerLocationConfig;
-import com.csse3200.game.components.player.inventory.*;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
-import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 
 import org.slf4j.Logger;
@@ -27,37 +24,48 @@ import java.util.*;
  */
 public class MainGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(MainGameArea.class);
-    private static final String BACKGROUND_MUSIC = "sounds/BGM_03_mp3.mp3";
     public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
-    /** The main player entity */
+    /**
+     * The main player entity
+     */
     private final Entity player;
 
-    /** Factory for creating game levels */
+    /**
+     * Factory for creating game levels
+     */
     private final LevelFactory levelFactory;
-
-    /** Current level of the game */
-    private Level currentLevel;
-
-    /** Current level number */
-    private int currentLevelNumber;
-
-    /** Current room the player is in */
-    private Room currentRoom;
-
-    /** Flag to determine if a new room should be spawned */
-    private boolean spawnRoom = true;
-
-    /** Name of the current room */
-    public String currentRoomName;
-
-    /** Map to store the current position of the player */
-    private Map <String, String> currentPosition = new HashMap<>();
-
-    /** Flag to determine if the game should load a saved state */
+    /**
+     * Flag to determine if the game should load a saved state
+     */
     private final boolean shouldLoad;
-
-    /** Factory for creating minimaps */
+    /**
+     * Map to store the current position of the player
+     */
+    private final Map<String, String> currentPosition = new HashMap<>();
+    /**
+     * Name of the current room
+     */
+    public String currentRoomName;
+    /**
+     * Current level of the game
+     */
+    private Level currentLevel;
+    /**
+     * Current level number
+     */
+    private int currentLevelNumber;
+    /**
+     * Current room the player is in
+     */
+    private Room currentRoom;
+    /**
+     * Flag to determine if a new room should be spawned
+     */
+    private boolean spawnRoom = true;
+    /**
+     * Factory for creating minimaps
+     */
     private MinimapFactory minimapFactory;
 
     private MapLoadConfig config;
@@ -66,8 +74,8 @@ public class MainGameArea extends GameArea {
      * Initialise this Game Area to use the provided levelFactory.
      *
      * @param levelFactory the provided levelFactory.
-     * @param player the main player entity.
-     * @param shouldLoad flag to determine if a saved state should be loaded.
+     * @param player       the main player entity.
+     * @param shouldLoad   flag to determine if a saved state should be loaded.
      */
     public MainGameArea(LevelFactory levelFactory, Entity player, boolean shouldLoad, MapLoadConfig config) {
         super();
@@ -88,7 +96,7 @@ public class MainGameArea extends GameArea {
      * Initialise this Game Area to use the provided levelFactory without loading a saved state.
      *
      * @param levelFactory the provided levelFactory.
-     * @param player the main player entity.
+     * @param player       the main player entity.
      */
     public MainGameArea(LevelFactory levelFactory, Entity player) {
         this(levelFactory, player, false, new MapLoadConfig());
@@ -110,7 +118,7 @@ public class MainGameArea extends GameArea {
      */
     @Override
     public void create() {
-        load(logger);
+        load();
         logger.error("loaded all assets");
 
         displayUI();
@@ -121,7 +129,7 @@ public class MainGameArea extends GameArea {
         } else {
             changeLevel(0);
         }
-        playMusic();
+        playMusic(MusicType.NORMAL);
     }
 
     /**
@@ -208,28 +216,35 @@ public class MainGameArea extends GameArea {
         selectRoom(roomKey);
         // update minimap
         minimapFactory.updateMinimap(roomKey);
+
+        // Play appropriate music based on room type
+        if (this.currentRoom instanceof BossRoom) {
+            playMusic(MusicType.BOSS);
+        } else {
+            playMusic(MusicType.NORMAL);
+        }
     }
 
     /**
      * Generate the corresponding player position to the door they stepped in
      */
-    private Vector2 getNewPlayerPosition(Entity player){
+    private Vector2 getNewPlayerPosition(Entity player) {
         Vector2 curPos = player.getPosition();
         curPos.x = Math.round(curPos.x);
         curPos.y = Math.round(curPos.y);
-        if(curPos.x == 0.0f && curPos.y == 5.0f){
-            return new Vector2(13,5);
+        if (curPos.x == 0.0f && curPos.y == 5.0f) {
+            return new Vector2(13, 5);
         }
-        if(curPos.x == 14.0f && curPos.y == 5.0f){
-            return new Vector2(1,5);
+        if (curPos.x == 14.0f && curPos.y == 5.0f) {
+            return new Vector2(1, 5);
         }
-        if(curPos.x == 7.0f && curPos.y == 0.0f){
-            return new Vector2(7,9);
+        if (curPos.x == 7.0f && curPos.y == 0.0f) {
+            return new Vector2(7, 9);
         }
-        if(curPos.x == 7.0f && curPos.y == 10.0f){
-            return new Vector2(7,1);
+        if (curPos.x == 7.0f && curPos.y == 10.0f) {
+            return new Vector2(7, 1);
         }
-        return new Vector2(7,5);
+        return new Vector2(7, 5);
     }
 
     /**
@@ -249,19 +264,15 @@ public class MainGameArea extends GameArea {
         this.currentRoom.spawn(player, this);
 
         Vector2 nextRoomPos = this.getNewPlayerPosition(player);
-        player.setPosition(nextRoomPos.x,nextRoomPos.y);
+        player.setPosition(nextRoomPos.x, nextRoomPos.y);
         spawnEntity(player);
 
-        if(player.getComponent(InventoryComponent.class).getInventory().petsExist()){
-            //do here
+        if (!player.getComponent(InventoryComponent.class).getPets().isEmpty()) {
             if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
                 List<Entity> enemies = room.getEnemies();
-                player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
+                player.getComponent(InventoryComponent.class).getPets().forEach(p -> p.setAggro(enemies));
             }
-            else{
-                //do nothing I guess and pray
-            }
-        } 
+        }
 
         logger.info("Spawned new room, {}", ServiceLocator.getEntityService());
         spawnRoom = false;
@@ -299,23 +310,44 @@ public class MainGameArea extends GameArea {
         spawnEntity(ui);
     }
 
+    public enum MusicType {
+        NORMAL("bgm_new.wav"), BOSS("boss_room_music.mp3");
+
+        private final String path;
+        private static final String BASE = "sounds/music/";
+
+        MusicType(String filename) {
+            this.path = BASE + filename;
+        }
+    }
+
+    private Music normalMusic;
+    private Music bossMusic;
+
     /**
-     * Plays the background music for the game area.
+     * Plays the specified type of music.
+     *
+     * @param musicType type of music to play (normal/boss).
      */
-    private void playMusic() {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        if (!resourceService.containsAsset(BACKGROUND_MUSIC, Music.class)) {
-            logger.error("Music not loaded");
-            return;
-        }
-        Music music = resourceService.getAsset(BACKGROUND_MUSIC, Music.class);
-        music.setLooping(true);
-        if (!UserSettings.get().mute) {
-            music.setVolume(UserSettings.get().musicVolume);
+    public void playMusic(MusicType musicType) {
+        Music newMusic = ServiceLocator.getResourceService().playMusic(musicType.path, true);
+        if (musicType == MusicType.BOSS) {
+            bossMusic = newMusic;
         } else {
-            music.setVolume(0);
+            normalMusic = newMusic;
         }
-        music.play();
+    }
+
+    /**
+     * Stops the currently playing music.
+     */
+    private void stopCurrentMusic() {
+        if (normalMusic != null) {
+            normalMusic.stop();
+        }
+        if (bossMusic != null) {
+            bossMusic.stop();
+        }
     }
 
     /**
@@ -405,15 +437,22 @@ public class MainGameArea extends GameArea {
      */
     @Override
     protected String[] getMusicFilepaths() {
-        return new String[]{BACKGROUND_MUSIC};
+        return Arrays.stream(MusicType.values()).map(type -> type.path).toArray(String[]::new);
     }
 
     /**
-     * Disposes of the game area resources, including stopping the background music.
+     * Disposes of the game area resources, including stopping the background music if any is
+     * playing.
      */
     @Override
     public void dispose() {
-        ServiceLocator.getResourceService().getAsset(BACKGROUND_MUSIC, Music.class).stop();
+        stopCurrentMusic();
+        if (normalMusic != null) {
+            normalMusic.dispose();
+        }
+        if (bossMusic != null) {
+            bossMusic.dispose();
+        }
         super.dispose();
     }
 }

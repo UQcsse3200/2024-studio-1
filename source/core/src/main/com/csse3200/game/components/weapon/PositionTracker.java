@@ -80,10 +80,10 @@ public class PositionTracker extends Component {
                 offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.2f, 0.5f);
                 break;
             case "bear":
-                offset = isMelee ? new Vector2(- 0.2f, - 0.2f) : new Vector2(0.2f, 0.35f);
+                offset = isMelee ? new Vector2(- 0.1f, - 0.3f) : new Vector2(0.2f, 0.35f);
                 break;
             default:
-                offset = isMelee ? new Vector2(-0.5f, -0.5f) : new Vector2(0.2f, 0f);
+                offset = isMelee ? new Vector2(0f, -0.5f) : new Vector2(0.2f, 0f);
         }
     }
 

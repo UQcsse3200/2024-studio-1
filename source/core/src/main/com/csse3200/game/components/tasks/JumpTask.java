@@ -17,7 +17,9 @@ import org.slf4j.LoggerFactory;
 import static com.badlogic.gdx.math.MathUtils.lerp;
 
 /**
- * Task for an NPC to "jump" toward a target, bypassing obstacles and simulating a jump arc in the y direction.
+ * Task for an NPC to "jump" towards a target, bypassing obstacles and simulating a jump arc in the y direction.
+ * The task allows the NPC to leap towards a target entity, dealing an AOE attack upon landing,
+ * while taking care of obstacle collisions and directional updates during the jump.
  */
 public class JumpTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(JumpTask.class);
@@ -46,6 +48,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      * Creates a JumpTask towards the target with a specified jump height and duration.
      *
      * @param target Entity to jump towards.
+     * @param config Configuration for the jump task, including activation ranges, jump duration, wait time, and cooldown.
      */
     public JumpTask(Entity target, TaskConfig.JumpTaskConfig config) {
         this.target = target;
@@ -57,6 +60,10 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         gameTime = ServiceLocator.getTimeSource();
     }
 
+    /**
+     * Starts the jump task. This sets up the jump by calculating the jump height and preparing
+     * the physics and collider components of the entity for the leap.
+     */
     @Override
     public void start() {
         logger.debug("Starting jump towards {}", target);
@@ -73,7 +80,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         targetPos = target.getPosition();
         jumpHeight = JUMP_HEIGHT_SCALAR * startPos.dst(targetPos);
 
-        // Update direction
+        // Update direction to face the target
         if (directionalComponent != null) {
             if (startPos.x < targetPos.x) {
                 directionalComponent.setDirection("right");
@@ -82,11 +89,15 @@ public class JumpTask extends DefaultTask implements PriorityTask {
             }
         }
 
-        // Set the collider to sensor to allow the entity to pass through obstacles
+        // Set the collider to sensor mode to allow passing through obstacles
         colliderComponent.setSensor(true);
         this.owner.getEntity().getEvents().trigger("jump");
     }
 
+    /**
+     * Updates the jump task, gradually moving the entity towards the target while calculating the arc of the jump.
+     * When the jump finishes, the AOE attack is triggered.
+     */
     @Override
     public void update() {
         long elapsedTime = gameTime.getTimeSince(startTime);
@@ -108,12 +119,12 @@ public class JumpTask extends DefaultTask implements PriorityTask {
             physicsComponent.getBody().setLinearVelocity(Vector2.Zero);
             colliderComponent.setSensor(false);
 
-            // Perform the AOE attack immediately
+            // Perform the AOE attack immediately upon landing
             aoeAttackComponent.enableForNumAttacks(1);
             owner.getEntity().getEvents().trigger("attack"); // Trigger attack animation
             hasAttacked = true;
 
-            // Start wait task
+            // Start wait task for cooldown
             waitTask = new WaitTask(waitTime);
             waitTask.create(owner);
             waitTask.start();
@@ -125,18 +136,30 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     }
 
     /**
-     * Calculate the jump arc (parabolic motion).
+     * Calculates the parabolic jump arc (y direction) based on the time ratio.
+     *
+     * @param t Time ratio of the jump (0 to 1)
+     * @return Height of the jump arc at the current time.
      */
     private float calculateJumpArc(float t) {
-        return 4 * jumpHeight * t * (1 - t);
+        return 4 * jumpHeight * t * (1 - t);  // Parabolic motion equation for arc
     }
 
+    /**
+     * Stops the jump task, marking the last execution time.
+     */
     @Override
     public void stop() {
         super.stop();
         lastExecutionTime = gameTime.getTime();
     }
 
+    /**
+     * Returns the priority of the task. The task will have a high priority when active and a lower priority
+     * if the target is within the defined range and the cooldown has completed.
+     *
+     * @return the priority of the task, or -1 if it should not be executed.
+     */
     @Override
     public int getPriority() {
         if (status == Status.ACTIVE) {
@@ -149,6 +172,11 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         return -1;
     }
 
+    /**
+     * Checks if the cooldown time since the last execution has completed, allowing a new jump.
+     *
+     * @return true if the cooldown is complete, false otherwise.
+     */
     boolean isCooldownComplete() {
         if (lastExecutionTime == 0) {
             return true;

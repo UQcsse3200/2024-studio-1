@@ -92,8 +92,16 @@ public class NPCFactory extends LoadedFactory {
     }
 
     // Scale entity
+    if(config.isScaled){
+        npc.setScale(config.scale); 
+    }
+    else{
+        npc.setScale(1f,1f);
+    }
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
-    npc.getComponent(AnimationRenderComponent.class).scaleEntity();
+    if(config.variableDensity){
+        npc.getComponent(ColliderComponent.class).setDensity(config.density);
+    }
 
     return npc;
   }

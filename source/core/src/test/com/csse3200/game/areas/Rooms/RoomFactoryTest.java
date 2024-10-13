@@ -86,9 +86,9 @@ class RoomFactoryTest {
     void testRoomInterfaceMethods() {
         Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
         
-        assertFalse(room.getIsRoomComplete());
-        room.setRoomComplete();
-        assertTrue(room.getIsRoomComplete());
+        assertFalse(room.isComplete());
+        room.setComplete();
+        assertTrue(room.isComplete());
         
         // TODO can't effectively test spawn, removeRoom, and checkIfRoomComplete
         // without more complex setup or integration tests.

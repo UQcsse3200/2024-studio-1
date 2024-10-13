@@ -41,7 +41,7 @@ public class StairFactory {
             Entity entity2 = (Entity) fixture2.getUserData();
             if (entity2.getId() == playerId) {
 
-                if(ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().getIsRoomComplete()) {
+                if(ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().isComplete()) {
                     moveToNextLevel();
                 }
             }

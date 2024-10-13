@@ -55,7 +55,7 @@ public class ShopRoom extends BaseRoom {
         spawnItems(area);
         ShopRoomDisplay messageDisplay = new ShopRoomDisplay();
         messageDisplay.create();
-        checkIfRoomComplete();
+        checkComplete();
     }
 
     /**
@@ -84,7 +84,7 @@ public class ShopRoom extends BaseRoom {
     /**
      * Check room is complete and set it as always complete
      */
-    public void checkIfRoomComplete() {
-        setRoomComplete();
+    public void checkComplete() {
+        setComplete();
     }
 }

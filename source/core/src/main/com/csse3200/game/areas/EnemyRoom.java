@@ -89,7 +89,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * Checks if the room is complete by verifying if all animals/enemies are dead.
      * Sets the room as complete if the condition is met.
      */
-    public void checkIfRoomComplete() {
+    public void checkComplete() {
         if (isAllAnimalDead()) {
             System.out.println("room is complete");
             Timer.schedule(new Timer.Task() {
@@ -98,7 +98,7 @@ public abstract class EnemyRoom extends BaseRoom {
                     spawnItems();
                 }
             }, 1.0f);
-            setRoomComplete();
+            setComplete();
         }
     }
 
@@ -208,7 +208,7 @@ public abstract class EnemyRoom extends BaseRoom {
     public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
 
-        if (!isRoomCompleted) {
+        if (!isComplete()) {
             logger.info("spawning enemies");
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
 
@@ -234,7 +234,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param position The position to spawn the enemy at.
      */
     public void spawnEnemyEntity(GameArea area, Entity enemy, GridPoint2 position) {
-        enemy.getEvents().addListener("checkAnimalsDead", () -> checkIfRoomComplete());
+        enemy.getEvents().addListener("checkAnimalsDead", () -> checkComplete());
         this.spawnAnimalEntity(area, enemy, position);
         enemies.add(enemy);
     }

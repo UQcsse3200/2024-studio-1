@@ -123,7 +123,8 @@ public abstract class BaseRoom implements Room {
      * Checks if the room is complete.
      * This method should be implemented by subclasses.
      */
-    public abstract void checkIfRoomComplete();
+    @Override
+    public abstract void checkComplete();
 
     /**
      * Spawns the terrain for the room, including walls and background.
@@ -284,19 +285,23 @@ public abstract class BaseRoom implements Room {
             }
         }
     }
+
+
    /**
      * Checks if the room is complete.
      *
      * @return {@code true} if the room is complete, {@code false} otherwise.
      */
-    public boolean getIsRoomComplete() {
+    @Override
+    public boolean isComplete() {
         return this.isRoomCompleted;
     }
 
     /**
      * Sets the room as completed when loading the map.
      */
-    public void setRoomComplete() {
+    @Override
+    public void setComplete() {
         this.isRoomCompleted = true;
     }
 

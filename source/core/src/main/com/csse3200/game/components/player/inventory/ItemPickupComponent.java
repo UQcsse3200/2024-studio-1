@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Timer;
+import com.csse3200.game.areas.GameAreaService;
+import com.csse3200.game.areas.Room;
 import com.csse3200.game.areas.ShopRoom;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.CollectibleComponent;
@@ -165,12 +167,20 @@ public class ItemPickupComponent extends Component {
                 coinsComponent.spend(cost);
                 entity.getComponent(InventoryComponent.class).pickup(item);
 
-                //Removes the items that were bought from shopRoom floor forever.
-                if(ServiceLocator.getGameAreaService().getGameArea() != null) {
-                    ShopRoom room = (ShopRoom) ServiceLocator.getGameAreaService().getGameController().getCurrentRoom();
-                    room.removeItemFromList(item.getSpecification() + ":buyable");
+                
+                GameAreaService service = ServiceLocator.getGameAreaService();
+
+                if (service != null) {
+                    Room room = service.getGameController().getCurrentRoom();
+                    if (room instanceof ShopRoom shop) {
+                        shop.removeItemFromList(item.getSpecification() + ":buyable");
+                        markEntityForRemoval(itemEntity);
+                    }
                 }
-               markEntityForRemoval(itemEntity);
+
+
+               
+               
             }
             else {
                 entity.getEvents().trigger("insufficientFunds");

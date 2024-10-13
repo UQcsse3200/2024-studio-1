@@ -35,11 +35,14 @@ public class GambleRoom extends BaseRoom {
     public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
         this.spawnItems();
-        this.checkIfRoomComplete();
+        this.checkComplete();
     }
 
-    public void checkIfRoomComplete() {
-        setRoomComplete();
+    @Override
+    public void checkComplete() {
+        setComplete();
     }
+
+
 }
 

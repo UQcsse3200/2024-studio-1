@@ -25,11 +25,12 @@ public interface Room {
      */
     void removeRoom();
 
-    public boolean getIsRoomComplete();
 
-    public void setRoomComplete();
+    public abstract void checkComplete();
 
-    public void checkIfRoomComplete();
+    public boolean isComplete();
+
+    public void setComplete();
 }
 
 

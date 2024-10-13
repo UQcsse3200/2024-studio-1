@@ -32,7 +32,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     // Timer and task for holding down a shoot button
     private RepeatShoot taskShoot;
     private RepeatMelee taskMelee;
-    private static final int inputDelay = 15; // time between 'button held' method calls in milliseconds
+    private static final int INPUT_DELAY = 15; // time between 'button held' method calls in milliseconds
 
     /**
      * TimerTask used to repeatedly shoot in a direction
@@ -106,7 +106,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
         this.directionShooting = direction;
         this.taskShoot = new RepeatShoot(direction);
-        Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
+        Timer.schedule(taskShoot, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         return true;
     }
 
@@ -140,7 +140,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             this.taskMelee.cancel();
         }
         this.taskMelee = new RepeatMelee();
-        Timer.schedule(taskMelee, inputDelay / 1000f, inputDelay / 1000f);
+        Timer.schedule(taskMelee, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         return true;
     }
 
@@ -354,3 +354,4 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
     }
 }
+

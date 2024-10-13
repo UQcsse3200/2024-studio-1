@@ -37,7 +37,7 @@ public class LoadPlayer {
     private final InventoryComponent inventoryComponent;
     private final PlayerActions playerActions;
     private static final float playerScale = 0.75f;
-    private static final Logger logger = getLogger(LoadPlayer.class);
+    private static final Logger LOGGER = getLogger(LoadPlayer.class);
     private final CollectibleFactory collectibleFactory;
 
 
@@ -57,7 +57,7 @@ public class LoadPlayer {
      * @return entity
      */
     public Entity createPlayer(PlayerConfig config) {
-        logger.info("Creating player with config: {}", config);
+        LOGGER.info("Creating player with config: {}", config);
 
         Entity player = new Entity();
 
@@ -84,6 +84,7 @@ public class LoadPlayer {
             case ("player 3") -> player.setScale(0.4615f, 1.2f);
             default -> player.setScale(0.6f, 1.2f);
         }
+
     }
 
     /**
@@ -130,6 +131,7 @@ public class LoadPlayer {
      * Creates and adds a melee weapon to the player entity.
      *
      * @param config file containing melee weapon details.
+     *
      */
     private void createMelee(PlayerConfig config) {
         Collectible melee = collectibleFactory.create(config.melee);
@@ -142,6 +144,7 @@ public class LoadPlayer {
      * Creates and adds a ranged weapon to the player entity
      *
      * @param config file containing ranged weapon details.
+     *
      */
     private void createRanged(PlayerConfig config) {
         Collectible ranged = collectibleFactory.create(config.ranged);
@@ -238,7 +241,6 @@ public class LoadPlayer {
                 animator.addAnimation("death_left", 0.1f, Animation.PlayMode.NORMAL);
                 animator.addAnimation("death_right", 0.1f, Animation.PlayMode.LOOP);
         }
-
         return animator;
     }
 

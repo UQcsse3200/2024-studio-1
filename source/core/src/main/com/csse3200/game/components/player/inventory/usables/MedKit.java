@@ -10,7 +10,7 @@ import com.csse3200.game.entities.Entity;
  * by a large health boost of 100.
  */
 public class MedKit extends UsableItem {
-    private static final int Large_Health_Boost = 100;
+    private static final int LARGE_HEALTH_BOOST = 100;
 
     /**
      * Get the specification of this item.
@@ -71,7 +71,7 @@ public class MedKit extends UsableItem {
     public void increaseLargeBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + Large_Health_Boost, combatStats.getMaxHealth());
+        int newHealth = Math.min(currentHealth + LARGE_HEALTH_BOOST, combatStats.getMaxHealth());
         combatStats.setHealth(newHealth);
     }
 }

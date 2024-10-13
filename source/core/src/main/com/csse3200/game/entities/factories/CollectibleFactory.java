@@ -34,7 +34,7 @@ public class CollectibleFactory extends LoadedFactory {
      * @return the created collectible.
      */
     public Collectible create(String specification) {
-        logger.info("-- specification is {}", specification);
+        logger.info("Creating collectible with pecification: {}", specification);
         String[] split = specification.split(":", 2);
 
         return switch (split[0]) {

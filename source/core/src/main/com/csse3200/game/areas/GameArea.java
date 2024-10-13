@@ -48,6 +48,13 @@ public class GameArea extends LoadedFactory {
         for (Entity entity : areaEntities) {
             entity.dispose();
         }
+        stopCurrentMusic();
+        if (normalMusic != null) {
+            normalMusic.dispose();
+        }
+        if (bossMusic != null) {
+            bossMusic.dispose();
+        }
         super.dispose();
     }
 
@@ -119,6 +126,14 @@ public class GameArea extends LoadedFactory {
         }
     }
 
+    public void playMusic(int musicType) {
+        if (musicType == 0) {
+            playMusic(MusicType.NORMAL);
+        } else {
+            playMusic(MusicType.BOSS);
+        }
+    }
+
     /**
      * Plays the specified type of music.
      *
@@ -152,47 +167,6 @@ public class GameArea extends LoadedFactory {
     public CopyOnWriteArrayList<Entity> getListOfEntities() {
         CopyOnWriteArrayList<Entity> newAreaEntities = new CopyOnWriteArrayList<>(areaEntities);
         return newAreaEntities;
-    }
-
-    /**
-     * Plays the background music for the game area.
-     */
-    public void playMusic() {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        if (!resourceService.containsAsset(BACKGROUND_MUSIC, Music.class)) {
-            log.error("Music not loaded");
-            return;
-        }
-
-        Music music = resourceService.getAsset(BACKGROUND_MUSIC, Music.class);
-        music.setLooping(true);
-        if (!UserSettings.get().mute) {
-            music.setVolume(UserSettings.get().musicVolume);
-        } else {
-            music.setVolume(0);
-        }
-        music.play();
-    }
-
-
-    protected void playBackgroundMusic() {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        if (!resourceService.containsAsset(BACKGROUND_MUSIC, Music.class)) {
-            log.error("Music not loaded");
-            return;
-        }
-        Music music = resourceService.getAsset(BACKGROUND_MUSIC, Music.class);
-        music.setLooping(true);
-        if (!UserSettings.get().mute) {
-            music.setVolume(UserSettings.get().musicVolume);
-        } else {
-            music.setVolume(0);
-        }
-        music.play();
-    }
-
-    protected void stopBackgroundMusic() {
-        ServiceLocator.getResourceService().getAsset(BACKGROUND_MUSIC, Music.class).stop();
     }
 
     // Asset-related methods moved from MainGameArea
@@ -267,8 +241,8 @@ public class GameArea extends LoadedFactory {
      * @return An array of String paths for music files.
      */
     @Override
-    public String[] getMusicFilepaths() {
-        return new String[]{BACKGROUND_MUSIC};
+    protected String[] getMusicFilepaths() {
+        return Arrays.stream(MusicType.values()).map(type -> type.path).toArray(String[]::new);
     }
 
 }

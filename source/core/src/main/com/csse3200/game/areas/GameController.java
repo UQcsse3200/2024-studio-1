@@ -1,4 +1,5 @@
 package com.csse3200.game.areas;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
@@ -139,7 +140,7 @@ public class GameController {
         } else {
             changeLevel(0);
         }
-        this.gameArea.playMusic();
+        getGameArea().playMusic(0);
     }
 
     /**
@@ -213,6 +214,13 @@ public class GameController {
         selectRoom(roomKey);
         // update minimap
         minimapFactory.updateMinimap(roomKey);
+
+        // Play appropriate music based on room type
+        if (this.currentRoom instanceof BossRoom) {
+            getGameArea().playMusic(1);
+        } else {
+            getGameArea().playMusic(0);
+        }
     }
 
     /**
@@ -307,4 +315,7 @@ public class GameController {
     public GameArea getGameArea() {
         return this.gameArea;
     }
-}
+
+
+
+    }

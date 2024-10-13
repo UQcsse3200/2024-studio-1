@@ -7,8 +7,28 @@ import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.PetFactory;
 import com.csse3200.game.services.ServiceLocator;
 
-
+/**
+ * A Tombstone is a pet item that resurrects an animal under your control.
+ */
 public class Tombstone extends Pet {
+    private final String petName;
+
+    /**
+     * A tombstone for a specific pet.
+     *
+     * @param petName the name of the pet this tombstone spawns.
+     */
+    public Tombstone(String petName) {
+        this.petName = petName;
+    }
+
+    /**
+     * A Tombstone for a randomly selected pet.
+     */
+    public Tombstone() {
+        this(selectPet());
+    }
+
     /**
      * Returns the string of the tombstone item
      *
@@ -16,14 +36,8 @@ public class Tombstone extends Pet {
      */
     @Override
     public String getPetSpecification() {
-        return "tombstone";
+        return "tombstone:" + petName;
     }
-
-    private int getRandomInt(int min, int max) {
-        return ServiceLocator.getRandomService().getRandomNumberGenerator(Tombstone.class)
-                .getRandomInt(min, max);
-    }
-
 
     /**
      * Spawns pet entity to assist player
@@ -32,7 +46,7 @@ public class Tombstone extends Pet {
      */
     @Override
     public Entity spawn(Entity entity) {
-        Entity newPet = this.randomPetGenerator(getRandomInt(1, 5));
+        Entity newPet = new PetFactory().create(this.petName);
 
         ServiceLocator.getEntityService().register(newPet);
         newPet.setPosition(5, 7);
@@ -41,22 +55,23 @@ public class Tombstone extends Pet {
     }
 
     /**
-     * Uses a random number generator to spawn a pet entity
+     * Uses a random number generator to select a pet.
      *
-     * @param randomNum Random number generated from effect()
-     * @return creates pet entity
+     * @return the name of the chosen pet.
      */
-    private Entity randomPetGenerator(int randomNum) {
-        String specification = "Rat";
-        switch (randomNum) {
-            case 1 -> specification = "Rat";
-            case 2 -> specification = "Bear";
-            case 3 -> specification = "Snake";
-            case 4 -> specification = "Bat";
-            case 5 -> specification = "Dog";
-            case 6 -> specification = "Minotaur";
-        }
-        return new PetFactory().create(specification);
+    private static String selectPet() {
+        int selected = ServiceLocator.getRandomService()
+                .getRandomNumberGenerator(Tombstone.class)
+                .getRandomInt(1, 6);
+
+        return switch (selected) {
+            case 2 -> "Bear";
+            case 3 -> "Snake";
+            case 4 -> "Bat";
+            case 5 -> "Dog";
+            case 6 -> "Minotaur";
+            default -> "Rat";
+        };
     }
 
     /**
@@ -66,7 +81,7 @@ public class Tombstone extends Pet {
      */
     @Override
     public String getName() {
-        return "Tombstone";
+        return delegate != null ? delegate.getName() : "Tombstone";
     }
 
     /**

@@ -13,7 +13,7 @@ public class BigRedButton extends UsableItem {
 
     @Override
     public String getItemSpecification() {
-        return "BigRedButton";
+        return "bigredbutton";
     }
 
     /**
@@ -23,7 +23,7 @@ public class BigRedButton extends UsableItem {
      */
     @Override
     public void apply(Entity entity) {
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom enemyRoom) {
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom enemyRoom) {
             List<Entity> entities = enemyRoom.getEnemies();
             for (Entity enemy : entities) {
                 CombatStatsComponent combatStatsComponent = enemy.getComponent(CombatStatsComponent.class);
@@ -52,7 +52,7 @@ public class BigRedButton extends UsableItem {
      */
     @Override
     public Texture getIcon() {
-        return new Texture("images/items/Big_red_button.png");
+        return new Texture("images/items/big_red_button.png");
     }
 
     /**

@@ -31,16 +31,16 @@ public class MainMenuActions extends Component {
         entity.getEvents().addListener("settings", this::onSettings);
         entity.getEvents().addListener("achievements", this::achievements);
         entity.getEvents().addListener("how-to-play", this::onHowToPlay);
+        entity.getEvents().addListener("load-game", this::loadGame);
     }
 
     /**
      * Set the game's difficulty to the selected difficulty and go to the player select screen.
      * @param difficulty the difficulty chosen by the player.
      */
-    private void onPlayerSelect(Difficulty difficulty, boolean shouldLoad) {
+    private void onPlayerSelect(Difficulty difficulty) {
         logger.info("Going to player selection");
         game.gameOptions.difficulty = difficulty;
-        game.gameOptions.shouldLoad = shouldLoad;
         game.setScreen(ScreenType.PLAYER_SELECT);
     }
 
@@ -69,6 +69,10 @@ public class MainMenuActions extends Component {
     private void onHowToPlay() {
         logger.info("Launching how to play screen");
         game.setScreen(ScreenType.HOW_TO_PLAY);
+    }
+    private void loadGame() {
+        logger.info("Loading Game");
+        game.setScreen(ScreenType.LOAD_GAME);
     }
 
 }

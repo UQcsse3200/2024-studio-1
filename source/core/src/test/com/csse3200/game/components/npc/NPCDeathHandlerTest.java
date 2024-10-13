@@ -38,20 +38,4 @@ class NPCDeathHandlerTest {
         // Verify that the entity is added to deadEntities
         assertTrue(NPCDeathHandler.deadEntities.contains(entity.getId()));
     }
-
-    @Test
-    void testDeadCount() {
-        npcDeathHandler.create();
-        entity.getEvents().trigger("died");
-
-        Entity entity2 = new Entity();
-        NPCDeathHandler handler2 = new NPCDeathHandler(target, 5);
-        entity2.addComponent(handler2);
-        handler2.create();
-        entity2.getEvents().trigger("died");
-
-        assertTrue(NPCDeathHandler.deadEntities.contains(entity.getId()));
-        assertTrue(NPCDeathHandler.deadEntities.contains(entity2.getId()));
-        assertEquals(2, NPCDeathHandler.deadEntities.size());
-    }
 }

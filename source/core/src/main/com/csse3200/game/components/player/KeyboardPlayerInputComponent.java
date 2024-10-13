@@ -232,6 +232,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_5, (i) -> useItem(5));
         actionMap.put(USE_6, (i) -> useItem(6));
         actionMap.put(USE_7, (i) -> useItem(7));
+        actionMap.put(USE_8, (i) -> useItem(8));
+        actionMap.put(USE_9, (i) -> useItem(9));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
         actionMap.put(ENTER_SHOP, (i) -> shopTeleport());

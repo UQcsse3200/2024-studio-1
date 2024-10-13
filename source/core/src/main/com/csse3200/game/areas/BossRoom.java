@@ -16,8 +16,9 @@ import java.util.List;
  */
 public class BossRoom extends EnemyRoom {
     private NPCFactory npcFactory;
-    private MainGameArea area;
+    private GameArea area;
     private Entity player;
+    private Entity stairs;
 
     @Override
     protected List<List<String>> getAnimalSpecifications() {
@@ -58,19 +59,22 @@ public class BossRoom extends EnemyRoom {
     }
 
     @Override
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
         this.area = area;
         this.player = player;
         spawnStairs(player, area);
+
     }
 
-    private void spawnStairs(Entity player, MainGameArea area) {
-        Entity stairs = StairFactory.createStair(player.getId());
-        int x = maxGridPoint.x;
-        int y = maxGridPoint.y;
-        GridPoint2 pos = new GridPoint2(x, y);
-        area.spawnEntityAt(stairs, pos, true, true);
+    private void spawnStairs(Entity player, GameArea area) {
+        if (stairs == null) {
+            stairs = StairFactory.createStair(player.getId());
+            int x = maxGridPoint.x;
+            int y = maxGridPoint.y;
+            GridPoint2 pos = new GridPoint2(x, y);
+            area.spawnEntityAt(stairs, pos, true, true);
+        }
     }
 
     /**
@@ -88,10 +92,21 @@ public class BossRoom extends EnemyRoom {
         GridPoint2 snakePos = new GridPoint2(10, 10);  // Example fixed position
 
         // Spawn the animals at the fixed positions
-        BossRoom bossRoom = (BossRoom) ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom();
+        BossRoom bossRoom = (BossRoom) ServiceLocator.getGameAreaService().getGameController().getCurrentRoom();
 
         bossRoom.spawnEnemyEntity(area, dog, dogPos);
         bossRoom.spawnEnemyEntity(area, snake, snakePos);
 //        area.spawnEntityAt(snake, snakePos, true, true);
+    }
+
+
+
+    @Override
+    public void removeRoom() {
+        super.removeRoom();
+        if (stairs != null) {
+            ServiceLocator.getEntityService().markEntityForRemoval(stairs);
+            stairs = null;
+        }
     }
 }

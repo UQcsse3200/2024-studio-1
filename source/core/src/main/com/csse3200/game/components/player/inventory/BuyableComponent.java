@@ -1,14 +1,9 @@
 package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Timer;
-import com.csse3200.game.components.Component;
 import com.csse3200.game.ui.UIComponent;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -83,6 +78,6 @@ public class BuyableComponent extends UIComponent {
 
     @Override
     protected void draw(SpriteBatch batch) {
-
+        // do nothing
     }
 }

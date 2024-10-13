@@ -101,7 +101,7 @@ public class LoadPlayer {
                 .addComponent(new CombatStatsComponent(
                 config.health, config.maxHealth,
                 config.baseAttack, true, config.armour, config.buff, config.canCrit,
-                config.critChance))
+                config.critChance, config.timeInvincible))
                 .addComponent(inventoryComponent)
                 .addComponent(playerActions)
                 .addComponent(new PlayerAchievementComponent())

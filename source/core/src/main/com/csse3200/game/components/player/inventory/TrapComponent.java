@@ -61,12 +61,23 @@ public class TrapComponent extends Component {
     }
 
     /**
-     * Checks whether entity is an enemy
+     * Checks whether entity is a pet NPC
      * @param enemy entity to check
-     * @return true if entity is an enemy
+     * @return true if entity is not a pet
+     * @return false if the entity is pet
      */
-    public boolean isEnemy(Entity enemy){
-        return enemy.getComponent(AITaskComponent.class) != null;
+    public boolean isEnemy(Entity enemy) {
+
+        if (enemy.getComponent(AITaskComponent.class) != null) {
+            NPCConfigs.NPCConfig config = enemy.getComponent(NPCConfigComponent.class).config;
+            NPCConfigs.NPCConfig.TaskConfig tasks = config.tasks;
+
+            if (tasks.follow != null) {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     /**

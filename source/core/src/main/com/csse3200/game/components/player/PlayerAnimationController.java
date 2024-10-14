@@ -16,9 +16,9 @@ public class PlayerAnimationController extends Component {
     private Direction previousDirectionHorizontal;
 
     /**
-     Indicate the selected player.
+     * Indicate the selected player.
      */
-    private enum PlayerNum {
+    public enum PlayerNum {
         PLAYER_1,
         PLAYER_2,
         PLAYER_3,
@@ -27,7 +27,7 @@ public class PlayerAnimationController extends Component {
     }
 
     /**
-     Indicate the previous direction player.
+     * Indicate the previous direction player.
      */
     private enum Direction {
         UP,
@@ -79,6 +79,14 @@ public class PlayerAnimationController extends Component {
         entity.getEvents().addListener("playerHit", this::damageAnimation);
         entity.getEvents().addListener("stopAnimation", this::stopAnimation);
         stationaryAnimation();
+    }
+
+    /**
+     * Returns the currently selected player number.
+     * @return The selected player number (e.g. PLAYER_1, PLAYER_2, etc.)
+     */
+    public PlayerNum getPlayerNum() {
+        return playerNum;
     }
 
     /**
@@ -135,7 +143,7 @@ public class PlayerAnimationController extends Component {
 
     /**
      * Starts the player walking down animation, or the left/right walking animations
-     *      * for players without the vertical animations.
+     * for players without the vertical animations.
      */
     private void walkDown() {
         if (!death) {
@@ -222,7 +230,7 @@ public class PlayerAnimationController extends Component {
 
             // Determine the animation name based on previous direction and player
             switch (playerNum) {
-                case PLAYER_1 -> animationName = "damage-down" ;
+                case PLAYER_1 -> animationName = "damage-down";
                 case PLAYER_2 , PLAYER_3, PLAYER_4 -> animationName =
                         (previousDirectionHorizontal == Direction.RIGHT) ? "Hurt_right" : "Hurt_left";
                 case BEAR -> animationName =

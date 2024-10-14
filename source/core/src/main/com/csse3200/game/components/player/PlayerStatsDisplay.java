@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A ui component for displaying player stats, e.g. health.
+ * A UI component for displaying player stats, e.g., health, weapon, ammo.
  */
 public class PlayerStatsDisplay extends UIComponent {
     Table table;
@@ -23,7 +23,8 @@ public class PlayerStatsDisplay extends UIComponent {
     private Image heartImage;
     private Label healthLabel;
     private Label swordLabel;
-    private Label shotgunLabel;
+    private Label shotgunLabel;  // Separate label for shotgun
+    private Label pistolLabel;   // New label for pistol
 
     private Texture ammoTexture;
     private List<Image> ammoImages;
@@ -44,9 +45,8 @@ public class PlayerStatsDisplay extends UIComponent {
     public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
     public static final String DAMAGE_BUFF_TEXTURE = "images/items/damage_buff.png";
 
-
     /**
-     * Creates reusable ui styles and adds actors to the stage.
+     * Creates reusable UI styles and adds actors to the stage.
      */
     @Override
     public void create() {
@@ -61,17 +61,36 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
         entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
-        initializeShotgunAndAmmo();
+
+        initializeWeaponsAndAmmo();
     }
 
-    private void initializeShotgunAndAmmo() {
-        // Initialize full ammo and shotgun
-        int maxAmmo = 20;
-        updateRangedWeaponUI(maxAmmo);
+    /**
+     * Initializes the weapon and ammo counts based on the player selected.
+     * Retrieves the player type from PlayerAnimationController.
+     */
+    private void initializeWeaponsAndAmmo() {
+        // Retrieve the PlayerAnimationController component from the entity
+        PlayerAnimationController playerController = entity.getComponent(PlayerAnimationController.class);
 
-        // Set initial shotgun to 1
-        CharSequence text = String.format("Shotgun x %d", 1);
-        shotgunLabel.setText(text);
+        // Get the current player number
+        PlayerAnimationController.PlayerNum playerNum = playerController.getPlayerNum();
+
+        // Based on the selected player, display appropriate weapon and ammo counts
+        if (playerNum == PlayerAnimationController.PlayerNum.PLAYER_4 ||
+                playerNum == PlayerAnimationController.PlayerNum.PLAYER_2 ||
+                playerNum == PlayerAnimationController.PlayerNum.PLAYER_3 ||
+                playerNum == PlayerAnimationController.PlayerNum.BEAR) {
+            // Player 4 has a pistol with 7 ammo and no shotgun
+            updatePistolLabel(1, "Pistol");
+            updateRangedWeaponUI(7, "Pistol");
+            updateShotgunLabel(0, "Shotgun");  // Shotgun ammo is set to 0
+        } else {
+            // For other players, set the shotgun to have 20 ammo
+            updateShotgunLabel(1, "Shotgun");
+            updateRangedWeaponUI(20, "Shotgun");
+            updatePistolLabel(0, "Pistol"); // No pistol for other players
+        }
     }
 
     /**
@@ -80,7 +99,7 @@ public class PlayerStatsDisplay extends UIComponent {
      * @see Table for positioning options
      */
     private void addActors() {
-        labels = new ArrayList<Label>();
+        labels = new ArrayList<>();
 
         table = new Table();
         ammoTable = new Table();
@@ -104,25 +123,26 @@ public class PlayerStatsDisplay extends UIComponent {
         CharSequence healthText = String.format("Health: %d", health);
         healthLabel = new Label(healthText, skin, "small");
 
-        //Speed image
+        // Speed image
         float speedSideLength = 100f;
         speedImage = new Image(ServiceLocator.getResourceService().getAsset(SPEED_TEXTURE, Texture.class));
 
-        //Speed text
+        // Speed progress bar
         speedProgressBar = new ProgressBar(0f, 1.5f, 0.1f, false, skin);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
 
-        //Damage Progress bar
+        // Damage progress bar
         float damageSideLength = 50f;
         damageImage = new Image(ServiceLocator.getResourceService().getAsset(DAMAGE_BUFF_TEXTURE, Texture.class));
         damageProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
         damageProgressBar.setWidth(200f);
         damageProgressBar.setAnimateDuration(2.0f);
 
-        //Weapon text, like the name of weapon
+        // Weapon labels
         swordLabel = new Label("Sword: 0", skin, "small");
-        shotgunLabel = new Label("Shotgun: 0", skin, "small");
+        shotgunLabel = new Label("Shotgun: 0", skin, "small");  // Shotgun label
+        pistolLabel = new Label("Pistol: 0", skin, "small");    // New Pistol label
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
@@ -139,27 +159,33 @@ public class PlayerStatsDisplay extends UIComponent {
         table.row().padTop(10);
         table.add(swordLabel).colspan(2).padLeft(10).left();
         labels.add(swordLabel);
+
+        // Add both shotgun and pistol labels
         table.row().padTop(10);
         table.add(shotgunLabel).colspan(2).padLeft(10).left();
+        table.row().padTop(10);
+        table.add(pistolLabel).colspan(2).padLeft(10).left();
+
         table.row().padTop(10);
         table.add(ammoTable).colspan(2).left().padLeft(2);
         stage.addActor(table);
     }
 
-    public void resize(int width, int height)
-    {
-        if (labels != null)
-            for(Label label : labels)
-                label.setFontScale(width/1100f);
+    public void resize(int width, int height) {
+        if (labels != null) {
+            for (Label label : labels) {
+                label.setFontScale(width / 1100f);
+            }
+        }
     }
 
     @Override
     public void draw(SpriteBatch batch) {
-
+        // Drawing handled automatically by the stage and actors
     }
 
     /**
-     * Updates the player's health on the ui.
+     * Updates the player's health on the UI.
      *
      * @param health player health
      */
@@ -173,18 +199,45 @@ public class PlayerStatsDisplay extends UIComponent {
         swordLabel.setText(text);
     }
 
-    public void updateRangedWeaponUI(int maxAmmo) {
-        CharSequence text = String.format("Shotgun x %d", 1);
-        shotgunLabel.setText(text);
-
-        currentAmmo = maxAmmo; // Initialize ammo count from WeaponComponent
+    /**
+     * Updates the ranged weapon UI.
+     * If the player is Player 4, show the pistol with 7 ammo.
+     *
+     * @param maxAmmo the maximum ammo count for the weapon.
+     * @param weaponName the name of the weapon (e.g., "Shotgun" or "Pistol").
+     */
+    public void updateRangedWeaponUI(int maxAmmo, String weaponName) {
+        currentAmmo = maxAmmo;  // Initialize ammo count from WeaponComponent
         displayAllAmmo();
+
+        CharSequence text = String.format("%s x %d", weaponName, 1);
+        if (weaponName.equals("Pistol")) {
+            pistolLabel.setText(text); // Update pistol label
+        } else {
+            shotgunLabel.setText(text); // Update shotgun label
+        }
     }
 
     /**
-     * Displays ammo based on the count of the shotgun or other ranged weapon.
-     * This method is called when the shotgun count is greater than 0.
-     * Displays ammo in rows of 8 within a separate ammo table.
+     * Updates the shotgun label with the specified ammo count.
+     */
+    public void updateShotgunLabel(int maxAmmo, String weaponName) {
+        CharSequence text = String.format("%s x %d", weaponName, maxAmmo);
+        shotgunLabel.setText(text);
+    }
+
+    /**
+     * Updates the pistol label with the specified ammo count.
+     */
+    public void updatePistolLabel(int maxAmmo, String weaponName) {
+        CharSequence text = String.format("%s x %d", weaponName, maxAmmo);
+        pistolLabel.setText(text);
+    }
+
+    /**
+     * Displays ammo based on the count of the ranged weapon.
+     * This method is called when the weapon's ammo count is greater than 0.
+     * Displays ammo in rows within a separate ammo table.
      */
     private void displayAllAmmo() {
         ammoTable.clear(); // Clear existing ammo from the ammoTable
@@ -194,11 +247,11 @@ public class PlayerStatsDisplay extends UIComponent {
         // Always display ammo up to currentAmmo
         for (int i = 0; i < currentAmmo; i++) {
             if (itemsInRow == 5) {
-                ammoTable.row().padTop(2f); // Start a new row after 8 ammo items
+                ammoTable.row().padTop(2f); // Start a new row after 5 ammo items
                 itemsInRow = 0;
             }
             ammoImages.get(i).setVisible(true);
-            ammoTable.add(ammoImages.get(i)).size(screenWidth/45f);
+            ammoTable.add(ammoImages.get(i)).size(screenWidth / 45f);
             itemsInRow++;
         }
 
@@ -220,7 +273,7 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
     /**
-     * Updates the player's speed on the ui.
+     * Updates the player's speed on the UI.
      *
      * @param speedPercentage the player's new speed percentage to update the UI to
      */

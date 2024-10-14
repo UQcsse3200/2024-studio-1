@@ -3,6 +3,8 @@ package com.csse3200.game.components.npc.attack;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
+
+import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
@@ -66,9 +68,24 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
         // Shoot target
         Vector2 direction = getDirection(target);
         int max = spawnLocations.length - 1;
-        setAnimationID((int) (Math.random() * max));
+        setAnimationID(0);
         entity.getEvents().trigger("attack");
-        spreadShoot(direction, 10);
+        String baseName = "Dragon";
+        if (entity.getComponent(NameComponent.class) == null) {
+            // Use for test entity
+            projectileNames = new String[]{"dragonProjectile"};
+            attackTriggers = new String[]{"fire_attack"};
+        } else {
+            baseName = entity.getComponent(NameComponent.class).getName();
+        }
+        int numShot = 1;
+        if (baseName.equals("kitsune")) {
+            numShot = 5;
+        } else if (baseName.equals("cthulu")) {
+            numShot = 8;
+            setSpreadAngle(0.4f);
+        }
+        spreadShoot(direction, numShot);
         shoot();
         // Uncomment this for testing change projectile animation
 

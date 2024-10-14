@@ -95,8 +95,8 @@ public class RangeAttackComponent extends AttackComponent {
             projectileNames = new String[]{"dragonProjectile"};
             attackTriggers = new String[]{"fire_attack"};
         } else if (baseName.equals("kitsune")) {
-            projectileNames = new String[]{"kitsuneProjectile1", "kitsuneProjectile2"};
-            attackTriggers = new String[]{"fire1", "fire2"};
+            projectileNames = new String[]{"kitsuneProjectile", "kitsuneProjectile1", "kitsuneProjectile2"};
+            attackTriggers = new String[]{"kitsune_bullet", "fire1", "fire2"};
         } else if (baseName.equals("cthulu")) {
             projectileNames = new String[]{"cthuluProjectile"};
             attackTriggers = new String[]{"cthulu_bullet"};
@@ -118,7 +118,8 @@ public class RangeAttackComponent extends AttackComponent {
         entity.getEvents().trigger("attack");
         String baseName = this.getEntity().getComponent(NameComponent.class).getName();
         // Uncomment this for testing change projectile animation
-//        setAnimationID(0);
+        // Primarily for Kitsune
+        setAnimationID((int) (Math.random() + 1));
         shoot(direction);
         // Attack effects
         applyEffects(target);

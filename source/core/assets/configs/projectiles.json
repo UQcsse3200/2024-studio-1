@@ -30,20 +30,21 @@
       {"name": "fire1_left", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "fire1_right", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "fire2_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "fire2_right", "frameDuration": 0.1, "playMode": "LOOP"}
+      {"name": "fire2_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "kitsune_bullet", "frameDuration": 0.1, "playMode": "LOOP"}
     ]
   },
   "cthuluProjectile": {
     "health": 0,
-    "baseAttack": 10,
+    "baseAttack": 7,
     "isDirectional": true,
     "speed": {
       "x": 3,
       "y": 3
     },
     "Layer": 2,
-    "scaleX": 0.5,
-    "scaleY": 0.5,
+    "scaleX": 0.4,
+    "scaleY": 0.4,
     "animations": [
       {"name": "cthulu_bullet", "frameDuration": 0.1, "playMode": "LOOP"}
     ]

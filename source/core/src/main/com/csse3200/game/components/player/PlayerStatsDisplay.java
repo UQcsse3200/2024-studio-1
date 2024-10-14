@@ -100,11 +100,10 @@ public class PlayerStatsDisplay extends UIComponent {
         speedImage = new Image(ServiceLocator.getResourceService().getAsset(SPEED_TEXTURE, Texture.class));
 
         //Speed text
-        speedProgressBar = new ProgressBar(0f, 1.5f, 0.1f, false, skin);
+        speedProgressBar = new ProgressBar(0f, 0.5f, 0.1f, false, skin);
         Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
         Vector2 baseSpeed = entity.getComponent(PlayerActions.class).getBaseSpeed();
-        Vector2 diff = new Vector2(currSpeed.x - baseSpeed.x, currSpeed.y - baseSpeed.y);
-        float newSpeedPercentage = diff.x/baseSpeed.x;
+        float newSpeedPercentage = entity.getComponent(PlayerActions.class).getSpeedProgressBarProportion(currSpeed, baseSpeed);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
         speedProgressBar.setValue(newSpeedPercentage);

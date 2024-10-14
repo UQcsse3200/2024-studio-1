@@ -23,30 +23,33 @@ public class MainRoom extends EnemyRoom {
 
     @Override
     protected List<List<String>> getItemSpecifications() {
-
         return List.of(
-//                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
-                List.of("buff:energydrink:High:buyable", "buff:fang"),
-                List.of("buff:damagebuff", "buff:energydrink:Medium"),
-                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
-                List.of("item:targetdummy", "pet:tombstone"),
-                List.of("buff:fang", "buff:tombstone"),
-                List.of("buff:tombstone", "buff:energydrink:Medium"),
-                List.of("melee:Knife", "ranged:Shotgun"),
-                List.of("item:beartrap", "buff:feather"),
-                List.of("melee:Axe", "ranged:Shotgun"),
-                List.of("ranged:Shotgun", "item:medkit"),
-                List.of("item:shieldpotion", "ranged:Shotgun"),
-                List.of("melee:Knife", "item:bandage"),
-                List.of("buff:energydrink:Medium", "item:shieldpotion"),
-                List.of("item:medkit", "melee:Knife"),
-                List.of("melee:Knife", "item:bandage"),
-                List.of("melee:Knife", "item:medkit"),
-                List.of("ranged:Shotgun", "item:shieldpotion"),
-                List.of("ranged:Shotgun", "melee:Knife"),
-                List.of("buff:energydrink:High", "ranged:Shotgun"),
-                List.of("buff:energydrink:High", "buff:energydrink:Medium"),
-                List.of("item:medkit", "item:bandage")
+                List.of(
+                        "buff:energydrink:High:mystery", "item:medkit:mystery",
+                        "item:targetdummy", "pet:tombstone",
+                        "melee:Knife", "ranged:Shotgun",
+                        "item:beartrap", "buff:feather",
+                        "melee:Axe", "ranged:Shotgun",
+                        "ranged:Shotgun", "item:medkit",
+                        "item:shieldpotion", "ranged:Shotgun",
+                        "melee:Knife", "item:bandage",
+                        "buff:energydrink:Medium", "item:shieldpotion",
+                        "item:medkit", "melee:Knife",
+                        "melee:Knife", "item:bandage",
+                        "melee:Knife", "item:medkit",
+                        "ranged:Shotgun", "item:shieldpotion",
+                        "ranged:Shotgun", "melee:Knife",
+                        "buff:energydrink:High", "ranged:Shotgun",
+                        "buff:energydrink:High", "buff:energydrink:Medium",
+                        "item:medkit", "item:bandage"
+                ),
+                List.of(
+                        "buff:energydrink:High:mystery", "item:medkit:mystery",
+                        "item:targetdummy", "pet:tombstone",
+                        "melee:Knife", "ranged:Shotgun",
+                        "item:beartrap", "buff:feather"
+                )
+
         );
     }
 

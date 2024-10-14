@@ -103,7 +103,7 @@ public abstract class BaseRoom implements Room {
                 Integer.parseInt(split.get(2)),
                 Integer.parseInt(split.get(3))
         );
-        Random random = new Random();
+
         this.itemGroup = Integer.parseInt(split.get(5));
         this.specification = specification;
     }

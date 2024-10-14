@@ -76,6 +76,9 @@ public class ProjectileActions extends Component {
         this.walkDirection = direction.cpy();
         this.speed = speed.cpy();
         this.parentPosition = parentPosition.cpy();
+        if (range == 0 ) {
+            range = 100;
+        }
         this.range = range;
         this.initSpeed = Math.hypot(speed.x, speed.y);
 

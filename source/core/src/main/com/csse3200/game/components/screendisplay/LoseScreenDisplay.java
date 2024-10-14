@@ -53,16 +53,16 @@ public class LoseScreenDisplay extends UIComponent {
     String[] backgroundPaths = {
             "images/death_screen/rat_bg.jpg",
             "images/death_screen/bear_bg.jpg",
-            "images/death_screen/rat_bg.png",
-            "images/death_screen/rat_bg.png",
-            "images/death_screen/rat_bg.png",
-            "images/death_screen/rat_bg.png",
-            "images/death_screen/rat_bg.png",
-            "images/death_screen/rat_bg.png",
-            "images/death_screen/rat_bg.png",
-            "images/death_screen/rat_bg.png",
-            "images/death_screen/rat_bg.png",
-            "images/death_screen/rat_bg.png",
+            "images/death_screen/bat_bg.jpg",
+            "images/death_screen/dog_bg.jpg",
+            "images/death_screen/snake_bg.jpg",
+            "images/death_screen/dino_bg.jpg",
+            "images/death_screen/minotaur_bg.jpg",
+            "images/death_screen/dragon_bg.jpg",
+            "images/death_screen/werewolf_bg.jpg",
+            "images/death_screen/cthulu_bg.jpg",
+            "images/death_screen/kitsune_bg.jpg",
+            "images/death_screen/birdman_bg.jpg",
     };
 
     public static String capitalizeFirstChar(String str) {
@@ -115,11 +115,8 @@ public class LoseScreenDisplay extends UIComponent {
         animalDeathScreens.add("Deceived by shadows and tricked by tales, your end came at the hands of my cunning!");
         animalDeathScreens.add("From the skies I watched, and with swift wings I struck. Did you really think you could escape my gaze?");
 
-        Image background = new Image(new Texture(Gdx.files.internal(backgroundPaths[1])));
-        background.setFillParent(true); // Make it fill the screen
-        stage.addActor(background);
-        table = new Table();
-        table.setFillParent(true);
+
+
         LastAttackAnimal = readClass(String.class, "configs/LastAttack.json", FileLoader.Location.LOCAL);
         if(!LastAttackAnimal.equals("Unknown")){
             int firstSpaceIndex = LastAttackAnimal.indexOf(' ');
@@ -134,6 +131,11 @@ public class LoseScreenDisplay extends UIComponent {
         Image playerDead;
 
         if(animals.contains(LastAttackAnimal)){
+            Image background = new Image(new Texture(Gdx.files.internal(backgroundPaths[animals.indexOf(LastAttackAnimal)])));
+            background.setFillParent(true); // Make it fill the screen
+            stage.addActor(background);
+            table = new Table();
+            table.setFillParent(true);
             playerDead = new Image(new Texture(Gdx.files.internal(animalImagePaths[animals.indexOf(LastAttackAnimal)])));
             animalName = new Label(LastAttackAnimal+ ":", skin, "cutscene");
             table.add(playerDead).padTop(Y_PADDING);
@@ -144,6 +146,8 @@ public class LoseScreenDisplay extends UIComponent {
             table.add(animalLabel).padTop(30f);
         }
         else{
+            table = new Table();
+            table.setFillParent(true);
             // See assets/images/player/player_asset_citation.txt
             playerDead = new Image(
                     ServiceLocator.getResourceService().getAsset(PLAYER_DEAD, Texture.class)

@@ -9,7 +9,7 @@ import java.util.List;
 public class MainRoom extends EnemyRoom {
     @Override protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                List.of("Snake", "Bear"),
+                List.of("Snake", "Rat"),
                 List.of("Bear", "Snake", "Dino", "Dragon"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),

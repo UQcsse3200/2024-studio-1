@@ -8,6 +8,8 @@ import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.components.player.inventory.usables.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
 
+import java.security.Provider;
+
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
@@ -44,9 +46,14 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("use7", () -> use(new TeleporterItem()));
         entity.getEvents().addListener("useReroll", () -> handleReroll(new Reroll()));
 //
+
         setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
-//        float diff = DEFAULT_SPEED.sub(speed).x;
-//        setSpeedPercentage(diff);
+//The issue is that the base speed is not set yet, so it just appears as 0
+//        Vector2 diff = getBaseSpeed().sub(getCurrSpeed());
+//        System.out.println(getBaseSpeed());
+//        System.out.println(getCurrSpeed());
+//        float calculate = diff.x/getBaseSpeed().x;
+//        setSpeedPercentage(calculate);
     }
 
     @Override
@@ -88,7 +95,7 @@ public class PlayerActions extends Component {
      * @return the base speed 
      */
     public Vector2 getBaseSpeed() {
-        return this.baseSpeed;
+        return this.entity.getComponent(PlayerConfigComponent.class).getPlayerConfig().speed;
     }
 
     /**
@@ -117,15 +124,6 @@ public class PlayerActions extends Component {
     public void setSpeed(Vector2 speed) {
         this.speed = speed;
         update();
-    }
-
-    /**
-     * Gets the base speed of the player 
-     *
-     * @param speed the speed (in m/s)
-     */
-    public void setBaseSpeed(Vector2 speed) {
-        this.baseSpeed= speed;
     }
 
     /**

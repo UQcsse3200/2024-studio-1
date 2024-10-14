@@ -6,12 +6,9 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
-<<<<<<< HEAD:source/core/src/main/com/csse3200/game/components/player/inventory/usables/TrapComponent.java
-=======
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.NPCConfigComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
->>>>>>> de3be37527f3e0fb08e51e802cbf684df539336b:source/core/src/main/com/csse3200/game/components/player/inventory/TrapComponent.java
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
 import com.csse3200.game.physics.BodyUserData;
@@ -65,7 +62,6 @@ public class TrapComponent extends Component {
     }
 
     /**
-<<<<<<< HEAD:source/core/src/main/com/csse3200/game/components/player/inventory/usables/TrapComponent.java
      * Checks whether entity is an enemy
      *
 =======
@@ -76,9 +72,7 @@ public class TrapComponent extends Component {
      * @return false if the entity is pet
      */
     public boolean isEnemy(Entity enemy) {
-<<<<<<< HEAD:source/core/src/main/com/csse3200/game/components/player/inventory/usables/TrapComponent.java
-        return enemy.getComponent(AITaskComponent.class) != null;
-=======
+//        return enemy.getComponent(AITaskComponent.class) != null;
 
         if (enemy.getComponent(AITaskComponent.class) != null) {
             NPCConfigs.NPCConfig config = enemy.getComponent(NPCConfigComponent.class).config;
@@ -90,7 +84,6 @@ public class TrapComponent extends Component {
             return true;
         }
         return false;
->>>>>>> de3be37527f3e0fb08e51e802cbf684df539336b:source/core/src/main/com/csse3200/game/components/player/inventory/TrapComponent.java
     }
 
     /**

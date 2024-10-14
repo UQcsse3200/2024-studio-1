@@ -48,7 +48,7 @@ public class EnergyDrink extends BuffItem {
         if (!List.of("High", "Medium", "Low").contains(speedType)) {
             throw new IllegalArgumentException("Invalid speedType: " + speedType);
         }
-        setScalar(speedType);
+//        setScalar(speedType);
         setIcon(speedType);
     }
 
@@ -123,6 +123,7 @@ public class EnergyDrink extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
+        setScalar(speedType, entity);
         float currSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
         float newSpeedPercentage = currSpeedPercentage + getSpeedPercentage();
         float speedLimit = entity.getComponent(PlayerActions.class).getMaxSpeed();
@@ -167,8 +168,9 @@ public class EnergyDrink extends BuffItem {
      *
      * @param speedType the string identification representing the type of energy drink
      */
-    public void setScalar(String speedType) {
-        Vector2 baseSpeed = new Vector2(3f, 3f); //Improvement: actually get the default speed somehow
+    public void setScalar(String speedType, Entity entity) {
+//        Vector2 baseSpeed = new Vector2(3f, 3f); //Improvement: actually get the default speed somehow
+        Vector2 baseSpeed = entity.getComponent(PlayerActions.class).getBaseSpeed();
         switch (speedType) {
             case "Low" -> {
                 this.speed = baseSpeed.scl(0.03f); //0.03% of the base speed

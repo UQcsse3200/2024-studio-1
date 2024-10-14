@@ -92,6 +92,21 @@ class ProjectileAttackComponentTest {
 
 
     @Test
+    void rangeAtZeroPreventsHit() {
+        ProjectileConfig config = new ProjectileConfig();
+        config.range = 0;
+        Entity projectile = createProjectile(config);
+
+        Entity target = createTarget();
+
+        Fixture entityFixture = projectile.getComponent(HitboxComponent.class).getFixture();
+        Fixture targetFixture = target.getComponent(HitboxComponent.class).getFixture();
+        projectile.getEvents().trigger("collisionStart", entityFixture, targetFixture);
+
+        assertEquals(0, target.getComponent(CombatStatsComponent.class).getHealth());
+    }
+
+    @Test
     void shouldNotAttackOtherLayer() {
 
         // make a projectile on the player layer.
@@ -207,6 +222,12 @@ class ProjectileAttackComponentTest {
 
     Entity createProjectile() {
         Entity projectile = new ProjectileFactory().createProjectile(new ProjectileConfig(), Vector2Utils.LEFT, new Vector2(0,0));
+        projectile.create();
+        return projectile;
+    }
+
+    Entity createProjectile(ProjectileConfig config) {
+        Entity projectile = new ProjectileFactory().createProjectile(config, Vector2Utils.LEFT, new Vector2(0,0));
         projectile.create();
         return projectile;
     }

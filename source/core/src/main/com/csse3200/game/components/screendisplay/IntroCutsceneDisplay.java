@@ -27,6 +27,7 @@ public class IntroCutsceneDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(IntroCutsceneDisplay.class);
     private static final int Y_PADDING_BUTTON = 40;
     private static final int X_PADDING_BUTTON = 20;
+    private static final String ACTION_STYLE = "action";
 
     private final GdxGame game;
     private Table table;
@@ -122,7 +123,7 @@ public class IntroCutsceneDisplay extends UIComponent {
             buttonTable.setFillParent(true);
             buttonTable.bottom().padBottom(Y_PADDING_BUTTON); // Position the buttons at the bottom with padding
 
-            Button startGameBtn = new TextButton("Start Game", skin, "action");
+            Button startGameBtn = new TextButton("Start Game", skin, ACTION_STYLE);
             startGameBtn.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -141,11 +142,11 @@ public class IntroCutsceneDisplay extends UIComponent {
         buttonTable.bottom().padBottom(Y_PADDING_BUTTON); // Position the buttons at the bottom with padding
 
         // Show the "Skip" button if not on the last page
-        Button skipBtn = new TextButton("Skip", skin, "action");
+        Button skipBtn = new TextButton("Skip", skin, ACTION_STYLE);
         skipBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                onSkip(); // Skip to the last page
+                skipToLastPage(); // Skip to the last page
             }
         });
         buttonTable.add(skipBtn).padRight(X_PADDING_BUTTON); // Add skip button with padding to the right
@@ -158,7 +159,9 @@ public class IntroCutsceneDisplay extends UIComponent {
     }
 
     private void addNextButton(Table buttonTable) {
-        Button nextBtn = new TextButton(currentPage == cutsceneTextures.length - 1 ? "Start Game" : "Next", skin, "action");
+        Button nextBtn = new TextButton(
+                currentPage == cutsceneTextures.length - 1 ? "Start Game" : "Next",
+                skin, ACTION_STYLE);
         nextBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -171,12 +174,8 @@ public class IntroCutsceneDisplay extends UIComponent {
             }
         });
 
-        buttonTable.add(nextBtn).padLeft(X_PADDING_BUTTON); // Add next button with padding to the left
-    }
-
-    private void onSkip() {
-        currentPage = cutsceneTextures.length - 1; // Skip to the last page
-        updateCutscene(); // Update the cutscene
+        buttonTable.add(nextBtn).padLeft(X_PADDING_BUTTON); // Add next button with padding to the
+        // left
     }
 
     private void skipToLastPage() {

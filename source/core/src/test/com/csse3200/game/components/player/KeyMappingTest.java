@@ -14,13 +14,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(GameExtension.class)
 public class KeyMappingTest {
     private KeyMapping keyMapping;
-
+    Map<Integer, KeyMapping.KeyBinding> defaultKeyMap;
     @BeforeEach
     public void setUp() {
         // Initialize with default key mappings
-        keyMapping = new KeyMapping();
         UserSettings.get().walkWithWASD = true;
-        UserSettings.get().shootWithWASD = false;;
+        UserSettings.get().shootWithWASD = false;
+        keyMapping = new KeyMapping();
+        defaultKeyMap = keyMapping.getKeyMap();
     }
 
     /**
@@ -28,7 +29,6 @@ public class KeyMappingTest {
      */
     @Test
     public void testDefaultWalkKeyMapping() {
-        Map<Integer, KeyMapping.KeyBinding> defaultKeyMap = keyMapping.getKeyMap();
         assertEquals(KeyMapping.KeyBinding.WALK_UP, defaultKeyMap.get(Input.Keys.W));
         assertEquals(KeyMapping.KeyBinding.WALK_LEFT, defaultKeyMap.get(Input.Keys.A));
         assertEquals(KeyMapping.KeyBinding.WALK_RIGHT, defaultKeyMap.get(Input.Keys.D));
@@ -42,7 +42,6 @@ public class KeyMappingTest {
      */
     @Test
     public void testDefaultShootKeyMapping() {
-        Map<Integer, KeyMapping.KeyBinding> defaultKeyMap = keyMapping.getKeyMap();
         assertEquals(KeyMapping.KeyBinding.SHOOT_LEFT, defaultKeyMap.get(Input.Keys.LEFT));
         assertEquals(KeyMapping.KeyBinding.SHOOT_UP, defaultKeyMap.get(Input.Keys.UP));
         assertEquals(KeyMapping.KeyBinding.SHOOT_RIGHT, defaultKeyMap.get(Input.Keys.RIGHT));

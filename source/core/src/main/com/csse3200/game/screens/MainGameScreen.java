@@ -34,7 +34,7 @@ public class MainGameScreen extends GameScreen {
         logger.debug("Initialising main game screen entities");
         MapLoadConfig mapConfig = new MapLoadConfig();
         mapConfig.currentLevel = "0";
-        LevelFactory levelFactory = (gameOptions.difficulty == TEST)
+        LevelFactory levelFactory = (gameOptions.getDifficulty().equals(TEST))
                                     ? new TestLevelFactory()
                                     : new MainGameLevelFactory(false, mapConfig);
         new GameController(gameArea, levelFactory, player, shouldLoad, mapConfig);

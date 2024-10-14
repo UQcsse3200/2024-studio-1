@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class WeaponFactory extends LoadedFactory {
 
-    private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeaponFactory.class);
 
     public WeaponFactory() {
         super(logger);
@@ -239,11 +239,11 @@ public class WeaponFactory extends LoadedFactory {
 
     public Collection<String> getAllSpecs() {
         return List.of(
-                "ranged:Shotgun",
-                "ranged:Plasmablaster",
-                "ranged:Supersoaker",
-                "melee:Knife",
-                "melee:Axe"
+                "ranged:shotgun",
+                "ranged:plasmablaster",
+                "ranged:supersoaker",
+                "melee:knife",
+                "melee:axe"
         );
     }
 }

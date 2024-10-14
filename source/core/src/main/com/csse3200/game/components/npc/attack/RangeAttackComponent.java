@@ -14,7 +14,7 @@ import com.csse3200.game.services.ServiceLocator;
  */
 public class RangeAttackComponent extends AttackComponent {
 
-    final float spreadAngle = 0.1f;
+    float spreadAngle = 0.1f;
     private ShootType type;
     private Entity latestProjectile;
     String[] projectileNames;
@@ -62,12 +62,16 @@ public class RangeAttackComponent extends AttackComponent {
         }
     }
 
-    /**
-     * return animationID
-     * @return animationID
-     */
-    public int getAnimationID() {
-        return animationID;
+//    /**
+//     * return animationID
+//     * @return animationID
+//     */
+//    public int getAnimationID() {
+//        return animationID;
+//    }
+
+    public void setSpreadAngle(float spreadAngle) {
+        this.spreadAngle = spreadAngle;
     }
 
     /**
@@ -93,7 +97,11 @@ public class RangeAttackComponent extends AttackComponent {
         } else if (baseName.equals("kitsune")) {
             projectileNames = new String[]{"kitsuneProjectile1", "kitsuneProjectile2"};
             attackTriggers = new String[]{"fire1", "fire2"};
-        } else {
+        } else if (baseName.equals("cthulu")) {
+            projectileNames = new String[]{"cthuluProjectile"};
+            attackTriggers = new String[]{"cthulu_bullet"};
+        }
+        else {
             projectileNames = new String[]{"dragonProjectile"};
             attackTriggers = new String[]{"fire_attack"};
         }

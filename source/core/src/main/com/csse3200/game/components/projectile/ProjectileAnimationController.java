@@ -24,6 +24,17 @@ public class ProjectileAnimationController extends Component {
         entity.getEvents().addListener("fire_attack", this::animateFire);
         entity.getEvents().addListener("fire1", this::animateFireKitsune1);
         entity.getEvents().addListener("fire2", this::animateFireKitsune2);
+        entity.getEvents().addListener("cthulu_bullet", this::animateCthuluBullet);
+    }
+
+    void animateCthuluBullet() {
+        if (animator.hasAnimation("cthulu_bullet_right") && animator.hasAnimation("cthulu_bullet_left")) {
+            triggerDirectionalAnimation("cthulu_bullet");
+        } else if (animator.hasAnimation("cthulu_bullet")) {
+            animator.startAnimation("cthulu_bullet");
+        } else {
+            throw new IllegalStateException("No cthulu_bullet animation found");
+        }
     }
 
     /**

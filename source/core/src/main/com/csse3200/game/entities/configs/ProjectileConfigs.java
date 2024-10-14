@@ -8,6 +8,7 @@ public class ProjectileConfigs {
     //public ProjectileConfig baseProjectile = new BaseProjectileConfig();
     public BaseProjectileConfig dragonProjectile = new BaseProjectileConfig();
     public BaseProjectileConfig kitsuneProjectile = new BaseProjectileConfig();
+    public BaseProjectileConfig cthuluProjectile = new BaseProjectileConfig();
 
     public static class BaseProjectileConfig extends BaseEntityConfig {
         public short Layer = PhysicsLayer.PLAYER;

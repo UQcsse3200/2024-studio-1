@@ -12,6 +12,9 @@ import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Task for the boss to perform a Bullet Storm:
  * - Move to the center of the room at (7,5).
@@ -64,12 +67,29 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
 
         // Enable the BossRangeAttackComponent
         BossRangeAttackComponent rangeAttack = owner.getEntity().getComponent(BossRangeAttackComponent.class);
+        int numShot = (int) (Math.random() * 8);
+        numShot = 4;
         if (rangeAttack != null) {
+            setShootPattern(rangeAttack, numShot);
+
             rangeAttack.setEnabled(true);
             logger.debug("BossRangeAttackComponent enabled.");
         } else {
             logger.warn("BossRangeAttackComponent not found on the boss entity.");
         }
+    }
+
+    private void setShootPattern(BossRangeAttackComponent rangeAttack, int numShot) {
+        rangeAttack.setSpreadAngle(0.25f);
+        List<Vector2> spawnLocations = new ArrayList<Vector2>();
+        List<Vector2> movingDirections = new ArrayList<Vector2>();
+        for (float i = 0.3f; i < 8.7; i+= (float) ((8.4) / numShot)) {
+            Vector2 v = new Vector2(1, i);
+            spawnLocations.add(v);
+            movingDirections.add(new Vector2(1,0));
+        }
+
+        rangeAttack.loadShootPattern(spawnLocations.toArray(new Vector2[0]), movingDirections.toArray(new Vector2[0]));
     }
 
     @Override

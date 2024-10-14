@@ -76,6 +76,7 @@ public class ProjectileFactory extends LoadedFactory {
             case "dragonProjectile" -> this.createDragonProjectile(direction, parentPosition);
             case "kitsuneProjectile1" -> this.createKitsuneProjectile1(direction, parentPosition);
             case "kitsuneProjectile2" -> this.createKitsuneProjectile2(direction, parentPosition);
+            case "cthuluProjectile" -> this.createCthuluProjectile(direction, parentPosition);
             default -> throw new IllegalArgumentException("Unknown animal: " + specification);
         };
     }
@@ -93,6 +94,21 @@ public class ProjectileFactory extends LoadedFactory {
                 parentPosition, animator);
 
         return dragonProjectile;
+    }
+
+    /**
+     * Create a Cthulu projectile with predefined components and animations.
+     * @param direction direction of movement
+     * @param parentPosition position of Cthulu
+     * @return a dragon projectile entity with given spec
+     */
+    public Entity createCthuluProjectile(Vector2 direction, Vector2 parentPosition) {
+        ProjectileConfigs.BaseProjectileConfig config = configs.cthuluProjectile;
+        AnimationRenderComponent animator = createAnimator("images/npc/cthulu/cthulu_bullet.atlas", config.animations);
+        Entity cthuluProjectile = createProjectile("Cthulu Projectile", config, direction,
+                parentPosition, animator);
+
+        return cthuluProjectile;
     }
 
     /**
@@ -153,10 +169,10 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(animator);
 
         projectile.getComponent(ColliderComponent.class).setSensor(true);
-        PhysicsUtils.setScaledCollider(projectile, stats.scaleX, stats.scaleY);
+        PhysicsUtils.setScaledCollider(projectile, 1f, 1f);
         projectile.getComponent(AnimationRenderComponent.class).scaleEntity();
         projectile.setScale(stats.scaleX, stats.scaleY);
-        projectile.getComponent(ColliderComponent.class).setDensity(1.5f);
+        projectile.getComponent(ColliderComponent.class).setDensity(0.5f);
 
 
         return projectile;
@@ -228,7 +244,8 @@ public class ProjectileFactory extends LoadedFactory {
                 "images/Projectiles/GreenShoot.atlas",
                 "images/npc/dragon/dragon.atlas",
                 "images/npc/kitsune/fire1.atlas",
-                "images/npc/kitsune/fire2.atlas"
+                "images/npc/kitsune/fire2.atlas",
+                "images/npc/cthulu/cthulu_bullet.atlas"
         };
     }
 
@@ -238,7 +255,8 @@ public class ProjectileFactory extends LoadedFactory {
                 "images/Projectiles/GreenShoot.png",
                 "images/npc/dragon/dragon.png",
                 "images/npc/kitsune/fire1.png",
-                "images/npc/kitsune/fire2.png"
+                "images/npc/kitsune/fire2.png",
+                "images/npc/cthulu/cthulu_bullet.png"
         };
     }
 

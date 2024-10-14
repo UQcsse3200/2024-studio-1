@@ -65,10 +65,13 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
         logger.info("{} shoots {}", entity, target);
         // Shoot target
         Vector2 direction = getDirection(target);
+        int max = spawnLocations.length - 1;
+        setAnimationID((int) (Math.random() * max));
         entity.getEvents().trigger("attack");
         spreadShoot(direction, 10);
+        shoot();
         // Uncomment this for testing change projectile animation
-//        setAnimationID(0);
+
         // Attack effects
 //        if (effects != null) {
 //            applyEffects(target);

@@ -22,6 +22,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      # SonarCloud Integration
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+
       - name: Run Unit Tests
         id: tests # Unique ID to reference later to color our message
         run: |

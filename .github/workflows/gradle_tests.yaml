@@ -30,7 +30,6 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-
       - name: Run Unit Tests
         id: tests # Unique ID to reference later to color our message
         run: |
@@ -66,6 +65,19 @@ jobs:
            username: GitHub
            details: Test Cancelled!
            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Build and Analyse Game
+        run: |
+          mkdir -p ~/Beast\ Breakout/
+          ls -al ~
+          cd $GRADLE_DIR
+          chmod +x ./gradlew
+          ./gradlew --stacktrace build sonarqube --info
+          ls -al
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GRADLE_DIR: 'source' # Modify this to wherever './gradlew' is
 
       - name: Cleanup Gradle Cache
         if: always()

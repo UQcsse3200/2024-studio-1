@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class WanderTask extends DefaultTask implements PriorityTask {
   /**
    * @param config Configuration for the wander task.
    */
-  public WanderTask(NPCConfigs.NPCConfig.TaskConfig.WanderTaskConfig config) {
+  public WanderTask(TaskConfig.WanderTaskConfig config) {
     this.wanderRange = new Vector2(config.wanderRadius, config.wanderRadius);
     this.waitTime = config.waitTime;
     this.wanderSpeed = config.wanderSpeed;

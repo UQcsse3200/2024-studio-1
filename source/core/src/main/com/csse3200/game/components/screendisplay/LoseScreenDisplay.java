@@ -41,8 +41,20 @@ public class LoseScreenDisplay extends UIComponent {
             "images/how-to-play/animals/dog.png",
             "images/how-to-play/animals/snake.png",
             "images/how-to-play/animals/dino.png",
-            "images/how-to-play/animals/minotaur.png"
+            "images/how-to-play/animals/minotaur.png",
+            "images/how-to-play/animals/dragon.png",
+            "images/how-to-play/animals/werewolf.png",
+            "images/how-to-play/animals/cthulu.png",
+            "images/how-to-play/animals/kitsune.png",
+            "images/how-to-play/animals/birdman.png"
     };
+
+    public static String capitalizeFirstChar(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
 
     /**
      * Make the component.
@@ -68,6 +80,12 @@ public class LoseScreenDisplay extends UIComponent {
         animals.add("Snake");
         animals.add("Dino");
         animals.add("Minotaur");
+        animals.add("Dragon");
+        animals.add("Werewolf");
+        animals.add("Cthulu");
+        animals.add("Kitsune");
+        animals.add("Birdman");
+
         animalDeathScreens.add("You thought you were the predator, but turns out you are just prey!");
         animalDeathScreens.add("Too slow, too soft. You didn't stand a chance against my claws!");
         animalDeathScreens.add("Couldn't see in the dark, huh? My world, my rules. Better luck next time, human!");
@@ -75,9 +93,22 @@ public class LoseScreenDisplay extends UIComponent {
         animalDeathScreens.add("Slither, slither... you never saw me coming, and now it is lights out for you!");
         animalDeathScreens.add("Extinct? Not me! Guess it is you who is heading for the history books!");
         animalDeathScreens.add("Lost in my labyrinth of power, and now you are just another trophy!");
+        animalDeathScreens.add("Foolish mortal, my fire has forged empires and destroyed heroes. What made you think you could survive?");
+        animalDeathScreens.add("Ah, the moon's glow reveals the truth: you were never a match for the beast within me!");
+        animalDeathScreens.add("You are but a fleeting whisper in the vast eternity of my dreams. Insignificant, erased!");
+        animalDeathScreens.add("Deceived by shadows and tricked by tales, your end came at the hands of my cunning!");
+        animalDeathScreens.add("From the skies I watched, and with swift wings I struck. Did you really think you could escape my gaze?");
         table = new Table();
         table.setFillParent(true);
-        LastAttackAnimal = readClass(String.class, "configs/LastAttack.json", FileLoader.Location.EXTERNAL);
+        LastAttackAnimal = readClass(String.class, "configs/LastAttack.json", FileLoader.Location.LOCAL);
+        if(!LastAttackAnimal.equals("Unknown")){
+            int firstSpaceIndex = LastAttackAnimal.indexOf(' ');
+            if (firstSpaceIndex != -1) { // Check if there is at least one space in the string
+                LastAttackAnimal = LastAttackAnimal.substring(0, firstSpaceIndex);
+            }
+            LastAttackAnimal = capitalizeFirstChar(LastAttackAnimal);
+            System.out.println(LastAttackAnimal);
+        }
         Label youDied = new Label("You died...", skin, "cutscene");
         Label animalName;
         Image playerDead;
@@ -101,6 +132,7 @@ public class LoseScreenDisplay extends UIComponent {
             table.add(playerDead).padTop(Y_PADDING);
             table.row();
             table.add(animalName).padTop(Y_PADDING);
+            table.row();
             table.add(youDied).padTop(30f);
         }
         Button exitBtn = new TextButton("Back to menu", skin);

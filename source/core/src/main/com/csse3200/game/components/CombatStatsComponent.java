@@ -282,7 +282,7 @@ public class CombatStatsComponent extends Component {
             else {
                 lastAttackName = attacker.getEntity().getName();
             }
-            FileLoader.writeClass(lastAttackName, FILE_PATH, FileLoader.Location.EXTERNAL);
+            FileLoader.writeClass(lastAttackName, FILE_PATH, FileLoader.Location.LOCAL);
             ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
             entity.getEvents().trigger("playerHit");
             if (isDead()){

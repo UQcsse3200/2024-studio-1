@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import static com.csse3200.game.GdxGame.ScreenType.MAIN_MENU;
 import static com.csse3200.game.files.FileLoader.readClass;
 import static com.csse3200.game.screens.LoseScreen.PLAYER_DEAD;
+import static com.csse3200.game.services.ServiceLocator.getResourceService;
 
 /**
  * Display and actions for the losing/death screen.
@@ -47,6 +48,21 @@ public class LoseScreenDisplay extends UIComponent {
             "images/how-to-play/animals/cthulu.png",
             "images/how-to-play/animals/kitsune.png",
             "images/how-to-play/animals/birdman.png"
+    };
+
+    String[] backgroundPaths = {
+            "images/death_screen/rat_bg.jpg",
+            "images/death_screen/bear_bg.jpg",
+            "images/death_screen/rat_bg.png",
+            "images/death_screen/rat_bg.png",
+            "images/death_screen/rat_bg.png",
+            "images/death_screen/rat_bg.png",
+            "images/death_screen/rat_bg.png",
+            "images/death_screen/rat_bg.png",
+            "images/death_screen/rat_bg.png",
+            "images/death_screen/rat_bg.png",
+            "images/death_screen/rat_bg.png",
+            "images/death_screen/rat_bg.png",
     };
 
     public static String capitalizeFirstChar(String str) {
@@ -98,6 +114,10 @@ public class LoseScreenDisplay extends UIComponent {
         animalDeathScreens.add("You are but a fleeting whisper in the vast eternity of my dreams. Insignificant, erased!");
         animalDeathScreens.add("Deceived by shadows and tricked by tales, your end came at the hands of my cunning!");
         animalDeathScreens.add("From the skies I watched, and with swift wings I struck. Did you really think you could escape my gaze?");
+
+        Image background = new Image(new Texture(Gdx.files.internal(backgroundPaths[1])));
+        background.setFillParent(true); // Make it fill the screen
+        stage.addActor(background);
         table = new Table();
         table.setFillParent(true);
         LastAttackAnimal = readClass(String.class, "configs/LastAttack.json", FileLoader.Location.LOCAL);

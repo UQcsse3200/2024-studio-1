@@ -9,7 +9,6 @@ import java.util.Map;
 public class TestMapGenerator implements MapGenerator {
     @Override
     public Map<String, String> getRoomKeys() {
-        // TODO add a boss room to the test environment.
         return Map.of("Boss", "1_0");
     }
 

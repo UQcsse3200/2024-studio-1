@@ -25,16 +25,16 @@ public class MainGameScreen extends GameScreen {
         GameArea gameArea = new GameArea();
 
         GameOptions gameOptions = game.gameOptions;
-        logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
+        logger.info("Starting game with difficulty {}", gameOptions.getDifficulty());
 
-        Entity player = gameOptions.playerFactory.create(gameOptions.difficulty);
+        Entity player = gameOptions.createPlayer(gameOptions.getDifficulty());
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");
         MapLoadConfig mapConfig = new MapLoadConfig();
         mapConfig.currentLevel = "0";
         LevelFactory levelFactory = new MainGameLevelFactory(false, mapConfig);
-        if (gameOptions.difficulty == TEST) {
+        if (gameOptions.getDifficulty() == TEST) {
             new TestGameArea(gameArea, levelFactory, player);
         } else {
             new GameController(gameArea, levelFactory, player, shouldLoad, mapConfig);

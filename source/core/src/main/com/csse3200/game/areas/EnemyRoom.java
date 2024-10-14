@@ -96,9 +96,9 @@ public abstract class EnemyRoom extends BaseRoom {
                 @Override
                 public void run() {
                     spawnItems();
+                    setComplete();
                 }
             }, 1.0f);
-            setComplete();
         }
     }
 

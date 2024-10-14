@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.lang.Math.*;
 
 /**
  * Factory for producing entities with a projectile themed component configuration.

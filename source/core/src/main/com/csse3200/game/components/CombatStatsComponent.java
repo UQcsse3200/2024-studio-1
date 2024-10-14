@@ -32,18 +32,21 @@ public class CombatStatsComponent extends Component {
     private double critChance;
     private boolean isInvincible;
     // change requested by character team
-    private int timeInvincible = 2000;
+    private int timeInvincible = 1000; // default IFrames is 1 seconds
     private final Timer timerIFrames; 
-    private static final int timeFlash = 250;
+    private int timeFlash = 250;
+
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
 
     private String lastAttackName;
-    private String filePath = "configs/LastAttack.json";
+    private final String filePath = "configs/LastAttack.json";
 
     public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance, int timeInvincible) {
         this(health, maxHealth, baseAttack, canBeInvincible, armor, buff, canCrit, critChance);
         this.timeInvincible = timeInvincible;
+        int NUM_FLASH = 6;
+        this.timeFlash = timeInvincible / NUM_FLASH;
 
     }
 
@@ -283,9 +286,6 @@ public class CombatStatsComponent extends Component {
             }
 
             FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
-            //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
-            //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
-            //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
             entity.getEvents().trigger("playerHit");
             if (isDead()){ return; }
             setInvincible(true);

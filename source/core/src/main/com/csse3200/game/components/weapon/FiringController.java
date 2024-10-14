@@ -38,7 +38,7 @@ public class FiringController extends Component {
     private float range;                                // range of weapon
     private int fireRate;                               // fire rate of weapon (round per second)
 
-    private ProjectileConfig projectileConfig;          // Config file for this weapon's projectile
+    private final ProjectileConfig projectileConfig;          // Config file for this weapon's projectile
     private int ammo;                                   // current ammo for ranged only
     private int maxAmmo;                                // max ammo for ranged only
     private int reloadTime;                             // reload time for ranged only
@@ -114,7 +114,7 @@ public class FiringController extends Component {
     /**
      * Store the player that are using this weapon
      *
-     * @param player
+     * @param player the Player entity that is holing the weapon
      */
     public void connectPlayer(Entity player) {
         this.player = player;
@@ -197,8 +197,9 @@ public class FiringController extends Component {
                 this.setAmmo(-1);
 
                 // Create projectiles
+                float SHOOT_OFFSET = 0.5F;
                 for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
-                        direction, (this.getEntity().getPosition().mulAdd(direction, 0.5F)))) {
+                        direction, (this.getEntity().getPosition().mulAdd(direction, SHOOT_OFFSET)))) {
                     ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
                             new GridPoint2(9, 9), true, true);
                 }

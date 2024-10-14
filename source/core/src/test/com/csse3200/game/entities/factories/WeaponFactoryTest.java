@@ -49,13 +49,13 @@ public class WeaponFactoryTest {
 
     @Test
     public void testCreateCollectibleMelee() {
-        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.OFF_HAND, "Knife");
+        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.OFF_HAND, "knife");
         assert knifeCollectible instanceof MeleeWeapon;
     }
 
     @Test
     public void testCreateCollectibleRanged() {
-        Collectible shotgunCollectible = weaponFactory.create(Collectible.Type.MAIN_HAND, "Shotgun");
+        Collectible shotgunCollectible = weaponFactory.create(Collectible.Type.MAIN_HAND, "shotgun");
         assert shotgunCollectible instanceof RangedWeapon;
     }
 
@@ -76,10 +76,10 @@ public class WeaponFactoryTest {
 
     @Test
     public void testCreateEntity() {
-        Entity meleeEntity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.OFF_HAND, "Knife"));
+        Entity meleeEntity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.OFF_HAND, "knife"));
         assert meleeEntity != null;
 
-        Entity rangedEntity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.MAIN_HAND, "Shotgun"));
+        Entity rangedEntity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.MAIN_HAND, "shotgun"));
         assert rangedEntity != null;
     }
 

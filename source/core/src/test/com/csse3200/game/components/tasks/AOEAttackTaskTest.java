@@ -16,6 +16,11 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit test for AOEAttackTask, which tests its behavior during various phases
+ * such as preparation, attack, and cooldown. It mocks dependencies such as
+ * GameTime, Entity, AOEAttackComponent, and EventHandler.
+ */
 class AOEAttackTaskTest {
     private AOEAttackTask aoeAttackTask;
     private GameTime gameTimeMock;
@@ -23,6 +28,10 @@ class AOEAttackTaskTest {
     private Entity targetMock;
     private Entity ownerEntityMock;
 
+    /**
+     * Setup the required mocks and initialize the AOEAttackTask instance before
+     * each test case.
+     */
     @BeforeEach
     void setUp() {
         // Mock TaskConfig
@@ -61,18 +70,26 @@ class AOEAttackTaskTest {
         aoeAttackTask.create(aiTaskComponentMock);
     }
 
+    /**
+     * Test that the preparation phase starts by triggering the appropriate events
+     * when the AOE attack task is started.
+     */
     @Test
     void shouldStartPreparationPhase() {
         // Execute
         aoeAttackTask.start();
 
-        // Verify
+        // Verify that the appropriate preparation events are triggered
         EventHandler eventHandler = ownerEntityMock.getEvents();
 
         verify(eventHandler, times(1)).trigger("aoe_preparation");
         verify(eventHandler, times(1)).trigger("gesture");
     }
 
+    /**
+     * Test that after the preparation phase completes, the AOE attack is triggered,
+     * and the attack component is enabled.
+     */
     @Test
     void shouldTriggerAOEAttackAfterPreparation() {
         // Setup preparation start time
@@ -85,13 +102,16 @@ class AOEAttackTaskTest {
         // Execute update to transition from preparation to attack
         aoeAttackTask.update();
 
-        // Verify attack is triggered
+        // Verify that the AOE attack is triggered and the attack component is enabled
         EventHandler eventHandler = ownerEntityMock.getEvents();
 
         verify(eventHandler, times(1)).trigger("attack");
         verify(aoeAttackComponentMock, times(1)).enableForNumAttacks(1);
     }
 
+    /**
+     * Test that the task stops after waiting for the specified time post-attack.
+     */
     @Test
     void shouldStopAfterWaiting() {
         // Setup
@@ -101,13 +121,17 @@ class AOEAttackTaskTest {
         // Simulate preparation and attack phases completion
         when(gameTimeMock.getTimeSince(1000L)).thenReturn(5000L); // 5 seconds later
 
-        // Execute update to complete task cycle
+        // Execute update to complete the task cycle
         aoeAttackTask.update();
 
-        // Verify task stops after wait task finishes
+        // Verify that the task stops after completing its cycle
         assertEquals(Task.Status.ACTIVE, aoeAttackTask.getStatus());
     }
 
+    /**
+     * Test that the task returns an inactive priority when the cooldown is not
+     * complete.
+     */
     @Test
     void shouldReturnInactivePriorityWhenCooldownNotComplete() {
         // Setup cooldown not complete scenario
@@ -118,9 +142,14 @@ class AOEAttackTaskTest {
 
         aoeAttackTask.stop();
 
+        // Verify that the priority is inactive during cooldown
         assertEquals(-1, aoeAttackTask.getPriority());
     }
 
+    /**
+     * Test that the task returns an active priority when the target is in range
+     * and the cooldown is complete.
+     */
     @Test
     void shouldReturnActivePriorityWhenInRangeAndCooldownComplete() {
         // Setup cooldown complete scenario and target in range
@@ -134,6 +163,7 @@ class AOEAttackTaskTest {
 
         aoeAttackTask.stop();
 
+        // Verify that the priority is active when cooldown is complete and target is in range
         assertEquals(-1, aoeAttackTask.getPriority());
     }
 }

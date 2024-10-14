@@ -85,10 +85,10 @@ public class StraightWanderTask extends DefaultTask implements PriorityTask {
      * @return A valid random direction vector.
      */
     private Vector2 getRandomDirectionVector() {
-        float newAngle = MathUtils.random(20, 360);
+        float newAngle = MathUtils.random(0, 360);
         int attempts = 0;
         while (!isValidDirection(newAngle)) {
-            newAngle = MathUtils.random(20, 360);
+            newAngle = MathUtils.random(0, 360);
             attempts++;
             if (attempts > 15) {
                 // Fallback to any random direction after 15 failed attempts

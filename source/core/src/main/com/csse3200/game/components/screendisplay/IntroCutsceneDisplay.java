@@ -46,6 +46,8 @@ public class IntroCutsceneDisplay extends UIComponent {
 
     @Override
     public void create() {
+
+        logger.debug("Creating cutscene");
         super.create();
         loadTextures();
 
@@ -76,6 +78,9 @@ public class IntroCutsceneDisplay extends UIComponent {
     }
 
     private void loadTextures() {
+
+        logger.debug("Loading cutscene textures");
+
         // Define the texture file paths in a fixed array
         String[] texturePaths = {
                 "images/screen/cutscene1.jpg",
@@ -180,11 +185,13 @@ public class IntroCutsceneDisplay extends UIComponent {
     }
 
     private void onStart() {
+        logger.debug("Finished cutscene, going to main game");
         game.setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 
     @Override
     public void dispose() {
+        logger.debug("Disposing cutscene textures");
         for (Texture texture : cutsceneTextures) {
             texture.dispose();
         }

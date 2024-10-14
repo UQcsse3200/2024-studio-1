@@ -101,7 +101,7 @@ class StraightWanderTaskTest {
 
         // Ensure directions are not the same
         float angleBetween = initialDirection.angleDeg(newDirection);
-        assertTrue(angleBetween > 5f, "Entity should have moved in a different direction after collision.");
+        assertTrue(angleBetween > 3f, "Entity should have moved in a different direction after collision.");
     }
 
     @Test

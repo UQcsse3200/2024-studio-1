@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.effects.EffectComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.CoinsComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
@@ -101,7 +102,7 @@ public class LoadPlayer {
                 .addComponent(new CombatStatsComponent(
                 config.health, config.maxHealth,
                 config.baseAttack, true, config.armour, config.buff, config.canCrit,
-                config.critChance))
+                config.critChance, config.timeInvincible))
                 .addComponent(inventoryComponent)
                 .addComponent(playerActions)
                 .addComponent(new PlayerAchievementComponent())
@@ -114,7 +115,8 @@ public class LoadPlayer {
                 .addComponent(new PlayerAnimationController(config.textureAtlasFilename))
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay());
+                .addComponent(new PlayerHealthDisplay())
+                .addComponent(new EffectComponent());
 
         CoinsComponent coinsComponent = new CoinsComponent();
 

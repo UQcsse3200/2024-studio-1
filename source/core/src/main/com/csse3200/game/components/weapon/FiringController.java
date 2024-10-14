@@ -6,20 +6,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
+import com.csse3200.game.components.player.inventory.weapons.*;
+import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.services.ServiceLocator;
+
+//import java.util.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.TimerTask;
 
 /**
  * Controller for firing weapons (predecessor: WeaponComponent)
@@ -38,7 +40,7 @@ public class FiringController extends Component {
     private float range;                                // range of weapon
     private int fireRate;                               // fire rate of weapon (round per second)
 
-    private ProjectileConfig projectileConfig;          // Config file for this weapon's projectile
+    private final ProjectileConfig projectileConfig;          // Config file for this weapon's projectile
     private int ammo;                                   // current ammo for ranged only
     private int maxAmmo;                                // max ammo for ranged only
     private int reloadTime;                             // reload time for ranged only
@@ -49,11 +51,13 @@ public class FiringController extends Component {
     private Sprite weaponSprite;
     // Tracking weapon state
     private long lastActivation;                        // Time of last ranged weapon activation, in seconds
-    private final long activationInterval;              // Interval between ranged weapon activation, in seconds
+    private final long activationInterval;              // Interval between ranged weapon
+    // activation, in miliseconds
 
     private Entity player;
     private short targetLayer;                          // Layer to target for melee weapon
     private final boolean isMelee;
+    private boolean isReady = true;
 
     /**
      * Initialize the firing controller for ranged weapon
@@ -63,8 +67,14 @@ public class FiringController extends Component {
      */
     public FiringController(RangedWeapon collectible, ProjectileConfig projectileConfig) {
         this.isMelee = false;
+
+        //setup projectile config for values from the collectable value
         this.damage = collectible.getDamage();
         this.range = collectible.getRange();
+        projectileConfig.baseAttack = damage;
+        projectileConfig.range = range;
+        this.projectileConfig = projectileConfig;
+
         this.fireRate = collectible.getFireRate();
 
         // Setup variables to track weapon state
@@ -74,8 +84,6 @@ public class FiringController extends Component {
         this.maxAmmo = collectible.getMaxAmmo();
         this.reloadTime = collectible.getReloadTime();
 
-        // Type of projectile
-        this.projectileConfig = projectileConfig;
         this.weaponCollectible = collectible;
     }
 
@@ -114,7 +122,7 @@ public class FiringController extends Component {
     /**
      * Store the player that are using this weapon
      *
-     * @param player
+     * @param player the Player entity that is holing the weapon
      */
     public void connectPlayer(Entity player) {
         this.player = player;
@@ -132,6 +140,7 @@ public class FiringController extends Component {
      * Activate weapon on the direction specified
      * If the weapon is ranged, it will shoot in the direction specified (direction not null)
      * If the weapon is melee, it will attack in the direction the player is walking
+     *
      * @param direction direction to shoot in, set to null for melees
      * @return message to indicate the weapon attack
      */
@@ -171,45 +180,23 @@ public class FiringController extends Component {
             logger.info("Player not connected");
             return;
         }
-        Entity entity = this.getEntity();
-        long currentTime = System.currentTimeMillis();
-        if (entity != null) {
-            if (currentTime - this.lastActivation <= this.activationInterval) {
+        if (this.getEntity() != null) {
+            if (!isReady) {
                 // Weapon not ready
                 logger.info("Ranged weapon not ready");
                 return;
             }
-            if (this.getAmmo() == 0) {
-                // Reloading
-                this.setAmmo(-2);
-                // Offset time so that the weapon must wait extra long for reload time
-                currentTime += this.getReloadTime() * 1000L - this.activationInterval;
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        getPlayer().getEvents().trigger("ranged_activate", getMaxAmmo());
-                    }
-                }, this.reloadTime * 1000L);
-                logger.info("Ranged weapon reloading");
-                ServiceLocator.getResourceService().playSound("sounds/shotgun1_r.ogg");
-            } else {
-                // Shooting
-                this.setAmmo(-1);
-
-                // Create projectiles
-                for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
-                        direction, this.getEntity().getPosition())) {
-                    ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
-                            new GridPoint2(9, 9), true, true);
-                }
-                ServiceLocator.getResourceService().playSound("sounds/shotgun1_f.ogg");
-                // Trigger event for animation controller
-                triggerEvent(direction);
-                logger.info("Ranged weapon shoot");
-                entity.getEvents().trigger("RANGED_ATTACK");
-            }
-            // Reset last Attack time
-            this.lastActivation = currentTime;
+            // Shooting
+            this.setAmmo(-1);
+            // Create projectiles
+            spawnProjectile(direction);
+            // Trigger sound
+            ServiceLocator.getResourceService().playSound("sounds/shotgun1_f.ogg");
+            // Trigger event for animation controller
+            triggerEvent(direction);
+            logger.info("Ranged weapon shoot");
+            // Check if the weapon needs to be reloaded or not
+            checkState();
         } else {
             logger.info("No ranged weapon");
         }
@@ -226,16 +213,20 @@ public class FiringController extends Component {
             logger.info("Player not connected");
             return;
         }
-        Entity entity = this.getEntity();
-        long currentTime = System.currentTimeMillis();
-        if (entity != null) {
-            if (currentTime - this.lastActivation <= this.activationInterval) {
+        if (this.getEntity() != null) {
+            if (!isReady) {
                 // Weapon not ready
                 logger.info("Melee weapon not ready");
                 return;
             }
-            // Render attack here using
-            this.lastActivation = currentTime;
+            // Set ready state
+            isReady = false;
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    isReady = true;
+                }
+            }, (float) this.activationInterval / 1000L);
             ServiceLocator.getResourceService().playSound("sounds/sword1.ogg");
             logger.info("Melee weapon attack");
             triggerEvent(this.player.getComponent(PlayerActions.class).getWalkDirection());
@@ -274,13 +265,14 @@ public class FiringController extends Component {
             if (distance > this.range) {
                 continue; // Skip entities outside swing range
             }
-            // if the target in front of the player
-            // (1/4 of the circle, ex. if player face right, target in front is fromn 90 to 270 degree)
-            Vector2 direction = e.getPosition().sub(this.player.getPosition()).nor();
-            Vector2 playerDirection = this.player.getComponent(PlayerActions.class).getWalkDirection();
-            if (direction.angleDeg(playerDirection) > 90 || direction.angleDeg(playerDirection) < -90) {
-                continue; // Skip entities not in front of the player
-            }
+
+//            // if the target in front of the player
+//            // (1/4 of the circle, ex. if player face right, target in front is fromn 90 to 270 degree)
+//            Vector2 direction = e.getPosition().sub(this.player.getPosition()).nor();
+//            Vector2 playerDirection = this.player.getComponent(PlayerActions.class).getWalkDirection();
+//            if (direction.angleDeg(playerDirection) > 90 || direction.angleDeg(playerDirection) < -90) {
+//                continue; // Skip entities not in front of the player
+//            }
 
             HitboxComponent hitbox = e.getComponent(HitboxComponent.class);
             if (hitbox == null || hitbox.getLayer() != targetLayer) {
@@ -297,7 +289,7 @@ public class FiringController extends Component {
 
     /**
      * Trigger shoot event base on shooting direction or walking direction of the player if this
-     * is called for melee weapons
+     * is called for melee weapons.
      *
      * @param direction The direction to shoot in
      */
@@ -308,14 +300,68 @@ public class FiringController extends Component {
             } else {
                 this.entity.getEvents().trigger("shootDown");
             }
-        } else if (direction.x == 1.0) {
+        } else if (direction.x > 0) {
             this.entity.getEvents().trigger("shootRight");
-        } else if (direction.x == -1.0) {
+        } else if (direction.x < 0) {
             this.entity.getEvents().trigger("shootLeft");
         }
         // Trigger event for weapon UI
         if (this.player != null) {
             this.player.getEvents().trigger("ranged_activate", this.ammo);
+        }
+    }
+
+    /**
+     * Set weapon to not ready.
+     * If the weapon still have ammo, create timer to set the weapon to ready after activation
+     * interval.
+     * Otherwise, create timer to set isReady to true after reload time.
+     */
+    private void checkState() {
+        // Check for reloading
+        isReady = false;
+        if (this.getAmmo() != 0) {
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    isReady = true;
+                }
+            }, (float) this.activationInterval / 1000L);
+        }
+        else {
+            logger.info("Ranged weapon reloading");
+            ServiceLocator.getResourceService().playSound("sounds/shotgun1_r.ogg");
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    setAmmo(-2);
+                    getPlayer().getEvents().trigger("ranged_activate", getMaxAmmo());
+                    isReady = true;
+                }
+            }, this.reloadTime);
+        }
+    }
+
+    /**
+     * Spawn projectile(s) for this weapon.
+     * Will spawn multiple projectiles (shotgun spray) for weapons with range > 0.
+     * Otherwise, will spawn single projectile with unlimited range.
+     * @param direction direction to shoot the projectile(s)
+     */
+    private void spawnProjectile(Vector2 direction) {
+        if (this.range == 0) {
+            // Not a shotgun
+            Entity projectile = projectileFactory.createProjectile(this.projectileConfig, direction,
+                    entity.getPosition());
+            ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile,
+                    new GridPoint2(9, 9), true, true);
+            return;
+        }
+        // Is a shotgun
+        for (Entity e : projectileFactory.createShotGunProjectile(this.projectileConfig,
+                direction, this.getEntity().getPosition())) {
+            ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(e,
+                    new GridPoint2(9, 9), true, true);
         }
     }
 
@@ -481,6 +527,7 @@ public class FiringController extends Component {
 
     /**
      * Get the player that is using this weapon
+     *
      * @return the player entity
      */
     public Entity getPlayer() {
@@ -489,6 +536,7 @@ public class FiringController extends Component {
 
     /**
      * Get the target layer of the weapon
+     *
      * @return the target layer
      */
     public short getTargetLayer() {

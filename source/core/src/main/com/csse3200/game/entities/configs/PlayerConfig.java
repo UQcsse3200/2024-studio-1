@@ -34,7 +34,8 @@ public class PlayerConfig extends BaseEntityConfig {
     public Vector2 speed;
 
     public Difficulty difficulty;
-
+    /** Player's IFrames (in milliseconds) */
+    public int timeInvincible = 750;
     /**
      * Player's current health
      */
@@ -126,6 +127,7 @@ public class PlayerConfig extends BaseEntityConfig {
         float multiplier = difficulty.getMultiplier();
         health = (int) (health * multiplier);
         speed.scl(multiplier);
+        timeInvincible = (int) (timeInvincible * multiplier);;
         return this;
     }
 

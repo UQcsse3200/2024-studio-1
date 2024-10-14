@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.lang.Math.*;
 
 /**
  * Factory for producing entities with a projectile themed component configuration.
@@ -147,7 +146,7 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
+                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition, stats.range))
                         .addComponent(new DirectionalNPCComponent(stats.isDirectional))
                         .addComponent(new ProjectileActions())
                         .addComponent(new ProjectileAnimationController())
@@ -171,6 +170,7 @@ public class ProjectileFactory extends LoadedFactory {
      */
     public Entity createProjectile(ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {
 
+        direction = direction.nor();
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
                         ServiceLocator.getResourceService().getAsset(stats.projectileAtlasPath, TextureAtlas.class));
@@ -184,7 +184,7 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
+                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition, stats.range))
                         .addComponent(new ProjectileActions())
                         .addComponent(animator);
 
@@ -207,16 +207,13 @@ public class ProjectileFactory extends LoadedFactory {
      **/
      public List<Entity> createShotGunProjectile (ProjectileConfig stats, Vector2 direction,
                                        Vector2 parentPosition) {
-        Double polarAngle = atan(direction.y / direction.x);
         float followSpeed = 0.9F;
-        float scale = 1;
-        if (direction.x < 0) {
-             scale = -1;
-        }
-        Double plusMinus = 0.07;
-        Vector2 rectCordMore = new Vector2(scale * (float) (cos(polarAngle + plusMinus)), (float) ( sin(polarAngle + plusMinus)));
-        Vector2 rectCordLess = new Vector2(scale * (float)  (cos(polarAngle - plusMinus)), (float) ( sin(polarAngle - plusMinus)));
-        Vector2 follower = new Vector2(followSpeed * direction.x, followSpeed * direction.y);
+        float plusMinus = 0.15F;
+
+        Vector2 rectCordMore = direction.cpy().rotateRad(plusMinus);
+        Vector2 rectCordLess = direction.cpy().rotateRad(-plusMinus);
+        Vector2 follower = direction.cpy().setLength(followSpeed);
+
         List<Vector2> directions = Arrays.asList(rectCordMore, direction, rectCordLess, follower);
         List<Entity> projectiles = new ArrayList<>();
         for (Vector2 dir : directions) {

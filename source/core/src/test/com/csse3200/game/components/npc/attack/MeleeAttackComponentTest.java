@@ -4,7 +4,8 @@ import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.areas.GameController;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
+import com.csse3200.game.entities.configs.EffectConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
@@ -97,10 +98,17 @@ class MeleeAttackComponentTest {
     }
 
     private Entity createAttacker(Entity target) {
-        NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects
+        // Setup attacker configs
+        EffectConfig[] effectConfigs = {}; // No effects
+        AttackConfig.MeleeAttack meleeAttackConfig = new AttackConfig.MeleeAttack();
+        meleeAttackConfig.range = 2f;
+        meleeAttackConfig.rate = 1f;
+        meleeAttackConfig.effects = effectConfigs;
+
+        // Create attacker
         Entity attacker = new Entity()
                 .addComponent(new CombatStatsComponent(10, 10))
-                .addComponent(new MeleeAttackComponent(target, 2f, 1f, effectConfigs));
+                .addComponent(new MeleeAttackComponent(target, meleeAttackConfig));
         attacker.create();
         attacker.getComponent(MeleeAttackComponent.class).setEnabled(true);
         return attacker;

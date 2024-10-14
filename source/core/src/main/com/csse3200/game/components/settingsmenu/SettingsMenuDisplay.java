@@ -154,6 +154,7 @@ public class SettingsMenuDisplay extends UIComponent {
 
         table.row().padTop(10f);
 
+         // Movement Control Label and Checkboxes
         Label walkLabel = new Label("Movement Control: ", skin);
         wasdWalkCheckbox = new CheckBox("WASD", skin);
         arrowWalkCheckbox = new CheckBox("Arrows", skin);

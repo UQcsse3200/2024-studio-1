@@ -1,0 +1,281 @@
+dragon.png
+	size: 2048, 256
+	repeat: none
+attack_left
+	index: 3
+	bounds: 120, 125, 116, 129
+	offsets: 65, 64, 256, 256
+attack_left
+	index: 1
+	bounds: 129, 9, 125, 114
+	offsets: 67, 64, 256, 256
+attack_left
+	index: 4
+	bounds: 256, 23, 130, 106
+	offsets: 62, 64, 256, 256
+attack_left
+	index: 2
+	bounds: 952, 128, 99, 126
+	offsets: 101, 64, 256, 256
+attack_right
+	index: 3
+	bounds: 2, 125, 116, 129
+	offsets: 75, 64, 256, 256
+attack3
+	bounds: 2, 125, 116, 129
+	offsets: 75, 64, 256, 256
+attack_right
+	index: 1
+	bounds: 2, 9, 125, 114
+	offsets: 64, 64, 256, 256
+attack1
+	bounds: 2, 9, 125, 114
+	offsets: 64, 64, 256, 256
+attack_right
+	index: 4
+	bounds: 238, 148, 130, 106
+	offsets: 64, 64, 256, 256
+attack4
+	bounds: 238, 148, 130, 106
+	offsets: 64, 64, 256, 256
+attack_right
+	index: 2
+	bounds: 851, 128, 99, 126
+	offsets: 56, 64, 256, 256
+attack2
+	bounds: 851, 128, 99, 126
+	offsets: 56, 64, 256, 256
+death5
+	bounds: 855, 7, 164, 45
+	offsets: 50, 64, 256, 256
+death_right
+	index: 5
+	bounds: 855, 7, 164, 45
+	offsets: 50, 64, 256, 256
+death_left
+	index: 1
+	bounds: 689, 186, 160, 68
+	offsets: 52, 64, 256, 256
+hurt_left
+	index: 1
+	bounds: 689, 186, 160, 68
+	offsets: 52, 64, 256, 256
+death_left
+	index: 5
+	bounds: 1021, 9, 164, 45
+	offsets: 42, 64, 256, 256
+death_left
+	index: 4
+	bounds: 1288, 129, 162, 56
+	offsets: 46, 64, 256, 256
+death_left
+	index: 3
+	bounds: 1365, 187, 150, 67
+	offsets: 58, 64, 256, 256
+death_right
+	index: 2
+	bounds: 1161, 59, 155, 67
+	offsets: 44, 64, 256, 256
+death2
+	bounds: 1161, 59, 155, 67
+	offsets: 44, 64, 256, 256
+hurt2
+	bounds: 1161, 59, 155, 67
+	offsets: 44, 64, 256, 256
+hurt_right
+	index: 2
+	bounds: 1161, 59, 155, 67
+	offsets: 44, 64, 256, 256
+death_right
+	index: 3
+	bounds: 1318, 60, 150, 67
+	offsets: 48, 64, 256, 256
+death3
+	bounds: 1318, 60, 150, 67
+	offsets: 48, 64, 256, 256
+death_right
+	index: 4
+	bounds: 1452, 129, 162, 56
+	offsets: 48, 64, 256, 256
+death4
+	bounds: 1452, 129, 162, 56
+	offsets: 48, 64, 256, 256
+fire_attack1
+	bounds: 238, 131, 27, 15
+	offsets: 21, 69, 128, 128
+fire_attack_right
+	index: 1
+	bounds: 238, 131, 27, 15
+	offsets: 21, 69, 128, 128
+fire_attack4
+	bounds: 1053, 128, 75, 54
+	offsets: 30, 29, 128, 128
+fire_attack_right
+	index: 4
+	bounds: 1053, 128, 75, 54
+	offsets: 30, 29, 128, 128
+fire_attack6
+	bounds: 1436, 2, 52, 56
+	offsets: 55, 43, 128, 128
+fire_attack_right
+	index: 6
+	bounds: 1436, 2, 52, 56
+	offsets: 55, 43, 128, 128
+fire_attack_left
+	index: 1
+	bounds: 267, 131, 27, 15
+	offsets: 80, 69, 128, 128
+fire_attack_left
+	index: 4
+	bounds: 1130, 128, 75, 54
+	offsets: 23, 29, 128, 128
+fire_attack_left
+	index: 3
+	bounds: 1187, 10, 79, 47
+	offsets: 24, 31, 128, 128
+fire_attack_left
+	index: 2
+	bounds: 1268, 15, 82, 42
+	offsets: 23, 37, 128, 128
+fire_attack_left
+	index: 5
+	bounds: 1517, 195, 71, 59
+	offsets: 21, 35, 128, 128
+fire_attack_left
+	index: 6
+	bounds: 1470, 71, 52, 56
+	offsets: 21, 43, 128, 128
+fire_attack_right
+	index: 3
+	bounds: 1207, 135, 79, 47
+	offsets: 25, 31, 128, 128
+fire_attack3
+	bounds: 1207, 135, 79, 47
+	offsets: 25, 31, 128, 128
+fire_attack_right
+	index: 5
+	bounds: 1590, 195, 71, 59
+	offsets: 36, 35, 128, 128
+fire_attack5
+	bounds: 1590, 195, 71, 59
+	offsets: 36, 35, 128, 128
+fire_attack_right
+	index: 2
+	bounds: 1352, 16, 82, 42
+	offsets: 23, 37, 128, 128
+fire_attack2
+	bounds: 1352, 16, 82, 42
+	offsets: 23, 37, 128, 128
+hurt_left
+	index: 2
+	bounds: 1208, 187, 155, 67
+	offsets: 57, 64, 256, 256
+death_left
+	index: 2
+	bounds: 1208, 187, 155, 67
+	offsets: 57, 64, 256, 256
+hurt_right
+	index: 1
+	bounds: 693, 35, 160, 68
+	offsets: 44, 64, 256, 256
+death1
+	bounds: 693, 35, 160, 68
+	offsets: 44, 64, 256, 256
+death_right
+	index: 1
+	bounds: 693, 35, 160, 68
+	offsets: 44, 64, 256, 256
+hurt1
+	bounds: 693, 35, 160, 68
+	offsets: 44, 64, 256, 256
+idle_left
+	index: 3
+	bounds: 370, 169, 161, 85
+	offsets: 52, 64, 256, 256
+idle_left
+	index: 2
+	bounds: 388, 8, 154, 72
+	offsets: 50, 64, 256, 256
+idle_left
+	index: 1
+	bounds: 1812, 39, 135, 69
+	offsets: 49, 64, 256, 256
+idle_right
+	index: 3
+	bounds: 388, 82, 161, 85
+	offsets: 43, 64, 256, 256
+idle3
+	bounds: 388, 82, 161, 85
+	offsets: 43, 64, 256, 256
+idle_right
+	index: 2
+	bounds: 533, 182, 154, 72
+	offsets: 52, 64, 256, 256
+idle2
+	bounds: 533, 182, 154, 72
+	offsets: 52, 64, 256, 256
+walk1
+	bounds: 1006, 56, 153, 70
+	offsets: 50, 64, 256, 256
+walk_right
+	index: 1
+	bounds: 1006, 56, 153, 70
+	offsets: 50, 64, 256, 256
+walk3
+	bounds: 1675, 110, 142, 71
+	offsets: 66, 65, 256, 256
+walk_right
+	index: 3
+	bounds: 1675, 110, 142, 71
+	offsets: 66, 65, 256, 256
+walk4
+	bounds: 700, 112, 149, 72
+	offsets: 57, 64, 256, 256
+walk_right
+	index: 4
+	bounds: 700, 112, 149, 72
+	offsets: 57, 64, 256, 256
+walk5
+	bounds: 551, 105, 147, 75
+	offsets: 57, 63, 256, 256
+walk_right
+	index: 5
+	bounds: 551, 105, 147, 75
+	offsets: 57, 63, 256, 256
+walk_left
+	index: 5
+	bounds: 544, 5, 147, 75
+	offsets: 52, 63, 256, 256
+walk_left
+	index: 4
+	bounds: 855, 54, 149, 72
+	offsets: 50, 64, 256, 256
+walk_left
+	index: 1
+	bounds: 1053, 184, 153, 70
+	offsets: 53, 64, 256, 256
+walk_left
+	index: 2
+	bounds: 1663, 183, 149, 71
+	offsets: 48, 63, 256, 256
+walk_left
+	index: 3
+	bounds: 1814, 183, 142, 71
+	offsets: 48, 65, 256, 256
+walk_right
+	index: 2
+	bounds: 1524, 56, 149, 71
+	offsets: 59, 63, 256, 256
+walk2
+	bounds: 1524, 56, 149, 71
+	offsets: 59, 63, 256, 256
+default
+	bounds: 1675, 39, 135, 69
+	offsets: 72, 64, 256, 256
+idle1
+	bounds: 1675, 39, 135, 69
+	offsets: 72, 64, 256, 256
+idle_right
+	index: 1
+	bounds: 1675, 39, 135, 69
+	offsets: 72, 64, 256, 256

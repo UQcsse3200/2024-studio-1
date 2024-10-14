@@ -7,11 +7,10 @@ import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.factories.CollectibleFactory;
-import com.csse3200.game.entities.factories.NPCFactory;
 
 public class GambleRoom extends BaseRoom {
     
-    public GambleRoom(NPCFactory npcFactory, CollectibleFactory collectibleFactory, TerrainFactory terrainFactory,
+    public GambleRoom( CollectibleFactory collectibleFactory, TerrainFactory terrainFactory,
             List<String> roomConnections, String specification, String roomName) {
         super(terrainFactory, collectibleFactory, roomConnections, specification, roomName);
     }
@@ -24,7 +23,7 @@ public class GambleRoom extends BaseRoom {
     }
 
     private void spawnItems() {
-        MainGameArea area = ServiceLocator.getGameAreaService().getGameArea();
+        GameArea area = ServiceLocator.getGameAreaService().getGameArea();
         List<String> items = this.itemSpecifications.get(0);
         if (items != null) {
             spawnItem(area, items.get(0), new GridPoint2(7, 8));
@@ -32,14 +31,17 @@ public class GambleRoom extends BaseRoom {
     }
 
     @Override
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
         this.spawnItems();
-        this.checkIfRoomComplete();
+        this.checkComplete();
     }
 
-    public void checkIfRoomComplete() {
-        setIsRoomComplete();
+    @Override
+    public void checkComplete() {
+        setComplete();
     }
+
+
 }
 

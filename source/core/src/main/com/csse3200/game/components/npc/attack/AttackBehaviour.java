@@ -13,12 +13,6 @@ public interface AttackBehaviour {
     void performAttack();
 
     /**
-     * Apply attack effects to the target entity.
-     * @param target The entity being attacked.
-     */
-    void applyEffects(Entity target);
-
-    /**
      * Check if the attacker can attack the target.
      * @param attacker The entity performing the attack.
      * @param target The entity being attacked.

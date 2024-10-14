@@ -3,18 +3,20 @@ package com.csse3200.game.components.player;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.csse3200.game.areas.BossRoom;
+import com.csse3200.game.areas.ShopRoom;
+import com.csse3200.game.areas.EnemyRoom;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputComponent;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
-import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.entities.Entity;
-import com.csse3200.game.areas.EnemyRoom;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
+import java.util.Map;
 
 import static com.csse3200.game.components.player.KeyMapping.KeyBinding.*;
 
@@ -27,11 +29,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private final Map<Integer, Action> downBindings;
     private final Map<Integer, Action> upBindings;
-    private Vector2 directionShooting = null;
+    private Vector2 directionShooting = new Vector2(0, 0);
     // Timer and task for holding down a shoot button
     private RepeatShoot taskShoot;
     private RepeatMelee taskMelee;
-    private static final int inputDelay = 15; // time between 'button held' method calls in milliseconds
+    private boolean upPressed = false;
+    private boolean downPressed = false;
+    private boolean leftPressed = false;
+    private boolean rightPressed = false;
+    private static final int INPUT_DELAY = 15; // time between 'button held' method calls in milliseconds
 
     /**
      * TimerTask used to repeatedly shoot in a direction
@@ -82,16 +88,66 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     private boolean walk(Vector2 direction) {
-        walkDirection.add(direction);
-        triggerWalkEvent();
+        if (direction.equals(Vector2Utils.UP)) {
+            upPressed = true;
+        } else if (direction.equals(Vector2Utils.DOWN)) {
+            downPressed = true;
+        } else if (direction.equals(Vector2Utils.LEFT)) {
+            leftPressed = true;
+        } else if (direction.equals(Vector2Utils.RIGHT)) {
+            rightPressed = true;
+        }
+        updateWalkDirection();
         return true;
     }
 
     private boolean unWalk(Vector2 direction) {
-        walkDirection.sub(direction);
-        triggerWalkEvent();
+        if (direction.equals(Vector2Utils.UP)) {
+            upPressed = false;
+        } else if (direction.equals(Vector2Utils.DOWN)) {
+            downPressed = false;
+        } else if (direction.equals(Vector2Utils.LEFT)) {
+            leftPressed = false;
+        } else if (direction.equals(Vector2Utils.RIGHT)) {
+            rightPressed = false;
+        }
+        updateWalkDirection();
         return true;
     }
+
+    private void updateWalkDirection() {
+        walkDirection.set(0, 0);
+        if (upPressed) {
+            walkDirection.y += 1;
+        }
+        if (downPressed) {
+            walkDirection.y -= 1;
+        }
+        if (leftPressed) {
+            walkDirection.x -= 1;
+        }
+        if (rightPressed) {
+            walkDirection.x += 1;
+        }
+
+        if (walkDirection.len() > 0) {
+            walkDirection.nor();  // Normalize to prevent faster diagonal movement
+            entity.getEvents().trigger("walk", walkDirection);
+            String direction = getDirection(walkDirection);
+            switch (direction) {
+                case "LEFT" -> entity.getEvents().trigger("walkLeft");
+                case "UP" -> entity.getEvents().trigger("walkUp");
+                case "RIGHT" -> entity.getEvents().trigger("walkRight");
+                case "DOWN" -> entity.getEvents().trigger("walkDown");
+                case "NONE" -> {
+                    // Handle no movement or default case
+                }
+            }
+        } else {
+            entity.getEvents().trigger("walkStop");
+        }
+    }
+
 
     /**
      * Method used to setup the timer to hold the shoot button
@@ -100,38 +156,48 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * @param direction The direction to shoot in
      */
     private boolean holdShoot(Vector2 direction) {
+        this.directionShooting.add(direction);
         if (this.taskShoot != null) {
             this.taskShoot.cancel();
         }
-        this.directionShooting = direction;
-        this.taskShoot = new RepeatShoot(direction);
-        Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
+        if (this.directionShooting.isZero()){
+            this.taskShoot.cancel();
+            return true;
+        }
+        Vector2 scaledVct = this.directionShooting.cpy().setLength(1);
+        this.taskShoot = new RepeatShoot(scaledVct);
+        Timer.schedule(taskShoot, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         return true;
     }
 
-    private boolean shoot(Vector2 direction) {
+    private void shoot(Vector2 direction) {
         entity.getEvents().trigger("shoot", direction);
-        return true;
     }
 
     /**
      * Method used to stop calling the 'shoot' method
      * Called when the player releases the input to shoot (default is arrow keys)
      *
-     * @param direction
-     * @return (not sure why this needs to return)
+     * @param direction The vector2 direction of the arrow key that was released
+     * @return true to indicate that the input has been handled
      */
     private boolean unShoot(Vector2 direction) {
-        if (this.directionShooting == direction) {
+        this.directionShooting.sub((direction));
+        if (this.directionShooting.isZero()) {
             this.taskShoot.cancel();
-            this.directionShooting = null;
+        } else { // reshoot in different direction
+            if (this.taskShoot != null) {
+                this.taskShoot.cancel();
+            }
+            Vector2 scaledVct = this.directionShooting.cpy().setLength(1);
+            this.taskShoot = new RepeatShoot(scaledVct);
+            Timer.schedule(taskShoot, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         }
         return true;
     }
 
-    private boolean melee() {
+    private void melee() {
         entity.getEvents().trigger("attackMelee");
-        return true;
     }
 
     private boolean holdMelee() {
@@ -139,7 +205,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             this.taskMelee.cancel();
         }
         this.taskMelee = new RepeatMelee();
-        Timer.schedule(taskMelee, inputDelay / 1000f, inputDelay / 1000f);
+        Timer.schedule(taskMelee, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         return true;
     }
 
@@ -180,10 +246,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * @return true
      */
     private boolean petTargetSwitch() {
-        Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+        Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
             List<Entity> enemies = room.getEnemies();
-            player.getComponent(InventoryComponent.class).getInventory().initialisePetAggro(enemies); 
+            player.getComponent(InventoryComponent.class).getPets().forEach(p -> p.setAggro(enemies));
         }
         return true;
     }
@@ -198,8 +264,23 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
     }
 
+    /**
+     *
+     * @return true if the key binding is done or if the entity is already in the boss room
+     */
+
     private boolean bossTeleport() {
-        entity.getEvents().trigger("teleportToBoss");
+        if (!(ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof BossRoom bossRoom)) {
+            entity.getEvents().trigger("teleportToBoss");
+            // Already in boss room so just do nothing !!
+        }
+        return true;
+    }
+
+    private boolean shopTeleport() {
+        if (!(ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof ShopRoom shoproom)) {
+            entity.getEvents().trigger("teleportToShop");
+        }
         return true;
     }
 
@@ -231,7 +312,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_7, (i) -> useItem(7));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
-
+        actionMap.put(ENTER_SHOP, (i) -> shopTeleport());
         actionMap.put(PICK_UP, (i) -> pickupItem());
         actionMap.put(RE_ROLL, (i) -> useItem(8)); //Rerol here
         actionMap.put(PURCHASE_ITEM, (i) -> purchaseItem());
@@ -339,3 +420,4 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
     }
 }
+

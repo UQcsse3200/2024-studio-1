@@ -10,13 +10,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.csse3200.game.areas.Level;
+import com.csse3200.game.areas.*;
 import com.csse3200.game.services.ServiceLocator;
-
-import com.csse3200.game.areas.BossRoom;
-import com.csse3200.game.areas.GambleRoom;
-
-import com.csse3200.game.entities.Room;
 
 import java.util.List;
 
@@ -147,6 +142,8 @@ public class MinimapFactory {
                         connectionCode += "_boss";
                     } else if (tempRoom instanceof GambleRoom) {
                         connectionCode += "_gambling";
+                    } else if (tempRoom instanceof ShopRoom) {
+                        connectionCode += "_npc";
                     }
 
                     // Assign the correct tile based on the connection code

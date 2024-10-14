@@ -1,9 +1,8 @@
-/*
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.entities.configs.ProjectileConfig;
@@ -15,8 +14,8 @@ import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.mock;
@@ -25,9 +24,7 @@ import static org.mockito.Mockito.mock;
 @ExtendWith(GameExtension.class)
 public class WeaponFactoryTest {
 
-    @Mock
-    WeaponFactory weaponFactory;
-
+    WeaponFactory weaponFactory;  // Use actual implementation
 
     @BeforeEach
     public void beforeEach() {
@@ -35,100 +32,88 @@ public class WeaponFactoryTest {
         renderService.setDebug(mock(DebugRenderer.class));
         ServiceLocator.registerRenderService(renderService);
         GameTime gameTime = mock(GameTime.class);
-        //when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
         ServiceLocator.registerTimeSource(gameTime);
 
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
-        ServiceLocator.registerTimeSource(gameTime);
 
-        //load in the current default texture.
+        // Load necessary resources
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextureAtlases(new String []{new ProjectileConfig().projectileAtlasPath});
+        resourceService.loadTextureAtlases(new String[]{new ProjectileConfig().projectileAtlasPath});
         while (!resourceService.loadForMillis(1000)) {
-            // wait for assets to load.
+            // Wait for assets to load.
         }
         weaponFactory = new WeaponFactory();
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testCreateCollectibleMelee() {
-
-        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.MELEE_WEAPON, "knife");
-
+        Collectible knifeCollectible = weaponFactory.create(Collectible.Type.OFF_HAND, "knife");
         assert knifeCollectible instanceof MeleeWeapon;
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testCreateCollectibleRanged() {
-
-        Collectible shotgunCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "shotgun");
-
+        Collectible shotgunCollectible = weaponFactory.create(Collectible.Type.MAIN_HAND, "shotgun");
         assert shotgunCollectible instanceof RangedWeapon;
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testCreateCollectibleInvalid() {
-        // Test for melee weapon
         try {
-            Collectible invalidCollectible = weaponFactory.create(Collectible.Type.MELEE_WEAPON, "invalid");
+            weaponFactory.create(Collectible.Type.OFF_HAND, "invalid");
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("Invalid melee weapon specification: invalid");
         }
 
-        // Test for ranged weapon
         try {
-            Collectible invalidCollectible = weaponFactory.create(Collectible.Type.RANGED_WEAPON, "invalid");
+            weaponFactory.create(Collectible.Type.MAIN_HAND, "invalid");
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("Invalid ranged weapon specification: invalid");
         }
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testCreateEntity() {
-        Entity entity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.MELEE_WEAPON, "knife"));
-        assert entity != null;
-        assert entity instanceof Entity;
+        Entity meleeEntity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.OFF_HAND, "knife"));
+        assert meleeEntity != null;
 
-        Entity entity2 = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.RANGED_WEAPON, "shotgun"));
-        assert entity2 != null;
-        assert entity2 instanceof Entity;
+        Entity rangedEntity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.MAIN_HAND, "shotgun"));
+        assert rangedEntity != null;
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testCreateEntityInvalid() {
         try {
-            Entity entity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.MELEE_WEAPON, "invalid"));
+            weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.OFF_HAND, "invalid"));
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("Invalid melee weapon specification: invalid");
         }
 
         try {
-            Entity entity = weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.RANGED_WEAPON, "invalid"));
+            weaponFactory.createWeaponEntity(weaponFactory.create(Collectible.Type.MAIN_HAND, "invalid"));
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("Invalid ranged weapon specification: invalid");
         }
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testCreateEntityInvalidCollectible() {
         try {
-            Entity entity = weaponFactory.createWeaponEntity(null);
+            weaponFactory.createWeaponEntity(null);
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("Invalid collectible");
         }
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testCreateEntityInvalidCollectibleType() {
         try {
             Collectible invalidCollectible = mock(Collectible.class);
-            Entity entity = weaponFactory.createWeaponEntity(invalidCollectible);
+            weaponFactory.createWeaponEntity(invalidCollectible);
         } catch (IllegalArgumentException e) {
             assert e.getMessage().equals("Invalid collectible");
         }
     }
 }
-
- */

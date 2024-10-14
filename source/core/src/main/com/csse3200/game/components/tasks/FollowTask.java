@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
@@ -18,9 +18,8 @@ import org.slf4j.LoggerFactory;
 public class FollowTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(FollowTask.class);
   private final float followSpeed;
-  private String direction;
   private final float waitTime;
-  private Vector2 followRange;
+  private final Vector2 followRange;
   private MovementTask movementTask;
   private WaitTask waitTask;
   private Task currentTask;
@@ -30,7 +29,7 @@ public class FollowTask extends DefaultTask implements PriorityTask {
    *
    * @param config Configuration for the chase task.
    */
-  public FollowTask(NPCConfigs.NPCConfig.TaskConfig.FollowTaskConfig config) {
+  public FollowTask(TaskConfig.FollowTaskConfig config) {
     this.followRange = new Vector2(config.followRadius, config.followRadius);
     this.waitTime = config.waitTime;
     this.followSpeed = config.followSpeed;
@@ -108,7 +107,7 @@ public class FollowTask extends DefaultTask implements PriorityTask {
 
   private Vector2 getRandomPosInRange() {
     // Calculate a random position within the wander range around the starting point.
-    Vector2 playerPosition = ServiceLocator.getGameAreaService().getGameArea().getPlayer().getPosition();
+    Vector2 playerPosition = ServiceLocator.getGameAreaService().getGameController().getPlayer().getPosition();
     Vector2 halfRange = followRange.cpy().scl(0.5f);
     Vector2 min = playerPosition.cpy().sub(halfRange); // Minimum boundary of the range.
     Vector2 max = playerPosition.cpy().add(halfRange); // Maximum boundary of the range.

@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.components.player.inventory.usables.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
 
 /**
@@ -123,19 +124,19 @@ public class PlayerActions extends Component {
      */
     private void attack() {
         entity.getComponent(InventoryComponent.class)
-                .getInventory()
-                .getMelee()
-                .ifPresent(meleeWeapon -> meleeWeapon.attack());
+                .getOffhand()
+                .ifPresent(OffHandItem::attack);
     }
 
     /**
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        entity.getComponent(InventoryComponent.class)
-                .getInventory()
-                .getRanged()
-                .ifPresent(rangedWeapon -> rangedWeapon.shoot(direction));
+        if (!dead) {
+            entity.getComponent(InventoryComponent.class)
+                    .getMainWeapon()
+                    .ifPresent(weapon -> weapon.shoot(direction));
+        }
     }
 
     private void updateSpeed() {
@@ -176,15 +177,12 @@ public class PlayerActions extends Component {
     public void handleReroll(UsableItem reroll) {
         if (entity.getComponent(ItemPickupComponent.class).isInContact() && entity.getComponent(ItemPickupComponent.class).getItem() != null) {
             use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
-        } else {
-            //Otherwise the reroll item cannot be used
         }
     }
 
     private void use(UsableItem item) {
         if (!dead) {
-            Inventory inventory = inventoryComponent.getInventory();
-            for (Collectible collectedItem : inventory.getItems()) {
+            for (Collectible collectedItem : inventoryComponent.getItems()) {
                 if (collectedItem.getClass() == item.getClass()) {
                     item.apply(entity);
                     entity.getEvents().trigger("itemUsed");

@@ -11,7 +11,6 @@ import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.Room;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.math.GridPoint2Utils;
@@ -75,7 +74,7 @@ public abstract class BaseRoom implements Room {
      * @param specification The room specification string.
      * @param roomName The name of the room.
      */
-    public BaseRoom(
+    protected BaseRoom(
             TerrainFactory terrainFactory,
             CollectibleFactory collectibleFactory,
             List<String> roomConnections,
@@ -124,7 +123,8 @@ public abstract class BaseRoom implements Room {
      * Checks if the room is complete.
      * This method should be implemented by subclasses.
      */
-    public abstract void checkIfRoomComplete();
+    @Override
+    public abstract void checkComplete();
 
     /**
      * Spawns the terrain for the room, including walls and background.
@@ -260,7 +260,7 @@ public abstract class BaseRoom implements Room {
      * @param enemy The enemy entity to spawn.
      * @param position The position to spawn the entity at.
      */
-    protected void spawnAnimalEntity(MainGameArea area, Entity enemy, GridPoint2 position) {
+    protected void spawnAnimalEntity(GameArea area, Entity enemy, GridPoint2 position) {
         area.spawnEntityAt(enemy, position, true, true);
     }
 
@@ -271,7 +271,7 @@ public abstract class BaseRoom implements Room {
      * @param specification The specification of the item to spawn.
      * @param pos The position to spawn the item at.
      */
-    protected void spawnItem(MainGameArea area, String specification, GridPoint2 pos) {
+    protected void spawnItem(GameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
         item.getEvents().addListener("itemChose",()->deleteRemainingItems(item));
         entities.add(item);
@@ -285,19 +285,23 @@ public abstract class BaseRoom implements Room {
             }
         }
     }
+
+
    /**
      * Checks if the room is complete.
      *
      * @return {@code true} if the room is complete, {@code false} otherwise.
      */
-    public boolean getIsRoomComplete() {
+    @Override
+    public boolean isComplete() {
         return this.isRoomCompleted;
     }
 
     /**
      * Sets the room as completed when loading the map.
      */
-    public void setIsRoomComplete() {
+    @Override
+    public void setComplete() {
         this.isRoomCompleted = true;
     }
 
@@ -307,7 +311,7 @@ public abstract class BaseRoom implements Room {
      * @param player The player entity.
      * @param area The game area to spawn the room in.
      */
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         ServiceLocator.getPhysicsService().getPhysics().update();
         logger.info("spawning terrain");
         this.spawnTerrain(area, WALL_THICKNESS, false);

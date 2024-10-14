@@ -3,6 +3,7 @@ package com.csse3200.game.components.player.inventory;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerActions;
+import com.csse3200.game.components.player.inventory.buffs.DivinePotion;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.events.EventHandler;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,7 +72,7 @@ public class DivinePotionTest {
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
         when(combatStatsComponent.getMaxHealth()).thenReturn(maxHealth);
 
-        divinePotion.Boost(entity);
+        divinePotion.boost(entity);
 
         verify(combatStatsComponent).setHealth(expectedHealth);
 

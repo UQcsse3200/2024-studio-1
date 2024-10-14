@@ -152,25 +152,50 @@ class ResourceServiceTest {
     resourceService.loadAll();
   }
 
-   @Test
-   void shouldPlaySound() {
-     Settings settings = new Settings();
-     settings.mute = false;
+  private Settings getSettingsCopy(boolean mute) {
+    Settings settings = new Settings();
+    settings.mute = mute;
+    return settings;
+  }
 
-     ResourceService resourceService = spy(new ResourceService(settings));
-     loadTestSound(resourceService);
-     resourceService.playSound(TEST_SOUND);
-     verify(resourceService).getAsset(TEST_SOUND, Sound.class);
-   }
+  @Test
+  void shouldPlaySound() {
+    ResourceService resourceService = spy(new ResourceService(getSettingsCopy(false)));
+    loadTestSound(resourceService);
+    resourceService.playSound(TEST_SOUND);
+    verify(resourceService).getAsset(TEST_SOUND, Sound.class);
+  }
 
   @Test
   void noSoundWhenMuted() {
-    Settings settings = new Settings();
-    settings.mute = true;
-
-    ResourceService resourceService = spy(new ResourceService(settings));
+    ResourceService resourceService = spy(new ResourceService(getSettingsCopy(true)));
     loadTestSound(resourceService);
     resourceService.playSound(TEST_SOUND);
     verify(resourceService, never()).getAsset(TEST_SOUND, Sound.class);
+  }
+
+  @Test
+  void musicPlays() {
+    Music music = mock(Music.class);
+    ResourceService resourceService = spy(new ResourceService(getSettingsCopy(false)));
+    when(resourceService.containsAsset(TEST_SOUND, Music.class)).thenReturn(true);
+    doReturn(music).when(resourceService).getAsset(TEST_SOUND, Music.class);
+
+    resourceService.playMusic(TEST_SOUND, true);
+    verify(resourceService).getAsset(TEST_SOUND, Music.class);
+    verify(music).setLooping(true);
+    verify(music).play();
+  }
+
+  @Test
+  void musicStops() {
+    Music music = mock(Music.class);
+    ResourceService resourceService = spy(new ResourceService(getSettingsCopy(false)));
+    when(resourceService.containsAsset(TEST_SOUND, Music.class)).thenReturn(true);
+    doReturn(music).when(resourceService).getAsset(TEST_SOUND, Music.class);
+
+    resourceService.playMusic(TEST_SOUND, true);
+    resourceService.stopCurrentMusic();
+    verify(music).stop();
   }
 }

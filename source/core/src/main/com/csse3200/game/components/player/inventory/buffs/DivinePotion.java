@@ -69,8 +69,8 @@ public class DivinePotion extends BuffItem {
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
 
         // Get the current speed and speed limit
-        float currSpeedPercentage = playerActions.getCurrSpeedPercentage();
-        float speedLimit = playerActions.getMaxSpeed();
+        float currSpeedPercentage = playerActions.getTotalSpeedBoost();
+        float speedLimit = playerActions.getMaxTotalSpeedBoost();
         float speedBoost = .25f; // Fixed speed boost
 
         // Add the fixed speed boost to the current percentage
@@ -79,13 +79,13 @@ public class DivinePotion extends BuffItem {
         if (newSpeedPercentage >= speedLimit) {
             // Cap speed to the max allowed speed (6f, 6f)
             playerActions.setSpeed(this.maxSpeed); // Use maxSpeed limit
-            playerActions.setSpeedPercentage(speedLimit); // Set UI to max speed percentage
+            playerActions.setTotalSpeedBoost(speedLimit); // Set UI to max speed percentage
         } else {
             // Add the fixed speed boost (0.1) to both x and y components of the current speed
-            Vector2 currSpeed = playerActions.getCurrSpeed();
+            Vector2 currSpeed = playerActions.getCurrPlayerSpeed();
             Vector2 updatedSpeed = currSpeed.add(new Vector2(.25f, .25f)); // Fixed speed boost
             playerActions.setSpeed(updatedSpeed); // Update the actual speed
-            playerActions.setSpeedPercentage(newSpeedPercentage); // Update UI percentage
+            playerActions.setTotalSpeedBoost(newSpeedPercentage); // Update UI percentage
         }
 
         // Trigger event to update the speed percentage in the UI

@@ -124,13 +124,13 @@ public class EnergyDrink extends BuffItem {
     @Override
     public void effect(Entity entity) {
         setScalar(speedType, entity);
-        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
+        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrPlayerSpeed();
         //Add the current speed with the boost (vector) associated with this energy drink
         Vector2 updatedSpeed = new Vector2(currSpeed.x + getSpeed().x, currSpeed.y + getSpeed().y);
         Vector2 baseSpeed = entity.getComponent(PlayerActions.class).getBaseSpeed();
         //Get the new proportion of the progress bar for the UI
         float newSpeedPercentage = entity.getComponent(PlayerActions.class).getSpeedProgressBarProportion(updatedSpeed, baseSpeed);
-        float maxBoost = entity.getComponent(PlayerActions.class).getMaxSpeed();
+        float maxBoost = entity.getComponent(PlayerActions.class).getMaxTotalSpeedBoost();
 
         //Check that picking up this item will not result in the speed going above the maximum
         if (newSpeedPercentage >= maxBoost) {

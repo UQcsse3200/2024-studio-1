@@ -55,38 +55,38 @@ public class EnergyDrinkTest {
     */
 //    @Test
 //    public void effectTest() {
-//        Vector2 initialSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
+//        Vector2 initialSpeed = entity.getComponent(PlayerActions.class).getCurrPlayerSpeed();
 //        Vector2 expectedInitialSpeed = new Vector2(3f, 3f);
 //        assertEquals(expectedInitialSpeed, initialSpeed);
-//        float initialSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+//        float initialSpeedPercentage = entity.getComponent(PlayerActions.class).getTotalSpeedBoost();
 //        float expectedInitialPercentage = 0.0f;
 //        assertEquals(expectedInitialPercentage, initialSpeedPercentage);
 //
 //        energyDrink.effect(entity);
 //
-//        Vector2 newSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
+//        Vector2 newSpeed = entity.getComponent(PlayerActions.class).getCurrPlayerSpeed();
 //        Vector2 expectedNewSpeed = new Vector2(3.09f, 3.09f); //0.03% of the base speed
 //        assertEquals(expectedNewSpeed, newSpeed);
-//        float newSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+//        float newSpeedPercentage = entity.getComponent(PlayerActions.class).getTotalSpeedBoost();
 //        float expectednewPercentage = 0.03f; //Speed is 0.03 times faster
 //        assertEquals(expectednewPercentage, newSpeedPercentage);
 //    }
 //
 //    @Test
 //    public void maxSpeedTest() {
-//        float speedLimit = entity.getComponent(PlayerActions.class).getMaxSpeed();
+//        float speedLimit = entity.getComponent(PlayerActions.class).getMaxTotalSpeedBoost();
 //        assertEquals(1.5f, speedLimit);
 //    }
 //
 //    @Test
 //    public void effectTestMax() {
-//        float speedLimit = entity.getComponent(PlayerActions.class).getMaxSpeed();
-//        entity.getComponent(PlayerActions.class).setSpeedPercentage(speedLimit);
+//        float speedLimit = entity.getComponent(PlayerActions.class).getMaxTotalSpeedBoost();
+//        entity.getComponent(PlayerActions.class).setTotalSpeedBoost(speedLimit);
 //        energyDrink.effect(entity);
-//        Vector2 newSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
+//        Vector2 newSpeed = entity.getComponent(PlayerActions.class).getCurrPlayerSpeed();
 //        Vector2 expectedNewSpeed = new Vector2(4.5f, 4.5f);
 //        assertEquals(expectedNewSpeed, newSpeed);
-//        float newSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+//        float newSpeedPercentage = entity.getComponent(PlayerActions.class).getTotalSpeedBoost();
 //        float expectednewPercentage = 1.5f;
 //        assertEquals(expectednewPercentage, newSpeedPercentage);
 //    }

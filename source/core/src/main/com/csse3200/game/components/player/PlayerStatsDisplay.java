@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -101,7 +100,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
         //Speed text
         speedProgressBar = new ProgressBar(0f, 0.5f, 0.1f, false, skin);
-        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
+        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrPlayerSpeed();
         Vector2 baseSpeed = entity.getComponent(PlayerActions.class).getBaseSpeed();
         float newSpeedPercentage = entity.getComponent(PlayerActions.class).getSpeedProgressBarProportion(currSpeed, baseSpeed);
         speedProgressBar.setWidth(200f);
@@ -109,7 +108,7 @@ public class PlayerStatsDisplay extends UIComponent {
         speedProgressBar.setValue(newSpeedPercentage);
         /*
         //Temporarily commented out in case design team prefers text instead of progress bar
-        float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+        float speedPercentage = entity.getComponent(PlayerActions.class).getTotalSpeedBoost();
         CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
         speedLabelText = new Label(speedText, skin, "small");
          */

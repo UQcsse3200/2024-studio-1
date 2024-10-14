@@ -2,6 +2,7 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.*;
@@ -48,12 +49,6 @@ public class PlayerActions extends Component {
 //
 
         setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
-//The issue is that the base speed is not set yet, so it just appears as 0
-//        Vector2 diff = getBaseSpeed().sub(getCurrSpeed());
-//        System.out.println(getBaseSpeed());
-//        System.out.println(getCurrSpeed());
-//        float calculate = diff.x/getBaseSpeed().x;
-//        setSpeedPercentage(calculate);
     }
 
     @Override
@@ -77,7 +72,7 @@ public class PlayerActions extends Component {
      * @return the current speed of the player
      */
     public Vector2 getCurrSpeed() {
-        return this.speed;
+        return this.speed.cpy();
     }
 
     /**
@@ -95,7 +90,7 @@ public class PlayerActions extends Component {
      * @return the base speed 
      */
     public Vector2 getBaseSpeed() {
-        return this.entity.getComponent(PlayerConfigComponent.class).getPlayerConfig().speed;
+        return this.entity.getComponent(PlayerConfigComponent.class).getPlayerConfig().speed.cpy();
     }
 
     /**

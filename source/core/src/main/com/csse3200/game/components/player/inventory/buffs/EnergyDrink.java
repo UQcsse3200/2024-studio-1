@@ -124,22 +124,32 @@ public class EnergyDrink extends BuffItem {
     @Override
     public void effect(Entity entity) {
         setScalar(speedType, entity);
-        float currSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
-        float newSpeedPercentage = currSpeedPercentage + getSpeedPercentage();
-        float speedLimit = entity.getComponent(PlayerActions.class).getMaxSpeed();
+
+
+//        float currSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+//        float newSpeedPercentage = currSpeedPercentage + getSpeedPercentage();
+//        float speedLimit = entity.getComponent(PlayerActions.class).getMaxSpeed();
+
+        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
+        Vector2 updatedSpeed = new Vector2(currSpeed.x + getSpeed().x, currSpeed.y + getSpeed().y);
+        Vector2 baseSpeed = entity.getComponent(PlayerActions.class).getBaseSpeed();
+        Vector2 diff = new Vector2(updatedSpeed.x - baseSpeed.x, updatedSpeed.y - baseSpeed.y);
+        float newSpeedPercentage = diff.x/baseSpeed.x;
+        float maxSpeed = entity.getComponent(PlayerActions.class).getMaxSpeed();
+
         //Check that picking up this item will not result in the speed going above the maximum
-        if (newSpeedPercentage >= speedLimit) {
+        if (newSpeedPercentage >= maxSpeed) {
             entity.getComponent(PlayerActions.class).setSpeed(this.maxSpeed); //Cap it at the max speed
-            entity.getComponent(PlayerActions.class).setSpeedPercentage(speedLimit); //Cap the UI percentage at max
-            newSpeedPercentage = speedLimit;
+//            entity.getComponent(PlayerActions.class).setSpeedPercentage(maxSpeed); //Cap the UI percentage at max
+            newSpeedPercentage = maxSpeed;
             entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage, speedType);
         } else {
             //Add the current speed with the boost (vector) associated with this energy drink
-            Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
-            Vector2 updatedSpeed = currSpeed.add(getSpeed()); //Add the vectors
+//            Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
+//            Vector2 updatedSpeed = currSpeed.add(getSpeed()); //Add the vectors
             entity.getComponent(PlayerActions.class).setSpeed(updatedSpeed);
             //Update the UI
-            entity.getComponent(PlayerActions.class).setSpeedPercentage(newSpeedPercentage);
+//            entity.getComponent(PlayerActions.class).setSpeedPercentage(newSpeedPercentage);
             entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage, speedType);
         }
     }

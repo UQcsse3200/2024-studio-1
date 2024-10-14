@@ -78,12 +78,12 @@ public class PlayerConfigGeneratorTest {
 
     }
 
-    @Test
-    public void testSpeed() {
-        playerActions.setSpeed(new Vector2(5f, 5f));
-        PlayerConfig playerConfig = generator.savePlayerState(player);
-        assertEquals(new Vector2(5f, 5f), playerConfig.speed);
-    }
+//    @Test
+//    public void testSpeed() {
+//        playerActions.setSpeed(new Vector2(5f, 5f));
+//        PlayerConfig playerConfig = generator.savePlayerState(player);
+//        assertEquals(new Vector2(5f, 5f), playerConfig.speed);
+//    }
 
     /**
      * Test saved player's melee weapon

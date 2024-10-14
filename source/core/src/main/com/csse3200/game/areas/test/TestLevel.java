@@ -1,9 +1,6 @@
 package com.csse3200.game.areas.test;
 
-import com.csse3200.game.areas.Level;
-import com.csse3200.game.areas.LevelMap;
-import com.csse3200.game.areas.MainRoom;
-import com.csse3200.game.areas.Room;
+import com.csse3200.game.areas.*;
 import com.csse3200.game.areas.generation.TestMapGenerator;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.factories.CollectibleFactory;
@@ -39,7 +36,13 @@ public class TestLevel implements Level {
                     List.of("", "", "0_0", ""),
                     "0,0,14,10," + rng.getRandomInt(0, 5) + "," + rng.getRandomInt(0, 5),
                     "fight!");
-            default -> throw new IllegalArgumentException(roomKey + " isn't a room");
+            case "1_0" -> new BossRoom(new NPCFactory(),
+                    new CollectibleFactory(),
+                    new TerrainFactory(0),
+                    List.of("0_0", "", "", ""),
+                    "0,0,14,10," + rng.getRandomInt(0, 3) + "," + rng.getRandomInt(0, 3),
+                    "boss!");
+            case null, default -> throw new IllegalArgumentException(roomKey + " isn't a room");
         };
     }
 

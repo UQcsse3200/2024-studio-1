@@ -237,10 +237,11 @@ public class MapGenerator {
     private void setNpcRoom(List<String> setRooms) {
         List<String> rooms = new ArrayList<>(roomDetails.keySet());
         String randomRoomKey;
+        int connections;
         do {
             randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-        } while (setRooms.contains(randomRoomKey));
-
+            connections = Collections.frequency(relativePosition.get(randomRoomKey), "");
+        } while (setRooms.contains(randomRoomKey) ||  connections != 3);
         // Get the random room details
         HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
         details.put("room_type", NPCROOM);
@@ -255,9 +256,11 @@ public class MapGenerator {
     private void setGameRoom(List<String> setRooms) {
         List<String> rooms = new ArrayList<>(roomDetails.keySet());
         String randomRoomKey;
+        int connections;
         do {
             randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-        } while (setRooms.contains(randomRoomKey));
+            connections = Collections.frequency(relativePosition.get(randomRoomKey), "");
+        } while (setRooms.contains(randomRoomKey) ||  connections != 3);
 
         // Get the random room details
         HashMap<String, Integer> details = roomDetails.get(randomRoomKey);

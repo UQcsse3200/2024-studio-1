@@ -2,6 +2,7 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.Input;
 import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.files.UserSettings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,8 @@ public class KeyMappingTest {
     public void setUp() {
         // Initialize with default key mappings
         keyMapping = new KeyMapping();
+        UserSettings.get().walkWithWASD = true;
+        UserSettings.get().shootWithWASD = false;;
     }
 
     /**

@@ -42,7 +42,8 @@ public class TestMapGenerator implements MapGenerator {
 
     @Override
     public void createMap() {
-
+        // This map is already "connected"...
+        // quite frankly I'm not sure why the other one isn't
     }
 
     @Override

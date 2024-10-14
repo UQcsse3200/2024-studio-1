@@ -7,11 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WeaponConfig {
-
     private static final Logger logger = LoggerFactory.getLogger(WeaponConfig.class);
 
     // Store weapon data in a map
-    public static final Map<String, WeaponData> WEAPON_CONFIGS = new HashMap<>();
+    private static final Map<String, WeaponData> WEAPON_CONFIGS = new HashMap<>();
 
     static {
         // Load weapon data (can be from JSON or hardcoded for now)

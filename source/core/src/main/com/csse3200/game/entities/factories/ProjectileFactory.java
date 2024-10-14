@@ -23,6 +23,7 @@ import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.nio.file.*;
@@ -173,6 +174,7 @@ public class ProjectileFactory extends LoadedFactory {
      */
     public Entity createProjectile(ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {
 
+        direction = direction.nor();
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
                         ServiceLocator.getResourceService().getAsset(stats.projectileAtlasPath, TextureAtlas.class));
@@ -209,14 +211,18 @@ public class ProjectileFactory extends LoadedFactory {
      **/
      public List<Entity> createShotGunProjectile (ProjectileConfig stats, Vector2 direction,
                                        Vector2 parentPosition) {
-        Double polarAngle = atan(direction.y / direction.x);
+
+         direction = direction.nor();
+         Double polarAngle = atan(direction.y / direction.x);
         float scale = 1;
         if (direction.x < 0) {
              scale = -1;
         }
 
+
+
         // edit to adjust the shots spread
-        Double spread = 0.12;
+        Double spread = 0.15;
 
         // two projectiles fire straight - this is the % speed of the follower
          float followSpeed = 0.9F;

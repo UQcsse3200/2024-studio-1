@@ -7,8 +7,8 @@ import com.csse3200.game.entities.Entity;
 
 public class Heart extends BuffItem {
 
-    private static final int maxHealthIncrease = 50;
-    private static final int maxHealthLimit = 150;
+    private static final int MAX_HEALTH_INCREASE= 50;
+    private static final int MAX_HEALTH_LIMIT = 150;
 
     /**
      * Provides buff specification for the item
@@ -32,8 +32,8 @@ public class Heart extends BuffItem {
 
         if (combatStats != null) {
             int currentMaxHealth = combatStats.getMaxHealth();
-            if (currentMaxHealth < maxHealthLimit) {
-                combatStats.setMaxHealth(Math.min(currentMaxHealth + maxHealthIncrease, maxHealthLimit));
+            if (currentMaxHealth < MAX_HEALTH_LIMIT) {
+                combatStats.setMaxHealth(Math.min(currentMaxHealth + MAX_HEALTH_INCREASE, MAX_HEALTH_LIMIT));
                 combatStats.setHealth(combatStats.getMaxHealth());
             }
         }

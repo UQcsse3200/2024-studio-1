@@ -29,13 +29,14 @@ public class RingFire extends Pet {
 
     @Override
     protected Entity spawn(Entity player) {
-        Entity ringFire = new PetFactory().createRingFire();
+        //Entity ringFire = new PetFactory();
 
-        int xPos = (int) player.getPosition().x;
-        int yPos = (int) player.getPosition().y;
-        ServiceLocator.getEntityService().register(ringFire);
-        ringFire.setPosition(xPos, yPos);
+        //int xPos = (int) player.getPosition().x;
+        //int yPos = (int) player.getPosition().y;
+        //ServiceLocator.getEntityService().register(ringFire);
+        //ringFire.setPosition(xPos, yPos);
 
-        return ringFire;
+        //return ringFire;
+        return new Entity();
     }
 }

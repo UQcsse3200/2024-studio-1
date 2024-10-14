@@ -29,11 +29,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private final Map<Integer, Action> downBindings;
     private final Map<Integer, Action> upBindings;
-    private final Vector2 directionShooting = new Vector2(0, 0);
+    private Vector2 directionShooting = new Vector2(0, 0);
     // Timer and task for holding down a shoot button
     private RepeatShoot taskShoot;
     private RepeatMelee taskMelee;
-    private static final int inputDelay = 15; // time between 'button held' method calls in milliseconds
+    private boolean upPressed = false;
+    private boolean downPressed = false;
+    private boolean leftPressed = false;
+    private boolean rightPressed = false;
+    private static final int INPUT_DELAY = 15; // time between 'button held' method calls in milliseconds
 
     /**
      * TimerTask used to repeatedly shoot in a direction
@@ -84,16 +88,66 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     private boolean walk(Vector2 direction) {
-        walkDirection.add(direction);
-        triggerWalkEvent();
+        if (direction.equals(Vector2Utils.UP)) {
+            upPressed = true;
+        } else if (direction.equals(Vector2Utils.DOWN)) {
+            downPressed = true;
+        } else if (direction.equals(Vector2Utils.LEFT)) {
+            leftPressed = true;
+        } else if (direction.equals(Vector2Utils.RIGHT)) {
+            rightPressed = true;
+        }
+        updateWalkDirection();
         return true;
     }
 
     private boolean unWalk(Vector2 direction) {
-        walkDirection.sub(direction);
-        triggerWalkEvent();
+        if (direction.equals(Vector2Utils.UP)) {
+            upPressed = false;
+        } else if (direction.equals(Vector2Utils.DOWN)) {
+            downPressed = false;
+        } else if (direction.equals(Vector2Utils.LEFT)) {
+            leftPressed = false;
+        } else if (direction.equals(Vector2Utils.RIGHT)) {
+            rightPressed = false;
+        }
+        updateWalkDirection();
         return true;
     }
+
+    private void updateWalkDirection() {
+        walkDirection.set(0, 0);
+        if (upPressed) {
+            walkDirection.y += 1;
+        }
+        if (downPressed) {
+            walkDirection.y -= 1;
+        }
+        if (leftPressed) {
+            walkDirection.x -= 1;
+        }
+        if (rightPressed) {
+            walkDirection.x += 1;
+        }
+
+        if (walkDirection.len() > 0) {
+            walkDirection.nor();  // Normalize to prevent faster diagonal movement
+            entity.getEvents().trigger("walk", walkDirection);
+            String direction = getDirection(walkDirection);
+            switch (direction) {
+                case "LEFT" -> entity.getEvents().trigger("walkLeft");
+                case "UP" -> entity.getEvents().trigger("walkUp");
+                case "RIGHT" -> entity.getEvents().trigger("walkRight");
+                case "DOWN" -> entity.getEvents().trigger("walkDown");
+                case "NONE" -> {
+                    // Handle no movement or default case
+                }
+            }
+        } else {
+            entity.getEvents().trigger("walkStop");
+        }
+    }
+
 
     /**
      * Method used to setup the timer to hold the shoot button
@@ -112,7 +166,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
         Vector2 scaledVct = this.directionShooting.cpy().setLength(1);
         this.taskShoot = new RepeatShoot(scaledVct);
-        Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
+        Timer.schedule(taskShoot, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         return true;
     }
 
@@ -137,7 +191,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             }
             Vector2 scaledVct = this.directionShooting.cpy().setLength(1);
             this.taskShoot = new RepeatShoot(scaledVct);
-            Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
+            Timer.schedule(taskShoot, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         }
         return true;
     }
@@ -151,7 +205,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             this.taskMelee.cancel();
         }
         this.taskMelee = new RepeatMelee();
-        Timer.schedule(taskMelee, inputDelay / 1000f, inputDelay / 1000f);
+        Timer.schedule(taskMelee, INPUT_DELAY / 1000f, INPUT_DELAY / 1000f);
         return true;
     }
 
@@ -366,3 +420,4 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
     }
 }
+

@@ -15,6 +15,9 @@ public class WeaponConfig {
 
     static {
         // Load weapon data (can be from JSON or hardcoded for now)
+        weaponConfigs.put("Shotgun", new WeaponData("Shotgun", 15, 3,
+                2, 20, 20, 3, "images" +
+                "/Weapons/Centered/Shotgun.png"));
         weaponConfigs.put("shotgun", new WeaponData("shotgun", 10, 10,
                 5, 20, 20, 3, "images" +
                 "/Weapons/Centered/shotgun.png"));

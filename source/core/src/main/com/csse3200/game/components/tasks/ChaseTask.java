@@ -6,7 +6,7 @@ import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.raycast.RaycastHit;
@@ -40,7 +40,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    * @param target The entity to chase.
    * @param config Configuration for the chase task.
    */
-  public ChaseTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.ChaseTaskConfig config) {
+  public ChaseTask(Entity target, TaskConfig.ChaseTaskConfig config) {
     this.target = target;
     this.viewDistance = config.viewDistance;
     this.maxChaseDistance = config.chaseDistance;
@@ -185,8 +185,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
         float newX = currentX + (currentX - targetX);
         float newY = currentY + (currentY - targetY);
 
-        Vector2 newPos = new Vector2(newX, newY);
-        return newPos;
+        return new Vector2(newX, newY);
       }
 
     /**

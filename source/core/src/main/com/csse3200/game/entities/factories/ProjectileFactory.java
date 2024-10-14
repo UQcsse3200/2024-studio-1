@@ -38,7 +38,7 @@ public class ProjectileFactory extends LoadedFactory {
     private final ProjectileConfigs configs = loadConfigs();
 
     public static ProjectileConfigs loadConfigs() {
-        Path path = Paths.get("configs/projectiles.json");
+        Path path;
         ProjectileConfigs configs = FileLoader.readClass(ProjectileConfigs.class, "configs/projectiles.json");
         return configs;
     }

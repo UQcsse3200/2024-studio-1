@@ -132,7 +132,7 @@ public class EnergyDrink extends BuffItem {
         float newSpeedPercentage = entity.getComponent(PlayerActions.class).getSpeedProgressBarProportion(updatedSpeed, baseSpeed);
         float maxBoost = entity.getComponent(PlayerActions.class).getMaxTotalSpeedBoost();
 
-        //Check that picking up this item will not result in the speed going above the maximum
+        //Check that picking up the item will not result in the speed going above the maximum
         if (newSpeedPercentage >= maxBoost) {
             Vector2 maxSpeed = entity.getComponent(PlayerActions.class).getMaxPlayerSpeed();
             entity.getComponent(PlayerActions.class).setSpeed(maxSpeed); //Cap it at the max speed

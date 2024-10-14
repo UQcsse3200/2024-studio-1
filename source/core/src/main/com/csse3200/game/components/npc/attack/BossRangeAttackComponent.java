@@ -67,7 +67,6 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
         logger.info("{} shoots {}", entity, target);
         // Shoot target
         Vector2 direction = getDirection(target);
-        int max = spawnLocations.length - 1;
         setAnimationID(0);
         entity.getEvents().trigger("attack");
         String baseName = "Dragon";
@@ -80,9 +79,9 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
         }
         int numShot = 1;
         if (baseName.equals("kitsune")) {
-            numShot = 5;
+            numShot = 4;
         } else if (baseName.equals("cthulu")) {
-            numShot = 8;
+            numShot = 5;
             setSpreadAngle(0.4f);
         }
         spreadShoot(direction, numShot);

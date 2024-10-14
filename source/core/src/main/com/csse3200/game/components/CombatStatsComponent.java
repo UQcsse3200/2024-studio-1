@@ -32,15 +32,14 @@ public class CombatStatsComponent extends Component {
     private double critChance;
     private boolean isInvincible;
 
-    private int timeInvincible = 2000;
+    private int timeInvincible = 1000;
     private final Timer timerIFrames;
 
     private int timeFlash = 250;
     private final Timer timerFlashSprite;
     private CombatStatsComponent.FlashSprite flashTask;
 
-    private String lastAttackName;
-    private final String FILE_PATH = "configs/LastAttack.json";
+    private static final String FILE_PATH = "configs/LastAttack.json";
 
     public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance, int timeInvincible) {
         this(health, maxHealth, baseAttack, canBeInvincible, armor, buff, canCrit, critChance);
@@ -282,6 +281,7 @@ public class CombatStatsComponent extends Component {
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
 
+            String lastAttackName;
             if (attacker.getEntity() == null
                     || attacker.getEntity().getName().equals("Unknown Entity")) {
                 lastAttackName = "Unknown";
@@ -289,6 +289,7 @@ public class CombatStatsComponent extends Component {
                 lastAttackName = attacker.getEntity().getName();
             }
             FileLoader.writeClass(lastAttackName, FILE_PATH, FileLoader.Location.EXTERNAL);
+            ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
             entity.getEvents().trigger("playerHit");
             if (isDead()) {
                 return;

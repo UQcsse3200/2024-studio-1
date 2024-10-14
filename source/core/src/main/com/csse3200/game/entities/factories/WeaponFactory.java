@@ -143,7 +143,7 @@ public class WeaponFactory extends LoadedFactory {
         meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(1, 1));
         meleeEntity.setScale(2.0f, 2.0f);
 
-        logger.info("Created melee weapon entity: " + collectible);
+        logger.info("Created melee weapon entity: {}", collectible);
 
         return meleeEntity;
     }
@@ -176,8 +176,7 @@ public class WeaponFactory extends LoadedFactory {
         rangedEntity.getComponent(ColliderComponent.class).setSensor(true);
         rangedEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
         rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(3f, 3f));
-        logger.info("Created range weapon entity: " + collectible);
-
+        logger.info("Created range weapon entity: {}", collectible);
         return rangedEntity;
     }
 

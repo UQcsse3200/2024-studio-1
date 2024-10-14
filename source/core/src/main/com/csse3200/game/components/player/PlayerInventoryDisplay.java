@@ -55,7 +55,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      * Height of the background box drawn behind the inventory items.
      * Estimated through trial and error
      */
-    private static final float HEIGHT = 53f;
+    private static final float HEIGHT = 55f;
 
     /**
      * Map for storing labels associated with each item for easy access and
@@ -82,7 +82,6 @@ public class PlayerInventoryDisplay extends UIComponent {
     public void create() {
         super.create();
         itemLabels = new HashMap<>();
-        //itemIcons = new HashMap<>();
         addActors();
         updateInventoryUI();
         if (entity.getEvents() != null) {
@@ -110,7 +109,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     private void addItems() {
         addItem("Medkit", new MedKit().getIcon());
-        addItem("Shield Potion", new ShieldPotion().getIcon());
+        addItem("Shield", new ShieldPotion().getIcon());
         addItem("Bandage", new Bandage().getIcon());
         addItem("Target Dummy", new TargetDummy().getIcon());
         addItem("Bear Trap", new BearTrap().getIcon());
@@ -162,7 +161,6 @@ public class PlayerInventoryDisplay extends UIComponent {
      * This method will update the quantities of existing items.
      */
     public void updateInventoryUI() {
-
         Map<String, Integer> itemQuantities = getItemQuantities();
 
         // Update the displayed quantities

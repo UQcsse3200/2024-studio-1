@@ -18,11 +18,13 @@ import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +40,6 @@ public class FiringControllerTest {
         renderService.setDebug(mock(DebugRenderer.class));
         ServiceLocator.registerRenderService(renderService);
         GameTime gameTime = mock(GameTime.class);
-        //when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
         ServiceLocator.registerTimeSource(gameTime);
 
         ServiceLocator.registerEntityService(new EntityService());
@@ -59,23 +60,24 @@ public class FiringControllerTest {
     @org.junit.jupiter.api.Test
     public void testCreateFiringControllerForMelee() {
         Collectible knifeCollectible = weaponFactory.create(Collectible.Type.OFF_HAND, "knife");
-        assert knifeCollectible instanceof MeleeWeapon;
+        assertEquals(true, knifeCollectible instanceof MeleeWeapon);
 
         FiringController firingController = new FiringController((MeleeWeapon) knifeCollectible);
-        assert firingController instanceof FiringController;
+        assertEquals(true, firingController instanceof FiringController);
     }
 
     @org.junit.jupiter.api.Test
     public void testCreateFiringControllerForRanged() {
         Collectible gunCollectible = weaponFactory.create(Collectible.Type.MAIN_HAND,
                 "shotgun");
-        assert gunCollectible instanceof RangedWeapon;
+        assertEquals(true, gunCollectible instanceof RangedWeapon);
 
         FiringController firingController = new FiringController((RangedWeapon) gunCollectible, new ProjectileConfig());
-        assert firingController instanceof FiringController;
+        assertEquals(true, firingController instanceof FiringController);
 
         firingController.create();
-        assert firingController.getProjectileFactory() instanceof ProjectileFactory;
+        assertEquals(true, firingController.getProjectileFactory() instanceof ProjectileFactory);
+
 
     }
 
@@ -83,132 +85,136 @@ public class FiringControllerTest {
     public void testConnectAndDisconnectPlayer() {
         Collectible gunCollectible = weaponFactory.create(Collectible.Type.MAIN_HAND,
                 "shotgun");
-        assert gunCollectible instanceof RangedWeapon;
+        assertEquals(true, gunCollectible instanceof RangedWeapon);
 
         FiringController firingController = new FiringController((RangedWeapon) gunCollectible, new ProjectileConfig());
-        assert firingController instanceof FiringController;
+        assertEquals(true, firingController instanceof FiringController);
 
         Entity player = new Entity();
         player.setPosition(new Vector2(0, 0));
         firingController.connectPlayer(player);
-        assert firingController.getPlayer() == player;
-        assert firingController.getTargetLayer() == PhysicsLayer.NPC;
+        assertEquals(player, firingController.getPlayer());
+        assertEquals(PhysicsLayer.NPC, firingController.getTargetLayer());
 
         firingController.disconnectPlayer();
-        assert firingController.getPlayer() == null;
+        assertEquals(null, firingController.getPlayer());
     }
 
     @org.junit.jupiter.api.Test
     public void testActivateRanged() {
         Collectible gunCollectible = weaponFactory.create(Collectible.Type.MAIN_HAND,
                 "shotgun");
-        assert gunCollectible instanceof RangedWeapon;
+        assertEquals(true, gunCollectible instanceof RangedWeapon);
 
         FiringController firingController = new FiringController((RangedWeapon) gunCollectible, new ProjectileConfig());
-        assert firingController instanceof FiringController;
+        assertEquals(true, firingController instanceof FiringController);
+
+        firingController.create();
+        assertEquals(true, firingController.getProjectileFactory() instanceof ProjectileFactory);
 
         Entity player = new Entity();
         player.setPosition(new Vector2(0, 0));
         firingController.connectPlayer(player);
-        assert firingController.getPlayer() == player;
-        assert firingController.getTargetLayer() == PhysicsLayer.NPC;
+        assertEquals(player, firingController.getPlayer());
+        assertEquals(PhysicsLayer.NPC, firingController.getTargetLayer());
 
         String attackWith = firingController.activate(new Vector2(0, 0));
-        assert attackWith.equals("Ranged weapon attack triggered");
+        assertEquals("Ranged weapon attack triggered", attackWith);
 
         attackWith = firingController.activate(null);
-        assert attackWith.equals("No direction specified for ranged weapon");
+        assertEquals("No direction specified for ranged weapon", attackWith);
     }
 
     @org.junit.jupiter.api.Test
     public void testActivateMelee() {
         Collectible knifeCollectible = weaponFactory.create(Collectible.Type.OFF_HAND, "knife");
-        assert knifeCollectible instanceof MeleeWeapon;
+        assertEquals(true, knifeCollectible instanceof MeleeWeapon);
 
         FiringController firingController = new FiringController((MeleeWeapon) knifeCollectible);
-        assert firingController instanceof FiringController;
+        assertEquals(true, firingController instanceof FiringController);
 
         firingController.create();
-        assert firingController.getProjectileFactory() instanceof ProjectileFactory;
+        assertEquals(true, firingController.getProjectileFactory() instanceof ProjectileFactory);
 
         String attackWith = firingController.activate(null);
-        assert attackWith.equals("Melee weapon attack triggered");
+        assertEquals("Melee weapon attack triggered", attackWith);
+
         attackWith = firingController.activate(new Vector2(0, 0));
-        assert attackWith.equals("Melee weapon attack triggered");
+        assertEquals("Melee weapon attack triggered", attackWith);
     }
 
     @org.junit.jupiter.api.Test
     public void testSetterAndGetterForMelee() {
         Collectible knifeCollectible = weaponFactory.create(Collectible.Type.OFF_HAND, "knife");
-        assert knifeCollectible instanceof MeleeWeapon;
+        assertEquals(true, knifeCollectible instanceof MeleeWeapon);
 
         FiringController firingController = new FiringController((MeleeWeapon) knifeCollectible);
-        assert firingController instanceof FiringController;
+        assertEquals(true, firingController instanceof FiringController);
 
-        assert firingController.getDamage() == ((MeleeWeapon) knifeCollectible).getDamage();
+        assertEquals(firingController.getDamage(), ((MeleeWeapon) knifeCollectible).getDamage());
         firingController.setDamage(20);
-        assert firingController.getDamage() == 20;
+        assertEquals(firingController.getDamage(), 20);
 
-        assert firingController.getRange() == ((MeleeWeapon) knifeCollectible).getRange();
+        Assertions.assertEquals(firingController.getRange(), ((MeleeWeapon) knifeCollectible).getRange());
         firingController.setRange(20);
-        assert firingController.getRange() == 20;
+        Assertions.assertEquals(firingController.getRange(), 20);
 
-        assert firingController.getFireRate() == ((MeleeWeapon) knifeCollectible).getFireRate();
+        Assertions.assertEquals(firingController.getFireRate(), ((MeleeWeapon) knifeCollectible).getFireRate());
         firingController.setFireRate(20);
-        assert firingController.getFireRate() == 20;
+        Assertions.assertEquals(firingController.getFireRate(), 20);
 
-        assert firingController.getReloadTime() == 0; // default value
+        Assertions.assertEquals(firingController.getReloadTime(), 0);
         firingController.setReloadTime(20);
-        assert firingController.getReloadTime() == 0; // reload time is not set for melee weapon
+        Assertions.assertEquals(firingController.getReloadTime(), 0);
 
-        assert firingController.getMaxAmmo() == 0; // default value
+        Assertions.assertEquals(firingController.getMaxAmmo(), 0);
         firingController.setMaxAmmo(20);
-        assert firingController.getMaxAmmo() == 0; // ammo is not set for melee weapon
+        Assertions.assertEquals(firingController.getMaxAmmo(), 0);
 
-        assert firingController.getAmmo() == 0; // default value
+        Assertions.assertEquals(firingController.getAmmo(), 0);
         firingController.setAmmo(20);
-        assert firingController.getAmmo() == 0; // ammo is not set for melee weapon
+        Assertions.assertEquals(firingController.getAmmo(), 0);
 
-        assert firingController.getWeaponSprite() == null;
+        Assertions.assertEquals(firingController.getWeaponSprite(), null);
         firingController.setWeaponSprite(new Sprite(new Texture("images/Weapons/knife.png")));
-        assert firingController.getWeaponSprite() != null;
+        Assertions.assertNotEquals(firingController.getWeaponSprite(), null);
     }
 
     @org.junit.jupiter.api.Test
     public void testSetterAndGetterForRanged() {
         Collectible gunCollectible = weaponFactory.create(Collectible.Type.MAIN_HAND,
                 "shotgun");
-        assert gunCollectible instanceof RangedWeapon;
+        assertEquals(true, gunCollectible instanceof RangedWeapon);
 
         FiringController firingController = new FiringController((RangedWeapon) gunCollectible, new ProjectileConfig());
-        assert firingController instanceof FiringController;
+        assertEquals(true, firingController instanceof FiringController);
 
-        assert firingController.getDamage() == ((RangedWeapon) gunCollectible).getDamage();
+        assertEquals(firingController.getDamage(), ((RangedWeapon) gunCollectible).getDamage());
         firingController.setDamage(20);
-        assert firingController.getDamage() == 20;
+        assertEquals(firingController.getDamage(), 20);
 
-        assert firingController.getRange() == ((RangedWeapon) gunCollectible).getRange();
+        Assertions.assertEquals(firingController.getRange(), ((RangedWeapon) gunCollectible).getRange());
         firingController.setRange(20);
-        assert firingController.getRange() == 20;
+        Assertions.assertEquals(firingController.getRange(), 20);
 
-        assert firingController.getFireRate() == ((RangedWeapon) gunCollectible).getFireRate();
+        Assertions.assertEquals(firingController.getFireRate(), ((RangedWeapon) gunCollectible).getFireRate());
         firingController.setFireRate(20);
-        assert firingController.getFireRate() == 20;
+        Assertions.assertEquals(firingController.getFireRate(), 20);
 
-        assert firingController.getReloadTime() == ((RangedWeapon) gunCollectible).getReloadTime();
+        Assertions.assertEquals(firingController.getReloadTime(), ((RangedWeapon) gunCollectible).getReloadTime());
         firingController.setReloadTime(20);
-        assert firingController.getReloadTime() == 20;
+        Assertions.assertEquals(firingController.getReloadTime(), 20);
 
-        assert firingController.getMaxAmmo() == ((RangedWeapon) gunCollectible).getMaxAmmo();
+        Assertions.assertEquals(firingController.getMaxAmmo(), ((RangedWeapon) gunCollectible).getMaxAmmo());
         firingController.setMaxAmmo(20);
-        assert firingController.getMaxAmmo() == 20;
+        Assertions.assertEquals(firingController.getMaxAmmo(), 20);
 
-        assert firingController.getAmmo() == ((RangedWeapon) gunCollectible).getAmmo();
+        Assertions.assertEquals(firingController.getAmmo(), ((RangedWeapon) gunCollectible).getAmmo());
         firingController.setAmmo(20);
-        assert firingController.getAmmo() == 20;
+        Assertions.assertEquals(firingController.getAmmo(), 20);
 
-        assert firingController.getWeaponSprite() == null;
+        Assertions.assertEquals(firingController.getWeaponSprite(), null);
         firingController.setWeaponSprite(new Sprite(new Texture("images/Weapons/shotgun.png")));
-        assert firingController.getWeaponSprite() != null;
+        Assertions.assertNotEquals(firingController.getWeaponSprite(), null);
     }
 }

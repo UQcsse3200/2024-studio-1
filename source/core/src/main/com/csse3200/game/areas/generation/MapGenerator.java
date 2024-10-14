@@ -9,7 +9,7 @@ import com.csse3200.game.utils.RandomNumberGenerator;
  * It creates rooms, connects them, and provides methods to manipulate and export the map.
  */
 public class MapGenerator {
-    public Map<String, String> RoomKeys = new HashMap<String, String>();
+    private Map<String, String> RoomKeys = new HashMap<String, String>();
     public static final int BASEROOM = 0;
     public static final int BOSSROOM = 1;
     public static final int NPCROOM = 2;
@@ -363,7 +363,21 @@ public class MapGenerator {
     public String get_player_position() {
         return this.player_position;
     }
+
+    /**
+     * Returns the Map of roomKeys 
+     * @return the map of roomKeys
+     */
+
+    public Map<String, String> getRoomKeys() {
+        return this.RoomKeys;
+    }
+
+    /**
+     * Returns the key for the roomType
+     * @return roomkey 
+     */
+    public String getRoomKey(String key) {
+        return this.RoomKeys.get(key);
+    }
 }
-
-
-

@@ -274,8 +274,6 @@ public class CombatStatsComponent extends Component {
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
-
-            String lastAttackName;
             if (attacker.getEntity() == null
                     || attacker.getEntity().getName().equals("Unknown Entity")) {
                 lastAttackName = "Unknown";
@@ -283,12 +281,12 @@ public class CombatStatsComponent extends Component {
             else {
                 lastAttackName = attacker.getEntity().getName();
             }
-
-            String filePath = "configs/LastAttack.json";
             FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
             entity.getEvents().trigger("playerHit");
-            if (isDead()){ return; }
-            makeInvincible(timeInvincible);
+            if (isDead()){ 
+                return; 
+            }
+            setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);
             flashTask = new CombatStatsComponent.flashSprite();

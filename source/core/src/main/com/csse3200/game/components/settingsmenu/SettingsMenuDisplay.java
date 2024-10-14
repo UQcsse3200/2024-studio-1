@@ -6,6 +6,9 @@ import com.badlogic.gdx.Graphics.Monitor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -23,7 +26,6 @@ import com.csse3200.game.ui.UIComponent;
 import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * Settings menu display and logic. If you bork the settings, they can be changed manually in
@@ -74,6 +76,24 @@ public class SettingsMenuDisplay extends UIComponent {
         rootTable.add(menuBtns).fillX();
 
         stage.addActor(rootTable);
+
+        // InputMultiplexer for handling both stage and ESC key input
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);  // Add stage for handling mouse clicks
+        inputMultiplexer.addProcessor(new InputAdapter() {
+            @Override
+            public boolean keyUp(int keycode) {
+                if (keycode == Input.Keys.ESCAPE) {
+                    logger.debug("Esc key pressed, triggering exit to main menu");
+                    exitMenu(); // Call the exit menu logic
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Set input processor to the multiplexer
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     private Table makeSettingsTable() {

@@ -40,9 +40,9 @@ public class LoadGameScreen extends GameScreen {
         }
 
         PlayerFactoryFactory playerFactoryFactory = new PlayerFactoryFactory(List.of(config));
-        gameOptions.playerFactory = playerFactoryFactory.create(config.name);
+        gameOptions.setPlayerFactory(playerFactoryFactory.create(config.name));
         
-        Entity player = gameOptions.playerFactory.create(config.difficulty);
+        Entity player = gameOptions.createPlayer(config.difficulty);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising load game screen entities");

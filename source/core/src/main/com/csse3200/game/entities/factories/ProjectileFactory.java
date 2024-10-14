@@ -21,7 +21,6 @@ import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
-import com.csse3200.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.nio.file.*;
@@ -30,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.lang.Math.*;
 
 /**
  * Factory for producing entities with a projectile themed component configuration.
@@ -209,25 +207,13 @@ public class ProjectileFactory extends LoadedFactory {
      **/
      public List<Entity> createShotGunProjectile (ProjectileConfig stats, Vector2 direction,
                                        Vector2 parentPosition) {
+        float followSpeed = 0.9F;
+        float plusMinus = 0.15F;
 
-         direction = direction.nor();
-         Double polarAngle = atan(direction.y / direction.x);
-        float scale = 1;
-        if (direction.x < 0) {
-             scale = -1;
-        }
+        Vector2 rectCordMore = direction.cpy().rotateRad(plusMinus);
+        Vector2 rectCordLess = direction.cpy().rotateRad(-plusMinus);
+        Vector2 follower = direction.cpy().setLength(followSpeed);
 
-
-
-        // edit to adjust the shots spread
-        Double spread = 0.15;
-
-        // two projectiles fire straight - this is the % speed of the follower
-         float followSpeed = 0.9F;
-
-        Vector2 rectCordMore = new Vector2(scale * (float) (cos(polarAngle + spread)), (float) ( sin(polarAngle + spread)));
-        Vector2 rectCordLess = new Vector2(scale * (float)  (cos(polarAngle - spread)), (float) ( sin(polarAngle - spread)));
-        Vector2 follower = new Vector2(followSpeed * direction.x, followSpeed * direction.y);
         List<Vector2> directions = Arrays.asList(rectCordMore, direction, rectCordLess, follower);
         List<Entity> projectiles = new ArrayList<>();
         for (Vector2 dir : directions) {

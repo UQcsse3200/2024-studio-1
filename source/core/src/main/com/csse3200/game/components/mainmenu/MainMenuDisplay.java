@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.options.GameOptions.Difficulty;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public class MainMenuDisplay extends UIComponent {
      */
     private static boolean loadFilesExist() {
         MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class,
-                MainGameArea.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
+                    GameController.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
         PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class,
                 "saves/player_save.json", FileLoader.Location.EXTERNAL);
 

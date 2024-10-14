@@ -67,8 +67,8 @@ public class DoorFactory {
         door.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
             if (fixture2.getUserData() instanceof Entity entity2 
                 && entity2.getId() == playerId 
-                && ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getIsRoomComplete()) {
-                    ServiceLocator.getGameAreaService().getGameArea().changeRooms(room);                    
+                && ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().isComplete()) {
+                    ServiceLocator.getGameAreaService().getGameController().changeRooms(room);                    
             }
         });
     }

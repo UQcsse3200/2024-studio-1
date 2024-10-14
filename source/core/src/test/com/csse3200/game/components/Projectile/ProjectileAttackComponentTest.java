@@ -4,7 +4,7 @@ package com.csse3200.game.components.Projectile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
@@ -36,7 +36,7 @@ class ProjectileAttackComponentTest {
     private GameAreaService gameAreaService;
 
     @Mock
-    private MainGameArea mainGameArea;
+    private GameController gameController;
 
     @Mock
     private Entity player;
@@ -51,15 +51,15 @@ class ProjectileAttackComponentTest {
 
         // Mock GameAreaService and MainGameArea
         gameAreaService = mock(GameAreaService.class);
-        mainGameArea = mock(MainGameArea.class);
+        gameController = mock(GameController.class);
         player = new Entity().addComponent(new CombatStatsComponent(100, 10));
 
         // Register the mocked services with ServiceLocator
         ServiceLocator.registerGameAreaService(gameAreaService);
 
         // Mock the behavior of gameAreaService and mainGameArea
-        when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
-        when(mainGameArea.getPlayer()).thenReturn(player);
+        when(gameAreaService.getGameController()).thenReturn(gameController);
+        when(gameController.getPlayer()).thenReturn(player);
 
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());

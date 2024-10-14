@@ -109,7 +109,7 @@ loadScripts(document, 'script');</script>
 <h2>Field Summary</h2>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.components.npc.attack.AttackComponent">Fields inherited from class&nbsp;com.csse3200.game.components.npc.attack.<a href="AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></h3>
-<code><a href="AttackComponent.html#attackCooldown">attackCooldown</a>, <a href="AttackComponent.html#attackRange">attackRange</a>, <a href="AttackComponent.html#combatStats">combatStats</a>, <a href="AttackComponent.html#effectConfigs">effectConfigs</a>, <a href="AttackComponent.html#effects">effects</a>, <a href="AttackComponent.html#logger">logger</a>, <a href="AttackComponent.html#remainingAttacks">remainingAttacks</a>, <a href="AttackComponent.html#target">target</a>, <a href="AttackComponent.html#timeSinceLastAttack">timeSinceLastAttack</a></code></div>
+<code><a href="AttackComponent.html#attackCooldown">attackCooldown</a>, <a href="AttackComponent.html#attackRange">attackRange</a>, <a href="AttackComponent.html#combatStats">combatStats</a>, <a href="AttackComponent.html#effectConfigs">effectConfigs</a>, <a href="AttackComponent.html#logger">logger</a>, <a href="AttackComponent.html#remainingAttacks">remainingAttacks</a>, <a href="AttackComponent.html#target">target</a>, <a href="AttackComponent.html#timeSinceLastAttack">timeSinceLastAttack</a></code></div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.components.Component">Fields inherited from class&nbsp;com.csse3200.game.components.<a href="../../Component.html" title="class in com.csse3200.game.components">Component</a></h3>
 <code><a href="../../Component.html#enabled">enabled</a>, <a href="../../Component.html#entity">entity</a></code></div>
@@ -123,11 +123,11 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.entities.Entity,float,float,com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.EffectConfig%5B%5D)" class="member-name-link">MeleeAttackComponent</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
- float&nbsp;attackRange,
- float&nbsp;attackRate,
- <a href="../../../entities/configs/NPCConfigs.NPCConfig.EffectConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.EffectConfig</a>[]&nbsp;effectConfigs)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.entities.Entity,com.csse3200.game.entities.configs.AttackConfig.MeleeAttack)" class="member-name-link">MeleeAttackComponent</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
+ <a href="../../../entities/configs/AttackConfig.MeleeAttack.html" title="class in com.csse3200.game.entities.configs">AttackConfig.MeleeAttack</a>&nbsp;config)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Constructs a new MeleeAttackComponent.</div>
+</div>
 </div>
 </section>
 </li>
@@ -176,12 +176,16 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.csse3200.game.entities.Entity,float,float,com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.EffectConfig[])">
+<section class="detail" id="&lt;init&gt;(com.csse3200.game.entities.Entity,com.csse3200.game.entities.configs.AttackConfig.MeleeAttack)">
 <h3>MeleeAttackComponent</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">MeleeAttackComponent</span><wbr><span class="parameters">(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
- float&nbsp;attackRange,
- float&nbsp;attackRate,
- <a href="../../../entities/configs/NPCConfigs.NPCConfig.EffectConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.EffectConfig</a>[]&nbsp;effectConfigs)</span></div>
+ <a href="../../../entities/configs/AttackConfig.MeleeAttack.html" title="class in com.csse3200.game.entities.configs">AttackConfig.MeleeAttack</a>&nbsp;config)</span></div>
+<div class="block">Constructs a new MeleeAttackComponent.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>target</code> - The target entity for the attack.</dd>
+<dd><code>config</code> - The melee attack configuration.</dd>
+</dl>
 </section>
 </li>
 </ul>

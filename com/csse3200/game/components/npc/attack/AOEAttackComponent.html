@@ -99,7 +99,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">AOEAttackComponent</span>
 <span class="extends-implements">extends <a href="AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></span></div>
-<div class="block">AOEAttackComponent manages Area of Effect attacks for NPCs, including a preparation phase.</div>
+<div class="block">AOEAttackComponent manages Area of Effect attacks for NPCs.
+ This component extends the basic AttackComponent to provide AOE functionality.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -109,7 +110,7 @@ loadScripts(document, 'script');</script>
 <h2>Field Summary</h2>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.components.npc.attack.AttackComponent">Fields inherited from class&nbsp;com.csse3200.game.components.npc.attack.<a href="AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></h3>
-<code><a href="AttackComponent.html#attackCooldown">attackCooldown</a>, <a href="AttackComponent.html#attackRange">attackRange</a>, <a href="AttackComponent.html#combatStats">combatStats</a>, <a href="AttackComponent.html#effectConfigs">effectConfigs</a>, <a href="AttackComponent.html#effects">effects</a>, <a href="AttackComponent.html#logger">logger</a>, <a href="AttackComponent.html#remainingAttacks">remainingAttacks</a>, <a href="AttackComponent.html#target">target</a>, <a href="AttackComponent.html#timeSinceLastAttack">timeSinceLastAttack</a></code></div>
+<code><a href="AttackComponent.html#attackCooldown">attackCooldown</a>, <a href="AttackComponent.html#attackRange">attackRange</a>, <a href="AttackComponent.html#combatStats">combatStats</a>, <a href="AttackComponent.html#effectConfigs">effectConfigs</a>, <a href="AttackComponent.html#logger">logger</a>, <a href="AttackComponent.html#remainingAttacks">remainingAttacks</a>, <a href="AttackComponent.html#target">target</a>, <a href="AttackComponent.html#timeSinceLastAttack">timeSinceLastAttack</a></code></div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.components.Component">Fields inherited from class&nbsp;com.csse3200.game.components.<a href="../../Component.html" title="class in com.csse3200.game.components">Component</a></h3>
 <code><a href="../../Component.html#enabled">enabled</a>, <a href="../../Component.html#entity">entity</a></code></div>
@@ -123,11 +124,11 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.entities.Entity,float,float,com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.EffectConfig%5B%5D)" class="member-name-link">AOEAttackComponent</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
- float&nbsp;attackRange,
- float&nbsp;attackRate,
- <a href="../../../entities/configs/NPCConfigs.NPCConfig.EffectConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.EffectConfig</a>[]&nbsp;effectConfigs)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.csse3200.game.entities.Entity,com.csse3200.game.entities.configs.AttackConfig.AOEAttack)" class="member-name-link">AOEAttackComponent</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
+ <a href="../../../entities/configs/AttackConfig.AOEAttack.html" title="class in com.csse3200.game.entities.configs">AttackConfig.AOEAttack</a>&nbsp;config)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Constructs a new AOEAttackComponent.</div>
+</div>
 </div>
 </section>
 </li>
@@ -146,7 +147,7 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#canAttack(com.csse3200.game.entities.Entity,com.csse3200.game.entities.Entity)" class="member-name-link">canAttack</a><wbr>(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;attacker,
  <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Check if the attacker can attack the target.</div>
+<div class="block">Determines if the attacker can perform an attack on the target.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#performAttack()" class="member-name-link">performAttack</a>()</code></div>
@@ -182,12 +183,16 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.csse3200.game.entities.Entity,float,float,com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.EffectConfig[])">
+<section class="detail" id="&lt;init&gt;(com.csse3200.game.entities.Entity,com.csse3200.game.entities.configs.AttackConfig.AOEAttack)">
 <h3>AOEAttackComponent</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AOEAttackComponent</span><wbr><span class="parameters">(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
- float&nbsp;attackRange,
- float&nbsp;attackRate,
- <a href="../../../entities/configs/NPCConfigs.NPCConfig.EffectConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.EffectConfig</a>[]&nbsp;effectConfigs)</span></div>
+ <a href="../../../entities/configs/AttackConfig.AOEAttack.html" title="class in com.csse3200.game.entities.configs">AttackConfig.AOEAttack</a>&nbsp;config)</span></div>
+<div class="block">Constructs a new AOEAttackComponent.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>target</code> - The target entity for the attack.</dd>
+<dd><code>config</code> - The AOE attack configuration.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -202,14 +207,16 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="performAttack()">
 <h3>performAttack</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">performAttack</span>()</div>
-<div class="block">Initiates the AOE attack.</div>
+<div class="block">Initiates the AOE attack.
+ This method is called when the attack conditions are met.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="setOrigin(com.badlogic.gdx.math.Vector2)">
 <h3>setOrigin</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setOrigin</span><wbr><span class="parameters">(com.badlogic.gdx.math.Vector2&nbsp;newOrigin)</span></div>
-<div class="block">Sets the origin point of the AOE attack.</div>
+<div class="block">Sets the origin point of the AOE attack.
+ This can be used to adjust the center of the AOE if needed.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>newOrigin</code> - The new origin position for the AOE attack.</dd>
@@ -221,8 +228,8 @@ loadScripts(document, 'script');</script>
 <h3>canAttack</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">canAttack</span><wbr><span class="parameters">(<a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;attacker,
  <a href="../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="AttackBehaviour.html#canAttack(com.csse3200.game.entities.Entity,com.csse3200.game.entities.Entity)">AttackBehaviour</a></code></span></div>
-<div class="block">Check if the attacker can attack the target.</div>
+<div class="block">Determines if the attacker can perform an attack on the target.
+ In this implementation, it always returns true, allowing attacks at any time.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="AttackBehaviour.html#canAttack(com.csse3200.game.entities.Entity,com.csse3200.game.entities.Entity)">canAttack</a></code>&nbsp;in interface&nbsp;<code><a href="AttackBehaviour.html" title="interface in com.csse3200.game.components.npc.attack">AttackBehaviour</a></code></dd>
@@ -230,9 +237,9 @@ loadScripts(document, 'script');</script>
 <dd><code><a href="AttackComponent.html#canAttack(com.csse3200.game.entities.Entity,com.csse3200.game.entities.Entity)">canAttack</a></code>&nbsp;in class&nbsp;<code><a href="AttackComponent.html" title="class in com.csse3200.game.components.npc.attack">AttackComponent</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>attacker</code> - The entity performing the attack.</dd>
-<dd><code>target</code> - The entity being attacked.</dd>
+<dd><code>target</code> - The entity being targeted.</dd>
 <dt>Returns:</dt>
-<dd>True if the attacker can attack the target, false otherwise.</dd>
+<dd>Always returns true, indicating the attack can always be performed.</dd>
 </dl>
 </section>
 </li>

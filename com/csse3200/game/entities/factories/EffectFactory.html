@@ -91,6 +91,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">EffectFactory</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Factory to create Effect instances based on configuration.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -118,10 +119,25 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../../components/npc/attack/attackeffects/Effect.html" title="interface in com.csse3200.game.components.npc.attack.attackeffects">Effect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createEffect(com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.EffectConfig,com.csse3200.game.entities.Entity)" class="member-name-link">createEffect</a><wbr>(<a href="../configs/NPCConfigs.NPCConfig.EffectConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.EffectConfig</a>&nbsp;config,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../../components/effects/Effect.html" title="interface in com.csse3200.game.components.effects">Effect</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createEffect(com.csse3200.game.entities.configs.EffectConfig,com.csse3200.game.entities.Entity)" class="member-name-link">createEffect</a><wbr>(<a href="../configs/EffectConfig.html" title="class in com.csse3200.game.entities.configs">EffectConfig</a>&nbsp;config,
  <a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;sourceEntity)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates an Effect instance based on the provided configuration and source entity.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createOrUpdateEffectEntity(com.csse3200.game.entities.Entity,com.csse3200.game.components.effects.EffectType,float,java.lang.Runnable)" class="member-name-link">createOrUpdateEffectEntity</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
+ <a href="../../components/effects/EffectType.html" title="enum class in com.csse3200.game.components.effects">EffectType</a>&nbsp;type,
+ float&nbsp;duration,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;disposeCallback)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates an EffectEntity based on the provided configuration and source entity.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#loadAssets()" class="member-name-link">loadAssets</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Load assets required for effects.</div>
+</div>
 </div>
 </div>
 </div>
@@ -154,10 +170,42 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="createEffect(com.csse3200.game.entities.configs.NPCConfigs.NPCConfig.EffectConfig,com.csse3200.game.entities.Entity)">
+<section class="detail" id="createEffect(com.csse3200.game.entities.configs.EffectConfig,com.csse3200.game.entities.Entity)">
 <h3>createEffect</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../../components/npc/attack/attackeffects/Effect.html" title="interface in com.csse3200.game.components.npc.attack.attackeffects">Effect</a></span>&nbsp;<span class="element-name">createEffect</span><wbr><span class="parameters">(<a href="../configs/NPCConfigs.NPCConfig.EffectConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.EffectConfig</a>&nbsp;config,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../../components/effects/Effect.html" title="interface in com.csse3200.game.components.effects">Effect</a></span>&nbsp;<span class="element-name">createEffect</span><wbr><span class="parameters">(<a href="../configs/EffectConfig.html" title="class in com.csse3200.game.entities.configs">EffectConfig</a>&nbsp;config,
  <a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;sourceEntity)</span></div>
+<div class="block">Creates an Effect instance based on the provided configuration and source entity.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>config</code> - The effect configuration.</dd>
+<dd><code>sourceEntity</code> - The entity applying the effect.</dd>
+<dt>Returns:</dt>
+<dd>An instance of Effect.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="createOrUpdateEffectEntity(com.csse3200.game.entities.Entity,com.csse3200.game.components.effects.EffectType,float,java.lang.Runnable)">
+<h3>createOrUpdateEffectEntity</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">createOrUpdateEffectEntity</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target,
+ <a href="../../components/effects/EffectType.html" title="enum class in com.csse3200.game.components.effects">EffectType</a>&nbsp;type,
+ float&nbsp;duration,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;disposeCallback)</span></div>
+<div class="block">Creates an EffectEntity based on the provided configuration and source entity.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>target</code> - The entity to which the effect is applied.</dd>
+<dd><code>type</code> - The type of effect to create.</dd>
+<dd><code>duration</code> - Duration of the effect in seconds.</dd>
+<dd><code>disposeCallback</code> - Callback to run when the effect entity is disposed.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="loadAssets()">
+<h3>loadAssets</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">loadAssets</span>()</div>
+<div class="block">Load assets required for effects.</div>
 </section>
 </li>
 </ul>

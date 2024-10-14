@@ -99,12 +99,7 @@ loadScripts(document, 'script');</script>
 <span class="extends-implements">extends <a href="LoadedFactory.html" title="class in com.csse3200.game.entities.factories">LoadedFactory</a></span></div>
 <div class="block">Factory to create non-playable character (NPC) entities with predefined components.
 
- <p>Each NPC entity type should have a creation method that returns a corresponding entity.
- Predefined entity properties can be loaded from configs stored as json files which are defined in
- "NPCConfigs".
-
- <p>If needed, this factory can be separated into more specific factories for entities with
- similar characteristics.</div>
+ <p>Uses configurations from NPCConfigs to dynamically create NPCs based on type.</p></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -135,74 +130,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create(java.lang.String,com.csse3200.game.entities.Entity)" class="member-name-link">create</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create(java.lang.String,com.csse3200.game.entities.Entity)" class="member-name-link">create</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;npcType,
  <a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Create a new NPC from specification</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createBat(com.csse3200.game.entities.Entity)" class="member-name-link">createBat</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a bat entity with predefined components and behaviour.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createBear(com.csse3200.game.entities.Entity)" class="member-name-link">createBear</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a bear entity.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createBirdman(com.csse3200.game.entities.Entity)" class="member-name-link">createBirdman</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a Birdman entity.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createDino(com.csse3200.game.entities.Entity)" class="member-name-link">createDino</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a Dino entity.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createDog(com.csse3200.game.entities.Entity)" class="member-name-link">createDog</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a dog entity with predefined components and behaviour.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createDragon(com.csse3200.game.entities.Entity)" class="member-name-link">createDragon</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a dragon entity with predefined components and behaviour.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createKitsune(com.csse3200.game.entities.Entity)" class="member-name-link">createKitsune</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a kitsune boss entity with predefined components and behaviour.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createMinotaur(com.csse3200.game.entities.Entity)" class="member-name-link">createMinotaur</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a Minotaur entity.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createRat(com.csse3200.game.entities.Entity)" class="member-name-link">createRat</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a rat entity with predefined components and behaviour.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createSnake(com.csse3200.game.entities.Entity)" class="member-name-link">createSnake</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a Snake entity.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createWerewolf(com.csse3200.game.entities.Entity)" class="member-name-link">createWerewolf</a><wbr>(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a Werewolf entity.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
+<div class="block">Creates an NPC based on the provided type and target.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureAtlasFilepaths()" class="member-name-link">getTextureAtlasFilepaths</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get all the filepaths to texture atlases needed by this Factory</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextureFilepaths()" class="member-name-link">getTextureFilepaths</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get all the filepaths to textures needed by this Factory</div>
 </div>
 </div>
@@ -243,158 +183,15 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="create(java.lang.String,com.csse3200.game.entities.Entity)">
 <h3>create</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">create</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">create</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;npcType,
  <a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Create a new NPC from specification</div>
+<div class="block">Creates an NPC based on the provided type and target.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>specification</code> - the specification of the npc</dd>
-<dd><code>target</code> - entity to chase</dd>
+<dd><code>npcType</code> - The type of NPC to create.</dd>
+<dd><code>target</code> - The target entity for the NPC.</dd>
 <dt>Returns:</dt>
-<dd>the created npc</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createRat(com.csse3200.game.entities.Entity)">
-<h3>createRat</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createRat</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a rat entity with predefined components and behaviour.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>the created rat entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createBear(com.csse3200.game.entities.Entity)">
-<h3>createBear</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createBear</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a bear entity.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createSnake(com.csse3200.game.entities.Entity)">
-<h3>createSnake</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createSnake</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a Snake entity.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createDino(com.csse3200.game.entities.Entity)">
-<h3>createDino</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createDino</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a Dino entity.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createBat(com.csse3200.game.entities.Entity)">
-<h3>createBat</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createBat</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a bat entity with predefined components and behaviour.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>the created bat entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createDog(com.csse3200.game.entities.Entity)">
-<h3>createDog</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createDog</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a dog entity with predefined components and behaviour.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>the created dog entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createMinotaur(com.csse3200.game.entities.Entity)">
-<h3>createMinotaur</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createMinotaur</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a Minotaur entity.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createDragon(com.csse3200.game.entities.Entity)">
-<h3>createDragon</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createDragon</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a dragon entity with predefined components and behaviour.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>the created dragon entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createBirdman(com.csse3200.game.entities.Entity)">
-<h3>createBirdman</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createBirdman</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a Birdman entity.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createWerewolf(com.csse3200.game.entities.Entity)">
-<h3>createWerewolf</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createWerewolf</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a Werewolf entity.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>entity</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="createKitsune(com.csse3200.game.entities.Entity)">
-<h3>createKitsune</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">createKitsune</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;target)</span></div>
-<div class="block">Creates a kitsune boss entity with predefined components and behaviour.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>target</code> - entity to chase</dd>
-<dt>Returns:</dt>
-<dd>the kitsune entity</dd>
+<dd>The created NPC entity.</dd>
 </dl>
 </section>
 </li>

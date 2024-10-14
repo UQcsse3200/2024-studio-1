@@ -99,8 +99,9 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">BossRoom</span>
 <span class="extends-implements">extends <a href="EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></span></div>
-<div class="block">A boss room of the game,
- these often have unique animals and rewards.</div>
+<div class="block">Represents a boss room in the game.
+ Boss rooms often have unique animals and rewards.
+ This class extends EnemyRoom to include boss-specific functionality.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -131,7 +132,7 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;roomName)</code></div>
 <div class="col-last even-row-color">
-<div class="block">A boss room with particular features.</div>
+<div class="block">Constructs a BossRoom with specific features.</div>
 </div>
 </div>
 </section>
@@ -150,12 +151,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAnimalSpecifications()" class="member-name-link">getAnimalSpecifications</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the animal specifications for the room.</div>
+<div class="block">Retrieves the specifications for animals in the boss room.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemSpecifications()" class="member-name-link">getItemSpecifications</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the item specifications for the room.</div>
+<div class="block">Retrieves the specifications for items in the boss room.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeRoom()" class="member-name-link">removeRoom</a>()</code></div>
@@ -166,12 +167,12 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.GameArea)" class="member-name-link">spawn</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
  <a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Spawns the room, including terrain, doors, enemies, and items.</div>
+<div class="block">Spawns entities in the boss room, including the player and stairs.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnOtherAnimals(com.csse3200.game.entities.Entity)" class="member-name-link">spawnOtherAnimals</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;bossEntity)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnRandomEnemies(java.lang.String)" class="member-name-link">spawnRandomEnemies</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;enemy)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Spawns a dog and a snake near the boss when health reaches 50%.</div>
+<div class="block">Spawns random enemies in the boss room.</div>
 </div>
 </div>
 </div>
@@ -205,14 +206,15 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;roomConnections,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;roomName)</span></div>
-<div class="block">A boss room with particular features.</div>
+<div class="block">Constructs a BossRoom with specific features.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>npcFactory</code> - the NPC factory to use</dd>
-<dd><code>collectibleFactory</code> - the Collectible factory to use.</dd>
-<dd><code>terrainFactory</code> - the terrain factory to use.</dd>
-<dd><code>roomConnections</code> - the keys for all the adjacent rooms.</dd>
-<dd><code>specification</code> - the specification for this room.</dd>
+<dd><code>npcFactory</code> - The NPC factory to use for creating NPCs.</dd>
+<dd><code>collectibleFactory</code> - The Collectible factory to use for creating collectible items.</dd>
+<dd><code>terrainFactory</code> - The terrain factory to use for creating terrain.</dd>
+<dd><code>roomConnections</code> - The keys for all the adjacent rooms.</dd>
+<dd><code>specification</code> - The specification for this room.</dd>
+<dd><code>roomName</code> - The name of the room.</dd>
 </dl>
 </section>
 </li>
@@ -228,14 +230,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getAnimalSpecifications()">
 <h3>getAnimalSpecifications</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</span>&nbsp;<span class="element-name">getAnimalSpecifications</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="EnemyRoom.html#getAnimalSpecifications()">EnemyRoom</a></code></span></div>
-<div class="block">Gets the animal specifications for the room.
- This method should be implemented by subclasses to define enemy types.</div>
+<div class="block">Retrieves the specifications for animals in the boss room.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="EnemyRoom.html#getAnimalSpecifications()">getAnimalSpecifications</a></code>&nbsp;in class&nbsp;<code><a href="EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></code></dd>
 <dt>Returns:</dt>
-<dd>A list of animal/enemy specification lists.</dd>
+<dd>A list of lists containing animal specifications for different boss levels.</dd>
 </dl>
 </section>
 </li>
@@ -243,14 +243,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getItemSpecifications()">
 <h3>getItemSpecifications</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</span>&nbsp;<span class="element-name">getItemSpecifications</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="BaseRoom.html#getItemSpecifications()">BaseRoom</a></code></span></div>
-<div class="block">Gets the item specifications for the room.
- This method should be implemented by subclasses.</div>
+<div class="block">Retrieves the specifications for items in the boss room.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="BaseRoom.html#getItemSpecifications()">getItemSpecifications</a></code>&nbsp;in class&nbsp;<code><a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></code></dd>
 <dt>Returns:</dt>
-<dd>A list of item specification lists.</dd>
+<dd>A list of lists containing item specifications for different boss levels.</dd>
 </dl>
 </section>
 </li>
@@ -259,27 +257,26 @@ loadScripts(document, 'script');</script>
 <h3>spawn</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawn</span><wbr><span class="parameters">(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
  <a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="EnemyRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.GameArea)">EnemyRoom</a></code></span></div>
-<div class="block">Spawns the room, including terrain, doors, enemies, and items.</div>
+<div class="block">Spawns entities in the boss room, including the player and stairs.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Room.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.GameArea)">spawn</a></code>&nbsp;in interface&nbsp;<code><a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></code></dd>
 <dt>Overrides:</dt>
 <dd><code><a href="EnemyRoom.html#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.GameArea)">spawn</a></code>&nbsp;in class&nbsp;<code><a href="EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>player</code> - The player entity.</dd>
-<dd><code>area</code> - The game area to spawn the room in.</dd>
+<dd><code>player</code> - The player entity to spawn.</dd>
+<dd><code>area</code> - The main game area where spawning occurs.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="spawnOtherAnimals(com.csse3200.game.entities.Entity)">
-<h3>spawnOtherAnimals</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawnOtherAnimals</span><wbr><span class="parameters">(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;bossEntity)</span></div>
-<div class="block">Spawns a dog and a snake near the boss when health reaches 50%.</div>
+<section class="detail" id="spawnRandomEnemies(java.lang.String)">
+<h3>spawnRandomEnemies</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">spawnRandomEnemies</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;enemy)</span></div>
+<div class="block">Spawns random enemies in the boss room.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>bossEntity</code> - The boss entity.</dd>
+<dd><code>enemy</code> - The type of enemy to spawn.</dd>
 </dl>
 </section>
 </li>

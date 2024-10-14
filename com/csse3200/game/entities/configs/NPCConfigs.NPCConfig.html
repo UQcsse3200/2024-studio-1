@@ -97,6 +97,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public static class </span><span class="element-name type-name-label">NPCConfigs.NPCConfig</span>
 <span class="extends-implements">extends <a href="BaseEntityConfig.html" title="class in com.csse3200.game.entities.configs">BaseEntityConfig</a></span></div>
+<div class="block">Configuration for an NPC entity.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -111,16 +112,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="NPCConfigs.NPCConfig.AnimationData.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.AnimationData</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="NPCConfigs.NPCConfig.AttackConfig.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.AttackConfig</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>static class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="NPCConfigs.NPCConfig.EffectConfig.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.EffectConfig</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="NPCConfigs.NPCConfig.TaskConfig.html" class="type-name-link" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Configuration for an animation.</div>
+</div>
 </div>
 </section>
 </li>
@@ -136,17 +130,35 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code><a href="NPCConfigs.NPCConfig.AnimationData.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.AnimationData</a>[]</code></div>
 <div class="col-second even-row-color"><code><a href="#animations" class="member-name-link">animations</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="NPCConfigs.NPCConfig.AttackConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.AttackConfig</a></code></div>
+<div class="col-first odd-row-color"><code><a href="AttackConfig.html" title="class in com.csse3200.game.entities.configs">AttackConfig</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#attacks" class="member-name-link">attacks</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>float</code></div>
+<div class="col-second even-row-color"><code><a href="#density" class="member-name-link">density</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>boolean</code></div>
+<div class="col-second odd-row-color"><code><a href="#isBoss" class="member-name-link">isBoss</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>boolean</code></div>
 <div class="col-second even-row-color"><code><a href="#isDirectional" class="member-name-link">isDirectional</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>int</code></div>
-<div class="col-second odd-row-color"><code><a href="#strength" class="member-name-link">strength</a></code></div>
+<div class="col-first odd-row-color"><code>boolean</code></div>
+<div class="col-second odd-row-color"><code><a href="#isScaled" class="member-name-link">isScaled</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="NPCConfigs.NPCConfig.TaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig</a></code></div>
-<div class="col-second even-row-color"><code><a href="#tasks" class="member-name-link">tasks</a></code></div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#name" class="member-name-link">name</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>com.badlogic.gdx.math.Vector2</code></div>
+<div class="col-second odd-row-color"><code><a href="#scale" class="member-name-link">scale</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>int</code></div>
+<div class="col-second even-row-color"><code><a href="#strength" class="member-name-link">strength</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="TaskConfig.html" title="class in com.csse3200.game.entities.configs">TaskConfig</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#tasks" class="member-name-link">tasks</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>boolean</code></div>
+<div class="col-second even-row-color"><code><a href="#variableDensity" class="member-name-link">variableDensity</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 <div class="inherited-list">
@@ -180,7 +192,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getStrength()" class="member-name-link">getStrength</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Configuration for an attack.</div>
+</div>
 </div>
 </div>
 </div>
@@ -199,33 +213,69 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="name">
+<h3>name</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">name</span></div>
+</section>
+</li>
+<li>
 <section class="detail" id="strength">
 <h3>strength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">strength</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="tasks">
-<h3>tasks</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="NPCConfigs.NPCConfig.TaskConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.TaskConfig</a></span>&nbsp;<span class="element-name">tasks</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="attacks">
-<h3>attacks</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="NPCConfigs.NPCConfig.AttackConfig.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.AttackConfig</a></span>&nbsp;<span class="element-name">attacks</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="animations">
-<h3>animations</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="NPCConfigs.NPCConfig.AnimationData.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.AnimationData</a>[]</span>&nbsp;<span class="element-name">animations</span></div>
+<section class="detail" id="isBoss">
+<h3>isBoss</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isBoss</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="isDirectional">
 <h3>isDirectional</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isDirectional</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="isScaled">
+<h3>isScaled</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isScaled</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="scale">
+<h3>scale</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.math.Vector2</span>&nbsp;<span class="element-name">scale</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="variableDensity">
+<h3>variableDensity</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">variableDensity</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="density">
+<h3>density</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">density</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="tasks">
+<h3>tasks</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="TaskConfig.html" title="class in com.csse3200.game.entities.configs">TaskConfig</a></span>&nbsp;<span class="element-name">tasks</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="attacks">
+<h3>attacks</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AttackConfig.html" title="class in com.csse3200.game.entities.configs">AttackConfig</a></span>&nbsp;<span class="element-name">attacks</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="animations">
+<h3>animations</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="NPCConfigs.NPCConfig.AnimationData.html" title="class in com.csse3200.game.entities.configs">NPCConfigs.NPCConfig.AnimationData</a>[]</span>&nbsp;<span class="element-name">animations</span></div>
 </section>
 </li>
 </ul>
@@ -254,6 +304,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getStrength()">
 <h3>getStrength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getStrength</span>()</div>
+<div class="block">Configuration for an attack.</div>
 </section>
 </li>
 </ul>

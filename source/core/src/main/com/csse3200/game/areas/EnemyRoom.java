@@ -51,7 +51,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param specification Room specification string.
      * @param roomName Name of the room.
      */
-    public EnemyRoom(
+    protected EnemyRoom(
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
@@ -79,7 +79,7 @@ public abstract class EnemyRoom extends BaseRoom {
     /**
      * Spawns Deployable Entity
      */
-    public void SpawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
+    public void spawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
         entities.add(entity);
         getGameAreaService().getGameArea().spawnEntityAt(entity, tilePos, centerX, centerY);
 
@@ -91,7 +91,7 @@ public abstract class EnemyRoom extends BaseRoom {
      */
     public void checkComplete() {
         if (isAllAnimalDead()) {
-            System.out.println("room is complete");
+            logger.info("room is complete");
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
@@ -194,8 +194,6 @@ public abstract class EnemyRoom extends BaseRoom {
                 }
             }
         }
-        //makeAllAnimalDead();
-        //isAllAnimalDead();
     }
 
     /**
@@ -211,9 +209,6 @@ public abstract class EnemyRoom extends BaseRoom {
         if (!isComplete()) {
             logger.info("spawning enemies");
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
-
-            //logger.info("spawning items");
-            //this.spawnItems();
         }
     }
 

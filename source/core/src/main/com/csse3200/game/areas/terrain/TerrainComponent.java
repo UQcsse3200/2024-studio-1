@@ -9,11 +9,15 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.rendering.RenderComponent;
 import com.csse3200.game.services.ServiceLocator;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * Render a tiled terrain for a given tiled map and orientation. A terrain is a map of tiles that
  * shows the 'ground' in the game. Enabling/disabling this component will show/hide the terrain.
  */
 public class TerrainComponent extends RenderComponent {
+  private static final Logger logger = LoggerFactory.getLogger(TerrainComponent.class);
   private static final int TERRAIN_LAYER = 0;
 
   private final TiledMap tiledMap;
@@ -72,7 +76,7 @@ public class TerrainComponent extends RenderComponent {
       }
     } catch (NullPointerException e) {
       // Log or handle the case where RenderService is not available
-      System.out.println("RenderService not available during dispose");
+      logger.error("RenderService not available during dispose");
     }
   }
 

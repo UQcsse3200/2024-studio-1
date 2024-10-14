@@ -96,7 +96,6 @@ public class BossRoom extends EnemyRoom {
 
         bossRoom.spawnEnemyEntity(area, dog, dogPos);
         bossRoom.spawnEnemyEntity(area, snake, snakePos);
-//        area.spawnEntityAt(snake, snakePos, true, true);
     }
 
 

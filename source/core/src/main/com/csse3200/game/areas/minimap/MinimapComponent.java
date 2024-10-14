@@ -12,7 +12,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.rendering.RenderComponent;
 import com.csse3200.game.services.ServiceLocator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MinimapComponent extends RenderComponent {
+    private static final Logger logger = LoggerFactory.getLogger(MinimapComponent.class);
     private static final int MINIMAP_LAYER = 1;
 
     private final TiledMap tiledMap;
@@ -102,7 +106,7 @@ public class MinimapComponent extends RenderComponent {
             }
         } catch (NullPointerException e) {
             // Log or handle the case where RenderService is not available
-            System.out.println("RenderService not available during dispose");
+            logger.error("RenderService not available during dispose");
         }
     }
 

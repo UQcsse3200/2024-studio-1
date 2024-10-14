@@ -34,7 +34,13 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("walkStop", this::stopWalking);
         entity.getEvents().addListener("attackMelee", this::attack);
         entity.getEvents().addListener("shoot", this::shoot);
-        entity.getEvents().addListener("useItem", this::use);
+        entity.getEvents().addListener("use1", () -> use(new MedKit()));
+        entity.getEvents().addListener("use2", () -> use(new ShieldPotion()));
+        entity.getEvents().addListener("use3", () -> use(new Bandage()));
+        entity.getEvents().addListener("use4", () -> use(new TargetDummy()));
+        entity.getEvents().addListener("use5", () -> use(new BearTrap()));
+        entity.getEvents().addListener("use6", () -> use(new BigRedButton()));
+        entity.getEvents().addListener("use7", ()-> use(new TeleporterItem()));
         entity.getEvents().addListener("useReroll", () -> handleReroll(new Reroll()));
         setSpeedPercentage(1.0f);
 
@@ -126,9 +132,11 @@ public class PlayerActions extends Component {
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        entity.getComponent(InventoryComponent.class)
-                .getMainWeapon()
-                .ifPresent(weapon -> weapon.shoot(direction));
+        if (!dead) {
+            entity.getComponent(InventoryComponent.class)
+                    .getMainWeapon()
+                    .ifPresent(weapon -> weapon.shoot(direction));
+        }
     }
 
     private void updateSpeed() {
@@ -168,20 +176,18 @@ public class PlayerActions extends Component {
      */
     public void handleReroll(UsableItem reroll) {
         if (entity.getComponent(ItemPickupComponent.class).isInContact() && entity.getComponent(ItemPickupComponent.class).getItem() != null) {
-            use(inventoryComponent.getItems().indexOf(reroll, true)); //Ensures that the reroll item can only be used when it is in collision with another item
-        } else {
-            //Otherwise the reroll item cannot be used
+            use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
         }
     }
 
-    private void use(int itemNum) {
+    private void use(UsableItem item) {
         if (!dead) {
-            if (itemNum <= inventoryComponent.getItems().size) {
-                UsableItem item = inventoryComponent.getItems().get(itemNum - 1);
-                if (item != null) {
+            for (Collectible collectedItem : inventoryComponent.getItems()) {
+                if (collectedItem.getClass() == item.getClass()) {
                     item.apply(entity);
                     entity.getEvents().trigger("itemUsed");
-                    inventoryComponent.drop(item);
+                    inventoryComponent.drop(collectedItem);
+                    break;
                 }
             }
         }

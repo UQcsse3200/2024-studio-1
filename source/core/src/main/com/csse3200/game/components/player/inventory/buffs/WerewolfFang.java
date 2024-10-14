@@ -1,7 +1,9 @@
-package com.csse3200.game.components.player.inventory;
+package com.csse3200.game.components.player.inventory.buffs;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.BuffItem;
+import com.csse3200.game.components.player.inventory.Inventory;
 import com.csse3200.game.entities.Entity;
 
 /**
@@ -13,20 +15,6 @@ public class WerewolfFang extends BuffItem {
 
   // Percentage of health to reduce per second
   private final int bleedDamage = 5;
-
-  /**
-   * Applies the bleed effect to an entity. The player must hit an enemy with a weapon
-   * that can apply the bleed effect. The method listens for the
-   * "BleedWeaponHit" event to apply the effect.
-   *
-   * @param entity The player entity that will apply the bleed effect.
-   */
-
-  @Override
-  public void effect(Entity entity) {
-    entity.getComponent(CombatStatsComponent.class).updateBleedStatus();
-    entity.getComponent(CombatStatsComponent.class).updateBleedDamage(bleedDamage);
-  }
 
   /**
    * Returns the name of the item.
@@ -75,4 +63,19 @@ public class WerewolfFang extends BuffItem {
   public int getBleedDamage() {
     return bleedDamage;
   }
+
+  /**
+   * Applies the bleed effect to an entity. The player must hit an enemy with a weapon
+   * that can apply the bleed effect. The method listens for the
+   * "BleedWeaponHit" event to apply the effect.
+   *
+   * @param entity The player entity that will apply the bleed effect.
+   */
+
+  @Override
+  public void effect(Entity entity) {
+    entity.getComponent(CombatStatsComponent.class).updateBleedStatus();
+    entity.getComponent(CombatStatsComponent.class).updateBleedDamage(bleedDamage);
+  }
+
 }

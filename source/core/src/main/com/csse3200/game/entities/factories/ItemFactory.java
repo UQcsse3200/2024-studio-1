@@ -2,7 +2,7 @@ package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.GoblinsGamble;
-import com.csse3200.game.components.player.inventory.WerewolfFang;
+import com.csse3200.game.components.player.inventory.buffs.WerewolfFang;
 import com.csse3200.game.components.player.inventory.buffs.*;
 import com.csse3200.game.components.player.inventory.pets.RingFire;
 import com.csse3200.game.components.player.inventory.pets.Tombstone;
@@ -36,7 +36,6 @@ public class ItemFactory {
                                                             : new Tombstone(args[0]));
         creators.put("ringfire", (args) -> new RingFire());
         creators.put("divinepotion", (args) -> new DivinePotion());
-        creators.put("bleedbuff", (args) -> new BleedBuff());
         creators.put("bigredbutton", (args) -> new BigRedButton());
         creators.put("teleporter", (args) -> new TeleporterItem());
         creators.put("goblinsgamble", (args) -> new GoblinsGamble());

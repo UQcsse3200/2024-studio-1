@@ -416,7 +416,7 @@ public class CombatStatsComponent extends Component {
         CombatStatsComponent enemyStats = enemy.getComponent(CombatStatsComponent.class);
 
         if (enemyStats != null) {
-            // Schedule bleed damage over 5 seconds
+            // Schedule bleed damage over 3 seconds
             com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
                 @Override
                 public void run() {

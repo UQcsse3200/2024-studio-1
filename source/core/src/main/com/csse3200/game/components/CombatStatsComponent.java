@@ -36,7 +36,7 @@ public class CombatStatsComponent extends Component {
     private final Timer timerIFrames;
     private int timeFlash = 250;
     private final Timer timerFlashSprite;
-    private CombatStatsComponent.FlashSprint flashTask;
+    private CombatStatsComponent.FlashSprite flashTask;
 
     private String lastAttackName;
     private static final String FILE_PATH = "configs/LastAttack.json";
@@ -110,7 +110,7 @@ public class CombatStatsComponent extends Component {
     /**
      * A TimerTask used to alternate the visibility of the entity during their IFrames
      */
-    private class FlashSprint extends TimerTask {
+    private class FlashSprite extends TimerTask {
         private boolean invisible = false;
         @Override
         public void run() {
@@ -291,7 +291,7 @@ public class CombatStatsComponent extends Component {
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);
-            flashTask = new CombatStatsComponent.FlashSprint();
+            flashTask = new CombatStatsComponent.FlashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
             return;
         }
@@ -327,7 +327,7 @@ public class CombatStatsComponent extends Component {
         setInvincible(true);
         InvincibilityRemover task = new InvincibilityRemover();
         timerIFrames.schedule(task, (int) duration * 1000L);
-        flashTask = new flashSprite();
+        flashTask = new FlashSprite();
         timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
     }
 

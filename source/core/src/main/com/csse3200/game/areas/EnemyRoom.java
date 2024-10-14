@@ -186,8 +186,8 @@ public abstract class EnemyRoom extends BaseRoom {
                     );
                     while (Math.abs(randomPos.x-playerPos.x) <= 1 || Math.abs(randomPos.y-playerPos.y) <= 1){
                      randomPos = new GridPoint2(
-                      ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
-                       ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
+                      ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x ),
+                       ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y)
                         );
                     }
                     spawnEnemyEntity(area, enemy, randomPos);

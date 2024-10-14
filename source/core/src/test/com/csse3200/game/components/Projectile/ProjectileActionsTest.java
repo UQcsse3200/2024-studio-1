@@ -147,6 +147,9 @@ class ProjectileActionsTest {
         assertTrue(yChange > 0f);
     }
 
+
+
+
     @org.junit.jupiter.api.Test
     void shouldMoveDown() {
 
@@ -224,11 +227,48 @@ class ProjectileActionsTest {
         assertTrue(slowChange < fastChange);
     }
 
+    @org.junit.jupiter.api.Test
+    void shouldMoveAtRange() {
 
+        ProjectileConfig fastStats = new ProjectileConfig();
+        fastStats.range = 2;
+        Entity projectileFast = new ProjectileFactory().createProjectile(fastStats, Vector2Utils.RIGHT, new Vector2(0,0));
+        projectileFast.create();
+
+        ProjectileConfig slowStats = new ProjectileConfig();
+        slowStats.range = 1;
+        Entity projectileSlow = new ProjectileFactory().createProjectile(slowStats, Vector2Utils.RIGHT, new Vector2(0,0));
+        projectileSlow.create();
+
+
+        projectileFast.setPosition(0f, 2f);
+        projectileSlow.setPosition(0f, 0f);
+
+        // Run the game for a few cycles
+        for (int i = 0; i < 1; i++) {
+            projectileFast.earlyUpdate();
+            projectileFast.update();
+
+            projectileSlow.earlyUpdate();
+            projectileSlow.update();
+
+            ServiceLocator.getPhysicsService().getPhysics().update();
+        }
+
+        float slowChange = projectileSlow.getPosition().dst(0f,0f);
+        float fastChange = projectileFast.getPosition().dst(0f,2f);
+        assertTrue(slowChange < fastChange);
+    }
 
     //Vector2Utils.LEFT
     Entity createProjectile(Vector2 direction) {
         Entity projectile = new ProjectileFactory().createProjectile(new ProjectileConfig(), direction, new Vector2(0,0));
+        projectile.create();
+        return projectile;
+    }
+
+    Entity createProjectile(Vector2 direction, ProjectileConfig config) {
+        Entity projectile = new ProjectileFactory().createProjectile(config, direction, new Vector2(0,0));
         projectile.create();
         return projectile;
     }

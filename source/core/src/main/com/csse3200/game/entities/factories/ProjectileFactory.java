@@ -146,7 +146,7 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
+                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition, stats.range))
                         .addComponent(new DirectionalNPCComponent(stats.isDirectional))
                         .addComponent(new ProjectileActions())
                         .addComponent(new ProjectileAnimationController())
@@ -170,6 +170,7 @@ public class ProjectileFactory extends LoadedFactory {
      */
     public Entity createProjectile(ProjectileConfig stats, Vector2 direction, Vector2 parentPosition) {
 
+        direction = direction.nor();
         AnimationRenderComponent animator =
                 new AnimationRenderComponent(
                         ServiceLocator.getResourceService().getAsset(stats.projectileAtlasPath, TextureAtlas.class));
@@ -183,7 +184,7 @@ public class ProjectileFactory extends LoadedFactory {
                         .addComponent(new ColliderComponent())
                         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.WEAPON))
                         .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack))
-                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition))
+                        .addComponent(new ProjectileAttackComponent(stats.Layer, direction, stats.speed, parentPosition, stats.range))
                         .addComponent(new ProjectileActions())
                         .addComponent(animator);
 
@@ -207,7 +208,7 @@ public class ProjectileFactory extends LoadedFactory {
      public List<Entity> createShotGunProjectile (ProjectileConfig stats, Vector2 direction,
                                        Vector2 parentPosition) {
         float followSpeed = 0.9F;
-        float plusMinus = 0.07F;
+        float plusMinus = 0.15F;
 
         Vector2 rectCordMore = direction.cpy().rotateRad(plusMinus);
         Vector2 rectCordLess = direction.cpy().rotateRad(-plusMinus);

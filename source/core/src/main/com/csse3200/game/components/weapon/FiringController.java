@@ -61,8 +61,14 @@ public class FiringController extends Component {
      */
     public FiringController(RangedWeapon collectible, ProjectileConfig projectileConfig) {
         this.isMelee = false;
+
+        //setup projectile config for values from the collectable value
         this.damage = collectible.getDamage();
         this.range = collectible.getRange();
+        projectileConfig.baseAttack = damage;
+        projectileConfig.range = range;
+        this.projectileConfig = projectileConfig;
+
         this.fireRate = collectible.getFireRate();
 
         // Setup variables to track weapon state
@@ -70,9 +76,6 @@ public class FiringController extends Component {
         this.ammo = collectible.getAmmo();
         this.maxAmmo = collectible.getMaxAmmo();
         this.reloadTime = collectible.getReloadTime();
-
-        // Type of projectile
-        this.projectileConfig = projectileConfig;
     }
 
     /**

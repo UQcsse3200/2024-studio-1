@@ -32,15 +32,14 @@ public class CombatStatsComponent extends Component {
     private double critChance;
     private boolean isInvincible;
     // change requested by character team
-    private int timeInvincible = 1000; // default IFrames is 1 seconds
-    private final Timer timerIFrames; 
+    private int timeInvincible = 1000;
+    private final Timer timerIFrames;
     private int timeFlash = 250;
-
     private final Timer timerFlashSprite;
-    private CombatStatsComponent.flashSprite flashTask;
+    private CombatStatsComponent.FlashSprite flashTask;
 
     private String lastAttackName;
-    private final String filePath = "configs/LastAttack.json";
+    private static final String FILE_PATH = "configs/LastAttack.json";
 
     public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance, int timeInvincible) {
         this(health, maxHealth, baseAttack, canBeInvincible, armor, buff, canCrit, critChance);
@@ -101,7 +100,7 @@ public class CombatStatsComponent extends Component {
         public void run() {
             flashTask.cancel();
             setInvincible(false);
-            AnimationRenderComponent animateRender = entity.getComponent(AnimationRenderComponent.class); 
+            AnimationRenderComponent animateRender = entity.getComponent(AnimationRenderComponent.class);
             if(animateRender != null){
                 entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
             }
@@ -111,7 +110,7 @@ public class CombatStatsComponent extends Component {
     /**
      * A TimerTask used to alternate the visibility of the entity during their IFrames
      */
-    private class flashSprite extends TimerTask {
+    private class FlashSprite extends TimerTask {
         private boolean invisible = false;
         @Override
         public void run() {
@@ -274,6 +273,8 @@ public class CombatStatsComponent extends Component {
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
+
+            String lastAttackName;
             if (attacker.getEntity() == null
                     || attacker.getEntity().getName().equals("Unknown Entity")) {
                 lastAttackName = "Unknown";
@@ -281,18 +282,19 @@ public class CombatStatsComponent extends Component {
             else {
                 lastAttackName = attacker.getEntity().getName();
             }
-            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
+            FileLoader.writeClass(lastAttackName, FILE_PATH, FileLoader.Location.EXTERNAL);
+            ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
             entity.getEvents().trigger("playerHit");
-            if (isDead()){ 
-                return; 
+            if (isDead()){
+                return;
             }
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);
-            flashTask = new CombatStatsComponent.flashSprite();
+            flashTask = new CombatStatsComponent.FlashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
             return;
-        } 
+        }
         Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
         int damage;
         if (player != null) {
@@ -315,6 +317,19 @@ public class CombatStatsComponent extends Component {
         }
     }
 
+    /**
+     * Makes the entity invincible for a set duration.
+     * Also flashes the entity's sprite to indicate invincibility.
+     *
+     * @param duration duration of invincibility in seconds
+     */
+    public void makeInvincible(float duration) {
+        setInvincible(true);
+        InvincibilityRemover task = new InvincibilityRemover();
+        timerIFrames.schedule(task, (int) duration * 1000L);
+        flashTask = new FlashSprite();
+        timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+    }
 
     /**
      *Returns if the entity can be invincible

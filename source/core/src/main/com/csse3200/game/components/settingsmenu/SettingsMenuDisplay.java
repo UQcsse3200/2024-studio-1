@@ -24,26 +24,24 @@ import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Settings menu display and logic. If you bork the settings, they can be changed manually in
  * CSSE3200Game/settings.json under your home directory (This is C:/users/[username] on Windows).
  */
 public class SettingsMenuDisplay extends UIComponent {
+
     private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
+    private static final String PERCENT_FORMAT = "%.0f%%";
     private final GdxGame game;
 
     private Table rootTable;
     private TextField fpsText;
     private CheckBox fullScreenCheck;
     private CheckBox vsyncCheck;
-    private Slider uiScaleSlider;
     private Slider musicVolumeSlider;
     private Slider soundVolumeSlider;
     private CheckBox muteCheck;
     private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
-    private SelectBox<String> actionSelect;
-    private SelectBox<String> keySelect;
 
     public SettingsMenuDisplay(GdxGame game) {
         super();
@@ -91,20 +89,15 @@ public class SettingsMenuDisplay extends UIComponent {
         vsyncCheck = new CheckBox("", skin);
         vsyncCheck.setChecked(settings.vsync);
 
-        Label uiScaleLabel = new Label("UI Scale (Unused):", skin);
-        uiScaleSlider = new Slider(0.2f, 2f, 0.1f, false, skin);
-        uiScaleSlider.setValue(settings.uiScale);
-        Label uiScaleValue = new Label(String.format("%.2fx", settings.uiScale), skin);
-
         Label musicVolumeLabel = new Label("Music Volume:", skin);
         musicVolumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
         musicVolumeSlider.setValue(settings.musicVolume);
-        Label musicVolumeValue = new Label(String.format("%.0f%%", settings.musicVolume * 100), skin);
+        Label musicVolumeValue = new Label(String.format(PERCENT_FORMAT, settings.musicVolume * 100), skin);
 
         Label soundVolumeLabel = new Label("Sound Volume:", skin);
         soundVolumeSlider = new Slider(0f, 1f, 0.05f, false, skin);
         soundVolumeSlider.setValue(settings.soundVolume);
-        Label soundVolumeValue = new Label(String.format("%.0f%%", settings.soundVolume * 100), skin);
+        Label soundVolumeValue = new Label(String.format(PERCENT_FORMAT, settings.soundVolume * 100), skin);
 
 
         Label muteLabel = new Label("Mute:", skin);
@@ -118,10 +111,10 @@ public class SettingsMenuDisplay extends UIComponent {
         displayModeSelect.setSelected(getActiveMode(displayModeSelect.getItems()));
 
         Label actionLabel = new Label("Action: ", skin);
-        actionSelect = new SelectBox<>(skin);
+        SelectBox<String> actionSelect = new SelectBox<>(skin);
         actionSelect.setItems(actions);
         Label keyLabel = new Label("Key: ", skin);
-        keySelect = new SelectBox<>(skin);
+        SelectBox<String> keySelect = new SelectBox<>(skin);
         keySelect.setItems(keys);
 
         // Position Components on table
@@ -141,14 +134,6 @@ public class SettingsMenuDisplay extends UIComponent {
         table.row().padTop(10f);
         table.add(muteLabel).right().padRight(15f);
         table.add(muteCheck).left();
-
-        table.row().padTop(10f);
-        Table uiScaleTable = new Table();
-        uiScaleTable.add(uiScaleSlider).width(100).left();
-        uiScaleTable.add(uiScaleValue).left().padLeft(5f).expandX();
-
-        table.add(uiScaleLabel).right().padRight(15f);
-        table.add(uiScaleTable).left();
 
         table.row().padTop(10f);
         table.add(displayModeLabel).right().padRight(15f);
@@ -176,14 +161,6 @@ public class SettingsMenuDisplay extends UIComponent {
         table.add(keyLabel).right().padRight(15f);
         table.add(keySelect).left();
 
-
-        // Listener for uiScaleSlider
-        uiScaleSlider.addListener(
-                (Event event) -> {
-                    float value = uiScaleSlider.getValue();
-                    uiScaleValue.setText(String.format("%.2fx", value));
-                    return true;
-                });
         musicVolumeSlider.addListener(
                 (Event event) -> {
                     float value = musicVolumeSlider.getValue();
@@ -199,7 +176,6 @@ public class SettingsMenuDisplay extends UIComponent {
                 });
         return table;
     }
-
 
     private StringDecorator<DisplayMode> getActiveMode(Array<StringDecorator<DisplayMode>> modes) {
         DisplayMode active = Gdx.graphics.getDisplayMode();
@@ -263,7 +239,7 @@ public class SettingsMenuDisplay extends UIComponent {
         Dialog confirmationDialog = new Dialog("Confirm Changes", skin) {
             @Override
             protected void result(Object object) {
-                if ((Boolean) object) {
+                if (Boolean.TRUE.equals(object)) {
                     // If "Okay" is pressed, apply changes and go to the main menu
                     logger.debug("Confirmed changes");
                     UserSettings.Settings settings = UserSettings.get();
@@ -274,7 +250,6 @@ public class SettingsMenuDisplay extends UIComponent {
                     }
                     settings.fullscreen = fullScreenCheck.isChecked();
                     settings.mute = muteCheck.isChecked();
-                    settings.uiScale = uiScaleSlider.getValue();
                     settings.displayMode = new DisplaySettings(displayModeSelect.getSelected().object);
                     settings.vsync = vsyncCheck.isChecked();
                     settings.musicVolume = musicVolumeSlider.getValue();

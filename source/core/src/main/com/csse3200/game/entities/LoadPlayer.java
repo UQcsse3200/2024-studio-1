@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.effects.EffectComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.CoinsComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
@@ -37,7 +38,7 @@ public class LoadPlayer {
     private final InventoryComponent inventoryComponent;
     private final PlayerActions playerActions;
     private static final float playerScale = 0.75f;
-    private static final Logger logger = getLogger(LoadPlayer.class);
+    private static final Logger LOGGER = getLogger(LoadPlayer.class);
     private final CollectibleFactory collectibleFactory;
 
 
@@ -57,7 +58,7 @@ public class LoadPlayer {
      * @return entity
      */
     public Entity createPlayer(PlayerConfig config) {
-        logger.info("Creating player with config: {}", config);
+        LOGGER.info("Creating player with config: {}", config);
 
         Entity player = new Entity();
 
@@ -84,6 +85,7 @@ public class LoadPlayer {
             case ("player 3") -> player.setScale(0.4615f, 1.2f);
             default -> player.setScale(0.6f, 1.2f);
         }
+
     }
 
     /**
@@ -114,7 +116,8 @@ public class LoadPlayer {
                 .addComponent(new PlayerAnimationController(config.textureAtlasFilename))
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay());
+                .addComponent(new PlayerHealthDisplay())
+                .addComponent(new EffectComponent());
 
         CoinsComponent coinsComponent = new CoinsComponent();
 

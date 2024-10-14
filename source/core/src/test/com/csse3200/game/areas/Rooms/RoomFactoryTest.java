@@ -47,23 +47,23 @@ class RoomFactoryTest {
                 "item:medkit:buyable", "item:reroll:buyable","item:heart:buyable");
     }
 
-//    @Test
-//    void testCreateRoom() {
-//        Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
-//
-//        assertNotNull(room);
-//        assertTrue(room instanceof MainRoom);
-//        assertEquals(testRoomName, room.getRoomName());
-//    }
+   @Test
+   void testCreateRoom() {
+       Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
 
-//    @Test
-//    void testCreateBossRoom() {
-//        Room room = roomFactory.createBossRoom(testRoomConnections, testSpecification, testRoomName);
-//
-//        assertNotNull(room);
-//        assertTrue(room instanceof BossRoom);
-//        assertEquals(testRoomName, room.getRoomName());
-//    }
+       assertNotNull(room);
+       assertTrue(room instanceof MainRoom);
+       assertEquals(testRoomName, room.getRoomName());
+   }
+
+   @Test
+   void testCreateBossRoom() {
+       Room room = roomFactory.createBossRoom(testRoomConnections, testSpecification, testRoomName);
+
+       assertNotNull(room);
+       assertTrue(room instanceof BossRoom);
+       assertEquals(testRoomName, room.getRoomName());
+   }
 
     @Test
     void testCreateShopRoom() {

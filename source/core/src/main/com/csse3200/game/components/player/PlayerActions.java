@@ -26,7 +26,7 @@ public class PlayerActions extends Component {
     private Vector2 speed = DEFAULT_SPEED;
     private Vector2 baseSpeed = new Vector2(3f, 3f); // Metres per second;
     private boolean dead = false;
-    private float maxSpeed = 1.5f;
+    private float maxSpeed = 0.5f;
     private float speedPercentage;
 
     @Override
@@ -46,7 +46,6 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("use6", () -> use(new BigRedButton()));
         entity.getEvents().addListener("use7", () -> use(new TeleporterItem()));
         entity.getEvents().addListener("useReroll", () -> handleReroll(new Reroll()));
-//
 
         setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
     }
@@ -72,7 +71,7 @@ public class PlayerActions extends Component {
      * @return the current speed of the player
      */
     public Vector2 getCurrSpeed() {
-        return this.speed.cpy();
+        return this.speed;
     }
 
     /**
@@ -82,6 +81,13 @@ public class PlayerActions extends Component {
      */
     public float getMaxSpeed() {
         return this.maxSpeed;
+    }
+
+    public Vector2 getMaxPlayerSpeed() {
+        float maxSpeedBoost = getMaxSpeed();
+        Vector2 scalar = getBaseSpeed().scl(maxSpeedBoost);
+        Vector2 maximumPlayerSpeed = new Vector2(getBaseSpeed().x + scalar.x, getBaseSpeed().y + scalar.y);
+        return maximumPlayerSpeed;
     }
 
     /**
@@ -100,6 +106,12 @@ public class PlayerActions extends Component {
      */
     public void setSpeedPercentage(float speedPercentage) {
         this.speedPercentage = speedPercentage;
+    }
+
+    public float getSpeedProgressBarProportion(Vector2 newSpeed, Vector2 originalSpeed) {
+        Vector2 diff = new Vector2(newSpeed.x - getBaseSpeed().x, originalSpeed.y - getBaseSpeed().y);
+        float newSpeedProportion = diff.x/getBaseSpeed().x;
+        return newSpeedProportion;
     }
 
     /**

@@ -13,7 +13,7 @@ import com.csse3200.game.options.GameOptions;
 
 import java.util.List;
 
-import static com.csse3200.game.areas.MainGameArea.MAP_SAVE_PATH;
+import static com.csse3200.game.areas.GameController.MAP_SAVE_PATH;
 
 /**
  * The game screen loading the game
@@ -51,7 +51,7 @@ public class LoadGameScreen extends GameScreen {
         MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class,
                 MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
         LevelFactory levelFactory = new MainGameLevelFactory(true, mapLoadConfig);
-        new MainGameArea(levelFactory, player, true, mapLoadConfig);
+        new GameController(new GameArea(), levelFactory, player, true, mapLoadConfig);
         spawnPets(player, config);
     }
 

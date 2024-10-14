@@ -3,6 +3,11 @@
     "health": 100,
     "strength": 3,
     "baseAttack": 10,
+    "isScaled": true,
+    "scale": {
+        "x": 0.7,
+        "y": 0.7
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,
@@ -29,11 +34,11 @@
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "attack", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
   "bear": {
@@ -41,6 +46,11 @@
     "health": 600,
     "baseAttack": 35,
     "isDirectional": true,
+    "isScaled": true,
+    "scale": {
+        "x": 0.65,
+        "y": 0.65
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,
@@ -69,32 +79,31 @@
     "attacks": {
       "melee": {
         "range": 1.5,
-        "rate": 0.5,
-        "effects": [
-          {
-            "type": "knockback",
-            "force": 3
-          }
-        ]
+        "rate": 0.5
       }
     },
     "animations": [
-      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "run_left", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "run_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "attack_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
   "bat": {
     "health": 50,
     "strength": 3,
     "baseAttack": 10,
+    "isScaled": true,
+    "scale": {
+        "x": 0.8,
+        "y": 0.8
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,
@@ -122,11 +131,11 @@
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "walk", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "attack", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
   "dog": {
@@ -134,6 +143,11 @@
     "strength": 3,
     "baseAttack": 20,
     "isDirectional": true,
+    "isScaled": true,
+    "scale": {
+        "x": 1.0,
+        "y": 1.0
+    },
     "tasks": {
       "charge": {
         "activationMinRange": 0,
@@ -146,26 +160,20 @@
     "attacks": {
       "aoe": {
         "range": 2,
-        "rate": 1,
-        "effects": [
-          {
-            "type": "knockback",
-            "force": 5
-          }
-        ]
+        "rate": 1
       }
     },
     "animations": [
-      {"name": "idle_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "idle_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture_left", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "gesture_right", "frameDuration": 0.1, "playMode": "LOOP"},
+      {"name": "idle_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "idle_right", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture_right", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "walk_left", "frameDuration": 0.1, "playMode": "LOOP"},
       {"name": "walk_right", "frameDuration": 0.1, "playMode": "LOOP"},
-      {"name": "attack_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "attack_right", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death_left", "frameDuration": 0.1, "playMode": "NORMAL"},
-      {"name": "death_right", "frameDuration": 0.1, "playMode": "NORMAL"}
+      {"name": "attack_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "death_right", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
   "snake": {
@@ -173,6 +181,11 @@
     "strength":6,
     "baseAttack": 10,
     "isDirectional": true,
+    "isScaled": true,
+    "scale": {
+        "x": 0.8,
+        "y": 0.8
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,
@@ -200,12 +213,12 @@
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "walk_left", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "walk_right", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "attack_left", "frameDuration": 0.15, "playMode": "NORMAL"},
-      {"name": "attack_right", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "idle", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "walk_left", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "walk_right", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "attack_left", "frameDuration": 0.2, "playMode": "NORMAL"},
+      {"name": "attack_right", "frameDuration": 0.2, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
@@ -213,6 +226,11 @@
     "health": 400,
     "strength":10,
     "baseAttack": 35,
+    "isScaled": true,
+    "scale": {
+        "x": 1.5,
+        "y": 1.5
+    },
     "tasks": {
       "follow": {
         "followRadius": 3,
@@ -235,22 +253,34 @@
     "attacks": {
       "melee": {
         "range": 1.5,
-        "rate": 0.5,
-        "effects": [
-          {
-            "type": "knockback",
-            "force": 1
-          }
-        ]
+        "rate": 0.5
       }
     },
     "animations": [
-      {"name": "idle", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "gesture", "frameDuration": 0.15, "playMode": "LOOP"},
+      {"name": "idle", "frameDuration": 0.2, "playMode": "LOOP"},
+      {"name": "gesture", "frameDuration": 0.2, "playMode": "LOOP"},
       {"name": "walk", "frameDuration": 0.15, "playMode": "LOOP"},
-      {"name": "attack", "frameDuration": 0.15, "playMode": "NORMAL"},
+      {"name": "attack", "frameDuration": 0.2, "playMode": "NORMAL"},
       {"name": "death", "frameDuration": 0.2, "playMode": "NORMAL"}
     ]
   },
+  "ringFire": {
+    "health": 300,
+    "strength": 3,
+    "baseAttack": 20,
+    "isScaled": true,
+    "scale": {
+        "x": 1.0,
+        "y": 1.0
+    },
+    "tasks": {
+      "follow": {
+        "followRadius": 0,
+        "waitTime": 0,
+        "followDistance": 0,
+        "followSpeed": 50
+      }
+    }
+  }
 }
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -14,29 +14,33 @@ import com.csse3200.game.services.ServiceLocator;
  */
 public class RangeAttackComponent extends AttackComponent {
 
-    private final float spreadAngle = 0.1f;
+    final float spreadAngle = 0.1f;
     private ShootType type;
     private Entity latestProjectile;
-    private String[] projectileNames;
-    private String[] attackTriggers;
+    String[] projectileNames;
+    String[] attackTriggers;
 
-    private int animationID = 0;
+    int animationID = 0;
 
     private final ProjectileFactory projectileFactory = new ProjectileFactory();
+
+    /**
+     * Enum type that control different shooting methods
+     */
+    enum ShootType {
+        SINGLE, // Single shot
+        SPREAD, // Spread shot
+    }
 
     /**
      * Makes a ranged attack component
      *
      * @param target the player
-     * @param attackRange the range that animals begin to shoot projectiles
-     * @param attackRate the rate of shooting
-     * @param shootType determine single shot or spread shot
-     8 @param effectConfigs the list of effects that apply on target
+     * @param config the attack configuration
      */
-    public RangeAttackComponent(Entity target, float attackRange, float attackRate, int shootType,
-                                NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
-        super(target, attackRange, attackRate, effectConfigs);
-        if (shootType == 0) {
+    public RangeAttackComponent(Entity target, AttackConfig.RangeAttack config) {
+        super(target, config.range, config.rate, config.effects);
+        if (config.type == 0) {
             type = ShootType.SINGLE;
         }
         else {
@@ -80,12 +84,13 @@ public class RangeAttackComponent extends AttackComponent {
         } else {
             baseName = baseEntity.getComponent(NameComponent.class).getName();
         }
+
         System.out.println("Ranged animals shooting:");
         System.out.println(baseName);
-        if (baseName.equals("Dragon")) {
+        if (baseName.equals("dragon")) {
             projectileNames = new String[]{"dragonProjectile"};
             attackTriggers = new String[]{"fire_attack"};
-        } else if (baseName.equals("Kitsune")) {
+        } else if (baseName.equals("kitsune")) {
             projectileNames = new String[]{"kitsuneProjectile1", "kitsuneProjectile2"};
             attackTriggers = new String[]{"fire1", "fire2"};
         } else {
@@ -108,9 +113,7 @@ public class RangeAttackComponent extends AttackComponent {
 //        setAnimationID(0);
         shoot(direction);
         // Attack effects
-        if (effects != null) {
-            applyEffects(target);
-        }
+        applyEffects(target);
     }
 
     /**
@@ -126,7 +129,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param target The target entity
      * @return direction from this entity towards its target
      */
-    private Vector2 getDirection(Entity target) {
+    Vector2 getDirection(Entity target) {
         if (target == null) {
             return new Vector2(0, 0);
         }
@@ -182,7 +185,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param projectile projectile entity
      * @param direction direction that projectile is flying toward
      */
-    private void updateDirection(Entity projectile, Vector2 direction) {
+    void updateDirection(Entity projectile, Vector2 direction) {
         if (direction.x >= 0) {
             projectile.getComponent(DirectionalNPCComponent.class).setDirection("right");
         } else {
@@ -196,7 +199,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param direction The direction to shoot at
      * @param numShot number of spreads
      */
-    private void spreadShoot(Vector2 direction, int numShot) {
+    void spreadShoot(Vector2 direction, int numShot) {
         if (numShot == 1) {
             shoot(direction);
             return;
@@ -212,7 +215,7 @@ public class RangeAttackComponent extends AttackComponent {
      * @param angle The rotated angle
      * @return The rotated vector
      */
-    private Vector2 rotate(Vector2 mainRay, float angle) {
+    Vector2 rotate(Vector2 mainRay, float angle) {
         float cos = (float) Math.cos(angle);
         float sin = (float) Math.sin(angle);
 
@@ -235,10 +238,4 @@ public class RangeAttackComponent extends AttackComponent {
     }
 }
 
-/**
- * Enum type that control different shooting methods
- */
-enum ShootType {
-    SINGLE, // Single shot
-    SPREAD, // Spread shot
-}
+

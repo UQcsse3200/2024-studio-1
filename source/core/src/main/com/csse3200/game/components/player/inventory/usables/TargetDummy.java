@@ -12,6 +12,7 @@ import com.csse3200.game.components.tasks.ChargeTask;
 import com.csse3200.game.components.tasks.ChaseTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.entities.factories.DeployableItemFactory;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -37,7 +38,7 @@ public class TargetDummy extends UsableItem {
         int xPos = (int) entity.getPosition().x;
         int yPos = (int) entity.getPosition().y;
 
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
             room.SpawnDeployable(targetDummy, new GridPoint2(xPos, yPos), true, true);
             List<Entity> enemies = room.getEnemies();
             updateEnemyTargets(enemies, targetDummy);
@@ -55,7 +56,7 @@ public class TargetDummy extends UsableItem {
             if (entity.getComponent(AITaskComponent.class) != null) {
 
                 NPCConfigs.NPCConfig config = entity.getComponent(NPCConfigComponent.class).config;
-                NPCConfigs.NPCConfig.TaskConfig tasks = config.tasks;
+                TaskConfig tasks = config.tasks;
 
                 MeleeAttackComponent meleeAttack = entity.getComponent(MeleeAttackComponent.class);
                 RangeAttackComponent rangedAttack = entity.getComponent(RangeAttackComponent.class);

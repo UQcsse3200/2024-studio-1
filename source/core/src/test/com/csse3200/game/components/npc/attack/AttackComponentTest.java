@@ -1,10 +1,10 @@
 package com.csse3200.game.components.npc.attack;
 
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.EffectConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
@@ -25,7 +25,7 @@ class AttackComponentTest {
     private GameAreaService gameAreaService;
 
     @Mock
-    private MainGameArea mainGameArea;
+    private GameController gameController;
 
     @Mock
     private Entity player;
@@ -36,7 +36,7 @@ class AttackComponentTest {
         // Mock GameTime, GameAreaService and MainGameArea
         gameTime = mock(GameTime.class);
         gameAreaService = mock(GameAreaService.class);
-        mainGameArea = mock(MainGameArea.class);
+        gameController = mock(GameController.class);
 
         player = new Entity().addComponent(new CombatStatsComponent(100, 10));
 
@@ -45,8 +45,8 @@ class AttackComponentTest {
         ServiceLocator.registerGameAreaService(gameAreaService);
 
         // Mock the behavior of gameAreaService and mainGameArea
-        when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
-        when(mainGameArea.getPlayer()).thenReturn(player);
+        when(gameAreaService.getGameController()).thenReturn(gameController);
+        when(gameController.getPlayer()).thenReturn(player);
     }
 
     @Test
@@ -92,7 +92,7 @@ class AttackComponentTest {
     }
 
     private Entity createAttacker(Entity target) {
-        NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
+        EffectConfig[] effectConfigs = {}; // No effects for simplicity
         Entity attacker = new Entity()
                 .addComponent(new CombatStatsComponent(10, 10))
                 .addComponent(new AttackComponent(target, 2f, 1f, effectConfigs) {

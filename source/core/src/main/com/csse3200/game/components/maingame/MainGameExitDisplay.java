@@ -118,7 +118,7 @@ public class MainGameExitDisplay extends UIComponent {
             new ChangeListener() {
               @Override
               public void changed(ChangeEvent changeEvent, Actor actor) {
-                System.out.println("Save button clicked");
+                logger.info("Save button clicked");
                 Label saveLabel = new Label("Game saved!", skin);
                 pauseTable.add(saveLabel).padTop(BTN_SPACING);
                 pauseTable.row();
@@ -198,9 +198,8 @@ public class MainGameExitDisplay extends UIComponent {
         SavePlayerService savePlayerService = new SavePlayerService();
         savePlayerService.savePlayerState(player);
         //triggers to save map data and player location, listeners in MainGameArea
-        player.getEvents().trigger("saveMapLocation");
         player.getEvents().trigger("saveMapData");
-        System.out.println("Saved Successfully");
+        logger.info("Saved Successfully");
       }
     }
 

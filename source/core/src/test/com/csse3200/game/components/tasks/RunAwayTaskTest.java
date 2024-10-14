@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.physics.components.PhysicsComponent;
@@ -44,7 +44,7 @@ class RunAwayTaskTest {
         target.setPosition(2f, 2f);
 
         // Use a configuration object for RunAwayTask
-        NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
+        TaskConfig.RunAwayTaskConfig config = new TaskConfig.RunAwayTaskConfig();
         config.runSpeed = 3;
         config.stopDistance = 5;
         config.maxRunTime = 10;
@@ -80,7 +80,7 @@ class RunAwayTaskTest {
         target.setPosition(2f, 2f);
 
         // Use a configuration object for RunAwayTask
-        NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
+        TaskConfig.RunAwayTaskConfig config = new TaskConfig.RunAwayTaskConfig();
         config.runSpeed = 3;
         config.stopDistance = 5;
         config.maxRunTime = 10;
@@ -120,7 +120,7 @@ class RunAwayTaskTest {
         target.setPosition(20f, 20f); // Target out of view distance
 
         // Use a configuration object for RunAwayTask
-        NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
+        TaskConfig.RunAwayTaskConfig config = new TaskConfig.RunAwayTaskConfig();
         config.runSpeed = 3;
         config.stopDistance = 5;
         config.maxRunTime = 10;
@@ -151,7 +151,7 @@ class RunAwayTaskTest {
         target.setPosition(2f, 2f);
 
         // Use a configuration object for RunAwayTask
-        NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
+        TaskConfig.RunAwayTaskConfig config = new TaskConfig.RunAwayTaskConfig();
         config.runSpeed = 20;
         config.stopDistance = 5;
         config.maxRunTime = 10;
@@ -183,7 +183,7 @@ class RunAwayTaskTest {
         target.setPosition(2f, 2f);
 
         // Use a configuration object for RunAwayTask
-        NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config = new NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig();
+        TaskConfig.RunAwayTaskConfig config = new TaskConfig.RunAwayTaskConfig();
         config.runSpeed = 3;
         config.stopDistance = 5;
         config.maxRunTime = 10;

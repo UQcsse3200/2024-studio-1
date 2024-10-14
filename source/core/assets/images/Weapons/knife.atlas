@@ -1,5 +1,5 @@
-Knife.png
-size: 256, 1664
+knife.png
+size: 256, 1920
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -45,7 +45,7 @@ shootRight
   orig: 128, 128
   offset: 0, 0
   index: 6
-shootLeft
+shootRight
   rotate: false
   xy: 0, 384
   size: 128, 128
@@ -87,14 +87,14 @@ shootLeft
   orig: 128, 128
   offset: 0, 0
   index: 12
-shootUp
+shootLeft
   rotate: false
   xy: 0, 768
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 13
-shootUp
+shootLeft
   rotate: false
   xy: 128, 768
   size: 128, 128
@@ -129,21 +129,21 @@ shootUp
   orig: 128, 128
   offset: 0, 0
   index: 18
-shootDown
+shootUp
   rotate: false
   xy: 0, 1152
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 19
-shootDown
+shootUp
   rotate: false
   xy: 128, 1152
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 20
-shootDown
+shootUp
   rotate: false
   xy: 0, 1280
   size: 128, 128
@@ -171,17 +171,45 @@ shootDown
   orig: 128, 128
   offset: 0, 0
   index: 24
-idle
+shootDown
   rotate: false
   xy: 0, 1536
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 25
-item
+shootDown
   rotate: false
   xy: 128, 1536
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: 26
+shootDown
+  rotate: false
+  xy: 0, 1664
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 27
+shootDown
+  rotate: false
+  xy: 128, 1664
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 28
+idle
+  rotate: false
+  xy: 0, 1792
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 29
+item
+  rotate: false
+  xy: 128, 1792
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 30

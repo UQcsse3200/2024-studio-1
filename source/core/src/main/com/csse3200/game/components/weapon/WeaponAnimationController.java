@@ -72,7 +72,7 @@ public class WeaponAnimationController extends Component {
     }
 
     private void animateLeft() {
-        if (!this.connected) {
+        if (Boolean.FALSE.equals(this.connected)) {
             return;
         }
         animationController.startAnimation("left");
@@ -80,7 +80,7 @@ public class WeaponAnimationController extends Component {
     }
 
     private void animateIdle() {
-        if (!this.connected) {
+        if (Boolean.FALSE.equals(this.connected)) {
             return;
         }
         animationController.startAnimation("idle");
@@ -88,39 +88,39 @@ public class WeaponAnimationController extends Component {
     }
 
     private void animateUp() {
-        if (!this.connected) {
+        if (Boolean.FALSE.equals(this.connected)) {
             return;
         }
         animationController.startAnimation("up");
         weaponDirection = up;
     }
     private void animateDown() {
-        if (!this.connected) {
+        if (Boolean.FALSE.equals(this.connected)) {
             return;
         }
         animationController.startAnimation("down");
         weaponDirection = down;
     }
     private void animateShootRight() {
-        if (!this.connected) {
+        if (Boolean.FALSE.equals(this.connected)) {
             return;
         }
         animationController.startAnimation("shootRight");
     }
     private void animateShootLeft() {
-        if (!this.connected) {
+        if (Boolean.FALSE.equals(this.connected)) {
             return;
         }
         animationController.startAnimation("shootLeft");
     }
     private void animateShootUp() {
-        if (!this.connected) {
+        if (Boolean.FALSE.equals(this.connected)) {
             return;
         }
         animationController.startAnimation("shootUp");
     }
     private void animateShootDown() {
-        if (!this.connected) {
+        if (Boolean.FALSE.equals(this.connected)) {
             return;
         }
         animationController.startAnimation("shootDown");

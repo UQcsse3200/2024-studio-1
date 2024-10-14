@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.weapons.*;
 import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.entities.Entity;
@@ -16,13 +15,10 @@ import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.services.ServiceLocator;
 
-//import java.util.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.TimerTask;
-
 /**
  * Controller for firing weapons (predecessor: WeaponComponent)
  */
@@ -33,7 +29,6 @@ public class FiringController extends Component {
      */
     private static final Logger logger = LoggerFactory.getLogger(FiringController.class);
 
-    private Collectible weaponCollectible;
     private ProjectileFactory projectileFactory;
 
     private int damage;                                 // weapon damage
@@ -50,7 +45,6 @@ public class FiringController extends Component {
     // weapon type with hand holding it
     private Sprite weaponSprite;
     // Tracking weapon state
-    private long lastActivation;                        // Time of last ranged weapon activation, in seconds
     private final long activationInterval;              // Interval between ranged weapon
     // activation, in miliseconds
 
@@ -72,7 +66,6 @@ public class FiringController extends Component {
         this.fireRate = collectible.getFireRate();
 
         // Setup variables to track weapon state
-        this.lastActivation = 0L;
         this.activationInterval = this.fireRate == 0 ? 0 : (1000L / this.fireRate);
         this.ammo = collectible.getAmmo();
         this.maxAmmo = collectible.getMaxAmmo();
@@ -80,7 +73,6 @@ public class FiringController extends Component {
 
         // Type of projectile
         this.projectileConfig = projectileConfig;
-        this.weaponCollectible = collectible;
     }
 
     /**
@@ -94,7 +86,6 @@ public class FiringController extends Component {
         this.range = collectible.getRange();
         this.fireRate = collectible.getFireRate();
         // Setup variables to track weapon state
-        this.lastActivation = 0L;
         this.activationInterval = this.fireRate == 0 ? 0 : (1000L / this.fireRate);
         this.ammo = 0;
         this.maxAmmo = 0;
@@ -102,8 +93,6 @@ public class FiringController extends Component {
 
         // Type of projectile
         this.projectileConfig = null;
-
-        this.weaponCollectible = collectible;
     }
 
     /**
@@ -229,7 +218,8 @@ public class FiringController extends Component {
             // get all NPC entities in a map by accessing game area
             List<Entity> mapEntities = ServiceLocator.getGameAreaService()
                     .getGameArea().getListOfEntities();
-            logger.info("Entities in map: " + mapEntities);
+            //logger.info("Entities in map: " + mapEntities);
+            logger.info("Entities in map: {0}", mapEntities);
             applyFilteredDamage(mapEntities);
         } else {
             logger.info("No melee weapon");
@@ -261,14 +251,6 @@ public class FiringController extends Component {
             if (distance > this.range) {
                 continue; // Skip entities outside swing range
             }
-
-//            // if the target in front of the player
-//            // (1/4 of the circle, ex. if player face right, target in front is fromn 90 to 270 degree)
-//            Vector2 direction = e.getPosition().sub(this.player.getPosition()).nor();
-//            Vector2 playerDirection = this.player.getComponent(PlayerActions.class).getWalkDirection();
-//            if (direction.angleDeg(playerDirection) > 90 || direction.angleDeg(playerDirection) < -90) {
-//                continue; // Skip entities not in front of the player
-//            }
 
             HitboxComponent hitbox = e.getComponent(HitboxComponent.class);
             if (hitbox == null || hitbox.getLayer() != targetLayer) {

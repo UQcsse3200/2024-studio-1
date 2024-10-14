@@ -101,7 +101,7 @@ public class LoadPlayer {
                 .addComponent(new CombatStatsComponent(
                 config.health, config.maxHealth,
                 config.baseAttack, true, config.armour, config.buff, config.canCrit,
-                config.critChance))
+                config.critChance, config.timeInvincible))
                 .addComponent(inventoryComponent)
                 .addComponent(playerActions)
                 .addComponent(new PlayerAchievementComponent())
@@ -130,6 +130,7 @@ public class LoadPlayer {
      * Creates and adds a melee weapon to the player entity.
      *
      * @param config file containing melee weapon details.
+     *
      */
     private void createMelee(PlayerConfig config) {
         Collectible melee = collectibleFactory.create(config.melee);
@@ -142,6 +143,7 @@ public class LoadPlayer {
      * Creates and adds a ranged weapon to the player entity
      *
      * @param config file containing ranged weapon details.
+     *
      */
     private void createRanged(PlayerConfig config) {
         Collectible ranged = collectibleFactory.create(config.ranged);
@@ -238,7 +240,6 @@ public class LoadPlayer {
                 animator.addAnimation("death_left", 0.1f, Animation.PlayMode.NORMAL);
                 animator.addAnimation("death_right", 0.1f, Animation.PlayMode.LOOP);
         }
-
         return animator;
     }
 

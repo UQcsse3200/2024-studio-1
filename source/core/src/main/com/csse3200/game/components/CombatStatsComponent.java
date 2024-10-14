@@ -32,14 +32,23 @@ public class CombatStatsComponent extends Component {
     private double critChance;
     private boolean isInvincible;
     // change requested by character team
-    private static final int timeInvincible = 2000;
+    private int timeInvincible = 1000; // default IFrames is 1 seconds
     private final Timer timerIFrames; 
-    private static final int timeFlash = 250;
+    private int timeFlash = 250;
+
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
 
     private String lastAttackName;
-    private String filePath = "configs/LastAttack.json";
+    private final String filePath = "configs/LastAttack.json";
+
+    public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance, int timeInvincible) {
+        this(health, maxHealth, baseAttack, canBeInvincible, armor, buff, canCrit, critChance);
+        this.timeInvincible = timeInvincible;
+        int NUM_FLASH = 6;
+        this.timeFlash = timeInvincible / NUM_FLASH;
+
+    }
 
     public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance) {
         this.canBeInvincible = canBeInvincible;
@@ -51,6 +60,7 @@ public class CombatStatsComponent extends Component {
         this.critAbility = canCrit;
         this.critChance = critChance;
         setHealth(health);
+        setMaxHealth(maxHealth);
         setBaseAttack(baseAttack);
         setInvincible(false);
         this.timerIFrames = new Timer();
@@ -91,7 +101,10 @@ public class CombatStatsComponent extends Component {
         public void run() {
             flashTask.cancel();
             setInvincible(false);
-            entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
+            AnimationRenderComponent animateRender = entity.getComponent(AnimationRenderComponent.class); 
+            if(animateRender != null){
+                entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
+            }
         }
     }
 
@@ -117,7 +130,7 @@ public class CombatStatsComponent extends Component {
      * @return is player dead
      */
     public Boolean isDead() {
-        return health == 0;
+        return health <= 0;
     }
 
     /**
@@ -249,11 +262,7 @@ public class CombatStatsComponent extends Component {
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */
     public void hit(CombatStatsComponent attacker) {
-
-        if (getIsInvincible()) {
-            return;
-        }
-        if (isDead()){
+        if (getIsInvincible() || isDead()) {
             return;
         }
         ShieldComponent shield = entity.getComponent(ShieldComponent.class);
@@ -261,12 +270,10 @@ public class CombatStatsComponent extends Component {
             entity.getEvents().trigger("hit");
             return;
         }
-
         if (getCanBeInvincible()) { // Only player currently
             float damageReduction = armor / (armor + 233.33f); //max damage reduction is 30% based on max armor(100)
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
-
             if (attacker.getEntity() == null
                     || attacker.getEntity().getName().equals("Unknown Entity")) {
                 lastAttackName = "Unknown";
@@ -274,39 +281,37 @@ public class CombatStatsComponent extends Component {
             else {
                 lastAttackName = attacker.getEntity().getName();
             }
-
             FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
-            //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
-            //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
-            //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
             entity.getEvents().trigger("playerHit");
-            if (isDead()){ return; }
+            if (isDead()){ 
+                return; 
+            }
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+            return;
+        } 
+        Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
+        int damage;
+        if (player != null) {
+            CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);
+            damage = attacker.getBaseAttack() + playerStats.buff;
+            if (playerStats.getCanCrit()) {
+                damage = applyCrit(damage, playerStats.getCritChance());
+            }
         } else {
-            Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
-            int damage;
-            if (player != null) {
-                CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);
-                damage = attacker.getBaseAttack() + playerStats.buff;
-                if (playerStats.getCanCrit()) {
-                    damage = applyCrit(damage, playerStats.getCritChance());
-                }
-            } else {
-                damage = attacker.getBaseAttack();
-            }
-            int newHealth = getHealth() - damage;
-            setHealth(newHealth);
-            //add animationcontroller
-            if (health <= 0) {
-                entity.getEvents().trigger("death");
-                entity.getEvents().trigger("died");
-                entity.getEvents().trigger("checkAnimalsDead");
-                entity.getEvents().trigger("dummyDestroyed");
-            }
+            damage = attacker.getBaseAttack();
+        }
+        int newHealth = getHealth() - damage;
+        setHealth(newHealth);
+        //add animationcontroller
+        if (health <= 0) {
+            entity.getEvents().trigger("death");
+            entity.getEvents().trigger("died");
+            entity.getEvents().trigger("checkAnimalsDead");
+            entity.getEvents().trigger("dummyDestroyed");
         }
     }
 

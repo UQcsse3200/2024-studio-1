@@ -10,7 +10,7 @@ import com.csse3200.game.services.ServiceLocator;
 public class RingFire extends UsableItem {
     @Override
     public void apply(Entity entity) {
-        if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom() instanceof EnemyRoom room) {
+        if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
             int[] offsetx = {-3, -2, -1, 0, 1, 2, 3, 2, 1, 0, -1, -2};
             int[] offsety = {0, 1, 2, 3, 2, 1, 0, -1, -2, -3, -2, -1};
             for (int i = 0; i < 12; i++) {

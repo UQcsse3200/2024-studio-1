@@ -11,6 +11,7 @@ import com.csse3200.game.components.npc.NPCConfigComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.physics.BodyUserData;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -76,7 +77,7 @@ public class TrapComponent extends Component {
 
         if (enemy.getComponent(AITaskComponent.class) != null) {
             NPCConfigs.NPCConfig config = enemy.getComponent(NPCConfigComponent.class).config;
-            NPCConfigs.NPCConfig.TaskConfig tasks = config.tasks;
+            TaskConfig tasks = config.tasks;
 
             if (tasks.follow != null) {
                 return false;

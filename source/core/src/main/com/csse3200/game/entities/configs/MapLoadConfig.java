@@ -14,6 +14,8 @@ public class MapLoadConfig {
     public int mapSize = SIZE_ON_MEDIUM;
 
     private static final int SIZE_ON_MEDIUM = 20;
+    private static final int SIZE_FACTOR = 40;
+    private static final double MUL_FACTOR = 1.25;
 
     /**
      * Set map size based on difficulty. Harder difficulty corresponds to larger map size.
@@ -22,7 +24,7 @@ public class MapLoadConfig {
      */
     public MapLoadConfig setSizeFromDifficulty(Difficulty difficulty) {
         // 10 on easy, 20 on medium, 30 on hard
-        mapSize = (int) (40 * (1.25 - difficulty.getMultiplier()));
+        mapSize = (int) (SIZE_FACTOR * (MUL_FACTOR - difficulty.getMultiplier()));
         if (mapSize <= 0) {
             throw new IllegalStateException(
                     "Difficulty is too easy and caused an invalid map size");

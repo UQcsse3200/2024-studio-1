@@ -41,6 +41,10 @@ public class SettingsMenuDisplay extends UIComponent {
     private Slider musicVolumeSlider;
     private Slider soundVolumeSlider;
     private CheckBox muteCheck;
+    private CheckBox wasdShootCheckbox;
+    private CheckBox arrowShootCheckbox;
+    private CheckBox wasdWalkCheckbox;
+    private CheckBox arrowWalkCheckbox;
     private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
 
     public SettingsMenuDisplay(GdxGame game) {
@@ -110,13 +114,6 @@ public class SettingsMenuDisplay extends UIComponent {
         displayModeSelect.setItems(getDisplayModes(selectedMonitor));
         displayModeSelect.setSelected(getActiveMode(displayModeSelect.getItems()));
 
-        Label actionLabel = new Label("Action: ", skin);
-        SelectBox<String> actionSelect = new SelectBox<>(skin);
-        actionSelect.setItems(actions);
-        Label keyLabel = new Label("Key: ", skin);
-        SelectBox<String> keySelect = new SelectBox<>(skin);
-        keySelect.setItems(keys);
-
         // Position Components on table
         Table table = new Table();
 
@@ -156,10 +153,36 @@ public class SettingsMenuDisplay extends UIComponent {
         table.add(soundVolumeTable).left();
 
         table.row().padTop(10f);
-        table.add(actionLabel).right().padRight(15f);
-        table.add(actionSelect).left();
-        table.add(keyLabel).right().padRight(15f);
-        table.add(keySelect).left();
+
+        Label walkLabel = new Label("Movement Control: ", skin);
+        wasdWalkCheckbox = new CheckBox("WASD", skin);
+        arrowWalkCheckbox = new CheckBox("Arrows", skin);
+
+        // ButtonGroup ensures only one checkbox is selected at a time
+        ButtonGroup<CheckBox> walkButtonGroup = new ButtonGroup<>(wasdWalkCheckbox, arrowWalkCheckbox);
+        walkButtonGroup.setChecked("WASD"); // Default to WASD
+
+        // Shoot Control Label and Checkboxes
+        Label shootLabel = new Label("Shoot Control: ", skin);
+        wasdShootCheckbox = new CheckBox("WASD", skin);
+        arrowShootCheckbox = new CheckBox("Arrows", skin);
+
+        ButtonGroup<CheckBox> shootButtonGroup = new ButtonGroup<>(wasdShootCheckbox, arrowShootCheckbox);
+        shootButtonGroup.setChecked("Arrows"); // Default to Arrows
+
+        table.row();
+        // Add elements to the table
+        table.add(walkLabel).pad(10);
+        table.add(wasdWalkCheckbox).pad(10);
+        table.add(arrowWalkCheckbox).pad(10).row();
+
+        table.add(shootLabel).pad(10);
+        table.add(wasdShootCheckbox).pad(10);
+        table.add(arrowShootCheckbox).pad(10).row();
+
+
+
+
 
         musicVolumeSlider.addListener(
                 (Event event) -> {
@@ -254,6 +277,8 @@ public class SettingsMenuDisplay extends UIComponent {
                     settings.vsync = vsyncCheck.isChecked();
                     settings.musicVolume = musicVolumeSlider.getValue();
                     settings.soundVolume = soundVolumeSlider.getValue();
+                    settings.walkWithWASD = wasdWalkCheckbox.isChecked();
+                    settings.shootWithWASD = wasdShootCheckbox.isChecked();
 
                     UserSettings.set(settings, true);
                     game.setScreen(ScreenType.MAIN_MENU); // Redirect to main menu

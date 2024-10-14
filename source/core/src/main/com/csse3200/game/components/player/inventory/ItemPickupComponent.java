@@ -167,7 +167,7 @@ public class ItemPickupComponent extends Component {
             if (playerFunds >= cost) {
                 coinsComponent.spend(cost);
                 entity.getComponent(InventoryComponent.class).pickup(item);
-                itemEntity.getComponent(BuyableComponent.class).removeLabel();
+
 
                 GameController controller = ServiceLocator.getGameAreaService().getGameController();
 
@@ -175,6 +175,7 @@ public class ItemPickupComponent extends Component {
                     Room room = controller.getCurrentRoom();
                     if (room instanceof ShopRoom shop) {
                         shop.removeItemFromList(item.getSpecification() + ":buyable");
+                        itemEntity.getComponent(BuyableComponent.class).removeLabel();
                         markEntityForRemoval(itemEntity);
                     }
                 }

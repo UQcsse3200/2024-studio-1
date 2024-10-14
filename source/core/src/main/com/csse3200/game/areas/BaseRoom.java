@@ -3,6 +3,7 @@ package com.csse3200.game.areas;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.Random;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -102,6 +103,7 @@ public abstract class BaseRoom implements Room {
                 Integer.parseInt(split.get(2)),
                 Integer.parseInt(split.get(3))
         );
+        Random random = new Random();
         this.itemGroup = Integer.parseInt(split.get(5));
         this.specification = specification;
     }

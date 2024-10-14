@@ -132,6 +132,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         if (walkDirection.len() > 0) {
             walkDirection.nor();  // Normalize to prevent faster diagonal movement
             entity.getEvents().trigger("walk", walkDirection);
+            String direction = getDirection(walkDirection);
+            switch (direction) {
+                case "LEFT" -> entity.getEvents().trigger("walkLeft");
+                case "UP" -> entity.getEvents().trigger("walkUp");
+                case "RIGHT" -> entity.getEvents().trigger("walkRight");
+                case "DOWN" -> entity.getEvents().trigger("walkDown");
+                case "NONE" -> {
+                    // Handle no movement or default case
+                }
+            }
         } else {
             entity.getEvents().trigger("walkStop");
         }
@@ -374,28 +384,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     @Override
     public boolean keyUp(int keycode) {
         return keyChange(upBindings, keycode);
-    }
-
-    /**
-     * Triggers specific player walk events
-     * based on the current direction.
-     */
-    private void triggerWalkEvent() {
-        if (walkDirection.epsilonEquals(Vector2.Zero)) {
-            entity.getEvents().trigger("walkStop");
-        } else {
-            entity.getEvents().trigger("walk", walkDirection);
-            String direction = getDirection(walkDirection);
-            switch (direction) {
-                case "LEFT" -> entity.getEvents().trigger("walkLeft");
-                case "UP" -> entity.getEvents().trigger("walkUp");
-                case "RIGHT" -> entity.getEvents().trigger("walkRight");
-                case "DOWN" -> entity.getEvents().trigger("walkDown");
-                case "NONE" -> {
-                    // Handle no movement or default case
-                }
-            }
-        }
     }
 }
 

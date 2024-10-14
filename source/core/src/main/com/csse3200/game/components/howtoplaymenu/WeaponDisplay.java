@@ -139,31 +139,8 @@ public class WeaponDisplay extends UIComponent{
         return table;
     }
 
-    private void applyChanges() {
-        UserSettings.Settings settings = UserSettings.get();
-
-        Integer fpsVal = parseOrNull(fpsText.getText());
-        if (fpsVal != null) {
-            settings.fps = fpsVal;
-        }
-        settings.fullscreen = fullScreenCheck.isChecked();
-        settings.uiScale = uiScaleSlider.getValue();
-        settings.displayMode = new UserSettings.DisplaySettings(displayModeSelect.getSelected().object);
-        settings.vsync = vsyncCheck.isChecked();
-
-        UserSettings.set(settings, true);
-    }
-
     private void exitMenu() {
         game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
-    }
-
-    private Integer parseOrNull(String num) {
-        try {
-            return Integer.parseInt(num, 10);
-        } catch (NumberFormatException e) {
-            return null;
-        }
     }
 
     @Override

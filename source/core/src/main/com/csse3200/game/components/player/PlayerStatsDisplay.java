@@ -56,7 +56,10 @@ public class PlayerStatsDisplay extends UIComponent {
 
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
         entity.getEvents().addListener("melee_pickup", this::updateMeleeWeaponUI);
-        entity.getEvents().addListener("ranged_pickup", this::updateRangedWeaponUI);
+        entity.getEvents().addListener("ranged_pickup", (Integer maxAmmo) -> {
+            updateShotgunLabel(20, "Shotgun");
+            updateRangedWeaponUI(maxAmmo, "Shotgun");
+        });
         entity.getEvents().addListener("ranged_activate", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);

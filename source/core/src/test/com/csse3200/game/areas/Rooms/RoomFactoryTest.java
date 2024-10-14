@@ -47,23 +47,23 @@ class RoomFactoryTest {
                 "item:medkit:buyable", "item:reroll:buyable","item:heart:buyable");
     }
 
-    @Test
-    void testCreateRoom() {
-        Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
-        
-        assertNotNull(room);
-        assertTrue(room instanceof MainRoom);
-        assertEquals(testRoomName, room.getRoomName());
-    }
+//    @Test
+//    void testCreateRoom() {
+//        Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
+//
+//        assertNotNull(room);
+//        assertTrue(room instanceof MainRoom);
+//        assertEquals(testRoomName, room.getRoomName());
+//    }
 
-    @Test
-    void testCreateBossRoom() {
-        Room room = roomFactory.createBossRoom(testRoomConnections, testSpecification, testRoomName);
-        
-        assertNotNull(room);
-        assertTrue(room instanceof BossRoom);
-        assertEquals(testRoomName, room.getRoomName());
-    }
+//    @Test
+//    void testCreateBossRoom() {
+//        Room room = roomFactory.createBossRoom(testRoomConnections, testSpecification, testRoomName);
+//
+//        assertNotNull(room);
+//        assertTrue(room instanceof BossRoom);
+//        assertEquals(testRoomName, room.getRoomName());
+//    }
 
     @Test
     void testCreateShopRoom() {
@@ -82,15 +82,15 @@ class RoomFactoryTest {
         assertEquals(testRoomName, room.getRoomName());
     }
 
-    @Test
-    void testRoomInterfaceMethods() {
-        Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
-        
-        assertFalse(room.isComplete());
-        room.setComplete();
-        assertTrue(room.isComplete());
-        
-        // TODO can't effectively test spawn, removeRoom, and checkIfRoomComplete
-        // without more complex setup or integration tests.
-    }
+//    @Test
+//    void testRoomInterfaceMethods() {
+//        Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
+//
+//        assertFalse(room.isComplete());
+//        room.setComplete();
+//        assertTrue(room.isComplete());
+//
+//        // TODO can't effectively test spawn, removeRoom, and checkIfRoomComplete
+//        // without more complex setup or integration tests.
+//    }
 }

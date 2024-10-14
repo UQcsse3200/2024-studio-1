@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.usables.*;
 import com.csse3200.game.ui.UIComponent;
 
 import java.util.HashMap;
@@ -81,6 +82,7 @@ public class PlayerInventoryDisplay extends UIComponent {
     public void create() {
         super.create();
         itemLabels = new HashMap<>();
+        //itemIcons = new HashMap<>();
         addActors();
         updateInventoryUI();
         if (entity.getEvents() != null) {
@@ -99,8 +101,23 @@ public class PlayerInventoryDisplay extends UIComponent {
         inventoryTable.bottom();
         inventoryTable.setFillParent(true);
         stage.addActor(inventoryTable);
+        addItems();
     }
 
+    /**
+     * Helper method to adds and str all the 'Usable Items' a player can collect
+     * to player's inventory
+     */
+    private void addItems() {
+        addItem("Medkit", new MedKit().getIcon());
+        addItem("Shield Potion", new ShieldPotion().getIcon());
+        addItem("Bandage", new Bandage().getIcon());
+        addItem("Target Dummy", new TargetDummy().getIcon());
+        addItem("Bear Trap", new BearTrap().getIcon());
+        //addItem("Big Red Button", new BigRedButton().getIcon());
+        addItem("Teleport Item", new TeleporterItem().getIcon());
+        addItem("ReRoll", new Reroll().getIcon());
+    }
 
     /**
      * Display an image and its description on UI
@@ -145,11 +162,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      * This method will update the quantities of existing items.
      */
     public void updateInventoryUI() {
-        for (Collectible item : inventoryComponent.getItems()) {
-            if (!itemLabels.containsKey(item.getName())) {
-                addItem(item.getName(), item.getIcon());
-            }
-        }
+
         Map<String, Integer> itemQuantities = getItemQuantities();
 
         // Update the displayed quantities

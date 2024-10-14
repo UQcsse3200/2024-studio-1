@@ -1988,7 +1988,7 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="com/csse3200/game/areas/GambleRoom.html" class="type-name-link" title="class in com.csse3200.game.areas">GambleRoom</a> - Class in <a href="com/csse3200/game/areas/package-summary.html">com.csse3200.game.areas</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/csse3200/game/areas/GambleRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.NPCFactory,com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String,java.lang.String)" class="member-name-link">GambleRoom(NPCFactory, CollectibleFactory, TerrainFactory, List&lt;String&gt;, String, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/GambleRoom.html" title="class in com.csse3200.game.areas">GambleRoom</a></dt>
+<dt><a href="com/csse3200/game/areas/GambleRoom.html#%3Cinit%3E(com.csse3200.game.entities.factories.CollectibleFactory,com.csse3200.game.areas.terrain.TerrainFactory,java.util.List,java.lang.String,java.lang.String)" class="member-name-link">GambleRoom(CollectibleFactory, TerrainFactory, List&lt;String&gt;, String, String)</a> - Constructor for class com.csse3200.game.areas.<a href="com/csse3200/game/areas/GambleRoom.html" title="class in com.csse3200.game.areas">GambleRoom</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/screens/GameScreen.html#game" class="member-name-link">game</a> - Variable in class com.csse3200.game.screens.<a href="com/csse3200/game/screens/GameScreen.html" title="class in com.csse3200.game.screens">GameScreen</a></dt>
 <dd>&nbsp;</dd>
@@ -2940,6 +2940,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#getRoomDetails()" class="member-name-link">getRoomDetails()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
 <dd>
 <div class="block">Gets the details of all rooms in the map.</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#getRoomKey(java.lang.String)" class="member-name-link">getRoomKey(String)</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
+<dd>
+<div class="block">Returns the key for the roomType</div>
+</dd>
+<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#getRoomKeys()" class="member-name-link">getRoomKeys()</a> - Method in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
+<dd>
+<div class="block">Returns the Map of roomKeys</div>
 </dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#getRoomName()" class="member-name-link">getRoomName()</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
 <dd>
@@ -5025,8 +5033,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Construct a new  Room Factory</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/generation/MapGenerator.html#RoomKeys" class="member-name-link">RoomKeys</a> - Variable in class com.csse3200.game.areas.generation.<a href="com/csse3200/game/areas/generation/MapGenerator.html" title="class in com.csse3200.game.areas.generation">MapGenerator</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/csse3200/game/areas/BaseRoom.html#roomName" class="member-name-link">roomName</a> - Variable in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></dt>
 <dd>
 <div class="block">Name of the room.</div>
@@ -5641,7 +5647,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Spawns the current room if it hasn't been spawned yet.</div>
 </dd>
-<dt><a href="com/csse3200/game/areas/EnemyRoom.html#SpawnDeployable(com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)" class="member-name-link">SpawnDeployable(Entity, GridPoint2, boolean, boolean)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
+<dt><a href="com/csse3200/game/areas/EnemyRoom.html#spawnDeployable(com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)" class="member-name-link">spawnDeployable(Entity, GridPoint2, boolean, boolean)</a> - Method in class com.csse3200.game.areas.<a href="com/csse3200/game/areas/EnemyRoom.html" title="class in com.csse3200.game.areas">EnemyRoom</a></dt>
 <dd>
 <div class="block">Spawns Deployable Entity</div>
 </dd>

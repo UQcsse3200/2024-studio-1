@@ -172,19 +172,13 @@ public class PlayerSelectDisplay extends UIComponent {
     }
 
     private void playerSelected(String name) {
-        String seed = seedInputField.getText().isEmpty() ? "default_seed" : seedInputField.getText(); // Default if empty
+        String seed = seedInputField.getText().isEmpty() ? "seed" : seedInputField.getText(); // Default if empty
         logger.info("Player chosen: {} with seed: {}", name, seed);
 
         game.gameOptions.playerFactory = playerFactoryFactory.create(name);
         game.gameOptions.seed = seed;
 
-        UserSettings.Settings currentSettings = UserSettings.get();
-        boolean cutsceneEnabled = currentSettings.enableCutscene;
-        if (cutsceneEnabled) {
-            game.setScreen(ScreenType.CUTSCENE);
-        } else {
-            game.setScreen(ScreenType.MAIN_GAME);
-        }
+        game.setScreen(ScreenType.CUTSCENE);
     }
 
     @Override

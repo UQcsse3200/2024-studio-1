@@ -5,6 +5,8 @@ import com.csse3200.game.areas.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.options.GameOptions;
+import com.csse3200.game.services.RandomService;
+import com.csse3200.game.services.ServiceLocator;
 
 import static com.csse3200.game.options.GameOptions.Difficulty.TEST;
 
@@ -32,6 +34,9 @@ public class MainGameScreen extends GameScreen {
 
         logger.debug("Initialising main game screen entities");
         MapLoadConfig mapConfig = new MapLoadConfig();
+        mapConfig.seed = gameOptions.seed;
+        logger.debug("The gameOptions are", game.gameOptions.seed);
+        ServiceLocator.registerRandomService(new RandomService(game.gameOptions.seed));
         mapConfig.currentLevel = "0";
         LevelFactory levelFactory = new MainGameLevelFactory(false, mapConfig);
         if (gameOptions.getDifficulty() == TEST) {

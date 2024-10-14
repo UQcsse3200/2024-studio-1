@@ -21,11 +21,6 @@ public class WeaponDisplay extends UIComponent{
     private final GdxGame game;
 
     private Table rootTable;
-    private TextField fpsText;
-    private CheckBox fullScreenCheck;
-    private CheckBox vsyncCheck;
-    private Slider uiScaleSlider;
-    private SelectBox<StringDecorator<Graphics.DisplayMode>> displayModeSelect;
 
     public WeaponDisplay(GdxGame game) {
         super();
@@ -93,31 +88,6 @@ public class WeaponDisplay extends UIComponent{
         return table;
     }
 
-    private StringDecorator<Graphics.DisplayMode> getActiveMode(Array<StringDecorator<Graphics.DisplayMode>> modes) {
-        Graphics.DisplayMode active = Gdx.graphics.getDisplayMode();
-
-        for (StringDecorator<Graphics.DisplayMode> stringMode : modes) {
-            Graphics.DisplayMode mode = stringMode.object;
-            if (active.width == mode.width
-                    && active.height == mode.height
-                    && active.refreshRate == mode.refreshRate) {
-                return stringMode;
-            }
-        }
-        return null;
-    }
-
-    private Array<StringDecorator<Graphics.DisplayMode>> getDisplayModes(Graphics.Monitor monitor) {
-        Graphics.DisplayMode[] displayModes = Gdx.graphics.getDisplayModes(monitor);
-        Array<StringDecorator<Graphics.DisplayMode>> arr = new Array<>();
-
-        for (Graphics.DisplayMode displayMode : displayModes) {
-            arr.add(new StringDecorator<>(displayMode, this::prettyPrint));
-        }
-
-        return arr;
-    }
-
     private String prettyPrint(Graphics.DisplayMode displayMode) {
         return displayMode.width + "x" + displayMode.height + ", " + displayMode.refreshRate + "hz";
     }
@@ -146,7 +116,6 @@ public class WeaponDisplay extends UIComponent{
     @Override
     protected void draw(SpriteBatch batch) {
         // draw is handled by the stage
-
     }
 
     @Override

@@ -29,7 +29,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private final Map<Integer, Action> downBindings;
     private final Map<Integer, Action> upBindings;
-    private Vector2 directionShooting = null;
+    private final Vector2 directionShooting = new Vector2(0, 0);
     // Timer and task for holding down a shoot button
     private RepeatShoot taskShoot;
     private RepeatMelee taskMelee;
@@ -102,38 +102,48 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * @param direction The direction to shoot in
      */
     private boolean holdShoot(Vector2 direction) {
+        this.directionShooting.add(direction);
         if (this.taskShoot != null) {
             this.taskShoot.cancel();
         }
-        this.directionShooting = direction;
-        this.taskShoot = new RepeatShoot(direction);
+        if (this.directionShooting.isZero()){
+            this.taskShoot.cancel();
+            return true;
+        }
+        Vector2 scaledVct = this.directionShooting.cpy().setLength(1);
+        this.taskShoot = new RepeatShoot(scaledVct);
         Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
         return true;
     }
 
-    private boolean shoot(Vector2 direction) {
+    private void shoot(Vector2 direction) {
         entity.getEvents().trigger("shoot", direction);
-        return true;
     }
 
     /**
      * Method used to stop calling the 'shoot' method
      * Called when the player releases the input to shoot (default is arrow keys)
      *
-     * @param direction
-     * @return (not sure why this needs to return)
+     * @param direction The vector2 direction of the arrow key that was released
+     * @return true to indicate that the input has been handled
      */
     private boolean unShoot(Vector2 direction) {
-        if (this.directionShooting == direction) {
+        this.directionShooting.sub((direction));
+        if (this.directionShooting.isZero()) {
             this.taskShoot.cancel();
-            this.directionShooting = null;
+        } else { // reshoot in different direction
+            if (this.taskShoot != null) {
+                this.taskShoot.cancel();
+            }
+            Vector2 scaledVct = this.directionShooting.cpy().setLength(1);
+            this.taskShoot = new RepeatShoot(scaledVct);
+            Timer.schedule(taskShoot, inputDelay / 1000f, inputDelay / 1000f);
         }
         return true;
     }
 
-    private boolean melee() {
+    private void melee() {
         entity.getEvents().trigger("attackMelee");
-        return true;
     }
 
     private boolean holdMelee() {

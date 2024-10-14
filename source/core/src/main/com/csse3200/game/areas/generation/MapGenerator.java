@@ -274,6 +274,10 @@ public class MapGenerator {
         String location = "0_0";
         int maxDist = 0;
         for (Map.Entry<String, List<String>> entry : relativePosition.entrySet()) {
+            if (Collections.frequency(entry.getValue(), "") != 3) {
+                // checking whether there is only 1 connection to room
+                continue;
+            }
             String key = entry.getKey();
             int dist = calculateDistance(key);
             if (maxDist < dist) {

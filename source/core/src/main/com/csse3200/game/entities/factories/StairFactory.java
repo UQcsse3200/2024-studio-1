@@ -1,6 +1,7 @@
 package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -39,7 +40,10 @@ public class StairFactory {
         stair.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
             Entity entity2 = (Entity) fixture2.getUserData();
             if (entity2.getId() == playerId) {
-                moveToNextLevel();
+
+                if(ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().isComplete()) {
+                    moveToNextLevel();
+                }
             }
         });
     }
@@ -81,8 +85,8 @@ public class StairFactory {
      */
 
     private static void moveToNextLevel() {
-        int currentLevel = ServiceLocator.getGameAreaService().getGameArea().getCurrentLevel().getLevelNumber();
+        int currentLevel = ServiceLocator.getGameAreaService().getGameController().getCurrentLevel().getLevelNumber();
         ServiceLocator.getEntityService().markEntityForRemoval(stair);
-        ServiceLocator.getGameAreaService().getGameArea().changeLevel(currentLevel + 1);
+        ServiceLocator.getGameAreaService().getGameController().changeLevel(currentLevel + 1);
     }
 }

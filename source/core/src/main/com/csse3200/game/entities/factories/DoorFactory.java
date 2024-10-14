@@ -2,6 +2,7 @@ package com.csse3200.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -64,12 +65,10 @@ public class DoorFactory {
      */
     private void createCollision(Entity door, String room, int playerId) {
         door.getEvents().addListener("collisionStart", (Fixture fixture1, Fixture fixture2) -> {
-            if (fixture2.getUserData() instanceof Entity entity2 &&
-                    entity2.getId() == playerId) {
-                log.info("this is the room {}", room);
-                if (ServiceLocator.getGameAreaService().getGameArea().getCurrentRoom().getIsRoomComplete()) {
-                    ServiceLocator.getGameAreaService().getGameArea().changeRooms(room);
-                }
+            if (fixture2.getUserData() instanceof Entity entity2 
+                && entity2.getId() == playerId 
+                && ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().isComplete()) {
+                    ServiceLocator.getGameAreaService().getGameController().changeRooms(room);                    
             }
         });
     }

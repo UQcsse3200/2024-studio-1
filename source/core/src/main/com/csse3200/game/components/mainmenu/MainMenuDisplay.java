@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
+import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.options.GameOptions.Difficulty;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,12 +52,13 @@ public class MainMenuDisplay extends UIComponent {
      * @return true if all load files exist, false otherwise.
      */
     private static boolean loadFilesExist() {
-        HashMap playerLocationConfig = FileLoader.readClass(HashMap.class, MainGameArea.PLAYER_SAVE_PATH, FileLoader.Location.EXTERNAL);
-        ArrayList mapLoadConfig = FileLoader.readClass(ArrayList.class, MainGameArea.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
-        PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class, "configs/player_save.json", FileLoader.Location.EXTERNAL);
+        MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class,
+                    GameController.MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        PlayerConfig playerConfig = FileLoader.readClass(PlayerConfig.class,
+                "saves/player_save.json", FileLoader.Location.EXTERNAL);
 
-        logger.info("{}\n{}\n{}", playerConfig, mapLoadConfig, playerLocationConfig);
-        return playerLocationConfig != null && mapLoadConfig != null && playerConfig != null;
+        logger.info("{}\n{} are read", playerConfig, mapLoadConfig);
+        return  mapLoadConfig != null && playerConfig != null;
     }
 
     private void addActors() {
@@ -77,10 +80,9 @@ public class MainMenuDisplay extends UIComponent {
         TextButton achievementsBtn = new TextButton("Achievements", skin);
         TextButton settingsBtn = new TextButton("Settings", skin);
         TextButton exitBtn = new TextButton("Exit", skin);
-
-        CheckBox shouldLoadBtn = new CheckBox("Load from save file", skin, "load-btn");
+        TextButton loadButton = new TextButton("Load", skin);
         boolean canLoad = loadFilesExist();
-        shouldLoadBtn.setChecked(true);
+
 
         if (settings.displayMode == null) {
             settings.displayMode = new UserSettings.DisplaySettings(Gdx.graphics.getDisplayMode());
@@ -96,9 +98,8 @@ public class MainMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         logger.debug("{} difficulty button clicked", difficulty.toString());
-                        boolean shouldLoad = canLoad && shouldLoadBtn.isChecked();
                         entity.getEvents().trigger(
-                                "player_select", difficulty, shouldLoad);
+                                "player_select", difficulty);
                     }
                 }
         ));
@@ -138,6 +139,14 @@ public class MainMenuDisplay extends UIComponent {
                         entity.getEvents().trigger("exit");
                     }
                 });
+        loadButton.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Load Button Pressed");
+                        entity.getEvents().trigger("load-game");
+                    }
+                });
 
         table.defaults().pad(BTN_SPACING);
         diffBtnsTable.defaults().pad(BTN_SPACING);
@@ -148,17 +157,16 @@ public class MainMenuDisplay extends UIComponent {
         }
         table.add(diffBtnsTable);
         table.row();
-        if (canLoad) {
-            table.add(shouldLoadBtn);
+
+        if(canLoad) {
+            table.add(loadButton);
             table.row();
         }
-
         for (TextButton button : new TextButton[]{
                 howToPlayBtn, achievementsBtn, settingsBtn, exitBtn}) {
             table.add(button);
             table.row();
         }
-
         stage.addActor(bg_logo);
         stage.addActor(table);
     }

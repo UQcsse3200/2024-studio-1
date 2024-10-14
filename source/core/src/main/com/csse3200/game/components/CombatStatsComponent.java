@@ -33,13 +33,30 @@ public class CombatStatsComponent extends Component {
     private boolean isInvincible;
     // change requested by character team
     private static final int timeInvincible = 2000;
-    private final Timer timerIFrames;
+    private final Timer timerIFrames; 
     private static final int timeFlash = 250;
     private final Timer timerFlashSprite;
     private CombatStatsComponent.flashSprite flashTask;
 
     private String lastAttackName;
     private String filePath = "configs/LastAttack.json";
+
+    public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance) {
+        this.canBeInvincible = canBeInvincible;
+        this.maxHealth = health;
+        this.health = health;
+        this.baseAttack = baseAttack;
+        this.armor = armor;
+        this.buff = buff;
+        this.critAbility = canCrit;
+        this.critChance = critChance;
+        setHealth(health);
+        setMaxHealth(maxHealth);
+        setBaseAttack(baseAttack);
+        setInvincible(false);
+        this.timerIFrames = new Timer();
+        this.timerFlashSprite = new Timer();
+    }
 
     public CombatStatsComponent(int health, int baseAttack, boolean canBeInvincible, int armor, int buff) {
         this.canBeInvincible = canBeInvincible;
@@ -271,7 +288,7 @@ public class CombatStatsComponent extends Component {
             flashTask = new CombatStatsComponent.flashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
         } else {
-            Entity player = ServiceLocator.getGameAreaService().getGameArea().getPlayer();
+            Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
             int damage;
             if (player != null) {
                 CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);

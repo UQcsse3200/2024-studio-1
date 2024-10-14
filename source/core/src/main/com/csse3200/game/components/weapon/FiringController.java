@@ -6,18 +6,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
-import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.MeleeWeapon;
-import com.csse3200.game.components.player.inventory.RangedWeapon;
 import com.csse3200.game.components.player.PlayerActions;
+import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.HitboxComponent;
 import com.csse3200.game.services.ServiceLocator;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

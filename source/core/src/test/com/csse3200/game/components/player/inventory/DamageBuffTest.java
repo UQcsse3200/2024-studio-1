@@ -1,14 +1,17 @@
 package com.csse3200.game.components.player.inventory;
+
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.inventory.buffs.DamageBuff;
 import com.csse3200.game.entities.Entity;
-import static org.junit.jupiter.api.Assertions.*;
 import com.csse3200.game.services.ServiceLocator;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -21,7 +24,7 @@ public class DamageBuffTest {
     private DamageBuff damageBuff;
 
     @Mock
-    private MainGameArea mainGameArea;
+    private GameController gameController;
 
     @Mock
     private GameAreaService gameAreaService;
@@ -39,10 +42,10 @@ public class DamageBuffTest {
         ServiceLocator.registerGameAreaService(gameAreaService);
 
         // Mock the behavior of gameAreaService.getGameArea()
-        when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
+        when(gameAreaService.getGameController()).thenReturn(gameController);
 
         // Make sure getPlayer() returns the mocked player entity
-        when(mainGameArea.getPlayer()).thenReturn(player);
+        when(gameController.getPlayer()).thenReturn(player);
     }
 
     @Test

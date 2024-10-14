@@ -1,6 +1,5 @@
 package com.csse3200.game.areas;
 
-import com.csse3200.game.entities.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,5 +33,7 @@ public class Level {
     }
 
     public LevelMap getMap() {return map;}
-
+    public String toString(){
+        return ""+levelNumber;
+    }
 }

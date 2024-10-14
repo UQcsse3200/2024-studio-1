@@ -1,5 +1,7 @@
 package com.csse3200.game.options;
 
+import com.csse3200.game.entities.factories.PlayerFactory;
+
 /**
  * Stores options chosen by the user for a new game. Includes difficulty selection, may include
  * more options later.
@@ -11,7 +13,7 @@ public class GameOptions {
     /**
      * The path to the json file of the selected player.
      */
-    public String chosenPlayer;
+    public PlayerFactory playerFactory;
     /**
      * Whether to load from save files when the game starts.
      */

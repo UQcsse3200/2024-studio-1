@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
+import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.components.player.PlayerFactoryFactory;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.rendering.AnimationRenderComponent;
@@ -32,6 +33,7 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private final GdxGame game;
     private Table rootTable;
+    private TextField seedInputField;
     private static final float ROOT_PADDING = 10f;
     private static final float STAT_TABLE_PADDING = 2f;
     private static final float BAR_HEIGHT = 20;
@@ -116,6 +118,14 @@ public class PlayerSelectDisplay extends UIComponent {
             button.getLabel().setFontScale((float) Gdx.graphics.getWidth() / 1600);
         });
 
+        // Add seed input field at the bottom
+        rootTable.row().padTop(20);
+        Label seedLabel = new Label("Enter Seed:", skin);
+        seedInputField = new TextField("", skin);
+        rootTable.add(seedLabel).colspan(configs.size());
+        rootTable.row();
+        rootTable.add(seedInputField).colspan(configs.size()).fillX().padBottom(20);
+
         Image bgImage = new Image(getResourceService().getAsset(BG_IMAGE, Texture.class));
         bgImage.setFillParent(true);
 
@@ -141,9 +151,19 @@ public class PlayerSelectDisplay extends UIComponent {
     }
 
     private void playerSelected(String name) {
-        logger.info("Player chosen: {}", name);
-        game.gameOptions.setPlayerFactory(playerFactoryFactory.create(name));
-        game.setScreen(ScreenType.CUTSCENE);
+        String seed = seedInputField.getText().isEmpty() ? "default_seed" : seedInputField.getText(); // Default if empty
+        logger.info("Player chosen: {} with seed: {}", name, seed);
+
+        game.gameOptions.playerFactory = playerFactoryFactory.create(name);
+        game.gameOptions.seed = seed;
+
+        UserSettings.Settings currentSettings = UserSettings.get();
+        boolean cutsceneEnabled = currentSettings.enableCutscene;
+        if (cutsceneEnabled) {
+            game.setScreen(ScreenType.CUTSCENE);
+        } else {
+            game.setScreen(ScreenType.MAIN_GAME);
+        }
     }
 
     @Override

@@ -142,6 +142,8 @@ public class MinimapFactory {
                         connectionCode += "_boss";
                     } else if (tempRoom instanceof GambleRoom) {
                         connectionCode += "_gambling";
+                    } else if (tempRoom instanceof ShopRoom) {
+                        connectionCode += "_npc";
                     }
 
                     // Assign the correct tile based on the connection code

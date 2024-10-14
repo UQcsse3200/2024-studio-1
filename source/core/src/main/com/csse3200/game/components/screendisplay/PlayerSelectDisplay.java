@@ -142,7 +142,7 @@ public class PlayerSelectDisplay extends UIComponent {
 
     private void playerSelected(String name) {
         logger.info("Player chosen: {}", name);
-        game.gameOptions.playerFactory = playerFactoryFactory.create(name);
+        game.gameOptions.setPlayerFactory(playerFactoryFactory.create(name));
         game.setScreen(ScreenType.CUTSCENE);
     }
 

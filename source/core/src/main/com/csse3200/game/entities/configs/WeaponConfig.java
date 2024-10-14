@@ -15,25 +15,25 @@ public class WeaponConfig {
 
     static {
         // Load weapon data (can be from JSON or hardcoded for now)
-        WEAPON_CONFIGS.put("Shotgun", new WeaponData("Shotgun", 10, 10,
-                5, 20, 20, 3, "images" +
-                "/Weapons/Centered/Shotgun.png"));
-        WEAPON_CONFIGS.put("Plasmablaster", new WeaponData("plasmaBlaster", 10,
+        WEAPON_CONFIGS.put("Shotgun", new WeaponData("Shotgun", 15, 3,
+                2, 20, 20, 3, "images/Weapons/Centered/Shotgun.png"));
+        WEAPON_CONFIGS.put("shotgun", new WeaponData("shotgun", 10, 10,
+                5, 20, 20, 3, "images/Weapons/Centered/shotgun.png"));
+        WEAPON_CONFIGS.put("plasmablaster", new WeaponData("plasmablaster", 10,
                 10, 5, 20, 20, 3,
-                "images" + "/Weapons/Centered/PlasmaBlaster.png"));
-        WEAPON_CONFIGS.put("Supersoaker", new WeaponData("superSoaker", 10,
+                "images/Weapons/Centered/plasmablaster.png"));
+        WEAPON_CONFIGS.put("supersoaker", new WeaponData("supersoaker", 10,
                 10, 5, 20, 20, 3,
-                "images" + "/Weapons/Centered/SuperSoaker.png"));
-        WEAPON_CONFIGS.put("Fnscar", new WeaponData("fnScar", 10,
-                10, 5, 20, 20, 3,
-                "images" + "/Weapons/Centered/FnScar.png"));
-
-        WEAPON_CONFIGS.put("Knife", new WeaponData("Knife", 30,
-                4, 0, "images/Weapons/Centered" +
-                "/Knife" +
-                ".png"));
-        WEAPON_CONFIGS.put("Axe", new WeaponData("Axe", 50,
-                10, 1, "images/Weapons/Centered/Axe.png"));
+                "images/Weapons/Centered/supersoaker.png"));
+        WEAPON_CONFIGS.put("fnscar", new WeaponData("fnscar", 12,
+                0, 3, 20, 20, 3,
+                "images/Weapons/Centered/fnscar.png"));
+        WEAPON_CONFIGS.put("pistol", new WeaponData("pistol", 10,
+                0, 2, 7, 7, 3, "images/Weapons/Centered/pistol.png"));
+        WEAPON_CONFIGS.put("knife", new WeaponData("knife", 20,
+                1, 3, "images/Weapons/Centered/knife.png"));
+        WEAPON_CONFIGS.put("axe", new WeaponData("axe", 80,
+                2, 1, "images/Weapons/Centered/axe.png"));
 
     }
 

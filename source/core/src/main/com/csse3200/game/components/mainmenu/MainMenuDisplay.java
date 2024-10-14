@@ -12,14 +12,11 @@ import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.options.GameOptions.Difficulty;
-import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.HashMap;
 
 import static com.csse3200.game.services.ServiceLocator.getResourceService;
 
@@ -39,7 +36,7 @@ public class MainMenuDisplay extends UIComponent {
      */
     private Table diffBtnsTable;
 
-    private Image bg_logo;
+    private Image backgroundLogo;
 
     @Override
     public void create() {
@@ -66,7 +63,7 @@ public class MainMenuDisplay extends UIComponent {
 
         table = new Table();
         table.setFillParent(true);
-        bg_logo = new Image(
+        backgroundLogo = new Image(
                 getResourceService().getAsset("images/bg_logo.png", Texture.class));
 
         diffBtnsTable = new Table();
@@ -88,8 +85,8 @@ public class MainMenuDisplay extends UIComponent {
             settings.displayMode = new UserSettings.DisplaySettings(Gdx.graphics.getDisplayMode());
         }
 
-        bg_logo.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        bg_logo.setPosition(0, 0);
+        backgroundLogo.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        backgroundLogo.setPosition(0, 0);
 
         // Triggers an event when the button is pressed
 
@@ -97,7 +94,7 @@ public class MainMenuDisplay extends UIComponent {
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        logger.debug("{} difficulty button clicked", difficulty.toString());
+                        logger.debug("{} difficulty button clicked", difficulty);
                         entity.getEvents().trigger(
                                 "player_select", difficulty);
                     }
@@ -167,7 +164,7 @@ public class MainMenuDisplay extends UIComponent {
             table.add(button);
             table.row();
         }
-        stage.addActor(bg_logo);
+        stage.addActor(backgroundLogo);
         stage.addActor(table);
     }
 
@@ -189,6 +186,6 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     public void resize(int width, int height) {
-        bg_logo.setSize(width, height);
+        backgroundLogo.setSize(width, height);
     }
 }

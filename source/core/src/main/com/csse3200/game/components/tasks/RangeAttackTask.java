@@ -4,7 +4,7 @@ import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 
@@ -25,7 +25,7 @@ public class RangeAttackTask extends DefaultTask implements PriorityTask {
     private long lastExecutionTime;
     private final float cooldownTime;
 
-    public RangeAttackTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.RangeAttackTaskConfig config,
+    public RangeAttackTask(Entity target, TaskConfig.RangeAttackTaskConfig config,
                            String attackType) {
         this.target = target;
         this.activationMinRange = config.activationMinRange;

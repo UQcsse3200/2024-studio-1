@@ -102,7 +102,7 @@ public abstract class BaseRoom implements Room {
      * @param specification      The room specification string.
      * @param roomName           The name of the room.
      */
-    public BaseRoom(
+    protected BaseRoom(
             TerrainFactory terrainFactory,
             CollectibleFactory collectibleFactory,
             List<String> roomConnections,

@@ -16,6 +16,7 @@ public class ProjectileConfigs {
         public float scaleY = 0.5f;
         public ProjectileAnimations[] animations = new ProjectileAnimations[0];
         public boolean isDirectional;
+        public float range;
 
         public static class ProjectileAnimations {
             public String name;

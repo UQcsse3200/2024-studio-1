@@ -26,9 +26,9 @@ public class MainGameScreen extends GameScreen {
         GameArea gameArea = new GameArea();
 
         GameOptions gameOptions = game.gameOptions;
-        logger.info("Starting game with difficulty {}", gameOptions.difficulty.toString());
+        logger.info("Starting game with difficulty {}", gameOptions.getDifficulty());
 
-        Entity player = gameOptions.playerFactory.create(gameOptions.difficulty);
+        Entity player = gameOptions.createPlayer(gameOptions.getDifficulty());
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
         logger.debug("Initialising main game screen entities");

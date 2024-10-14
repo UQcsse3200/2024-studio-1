@@ -4,18 +4,13 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Timer;
-import com.csse3200.game.components.CameraComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
-
-import java.sql.Time;
 
 /**
  * This class listens to events relevant to an entity's state and plays the animation when one
@@ -26,7 +21,6 @@ public class NPCAnimationController extends Component {
     private DirectionalNPCComponent directionalComponent;
     private Boolean dead;
     private Image circle;
-    private Stage stage;
     private OrthographicCamera orthographicCamera;
 
     private Color circleColor;
@@ -51,7 +45,7 @@ public class NPCAnimationController extends Component {
         circleColor = new Color(0, 0, 1, 1); // Initial blue color for preparation phase
         circle.setColor(circleColor);
         // Get the stage to display the circle
-        stage = ServiceLocator.getRenderService().getStage();
+        Stage stage = ServiceLocator.getRenderService().getStage();
         stage.addActor(circle); // Add circle to stage so it's rendered
 
 
@@ -156,6 +150,8 @@ public class NPCAnimationController extends Component {
         }
     }
 
+
+
     void animateRun() {
         if (!dead) {
             if (animator.hasAnimation("run_right") && animator.hasAnimation("run_left")) {
@@ -174,6 +170,8 @@ public class NPCAnimationController extends Component {
                 triggerDirectionalAnimation("attack");
             } else if (animator.hasAnimation("attack")) {
                 animator.startAnimation("attack");
+            } else if(animator.hasAnimation("1atk_left") && animator.hasAnimation("1atk_right")){
+                triggerDirectionalAnimation("1atk");
             } else {
                 throw new IllegalStateException("No attack animation found");
             }
@@ -211,8 +209,12 @@ public class NPCAnimationController extends Component {
                 triggerDirectionalAnimation("jump");
             } else if (animator.hasAnimation("jump")) {
                 animator.startAnimation("jump");
+            } else if (animator.hasAnimation("fly_right") && animator.hasAnimation("fly_left")) {
+                triggerDirectionalAnimation("fly");
+            } else if (animator.hasAnimation("fly")) {
+                animator.startAnimation("fly");
             } else {
-                throw new IllegalStateException("No jump animation found");
+                throw new IllegalStateException("No jump or fly animation found");
             }
         }
     }

@@ -140,7 +140,8 @@ public class WeaponFactory extends LoadedFactory {
         // set the collider to 0
         meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
         meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(0f, 0f));
+        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(1, 1));
+        meleeEntity.setScale(2.0f, 2.0f);
 
         logger.info("Created melee weapon entity: " + collectible);
 
@@ -159,6 +160,8 @@ public class WeaponFactory extends LoadedFactory {
 
         // Load atlas and animation
         WeaponAnimationRenderComponent animator = createAnimator(collectible);
+        ProjectileConfig projectileConfig = new ProjectileConfig();
+        projectileConfig.baseAttack = collectible.getDamage();
 
         Entity rangedEntity = new Entity()
                 .addComponent(new NameComponent("Ranged"))
@@ -166,7 +169,7 @@ public class WeaponFactory extends LoadedFactory {
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(animator)
-                .addComponent(new FiringController(collectible, new ProjectileConfig()))
+                .addComponent(new FiringController(collectible, projectileConfig))
                 .addComponent(new PositionTracker())
                 .addComponent(new WeaponAnimationController());
 
@@ -202,22 +205,6 @@ public class WeaponFactory extends LoadedFactory {
         return animator;
     }
 
-//    /**
-//     * Get all the filepath to textures needed by this Factory
-//     *
-//     * @return the filepath needed.
-//     */
-//    @Override
-//    protected String[] getTextureFilepaths() {
-//        return new String[]{
-//                "images/Weapons/sword1.png",
-//                "images/Weapons/shotgun4.png",
-//                "images/Weapons/shotgun_1.png",
-//                "images/Weapons/shotgun_2.png",
-//                "images/Weapons/winchester.png"
-//        };
-//    }
-
     /**
      * Get all the filepath to sounds needed by this Factory
      *
@@ -240,12 +227,13 @@ public class WeaponFactory extends LoadedFactory {
     @Override
     protected String[] getTextureAtlasFilepaths() {
         return new String[]{
-                "images/Weapons/Knife.atlas",
-                "images/Weapons/Axe.atlas",
-                "images/Weapons/Shotgun.atlas",
-                "images/Weapons/FnScar.atlas",
-                "images/Weapons/SuperSoaker.atlas",
-                "images/Weapons/PlasmaBlaster.atlas"
+                "images/Weapons/knife.atlas",
+                "images/Weapons/axe.atlas",
+                "images/Weapons/shotgun.atlas",
+                "images/Weapons/fnscar.atlas",
+                "images/Weapons/supersoaker.atlas",
+                "images/Weapons/pistol.atlas",
+                "images/Weapons/plasmablaster.atlas"
         };
     }
 

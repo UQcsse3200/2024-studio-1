@@ -126,9 +126,11 @@ public class PlayerActions extends Component {
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        entity.getComponent(InventoryComponent.class)
-                .getMainWeapon()
-                .ifPresent(weapon -> weapon.shoot(direction));
+        if (!dead) {
+            entity.getComponent(InventoryComponent.class)
+                    .getMainWeapon()
+                    .ifPresent(weapon -> weapon.shoot(direction));
+        }
     }
 
     private void updateSpeed() {

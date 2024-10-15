@@ -76,10 +76,37 @@ public class AlertBoxService {
     }
 
     /**
+     * Displays a game won dialog with an Exit button.
+     *
+     * @param title     Title of the dialog.
+     * @param message   Message to display.
+     * @param listener  Listener to handle Exit response.
+     */
+    public void showGameWonDialog(String title, String message, GameWonListener listener) {
+        Dialog dialog = new Dialog(title, skin) {
+            @Override
+            protected void result(Object object) {
+                listener.onExit();
+            }
+        };
+
+        dialog.text(message);
+        dialog.button("Exit", true);
+        dialog.show(stage);
+    }
+
+    /**
      * Listener interface for handling Yes/No responses.
      */
     public interface ConfirmationListener {
         void onYes();
         void onNo();
+    }
+
+    /**
+     * Listener interface for handling game won dialog response.
+     */
+    public interface GameWonListener {
+        void onExit();
     }
 }

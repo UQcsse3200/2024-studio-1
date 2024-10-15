@@ -5,6 +5,7 @@ import com.csse3200.game.areas.MainGameLevel;
 import com.csse3200.game.areas.LevelFactory;
 import com.csse3200.game.areas.MainGameLevelFactory;
 import com.csse3200.game.components.CameraComponent;
+import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.RandomService;
 import com.csse3200.game.services.ResourceService;
@@ -40,13 +41,16 @@ class MainGameLevelFactoryTest {
 
         // Set up mock RenderService
         when(mockRenderService.getCamera()).thenReturn(mockCamera);
+        MapLoadConfig mapLoadConfig = new MapLoadConfig();
+        mapLoadConfig.currentLevel = "1";
         ServiceLocator.registerRenderService(mockRenderService);
+
 
         // Set up ResourceService (or mock it if necessary)
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRandomService(new RandomService(""));
 
-        levelFactory = new MainGameLevelFactory(false, null);
+        levelFactory = new MainGameLevelFactory(false, mapLoadConfig);
     }
 
     @AfterEach

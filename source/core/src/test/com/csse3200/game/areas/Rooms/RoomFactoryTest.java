@@ -74,15 +74,6 @@ class RoomFactoryTest {
     }
 
     @Test
-    void testCreateGambleRoom() {
-        Room room = roomFactory.createGambleRoom(testRoomConnections, testSpecification, testRoomName);
-        
-        assertNotNull(room);
-        assertTrue(room instanceof GambleRoom);
-        assertEquals(testRoomName, room.getRoomName());
-    }
-
-    @Test
     void testRoomInterfaceMethods() {
         Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
         

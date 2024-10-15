@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.screens.WinScreen;
 import com.csse3200.game.services.ServiceLocator;
@@ -28,6 +29,8 @@ public class WinScreenDisplay extends UIComponent {
     private static final float Y_PADDING = 10f;
     private final GdxGame game;
     private Table table;
+    private final String backgroundImagePath;
+    private Image backgroundImage;
 
     /**
      * Make the component.
@@ -35,8 +38,9 @@ public class WinScreenDisplay extends UIComponent {
      * @param game the overarching game, needed so that buttons can trigger navigation through
      *             screens
      */
-    public WinScreenDisplay(GdxGame game) {
+    public WinScreenDisplay(GdxGame game , String backgroundImagePath) {
         this.game = game;
+        this.backgroundImagePath = backgroundImagePath;
     }
 
     @Override
@@ -62,11 +66,11 @@ public class WinScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
-        // See assets/images/player/player_asset_citation.txt
-        Image playerHappy = new Image(
-                ServiceLocator.getResourceService().getAsset(WinScreen.PLAYER_HAPPY, Texture.class)
-        );
-        table.add(playerHappy).padTop(Y_PADDING);
+        // Set up background image
+        Texture backgroundTexture = ServiceLocator.getResourceService().getAsset(backgroundImagePath, Texture.class);
+        backgroundImage = new Image(new TextureRegionDrawable(backgroundTexture));
+        backgroundImage.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        stage.addActor(backgroundImage);
 
         Label youWin = new Label("You win!", skin);
         table.row();
@@ -90,6 +94,7 @@ public class WinScreenDisplay extends UIComponent {
     public void dispose() {
         table.clear();
         super.dispose();
+        backgroundImage.remove();
     }
 
     @Override

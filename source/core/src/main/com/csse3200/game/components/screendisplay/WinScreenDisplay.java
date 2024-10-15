@@ -1,10 +1,14 @@
 package com.csse3200.game.components.screendisplay;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.screens.WinScreen;
 import com.csse3200.game.services.ServiceLocator;
@@ -23,8 +27,11 @@ public class WinScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(WinScreenDisplay.class);
     private static final float Z_INDEX = 2f;
     private static final float Y_PADDING = 10f;
+    public static final int FONT_SCALE = 4;
     private final GdxGame game;
     private Table table;
+    private final String backgroundImagePath;
+    private Image backgroundImage;
 
     /**
      * Make the component.
@@ -32,8 +39,9 @@ public class WinScreenDisplay extends UIComponent {
      * @param game the overarching game, needed so that buttons can trigger navigation through
      *             screens
      */
-    public WinScreenDisplay(GdxGame game) {
+    public WinScreenDisplay(GdxGame game , String backgroundImagePath) {
         this.game = game;
+        this.backgroundImagePath = backgroundImagePath;
     }
 
     @Override
@@ -46,13 +54,14 @@ public class WinScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
-        // See assets/images/player/player_asset_citation.txt
-        Image playerHappy = new Image(
-                ServiceLocator.getResourceService().getAsset(WinScreen.PLAYER_HAPPY, Texture.class)
-        );
-        table.add(playerHappy).padTop(Y_PADDING);
+        // Set up background image
+        Texture backgroundTexture = ServiceLocator.getResourceService().getAsset(backgroundImagePath, Texture.class);
+        backgroundImage = new Image(new TextureRegionDrawable(backgroundTexture));
+        backgroundImage.setFillParent(true);
+        stage.addActor(backgroundImage);
 
-        Label youWin = new Label("You win!", skin);
+        Label youWin = new Label("You win!", skin, "whiteTitle");
+        youWin.setFontScale(FONT_SCALE); // make the text bigger
         table.row();
         table.add(youWin).padTop(Y_PADDING);
 
@@ -74,6 +83,7 @@ public class WinScreenDisplay extends UIComponent {
     public void dispose() {
         table.clear();
         super.dispose();
+        backgroundImage.remove();
     }
 
     @Override

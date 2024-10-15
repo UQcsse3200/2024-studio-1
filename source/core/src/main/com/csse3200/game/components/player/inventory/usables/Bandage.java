@@ -10,7 +10,7 @@ import com.csse3200.game.entities.Entity;
  * by a small health boost of 20.
  */
 public class Bandage extends UsableItem {
-    public static final int Small_Health_Boost = 20;
+    public static final int SMALL_HEALTH_BOOST = 20;
 
     @Override
     public String getItemSpecification() {
@@ -66,7 +66,7 @@ public class Bandage extends UsableItem {
     public void increaseSmallBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + Small_Health_Boost, combatStats.getMaxHealth());
+        int newHealth = Math.min(currentHealth + SMALL_HEALTH_BOOST, combatStats.getMaxHealth());
         combatStats.setHealth(newHealth);
     }
 }

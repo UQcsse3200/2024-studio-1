@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
+import com.csse3200.game.entities.configs.TaskConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,15 +15,24 @@ import org.slf4j.LoggerFactory;
 public class StraightWanderTask extends DefaultTask implements PriorityTask {
     private static final Logger logger = LoggerFactory.getLogger(StraightWanderTask.class);
     private static final int PRIORITY = 1;
-    private static final float MAX_WANDER_LIMIT = 50;
+    private static final float MAX_WANDER_LIMIT = 50; // Max distance to wander in a single direction
+    private static final float EXCLUSION_RANGE = 10; // Angles in degrees to exclude when generating a new direction
     private final float wanderSpeed;
     private MovementTask movementTask;
+    private float currentDirectionAngle;
 
     /**
      * @param wanderSpeed The speed an entity wanders at.
      */
     public StraightWanderTask(float wanderSpeed) {
         this.wanderSpeed = wanderSpeed;
+    }
+
+    /**
+     * @param config The configuration for the task.
+     */
+    public StraightWanderTask(TaskConfig.StraightWanderTaskConfig config) {
+        this.wanderSpeed = config.wanderSpeed;
     }
 
     @Override
@@ -43,12 +53,12 @@ public class StraightWanderTask extends DefaultTask implements PriorityTask {
         movementTask.update();
         if (movementTask.getStatus() != Status.ACTIVE) {
             startMoving();
-            owner.getEntity().getEvents().trigger("walk");
         }
     }
 
     private void startMoving() {
         logger.debug("Starting moving");
+        owner.getEntity().getEvents().trigger("walk");
         Vector2 currentPosition = owner.getEntity().getPosition();
         Vector2 randomDirection = getRandomDirectionVector();
         Vector2 targetPosition = currentPosition.cpy().add(randomDirection);
@@ -69,15 +79,25 @@ public class StraightWanderTask extends DefaultTask implements PriorityTask {
         movementTask.stop();
     }
 
+    /**
+     * Generates a random direction vector ensuring it's not near the current or opposite direction.
+     *
+     * @return A valid random direction vector.
+     */
     private Vector2 getRandomDirectionVector() {
-        float angle = MathUtils.random(0, 360);
-        return new Vector2(1, 0).setAngleDeg(angle).scl(MAX_WANDER_LIMIT);
+        float newAngle;
+        if (MathUtils.randomBoolean()) {
+            newAngle = (currentDirectionAngle + EXCLUSION_RANGE + MathUtils.random(0, 180 - 2 * EXCLUSION_RANGE) % 360);
+        } else {
+            newAngle = (currentDirectionAngle + 180 + EXCLUSION_RANGE + MathUtils.random(0, 180 - 2 * EXCLUSION_RANGE) % 360);
+        }
+
+        currentDirectionAngle = newAngle;
+        return new Vector2(1, 0).setAngleDeg(currentDirectionAngle).scl(MAX_WANDER_LIMIT);
     }
 
     private void onCollisionStart(Object fixtureA, Object fixtureB) {
-        if (movementTask.getStatus() == Status.ACTIVE) {
-            logger.debug("Collision detected, changing direction");
-            startMoving();
-        }
+        logger.debug("Collision detected, changing direction");
+        startMoving();
     }
 }

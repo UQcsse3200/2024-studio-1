@@ -1,6 +1,9 @@
 package com.csse3200.game.components.howtoplaymenu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,7 +15,7 @@ import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AnimalDisplay extends UIComponent{
+public class AnimalDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(AnimalDisplay.class);
     private final GdxGame game;
 
@@ -90,17 +93,13 @@ public class AnimalDisplay extends UIComponent{
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("Back button clicked");
-                        exitMenu();
+                        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
                     }
                 });
 
         Table table = new Table();
         table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
         return table;
-    }
-
-    private void exitMenu() {
-        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
     }
 
     @Override

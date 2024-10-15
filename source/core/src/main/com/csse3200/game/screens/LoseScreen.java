@@ -17,18 +17,19 @@ import static com.csse3200.game.GdxGame.ScreenColour.BLACK;
 // todo implement restarting
 public class LoseScreen extends StaticScreen {
 
-    // todo add citation
     /**
      * Dead player image, edited from assets/images/player/player.png
      */
     public static final String PLAYER_DEAD = "images/player/player_dead.png";
+    private static final String DEATH_MUSIC = "sounds/music/death.wav";
 
     /**
      * Make the death screen.
      * @param game the overarching game.
      */
     public LoseScreen(GdxGame game) {
-        super(game, new String[]{PLAYER_DEAD}, LoggerFactory.getLogger(LoseScreen.class), BLACK);
+        super(game, new String[]{PLAYER_DEAD}, LoggerFactory.getLogger(LoseScreen.class), BLACK,
+                DEATH_MUSIC, false);
     }
 
     @Override

@@ -1,13 +1,15 @@
 package com.csse3200.game.components.npc.attack;
 
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.areas.GameArea;
 import com.csse3200.game.areas.GameAreaService;
-import com.csse3200.game.areas.MainGameArea;
+import com.csse3200.game.areas.GameController;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
+import com.csse3200.game.entities.configs.EffectConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.PhysicsService;
@@ -18,6 +20,7 @@ import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.services.RandomService;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +30,8 @@ import org.mockito.Mock;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
 class RangeAttackComponentTest {
@@ -37,7 +41,13 @@ class RangeAttackComponentTest {
     private GameAreaService gameAreaService;
 
     @Mock
-    private MainGameArea mainGameArea;
+    private RandomService randomService;
+
+    @Mock
+    private GameController gameController;
+
+    @Mock
+    private GameArea gameArea;
 
     @Mock
     private Entity player;
@@ -48,17 +58,22 @@ class RangeAttackComponentTest {
         // Mock GameTime, GameAreaService and MainGameArea
         gameTime = mock(GameTime.class);
         gameAreaService = mock(GameAreaService.class);
-        mainGameArea = mock(MainGameArea.class);
+        gameController = mock(GameController.class);
+        gameArea = mock(GameArea.class);
+        randomService = mock(RandomService.class);
 
         player = new Entity().addComponent(new CombatStatsComponent(100, 10));
 
         // Register the mocked services with ServiceLocator
         ServiceLocator.registerTimeSource(gameTime);
         ServiceLocator.registerGameAreaService(gameAreaService);
+        ServiceLocator.registerRandomService(randomService);
 
         // Mock the behavior of gameAreaService and mainGameArea
-        when(gameAreaService.getGameArea()).thenReturn(mainGameArea);
-        when(mainGameArea.getPlayer()).thenReturn(player);
+        when(gameAreaService.getGameController()).thenReturn(gameController);
+        when(gameAreaService.getGameArea()).thenReturn(gameArea);
+        when(gameController.getPlayer()).thenReturn(player);
+        
 
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
@@ -147,7 +162,15 @@ class RangeAttackComponentTest {
     }
 
     private Entity createAttacker(Entity target) {
-        NPCConfigs.NPCConfig.EffectConfig[] effectConfigs = {}; // No effects for simplicity
+        // Setup attacker configs
+        EffectConfig[] effectConfigs = {}; // No effects for simplicity
+        AttackConfig.RangeAttack rangeAttackConfig = new AttackConfig.RangeAttack();
+        rangeAttackConfig.range = 5f;
+        rangeAttackConfig.rate = 1f;
+        rangeAttackConfig.type = 0;
+        rangeAttackConfig.effects = effectConfigs;
+
+        // Create attacker
         Entity attacker = new Entity()
                 .addComponent(new NameComponent("attacker"))
                 .addComponent(new PhysicsComponent())
@@ -155,7 +178,7 @@ class RangeAttackComponentTest {
                 .addComponent(new ColliderComponent())
                 .addComponent(new CombatStatsComponent(10, 10))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-                .addComponent(new RangeAttackComponent(target, 5f, 1f, 0, effectConfigs));
+                .addComponent(new RangeAttackComponent(target, rangeAttackConfig));
         attacker.create();
         attacker.getComponent(RangeAttackComponent.class).setEnabled(true);
         return attacker;

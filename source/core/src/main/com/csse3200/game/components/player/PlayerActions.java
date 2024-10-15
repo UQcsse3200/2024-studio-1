@@ -132,9 +132,11 @@ public class PlayerActions extends Component {
      * Makes the player shoot in a direction.
      */
     private void shoot(Vector2 direction) {
-        entity.getComponent(InventoryComponent.class)
-                .getMainWeapon()
-                .ifPresent(weapon -> weapon.shoot(direction));
+        if (!dead) {
+            entity.getComponent(InventoryComponent.class)
+                    .getMainWeapon()
+                    .ifPresent(weapon -> weapon.shoot(direction));
+        }
     }
 
     private void updateSpeed() {
@@ -175,8 +177,6 @@ public class PlayerActions extends Component {
     public void handleReroll(UsableItem reroll) {
         if (entity.getComponent(ItemPickupComponent.class).isInContact() && entity.getComponent(ItemPickupComponent.class).getItem() != null) {
             use(reroll); //Ensures that the reroll item can only be used when it is in collision with another item
-        } else {
-            //Otherwise the reroll item cannot be used
         }
     }
 

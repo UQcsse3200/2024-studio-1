@@ -21,7 +21,9 @@ import java.util.stream.Collectors;
 public class PlayerFactoryFactory extends LoadedFactory {
     private static final Logger logger = LoggerFactory.getLogger(PlayerFactoryFactory.class);
 
-    // List of default configs. (as filenames)
+    /**
+     *  List of default configs. (as filenames)
+      */
     private static final List<String> DEFAULT_PLAYER_OPTIONS = List.of(
             "player.json",
             "player_2.json",
@@ -31,7 +33,9 @@ public class PlayerFactoryFactory extends LoadedFactory {
             "necromancer.json"
     );
 
-    // List of all Options this Factory can create.
+    /**
+     * List of all Options this Factory can create.
+     */
     private final Map<String, PlayerConfig> options;
 
     /**
@@ -117,6 +121,14 @@ public class PlayerFactoryFactory extends LoadedFactory {
                     PlayerStatsDisplay.DAMAGE_BUFF_TEXTURE,
                     PlayerStatsDisplay.SPEED_TEXTURE,
                     this.config.textureFilename
+            };
+        }
+
+        @Override
+        protected String[] getSoundFilepaths() {
+            return new String[]{
+                    "sounds/collectCoin.mp3",
+                    "sounds/hit2.ogg"
             };
         }
     }

@@ -2,7 +2,6 @@ package com.csse3200.game.areas.terrain;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -15,14 +14,12 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.csse3200.game.components.CameraComponent;
 import com.csse3200.game.utils.math.RandomUtils;
-import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
   private static final GridPoint2 MAP_SIZE = new GridPoint2(15, 11);
   private final OrthographicCamera camera;
-  private static GridPoint2 STAIRCASE_UP_POS = new GridPoint2(0, MAP_SIZE.y-3);
 
   private int currentLevel;
   private boolean isBossRoom = false;
@@ -140,27 +137,6 @@ public class TerrainFactory {
     return tiledMap;
   }
 
-  private static void fillTilesAtRandom(
-          TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile, int amount) {
-    GridPoint2 min = new GridPoint2(0, 0);
-    GridPoint2 max = new GridPoint2(mapSize.x - 1, mapSize.y - 1);
-
-    for (int i = 0; i < amount; i++) {
-      GridPoint2 tilePos = RandomUtils.random(min, max);
-      Cell cell = layer.getCell(tilePos.x, tilePos.y);
-      cell.setTile(tile);
-    }
-  }
-
-  private void fillTiles(TiledMapTileLayer layer, GridPoint2 mapSize, TerrainTile tile) {
-    for (int x = 0; x < mapSize.x; x++) {
-      for (int y = 0; y < mapSize.y; y++) {
-        Cell cell = new Cell();
-        cell.setTile(tile);
-        layer.setCell(x, y, cell);
-      }
-    }
-  }
 
   /** Fills the TiledMapTileLayer with tiles based on the provided tile list and map size.
    * his method handles the placement of different tile types, including boundary tiles,
@@ -209,11 +185,6 @@ public class TerrainFactory {
           } else if (x > 0 && x < (mapSize.x-1) && y == (mapSize.y-1)) {
             cell.setTile(tileList[7]);
           }
-
-          // staircase position
-          //if (isBossRoom() && x == STAIRCASE_UP_POS.x && y == (STAIRCASE_UP_POS.y))
-            //cell.setTile(tileList[12]);
-
           layer.setCell(x, y, cell);
         }
       }

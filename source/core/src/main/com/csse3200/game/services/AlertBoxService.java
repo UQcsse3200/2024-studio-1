@@ -1,7 +1,6 @@
 package com.csse3200.game.services;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -76,42 +75,23 @@ public class AlertBoxService {
         dialog.show(stage);
     }
 
-    // confirmDialog method
-    public void confirmDialog(String title, String message, ConfirmationListener listener) {
+    /**
+     * Displays a game won dialog with an Exit button.
+     *
+     * @param title     Title of the dialog.
+     * @param message   Message to display.
+     * @param listener  Listener to handle Exit response.
+     */
+    public void showGameWonDialog(String title, String message, GameWonListener listener) {
         Dialog dialog = new Dialog(title, skin) {
             @Override
             protected void result(Object object) {
-                boolean confirmed = (Boolean) object;
-                if (confirmed) {
-                    listener.onYes();
-                } else {
-                    listener.onNo();
-                }
-            }
-
-            @Override
-            public Dialog show(Stage stage) {
-                super.show(stage);
-
-                // Add a key listener for the Enter key
-                stage.addListener(new InputListener() {
-                    @Override
-                    public boolean keyDown(InputEvent event, int keycode) {
-                        if (keycode == Input.Keys.ENTER) {
-                            result(true);  // Trigger "Confirm"
-                            hide();        // Close the dialog
-                            return true;
-                        }
-                        return false;
-                    }
-                });
-
-                return this;
+                listener.onExit();
             }
         };
 
         dialog.text(message);
-        dialog.button("Confirm", true);  // "Confirm" button returns true
+        dialog.button("Exit", true);
         dialog.show(stage);
     }
 
@@ -121,5 +101,12 @@ public class AlertBoxService {
     public interface ConfirmationListener {
         void onYes();
         void onNo();
+    }
+
+    /**
+     * Listener interface for handling game won dialog response.
+     */
+    public interface GameWonListener {
+        void onExit();
     }
 }

@@ -1,31 +1,22 @@
 package com.csse3200.game.components.howtoplaymenu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
-import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WeaponDisplay extends UIComponent{
+public class WeaponDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(WeaponDisplay.class);
     private final GdxGame game;
 
     private Table rootTable;
-    private TextField fpsText;
-    private CheckBox fullScreenCheck;
-    private CheckBox vsyncCheck;
-    private Slider uiScaleSlider;
-    private SelectBox<StringDecorator<Graphics.DisplayMode>> displayModeSelect;
 
     public WeaponDisplay(GdxGame game) {
         super();
@@ -93,35 +84,6 @@ public class WeaponDisplay extends UIComponent{
         return table;
     }
 
-    private StringDecorator<Graphics.DisplayMode> getActiveMode(Array<StringDecorator<Graphics.DisplayMode>> modes) {
-        Graphics.DisplayMode active = Gdx.graphics.getDisplayMode();
-
-        for (StringDecorator<Graphics.DisplayMode> stringMode : modes) {
-            Graphics.DisplayMode mode = stringMode.object;
-            if (active.width == mode.width
-                    && active.height == mode.height
-                    && active.refreshRate == mode.refreshRate) {
-                return stringMode;
-            }
-        }
-        return null;
-    }
-
-    private Array<StringDecorator<Graphics.DisplayMode>> getDisplayModes(Graphics.Monitor monitor) {
-        Graphics.DisplayMode[] displayModes = Gdx.graphics.getDisplayModes(monitor);
-        Array<StringDecorator<Graphics.DisplayMode>> arr = new Array<>();
-
-        for (Graphics.DisplayMode displayMode : displayModes) {
-            arr.add(new StringDecorator<>(displayMode, this::prettyPrint));
-        }
-
-        return arr;
-    }
-
-    private String prettyPrint(Graphics.DisplayMode displayMode) {
-        return displayMode.width + "x" + displayMode.height + ", " + displayMode.refreshRate + "hz";
-    }
-
     private Table makeMenuBtns() {
         TextButton exitBtn = new TextButton("Back", skin);
 
@@ -130,40 +92,13 @@ public class WeaponDisplay extends UIComponent{
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("Back button clicked");
-                        exitMenu();
+                        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
                     }
                 });
 
         Table table = new Table();
         table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
         return table;
-    }
-
-    private void applyChanges() {
-        UserSettings.Settings settings = UserSettings.get();
-
-        Integer fpsVal = parseOrNull(fpsText.getText());
-        if (fpsVal != null) {
-            settings.fps = fpsVal;
-        }
-        settings.fullscreen = fullScreenCheck.isChecked();
-        settings.uiScale = uiScaleSlider.getValue();
-        settings.displayMode = new UserSettings.DisplaySettings(displayModeSelect.getSelected().object);
-        settings.vsync = vsyncCheck.isChecked();
-
-        UserSettings.set(settings, true);
-    }
-
-    private void exitMenu() {
-        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
-    }
-
-    private Integer parseOrNull(String num) {
-        try {
-            return Integer.parseInt(num, 10);
-        } catch (NumberFormatException e) {
-            return null;
-        }
     }
 
     @Override

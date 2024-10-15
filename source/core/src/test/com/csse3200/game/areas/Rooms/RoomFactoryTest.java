@@ -9,9 +9,13 @@ import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
 
+import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.services.RandomService;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.utils.RandomNumberGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -20,9 +24,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
+@ExtendWith(GameExtension.class)
 class RoomFactoryTest {
 
     @Mock
@@ -44,6 +49,12 @@ class RoomFactoryTest {
     private GameController mockGameController;
 
     @Mock
+    private RandomService mockRandomService;
+
+    @Mock
+    private RandomNumberGenerator mockRNG;
+
+    @Mock
     Entity entity;
     @Mock
     private PlayerConfig playerConfig;
@@ -54,14 +65,18 @@ class RoomFactoryTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         playerConfig = mock(PlayerConfig.class);
+        playerConfig.name = "bear";
         entity = mock(Entity.class);
         playerConfigComponent = mock(PlayerConfigComponent.class);
+
         ServiceLocator.registerGameAreaService(mockGameAreaService);
         when(mockGameAreaService.getGameController()).thenReturn(mockGameController);
-        playerConfig.name = "bear";
         when(mockGameController.getPlayer()).thenReturn(entity);
         when(entity.getComponent(PlayerConfigComponent.class)).thenReturn(playerConfigComponent);
         when(playerConfigComponent.getPlayerConfig()).thenReturn(playerConfig);
+
+        when(mockRandomService.getRandomNumberGenerator(any(Class.class))).thenReturn(mockRNG);
+        ServiceLocator.registerRandomService(mockRandomService);
 
         roomFactory = new RoomFactory(mockNpcFactory, mockCollectibleFactory, mockTerrainFactory);
         testRoomConnections = Arrays.asList("North", "South", "East", "West");

@@ -215,7 +215,7 @@ public class RandomMapGenerator implements MapGenerator {
     }
 
     /**
-     * Set NPC room
+     * Set Shop room
      *
      * @param setRooms - rooms already set with specific types
      */

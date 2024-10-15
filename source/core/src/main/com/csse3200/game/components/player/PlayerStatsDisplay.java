@@ -22,10 +22,8 @@ public class PlayerStatsDisplay extends UIComponent {
     Table ammoTable;
     private Image heartImage;
     private Label healthLabel;
-    private Label swordLabel;
-    private Label shotgunLabel;  // Separate label for shotgun
-    private Label pistolLabel;   // New label for pistol
-
+    private Label meleeLabel;   // Updated label for melee weapon
+    private Label gunLabel;     // Updated label for gun
     private Texture ammoTexture;
     private List<Image> ammoImages;
     private int currentAmmo;
@@ -57,8 +55,8 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
         entity.getEvents().addListener("melee_pickup", this::updateMeleeWeaponUI);
         entity.getEvents().addListener("ranged_pickup", (Integer maxAmmo) -> {
-            updateShotgunLabel(20, "Shotgun");
-            updateRangedWeaponUI(maxAmmo, "Shotgun");
+            updateGunLabel(20, "Gun");
+            updateRangedWeaponUI(maxAmmo, "Gun");
         });
         entity.getEvents().addListener("ranged_activate", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
@@ -84,15 +82,13 @@ public class PlayerStatsDisplay extends UIComponent {
                 playerNum == PlayerAnimationController.PlayerNum.PLAYER_2 ||
                 playerNum == PlayerAnimationController.PlayerNum.PLAYER_3 ||
                 playerNum == PlayerAnimationController.PlayerNum.BEAR) {
-            // Player 4 has a pistol with 7 ammo and no shotgun
-            updatePistolLabel(1, "Pistol");
-            updateRangedWeaponUI(7, "Pistol");
-            updateShotgunLabel(0, "Shotgun");  // Shotgun ammo is set to 0
+            // Players 2, 3, 4, and Bear have 7 ammo with the gun
+            updateGunLabel(7, "Gun");
+            updateRangedWeaponUI(7, "Gun");
         } else {
-            // For other players, set the shotgun to have 20 ammo
-            updateShotgunLabel(1, "Shotgun");
-            updateRangedWeaponUI(20, "Shotgun");
-            updatePistolLabel(0, "Pistol"); // No pistol for other players
+            // For other players, set the gun to have 20 ammo
+            updateGunLabel(20, "Gun");
+            updateRangedWeaponUI(20, "Gun");
         }
     }
 
@@ -143,9 +139,8 @@ public class PlayerStatsDisplay extends UIComponent {
         damageProgressBar.setAnimateDuration(2.0f);
 
         // Weapon labels
-        swordLabel = new Label("Sword: 0", skin, "small");
-        shotgunLabel = new Label("Shotgun: 0", skin, "small");  // Shotgun label
-        pistolLabel = new Label("Pistol: 0", skin, "small");    // New Pistol label
+        meleeLabel = new Label("Melee: 0", skin, "small");   // Updated melee label
+        gunLabel = new Label("Gun: 0", skin, "small");       // Updated gun label
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
@@ -160,14 +155,12 @@ public class PlayerStatsDisplay extends UIComponent {
         table.add(damageProgressBar).padLeft(10).left().width(200);
 
         table.row().padTop(10);
-        table.add(swordLabel).colspan(2).padLeft(10).left();
-        labels.add(swordLabel);
+        table.add(meleeLabel).colspan(2).padLeft(10).left();
+        labels.add(meleeLabel);
 
-        // Add both shotgun and pistol labels
+        // Add the gun label
         table.row().padTop(10);
-        table.add(shotgunLabel).colspan(2).padLeft(10).left();
-        table.row().padTop(10);
-        table.add(pistolLabel).colspan(2).padLeft(10).left();
+        table.add(gunLabel).colspan(2).padLeft(10).left();
 
         table.row().padTop(10);
         table.add(ammoTable).colspan(2).left().padLeft(2);
@@ -198,49 +191,34 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
     public void updateMeleeWeaponUI() {
-        CharSequence text = String.format("Sword x %d", 1);
-        swordLabel.setText(text);
+        CharSequence text = String.format("Melee x %d", 1);   // Updated melee label
+        meleeLabel.setText(text);
     }
 
     /**
      * Updates the ranged weapon UI.
-     * If the player is Player 4, show the pistol with 7 ammo.
      *
      * @param maxAmmo the maximum ammo count for the weapon.
-     * @param weaponName the name of the weapon (e.g., "Shotgun" or "Pistol").
+     * @param weaponName the name of the weapon (e.g., "Gun").
      */
     public void updateRangedWeaponUI(int maxAmmo, String weaponName) {
         currentAmmo = maxAmmo;  // Initialize ammo count from WeaponComponent
         displayAllAmmo();
 
         CharSequence text = String.format("%s x %d", weaponName, 1);
-        if (weaponName.equals("Pistol")) {
-            pistolLabel.setText(text); // Update pistol label
-        } else {
-            shotgunLabel.setText(text); // Update shotgun label
-        }
+        gunLabel.setText(text);   // Update gun label
     }
 
     /**
-     * Updates the shotgun label with the specified ammo count.
+     * Updates the gun label with the specified ammo count.
      */
-    public void updateShotgunLabel(int maxAmmo, String weaponName) {
+    public void updateGunLabel(int maxAmmo, String weaponName) {
         CharSequence text = String.format("%s x %d", weaponName, maxAmmo);
-        shotgunLabel.setText(text);
-    }
-
-    /**
-     * Updates the pistol label with the specified ammo count.
-     */
-    public void updatePistolLabel(int maxAmmo, String weaponName) {
-        CharSequence text = String.format("%s x %d", weaponName, maxAmmo);
-        pistolLabel.setText(text);
+        gunLabel.setText(text);
     }
 
     /**
      * Displays ammo based on the count of the ranged weapon.
-     * This method is called when the weapon's ammo count is greater than 0.
-     * Displays ammo in rows within a separate ammo table.
      */
     private void displayAllAmmo() {
         ammoTable.clear(); // Clear existing ammo from the ammoTable
@@ -263,7 +241,6 @@ public class PlayerStatsDisplay extends UIComponent {
 
     /**
      * Updates the ammo display based on the current ammo count.
-     * Ammo icons beyond the current count will be hidden.
      */
     private void updateAmmoDisplay(int ammoCount) {
         for (int i = 0; i < ammoImages.size(); i++) {

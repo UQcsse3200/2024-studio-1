@@ -140,14 +140,7 @@ public class MainGameLevelFactory implements LevelFactory {
      */
     public void saveMapData(String filePath, String level) {
         List<String> compRooms = new ArrayList<String>();
-        List<String> items = new ArrayList<String>();
-        MapLoadConfig config = new MapLoadConfig();
-        String gameSeed = map.mapData.getMapSeed();
-        String seedOnly = gameSeed.substring(0, gameSeed.length() - 1);
-        config.seed = seedOnly;
-        config.currentLevel = level;
         config.currentRoom = ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().getRoomName();
-
         for (Room room : rooms.values()) {
             if (room.isComplete()) {
                 if (map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
@@ -158,8 +151,7 @@ public class MainGameLevelFactory implements LevelFactory {
             }
         }
         ShopRoom shopRoom = (ShopRoom) rooms.get(ServiceLocator.getGameAreaService().getGameController().getFlaggedRoom("NPC"));
-        List<String> shopSave = shopRoom.itemsSpawned;
-        config.shopRoomItems.addAll(shopSave);
+        config.shopRoomItems = shopRoom.itemsSpawned;
         config.roomsCompleted = compRooms;
         config.mapSize = map.getMapSize();
         FileLoader.writeClass(config, filePath, FileLoader.Location.EXTERNAL);

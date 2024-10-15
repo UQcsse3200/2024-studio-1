@@ -1,5 +1,8 @@
 package com.csse3200.game.components.screendisplay;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -40,6 +43,19 @@ public class WinScreenDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
+
+        // Set up ESC key listener
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean keyUp(int keycode) {
+                if (keycode == Input.Keys.ESCAPE) {
+                    logger.debug("Esc key pressed, going back to main menu");
+                    game.setScreen(MAIN_MENU); // Go back to menu
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void addActors() {

@@ -80,8 +80,7 @@ public class RandomMapGenerator implements MapGenerator {
         setRooms.add("0_0");
 
         setBossRoom(setRooms);
-        setNpcRoom(setRooms);
-        setGameRoom(setRooms);
+        setShopRoom(setRooms);
     }
 
     @Override
@@ -216,40 +215,24 @@ public class RandomMapGenerator implements MapGenerator {
     }
 
     /**
-     * Set NPC room
+     * Set Shop room
      *
      * @param setRooms - rooms already set with specific types
      */
-    private void setNpcRoom(List<String> setRooms) {
+    private void setShopRoom(List<String> setRooms) {
         List<String> rooms = new ArrayList<>(roomDetails.keySet());
         String randomRoomKey;
+        int blankConnections;
         do {
             randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-        } while (setRooms.contains(randomRoomKey));
+            blankConnections = Collections.frequency(relativePosition.get(randomRoomKey), "");
+        } while (setRooms.contains(randomRoomKey) ||  blankConnections != 3);
+        // blankConnections must be 3 to be a one doored room
 
         // Get the random room details
         HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
-        details.put("room_type", NPC_ROOM.num);
-        roomKeys.put("NPC", randomRoomKey);
-        setRooms.add(randomRoomKey);
-    }
-
-    /**
-     * Set Game Room
-     *
-     * @param setRooms - rooms already set with specific types
-     */
-    private void setGameRoom(List<String> setRooms) {
-        List<String> rooms = new ArrayList<>(roomDetails.keySet());
-        String randomRoomKey;
-        do {
-            randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-        } while (setRooms.contains(randomRoomKey));
-
-        // Get the random room details
-        HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
-        details.put("room_type", GAME_ROOM.num);
-        roomKeys.put("GameRoom", randomRoomKey);
+        details.put("room_type", SHOP_ROOM.num);
+        roomKeys.put("Shop", randomRoomKey);
         setRooms.add(randomRoomKey);
     }
 
@@ -262,6 +245,10 @@ public class RandomMapGenerator implements MapGenerator {
         String location = "0_0";
         int maxDist = 0;
         for (Map.Entry<String, List<String>> entry : relativePosition.entrySet()) {
+            if (Collections.frequency(entry.getValue(), "") != 3) {
+                // checking whether there is only 1 connection to room
+                continue;
+            }
             String key = entry.getKey();
             int dist = calculateDistance(key);
             if (maxDist < dist) {

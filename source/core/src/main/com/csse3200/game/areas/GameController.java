@@ -95,7 +95,7 @@ public class GameController {
         this.shouldLoad = shouldLoad;
         this.gameArea = gameArea;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getFlaggedRoom("Boss")));
-        player.getEvents().addListener("teleportToShop", () -> this.changeRooms(getFlaggedRoom("NPC")));
+        player.getEvents().addListener("teleportToShop", () -> this.changeRooms(getFlaggedRoom("Shop")));
         player.getEvents().addListener("saveMapData", this::saveMapData);
         player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
@@ -148,12 +148,12 @@ public class GameController {
     /**
      * Get the room key for a specified flagged room type.
      *
-     * @param roomType The type of room to get the key for. Valid values are "Boss", "NPC", and "GameRoom".
+     * @param roomType The type of room to get the key for. Valid values are "Boss" and "Shop".
      * @return The room key for the specified room type, or null if the room type is invalid.
      * @throws IllegalArgumentException if an invalid room type is provided.
      */
     public String getFlaggedRoom(String roomType) {
-        if (!List.of("Boss", "NPC", "GameRoom").contains(roomType)) {
+        if (!List.of("Boss", "Shop").contains(roomType)) {
             throw new IllegalArgumentException("Invalid room type: " + roomType);
         }
         return currentLevel.getMap().mapData.getRoomKeys().get(roomType);

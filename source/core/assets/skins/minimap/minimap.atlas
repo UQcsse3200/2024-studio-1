@@ -25,14 +25,7 @@ repeat: none
   orig: 140, 140
   offset: 0, 0
   index: -1
-0001_gambling
-  rotate: false
-  xy: 1, 569
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-0001_npc
+0001_shop
   rotate: false
   xy: 143, 711
   size: 140, 140
@@ -53,14 +46,7 @@ repeat: none
   orig: 140, 140
   offset: 0, 0
   index: -1
-0010_gambling
-  rotate: false
-  xy: 143, 569
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-0010_npc
+0010_shop
   rotate: false
   xy: 285, 711
   size: 140, 140
@@ -88,14 +74,7 @@ repeat: none
   orig: 140, 140
   offset: 0, 0
   index: -1
-0100_gambling
-  rotate: false
-  xy: 285, 569
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-0100_npc
+0100_shop
   rotate: false
   xy: 427, 711
   size: 140, 140
@@ -137,14 +116,7 @@ repeat: none
   orig: 140, 140
   offset: 0, 0
   index: -1
-1000_gambling
-  rotate: false
-  xy: 569, 711
-  size: 140, 140
-  orig: 140, 140
-  offset: 0, 0
-  index: -1
-1000_npc
+1000_shop
   rotate: false
   xy: 711, 853
   size: 140, 140

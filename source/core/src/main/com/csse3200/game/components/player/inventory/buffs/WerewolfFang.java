@@ -19,15 +19,15 @@ public class WerewolfFang extends BuffItem {
   /**
    * Returns the name of the item.
    *
-   * @return the name of the item, "Bleed Buff".
+   * @return the name of the item, "Werewolf Fang".
    */
   @Override
   public String getName() {
-    return "Bleed Buff";
+    return "Werewolf Fang";
   }
 
   /**
-   * Returns the icon representing the BleedBuff item.
+   * Returns the icon representing the werewolf fang item.
    *
    * @return a Texture object for the bleed icon.
    */
@@ -37,7 +37,7 @@ public class WerewolfFang extends BuffItem {
   }
 
   /**
-   * Drops the BleedBuff item from the player's inventory.
+   * Drops the werewolf fang item from the player's inventory.
    *
    * @param inventory The inventory from which the item is dropped.
    */
@@ -48,11 +48,11 @@ public class WerewolfFang extends BuffItem {
   /**
    * Returns a string that specifies the type of buff.
    *
-   * @return the buff specification as a string, "bleedbuff".
+   * @return the buff specification as a string, "fang".
    */
   @Override
   public String getBuffSpecification() {
-    return "bleedbuff";
+    return "fang";
   }
 
   /**

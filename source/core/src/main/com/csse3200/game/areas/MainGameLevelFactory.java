@@ -94,7 +94,7 @@ public class MainGameLevelFactory implements LevelFactory {
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
-                case RoomType.NPC_ROOM:
+                case RoomType.SHOP_ROOM:
                     //If the game is loaded the items to be spawned is loaded from the config
                     //if not uses the createShopItems method to create a random list which is then loaded into the shop
                     // room to be spawned.
@@ -108,11 +108,6 @@ public class MainGameLevelFactory implements LevelFactory {
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + 0 + "," + levelNumber, roomKey, itemsToBeSpawned);
                     rooms.put(roomKey, shop);
-                    break;
-                case RoomType.GAME_ROOM:
-                    rooms.put(roomKey, roomFactory.createGambleRoom(
-                            map.mapData.getPositions().get(roomKey),
-                            "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case null:
                     throw new IllegalArgumentException("Invalid room type.");
@@ -157,7 +152,7 @@ public class MainGameLevelFactory implements LevelFactory {
                 }
             }
         }
-        ShopRoom shopRoom = (ShopRoom) rooms.get(ServiceLocator.getGameAreaService().getGameController().getFlaggedRoom("NPC"));
+        ShopRoom shopRoom = (ShopRoom) rooms.get(ServiceLocator.getGameAreaService().getGameController().getFlaggedRoom("Shop"));
         List<String> shopSave = shopRoom.itemsSpawned;
         config.shopRoomItems.addAll(shopSave);
         config.roomsCompleted = compRooms;

@@ -80,8 +80,7 @@ public class RandomMapGenerator implements MapGenerator {
         setRooms.add("0_0");
 
         setBossRoom(setRooms);
-        setNpcRoom(setRooms);
-        setGameRoom(setRooms);
+        setShopRoom(setRooms);
     }
 
     @Override
@@ -220,7 +219,7 @@ public class RandomMapGenerator implements MapGenerator {
      *
      * @param setRooms - rooms already set with specific types
      */
-    private void setNpcRoom(List<String> setRooms) {
+    private void setShopRoom(List<String> setRooms) {
         List<String> rooms = new ArrayList<>(roomDetails.keySet());
         String randomRoomKey;
         do {
@@ -229,27 +228,8 @@ public class RandomMapGenerator implements MapGenerator {
 
         // Get the random room details
         HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
-        details.put("room_type", NPC_ROOM.num);
-        roomKeys.put("NPC", randomRoomKey);
-        setRooms.add(randomRoomKey);
-    }
-
-    /**
-     * Set Game Room
-     *
-     * @param setRooms - rooms already set with specific types
-     */
-    private void setGameRoom(List<String> setRooms) {
-        List<String> rooms = new ArrayList<>(roomDetails.keySet());
-        String randomRoomKey;
-        do {
-            randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-        } while (setRooms.contains(randomRoomKey));
-
-        // Get the random room details
-        HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
-        details.put("room_type", GAME_ROOM.num);
-        roomKeys.put("GameRoom", randomRoomKey);
+        details.put("room_type", SHOP_ROOM.num);
+        roomKeys.put("Shop", randomRoomKey);
         setRooms.add(randomRoomKey);
     }
 

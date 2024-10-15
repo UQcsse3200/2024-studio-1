@@ -1,8 +1,6 @@
 package com.csse3200.game.areas;
 
 import com.badlogic.gdx.math.Vector2;
-import com.csse3200.game.areas.minimap.MinimapComponent;
-import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.services.ServiceLocator;
@@ -65,11 +63,6 @@ public class GameController {
      * Flag to determine if a new room should be spawned.
      */
     private boolean spawnRoom = true;
-
-    /**
-     * Factory for creating minimaps.
-     */
-    private MinimapFactory minimapFactory;
 
     private GameArea gameArea;
 
@@ -206,7 +199,8 @@ public class GameController {
         this.currentRoom.removeRoom();
         selectRoom(roomKey);
         // update minimap
-        minimapFactory.updateMinimap(roomKey);
+        gameArea.updateMinimap(roomKey);
+        //minimapFactory.updateMinimap(roomKey);
 
         // Play appropriate music based on room type
         if (this.currentRoom instanceof BossRoom) {
@@ -286,12 +280,13 @@ public class GameController {
         selectRoom(this.currentLevel.getStartingRoomKey());
 
         // Initialize minimap
-        this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
-        MinimapComponent minimapComponent = minimapFactory.createMinimap();
-
-        Entity minimap = new Entity();
-        minimap.addComponent(minimapComponent);
-        this.gameArea.spawnEntity(minimap);
+        gameArea.generateMinimap(getCurrentLevel());
+//        this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
+//        MinimapComponent minimapComponent = minimapFactory.createMinimap();
+//
+//        Entity minimap = new Entity();
+//        minimap.addComponent(minimapComponent);
+//        this.gameArea.spawnEntity(minimap);
     }
 
     /**

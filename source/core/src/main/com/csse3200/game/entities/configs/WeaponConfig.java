@@ -28,6 +28,8 @@ public class WeaponConfig {
         WEAPON_CONFIGS.put("pistol", new WeaponData("pistol", 20,
                 0, 2, 9, 9, 3,
                 "images" + "/Weapons/Centered/pistol.png"));
+        WEAPON_CONFIGS.put("knife", new WeaponData("knife", 20,
+                1, 3, "images/Weapons/Centered/knife.png"));
         WEAPON_CONFIGS.put("axe", new WeaponData("axe", 80,
                 2, 1, "images/Weapons/Centered/axe.png"));
 

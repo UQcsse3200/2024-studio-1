@@ -1,7 +1,7 @@
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.player.inventory.Collectible;
-import com.csse3200.game.components.player.inventory.GoblinsGamble;
+import com.csse3200.game.components.player.inventory.buffs.GoblinsGamble;
 import com.csse3200.game.components.player.inventory.buffs.WerewolfFang;
 import com.csse3200.game.components.player.inventory.buffs.*;
 import com.csse3200.game.components.player.inventory.pets.RingFire;

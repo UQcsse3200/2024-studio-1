@@ -29,6 +29,8 @@ public class DialogComponent extends RenderComponent {
     private static float textLength = 0f;
     private static final float FRAMES_PER_CHAR = 5f;
     private static final float MAX_WIDTH = 15f;
+    
+    private int cooldownTime = 2;
 
     private static Texture texture;
 
@@ -67,11 +69,12 @@ public class DialogComponent extends RenderComponent {
         width = layout.width * projectionFactor + PADDING * 2;
         height = layout.height * projectionFactor + PADDING * 4;
         textLength = text.length();
+        cooldownTime = 2;
     }
 
     //returns true if dialog is dismissed
     public boolean dismissDialog() {
-        if (glyphText.length() == text.length()) {
+        if (glyphText.length() == text.length() && cooldownTime == 0) {
             text = "";
             return true;
         } else {
@@ -97,7 +100,9 @@ public class DialogComponent extends RenderComponent {
                     width = layout.width * projectionFactor + PADDING * 2;
                     height = layout.height * projectionFactor + PADDING * 4;
                 }
-            }
+            }else
+                if(cooldownTime > 0)
+                    cooldownTime--;
             batch.end();
 
             // Set up the projection matrix for rendering

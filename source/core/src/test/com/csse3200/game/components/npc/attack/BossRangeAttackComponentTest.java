@@ -20,7 +20,6 @@ import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ResourceService;
-import com.csse3200.game.services.RandomService;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,14 +33,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
-class RangeAttackComponentTest {
+class BossRangeAttackComponentTest {
     private GameTime gameTime;
 
     @Mock
     private GameAreaService gameAreaService;
-
-    @Mock
-    private RandomService randomService;
 
     @Mock
     private GameController gameController;
@@ -60,20 +56,18 @@ class RangeAttackComponentTest {
         gameAreaService = mock(GameAreaService.class);
         gameController = mock(GameController.class);
         gameArea = mock(GameArea.class);
-        randomService = mock(RandomService.class);
 
         player = new Entity().addComponent(new CombatStatsComponent(100, 10));
 
         // Register the mocked services with ServiceLocator
         ServiceLocator.registerTimeSource(gameTime);
         ServiceLocator.registerGameAreaService(gameAreaService);
-        ServiceLocator.registerRandomService(randomService);
 
         // Mock the behavior of gameAreaService and mainGameArea
         when(gameAreaService.getGameController()).thenReturn(gameController);
         when(gameAreaService.getGameArea()).thenReturn(gameArea);
         when(gameController.getPlayer()).thenReturn(player);
-        
+
 
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
@@ -91,7 +85,7 @@ class RangeAttackComponentTest {
         attacker.setPosition(0, 0);
         target.setPosition(0, 3); // Within shoot range
         when(gameTime.getDeltaTime()).thenReturn(1f); // Simulate time passing
-        RangeAttackComponent component = attacker.getComponent(RangeAttackComponent.class);
+        BossRangeAttackComponent component = attacker.getComponent(BossRangeAttackComponent.class);
         attacker.update();
         Entity projectile = component.getLatestProjectile();
         projectile.create();
@@ -116,7 +110,7 @@ class RangeAttackComponentTest {
         target.setPosition(0, 4); // Within attack range
 
         attacker.update();
-        RangeAttackComponent component = attacker.getComponent(RangeAttackComponent.class);
+        BossRangeAttackComponent component = attacker.getComponent(BossRangeAttackComponent.class);
         attacker.update();
         Entity projectile = component.getLatestProjectile();
 
@@ -137,7 +131,7 @@ class RangeAttackComponentTest {
         target.setPosition(0, 4); // Within attack range
 
         attacker.update();
-        RangeAttackComponent component = attacker.getComponent(RangeAttackComponent.class);
+        BossRangeAttackComponent component = attacker.getComponent(BossRangeAttackComponent.class);
         attacker.update();
         Entity projectile = component.getLatestProjectile();
 
@@ -155,7 +149,7 @@ class RangeAttackComponentTest {
         target.setPosition(10, 10); // Out of attack range
 
         when(gameTime.getDeltaTime()).thenReturn(1f); // Simulate time passing
-        RangeAttackComponent component = attacker.getComponent(RangeAttackComponent.class);
+        BossRangeAttackComponent component = attacker.getComponent(BossRangeAttackComponent.class);
         attacker.update();
         Entity projectile = component.getLatestProjectile();
         assertNull(projectile);
@@ -178,9 +172,9 @@ class RangeAttackComponentTest {
                 .addComponent(new ColliderComponent())
                 .addComponent(new CombatStatsComponent(10, 10))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-                .addComponent(new RangeAttackComponent(target, rangeAttackConfig));
+                .addComponent(new BossRangeAttackComponent(target, rangeAttackConfig));
         attacker.create();
-        attacker.getComponent(RangeAttackComponent.class).setEnabled(true);
+        attacker.getComponent(BossRangeAttackComponent.class).setEnabled(true);
         return attacker;
     }
 

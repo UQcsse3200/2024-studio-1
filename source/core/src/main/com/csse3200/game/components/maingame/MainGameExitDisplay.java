@@ -105,6 +105,15 @@ public class MainGameExitDisplay extends UIComponent {
                 unpause();
               }
             });
+    restartBtn.addListener(
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                unpause();
+                logger.debug("Restart button clicked");
+                entity.getEvents().trigger("restart");
+              }
+            });
     exitBtn.addListener(
             new ChangeListener() {
               @Override

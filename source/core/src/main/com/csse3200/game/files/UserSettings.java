@@ -77,8 +77,8 @@ public class UserSettings {
         }
         for (DisplayMode displayMode : Gdx.graphics.getDisplayModes()) {
             if (displayMode.refreshRate == desiredSettings.refreshRate
-                        && displayMode.height == desiredSettings.height
-                        && displayMode.width == desiredSettings.width) {
+                    && displayMode.height == desiredSettings.height
+                    && displayMode.width == desiredSettings.width) {
                 return displayMode;
             }
         }
@@ -98,6 +98,7 @@ public class UserSettings {
         public boolean fullscreen = true;
         public boolean vsync = true;
         public boolean mute = false;
+        public boolean enableCutscene = true;
         /**
          * ui Scale. Currently unused, but can be implemented.
          */

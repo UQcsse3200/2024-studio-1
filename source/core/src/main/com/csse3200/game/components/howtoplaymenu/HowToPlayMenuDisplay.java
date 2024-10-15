@@ -2,6 +2,9 @@ package com.csse3200.game.components.howtoplaymenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -31,6 +34,24 @@ public class HowToPlayMenuDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
+
+        // InputMultiplexer for handling both stage and ESC key input
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);  // Add stage for handling mouse clicks
+        inputMultiplexer.addProcessor(new InputAdapter() {
+            @Override
+            public boolean keyUp(int keycode) {
+                if (keycode == Input.Keys.ESCAPE) {
+                    logger.debug("Esc key pressed, exiting to main menu");
+                    exitMenu();  // Call the exit menu logic when ESC is pressed
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Set input processor to the multiplexer
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     private void addActors() {
@@ -59,23 +80,23 @@ public class HowToPlayMenuDisplay extends UIComponent {
                 "Beast Breakout is a top-down dungeon crawler game, presented using "
                         + "two-dimensional sprites, in which the player controls",
                 "an unnamed character in a non-specific facility."
-            }, {
+        }, {
                 "On each floor of the facility, the player must fight enraged animals in a room "
                         + "before continuing onto the next room. This is",
                 "most commonly done by the character's melee or ranged weapon in the style of a "
                         + "twin-stick shooter."
-            }, {
+        }, {
                 "Other methods of defeating enemies become possible as the character gains "
                         + "power-ups, items that are automatically worn",
                 "by the player-character when picked up that can alter the character's core "
                         + "attributes, such as increasing health or the",
                 "strength of their weapons, or cause additional side effects."
-            }, {
+        }, {
                 "When the player loses all of their health the game ends in permadeath and the "
                         + "player must start over from a freshly-",
                 "generated dungeon. Each floor of the dungeon includes a boss which the player "
                         + "must defeat before continuing to the next level."
-            }
+        }
         };
         TextButton animalBtn = new TextButton("About Animals", skin);
 
@@ -199,4 +220,3 @@ public class HowToPlayMenuDisplay extends UIComponent {
         super.dispose();
     }
 }
-

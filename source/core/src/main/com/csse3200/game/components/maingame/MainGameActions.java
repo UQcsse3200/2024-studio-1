@@ -19,7 +19,13 @@ public class MainGameActions extends Component {
 
   @Override
   public void create() {
+    entity.getEvents().addListener("restart", this::onRestart);
     entity.getEvents().addListener("exit", this::onExit);
+  }
+
+  private void onRestart() {
+    logger.info("Restarting");
+    game.setScreen(GdxGame.ScreenType.MAIN_GAME);
   }
 
   /**

@@ -1,9 +1,7 @@
 package com.csse3200.game.components;
 
-import com.csse3200.game.entities.Entity;
-
 import com.csse3200.game.components.player.ShieldComponent;
-
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
@@ -104,7 +102,10 @@ public class CombatStatsComponent extends Component {
     private class InvincibilityRemover extends TimerTask {
         @Override
         public void run() {
-            flashTask.cancel();
+            logger.debug("Removing invincibility and stopping flash task");
+            if (flashTask != null) {
+                flashTask.cancel();
+            }
             setInvincible(false);
             AnimationRenderComponent animateRender = entity.getComponent(AnimationRenderComponent.class);
             if (animateRender != null) {
@@ -339,10 +340,14 @@ public class CombatStatsComponent extends Component {
      * @param duration duration of invincibility in seconds
      */
     public void makeInvincible(float duration) {
+        logger.debug("Making entity invincible for {} seconds", duration);
         setInvincible(true);
         InvincibilityRemover task = new InvincibilityRemover();
         timerIFrames.schedule(task, (int) duration * 1000L);
-        flashTask = new FlashSprite();
+        if (flashTask != null) {
+            flashTask.cancel();
+        }
+        flashTask = new CombatStatsComponent.FlashSprite();
         timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
     }
 

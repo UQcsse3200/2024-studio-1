@@ -9,5 +9,5 @@
   "textureFilename": "images/player/player.png",
   "textureAtlasFilename": "images/player/player.atlas",
   "melee": "melee:knife",
-  "ranged": "ranged:shotgun"
+  "ranged": "ranged:pistol"
 }

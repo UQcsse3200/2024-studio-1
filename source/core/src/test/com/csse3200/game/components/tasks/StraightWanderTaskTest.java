@@ -12,6 +12,7 @@ import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -21,7 +22,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
 class StraightWanderTaskTest {
-
     private Entity entity;
     private StraightWanderTask straightWanderTask;
 
@@ -29,7 +29,7 @@ class StraightWanderTaskTest {
     void setUp() {
         // Initialize necessary services
         GameTime gameTime = mock(GameTime.class);
-        when(gameTime.getDeltaTime()).thenReturn(0.02f); // 20 ms per frame
+        when(gameTime.getDeltaTime()).thenReturn(0.1f); // 100 ms per frame
         ServiceLocator.registerTimeSource(gameTime);
         RenderService renderService = new RenderService();
         renderService.setDebug(mock(DebugRenderer.class));
@@ -51,10 +51,9 @@ class StraightWanderTaskTest {
     @Test
     void shouldStartMovingOnStart() {
         Vector2 initialPosition = entity.getPosition().cpy();
-        straightWanderTask.start();
 
         // Simulate updates to check movement
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             ServiceLocator.getPhysicsService().getPhysics().update();
             entity.earlyUpdate();
             entity.update();
@@ -67,10 +66,9 @@ class StraightWanderTaskTest {
         assertTrue(distanceMoved > 0, "Entity should have moved a non-zero distance.");
     }
 
-    @Test
+    @RepeatedTest(10)
     void shouldChangeDirectionOnCollision() {
         Vector2 initialPosition = entity.getPosition().cpy();
-        straightWanderTask.start();
 
         // Simulate movement before collision
         for (int i = 0; i < 5; i++) {
@@ -82,7 +80,7 @@ class StraightWanderTaskTest {
         Vector2 positionBeforeCollision = entity.getPosition().cpy();
 
         // Calculate initial movement direction
-        Vector2 initialDirection = positionBeforeCollision.cpy().sub(initialPosition).nor();
+        Vector2 initialDirection = positionBeforeCollision.cpy().sub(initialPosition);
 
         // Simulate a collision
         entity.getEvents().trigger("collisionStart", null, null);
@@ -97,11 +95,15 @@ class StraightWanderTaskTest {
         Vector2 positionAfterCollision = entity.getPosition();
 
         // Calculate direction after collision
-        Vector2 newDirection = positionAfterCollision.cpy().sub(positionBeforeCollision).nor();
+        Vector2 newDirection = positionAfterCollision.cpy().sub(positionBeforeCollision);
 
         // Ensure directions are not the same
         float angleBetween = initialDirection.angleDeg(newDirection);
-        assertTrue(angleBetween > 3f, "Entity should have moved in a different direction after collision.");
+        if (angleBetween > 180f) {
+            angleBetween = 360f - angleBetween;
+        }
+
+        assertTrue(angleBetween >= 8f, "Entity should have moved in a different direction after collision.");
     }
 
     @Test
@@ -112,8 +114,7 @@ class StraightWanderTaskTest {
         straightWanderTask.stop();
 
         // Simulate updates to check if movement has stopped
-        for (int i = 0; i < 5; i++) {
-            straightWanderTask.update();
+        for (int i = 0; i < 3; i++) {
             entity.earlyUpdate();
             entity.update();
         }

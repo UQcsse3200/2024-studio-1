@@ -95,11 +95,7 @@ public class RangeAttackComponent extends AttackComponent {
     public void create() {
         Entity baseEntity = this.getEntity();
         String baseName = "Dragon";
-        if (baseEntity.getComponent(NameComponent.class) == null) {
-            // Use for test entity
-            setProjectileNames(new String[]{"dragonProjectile"});
-            setAttackTriggers(new String[]{"fire_attack"});
-        } else {
+        if (baseEntity.getComponent(NameComponent.class) != null) {
             baseName = baseEntity.getComponent(NameComponent.class).getName();
         }
 
@@ -113,12 +109,13 @@ public class RangeAttackComponent extends AttackComponent {
                 setProjectileNames(new String[]{"cthuluProjectile"});
                 setAttackTriggers(new String[]{"cthulu_bullet"});
             }
-            case "dragon" -> {
+            default -> {
+                if (!baseName.equalsIgnoreCase("dragon")) {
+                    logger.error("Cannot find projectile type for enemy: \"{}\"", baseName);
+                    logger.info("Defaulting to Dragon projectiles");
+                }
                 setProjectileNames(new String[]{"dragonProjectile"});
                 setAttackTriggers(new String[]{"fire_attack"});
-            }
-            default -> {
-                logger.error("Cannot find projectile type for enemy: \"{}\"", baseName);
             }
         }
     }

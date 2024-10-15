@@ -2,10 +2,7 @@ package com.csse3200.game.areas.Levels;
 
 import com.csse3200.game.areas.*;
 import com.csse3200.game.components.CameraComponent;
-import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.PlayerConfigComponent;
-import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.extensions.GameExtension;

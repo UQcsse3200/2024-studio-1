@@ -118,12 +118,16 @@ public abstract class EnemyRoom extends BaseRoom {
         List<String> items = new ArrayList<>();
         RandomNumberGenerator rng = ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass());
         int itemsGroup = 0;
-        if (rng.getRandomInt(0, 1) == 1) {
+        if (rng.getRandomInt(0, 2) == 1) {
             GameController gameController = ServiceLocator.getGameAreaService().getGameController();
             String name = gameController.getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().name;
             switch (name) {
                 case "bear":
                     itemsGroup = 1;
+                    break;
+                case "necromancer":
+                    itemsGroup = 2;
+                    break;
             }
         }
         List<String> selectedItemsSpec = this.itemSpecifications.get(itemsGroup);
@@ -219,6 +223,7 @@ public abstract class EnemyRoom extends BaseRoom {
                 }
             }
         }
+        makeAllAnimalDead();
     }
 
     /**

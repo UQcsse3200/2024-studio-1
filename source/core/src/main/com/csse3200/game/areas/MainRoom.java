@@ -26,12 +26,11 @@ public class MainRoom extends EnemyRoom {
         return List.of(
                 List.of(
                         "buff:energydrink:High:mystery", "item:medkit:mystery",
-                        "item:targetdummy", "pet:tombstone",
+                        "item:targetdummy", "buff:heart",
                         "melee:knife", "ranged:supersoaker",
-                        "item:beartrap", "buff:feather",
                         "melee:axe", "ranged:plasmablaster",
                         "ranged:shotgun", "item:medkit",
-                        "item:shieldpotion", "ranged:fnscar",
+                        "item:shieldpotion", "ranged:fnscar", "buff:heart",
                         "melee:knife", "item:bandage",
                         "buff:energydrink:Medium", "item:shieldpotion",
                         "item:medkit", "melee:knife",
@@ -39,15 +38,23 @@ public class MainRoom extends EnemyRoom {
                         "melee:knife", "item:medkit",
                         "ranged:shotgun", "item:shieldpotion",
                         "ranged:fnscar", "melee:knife",
-                        "buff:energydrink:High", "ranged:plasmablaster",
-                        "buff:energydrink:High", "buff:energydrink:Medium",
-                        "item:medkit", "item:bandage"
+                        "ranged:plasmablaster", "buff:energydrink:High",
+                        "buff:energydrink:Medium", "item:medkit", "item:bandage"
                 ),
                 List.of(
-                        "buff:energydrink:High:mystery", "item:medkit:mystery",
-                        "item:targetdummy", "pet:tombstone",
-                        "melee:knife", "ranged:shotgun",
-                        "item:beartrap", "buff:feather"
+                        "item:beartrap", "buff:fang",
+                        "buff:armor", "buff:feather",
+                        "item:bigredbutton", "item:beartrap",
+                        "buff:fang", "item:beartrap",
+                        "item:beartrap", "buff:fang",
+                        "item:bandage", "buff:feather"
+
+                ),
+                List.of(
+                        "pet:tombstone", "buff:heart", "item:teleporter",
+                        "item:bandage", "pet:tombstone",
+                        "item:reroll", "item:reroll", "pet:tombstone",
+                        "item:teleporter", "item:bigredbutton", "pet:tombstone"
                 )
         );
     }

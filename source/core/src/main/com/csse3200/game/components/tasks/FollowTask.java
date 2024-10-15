@@ -20,8 +20,8 @@ public class FollowTask extends DefaultTask implements PriorityTask {
   private final float followSpeed;
   private final float waitTime;
   private final Vector2 followRange;
-  private MovementTask movementTask;
-  private WaitTask waitTask;
+   MovementTask movementTask;
+  WaitTask waitTask;
   private Task currentTask;
 
   /**

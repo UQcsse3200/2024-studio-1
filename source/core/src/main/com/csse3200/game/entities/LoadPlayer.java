@@ -126,8 +126,6 @@ public class LoadPlayer {
                 .addComponent(new PlayerCoinDisplay(coinsComponent));
         player.getComponent(CoinsComponent.class).setCoins(config.coins);
         player.getComponent(PlayerActions.class).setSpeed(config.speed);
-
-
     }
 
     /**
@@ -173,6 +171,10 @@ public class LoadPlayer {
         List<String> itemSpecs = new ArrayList<>();
         if (config.items != null) {
             itemSpecs.addAll(Arrays.stream(config.items).toList());
+        }
+
+        if (config.buffs != null) {
+            itemSpecs.addAll(Arrays.stream(config.buffs).toList());
         }
 
         // Do not load pets here, the game area isn't initialised so pets can't be spawned.

@@ -145,7 +145,7 @@ public class GameController {
      * @throws IllegalArgumentException if an invalid room type is provided.
      */
     public String getFlaggedRoom(String roomType) {
-        if (!List.of("Boss", "NPC", "GameRoom").contains(roomType)) {
+        if (!List.of("Boss", "Shop").contains(roomType)) {
             throw new IllegalArgumentException("Invalid room type: " + roomType);
         }
         return currentLevel.getMap().mapData.getRoomKey(roomType);

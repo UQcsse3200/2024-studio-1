@@ -159,7 +159,7 @@ public class MainGameLevelFactory implements LevelFactory {
                 }
             }
         }
-        ShopRoom shopRoom = (ShopRoom)rooms.get(ServiceLocator.getGameAreaService().getGameController().getFlaggedRoom("NPC"));
+        ShopRoom shopRoom = (ShopRoom)rooms.get(ServiceLocator.getGameAreaService().getGameController().getFlaggedRoom("Shop"));
         List<String> shopSave = shopRoom.itemsSpawned;
         config.shopRoomItems.addAll(shopSave);
         config.roomsCompleted = compRooms;

@@ -243,7 +243,7 @@ public class MapGenerator {
         // Get the random room details
         HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
         details.put("room_type", SHOPROOM);
-        RoomKeys.put("NPC", randomRoomKey);
+        RoomKeys.put("Shop", randomRoomKey);
         setRooms.add(randomRoomKey);
     }
 

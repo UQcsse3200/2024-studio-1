@@ -27,11 +27,11 @@ public class WeaponConfig {
         weaponConfigs.put("supersoaker", new WeaponData("supersoaker", 10,
                 10, 5, 20, 20, 3,
                 "images" + "/Weapons/Centered/supersoaker.png"));
-        weaponConfigs.put("fnscar", new WeaponData("fnscar", 12,
+        weaponConfigs.put("fnscar", new WeaponData("fnscar", 28,
                 0, 3, 20, 20, 3,
                 "images" + "/Weapons/Centered/fnscar.png"));
-        weaponConfigs.put("pistol", new WeaponData("pistol", 10,
-                0, 2, 7, 7, 3,
+        weaponConfigs.put("pistol", new WeaponData("pistol", 20,
+                0, 2, 9, 9, 3,
                 "images" + "/Weapons/Centered/pistol.png"));
 
         weaponConfigs.put("knife", new WeaponData("knife", 20,

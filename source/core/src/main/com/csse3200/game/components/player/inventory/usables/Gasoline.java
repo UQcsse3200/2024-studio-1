@@ -10,6 +10,11 @@ import com.csse3200.game.services.ServiceLocator;
 
 
 public class Gasoline extends UsableItem {
+
+    /**
+     * Spawns fires at each coordinate
+     * @param entity the entity to apply it to.
+     */
     @Override
     public void apply(Entity entity) {
         int[] offsetx = {-3, -2, -1, 0, 1, 2, 3, 2, 1, 0, -1, -2};
@@ -20,6 +25,12 @@ public class Gasoline extends UsableItem {
         }
     }
 
+    /**
+     * Creates entity instance and spawns at the location
+     * @param entity
+     * @param offsetX
+     * @param offsetY
+     */
     private void spawnRingFire(Entity entity, int offsetX, int offsetY) {
         Entity ringFire = new DeployableItemFactory().createRingFire();
         int xPos = (int) entity.getPosition().x + offsetX;
@@ -29,16 +40,28 @@ public class Gasoline extends UsableItem {
         }
     }
 
+    /**
+     * Gets the name
+     * @return the name
+     */
     @Override
     public String getName() {
         return "Gasoline";
     }
 
+    /**
+     * Gets the image of the item
+     * @return the image of the item
+     */
     @Override
     public Texture getIcon() {
         return new Texture("images/items/Fire.png");
     }
 
+    /**
+     * get the item specification
+     * @return item specification
+     */
     @Override
     public String getItemSpecification() {
         return "gasoline";

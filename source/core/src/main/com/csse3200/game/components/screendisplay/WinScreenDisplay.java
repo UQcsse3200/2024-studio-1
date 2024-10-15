@@ -27,6 +27,7 @@ public class WinScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(WinScreenDisplay.class);
     private static final float Z_INDEX = 2f;
     private static final float Y_PADDING = 10f;
+    public static final int FONT_SCALE = 4;
     private final GdxGame game;
     private Table table;
     private final String backgroundImagePath;
@@ -56,10 +57,11 @@ public class WinScreenDisplay extends UIComponent {
         // Set up background image
         Texture backgroundTexture = ServiceLocator.getResourceService().getAsset(backgroundImagePath, Texture.class);
         backgroundImage = new Image(new TextureRegionDrawable(backgroundTexture));
-        backgroundImage.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        backgroundImage.setFillParent(true);
         stage.addActor(backgroundImage);
 
-        Label youWin = new Label("You win!", skin);
+        Label youWin = new Label("You win!", skin, "whiteTitle");
+        youWin.setFontScale(FONT_SCALE); // make the text bigger
         table.row();
         table.add(youWin).padTop(Y_PADDING);
 

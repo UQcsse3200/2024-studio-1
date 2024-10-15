@@ -3,6 +3,8 @@ package com.csse3200.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.GdxGame.ScreenType;
+import com.csse3200.game.components.EscapeScreenInputComponent;
 import com.csse3200.game.components.howtoplaymenu.AnimalDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.EntityService;
@@ -67,7 +69,9 @@ public class AnimalScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new AnimalDisplay(game)).addComponent(new InputDecorator(stage, 10));
+        ui.addComponent(new AnimalDisplay(game))
+                .addComponent(new InputDecorator(stage, 10))
+                .addComponent(new EscapeScreenInputComponent(game, ScreenType.HOW_TO_PLAY));
         ServiceLocator.getEntityService().register(ui);
     }
 }

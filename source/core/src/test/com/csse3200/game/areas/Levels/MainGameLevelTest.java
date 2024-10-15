@@ -1,6 +1,6 @@
 package com.csse3200.game.areas.Levels;
 
-import com.csse3200.game.areas.Level;
+import com.csse3200.game.areas.MainGameLevel;
 import com.csse3200.game.areas.LevelMap;
 import com.csse3200.game.areas.Room;
 
@@ -13,9 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-class LevelTest {
+class MainGameLevelTest {
 
     @Mock
     private LevelMap mockMap;
@@ -26,7 +25,7 @@ class LevelTest {
     @Mock
     private Room mockRoom2;
 
-    private Level level;
+    private MainGameLevel level;
     private Map<String, Room> mockRooms;
 
     @BeforeEach
@@ -36,7 +35,7 @@ class LevelTest {
         mockRooms.put("0_0", mockRoom1);
         mockRooms.put("1_1", mockRoom2);
 
-        level = new Level(mockMap, 1, mockRooms);
+        level = new MainGameLevel(mockMap, 1, mockRooms);
     }
 
     @Test

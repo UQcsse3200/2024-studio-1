@@ -58,6 +58,8 @@ public class UserSettings {
         log.info("{}", settings.mute);
         log.info("{}", settings.musicVolume);
 
+        //applyAudioSettings(settings);
+
         if (settings.fullscreen) {
             DisplayMode displayMode = findMatching(settings.displayMode);
             if (displayMode == null) {
@@ -75,8 +77,8 @@ public class UserSettings {
         }
         for (DisplayMode displayMode : Gdx.graphics.getDisplayModes()) {
             if (displayMode.refreshRate == desiredSettings.refreshRate
-                        && displayMode.height == desiredSettings.height
-                        && displayMode.width == desiredSettings.width) {
+                    && displayMode.height == desiredSettings.height
+                    && displayMode.width == desiredSettings.width) {
                 return displayMode;
             }
         }
@@ -96,6 +98,11 @@ public class UserSettings {
         public boolean fullscreen = true;
         public boolean vsync = true;
         public boolean mute = false;
+        public boolean enableCutscene = true;
+        /**
+         * ui Scale. Currently unused, but can be implemented.
+         */
+        public float uiScale = 1f;
         public DisplaySettings displayMode = null;
         public float musicVolume = 0.3f;
         public float soundVolume = 0.5f;
@@ -108,6 +115,7 @@ public class UserSettings {
         public int width;
         public int height;
         public int refreshRate;
+        public int zoomScale;
 
         public DisplaySettings() {
         }

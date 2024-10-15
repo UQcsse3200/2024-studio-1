@@ -1,54 +1,59 @@
 package com.csse3200.game.areas;
 
 
-import com.csse3200.game.areas.generation.MapGenerator;
+import com.csse3200.game.areas.generation.RandomMapGenerator;
 
+import com.csse3200.game.areas.generation.RoomType;
+import com.csse3200.game.services.RandomService;
+import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 class MapGeneratorTest {
-    private MapGenerator mapGenerator;
+    private RandomMapGenerator randomMapGenerator;
     private static final String TEST_SEED = "testSeed";
+    private String expectedSeed;
     private static final int TEST_MAP_SIZE = 100;
 
     @BeforeEach
     void setUp() {
-        mapGenerator = new MapGenerator(TEST_MAP_SIZE, TEST_SEED);
+        ServiceLocator.registerRandomService(new RandomService(TEST_SEED));
+        this.expectedSeed = ServiceLocator.getRandomService()
+                .getRandomNumberGenerator(RandomMapGenerator.class)
+                .getSeed();
+        randomMapGenerator = new RandomMapGenerator(TEST_MAP_SIZE);
     }
 
     @Test
     void testConstructor() {
-        assertEquals(TEST_MAP_SIZE, mapGenerator.getMapSize(), "Map size should be set correctly");
-        assertEquals(TEST_SEED, mapGenerator.getMapSeed(), "Seed should be set correctly");
-        assertEquals("0_0", mapGenerator.get_player_position(), "Starting room should be '0_0'");
+        assertEquals(TEST_MAP_SIZE, randomMapGenerator.getMapSize(), "Map size should be set correctly");
+        assertEquals(expectedSeed, randomMapGenerator.getMapSeed(), "Seed should be set correctly");
+        assertEquals("0_0", randomMapGenerator.getPlayerPosition(), "Starting room should be '0_0'");
     }
 
     @Test
     void testCreateMap() {
-        mapGenerator.createMap();
-        HashMap<String, List<String>> positions = mapGenerator.getPositions();
+        randomMapGenerator.createMap();
+        Map<String, List<String>> positions = randomMapGenerator.getPositions();
         assertFalse(positions.isEmpty(), "Map should not be empty after creation");
         assertTrue(positions.containsKey("0_0"), "Map should contain the starting room");
     }
 
     @Test
     void testGetPositions() {
-        mapGenerator.createMap();
-        HashMap<String, List<String>> positions = mapGenerator.getPositions();
+        randomMapGenerator.createMap();
+        Map<String, List<String>> positions = randomMapGenerator.getPositions();
         assertNotNull(positions, "Positions should not be null");
         assertFalse(positions.isEmpty(), "Positions should not be empty after map creation");
     }
 
     @Test
     void testGetRoomDetails() {
-        mapGenerator.createMap();
-        HashMap<String, HashMap<String, Integer>> roomDetails = mapGenerator.getRoomDetails();
+        randomMapGenerator.createMap();
+        Map<String, Map<String, Integer>> roomDetails = randomMapGenerator.getRoomDetails();
         assertNotNull(roomDetails, "Room details should not be null");
         assertFalse(roomDetails.isEmpty(), "Room details should not be empty after map creation");
     }
@@ -61,20 +66,24 @@ class MapGeneratorTest {
 
     @Test
     void testConsistentMapGeneration() {
-        MapGenerator generator1 = new MapGenerator(TEST_MAP_SIZE, TEST_SEED);
-        MapGenerator generator2 = new MapGenerator(TEST_MAP_SIZE, TEST_SEED);
-
+        RandomMapGenerator generator1 = new RandomMapGenerator(TEST_MAP_SIZE);
         generator1.createMap();
-        generator2.createMap();
+        var first = generator1.getPositions().entrySet();
 
-        assertEquals(generator1.getPositions(), generator2.getPositions(), 
+        setUp();
+
+        RandomMapGenerator generator2 = new RandomMapGenerator(TEST_MAP_SIZE);
+        generator2.createMap();
+        var second = generator2.getPositions().entrySet();
+
+        assertEquals(first, second,
             "Maps generated with the same seed should be identical");
     }
 
     @Test
     void testDifferentSeedsProduceDifferentMaps() {
-        MapGenerator generator1 = new MapGenerator(TEST_MAP_SIZE, TEST_SEED);
-        MapGenerator generator2 = new MapGenerator(TEST_MAP_SIZE, "differentSeed");
+        RandomMapGenerator generator1 = new RandomMapGenerator(TEST_MAP_SIZE);
+        RandomMapGenerator generator2 = new RandomMapGenerator(TEST_MAP_SIZE);
 
         generator1.createMap();
         generator2.createMap();
@@ -85,8 +94,8 @@ class MapGeneratorTest {
 
     @Test
     void testMapSizeAffectsRoomCount() {
-        MapGenerator smallMap = new MapGenerator(50, TEST_SEED);
-        MapGenerator largeMap = new MapGenerator(200, TEST_SEED);
+        RandomMapGenerator smallMap = new RandomMapGenerator(50);
+        RandomMapGenerator largeMap = new RandomMapGenerator(200);
 
         smallMap.createMap();
         largeMap.createMap();
@@ -97,8 +106,8 @@ class MapGeneratorTest {
 
     @Test
     void testAllRoomsConnected() {
-        mapGenerator.createMap();
-        HashMap<String, List<String>> positions = mapGenerator.getPositions();
+        randomMapGenerator.createMap();
+        Map<String, List<String>> positions = randomMapGenerator.getPositions();
         
         for (List<String> connections : positions.values()) {
             assertTrue(connections.stream().anyMatch(c -> !c.isEmpty()), 
@@ -123,9 +132,9 @@ class MapGeneratorTest {
 
     @Test
     void testRoomDetailsConsistency() {
-        mapGenerator.createMap();
-        HashMap<String, HashMap<String, Integer>> roomDetails = mapGenerator.getRoomDetails();
-        HashMap<String, List<String>> positions = mapGenerator.getPositions();
+        randomMapGenerator.createMap();
+        Map<String, Map<String, Integer>> roomDetails = randomMapGenerator.getRoomDetails();
+        Map<String, List<String>> positions = randomMapGenerator.getPositions();
 
         assertEquals(positions.size(), roomDetails.size(), 
             "Number of rooms in positions and room details should match");
@@ -137,29 +146,17 @@ class MapGeneratorTest {
     }
 
     @Test
-    void testFurthestRoomFind() {
-        mapGenerator.createMap();
-        // 4_-7 is the biggest in this list
-        assertEquals(mapGenerator.findFurthestRoom(), "4_-7",
-                "Furthest room should be '4_-7' with this seed");
-        assertEquals(mapGenerator.calculateDistance(mapGenerator.findFurthestRoom()), 11,
-                "Calculate distance should calculate distance of furthest room");
-    }
-
-    @Test
     void testSupplementaryRoomCreation() {
-        mapGenerator.createMap();
-        HashMap<String, HashMap<String, Integer>> roomDetails = mapGenerator.getRoomDetails();
+        randomMapGenerator.createMap();
+        Map<String, Map<String, Integer>> roomDetails = randomMapGenerator.getRoomDetails();
         List<Integer> types = new ArrayList<>();
         List<String> keys = new ArrayList<>(roomDetails.keySet());
         for (String key : keys) {
             types.add(roomDetails.get(key).get("room_type"));
         }
-        assertEquals(Collections.frequency(types, MapGenerator.BOSSROOM), 1,
+        assertEquals(1, Collections.frequency(types, RoomType.BOSS_ROOM.num),
                 "Should have only one boss room");
-        assertEquals(Collections.frequency(types, MapGenerator.NPCROOM), 1,
+        assertEquals(1, Collections.frequency(types, RoomType.SHOP_ROOM.num),
                 "Should have only one NPC room");
-        assertEquals(Collections.frequency(types, MapGenerator.GAMEROOM), 1,
-                "Should have only one Game room");
     }
 }

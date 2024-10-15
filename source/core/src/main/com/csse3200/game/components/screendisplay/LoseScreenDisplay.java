@@ -3,6 +3,9 @@ package com.csse3200.game.components.screendisplay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;  // Import InputMultiplexer
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -31,11 +34,10 @@ public class LoseScreenDisplay extends UIComponent {
     private Table table;
     private String LastAttackAnimal;
 
-    private Texture backgroundTexture;
-
     private ArrayList<String> animals = new ArrayList<String>();
     private ArrayList<String> animalDeathScreens = new ArrayList<String>();
 
+    private Texture backgroundTexture;
 
     String[] animalImagePaths = {
             "images/how-to-play/animals/rat.png",
@@ -88,6 +90,28 @@ public class LoseScreenDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
+
+        // Use InputMultiplexer to handle both stage (for button clicks) and custom input (for ESC key)
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+
+        // Add the stage to handle button clicks and other UI events
+        inputMultiplexer.addProcessor(stage);
+
+        // Add custom input processor to handle the ESC key
+        inputMultiplexer.addProcessor(new InputAdapter() {
+            @Override
+            public boolean keyUp(int keycode) {
+                if (keycode == Input.Keys.ESCAPE) {
+                    logger.debug("Esc key pressed, going back to menu");
+                    game.setScreen(MAIN_MENU); // Go back to menu
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Set the input processor to the multiplexer
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     private void addActors() {
@@ -119,7 +143,7 @@ public class LoseScreenDisplay extends UIComponent {
 
 
 
-        LastAttackAnimal = readClass(String.class, "configs/LastAttack.json", FileLoader.Location.LOCAL);
+        LastAttackAnimal = readClass(String.class, "configs/LastAttack.json", FileLoader.Location.EXTERNAL);
         if(!LastAttackAnimal.equals("Unknown")){
             int firstSpaceIndex = LastAttackAnimal.indexOf(' ');
             if (firstSpaceIndex != -1) { // Check if there is at least one space in the string
@@ -162,6 +186,7 @@ public class LoseScreenDisplay extends UIComponent {
             table.row();
             table.add(youDied).padTop(30f);
         }
+
         Button exitBtn = new TextButton("Back to menu", skin);
         exitBtn.addListener(new ChangeListener() {
             @Override
@@ -179,8 +204,9 @@ public class LoseScreenDisplay extends UIComponent {
     @Override
     public void dispose() {
         table.clear();
+        // Dispose the background texture
         if (backgroundTexture != null) {
-            backgroundTexture.dispose();  // Dispose the background texture
+            backgroundTexture.dispose();
         }
         super.dispose();
     }

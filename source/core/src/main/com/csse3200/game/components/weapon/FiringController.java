@@ -286,8 +286,9 @@ public class FiringController extends Component {
         } else if (direction.x < 0) {
             this.entity.getEvents().trigger("shootLeft");
         }
-        // Trigger event for weapon UI
-        if (this.player != null && !isMelee) {
+        // Trigger event for weapon UIW
+        if (this.player != null && !this.isMelee) {
+
             this.player.getEvents().trigger("ranged_activate", this.ammo);
         }
     }

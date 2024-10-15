@@ -140,7 +140,7 @@ public class GameController {
     /**
      * Get the room key for a specified flagged room type.
      *
-     * @param roomType The type of room to get the key for. Valid values are "Boss", "NPC", and "GameRoom".
+     * @param roomType The type of room to get the key for. Valid values are "Boss" and "Shop".
      * @return The room key for the specified room type, or null if the room type is invalid.
      * @throws IllegalArgumentException if an invalid room type is provided.
      */

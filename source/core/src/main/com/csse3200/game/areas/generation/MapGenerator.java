@@ -229,7 +229,7 @@ public class MapGenerator {
     }
 
     /**
-     * Set NPC room
+     * Set Shop Room
      * @param setRooms - rooms already set with specific types
      */
     private void setShopRoom(List<String> setRooms) {

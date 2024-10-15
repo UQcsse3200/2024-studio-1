@@ -14,7 +14,7 @@ public class MainRoom extends EnemyRoom {
         //3 points Bear Dragon Minotaur 
         //Each room is a total of 6 points maximum
                 //1+1+1+1+1+1
-                List.of("Rat","Bat","Rat","Bat","Rat","Bat","Dog"),
+                List.of("Rat","Bat","Rat","Bat","Rat","Bat"),
                 List.of("Rat","Rat","Rat","Rat","Rat","Rat"),
                 List.of("Bat","Bat","Bat","Bat","Bat","Bat"),
                 List.of("Bat","Bat","Bat","Bat","Bat","Bat"),

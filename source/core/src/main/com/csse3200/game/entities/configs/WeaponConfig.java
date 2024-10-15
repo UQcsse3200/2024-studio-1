@@ -7,45 +7,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WeaponConfig {
-
     private static final Logger logger = LoggerFactory.getLogger(WeaponConfig.class);
 
     // Store weapon data in a map
-    private static final Map<String, WeaponData> weaponConfigs = new HashMap<>();
+    private static final Map<String, WeaponData> WEAPON_CONFIGS = new HashMap<>();
 
     static {
         // Load weapon data (can be from JSON or hardcoded for now)
-        weaponConfigs.put("Shotgun", new WeaponData("Shotgun", 15, 3,
-                2, 20, 20, 3, "images" +
-                "/Weapons/Centered/Shotgun.png"));
-        weaponConfigs.put("shotgun", new WeaponData("shotgun", 10, 10,
-                5, 20, 20, 3, "images" +
-                "/Weapons/Centered/shotgun.png"));
-        weaponConfigs.put("plasmablaster", new WeaponData("plasmablaster", 10,
+        WEAPON_CONFIGS.put("shotgun", new WeaponData("shotgun", 10, 10,
+                5, 20, 20, 3, "images/Weapons/Centered/shotgun.png"));
+        WEAPON_CONFIGS.put("plasmablaster", new WeaponData("plasmablaster", 10,
                 10, 5, 20, 20, 3,
-                "images" + "/Weapons/Centered/plasmablaster.png"));
-        weaponConfigs.put("supersoaker", new WeaponData("supersoaker", 10,
+                "images/Weapons/Centered/plasmablaster.png"));
+        WEAPON_CONFIGS.put("supersoaker", new WeaponData("supersoaker", 10,
                 10, 5, 20, 20, 3,
-                "images" + "/Weapons/Centered/supersoaker.png"));
-        weaponConfigs.put("fnscar", new WeaponData("fnscar", 28,
+                "images/Weapons/Centered/supersoaker.png"));
+        WEAPON_CONFIGS.put("fnscar", new WeaponData("fnscar", 28,
                 0, 3, 20, 20, 3,
                 "images" + "/Weapons/Centered/fnscar.png"));
-        weaponConfigs.put("pistol", new WeaponData("pistol", 20,
+        WEAPON_CONFIGS.put("pistol", new WeaponData("pistol", 20,
                 0, 2, 9, 9, 3,
                 "images" + "/Weapons/Centered/pistol.png"));
-
-        weaponConfigs.put("knife", new WeaponData("knife", 20,
-                1, 3, "images/Weapons/Centered" +
-                "/knife" +
-                ".png"));
-        weaponConfigs.put("axe", new WeaponData("axe", 80,
+        WEAPON_CONFIGS.put("knife", new WeaponData("knife", 20,
+                1, 3, "images/Weapons/Centered/knife.png"));
+        WEAPON_CONFIGS.put("axe", new WeaponData("axe", 80,
                 2, 1, "images/Weapons/Centered/axe.png"));
 
     }
 
     // Method to fetch weapon data by specification
     public static WeaponData getWeaponData(String specification) {
-        return weaponConfigs.get(specification);
+        return WEAPON_CONFIGS.get(specification);
     }
 
     // Define the WeaponData class

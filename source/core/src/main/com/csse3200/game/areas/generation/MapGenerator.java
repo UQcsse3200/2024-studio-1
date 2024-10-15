@@ -213,7 +213,7 @@ public class MapGenerator {
         setRooms.add("0_0");
 
         setBossRoom(setRooms);
-        setNpcRoom(setRooms);
+        setShopRoom(setRooms);
     }
 
     /**
@@ -232,7 +232,7 @@ public class MapGenerator {
      * Set NPC room
      * @param setRooms - rooms already set with specific types
      */
-    private void setNpcRoom(List<String> setRooms) {
+    private void setShopRoom(List<String> setRooms) {
         List<String> rooms = new ArrayList<>(roomDetails.keySet());
         String randomRoomKey;
         int connections;

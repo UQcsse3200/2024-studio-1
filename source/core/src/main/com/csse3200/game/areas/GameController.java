@@ -92,7 +92,7 @@ public class GameController {
         this.shouldLoad = shouldLoad;
         this.gameArea = gameArea;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getFlaggedRoom("Boss")));
-        player.getEvents().addListener("teleportToShop", () -> this.changeRooms(getFlaggedRoom("NPC")));
+        player.getEvents().addListener("teleportToShop", () -> this.changeRooms(getFlaggedRoom("Shop")));
         player.getEvents().addListener("saveMapData", this::saveMapData);
         player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));

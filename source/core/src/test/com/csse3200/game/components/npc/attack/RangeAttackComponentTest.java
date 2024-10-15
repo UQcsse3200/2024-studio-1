@@ -20,6 +20,7 @@ import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.services.RandomService;
 import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,9 @@ class RangeAttackComponentTest {
     private GameAreaService gameAreaService;
 
     @Mock
+    private RandomService randomService;
+
+    @Mock
     private GameController gameController;
 
     @Mock
@@ -56,12 +60,14 @@ class RangeAttackComponentTest {
         gameAreaService = mock(GameAreaService.class);
         gameController = mock(GameController.class);
         gameArea = mock(GameArea.class);
+        randomService = mock(RandomService.class);
 
         player = new Entity().addComponent(new CombatStatsComponent(100, 10));
 
         // Register the mocked services with ServiceLocator
         ServiceLocator.registerTimeSource(gameTime);
         ServiceLocator.registerGameAreaService(gameAreaService);
+        ServiceLocator.registerRandomService(randomService);
 
         // Mock the behavior of gameAreaService and mainGameArea
         when(gameAreaService.getGameController()).thenReturn(gameController);

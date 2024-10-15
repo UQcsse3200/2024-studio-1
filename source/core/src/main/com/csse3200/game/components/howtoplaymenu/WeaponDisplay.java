@@ -1,22 +1,18 @@
 package com.csse3200.game.components.howtoplaymenu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.GdxGame;
-import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
-import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WeaponDisplay extends UIComponent{
+public class WeaponDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(WeaponDisplay.class);
     private final GdxGame game;
 
@@ -88,10 +84,6 @@ public class WeaponDisplay extends UIComponent{
         return table;
     }
 
-    private String prettyPrint(Graphics.DisplayMode displayMode) {
-        return displayMode.width + "x" + displayMode.height + ", " + displayMode.refreshRate + "hz";
-    }
-
     private Table makeMenuBtns() {
         TextButton exitBtn = new TextButton("Back", skin);
 
@@ -100,7 +92,7 @@ public class WeaponDisplay extends UIComponent{
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("Back button clicked");
-                        exitMenu();
+                        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
                     }
                 });
 
@@ -109,13 +101,10 @@ public class WeaponDisplay extends UIComponent{
         return table;
     }
 
-    private void exitMenu() {
-        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
-    }
-
     @Override
     protected void draw(SpriteBatch batch) {
         // draw is handled by the stage
+
     }
 
     @Override

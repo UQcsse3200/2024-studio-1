@@ -2,6 +2,7 @@ package com.csse3200.game.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.components.EscapeScreenInputComponent;
 import com.csse3200.game.components.screendisplay.WinScreenDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputDecorator;
@@ -15,11 +16,8 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 public class WinScreen extends StaticScreen {
 
-    // todo add citation
-    /**
-     * Happy player image, edited from assets/images/player/player.png
-     */
-    public static final String PLAYER_HAPPY = "images/player/player_happy.png";
+    public static final String BACKGROUND_IMAGE = "images/backgrounds/win_background.png";
+
 
     /**
      * Make the win screen.
@@ -27,7 +25,7 @@ public class WinScreen extends StaticScreen {
      * @param game the overarching game.
      */
     public WinScreen(GdxGame game) {
-        super(game, new String[]{PLAYER_HAPPY}, getLogger(WinScreen.class), DEFAULT);
+        super(game, new String[]{BACKGROUND_IMAGE}, getLogger(WinScreen.class), DEFAULT);
     }
 
     @Override
@@ -35,7 +33,8 @@ public class WinScreen extends StaticScreen {
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
         ui.addComponent(new InputDecorator(stage, 10))
-                .addComponent(new WinScreenDisplay(game));
+                .addComponent(new WinScreenDisplay(game, BACKGROUND_IMAGE))
+                .addComponent(new EscapeScreenInputComponent(game));
         return ui;
     }
 }

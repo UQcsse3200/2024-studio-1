@@ -2,6 +2,7 @@ package com.csse3200.game.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.components.EscapeScreenInputComponent;
 import com.csse3200.game.components.MenuExitComponent;
 import com.csse3200.game.components.achievementsscreen.AchievementsListComponent;
 import com.csse3200.game.components.screendisplay.AchievementsScreenDisplay;
@@ -35,7 +36,8 @@ public class AchievementsScreen extends StaticScreen {
         ui.addComponent(new InputDecorator(stage, 10))
                 .addComponent(new AchievementsScreenDisplay())
                 .addComponent(new AchievementsListComponent())
-                .addComponent(new MenuExitComponent(game));
+                .addComponent(new MenuExitComponent(game))
+                .addComponent(new EscapeScreenInputComponent(game));
         return ui;
     }
 }

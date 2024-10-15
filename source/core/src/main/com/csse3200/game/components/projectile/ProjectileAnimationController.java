@@ -31,7 +31,7 @@ public class ProjectileAnimationController extends Component {
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         directionalComponent = this.entity.getComponent(DirectionalNPCComponent.class);
 
-        PROJECTILE_TYPES.forEach((type) ->
+        PROJECTILE_TYPES.forEach(type ->
                 entity.getEvents().addListener(type, () -> animateProjectile(type))
         );
     }

@@ -54,7 +54,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param specification Room specification string.
      * @param roomName Name of the room.
      */
-    public EnemyRoom(
+    protected EnemyRoom(
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
@@ -83,7 +83,7 @@ public abstract class EnemyRoom extends BaseRoom {
     /**
      * Spawns Deployable Entity
      */
-    public void SpawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
+    public void spawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
         entities.add(entity);
         getGameAreaService().getGameArea().spawnEntityAt(entity, tilePos, centerX, centerY);
 
@@ -95,7 +95,7 @@ public abstract class EnemyRoom extends BaseRoom {
      */
     public void checkComplete() {
         if (isAllAnimalDead()) {
-            System.out.println("room is complete");
+            logger.info("room is complete");
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
@@ -159,6 +159,13 @@ public abstract class EnemyRoom extends BaseRoom {
         }
     }
 
+    @Override
+    protected Entity spawnItem(GameArea area, String specification, GridPoint2 pos) {
+        Entity item = super.spawnItem(area, specification, pos);
+        item.getEvents().addListener("itemChose", () -> deleteRemainingItems(item));
+        return item;
+    }
+
     /**
      * Checks if all animals/enemies in the room are dead.
      *
@@ -205,15 +212,9 @@ public abstract class EnemyRoom extends BaseRoom {
                 if (enemy.getComponent(CombatStatsComponent.class) != null) {
                     Vector2 playerPos = player.getPosition();
                     GridPoint2 randomPos = new GridPoint2(
-                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x),
-                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y)
+                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(3,5),
+                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(3, 9)
                     );
-                    while (Math.abs(randomPos.x-playerPos.x) <= 1 || Math.abs(randomPos.y-playerPos.y) <= 1){
-                     randomPos = new GridPoint2(
-                      ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
-                       ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
-                        );
-                    }
                     spawnEnemyEntity(area, enemy, randomPos);
                 }
             }
@@ -233,9 +234,6 @@ public abstract class EnemyRoom extends BaseRoom {
         if (!isComplete()) {
             logger.info("spawning enemies");
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
-
-            //logger.info("spawning items");
-            //this.spawnItems();
         }
     }
 

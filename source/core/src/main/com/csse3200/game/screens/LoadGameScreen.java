@@ -10,6 +10,8 @@ import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.options.GameOptions;
+import com.csse3200.game.services.RandomService;
+import com.csse3200.game.services.ServiceLocator;
 
 import java.util.List;
 
@@ -40,9 +42,9 @@ public class LoadGameScreen extends GameScreen {
         }
 
         PlayerFactoryFactory playerFactoryFactory = new PlayerFactoryFactory(List.of(config));
-        gameOptions.playerFactory = playerFactoryFactory.create(config.name);
+        gameOptions.setPlayerFactory(playerFactoryFactory.create(config.name));
         
-        Entity player = gameOptions.playerFactory.create(config.difficulty);
+        Entity player = gameOptions.createPlayer(config.difficulty);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
        // loadBuffs(player, config);
@@ -50,6 +52,8 @@ public class LoadGameScreen extends GameScreen {
         logger.debug("Initialising load game screen entities");
         MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class,
                 MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
+        logger.debug("The gameOptions are", mapLoadConfig.seed);
+        ServiceLocator.registerRandomService(new RandomService(mapLoadConfig.seed));
         LevelFactory levelFactory = new MainGameLevelFactory(true, mapLoadConfig);
         new GameController(new GameArea(), levelFactory, player, true, mapLoadConfig);
         spawnPets(player, config);

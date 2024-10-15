@@ -8,7 +8,7 @@ import com.csse3200.game.components.player.inventory.BuffItem;
 import com.csse3200.game.entities.Entity;
 
 public class DivinePotion extends BuffItem {
-    private static final int potionBoost = 30;
+    private static final int POTION_BOOST = 30;
     Vector2 maxSpeed = new Vector2(6f, 6f);
 
     /**
@@ -29,7 +29,7 @@ public class DivinePotion extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        Boost(entity);
+        boost(entity);
         speed(entity);
     }
 
@@ -58,10 +58,10 @@ public class DivinePotion extends BuffItem {
      *
      * @param entity whose health is increased.
      */
-    public void Boost(Entity entity) {
+    public void boost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + potionBoost, combatStats.getMaxHealth());
+        int newHealth = Math.min(currentHealth + POTION_BOOST, combatStats.getMaxHealth());
         combatStats.setHealth(newHealth);
     }
 

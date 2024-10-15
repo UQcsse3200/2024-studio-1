@@ -5,7 +5,6 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
-import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.components.PhysicsMovementComponent;
 import com.csse3200.game.physics.components.HitboxComponent;
@@ -24,7 +23,7 @@ import java.util.List;
  */
 public class NPCDeathHandler extends Component {
     public static final float DEATH_ANIMATION_DURATION = 1.0f;
-    private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
+    private static final Logger logger = LoggerFactory.getLogger(NPCDeathHandler.class);
     public static final List<Integer> deadEntities = new ArrayList<>();
 
     private AnimationRenderComponent animator;

@@ -22,7 +22,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected CombatStatsComponent combatStats;
     protected EffectConfig[] effectConfigs;
     protected int remainingAttacks = -1;
-    protected static final Logger logger = LoggerFactory.getLogger(MeleeAttackComponent.class);
+    protected static final Logger logger = LoggerFactory.getLogger(AttackComponent.class);
 
 
     /**

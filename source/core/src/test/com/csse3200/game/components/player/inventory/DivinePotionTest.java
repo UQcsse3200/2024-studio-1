@@ -72,7 +72,7 @@ public class DivinePotionTest {
         when(combatStatsComponent.getHealth()).thenReturn(initialHealth);
         when(combatStatsComponent.getMaxHealth()).thenReturn(maxHealth);
 
-        divinePotion.Boost(entity);
+        divinePotion.boost(entity);
 
         verify(combatStatsComponent).setHealth(expectedHealth);
 

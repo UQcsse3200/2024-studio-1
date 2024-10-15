@@ -9,6 +9,7 @@ import com.csse3200.game.components.player.inventory.pets.Tombstone;
 import com.csse3200.game.components.player.inventory.usables.*;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,6 +64,19 @@ public class ItemFactory {
         });
 
         return creator.create(arguments);
+    }
+
+    /**
+     * Generate a list of all valid specifications this factory can generate.
+     *
+     * @return the specifications as a List.
+     */
+    public Collection<String> getAllSpecs() {
+        return creators.keySet()
+                .stream()
+                .filter(s -> !s.equals("energydrink"))
+                .map(s -> "item:" + s)
+                .toList();
     }
 
     private interface ItemCreator {

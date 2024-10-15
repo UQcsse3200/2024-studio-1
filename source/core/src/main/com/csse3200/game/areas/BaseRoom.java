@@ -3,7 +3,6 @@ package com.csse3200.game.areas;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-import java.util.Random;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -11,7 +10,6 @@ import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.inventory.BuyableComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
@@ -25,61 +23,86 @@ import org.slf4j.LoggerFactory;
  * This class provides common functionality for all room types.
  */
 public abstract class BaseRoom implements Room {
-    /** Logger for this class. */
+    /**
+     * Logger for this class.
+     */
     private static final Logger logger = LoggerFactory.getLogger(BaseRoom.class);
 
-    /** Factory for creating doors. */
+    /**
+     * Factory for creating doors.
+     */
     protected final DoorFactory doorFactory = new DoorFactory();
 
-    /** Factory for creating terrain. */
+    /**
+     * Factory for creating terrain.
+     */
     protected final TerrainFactory terrainFactory;
 
-    /** Factory for creating collectible items. */
+    /**
+     * Factory for creating collectible items.
+     */
     protected final CollectibleFactory collectibleFactory;
 
-    /** List of room connections. */
+    /**
+     * List of room connections.
+     */
     protected final List<String> roomConnections;
 
-    /** List of all entities in the room. */
+    /**
+     * List of all entities in the room.
+     */
     protected List<Entity> entities;
 
-
-    /** Specification string for the room. */
+    /**
+     * Specification string for the room.
+     */
     protected final String specification;
 
-    /** Minimum grid point of the room. */
+    /**
+     * Minimum grid point of the room.
+     */
     protected final GridPoint2 minGridPoint;
 
-    /** Maximum grid point of the room. */
+    /**
+     * Maximum grid point of the room.
+     */
     protected final GridPoint2 maxGridPoint;
 
-    /** Group index for items in the room. */
+    /**
+     * Group index for items in the room.
+     */
     protected final int itemGroup;
 
-    /** List of item specifications for the room. */
+    /**
+     * List of item specifications for the room.
+     */
     protected List<List<String>> itemSpecifications;
 
-    /** Flag indicating if the room is completed. */
+    /**
+     * Flag indicating if the room is completed.
+     */
     protected boolean isRoomCompleted = false;
 
-    /** Thickness of the room walls. */
+    /**
+     * Thickness of the room walls.
+     */
     protected static final float WALL_THICKNESS = 0.15f;
 
-    /** Name of the room. */
+    /**
+     * Name of the room.
+     */
     protected final String roomName;
-
-
 
     /**
      * Constructs a new BaseRoom with the given parameters.
      *
-     * @param terrainFactory The factory for creating terrain.
+     * @param terrainFactory     The factory for creating terrain.
      * @param collectibleFactory The factory for creating collectible items.
-     * @param  roomConnections List of room connections.
-     * @param specification The room specification string.
-     * @param roomName The name of the room.
+     * @param roomConnections    List of room connections.
+     * @param specification      The room specification string.
+     * @param roomName           The name of the room.
      */
-    public BaseRoom(
+    protected BaseRoom(
             TerrainFactory terrainFactory,
             CollectibleFactory collectibleFactory,
             List<String> roomConnections,
@@ -103,7 +126,6 @@ public abstract class BaseRoom implements Room {
                 Integer.parseInt(split.get(2)),
                 Integer.parseInt(split.get(3))
         );
-
         this.itemGroup = Integer.parseInt(split.get(5));
         this.specification = specification;
     }
@@ -135,9 +157,9 @@ public abstract class BaseRoom implements Room {
     /**
      * Spawns the terrain for the room, including walls and background.
      *
-     * @param area The game area to spawn the terrain in.
+     * @param area          The game area to spawn the terrain in.
      * @param wallThickness The thickness of the walls.
-     * @param isBossRoom Whether the room is a boss room.
+     * @param isBossRoom    Whether the room is a boss room.
      */
 
     protected void spawnTerrain(GameArea area, float wallThickness, boolean isBossRoom) {
@@ -149,7 +171,7 @@ public abstract class BaseRoom implements Room {
 
         area.spawnEntity(terrainEntity);
         entities.add(terrainEntity);
-        
+
         float tileSize = terrain.getTileSize();
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
@@ -159,9 +181,9 @@ public abstract class BaseRoom implements Room {
     /**
      * Creates and spawns walls around the room.
      *
-     * @param area The game area to spawn the walls in.
-     * @param thickness The thickness of the walls.
-     * @param tileBounds The bounds of the tile map.
+     * @param area        The game area to spawn the walls in.
+     * @param thickness   The thickness of the walls.
+     * @param tileBounds  The bounds of the tile map.
      * @param worldBounds The world bounds of the room.
      */
     private void createWalls(GameArea area, float thickness, GridPoint2 tileBounds, Vector2 worldBounds) {
@@ -178,9 +200,9 @@ public abstract class BaseRoom implements Room {
     /**
      * Creates and spawns a wall entity at the specified position.
      *
-     * @param area The game area to spawn the wall in.
-     * @param width The width of the wall.
-     * @param height The height of the wall.
+     * @param area     The game area to spawn the wall in.
+     * @param width    The width of the wall.
+     * @param height   The height of the wall.
      * @param position The grid position of the wall.
      * @return The created wall entity.
      */
@@ -193,7 +215,7 @@ public abstract class BaseRoom implements Room {
     /**
      * Adjusts the position of a wall entity.
      *
-     * @param wall The wall entity to adjust.
+     * @param wall    The wall entity to adjust.
      * @param offsetX The offset in the X direction.
      * @param offsetY The offset in the Y direction.
      */
@@ -206,7 +228,7 @@ public abstract class BaseRoom implements Room {
     /**
      * Spawns doors in the room.
      *
-     * @param area The game area to spawn the doors in.
+     * @param area   The game area to spawn the doors in.
      * @param player The player entity.
      */
     protected void spawnDoors(GameArea area, Entity player) {
@@ -262,8 +284,8 @@ public abstract class BaseRoom implements Room {
     /**
      * Spawns an animal entity in the room.
      *
-     * @param area The game area to spawn the entity in.
-     * @param enemy The enemy entity to spawn.
+     * @param area     The game area to spawn the entity in.
+     * @param enemy    The enemy entity to spawn.
      * @param position The position to spawn the entity at.
      */
     protected void spawnAnimalEntity(GameArea area, Entity enemy, GridPoint2 position) {
@@ -273,28 +295,29 @@ public abstract class BaseRoom implements Room {
     /**
      * Spawns an item in the room.
      *
-     * @param area The game area to spawn the item in.
+     * @param area          The game area to spawn the item in.
      * @param specification The specification of the item to spawn.
-     * @param pos The position to spawn the item at.
+     * @param pos           The position to spawn the item at.
+     * @return
      */
-    protected void spawnItem(GameArea area, String specification, GridPoint2 pos) {
+    protected Entity spawnItem(GameArea area, String specification, GridPoint2 pos) {
         Entity item = collectibleFactory.createCollectibleEntity(specification);
-        item.getEvents().addListener("itemChose",()->deleteRemainingItems(item));
         entities.add(item);
-
         area.spawnEntityAt(item, pos, true, true);
+        return item;
     }
-    private void deleteRemainingItems(Entity item){
-        for(Entity entity: entities) {
+
+    protected void deleteRemainingItems(Entity item) {
+        for (Entity entity : entities) {
             CollectibleComponent itemComponent = entity.getComponent(CollectibleComponent.class);
-            if(itemComponent != null && entity != item ) {
+            if (itemComponent != null && entity != item) {
                 ServiceLocator.getEntityService().markEntityForRemoval(entity);
             }
         }
     }
 
 
-   /**
+    /**
      * Checks if the room is complete.
      *
      * @return {@code true} if the room is complete, {@code false} otherwise.
@@ -316,7 +339,7 @@ public abstract class BaseRoom implements Room {
      * Spawns the room in the game area.
      *
      * @param player The player entity.
-     * @param area The game area to spawn the room in.
+     * @param area   The game area to spawn the room in.
      */
     public void spawn(Entity player, GameArea area) {
         ServiceLocator.getPhysicsService().getPhysics().update();

@@ -127,7 +127,8 @@ public class PlayerFactoryFactory extends LoadedFactory {
         @Override
         protected String[] getSoundFilepaths() {
             return new String[]{
-                    "sounds/collectCoin.mp3"
+                    "sounds/collectCoin.mp3",
+                    "sounds/hit2.ogg"
             };
         }
     }
@@ -162,5 +163,4 @@ public class PlayerFactoryFactory extends LoadedFactory {
                        .map(config -> config.textureFilename)
                        .toArray(String[]::new);
     }
-
 }

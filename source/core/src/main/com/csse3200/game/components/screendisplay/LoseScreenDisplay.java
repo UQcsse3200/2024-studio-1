@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;  // Import InputMultiplexer
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -56,8 +57,14 @@ public class LoseScreenDisplay extends UIComponent {
         super.create();
         addActors();
 
-        // Set up ESC key listener
-        Gdx.input.setInputProcessor(new InputAdapter() {
+        // Use InputMultiplexer to handle both stage (for button clicks) and custom input (for ESC key)
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+
+        // Add the stage to handle button clicks and other UI events
+        inputMultiplexer.addProcessor(stage);
+
+        // Add custom input processor to handle the ESC key
+        inputMultiplexer.addProcessor(new InputAdapter() {
             @Override
             public boolean keyUp(int keycode) {
                 if (keycode == Input.Keys.ESCAPE) {
@@ -68,6 +75,9 @@ public class LoseScreenDisplay extends UIComponent {
                 return false;
             }
         });
+
+        // Set the input processor to the multiplexer
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     private void addActors() {

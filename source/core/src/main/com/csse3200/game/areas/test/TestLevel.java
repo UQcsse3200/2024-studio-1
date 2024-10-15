@@ -39,7 +39,7 @@ public class TestLevel implements Level {
             case "1_0" -> new BossRoom(new NPCFactory(),
                     new CollectibleFactory(),
                     new TerrainFactory(0),
-                    List.of("0_0", "", "", ""),
+                    List.of("", "", "", "0_0"),
                     "0,0,14,10," + rng.getRandomInt(0, 3) + "," + rng.getRandomInt(0, 3),
                     "boss!");
             case null, default -> throw new IllegalArgumentException(roomKey + " isn't a room");

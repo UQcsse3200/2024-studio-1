@@ -70,18 +70,7 @@ public class MainGameLevelFactory implements LevelFactory {
 
     @Override
     public Level create(int levelNumber) {
-        // default seed for junit tests
-        if (!shouldLoad) {
-            if (config != null) {
-                map = new LevelMap(config.seed + levelNumber, DEFAULT_MAP_SIZE);
-            } else {
-                map = new LevelMap("seed" + levelNumber, DEFAULT_MAP_SIZE);
-            }
-
-        } else {
-            // For loaded games, append the level number to the loaded seed
-            map = new LevelMap(config.mapSize);
-        }
+        this.map = new LevelMap(shouldLoad ? config.mapSize : DEFAULT_MAP_SIZE);
 
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),

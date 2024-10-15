@@ -12,8 +12,7 @@ public class MapGenerator {
     private Map<String, String> RoomKeys = new HashMap<String, String>();
     public static final int BASEROOM = 0;
     public static final int BOSSROOM = 1;
-    public static final int NPCROOM = 2;
-    public static final int GAMEROOM = 3;
+    public static final int SHOPROOM = 2;
 
 
     public int mapSize;
@@ -215,7 +214,6 @@ public class MapGenerator {
 
         setBossRoom(setRooms);
         setNpcRoom(setRooms);
-        setGameRoom(setRooms);
     }
 
     /**
@@ -244,28 +242,8 @@ public class MapGenerator {
         } while (setRooms.contains(randomRoomKey) ||  connections != 3);
         // Get the random room details
         HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
-        details.put("room_type", NPCROOM);
+        details.put("room_type", SHOPROOM);
         RoomKeys.put("NPC", randomRoomKey);
-        setRooms.add(randomRoomKey);
-    }
-
-    /**
-     * Set Game Room
-     * @param setRooms - rooms already set with specific types
-     */
-    private void setGameRoom(List<String> setRooms) {
-        List<String> rooms = new ArrayList<>(roomDetails.keySet());
-        String randomRoomKey;
-        int connections;
-        do {
-            randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-            connections = Collections.frequency(relativePosition.get(randomRoomKey), "");
-        } while (setRooms.contains(randomRoomKey) ||  connections != 3);
-
-        // Get the random room details
-        HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
-        details.put("room_type", GAMEROOM);
-        RoomKeys.put("GameRoom", randomRoomKey);
         setRooms.add(randomRoomKey);
     }
 

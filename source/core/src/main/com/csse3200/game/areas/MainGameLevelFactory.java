@@ -101,7 +101,7 @@ public class MainGameLevelFactory implements LevelFactory {
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
-                case MapGenerator.NPCROOM:
+                case MapGenerator.SHOPROOM:
                     //If the game is loaded the items to be spawned is loaded from the config
                     //if not uses the createShopItems method to create a random list which is then loaded into the shop
                     // room to be spawned.
@@ -115,11 +115,6 @@ public class MainGameLevelFactory implements LevelFactory {
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + 0 + "," + levelNumber, roomKey, itemsToBeSpawned);
                     rooms.put(roomKey, shop);
-                    break;
-                case MapGenerator.GAMEROOM:
-                    rooms.put(roomKey, roomFactory.createGambleRoom(
-                            map.mapData.getPositions().get(roomKey),
-                            "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 default:
                     rooms.put(roomKey, roomFactory.createRoom(

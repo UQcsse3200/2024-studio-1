@@ -25,7 +25,7 @@ class LevelMapTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         levelMap = new LevelMap("testSeed", 10);
-        levelMap.mapData = mockMapGenerator;
+        levelMap.setMapData(mockMapGenerator);
     }
 
     @Test

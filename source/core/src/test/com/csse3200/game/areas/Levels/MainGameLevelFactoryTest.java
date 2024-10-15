@@ -90,9 +90,9 @@ void testCreateMultipleLevels() {
     assertNotSame(level1.getMap(), level3.getMap());
 
     // Get room layouts
-    Set<String> level1Rooms = new HashSet<>(level1.getMap().mapData.getPositions().keySet());
-    Set<String> level2Rooms = new HashSet<>(level2.getMap().mapData.getPositions().keySet());
-    Set<String> level3Rooms = new HashSet<>(level3.getMap().mapData.getPositions().keySet());
+    Set<String> level1Rooms = new HashSet<>(level1.getMap().getMapData().getPositions().keySet());
+    Set<String> level2Rooms = new HashSet<>(level2.getMap().getMapData().getPositions().keySet());
+    Set<String> level3Rooms = new HashSet<>(level3.getMap().getMapData().getPositions().keySet());
 
     // Print room layouts for debugging
     System.out.println("Level 1 rooms: " + level1Rooms);

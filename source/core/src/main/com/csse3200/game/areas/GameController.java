@@ -1,10 +1,12 @@
 package com.csse3200.game.areas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 
@@ -74,6 +76,8 @@ public class GameController {
     private GameArea gameArea;
 
     private MapLoadConfig config;
+
+    private static final int MAX_LEVELS = 3;
 
     /**
      * Initialise this Game Area to use the provided levelFactory.
@@ -282,6 +286,11 @@ public class GameController {
      */
     public void changeLevel(int levelNumber) {
         logger.info("Changing to level: {}", levelNumber);
+
+        if (levelNumber >= MAX_LEVELS) {
+            showGameWonDialog();
+            return;
+        }
         currentLevelNumber = levelNumber;
 
         // Create and load the new level
@@ -293,6 +302,15 @@ public class GameController {
         this.gameArea.spawnEntity(new Entity().addComponent(minimapComponent));
 
         changeRooms(this.currentLevel.getStartingRoomKey());
+    }
+
+    private void showGameWonDialog() {
+        ServiceLocator.getAlertBoxService().showGameWonDialog("Congratulations!", "You've completed all levels!", new AlertBoxService.GameWonListener() {
+            @Override
+            public void onExit() {
+                Gdx.app.exit();
+            }
+        });
     }
 
     /**

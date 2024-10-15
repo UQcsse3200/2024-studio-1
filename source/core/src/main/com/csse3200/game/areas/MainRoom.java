@@ -7,10 +7,9 @@ import com.csse3200.game.entities.factories.NPCFactory;
 import java.util.List;
 
 public class MainRoom extends EnemyRoom {
-    @Override
-    protected List<List<String>> getAnimalSpecifications() {
+    @Override protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                List.of("Dog", "Snake"),
+                List.of("Snake", "Bear"),
                 List.of("Bear", "Snake", "Dino", "Dragon"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),
@@ -24,16 +23,23 @@ public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-//                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
-                List.of("item:targetdummy", "buff:tombstone"),
-                List.of("melee:Knife", "ranged:Shotgun"),
+                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
+                List.of("item:targetdummy", "pet:tombstone"),
+                List.of("melee:knife", "ranged:supersoaker"),
                 List.of("item:beartrap", "buff:feather"),
-                List.of("melee:Axe", "ranged:Shotgun"),
-                List.of("ranged:Shotgun", "item:medkit", "melee:Knife", "item:bandage", "buff:energydrink:High"),
-                List.of("item:shieldpotion", "ranged:Shotgun", "melee:Knife", "item:medkit", "buff:energydrink:Medium"),
-                List.of("melee:Knife", "item:bandage", "ranged:Shotgun", "item:shieldpotion", "item:medkit"),
-                List.of("buff:energydrink:Medium", "item:shieldpotion", "ranged:Shotgun", "melee:Knife", "item:bandage"),
-                List.of("item:medkit", "melee:Knife", "buff:energydrink:High", "ranged:Shotgun", "item:shieldpotion")
+                List.of("melee:axe", "ranged:plasmablaster"),
+                List.of("ranged:shotgun", "item:medkit"),
+                List.of("item:shieldpotion", "ranged:fnscar"),
+                List.of("melee:knife", "item:bandage"),
+                List.of("buff:energydrink:Medium", "item:shieldpotion"),
+                List.of("item:medkit", "melee:knife"),
+                List.of("melee:axe", "item:bandage"),
+                List.of("melee:knife", "item:medkit"),
+                List.of("ranged:shotgun", "item:shieldpotion"),
+                List.of("ranged:fnscar", "melee:knife"),
+                List.of("buff:energydrink:High", "ranged:plasmablaster"),
+                List.of("buff:energydrink:High", "buff:energydrink:Medium"),
+                List.of("item:medkit", "item:bandage")
         );
     }
 

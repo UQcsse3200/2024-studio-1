@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,7 +35,6 @@ public class WeaponAnimationControllerTest {
         renderService.setDebug(mock(DebugRenderer.class));
         ServiceLocator.registerRenderService(renderService);
         GameTime gameTime = mock(GameTime.class);
-        //when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
         ServiceLocator.registerTimeSource(gameTime);
 
         ServiceLocator.registerEntityService(new EntityService());
@@ -56,7 +56,7 @@ public class WeaponAnimationControllerTest {
     @org.junit.jupiter.api.Test
     public void testCreateWeaponAnimationController() {
         WeaponAnimationController weaponAnimationController = new WeaponAnimationController();
-        assert weaponAnimationController instanceof WeaponAnimationController;
+        assertEquals(WeaponAnimationController.class, weaponAnimationController.getClass());
     }
 
     @org.junit.jupiter.api.Test
@@ -66,9 +66,11 @@ public class WeaponAnimationControllerTest {
                 .addComponent(new NameComponent("Ranged"));
 
         weaponAnimationController.connectPlayer(player);
-        assert weaponAnimationController.connected;
+        assertEquals(true, weaponAnimationController.connected);
 
         weaponAnimationController.disconnectPlayer();
-        assert !weaponAnimationController.connected;
+        assertEquals(false, weaponAnimationController.connected);
+
+
     }
 }

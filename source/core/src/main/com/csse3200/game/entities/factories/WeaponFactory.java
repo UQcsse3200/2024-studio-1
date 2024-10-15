@@ -5,10 +5,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.weapons.ConcreteMeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.ConcreteRangedWeapon;
+import com.csse3200.game.components.player.inventory.weapons.MeleeWeapon;
+import com.csse3200.game.components.player.inventory.weapons.RangedWeapon;
 import com.csse3200.game.components.weapon.FiringController;
 import com.csse3200.game.components.weapon.PositionTracker;
 import com.csse3200.game.components.weapon.WeaponAnimationController;
-import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.ProjectileConfig;
 import com.csse3200.game.entities.configs.WeaponConfig;
@@ -20,12 +24,19 @@ import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * A factory that creates weapons.
  */
 public class WeaponFactory extends LoadedFactory {
 
-    private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeaponFactory.class);
+
+    public WeaponFactory() {
+        super(logger);
+    }
 
     /**
      * Create a collectible melee weapon from specification
@@ -76,28 +87,28 @@ public class WeaponFactory extends LoadedFactory {
      */
     public Collectible create(Collectible.Type type, String specification) throws IllegalArgumentException {
         return switch (type) {
-            case MELEE_WEAPON -> createMelee(specification);
-            case RANGED_WEAPON -> createRanged(specification);
+            case OFF_HAND -> createMelee(specification);
+            case MAIN_HAND -> createRanged(specification);
             default -> throw new IllegalArgumentException("invalid weapon type: " + type);
         };
     }
 
     /**
      * Create weapon entity for player to use. Should only be invoke from WeaponComponent
+     *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      * @throws IllegalArgumentException with invalid input collectible
      */
     public Entity createWeaponEntity(Collectible collectible) throws IllegalArgumentException {
         try {
-            if (collectible.getType() == Collectible.Type.MELEE_WEAPON) {
+            if (collectible.getType() == Collectible.Type.OFF_HAND) {
                 return createMeleeEntity((MeleeWeapon) collectible);
-            } else if (collectible.getType() == Collectible.Type.RANGED_WEAPON) {
+            } else if (collectible.getType() == Collectible.Type.MAIN_HAND) {
                 return createRangeEntity((RangedWeapon) collectible);
             }
             throw new IllegalArgumentException();
-        }
-        catch (IllegalArgumentException | NullPointerException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             logger.error("Failed to create weapon entity:{}", e.toString());
             throw new IllegalArgumentException("Invalid collectible");
         }
@@ -106,6 +117,7 @@ public class WeaponFactory extends LoadedFactory {
     /**
      * Create melee for the player to use. This weapon entity will not have the collectible
      * component
+     *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      * @throws IllegalArgumentException with invalid input collectible
@@ -128,9 +140,10 @@ public class WeaponFactory extends LoadedFactory {
         // set the collider to 0
         meleeEntity.getComponent(ColliderComponent.class).setSensor(true);
         meleeEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
-        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(0f, 0f));
+        meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(1, 1));
+        meleeEntity.setScale(2.0f, 2.0f);
 
-        logger.info("Created melee weapon entity: " + collectible);
+        logger.info("Created melee weapon entity: {}", collectible);
 
         return meleeEntity;
     }
@@ -138,6 +151,7 @@ public class WeaponFactory extends LoadedFactory {
     /**
      * Create range weapon for the player to use. This weapon entity will not have the collectible
      * component
+     *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      * @throws IllegalArgumentException with invalid input collectible
@@ -146,6 +160,8 @@ public class WeaponFactory extends LoadedFactory {
 
         // Load atlas and animation
         WeaponAnimationRenderComponent animator = createAnimator(collectible);
+        ProjectileConfig projectileConfig = new ProjectileConfig();
+        projectileConfig.baseAttack = collectible.getDamage();
 
         Entity rangedEntity = new Entity()
                 .addComponent(new NameComponent("Ranged"))
@@ -153,15 +169,14 @@ public class WeaponFactory extends LoadedFactory {
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent())
                 .addComponent(animator)
-                .addComponent(new FiringController(collectible, new ProjectileConfig()))
+                .addComponent(new FiringController(collectible, projectileConfig))
                 .addComponent(new PositionTracker())
                 .addComponent(new WeaponAnimationController());
 
         rangedEntity.getComponent(ColliderComponent.class).setSensor(true);
         rangedEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
         rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(3f, 3f));
-        logger.info("Created range weapon entity: " + collectible);
-
+        logger.info("Created range weapon entity: {}", collectible);
         return rangedEntity;
     }
 
@@ -176,36 +191,18 @@ public class WeaponFactory extends LoadedFactory {
         animator.addAnimation("shootLeft", 0.05f, Animation.PlayMode.NORMAL);
         animator.addAnimation("shootRight", 0.05f, Animation.PlayMode.NORMAL);
         // Only for shotguns
-        if (weapon.getType() == Collectible.Type.RANGED_WEAPON) {
+        if (weapon.getType() == Collectible.Type.MAIN_HAND) {
             animator.addAnimation("left", 0.04f, Animation.PlayMode.LOOP);
             animator.addAnimation("up", 0.04f, Animation.PlayMode.LOOP);
             animator.addAnimation("down", 0.04f, Animation.PlayMode.LOOP);
-        }
-        else if (weapon.getType() == Collectible.Type.MELEE_WEAPON) {
+        } else if (weapon.getType() == Collectible.Type.OFF_HAND) {
             // Only for swords
             animator.addAnimation("item", 0.05f, Animation.PlayMode.NORMAL);
-        }
-        else {
+        } else {
             logger.warn("Invalid collectible passed");
         }
         return animator;
     }
-
-//    /**
-//     * Get all the filepath to textures needed by this Factory
-//     *
-//     * @return the filepath needed.
-//     */
-//    @Override
-//    protected String[] getTextureFilepaths() {
-//        return new String[]{
-//                "images/Weapons/sword1.png",
-//                "images/Weapons/shotgun4.png",
-//                "images/Weapons/shotgun_1.png",
-//                "images/Weapons/shotgun_2.png",
-//                "images/Weapons/winchester.png"
-//        };
-//    }
 
     /**
      * Get all the filepath to sounds needed by this Factory
@@ -227,14 +224,25 @@ public class WeaponFactory extends LoadedFactory {
      * @return the filepath needed.
      */
     @Override
-    protected String[] getTextureAtlasFilepaths(){
+    protected String[] getTextureAtlasFilepaths() {
         return new String[]{
-                "images/Weapons/Knife.atlas",
-                "images/Weapons/Axe.atlas",
-                "images/Weapons/Shotgun.atlas",
-                "images/Weapons/FnScar.atlas",
-                "images/Weapons/SuperSoaker.atlas",
-                "images/Weapons/PlasmaBlaster.atlas"
+                "images/Weapons/knife.atlas",
+                "images/Weapons/axe.atlas",
+                "images/Weapons/shotgun.atlas",
+                "images/Weapons/fnscar.atlas",
+                "images/Weapons/supersoaker.atlas",
+                "images/Weapons/pistol.atlas",
+                "images/Weapons/plasmablaster.atlas"
         };
+    }
+
+    public Collection<String> getAllSpecs() {
+        return List.of(
+                "ranged:shotgun",
+                "ranged:plasmablaster",
+                "ranged:supersoaker",
+                "melee:knife",
+                "melee:axe"
+        );
     }
 }

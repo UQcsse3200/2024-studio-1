@@ -32,4 +32,5 @@ You are welcome to use the game engine for your own purposes. It is released und
 ## Documentation and Reports
 
 - [JavaDoc](https://uqcsse3200.github.io/2024-studio-1)
-- [SonarCloud](https://sonarcloud.io/project/overview?id=UQcsse3200_2024-studio-1)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=UQcsse3200_2024-studio-1&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=UQcsse3200_2024-studio-1)

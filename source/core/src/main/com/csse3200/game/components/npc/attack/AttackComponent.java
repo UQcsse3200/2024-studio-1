@@ -22,7 +22,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
     protected CombatStatsComponent combatStats;
     protected EffectConfig[] effectConfigs;
     protected int remainingAttacks = -1;
-    protected static final Logger logger = LoggerFactory.getLogger(MeleeAttackComponent.class);
+    protected static final Logger logger = LoggerFactory.getLogger(AttackComponent.class);
 
 
     /**
@@ -37,7 +37,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
                            EffectConfig[] effectConfigs) {
         this.target = target;
         this.attackRange = attackRange;
-        this.attackCooldown = 1/attackRate;
+        this.attackCooldown = 1 / attackRate;
         this.effectConfigs = effectConfigs;
         this.timeSinceLastAttack = attackCooldown;
     }

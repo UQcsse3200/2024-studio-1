@@ -1,6 +1,5 @@
 package com.csse3200.game.components.npc;
 
-import com.csse3200.game.areas.MainGameArea;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.player.PlayerConfigComponent;
@@ -13,6 +12,7 @@ import com.csse3200.game.areas.BossRoom;
 
 import java.security.Provider;
 import java.util.Random;
+import com.csse3200.game.areas.GameController;
 
 /**
  * Component responsible for managing boss dialogue and behavior based on health thresholds.
@@ -115,16 +115,17 @@ public class BossHealthDialogueComponent extends Component {
      */
     private void spawnRandomAdditionalEnemies() {
         GameAreaService gameAreaService = ServiceLocator.getGameAreaService();
-        if (gameAreaService.getGameArea() instanceof MainGameArea area) {
+        if (gameAreaService.getGameArea() != null) {
+            GameController area = (GameController) gameAreaService.getGameController();
             if (area.getCurrentRoom() instanceof BossRoom bossRoom) {
                 String[] possibleEnemies = {"Dog", "Snake", "rat", "bear", "bat", "dino", "minotaur", "dragon"};
                 int numberOfEnemies; // Number of enemies to spawn based on difficulty
 
-                if (ServiceLocator.getGameAreaService().getGameArea().getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().difficulty == GameOptions.Difficulty.EASY) {
+                if (ServiceLocator.getGameAreaService().getGameController().getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().difficulty == GameOptions.Difficulty.EASY) {
                     numberOfEnemies = random.nextInt(2) + 1;
-                } else if (ServiceLocator.getGameAreaService().getGameArea().getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().difficulty == GameOptions.Difficulty.MEDIUM) {
+                } else if (ServiceLocator.getGameAreaService().getGameController().getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().difficulty == GameOptions.Difficulty.MEDIUM) {
                     numberOfEnemies = random.nextInt(3) + 2;
-                } else if (ServiceLocator.getGameAreaService().getGameArea().getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().difficulty == GameOptions.Difficulty.HARD) {
+                } else if (ServiceLocator.getGameAreaService().getGameController().getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().difficulty == GameOptions.Difficulty.HARD) {
                     numberOfEnemies = random.nextInt(4) + 3;
                 } else {
                     numberOfEnemies = random.nextInt(2) + 1;

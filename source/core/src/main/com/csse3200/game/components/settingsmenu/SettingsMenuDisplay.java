@@ -6,6 +6,9 @@ import com.badlogic.gdx.Graphics.Monitor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -24,7 +27,6 @@ import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Settings menu display and logic. If you bork the settings, they can be changed manually in
  * CSSE3200Game/settings.json under your home directory (This is C:/users/[username] on Windows).
@@ -41,6 +43,7 @@ public class SettingsMenuDisplay extends UIComponent {
     private Slider musicVolumeSlider;
     private Slider soundVolumeSlider;
     private CheckBox muteCheck;
+    private CheckBox cutsceneCheck;
     private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
     private SelectBox<String> actionSelect;
     private SelectBox<String> keySelect;
@@ -111,6 +114,10 @@ public class SettingsMenuDisplay extends UIComponent {
         muteCheck = new CheckBox("", skin);
         muteCheck.setChecked(settings.mute);
 
+        Label cutsceneLabel = new Label("Enable Cutscenes:", skin);
+        cutsceneCheck = new CheckBox("", skin);
+        cutsceneCheck.setChecked(settings.enableCutscene);
+
         Label displayModeLabel = new Label("Resolution:", skin);
         displayModeSelect = new SelectBox<>(skin);
         Monitor selectedMonitor = Gdx.graphics.getMonitor();
@@ -141,6 +148,10 @@ public class SettingsMenuDisplay extends UIComponent {
         table.row().padTop(10f);
         table.add(muteLabel).right().padRight(15f);
         table.add(muteCheck).left();
+
+        table.row().padTop(10f);
+        table.add(cutsceneLabel).right().padRight(15f);
+        table.add(cutsceneCheck).left();
 
         table.row().padTop(10f);
         Table uiScaleTable = new Table();
@@ -278,6 +289,7 @@ public class SettingsMenuDisplay extends UIComponent {
                     settings.displayMode = new DisplaySettings(displayModeSelect.getSelected().object);
                     settings.vsync = vsyncCheck.isChecked();
                     settings.musicVolume = musicVolumeSlider.getValue();
+                    settings.enableCutscene = cutsceneCheck.isChecked();
                     settings.soundVolume = soundVolumeSlider.getValue();
 
                     UserSettings.set(settings, true);

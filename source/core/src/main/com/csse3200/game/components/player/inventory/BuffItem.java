@@ -18,17 +18,6 @@ public abstract class BuffItem implements Collectible {
     }
 
     /**
-     * Make the entity pick the item up, and apply effects immediately instead of being added to the inventory
-     *
-     * @param inventory The inventory to be put in.
-     */
-    @Override
-    public void pickup(Inventory inventory) {
-        inventory.addItem(this); // FIXME
-        effect(inventory.getEntity());
-    }
-
-    /**
      * Return a string representation of this collectible that can be parsed by CollectibleFactory
      *
      * @return the string representation of this collectible.
@@ -36,6 +25,22 @@ public abstract class BuffItem implements Collectible {
     @Override
     public String getSpecification() {
         return "buff:" + getBuffSpecification();
+    }
+
+    /**
+     * Make the entity pick the item up, and apply effects immediately instead of being added to the inventory
+     *
+     * @param inventory The inventory to be put in.
+     */
+    @Override
+    public void pickup(Inventory inventory) {
+        inventory.getContainer(BuffItem.class).add(this);
+        effect(inventory.getEntity());
+    }
+
+    @Override
+    public void drop(Inventory inventory) {
+        // do nothing buffs are permanent.
     }
 
     /**
@@ -51,6 +56,4 @@ public abstract class BuffItem implements Collectible {
      * @param entity The player entity
      */
     public abstract void effect(Entity entity);
-
-
 }

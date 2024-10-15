@@ -3,16 +3,23 @@ package com.csse3200.game.entities.factories;
 import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.player.CollectibleComponent;
-import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.components.player.inventory.BuyableComponent;
+import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.components.CollectibleHitboxComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A factory that creates a collectible from a specification.
  */
 public class CollectibleFactory extends LoadedFactory {
+    private static final Logger logger = LoggerFactory.getLogger(CollectibleFactory.class);
     private final WeaponFactory weaponFactory = new WeaponFactory();
     private final ItemFactory itemFactory = new ItemFactory();
 
@@ -30,15 +37,29 @@ public class CollectibleFactory extends LoadedFactory {
      * @return the created collectible.
      */
     public Collectible create(String specification) {
-        System.out.printf("-- specification is %s\n", specification);
+        logger.info("Creating collectible with specification: {}", specification);
         String[] split = specification.split(":", 2);
 
         return switch (split[0]) {
-            case "melee" -> weaponFactory.create(Collectible.Type.MELEE_WEAPON, split[1]);
-            case "ranged" -> weaponFactory.create(Collectible.Type.RANGED_WEAPON, split[1]);
-            case "item", "buff" -> itemFactory.create(split[1]);
+            case "melee" -> weaponFactory.create(Collectible.Type.OFF_HAND, split[1]);
+            case "ranged" -> weaponFactory.create(Collectible.Type.MAIN_HAND, split[1]);
+            case "item", "buff", "pet" -> itemFactory.create(split[1]);
             default -> throw new IllegalStateException("Unexpected value: " + split[0]);
         };
+    }
+
+    /**
+     * Generate a list of all valid specifications this factory can generate.
+     *
+     * @return the specifications as a List.
+     */
+    public List<String> getAllSpecs() {
+        List<String> specs = new ArrayList<>();
+
+        specs.addAll(itemFactory.getAllSpecs());
+        specs.addAll(weaponFactory.getAllSpecs());
+
+        return specs;
     }
 
     /**
@@ -61,7 +82,6 @@ public class CollectibleFactory extends LoadedFactory {
         if (specification.contains("buyable")) {
             collectibleEntity.addComponent(new BuyableComponent(10));
         }
-
 
         collectibleEntity.addComponent(new TextureRenderComponent(texture));
 

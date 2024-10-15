@@ -8,6 +8,7 @@ public class ProjectileConfigs {
     //public ProjectileConfig baseProjectile = new BaseProjectileConfig();
     public BaseProjectileConfig dragonProjectile = new BaseProjectileConfig();
     public BaseProjectileConfig kitsuneProjectile = new BaseProjectileConfig();
+    public BaseProjectileConfig cthuluProjectile = new BaseProjectileConfig();
 
     public static class BaseProjectileConfig extends BaseEntityConfig {
         public short Layer = PhysicsLayer.PLAYER;
@@ -16,6 +17,7 @@ public class ProjectileConfigs {
         public float scaleY = 0.5f;
         public ProjectileAnimations[] animations = new ProjectileAnimations[0];
         public boolean isDirectional;
+        public float range;
 
         public static class ProjectileAnimations {
             public String name;

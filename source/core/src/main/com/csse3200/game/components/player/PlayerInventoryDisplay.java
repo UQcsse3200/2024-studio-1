@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.csse3200.game.components.player.inventory.*;
+import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.usables.*;
 import com.csse3200.game.ui.UIComponent;
 
 import java.util.HashMap;
@@ -80,7 +82,6 @@ public class PlayerInventoryDisplay extends UIComponent {
     public void create() {
         super.create();
         itemLabels = new HashMap<>();
-        //itemIcons = new HashMap<>();
         addActors();
         updateInventoryUI();
         if (entity.getEvents() != null) {
@@ -147,7 +148,7 @@ public class PlayerInventoryDisplay extends UIComponent {
             itemQuantities.put(itemName, 0);
         }
         // store the amount of each item to update the count later
-        for (Collectible item : inventoryComponent.getInventory().getItems()) {
+        for (Collectible item : inventoryComponent.getItems()) {
             String itemName = item.getName();
             itemQuantities.put(itemName, itemQuantities.getOrDefault(itemName, 0) + 1);
         }
@@ -160,7 +161,6 @@ public class PlayerInventoryDisplay extends UIComponent {
      * This method will update the quantities of existing items.
      */
     public void updateInventoryUI() {
-
         Map<String, Integer> itemQuantities = getItemQuantities();
 
         // Update the displayed quantities
@@ -185,10 +185,7 @@ public class PlayerInventoryDisplay extends UIComponent {
         shapeRenderer.setColor(Color.LIGHT_GRAY);
         shapeRenderer.rect(START_X, START_Y, WIDTH, HEIGHT);
         shapeRenderer.end();
-
         batch.begin();
-
-
     }
 
     /**

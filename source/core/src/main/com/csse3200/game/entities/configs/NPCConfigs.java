@@ -1,6 +1,7 @@
 package com.csse3200.game.entities.configs;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +34,10 @@ public class NPCConfigs {
     public int strength;
     public boolean isBoss = false;
     public boolean isDirectional;
+    public boolean isScaled = false;
+    public Vector2 scale;
+    public boolean variableDensity = false;
+    public float density;
     public TaskConfig tasks = new TaskConfig();
     public AttackConfig attacks = new AttackConfig();
     public AnimationData[] animations = new AnimationData[0];

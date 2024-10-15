@@ -18,9 +18,10 @@ import static com.badlogic.gdx.math.MathUtils.random;
  * This class extends EnemyRoom to include boss-specific functionality.
  */
 public class BossRoom extends EnemyRoom {
-    private final NPCFactory npcFactory;
-    private MainGameArea area;
+    private NPCFactory npcFactory;
+    private GameArea area;
     private Entity player;
+    private Entity stairs;
 
     /**
      * Retrieves the specifications for animals in the boss room.
@@ -29,9 +30,9 @@ public class BossRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getAnimalSpecifications() {
         return List.of(
-                List.of("Cthulu"), // boss 1
-                List.of("Kitsune"),  // boss 2
-                List.of("Birdman")   // boss 3
+                List.of("Birdman"),  // boss 1
+                List.of("Kitsune"),   // boss 3
+                List.of("Cthulu")  // boss 3
         );
     }
 
@@ -43,9 +44,9 @@ public class BossRoom extends EnemyRoom {
     protected List<List<String>> getItemSpecifications() {
         return List.of(
                 //List of three lists of items for 3 different levels to be spawned in base on which level player is in.
-                List.of("buff:energydrink:High", "item:medkit", "melee:Knife", "ranged:Shotgun", "item:shieldpotion"),
-                List.of("item:bandage", "melee:Knife", "ranged:Shotgun", "buff:energydrink:High", "item:shieldpotion"),
-                List.of("ranged:Shotgun", "item:medkit", "melee:Knife", "item:bandage", "buff:energydrink:High")
+                List.of("buff:energydrink:High", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
+                List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink:High", "item:shieldpotion"),
+                List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High")
         );
     }
 
@@ -76,25 +77,22 @@ public class BossRoom extends EnemyRoom {
      * @param area   The main game area where spawning occurs.
      */
     @Override
-    public void spawn(Entity player, MainGameArea area) {
+    public void spawn(Entity player, GameArea area) {
         super.spawn(player, area);
         this.area = area;
         this.player = player;
         spawnStairs(player, area);
+
     }
 
-    /**
-     * Spawns stairs in the boss room.
-     *
-     * @param player The player entity.
-     * @param area   The main game area where spawning occurs.
-     */
-    private void spawnStairs(Entity player, MainGameArea area) {
-        Entity stairs = StairFactory.createStair(player.getId());
-        int x = maxGridPoint.x;
-        int y = maxGridPoint.y;
-        GridPoint2 pos = new GridPoint2(x, y);
-        area.spawnEntityAt(stairs, pos, true, true);
+    private void spawnStairs(Entity player, GameArea area) {
+        if (stairs == null) {
+            stairs = StairFactory.createStair(player.getId());
+            int x = maxGridPoint.x;
+            int y = maxGridPoint.y;
+            GridPoint2 pos = new GridPoint2(x, y);
+            area.spawnEntityAt(stairs, pos, true, true);
+        }
     }
 
     /**
@@ -117,5 +115,16 @@ public class BossRoom extends EnemyRoom {
         int x = random.nextInt(maxGridPoint.x - minGridPoint.x + 1) + minGridPoint.x;
         int y = random.nextInt(maxGridPoint.y - minGridPoint.y + 1) + minGridPoint.y;
         return new GridPoint2(x, y);
+    }
+
+
+
+    @Override
+    public void removeRoom() {
+        super.removeRoom();
+        if (stairs != null) {
+            ServiceLocator.getEntityService().markEntityForRemoval(stairs);
+            stairs = null;
+        }
     }
 }

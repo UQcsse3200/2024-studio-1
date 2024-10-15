@@ -150,6 +150,8 @@ public class NPCAnimationController extends Component {
         }
     }
 
+
+
     void animateRun() {
         if (!dead) {
             if (animator.hasAnimation("run_right") && animator.hasAnimation("run_left")) {

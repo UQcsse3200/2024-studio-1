@@ -1,7 +1,6 @@
 package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.Input;
-import com.csse3200.game.components.player.inventory.MedKit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,11 +60,18 @@ public class KeyMapping {
         USE_5,
         USE_6,
         USE_7,
+        USE_8,
+        USE_9,
 
         /**
          * The player action to jump to boss room.
          */
         ENTER_BOSS,
+
+        /**
+         * The player action to jump to shop room.
+         */
+        ENTER_SHOP,
 
         /**
          * The player action to pick up an item
@@ -118,7 +124,10 @@ public class KeyMapping {
             keyMap.put(Input.Keys.NUM_5, USE_5);
             keyMap.put(Input.Keys.NUM_6, USE_6);
             keyMap.put(Input.Keys.NUM_7, USE_7);
+            keyMap.put(Input.Keys.NUM_8, USE_8);
+            keyMap.put(Input.Keys.NUM_9, USE_9);
             keyMap.put(Input.Keys.B, ENTER_BOSS);
+            keyMap.put(Input.Keys.N, ENTER_SHOP);
             keyMap.put(Input.Keys.E, PICK_UP);
             keyMap.put(Input.Keys.R, RE_ROLL);
             keyMap.put(Input.Keys.P, PURCHASE_ITEM);

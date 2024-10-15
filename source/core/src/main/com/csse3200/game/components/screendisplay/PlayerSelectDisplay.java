@@ -5,23 +5,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
-import com.csse3200.game.entities.PlayerSelection;
+import com.csse3200.game.components.player.PlayerFactoryFactory;
 import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.Map;
 
-import static com.csse3200.game.entities.PlayerSelection.PLAYERS;
 import static com.csse3200.game.screens.PlayerSelectScreen.BG_IMAGE;
 import static com.csse3200.game.services.ServiceLocator.getResourceService;
 
@@ -34,10 +31,12 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private final GdxGame game;
     private Table rootTable;
+    private TextField seedInputField;
     private static final float ROOT_PADDING = 10f;
     private static final float STAT_TABLE_PADDING = 2f;
-    private static final float BAR_HEIGHT = 20;
     private static final float PROPORTION = 0.8f;
+
+    private final PlayerFactoryFactory playerFactoryFactory = new PlayerFactoryFactory();
 
     /**
      * Make the component.
@@ -60,14 +59,13 @@ public class PlayerSelectDisplay extends UIComponent {
     private void addActors() {
         rootTable = new Table();
         rootTable.setFillParent(true);
-        float percentWidth = PROPORTION / PLAYERS.length;
+        float percentWidth = PROPORTION / 6;
         Value valueWidth = Value.percentWidth(percentWidth, rootTable);
         rootTable.defaults()
                 .pad(ROOT_PADDING).fill()
                 .width(valueWidth);
 
-        Map<String, PlayerConfig> configs =
-                PlayerSelection.getPlayerConfigs(Arrays.stream(PlayerSelection.PLAYERS).toList());
+        Map<String, PlayerConfig> configs = playerFactoryFactory.getOptions();
 
         rootTable.row().height(valueWidth); // make each image cell square
         configs.forEach((filename, config) -> {
@@ -117,6 +115,14 @@ public class PlayerSelectDisplay extends UIComponent {
             button.getLabel().setFontScale((float) Gdx.graphics.getWidth() / 1600);
         });
 
+        // Add seed input field at the bottom
+        rootTable.row().padTop(20);
+        Label seedLabel = new Label("Enter Seed:", skin);
+        seedInputField = new TextField("", skin);
+        rootTable.add(seedLabel).colspan(configs.size());
+        rootTable.row();
+        rootTable.add(seedInputField).colspan(configs.size()).fillX().padBottom(20);
+
         Image bgImage = new Image(getResourceService().getAsset(BG_IMAGE, Texture.class));
         bgImage.setFillParent(true);
 
@@ -141,10 +147,25 @@ public class PlayerSelectDisplay extends UIComponent {
         table.add(statBar);
     }
 
-    private void playerSelected(String filename) {
-        logger.info("Player chosen: {}", filename);
-        game.gameOptions.chosenPlayer = filename;
-        game.setScreen(ScreenType.CUTSCENE);
+    private void playerSelected(String name) {
+        // Check if seed input field is empty, and use default "seed" if empty
+        String seed = seedInputField.getText().isEmpty() ? "seed" : seedInputField.getText();
+        logger.info("Player chosen: {} with seed: {}", name, seed);
+
+        // Assign selected player and seed to game options
+        game.gameOptions.playerFactory = playerFactoryFactory.create(name);
+        game.gameOptions.seed = seed;
+
+        // Fetch user settings to check if cutscene is enabled
+        UserSettings.Settings currentSettings = UserSettings.get();
+        boolean cutsceneEnabled = currentSettings.enableCutscene;
+
+        // Redirect to cutscene or main game based on the cutscene setting
+        if (cutsceneEnabled) {
+            game.setScreen(ScreenType.CUTSCENE); // If cutscene is enabled
+        } else {
+            game.setScreen(ScreenType.MAIN_GAME); // If cutscene is disabled
+        }
     }
 
     @Override

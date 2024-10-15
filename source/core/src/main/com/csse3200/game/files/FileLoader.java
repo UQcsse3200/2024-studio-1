@@ -74,7 +74,7 @@ public class FileLoader {
   }
 
   /**
-   * Read a Map<String, T> from a JSON file.
+   * Read a Map&lt;String, T&gt; from a JSON file.
    *
    * @param valueType Class type of the map's values
    * @param filename  File to read from
@@ -86,7 +86,7 @@ public class FileLoader {
   }
 
   /**
-   * Read a Map<String, T> from a JSON file.
+   * Read a Map&lt;String, T&gt; from a JSON file.
    *
    * @param valueType Class type of the map's values
    * @param filename  File to read from

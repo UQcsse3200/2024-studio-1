@@ -73,7 +73,6 @@ public class MainGameLevelFactory implements LevelFactory {
     public Level create(int levelNumber) {
 
         this.map = new LevelMap(shouldLoad ? config.mapSize : DEFAULT_MAP_SIZE);
-//        this.config.currentLevel = "" + levelNumber;
 
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),
@@ -131,10 +130,8 @@ public class MainGameLevelFactory implements LevelFactory {
             setRoomsComplete(loadedRooms);
             shouldLoad = false;
         }
-
-        this.config.currentLevel = "" + levelNumber;
         // Store the current level number
-
+        this.config.currentLevel = "" + levelNumber;
         return new MainGameLevel(map, levelNumber, rooms);
     }
 
@@ -146,7 +143,6 @@ public class MainGameLevelFactory implements LevelFactory {
     public void saveMapData(String filePath, String level) {
         List<String> compRooms = new ArrayList<String>();
         config.currentRoom = ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().getRoomName();
-//        config.currentLevel =
         for (Room room : rooms.values()) {
             if (room.isComplete()) {
                 if (map.mapData.getRoomDetails().get(room.getRoomName()) != null) {

@@ -31,6 +31,8 @@ public class LoseScreenDisplay extends UIComponent {
     private Table table;
     private String LastAttackAnimal;
 
+    private Texture backgroundTexture;
+
     private ArrayList<String> animals = new ArrayList<String>();
     private ArrayList<String> animalDeathScreens = new ArrayList<String>();
 
@@ -131,7 +133,8 @@ public class LoseScreenDisplay extends UIComponent {
         Image playerDead;
 
         if(animals.contains(LastAttackAnimal)){
-            Image background = new Image(new Texture(Gdx.files.internal(backgroundPaths[animals.indexOf(LastAttackAnimal)])));
+            backgroundTexture = new Texture(Gdx.files.internal(backgroundPaths[animals.indexOf(LastAttackAnimal)]));
+            Image background = new Image(backgroundTexture);
             background.setFillParent(true); // Make it fill the screen
             stage.addActor(background);
             table = new Table();
@@ -176,6 +179,9 @@ public class LoseScreenDisplay extends UIComponent {
     @Override
     public void dispose() {
         table.clear();
+        if (backgroundTexture != null) {
+            backgroundTexture.dispose();  // Dispose the background texture
+        }
         super.dispose();
     }
 

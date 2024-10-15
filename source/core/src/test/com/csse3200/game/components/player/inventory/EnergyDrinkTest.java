@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(GameExtension.class)
 public class EnergyDrinkTest {
 
-    EnergyDrink energyDrink = new EnergyDrink("Low");
+    EnergyDrink energyDrink = new EnergyDrink("low");
     Entity entity = new Entity()
             .addComponent(new PlayerActions())
             .addComponent(new ItemPickupComponent())
@@ -58,12 +58,12 @@ public class EnergyDrinkTest {
 
     @Test
     public void getSpecificationTest() {
-        assertEquals("buff:energydrink:Low", energyDrink.getSpecification());
+        assertEquals("buff:energydrink:low", energyDrink.getSpecification());
     }
 
     @Test
     public void getItemSpecificationTest() {
-        assertEquals("energydrink:Low", energyDrink.getBuffSpecification());
+        assertEquals("energydrink:low", energyDrink.getBuffSpecification());
     }
 
     @Test

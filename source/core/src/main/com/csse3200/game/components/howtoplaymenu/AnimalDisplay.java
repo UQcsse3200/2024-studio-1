@@ -61,7 +61,12 @@ public class AnimalDisplay extends UIComponent {
                 "Dino - 300 Health, 10 Base Attack, 1.2 Attack Range, 1 Attack Rate",
                 "Bat - 50 Health, 10 Base Attack, 1 Attack Range, 1.2 Attack Rate",
                 "Snake - 300 Health, 10 Base Attack, 1 Attack Range, 0.8 Attack Rate",
-                "Bear - 600 Health, 35 Base Attack, 1.5 Attack Range, 0.5 Attack Rate"
+                "Bear - 600 Health, 35 Base Attack, 1.5 Attack Range, 0.5 Attack Rate",
+                "Dragon - 200 Health, 15 Base Attack, 12 Max Attack Range, 1.5 Max Attack Rate",
+                "Kitsune - 1000 Health, 40 Base Attack, 12 Max Attack Range, 0.8 Max Attack Rate",
+                "Birdman - 1500 Health, 40 Base Attack, 2 Max Attack Range, 10 Max Attack Rate",
+                "Cthulu - 1000 Health, 30 Base Attack, 3 Max Attack Range, 10 Max Attack Rate",
+                "Werewolf - 1000 Health, 30 Base Attack, 3 Max Attack Range, 10 Max Attack Rate"
         };
 
         String[] animalImagePaths = {
@@ -71,7 +76,12 @@ public class AnimalDisplay extends UIComponent {
                 "images/how-to-play/animals/dino.png",
                 "images/how-to-play/animals/bat.png",
                 "images/how-to-play/animals/snake.png",
-                "images/how-to-play/animals/bear.png"
+                "images/how-to-play/animals/bear.png",
+                "images/how-to-play/animals/dragon.png",
+                "images/how-to-play/animals/kitsune.png",
+                "images/how-to-play/animals/birdman.png",
+                "images/how-to-play/animals/cthulu.png",
+                "images/how-to-play/animals/Werewolf.png"
         };
 
         for (int i = 0; i < animalDescriptions.length; i++) {

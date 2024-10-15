@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.NameComponent;
@@ -9,6 +10,7 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
+import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.services.ServiceLocator;
 
 /**
@@ -86,7 +88,21 @@ public class StairFactory {
 
     private static void moveToNextLevel() {
         int currentLevel = ServiceLocator.getGameAreaService().getGameController().getCurrentLevel().getLevelNumber();
-        ServiceLocator.getEntityService().markEntityForRemoval(stair);
-        ServiceLocator.getGameAreaService().getGameController().changeLevel(currentLevel + 1);
+        if (currentLevel == 2) { // Check if it's the third level (0-indexed)
+            showGameWonDialog();
+        } else {
+            ServiceLocator.getEntityService().markEntityForRemoval(stair);
+            ServiceLocator.getGameAreaService().getGameController().changeLevel(currentLevel + 1);
+        }
+    }
+
+    private static void showGameWonDialog() {
+        ServiceLocator.getAlertBoxService().showGameWonDialog("Congratulations!", "You've completed all levels!", new AlertBoxService.GameWonListener() {
+            @Override
+            public void onExit() {
+                // Exit the game
+                Gdx.app.exit();
+            }
+        });
     }
 }

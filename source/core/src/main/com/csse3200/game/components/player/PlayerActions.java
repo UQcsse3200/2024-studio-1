@@ -7,6 +7,7 @@ import com.csse3200.game.components.Component;
 import com.csse3200.game.components.player.inventory.*;
 import com.csse3200.game.components.player.inventory.usables.*;
 import com.csse3200.game.physics.components.PhysicsComponent;
+import java.lang.Math;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -21,8 +22,9 @@ public class PlayerActions extends Component {
     private Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean moving = false;
     private Vector2 speed = DEFAULT_SPEED;
+    private Vector2 baseSpeed = new Vector2(3f, 3f); // Metres per second;
     private boolean dead = false;
-    private float maxSpeed = 1.5f;
+    private float maxSpeed = 0.5f;
     private float speedPercentage;
 
     @Override
@@ -40,11 +42,11 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("use4", () -> use(new TargetDummy()));
         entity.getEvents().addListener("use5", () -> use(new BearTrap()));
         entity.getEvents().addListener("use6", () -> use(new BigRedButton()));
-        entity.getEvents().addListener("use7", ()-> use(new TeleporterItem()));
+        entity.getEvents().addListener("use7", () -> use(new TeleporterItem()));
+        entity.getEvents().addListener("use9", () -> use(new Gasoline()));
         entity.getEvents().addListener("useReroll", () -> handleReroll(new Reroll()));
-        setSpeedPercentage(1.0f);
 
-        setSpeedPercentage(0.0f); //Initialise the speed percentage on the UI to 0.0
+        setTotalSpeedBoost(0.0f); //Initialise the speed percentage on the UI to 0.0
     }
 
     @Override
@@ -67,7 +69,7 @@ public class PlayerActions extends Component {
      *
      * @return the current speed of the player
      */
-    public Vector2 getCurrSpeed() {
+    public Vector2 getCurrPlayerSpeed() {
         return this.speed;
     }
 
@@ -76,8 +78,24 @@ public class PlayerActions extends Component {
      *
      * @return the maximum speed limit
      */
-    public float getMaxSpeed() {
+    public float getMaxTotalSpeedBoost() {
         return this.maxSpeed;
+    }
+
+    public Vector2 getMaxPlayerSpeed() {
+        float maxSpeedBoost = getMaxTotalSpeedBoost();
+        Vector2 scalar = getBaseSpeed().scl(maxSpeedBoost);
+        Vector2 maximumPlayerSpeed = new Vector2(getBaseSpeed().x + scalar.x, getBaseSpeed().y + scalar.y);
+        return maximumPlayerSpeed;
+    }
+
+    /**
+     * Gets the base speed of the player
+     *
+     * @return the base speed 
+     */
+    public Vector2 getBaseSpeed() {
+        return this.entity.getComponent(PlayerConfigComponent.class).getPlayerConfig().speed.cpy();
     }
 
     /**
@@ -85,8 +103,26 @@ public class PlayerActions extends Component {
      *
      * @param speedPercentage the new speed percentage to set to
      */
-    public void setSpeedPercentage(float speedPercentage) {
+    public void setTotalSpeedBoost(float speedPercentage) {
         this.speedPercentage = speedPercentage;
+    }
+
+    /**
+     * Gets the percentage of speed compared to its original speed. This function is mainly used for updating
+     * the UI of the speed progress bar
+     * @param newSpeed the new speed that is being compared as a percentage of the original
+     * @param originalSpeed the original speed
+     * @return a value representing the percentage of speed compared to its original speed
+     */
+    public float getSpeedProgressBarProportion(Vector2 newSpeed, Vector2 originalSpeed) {
+        //Get a new vector representing the difference between the two vectors
+        Vector2 diff = new Vector2(newSpeed.x - originalSpeed.x, newSpeed.y - originalSpeed.y);
+        //Get the length of the vector representing the difference
+        float diffSpeedLength = (float) Math.sqrt(Math.pow(diff.x, 2) + Math.pow(diff.y, 2));
+        //Get the length of the vector representing the original speed
+        float originalSpeedLength = (float) Math.sqrt(Math.pow(originalSpeed.x, 2) + Math.pow(originalSpeed.y, 2));
+        //Find the percentage of the original length that the difference is
+        return diffSpeedLength/originalSpeedLength;
     }
 
     /**
@@ -94,7 +130,7 @@ public class PlayerActions extends Component {
      *
      * @return the current speed percentage
      */
-    public float getCurrSpeedPercentage() {
+    public float getTotalSpeedBoost() {
         return this.speedPercentage;
     }
 

@@ -47,6 +47,8 @@ public class LoadGameScreen extends GameScreen {
         Entity player = gameOptions.createPlayer(config.difficulty);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
+       // loadBuffs(player, config);
+
         logger.debug("Initialising load game screen entities");
         MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class,
                 MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
@@ -66,5 +68,16 @@ public class LoadGameScreen extends GameScreen {
             }
         }
     }
+
+    private void loadBuffs(Entity player, PlayerConfig config) {
+        if (config.buffs != null) {
+            CollectibleFactory collectibleFactory = new CollectibleFactory();
+            for (String buffName: config.buffs) {
+                Collectible buff = collectibleFactory.create(buffName);
+                player.getComponent(InventoryComponent.class).pickup(buff);
+            }
+        }
+    }
+
 }
 

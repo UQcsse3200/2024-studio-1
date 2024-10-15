@@ -23,18 +23,19 @@ import java.util.Arrays;
 
 @ExtendWith(GameExtension.class)
 class GameAreaTest {
-    @Mock
     private TerrainComponent mockTerrain;
-    @Mock
     private Entity mockEntity;
 
     private GameArea gameArea;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        mockTerrain = mock(TerrainComponent.class);
+        mockEntity = mock(Entity.class);
+        ServiceLocator.clear();
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
+
         gameArea = new GameArea();
 
 

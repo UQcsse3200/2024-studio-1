@@ -63,18 +63,12 @@ public class TrapComponent extends Component {
     }
 
     /**
-     * Checks whether entity is an enemy
-     *
-=======
      * Checks whether entity is a pet NPC
->>>>>>> de3be37527f3e0fb08e51e802cbf684df539336b:source/core/src/main/com/csse3200/game/components/player/inventory/TrapComponent.java
-     * @param enemy entity to check
+     * @param enemy entity to check for
      * @return true if entity is not a pet
-     * @return false if the entity is pet
+     * @return false if the entity is a pet
      */
     public boolean isEnemy(Entity enemy) {
-//        return enemy.getComponent(AITaskComponent.class) != null;
-
         if (enemy.getComponent(AITaskComponent.class) != null) {
             NPCConfigs.NPCConfig config = enemy.getComponent(NPCConfigComponent.class).config;
             TaskConfig tasks = config.tasks;
@@ -96,6 +90,10 @@ public class TrapComponent extends Component {
         ServiceLocator.getEntityService().markEntityForRemoval(trap);
     }
 
+    /**
+     * Immobilizes entity by stopping the entity's tasks for a set duration and then restart
+     * @param enemy the entity that collides with the bear trap.
+     */
     public void immobilizeEnemies(Entity enemy){
 
         List<PriorityTask> tasks = enemy.getComponent(AITaskComponent.class).getTasks();

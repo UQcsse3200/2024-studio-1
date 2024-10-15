@@ -24,6 +24,7 @@ public class MainGameLevelFactory implements LevelFactory {
     private boolean shouldLoad;
     private List<String> loadedRooms;
     private MapLoadConfig config;
+    private int levelNumber;
 
     public MainGameLevelFactory(boolean shouldLoad, MapLoadConfig config) {
         this.shouldLoad = shouldLoad;
@@ -70,6 +71,7 @@ public class MainGameLevelFactory implements LevelFactory {
 
     @Override
     public Level create(int levelNumber) {
+
         this.map = new LevelMap(shouldLoad ? config.mapSize : DEFAULT_MAP_SIZE);
 
         RoomFactory roomFactory = new RoomFactory(
@@ -124,7 +126,7 @@ public class MainGameLevelFactory implements LevelFactory {
             shouldLoad = false;
         }
         // Store the current level number
-
+        this.config.currentLevel = "" + levelNumber;
         return new MainGameLevel(map, levelNumber, rooms);
     }
 

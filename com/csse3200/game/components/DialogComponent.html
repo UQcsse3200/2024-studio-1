@@ -99,8 +99,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">DialogComponent</span>
 <span class="extends-implements">extends <a href="../rendering/RenderComponent.html" title="class in com.csse3200.game.rendering">RenderComponent</a></span></div>
-<div class="block">This component renders a health bar for NPCs.
- It displays the current health as a percentage of maximum health above the NPC.</div>
+<div class="block">This component shows a dialog box with entity image at the bottom left of the game area.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -113,15 +112,18 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static float</code></div>
-<div class="col-second even-row-color"><code><a href="#height" class="member-name-link">height</a></code></div>
+<div class="col-first even-row-color"><code>static final int</code></div>
+<div class="col-second even-row-color"><code><a href="#DIALOG_LAYER" class="member-name-link">DIALOG_LAYER</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static final float</code></div>
-<div class="col-second odd-row-color"><code><a href="#OFFSET_Y" class="member-name-link">OFFSET_Y</a></code></div>
+<div class="col-first odd-row-color"><code>static float</code></div>
+<div class="col-second odd-row-color"><code><a href="#height" class="member-name-link">height</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>static final float</code></div>
-<div class="col-second even-row-color"><code><a href="#PADDING" class="member-name-link">PADDING</a></code></div>
+<div class="col-second even-row-color"><code><a href="#OFFSET_Y" class="member-name-link">OFFSET_Y</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static final float</code></div>
+<div class="col-second odd-row-color"><code><a href="#PADDING" class="member-name-link">PADDING</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.rendering.RenderComponent">Fields inherited from class&nbsp;com.csse3200.game.rendering.<a href="../rendering/RenderComponent.html" title="class in com.csse3200.game.rendering">RenderComponent</a></h3>
@@ -171,22 +173,29 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw</a><wbr>(com.badlogic.gdx.graphics.g2d.SpriteBatch&nbsp;batch)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Draws the NPC's health bar above the entity.</div>
+<div class="block">Draw the renderable.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getZIndex()" class="member-name-link">getZIndex</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLayer()" class="member-name-link">getLayer</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Layer to be rendered in.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getZIndex()" class="member-name-link">getZIndex</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Z index controls rendering order within a layer.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#showDialog(java.lang.String)" class="member-name-link">showDialog</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;newText)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#showDialog(java.lang.String)" class="member-name-link">showDialog</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;newText)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">creates a dialog box with given text and entity image</div>
+</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.rendering.RenderComponent">Methods inherited from class&nbsp;com.csse3200.game.rendering.<a href="../rendering/RenderComponent.html" title="class in com.csse3200.game.rendering">RenderComponent</a></h3>
-<code><a href="../rendering/RenderComponent.html#compareTo(com.csse3200.game.rendering.Renderable)">compareTo</a>, <a href="../rendering/RenderComponent.html#getLayer()">getLayer</a>, <a href="../rendering/RenderComponent.html#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)">render</a></code></div>
+<code><a href="../rendering/RenderComponent.html#compareTo(com.csse3200.game.rendering.Renderable)">compareTo</a>, <a href="../rendering/RenderComponent.html#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)">render</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.components.Component">Methods inherited from class&nbsp;com.csse3200.game.components.<a href="Component.html" title="class in com.csse3200.game.components">Component</a></h3>
 <code><a href="Component.html#earlyUpdate()">earlyUpdate</a>, <a href="Component.html#getEntity()">getEntity</a>, <a href="Component.html#isEnabled()">isEnabled</a>, <a href="Component.html#setEnabled(boolean)">setEnabled</a>, <a href="Component.html#setEntity(com.csse3200.game.entities.Entity)">setEntity</a>, <a href="Component.html#toString()">toString</a>, <a href="Component.html#triggerEarlyUpdate()">triggerEarlyUpdate</a>, <a href="Component.html#triggerUpdate()">triggerUpdate</a>, <a href="Component.html#update()">update</a></code></div>
@@ -204,6 +213,20 @@ loadScripts(document, 'script');</script>
 <section class="field-details" id="field-detail">
 <h2>Field Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="DIALOG_LAYER">
+<h3>DIALOG_LAYER</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">DIALOG_LAYER</span></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="../../../../constant-values.html#com.csse3200.game.components.DialogComponent.DIALOG_LAYER">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="PADDING">
 <h3>PADDING</h3>
@@ -275,6 +298,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="showDialog(java.lang.String)">
 <h3>showDialog</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">showDialog</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;newText)</span></div>
+<div class="block">creates a dialog box with given text and entity image</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>newText</code> - The text to show in dialog box</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -287,13 +315,29 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">
 <h3>draw</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">draw</span><wbr><span class="parameters">(com.badlogic.gdx.graphics.g2d.SpriteBatch&nbsp;batch)</span></div>
-<div class="block">Draws the NPC's health bar above the entity.
- The health bar reflects the current health as a percentage of the maximum health.</div>
+<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="../rendering/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">RenderComponent</a></code></span></div>
+<div class="block">Draw the renderable. Should be called only by the renderer, not manually.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../rendering/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></code>&nbsp;in class&nbsp;<code><a href="../rendering/RenderComponent.html" title="class in com.csse3200.game.rendering">RenderComponent</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>batch</code> - The SpriteBatch used for drawing.</dd>
+<dd><code>batch</code> - Batch to render to.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getLayer()">
+<h3>getLayer</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getLayer</span>()</div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../rendering/Renderable.html#getLayer()">Renderable</a></code></span></div>
+<div class="block">Layer to be rendered in. Higher layers will be rendered on top of lower layers.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="../rendering/Renderable.html#getLayer()">getLayer</a></code>&nbsp;in interface&nbsp;<code><a href="../rendering/Renderable.html" title="interface in com.csse3200.game.rendering">Renderable</a></code></dd>
+<dt>Overrides:</dt>
+<dd><code><a href="../rendering/RenderComponent.html#getLayer()">getLayer</a></code>&nbsp;in class&nbsp;<code><a href="../rendering/RenderComponent.html" title="class in com.csse3200.game.rendering">RenderComponent</a></code></dd>
+<dt>Returns:</dt>
+<dd>layer</dd>
 </dl>
 </section>
 </li>

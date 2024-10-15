@@ -41,6 +41,7 @@ public class ItemFactory {
         creators.put("teleporter", (args) -> new TeleporterItem());
         creators.put("goblinsgamble", (args) -> new GoblinsGamble());
         creators.put("fang", (args)-> new WerewolfFang());
+        creators.put("gasoline", (args) -> new Gasoline());
         return creators;
     }
 

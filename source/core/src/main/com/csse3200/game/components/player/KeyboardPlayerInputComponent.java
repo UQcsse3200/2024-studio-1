@@ -227,6 +227,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case 6 -> entity.getEvents().trigger("use6");
             case 7 -> entity.getEvents().trigger("use7");
             case 8 -> entity.getEvents().trigger("useReroll");
+            case 9 -> entity.getEvents().trigger("use9");
         }
         return true;
     }
@@ -312,6 +313,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_5, (i) -> useItem(5));
         actionMap.put(USE_6, (i) -> useItem(6));
         actionMap.put(USE_7, (i) -> useItem(7));
+        actionMap.put(USE_9, (i) -> useItem(9));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
         actionMap.put(ENTER_SHOP, (i) -> shopTeleport());

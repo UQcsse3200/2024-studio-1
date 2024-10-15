@@ -119,7 +119,7 @@ public class PlayerStatsDisplay extends UIComponent {
 //        damageImage = new Image(
 //                ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
         damageImage = new Image(ServiceLocator.getResourceService().getAsset(DAMAGE_BUFF_TEXTURE, Texture.class));
-        damageProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        damageProgressBar = new ProgressBar(0f, 200f, 0.1f, false, skin);
         damageProgressBar.setWidth(200f);
         damageProgressBar.setAnimateDuration(2.0f);
 

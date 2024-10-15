@@ -37,7 +37,7 @@ public class MainRoom extends EnemyRoom {
                         "melee:axe", "item:bandage",
                         "melee:knife", "item:medkit", "buff:energydrink:low",
                         "ranged:shotgun", "item:shieldpotion",
-                        "ranged:fnscar", "melee:knife",
+                        "ranged:fnscar", "melee:knife", "item:gasoline",
                         "ranged:plasmablaster", "buff:energydrink:high",
                         "buff:energydrink:medium", "item:medkit", "item:bandage"
                 ),

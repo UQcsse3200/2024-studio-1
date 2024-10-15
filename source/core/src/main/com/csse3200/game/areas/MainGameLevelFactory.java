@@ -69,14 +69,13 @@ public class MainGameLevelFactory implements LevelFactory {
 
     @Override
     public Level create(int levelNumber) {
-        String seed = "seed";
         // default seed for junit tests
         if (!shouldLoad) {
             if(config != null){
                 map = new LevelMap(config.seed + levelNumber, DEFAULT_MAP_SIZE);
             }
             else{
-                map = new LevelMap(seed + levelNumber, DEFAULT_MAP_SIZE);
+                map = new LevelMap("seed" + levelNumber, DEFAULT_MAP_SIZE);
 
             }
 

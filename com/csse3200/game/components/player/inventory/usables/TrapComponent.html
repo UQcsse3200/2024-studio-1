@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../../../script-dir/jquery-ui.min.css" title="Style">
 <script type="text/javascript" src="../../../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -136,15 +136,20 @@ loadScripts(document, 'script');</script>
 <div class="block">Register a collision event listener and method is
  called when trap is initialized.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEnemy(com.csse3200.game.entities.Entity)" class="member-name-link">isEnemy</a><wbr>(<a href="../../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;enemy)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#immobilizeEnemies(com.csse3200.game.entities.Entity)" class="member-name-link">immobilizeEnemies</a><wbr>(<a href="../../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;enemy)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks whether entity is an enemy</div>
+<div class="block">Immobilizes entity by stopping the entity's tasks for a set duration and then restart</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#onCollisionStart(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)" class="member-name-link">onCollisionStart</a><wbr>(com.badlogic.gdx.physics.box2d.Fixture&nbsp;me,
- com.badlogic.gdx.physics.box2d.Fixture&nbsp;other)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEnemy(com.csse3200.game.entities.Entity)" class="member-name-link">isEnemy</a><wbr>(<a href="../../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;enemy)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks whether entity is a pet NPC</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#onCollisionStart(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)" class="member-name-link">onCollisionStart</a><wbr>(com.badlogic.gdx.physics.box2d.Fixture&nbsp;me,
+ com.badlogic.gdx.physics.box2d.Fixture&nbsp;other)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Handles collision detection when other entity collides with the trap
  If animal collides, it does damage to the animal.</div>
 </div>
@@ -212,12 +217,23 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="isEnemy(com.csse3200.game.entities.Entity)">
 <h3>isEnemy</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEnemy</span><wbr><span class="parameters">(<a href="../../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;enemy)</span></div>
-<div class="block">Checks whether entity is an enemy</div>
+<div class="block">Checks whether entity is a pet NPC</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>enemy</code> - entity to check</dd>
+<dd><code>enemy</code> - entity to check for</dd>
 <dt>Returns:</dt>
-<dd>true if entity is an enemy</dd>
+<dd>true if entity is not a pet</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="immobilizeEnemies(com.csse3200.game.entities.Entity)">
+<h3>immobilizeEnemies</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">immobilizeEnemies</span><wbr><span class="parameters">(<a href="../../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;enemy)</span></div>
+<div class="block">Immobilizes entity by stopping the entity's tasks for a set duration and then restart</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>enemy</code> - the entity that collides with the bear trap.</dd>
 </dl>
 </section>
 </li>

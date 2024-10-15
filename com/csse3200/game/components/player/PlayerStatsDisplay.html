@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -115,14 +115,17 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#DAMAGE_BUFF_TEXTURE" class="member-name-link">DAMAGE_BUFF_TEXTURE</a></code></div>
+<div class="col-second even-row-color"><code><a href="#ARMOR_TEXTURE" class="member-name-link">ARMOR_TEXTURE</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#HEART_TEXTURE" class="member-name-link">HEART_TEXTURE</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#DAMAGE_BUFF_TEXTURE" class="member-name-link">DAMAGE_BUFF_TEXTURE</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#SPEED_TEXTURE" class="member-name-link">SPEED_TEXTURE</a></code></div>
+<div class="col-second even-row-color"><code><a href="#HEART_TEXTURE" class="member-name-link">HEART_TEXTURE</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#SPEED_TEXTURE" class="member-name-link">SPEED_TEXTURE</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.csse3200.game.ui.UIComponent">Fields inherited from class&nbsp;com.csse3200.game.ui.<a href="../../ui/UIComponent.html" title="class in com.csse3200.game.ui">UIComponent</a></h3>
@@ -179,23 +182,26 @@ loadScripts(document, 'script');</script>
  int&nbsp;height)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateDamageUI(int)" class="member-name-link">updateDamageUI</a><wbr>(int&nbsp;damage)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateArmorUI(int)" class="member-name-link">updateArmorUI</a><wbr>(int&nbsp;currentArmor)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateMeleeWeaponUI()" class="member-name-link">updateMeleeWeaponUI</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateDamageUI(int)" class="member-name-link">updateDamageUI</a><wbr>(int&nbsp;damage)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePlayerHealthUI(int)" class="member-name-link">updatePlayerHealthUI</a><wbr>(int&nbsp;health)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateMeleeWeaponUI()" class="member-name-link">updateMeleeWeaponUI</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePlayerHealthUI(int)" class="member-name-link">updatePlayerHealthUI</a><wbr>(int&nbsp;health)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Updates the player's health on the ui.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateRangedWeaponUI(int)" class="member-name-link">updateRangedWeaponUI</a><wbr>(int&nbsp;maxAmmo)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateSpeedPercentageUI(float,java.lang.String)" class="member-name-link">updateSpeedPercentageUI</a><wbr>(float&nbsp;speedPercentage,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateRangedWeaponUI(int)" class="member-name-link">updateRangedWeaponUI</a><wbr>(int&nbsp;maxAmmo)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateSpeedPercentageUI(float,java.lang.String)" class="member-name-link">updateSpeedPercentageUI</a><wbr>(float&nbsp;speedPercentage,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;speedType)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Updates the player's speed on the ui.</div>
 </div>
 </div>
@@ -267,6 +273,20 @@ loadScripts(document, 'script');</script>
 <dd>
 <ul class="tag-list">
 <li><a href="../../../../../constant-values.html#com.csse3200.game.components.player.PlayerStatsDisplay.DAMAGE_BUFF_TEXTURE">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="ARMOR_TEXTURE">
+<h3>ARMOR_TEXTURE</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">ARMOR_TEXTURE</span></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="../../../../../constant-values.html#com.csse3200.game.components.player.PlayerStatsDisplay.ARMOR_TEXTURE">Constant Field Values</a></li>
 </ul>
 </dd>
 </dl>
@@ -365,6 +385,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="updateDamageUI(int)">
 <h3>updateDamageUI</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateDamageUI</span><wbr><span class="parameters">(int&nbsp;damage)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="updateArmorUI(int)">
+<h3>updateArmorUI</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateArmorUI</span><wbr><span class="parameters">(int&nbsp;currentArmor)</span></div>
 </section>
 </li>
 <li>

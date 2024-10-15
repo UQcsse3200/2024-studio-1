@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -137,43 +137,57 @@ loadScripts(document, 'script');</script>
 <div class="block">Called when the entity is created and registered.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.math.Vector2</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCurrSpeed()" class="member-name-link">getCurrSpeed</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBaseSpeed()" class="member-name-link">getBaseSpeed</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the base speed of the player</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.math.Vector2</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCurrPlayerSpeed()" class="member-name-link">getCurrPlayerSpeed</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the current speed of the player</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.math.Vector2</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMaxPlayerSpeed()" class="member-name-link">getMaxPlayerSpeed</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCurrSpeedPercentage()" class="member-name-link">getCurrSpeedPercentage</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMaxTotalSpeedBoost()" class="member-name-link">getMaxTotalSpeedBoost</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the maximum speed limit of the player</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSpeedProgressBarProportion(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)" class="member-name-link">getSpeedProgressBarProportion</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;newSpeed,
+ com.badlogic.gdx.math.Vector2&nbsp;originalSpeed)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the percentage of speed compared to its original speed.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTotalSpeedBoost()" class="member-name-link">getTotalSpeedBoost</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the current speed percentage, which is shown on the UI</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMaxSpeed()" class="member-name-link">getMaxSpeed</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.math.Vector2</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWalkDirection()" class="member-name-link">getWalkDirection</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the maximum speed limit of the player</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.math.Vector2</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWalkDirection()" class="member-name-link">getWalkDirection</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the direction the player is walking in.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleReroll(com.csse3200.game.components.player.inventory.UsableItem)" class="member-name-link">handleReroll</a><wbr>(<a href="inventory/UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a>&nbsp;reroll)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleReroll(com.csse3200.game.components.player.inventory.UsableItem)" class="member-name-link">handleReroll</a><wbr>(<a href="inventory/UsableItem.html" title="class in com.csse3200.game.components.player.inventory">UsableItem</a>&nbsp;reroll)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Detects whether a reroll item is allowed to be used or not.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSpeed(com.badlogic.gdx.math.Vector2)" class="member-name-link">setSpeed</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;speed)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSpeed(com.badlogic.gdx.math.Vector2)" class="member-name-link">setSpeed</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;speed)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Set the player speed</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSpeedPercentage(float)" class="member-name-link">setSpeedPercentage</a><wbr>(float&nbsp;speedPercentage)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTotalSpeedBoost(float)" class="member-name-link">setTotalSpeedBoost</a><wbr>(float&nbsp;speedPercentage)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the current speed percentage stat to a new value</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Called once per frame of the game, and should be used for most component logic.</div>
 </div>
 </div>
@@ -237,9 +251,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getCurrSpeed()">
-<h3>getCurrSpeed</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.math.Vector2</span>&nbsp;<span class="element-name">getCurrSpeed</span>()</div>
+<section class="detail" id="getCurrPlayerSpeed()">
+<h3>getCurrPlayerSpeed</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.math.Vector2</span>&nbsp;<span class="element-name">getCurrPlayerSpeed</span>()</div>
 <div class="block">Gets the current speed of the player</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -248,9 +262,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getMaxSpeed()">
-<h3>getMaxSpeed</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getMaxSpeed</span>()</div>
+<section class="detail" id="getMaxTotalSpeedBoost()">
+<h3>getMaxTotalSpeedBoost</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getMaxTotalSpeedBoost</span>()</div>
 <div class="block">Gets the maximum speed limit of the player</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -259,9 +273,26 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="setSpeedPercentage(float)">
-<h3>setSpeedPercentage</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setSpeedPercentage</span><wbr><span class="parameters">(float&nbsp;speedPercentage)</span></div>
+<section class="detail" id="getMaxPlayerSpeed()">
+<h3>getMaxPlayerSpeed</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.math.Vector2</span>&nbsp;<span class="element-name">getMaxPlayerSpeed</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getBaseSpeed()">
+<h3>getBaseSpeed</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.math.Vector2</span>&nbsp;<span class="element-name">getBaseSpeed</span>()</div>
+<div class="block">Gets the base speed of the player</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the base speed</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setTotalSpeedBoost(float)">
+<h3>setTotalSpeedBoost</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setTotalSpeedBoost</span><wbr><span class="parameters">(float&nbsp;speedPercentage)</span></div>
 <div class="block">Sets the current speed percentage stat to a new value</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -270,9 +301,25 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getCurrSpeedPercentage()">
-<h3>getCurrSpeedPercentage</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getCurrSpeedPercentage</span>()</div>
+<section class="detail" id="getSpeedProgressBarProportion(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)">
+<h3>getSpeedProgressBarProportion</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getSpeedProgressBarProportion</span><wbr><span class="parameters">(com.badlogic.gdx.math.Vector2&nbsp;newSpeed,
+ com.badlogic.gdx.math.Vector2&nbsp;originalSpeed)</span></div>
+<div class="block">Gets the percentage of speed compared to its original speed. This function is mainly used for updating
+ the UI of the speed progress bar</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>newSpeed</code> - the new speed that is being compared as a percentage of the original</dd>
+<dd><code>originalSpeed</code> - the original speed</dd>
+<dt>Returns:</dt>
+<dd>a value representing the percentage of speed compared to its original speed</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getTotalSpeedBoost()">
+<h3>getTotalSpeedBoost</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getTotalSpeedBoost</span>()</div>
 <div class="block">Gets the current speed percentage, which is shown on the UI</div>
 <dl class="notes">
 <dt>Returns:</dt>

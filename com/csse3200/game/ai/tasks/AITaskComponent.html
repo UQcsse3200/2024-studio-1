@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -150,6 +150,16 @@ implements <a href="TaskRunner.html" title="interface in com.csse3200.game.ai.ta
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Called when the component is disposed.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="PriorityTask.html" title="interface in com.csse3200.game.ai.tasks">PriorityTask</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTasks()" class="member-name-link">getTasks</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Retrieves a copy of the current list of tasks.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stopAllTasks()" class="member-name-link">stopAllTasks</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Stops all tasks and clears the task list.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -228,6 +238,24 @@ implements <a href="TaskRunner.html" title="interface in com.csse3200.game.ai.ta
 <dt>Overrides:</dt>
 <dd><code><a href="../../components/Component.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="../../components/Component.html" title="class in com.csse3200.game.components">Component</a></code></dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getTasks()">
+<h3>getTasks</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="PriorityTask.html" title="interface in com.csse3200.game.ai.tasks">PriorityTask</a>&gt;</span>&nbsp;<span class="element-name">getTasks</span>()</div>
+<div class="block">Retrieves a copy of the current list of tasks.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>A list of current PriorityTasks.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="stopAllTasks()">
+<h3>stopAllTasks</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">stopAllTasks</span>()</div>
+<div class="block">Stops all tasks and clears the task list.</div>
 </section>
 </li>
 </ul>

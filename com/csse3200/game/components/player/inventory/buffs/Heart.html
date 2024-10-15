@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../../../script-dir/jquery-ui.min.css" title="Style">
 <script type="text/javascript" src="../../../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -136,8 +136,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#effect(com.csse3200.game.entities.Entity)" class="member-name-link">effect</a><wbr>(<a href="../../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Applies effect of increasing player's maximum health
- If player's current health max health is below the limit, it increases by a set amount</div>
+<div class="block">Applies the effect of increasing the player's maximum health.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBuffSpecification()" class="member-name-link">getBuffSpecification</a>()</code></div>
@@ -208,13 +207,16 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="effect(com.csse3200.game.entities.Entity)">
 <h3>effect</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">effect</span><wbr><span class="parameters">(<a href="../../../../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;entity)</span></div>
-<div class="block">Applies effect of increasing player's maximum health
- If player's current health max health is below the limit, it increases by a set amount</div>
+<div class="block">Applies the effect of increasing the player's maximum health.
+ This method checks the current maximum health of the player entity. If the player's
+ maximum health is below the defined limit (250), it increases the max health by
+ a specified value (50), up to the limit. After increasing the max health, it
+ sets the player's current health to match the new max health value.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../BuffItem.html#effect(com.csse3200.game.entities.Entity)">effect</a></code>&nbsp;in class&nbsp;<code><a href="../BuffItem.html" title="class in com.csse3200.game.components.player.inventory">BuffItem</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>entity</code> - The player entity</dd>
+<dd><code>entity</code> - The player entity to which the heart buff is applied.</dd>
 </dl>
 </section>
 </li>

@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.min.css" title="Style">
 <script type="text/javascript" src="../../../../script.js"></script>
-<script type="text/javascript" src="../../../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -170,9 +170,14 @@ loadScripts(document, 'script');</script>
 <div class="block">Removes items that have been bought from the shop room items list to be saved later.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.GameArea)" class="member-name-link">spawn</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
- <a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeRoom()" class="member-name-link">removeRoom</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Removes the room and all its entities.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawn(com.csse3200.game.entities.Entity,com.csse3200.game.areas.GameArea)" class="member-name-link">spawn</a><wbr>(<a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a>&nbsp;player,
+ <a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Spawn the area and player with necessary area conditions</div>
 </div>
 </div>
@@ -180,7 +185,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.areas.BaseRoom">Methods inherited from class&nbsp;com.csse3200.game.areas.<a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></h3>
-<code><a href="BaseRoom.html#deleteRemainingItems(com.csse3200.game.entities.Entity)">deleteRemainingItems</a>, <a href="BaseRoom.html#getRoomConnections()">getRoomConnections</a>, <a href="BaseRoom.html#getRoomName()">getRoomName</a>, <a href="BaseRoom.html#isComplete()">isComplete</a>, <a href="BaseRoom.html#removeRoom()">removeRoom</a>, <a href="BaseRoom.html#setComplete()">setComplete</a>, <a href="BaseRoom.html#spawnAnimalEntity(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)">spawnAnimalEntity</a>, <a href="BaseRoom.html#spawnDoors(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity)">spawnDoors</a>, <a href="BaseRoom.html#spawnItem(com.csse3200.game.areas.GameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">spawnItem</a>, <a href="BaseRoom.html#spawnTerrain(com.csse3200.game.areas.GameArea,float,boolean)">spawnTerrain</a></code></div>
+<code><a href="BaseRoom.html#deleteRemainingItems(com.csse3200.game.entities.Entity)">deleteRemainingItems</a>, <a href="BaseRoom.html#getRoomConnections()">getRoomConnections</a>, <a href="BaseRoom.html#getRoomName()">getRoomName</a>, <a href="BaseRoom.html#isComplete()">isComplete</a>, <a href="BaseRoom.html#setComplete()">setComplete</a>, <a href="BaseRoom.html#spawnAnimalEntity(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)">spawnAnimalEntity</a>, <a href="BaseRoom.html#spawnDoors(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity)">spawnDoors</a>, <a href="BaseRoom.html#spawnItem(com.csse3200.game.areas.GameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">spawnItem</a>, <a href="BaseRoom.html#spawnTerrain(com.csse3200.game.areas.GameArea,float,boolean)">spawnTerrain</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -282,6 +287,19 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>item</code> - : item to be removed from the list of shop items to be de-spawned.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="removeRoom()">
+<h3>removeRoom</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeRoom</span>()</div>
+<div class="block">Removes the room and all its entities. Also removes any price tag labels (belonging to buyable items)</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="Room.html#removeRoom()">removeRoom</a></code>&nbsp;in interface&nbsp;<code><a href="Room.html" title="interface in com.csse3200.game.areas">Room</a></code></dd>
+<dt>Overrides:</dt>
+<dd><code><a href="BaseRoom.html#removeRoom()">removeRoom</a></code>&nbsp;in class&nbsp;<code><a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></code></dd>
 </dl>
 </section>
 </li>

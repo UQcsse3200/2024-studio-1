@@ -9,6 +9,7 @@ import com.csse3200.game.components.player.inventory.ItemPickupComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.RandomService;
 import com.csse3200.game.services.ResourceService;
@@ -73,6 +74,8 @@ class MainGameLevelFactoryTest {
 
         // Set up mock RenderService
         when(mockRenderService.getCamera()).thenReturn(mockCamera);
+        MapLoadConfig mapLoadConfig = new MapLoadConfig();
+        mapLoadConfig.currentLevel = "1";
         ServiceLocator.registerRenderService(mockRenderService);
 
         // Mock the RandomService and RandomNumberGenerator
@@ -94,7 +97,7 @@ class MainGameLevelFactoryTest {
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRandomService(new RandomService(""));
 
-        levelFactory = new MainGameLevelFactory(false, null);
+        levelFactory = new MainGameLevelFactory(false, mapLoadConfig);
     }
 
     @AfterEach

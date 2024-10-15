@@ -156,9 +156,7 @@ class MapGeneratorTest {
         }
         assertEquals(1, Collections.frequency(types, RoomType.BOSS_ROOM.num),
                 "Should have only one boss room");
-        assertEquals(1, Collections.frequency(types, RoomType.NPC_ROOM.num),
+        assertEquals(1, Collections.frequency(types, RoomType.SHOP_ROOM.num),
                 "Should have only one NPC room");
-        assertEquals(1, Collections.frequency(types, RoomType.GAME_ROOM.num),
-                "Should have only one Game room");
     }
 }

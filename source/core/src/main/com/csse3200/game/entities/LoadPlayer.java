@@ -115,6 +115,7 @@ public class LoadPlayer {
                 .addComponent(createAnimationComponent(config.textureAtlasFilename))
                 .addComponent(new PlayerAnimationController(config.textureAtlasFilename))
                 .addComponent(new DeathPlayerAnimation())
+                .addComponent(new LevelChangeListener())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
                 .addComponent(new PlayerHealthDisplay())
                 .addComponent(new EffectComponent());

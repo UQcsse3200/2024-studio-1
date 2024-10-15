@@ -6,8 +6,7 @@ package com.csse3200.game.areas.generation;
 public enum RoomType {
     BASE_ROOM(0),
     BOSS_ROOM(1),
-    NPC_ROOM(2),
-    GAME_ROOM(3);
+    SHOP_ROOM(2);
 
     public final int num;
 

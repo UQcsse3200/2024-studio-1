@@ -113,23 +113,14 @@ class RoomFactoryTest {
     }
 
     @Test
-    void testCreateGambleRoom() {
-        Room room = roomFactory.createGambleRoom(testRoomConnections, testSpecification, testRoomName);
+    void testRoomInterfaceMethods() {
+        Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
         
-        assertNotNull(room);
-        assertTrue(room instanceof GambleRoom);
-        assertEquals(testRoomName, room.getRoomName());
+        assertFalse(room.isComplete());
+        room.setComplete();
+        assertTrue(room.isComplete());
+        
+        // TODO can't effectively test spawn, removeRoom, and checkIfRoomComplete
+        // without more complex setup or integration tests.
     }
-
-//    @Test
-//    void testRoomInterfaceMethods() {
-//        Room room = roomFactory.createRoom(testRoomConnections, testSpecification, testRoomName);
-//
-//        assertFalse(room.isComplete());
-//        room.setComplete();
-//        assertTrue(room.isComplete());
-//
-//        // TODO can't effectively test spawn, removeRoom, and checkIfRoomComplete
-//        // without more complex setup or integration tests.
-//    }
 }

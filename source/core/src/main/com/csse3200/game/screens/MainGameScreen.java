@@ -32,6 +32,7 @@ public class MainGameScreen extends GameScreen {
 
         Entity player = gameOptions.createPlayer(gameOptions.getDifficulty());
         player.getEvents().addListener("player_finished_dying", this::loseGame);
+        player.getEvents().addListener("player_win", this::winGame);
 
         logger.debug("Initialising main game screen entities");
         MapLoadConfig mapConfig = new MapLoadConfig();

@@ -730,7 +730,7 @@
         "wanderSpeed": 0.4
       },
       "chase": {
-        "chaseSpeed": 2,
+        "chaseSpeed": 1.5,
         "viewDistance": 10,
         "chaseDistance": 10.5,
         "maxTime": 5

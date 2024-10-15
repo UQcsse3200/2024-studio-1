@@ -14,24 +14,24 @@ public class WeaponConfig {
 
     static {
         // Load weapon data (can be from JSON or hardcoded for now)
-        WEAPON_CONFIGS.put("shotgun", new WeaponData("shotgun", 10, 10,
-                5, 20, 20, 3, "images/Weapons/Centered/shotgun.png"));
-        WEAPON_CONFIGS.put("plasmablaster", new WeaponData("plasmablaster", 10,
-                10, 5, 20, 20, 3,
+        WEAPON_CONFIGS.put("shotgun", new WeaponData("shotgun", 12, 5,
+                3, 6, 6, 1, "images/Weapons/Centered/shotgun.png"));
+        WEAPON_CONFIGS.put("plasmablaster", new WeaponData("plasmablaster", 7,
+                6, 5, 20, 20, 2,
                 "images/Weapons/Centered/plasmablaster.png"));
-        WEAPON_CONFIGS.put("supersoaker", new WeaponData("supersoaker", 10,
-                10, 5, 20, 20, 3,
+        WEAPON_CONFIGS.put("supersoaker", new WeaponData("supersoaker", 15,
+                6, 4, 12, 12, 3,
                 "images/Weapons/Centered/supersoaker.png"));
         WEAPON_CONFIGS.put("fnscar", new WeaponData("fnscar", 28,
                 0, 3, 20, 20, 3,
                 "images" + "/Weapons/Centered/fnscar.png"));
         WEAPON_CONFIGS.put("pistol", new WeaponData("pistol", 20,
-                0, 2, 9, 9, 3,
+                0, 4, 15, 15, 1,
                 "images" + "/Weapons/Centered/pistol.png"));
         WEAPON_CONFIGS.put("knife", new WeaponData("knife", 20,
-                1, 3, "images/Weapons/Centered/knife.png"));
+                4, 3, "images/Weapons/Centered/knife.png"));
         WEAPON_CONFIGS.put("axe", new WeaponData("axe", 80,
-                2, 1, "images/Weapons/Centered/axe.png"));
+                6, 1, "images/Weapons/Centered/axe.png"));
 
     }
 

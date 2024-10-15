@@ -67,8 +67,7 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
 
         // Enable the BossRangeAttackComponent
         BossRangeAttackComponent rangeAttack = owner.getEntity().getComponent(BossRangeAttackComponent.class);
-        int numShot = (int) (Math.random() * 8);
-        numShot = 4;
+        int numShot = 4;
         if (rangeAttack != null) {
             setShootPattern(rangeAttack, numShot);
 

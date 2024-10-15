@@ -119,7 +119,6 @@ public class RangeAttackComponent extends AttackComponent {
         String baseName = this.getEntity().getComponent(NameComponent.class).getName();
         // Uncomment this for testing change projectile animation
         // Primarily for Kitsune
-        setAnimationID((int) (Math.random() + 1));
         shoot(direction);
         // Attack effects
         applyEffects(target);

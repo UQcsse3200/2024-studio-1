@@ -81,5 +81,6 @@ public class Armor extends BuffItem {
     @Override
     public void effect(Entity entity) {
         entity.getComponent(CombatStatsComponent.class).increaseArmor(armorValue);
+        entity.getEvents().trigger("updateArmor", armorValue);
     }
 }

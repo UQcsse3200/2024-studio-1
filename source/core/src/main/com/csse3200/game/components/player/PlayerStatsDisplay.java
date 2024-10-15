@@ -39,12 +39,13 @@ public class PlayerStatsDisplay extends UIComponent {
 
     private Image damageImage;
     private ProgressBar damageProgressBar;
-
+    private Image armorImage;
+    private ProgressBar armorProgressBar;
     private ArrayList<Label> labels;
     public static final String HEART_TEXTURE = "images/heart.png";
     public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
     public static final String DAMAGE_BUFF_TEXTURE = "images/items/damage_buff.png";
-
+    public static final String ARMOR_TEXTURE = "images/items/armor.png";
 
     /**
      * Creates reusable ui styles and adds actors to the stage.
@@ -62,6 +63,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
         entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
+        entity.getEvents().addListener("updateArmor", this::updateArmorUI);
     }
 
     /**
@@ -128,6 +130,14 @@ public class PlayerStatsDisplay extends UIComponent {
         pickaxeLabel = new Label("Pickaxe: 0", skin, "small");
         shotgunLabel = new Label("Shotgun: 0", skin, "small");
 
+        // Armor image and progress bar
+        float armorSideLength = 50f;
+        armorImage = new Image(ServiceLocator.getResourceService().getAsset(ARMOR_TEXTURE, Texture.class));
+
+        // Armor progress bar (update the max armor as per the player's max armor value)
+        armorProgressBar = new ProgressBar(0f, 100f, 1f, false, skin);
+        armorProgressBar.setWidth(200f);
+        armorProgressBar.setAnimateDuration(2.0f);
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
@@ -142,6 +152,10 @@ public class PlayerStatsDisplay extends UIComponent {
         table.row().padTop(10);
         table.add(damageImage).size(damageSideLength).pad(5);
         table.add(damageProgressBar).padLeft(10).left().width(200);
+
+        table.row().padTop(10);
+        table.add(armorImage).size(armorSideLength).pad(5);
+        table.add(armorProgressBar).padLeft(10).left().width(200);
 
         table.row().padTop(10);
         table.add(pickaxeLabel).colspan(2).padLeft(10).left();
@@ -240,6 +254,10 @@ public class PlayerStatsDisplay extends UIComponent {
 
     public void updateDamageUI(int damage) {
         damageProgressBar.setValue(damage);
+    }
+
+    public void updateArmorUI(int currentArmor) {
+        armorProgressBar.setValue(currentArmor);
     }
 
     @Override

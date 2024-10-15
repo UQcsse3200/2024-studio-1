@@ -1,10 +1,12 @@
 package com.csse3200.game.areas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 
@@ -18,7 +20,7 @@ import java.util.*;
  */
 public class GameController {
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
-    
+
     public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
     /**
@@ -75,6 +77,7 @@ public class GameController {
 
     private MapLoadConfig config;
 
+
     /**
      * Initialise this Game Area to use the provided levelFactory.
      *
@@ -128,11 +131,16 @@ public class GameController {
         getGameArea().load();
         logger.error("loaded all assets");
 
+
+
+
         if (shouldLoad) {
             changeLevel(Integer.parseInt(config.currentLevel));
+            updateLevel();
             changeRooms(config.currentRoom);
         } else {
             changeLevel(0);
+            updateLevel();
         }
         getGameArea().playMusic(0);
     }
@@ -195,7 +203,11 @@ public class GameController {
         this.currentRoomName = this.currentRoom.getRoomName();
 
         // update the minimap
-        minimapFactory.updateMinimap(roomKey);
+        if (minimapFactory != null) {
+            minimapFactory.updateMinimap(roomKey);
+        } else {
+            logger.error("MinimapFactory is null when updating minimap");
+        }
 
         this.spawnRoom = true;
     }
@@ -216,6 +228,28 @@ public class GameController {
             getGameArea().playMusic(1);
         } else {
             getGameArea().playMusic(0);
+        }
+    }
+
+    /**
+     * Updates the level based on the current level number.
+     */
+
+    public void updateLevel() {
+        logger.info("Changing to level: {}", currentLevelNumber);
+
+        if (currentLevelNumber < 3) {
+            // Create and load the new level
+            this.currentLevel = this.levelFactory.create(currentLevelNumber);
+            selectRoom(this.currentLevel.getStartingRoomKey());
+
+            // Initialize minimap
+            this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
+            MinimapComponent minimapComponent = minimapFactory.createMinimap();
+
+            Entity minimap = new Entity();
+            minimap.addComponent(minimapComponent);
+            this.gameArea.spawnEntity(minimap);
         }
     }
 
@@ -275,25 +309,7 @@ public class GameController {
         spawnRoom = false;
     }
 
-    /**
-     * Changes the current level to a new level specified by the level number.
-     *
-     * @param levelNumber the number of the level to change to.
-     */
-    public void changeLevel(int levelNumber) {
-        logger.info("Changing to level: {}", levelNumber);
-        currentLevelNumber = levelNumber;
 
-        // Create and load the new level
-        this.currentLevel = this.levelFactory.create(levelNumber);
-
-        // Initialize minimap
-        this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
-        MinimapComponent minimapComponent = minimapFactory.createMinimap();
-        this.gameArea.spawnEntity(new Entity().addComponent(minimapComponent));
-
-        changeRooms(this.currentLevel.getStartingRoomKey());
-    }
 
     /**
      * Gets the current level.
@@ -312,4 +328,14 @@ public class GameController {
     public GameArea getGameArea() {
         return this.gameArea;
     }
+
+    public int getCurrentLevelNumber() {
+        return currentLevelNumber;
+    }
+
+    public void changeLevel(int currentLevelNumber) {
+        this.currentLevelNumber = currentLevelNumber;
+    }
 }
+
+

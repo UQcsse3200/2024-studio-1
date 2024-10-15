@@ -4,6 +4,7 @@ import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.npc.NPCConfigComponent;
 import com.csse3200.game.components.npc.attack.MeleeAttackComponent;
 import com.csse3200.game.components.tasks.ChargeTask;
+import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.tasks.ChaseTask;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.NPCConfigs.NPCConfig;
@@ -63,9 +64,9 @@ public abstract class Pet implements Collectible {
      * @param targets that the pets spawn into a room to attack to
      */
     public void initAggro(List<Entity> targets) {
-        if (delegate == null) {
-            return;
-        }
+        //if (delegate == null) {
+         //   return;
+        //}
         setPetTarget(delegate, getClosestEnemy(delegate, targets));
     }
 
@@ -107,7 +108,9 @@ public abstract class Pet implements Collectible {
         //make sure animal is alive
         for (Entity enemy : targets) {
             double enemyDistance = origin.getPosition().sub(enemy.getPosition()).len();
-            if (enemyDistance < distance) {
+            if (enemyDistance < distance && 
+            !enemy.getComponent(CombatStatsComponent.class).isDead() && 
+            enemy.getComponent(AITaskComponent.class) != null) {
                 closestEnemy = enemy;
                 distance = enemyDistance;
             }

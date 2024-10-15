@@ -267,6 +267,7 @@ public class GameController {
         if (!player.getComponent(InventoryComponent.class).getPets().isEmpty()) {
             if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
                 List<Entity> enemies = room.getEnemies();
+                System.out.println(enemies.toString());
                 player.getComponent(InventoryComponent.class).getPets().forEach(p -> p.setAggro(enemies));
             }
         }

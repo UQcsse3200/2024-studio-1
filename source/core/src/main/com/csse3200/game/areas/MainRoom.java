@@ -10,11 +10,11 @@ public class MainRoom extends EnemyRoom {
     @Override protected List<List<String>> getAnimalSpecifications() {
         return List.of(
                 List.of("Snake", "Bear"),
-                List.of("Bear", "Snake", "Dino", "Dragon"),
+                List.of("Bear", "Snake", "Dino"),
                 List.of("Bear", "Bear", "Minotaur"),
                 List.of("Snake", "Bat", "Minotaur"),
                 List.of("Bat", "Bat", "Bat"),
-                List.of("Minotaur", "Minotaur", "Minotaur"),
+                List.of("Minotaur", "Minotaur","Dragon" ),
                 List.of("Rat", "Bat", "Bear"),
                 List.of("Werewolf", "Werewolf", "Bear")
         );
@@ -23,7 +23,7 @@ public class MainRoom extends EnemyRoom {
     @Override
     protected List<List<String>> getItemSpecifications() {
         return List.of(
-                List.of("buff:energydrink:High:mystery", "item:medkit:mystery"),
+                List.of("pet:tombstone", "item:medkit:mystery"),
                 List.of("item:targetdummy", "pet:tombstone"),
                 List.of("melee:knife", "ranged:supersoaker"),
                 List.of("item:beartrap", "buff:feather"),

@@ -99,11 +99,6 @@ class MainGameLevelFactoryTest {
         Set<String> level2Rooms = new HashSet<>(level2.getMap().mapData.getPositions().keySet());
         Set<String> level3Rooms = new HashSet<>(level3.getMap().mapData.getPositions().keySet());
 
-        // Print room layouts for debugging
-        System.out.println("Level 1 rooms: " + level1Rooms);
-        System.out.println("Level 2 rooms: " + level2Rooms);
-        System.out.println("Level 3 rooms: " + level3Rooms);
-
         // Check if all layouts are identical
         boolean allIdentical = level1Rooms.equals(level2Rooms) && level2Rooms.equals(level3Rooms);
 

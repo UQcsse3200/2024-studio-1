@@ -1,15 +1,15 @@
 package com.csse3200.game.areas.Rooms;
 
-import com.csse3200.game.areas.BossRoom;
-import com.csse3200.game.areas.MainRoom;
-import com.csse3200.game.areas.Room;
-import com.csse3200.game.areas.ShopRoom;
-import com.csse3200.game.areas.GambleRoom;
+import com.csse3200.game.areas.*;
 import com.csse3200.game.areas.terrain.TerrainFactory;
+import com.csse3200.game.components.player.PlayerConfigComponent;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
 import com.csse3200.game.entities.factories.RoomFactory;
 
+import com.csse3200.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -20,6 +20,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class RoomFactoryTest {
 
@@ -36,9 +38,31 @@ class RoomFactoryTest {
     private String testRoomName;
     private List<String> testItemsSpawned;
 
+    @Mock
+    private GameAreaService mockGameAreaService;
+    @Mock
+    private GameController mockGameController;
+
+    @Mock
+    Entity entity;
+    @Mock
+    private PlayerConfig playerConfig;
+    @Mock
+    private PlayerConfigComponent playerConfigComponent;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        playerConfig = mock(PlayerConfig.class);
+        entity = mock(Entity.class);
+        playerConfigComponent = mock(PlayerConfigComponent.class);
+        ServiceLocator.registerGameAreaService(mockGameAreaService);
+        when(mockGameAreaService.getGameController()).thenReturn(mockGameController);
+        playerConfig.name = "bear";
+        when(mockGameController.getPlayer()).thenReturn(entity);
+        when(entity.getComponent(PlayerConfigComponent.class)).thenReturn(playerConfigComponent);
+        when(playerConfigComponent.getPlayerConfig()).thenReturn(playerConfig);
+
         roomFactory = new RoomFactory(mockNpcFactory, mockCollectibleFactory, mockTerrainFactory);
         testRoomConnections = Arrays.asList("North", "South", "East", "West");
         testSpecification = "0,0,14,10,1,1";

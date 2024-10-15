@@ -1,10 +1,13 @@
 package com.csse3200.game.areas.Levels;
 
-import com.csse3200.game.areas.Level;
-import com.csse3200.game.areas.MainGameLevel;
-import com.csse3200.game.areas.LevelFactory;
-import com.csse3200.game.areas.MainGameLevelFactory;
+import com.csse3200.game.areas.*;
 import com.csse3200.game.components.CameraComponent;
+import com.csse3200.game.components.CombatStatsComponent;
+import com.csse3200.game.components.player.PlayerActions;
+import com.csse3200.game.components.player.PlayerConfigComponent;
+import com.csse3200.game.components.player.inventory.ItemPickupComponent;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.extensions.GameExtension;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.RandomService;
@@ -45,11 +48,28 @@ class MainGameLevelFactoryTest {
     private RandomNumberGenerator mockRNG;
 
     @Mock
+    private GameAreaService mockGameAreaService;
+
+    @Mock
     private CameraComponent mockCamera;
+
+    @Mock
+    private GameController mockGameController;
+
+    @Mock
+    Entity entity;
+    @Mock
+    private PlayerConfig playerConfig;
+    @Mock
+    private PlayerConfigComponent playerConfigComponent;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        playerConfig = mock(PlayerConfig.class);
+        entity = mock(Entity.class);
+        playerConfigComponent = mock(PlayerConfigComponent.class);
 
         // Set up mock RenderService
         when(mockRenderService.getCamera()).thenReturn(mockCamera);
@@ -58,6 +78,14 @@ class MainGameLevelFactoryTest {
         // Mock the RandomService and RandomNumberGenerator
         when(mockRandomService.getRandomNumberGenerator(any(Class.class))).thenReturn(mockRNG);
         ServiceLocator.registerRandomService(mockRandomService);
+
+        ServiceLocator.registerGameAreaService(mockGameAreaService);
+        when(mockGameAreaService.getGameController()).thenReturn(mockGameController);
+        playerConfig.name = "bear";
+        when(mockGameController.getPlayer()).thenReturn(entity);
+        when(entity.getComponent(PlayerConfigComponent.class)).thenReturn(playerConfigComponent);
+        when(playerConfigComponent.getPlayerConfig()).thenReturn(playerConfig);
+
 
         // Mock behavior for RandomNumberGenerator if needed
         when(mockRNG.getRandomInt(anyInt(), anyInt())).thenReturn(0); // Adjust return value as necessary

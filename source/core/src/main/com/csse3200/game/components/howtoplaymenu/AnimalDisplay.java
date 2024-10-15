@@ -1,6 +1,9 @@
 package com.csse3200.game.components.howtoplaymenu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,7 +15,7 @@ import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AnimalDisplay extends UIComponent{
+public class AnimalDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(AnimalDisplay.class);
     private final GdxGame game;
 
@@ -27,6 +30,7 @@ public class AnimalDisplay extends UIComponent{
     public void create() {
         super.create();
         addActors();
+        configureInputHandling(); // Configure ESC key input handling
     }
 
     private void addActors() {
@@ -101,6 +105,24 @@ public class AnimalDisplay extends UIComponent{
 
     private void exitMenu() {
         game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
+    }
+
+    private void configureInputHandling() {
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stage); // Retain UI click functionality
+        multiplexer.addProcessor(new InputAdapter() {
+            @Override
+            public boolean keyUp(int keycode) {
+                if (keycode == Input.Keys.ESCAPE) {
+                    logger.debug("ESC key pressed, going back to How to Play menu");
+                    exitMenu();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override

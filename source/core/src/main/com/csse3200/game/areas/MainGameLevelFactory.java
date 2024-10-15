@@ -19,7 +19,6 @@ import java.util.*;
 public class MainGameLevelFactory implements LevelFactory {
     private static final int DEFAULT_MAP_SIZE = 40;
     private static final Logger log = LoggerFactory.getLogger(MainGameLevelFactory.class);
-    private int levelNum;
     private final Map<String, Room> rooms;
     private LevelMap map;
     private boolean shouldLoad;
@@ -50,7 +49,7 @@ public class MainGameLevelFactory implements LevelFactory {
     }
 
     /**
-     * Takes the list of all buyable items and makes a random list of 6 items to be spawned on the shop floor
+     * Takes the list of all purchasable items and makes a random list of 6 items to be spawned on the shop floor
      *
      * @return List of 6 items.
      */
@@ -70,11 +69,14 @@ public class MainGameLevelFactory implements LevelFactory {
     }
 
     @Override
-    public MainGameLevel create(int levelNumber) {
-        String seed = "seed";
+    public Level create(int levelNumber) {
         // default seed for junit tests
         if (!shouldLoad) {
-            map = new LevelMap(DEFAULT_MAP_SIZE);
+            if (config != null) {
+                map = new LevelMap(config.seed + levelNumber, DEFAULT_MAP_SIZE);
+            } else {
+                map = new LevelMap("seed" + levelNumber, DEFAULT_MAP_SIZE);
+            }
 
         } else {
             // For loaded games, append the level number to the loaded seed
@@ -138,7 +140,6 @@ public class MainGameLevelFactory implements LevelFactory {
             shouldLoad = false;
         }
         // Store the current level number
-        this.levelNum = levelNumber;
 
         return new MainGameLevel(map, levelNumber, rooms);
     }

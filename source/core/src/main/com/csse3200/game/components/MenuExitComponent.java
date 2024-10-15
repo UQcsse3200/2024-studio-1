@@ -54,23 +54,6 @@ public class MenuExitComponent extends UIComponent {
         exitTable.add(button);
 
         stage.addActor(exitTable);
-
-        // Combine the Stage input processor with a custom InputAdapter using InputMultiplexer
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(stage); // Retain UI click functionality
-        multiplexer.addProcessor(new InputAdapter() {
-            @Override
-            public boolean keyUp(int keycode) {
-                if (keycode == Input.Keys.ESCAPE) {
-                    logger.info("ESC key pressed, exiting back to main menu");
-                    game.setScreen(MAIN_MENU);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        Gdx.input.setInputProcessor(multiplexer); // Set the multiplexer as the input processor
     }
 
     @Override

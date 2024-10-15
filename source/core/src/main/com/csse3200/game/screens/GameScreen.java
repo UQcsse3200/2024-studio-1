@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 
 import static com.csse3200.game.GdxGame.ScreenType.LOSE;
+import static com.csse3200.game.GdxGame.ScreenType.WIN;
 
 /**
  * The game screen containing the main game.
@@ -184,6 +185,11 @@ public class GameScreen extends ScreenAdapter {
         game.setScreen(LOSE);
     }
 
+    public void winGame() {
+        logger.info("Received event: player won!");
+        game.setScreen(WIN);
+    }
+
     /**
      * Creates the main game's ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
@@ -205,7 +211,10 @@ public class GameScreen extends ScreenAdapter {
                 .addComponent(new TerminalDisplay());
 
         // When player finishes dying, go to death screen
-        logger.info("Add listener for player finished dying");
+        logger.info("Add listener for player finished dying and winnning");
+
+        ui.getEvents().addListener("player_win", this::winGame);
+
         ui.getEvents().addListener("player_finished_dying", this::loseGame);
 
         ServiceLocator.getEntityService().register(ui);

@@ -37,6 +37,9 @@ public class PoisonEffect implements Effect {
         if (duration > 0) {
             duration -= deltaTime;
         }
+        if (timeElapsed >= duration) {
+            remove(target);
+        }
     }
 
     @Override

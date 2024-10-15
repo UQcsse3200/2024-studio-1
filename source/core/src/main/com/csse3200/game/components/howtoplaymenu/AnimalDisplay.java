@@ -30,7 +30,6 @@ public class AnimalDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-        configureInputHandling(); // Configure ESC key input handling
     }
 
     private void addActors() {
@@ -94,35 +93,13 @@ public class AnimalDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("Back button clicked");
-                        exitMenu();
+                        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
                     }
                 });
 
         Table table = new Table();
         table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
         return table;
-    }
-
-    private void exitMenu() {
-        game.setScreen(GdxGame.ScreenType.HOW_TO_PLAY);
-    }
-
-    private void configureInputHandling() {
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(stage); // Retain UI click functionality
-        multiplexer.addProcessor(new InputAdapter() {
-            @Override
-            public boolean keyUp(int keycode) {
-                if (keycode == Input.Keys.ESCAPE) {
-                    logger.debug("ESC key pressed, going back to How to Play menu");
-                    exitMenu();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override

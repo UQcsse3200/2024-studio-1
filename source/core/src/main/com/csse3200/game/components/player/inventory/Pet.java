@@ -89,17 +89,14 @@ public abstract class Pet implements Collectible {
 
         // Add chase task
         if (tasks.chase != null) {
-            pet.getComponent(AITaskComponent.class).addTask(new ChaseTask(target, tasks.chase));
+            pet.getComponent(AITaskComponent.class).updateTarget(new ChaseTask(target, tasks.chase));
         }
         // Add charge task
         if (tasks.charge != null) {
-            pet.getComponent(AITaskComponent.class).addTask(new ChargeTask(target, tasks.charge));
+            pet.getComponent(AITaskComponent.class).updateTarget(new ChargeTask(target, tasks.charge));
         }
-
-        if (meleeAttack != null) {
-            meleeAttack.updateTarget(target);
-        }
-        pet.getComponent(AITaskComponent.class).update();
+        
+        //pet.getComponent(AITaskComponent.class).update();
     }
 
     private Entity getClosestEnemy(Entity origin, List<Entity> targets) {
@@ -109,8 +106,7 @@ public abstract class Pet implements Collectible {
         for (Entity enemy : targets) {
             double enemyDistance = origin.getPosition().sub(enemy.getPosition()).len();
             if (enemyDistance < distance && 
-            !enemy.getComponent(CombatStatsComponent.class).isDead() && 
-            enemy.getComponent(AITaskComponent.class) != null) {
+            !enemy.getComponent(CombatStatsComponent.class).isDead()){  
                 closestEnemy = enemy;
                 distance = enemyDistance;
             }

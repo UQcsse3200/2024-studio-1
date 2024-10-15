@@ -93,7 +93,7 @@ public class AITaskComponent extends Component implements TaskRunner {
    * If the desiredTask has a new target, update the target for MeleeAttackComponent/RangeAttackComponent
    * @param desiredTask the desired task for AI entity to perform
    */
-  private void updateTarget(PriorityTask desiredTask) {
+  public void updateTarget(PriorityTask desiredTask) {
     if (desiredTask instanceof ChaseTask chaseTask) {
       Entity newTarget = ((ChaseTask) desiredTask).getTarget();
       if (newTarget != currentTarget) {

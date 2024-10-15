@@ -227,6 +227,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case 6 -> entity.getEvents().trigger("use6");
             case 7 -> entity.getEvents().trigger("use7");
             case 8 -> entity.getEvents().trigger("useReroll");
+            case 9 -> entity.getEvents().trigger("use9");
         }
         return true;
     }

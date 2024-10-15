@@ -25,7 +25,7 @@ public class Gasoline extends UsableItem {
         int xPos = (int) entity.getPosition().x + offsetX;
         int yPos = (int) entity.getPosition().y + offsetY;
         if (ServiceLocator.getGameAreaService().getGameController().getCurrentRoom() instanceof EnemyRoom room) {
-            room.SpawnDeployable(ringFire, new GridPoint2(xPos, yPos), true, true);
+            room.spawnDeployable(ringFire, new GridPoint2(xPos, yPos), true, true);
         }
     }
 

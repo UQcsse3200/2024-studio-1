@@ -43,6 +43,7 @@ public class PlayerActions extends Component {
         entity.getEvents().addListener("use5", () -> use(new BearTrap()));
         entity.getEvents().addListener("use6", () -> use(new BigRedButton()));
         entity.getEvents().addListener("use7", () -> use(new TeleporterItem()));
+        entity.getEvents().addListener("use9", () -> use(new Gasoline()));
         entity.getEvents().addListener("useReroll", () -> handleReroll(new Reroll()));
 
         setTotalSpeedBoost(0.0f); //Initialise the speed percentage on the UI to 0.0

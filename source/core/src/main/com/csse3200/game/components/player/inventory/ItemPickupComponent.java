@@ -242,6 +242,7 @@ public class ItemPickupComponent extends Component {
             case 12 -> specification = "buff:feather";
             case 13 -> specification = "item:heart";
             case 14 -> specification = "buff:divinepotion";
+            case 15 -> specification = "item:gasoline";
         }
 
         return this.collectibleFactory.createCollectibleEntity(specification);

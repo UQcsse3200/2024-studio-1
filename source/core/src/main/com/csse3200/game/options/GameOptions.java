@@ -14,8 +14,9 @@ public class GameOptions {
     /**
      * The player factory that will produce the in-game player chosen by the user.
      */
-    private PlayerFactory playerFactory;
+    public PlayerFactory playerFactory;
 
+    public String seed;
     /**
      * Get player-set difficulty.
      * @return difficulty chosen by player.

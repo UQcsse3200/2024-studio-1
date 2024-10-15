@@ -1,10 +1,12 @@
 package com.csse3200.game.areas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
+import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 
@@ -18,7 +20,7 @@ import java.util.*;
  */
 public class GameController {
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
-    
+
     public static final String MAP_SAVE_PATH = "saves/MapSave.json";
 
     /**
@@ -75,6 +77,7 @@ public class GameController {
 
     private MapLoadConfig config;
 
+
     /**
      * Initialise this Game Area to use the provided levelFactory.
      *
@@ -92,7 +95,7 @@ public class GameController {
         this.shouldLoad = shouldLoad;
         this.gameArea = gameArea;
         player.getEvents().addListener("teleportToBoss", () -> this.changeRooms(getFlaggedRoom("Boss")));
-        player.getEvents().addListener("teleportToShop", () -> this.changeRooms(getFlaggedRoom("NPC")));
+        player.getEvents().addListener("teleportToShop", () -> this.changeRooms(getFlaggedRoom("Shop")));
         player.getEvents().addListener("saveMapData", this::saveMapData);
         player.getEvents().addListener("checkAnimalsDead", () -> this.getCurrentRoom().checkComplete());
         ServiceLocator.registerGameAreaService(new GameAreaService(this));
@@ -128,11 +131,16 @@ public class GameController {
         getGameArea().load();
         logger.error("loaded all assets");
 
+
+
+
         if (shouldLoad) {
             changeLevel(Integer.parseInt(config.currentLevel));
+            updateLevel();
             changeRooms(config.currentRoom);
         } else {
             changeLevel(0);
+            updateLevel();
         }
         getGameArea().playMusic(0);
     }
@@ -140,15 +148,15 @@ public class GameController {
     /**
      * Get the room key for a specified flagged room type.
      *
-     * @param roomType The type of room to get the key for. Valid values are "Boss", "NPC", and "GameRoom".
+     * @param roomType The type of room to get the key for. Valid values are "Boss" and "Shop".
      * @return The room key for the specified room type, or null if the room type is invalid.
      * @throws IllegalArgumentException if an invalid room type is provided.
      */
     public String getFlaggedRoom(String roomType) {
-        if (!List.of("Boss", "NPC", "GameRoom").contains(roomType)) {
+        if (!List.of("Boss", "Shop").contains(roomType)) {
             throw new IllegalArgumentException("Invalid room type: " + roomType);
         }
-        return currentLevel.getMap().mapData.getRoomKey(roomType);
+        return currentLevel.getMap().mapData.getRoomKeys().get(roomType);
     }
 
     /**
@@ -194,6 +202,13 @@ public class GameController {
         this.currentRoom = newRoom;
         this.currentRoomName = this.currentRoom.getRoomName();
 
+        // update the minimap
+        if (minimapFactory != null) {
+            minimapFactory.updateMinimap(roomKey);
+        } else {
+            logger.error("MinimapFactory is null when updating minimap");
+        }
+
         this.spawnRoom = true;
     }
 
@@ -203,16 +218,38 @@ public class GameController {
      * @param roomKey the key of the room to change to.
      */
     public void changeRooms(String roomKey) {
-        this.currentRoom.removeRoom();
+        if (currentRoom != null) {
+            this.currentRoom.removeRoom();
+        }
         selectRoom(roomKey);
-        // update minimap
-        minimapFactory.updateMinimap(roomKey);
 
         // Play appropriate music based on room type
         if (this.currentRoom instanceof BossRoom) {
             getGameArea().playMusic(1);
         } else {
             getGameArea().playMusic(0);
+        }
+    }
+
+    /**
+     * Updates the level based on the current level number.
+     */
+
+    public void updateLevel() {
+        logger.info("Changing to level: {}", currentLevelNumber);
+
+        if (currentLevelNumber < 3) {
+            // Create and load the new level
+            this.currentLevel = this.levelFactory.create(currentLevelNumber);
+            selectRoom(this.currentLevel.getStartingRoomKey());
+
+            // Initialize minimap
+            this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
+            MinimapComponent minimapComponent = minimapFactory.createMinimap();
+
+            Entity minimap = new Entity();
+            minimap.addComponent(minimapComponent);
+            this.gameArea.spawnEntity(minimap);
         }
     }
 
@@ -272,27 +309,7 @@ public class GameController {
         spawnRoom = false;
     }
 
-    /**
-     * Changes the current level to a new level specified by the level number.
-     *
-     * @param levelNumber the number of the level to change to.
-     */
-    public void changeLevel(int levelNumber) {
-        logger.info("Changing to level: {}", levelNumber);
-        currentLevelNumber = levelNumber;
 
-        // Create and load the new level
-        this.currentLevel = this.levelFactory.create(levelNumber);
-        selectRoom(this.currentLevel.getStartingRoomKey());
-
-        // Initialize minimap
-        this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
-        MinimapComponent minimapComponent = minimapFactory.createMinimap();
-
-        Entity minimap = new Entity();
-        minimap.addComponent(minimapComponent);
-        this.gameArea.spawnEntity(minimap);
-    }
 
     /**
      * Gets the current level.
@@ -311,4 +328,14 @@ public class GameController {
     public GameArea getGameArea() {
         return this.gameArea;
     }
+
+    public int getCurrentLevelNumber() {
+        return currentLevelNumber;
+    }
+
+    public void changeLevel(int currentLevelNumber) {
+        this.currentLevelNumber = currentLevelNumber;
+    }
 }
+
+

@@ -5,9 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.physics.PhysicsLayer;
 
 public class ProjectileConfigs {
-    public static final  BaseProjectileConfig DRAGON_PROJECTILE = new BaseProjectileConfig();
-    public static final  BaseProjectileConfig KITSUNE_PROJECTILE = new BaseProjectileConfig();
-    public static final  BaseProjectileConfig CTHULU_PROJECTILE = new BaseProjectileConfig();
+    //public ProjectileConfig baseProjectile = new BaseProjectileConfig();
+    public BaseProjectileConfig dragonProjectile = new BaseProjectileConfig();
+    public BaseProjectileConfig kitsuneProjectile = new BaseProjectileConfig();
+    public BaseProjectileConfig cthuluProjectile = new BaseProjectileConfig();
 
     public static class BaseProjectileConfig extends BaseEntityConfig {
         public short Layer = PhysicsLayer.PLAYER;

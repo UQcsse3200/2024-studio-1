@@ -88,7 +88,7 @@ public class ProjectileFactory extends LoadedFactory {
      * @return a dragon projectile entity with given spec
      */
     public Entity createDragonProjectile(Vector2 direction, Vector2 parentPosition) {
-        ProjectileConfigs.BaseProjectileConfig config = ProjectileConfigs.DRAGON_PROJECTILE;
+        ProjectileConfigs.BaseProjectileConfig config = configs.dragonProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/dragon/dragon.atlas", config.animations);
 
         return createProjectile("Dragon Projectile", config, direction,
@@ -103,7 +103,7 @@ public class ProjectileFactory extends LoadedFactory {
      * @return a dragon projectile entity with given spec
      */
     public Entity createCthuluProjectile(Vector2 direction, Vector2 parentPosition) {
-        ProjectileConfigs.BaseProjectileConfig config = ProjectileConfigs.CTHULU_PROJECTILE;
+        ProjectileConfigs.BaseProjectileConfig config = configs.cthuluProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/cthulu/cthulu_bullet.atlas", config.animations);
 
         return createProjectile("Cthulu Projectile", config, direction,
@@ -118,7 +118,7 @@ public class ProjectileFactory extends LoadedFactory {
      * @return a kitsune projectile type 1 entity with given spec
      */
     public Entity createKitsuneProjectile1(Vector2 direction, Vector2 parentPosition) {
-        ProjectileConfigs.BaseProjectileConfig config = ProjectileConfigs.KITSUNE_PROJECTILE;
+        ProjectileConfigs.BaseProjectileConfig config = configs.kitsuneProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/kitsune/fire1.atlas", config.animations);
 
         return createProjectile("Kitsune Projectile1", config, direction,
@@ -133,7 +133,7 @@ public class ProjectileFactory extends LoadedFactory {
      * @return a kitsune projectile type 1 entity with given spec
      */
     public Entity createKitsuneProjectile(Vector2 direction, Vector2 parentPosition) {
-        ProjectileConfigs.BaseProjectileConfig config = ProjectileConfigs.KITSUNE_PROJECTILE;
+        ProjectileConfigs.BaseProjectileConfig config = configs.kitsuneProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/kitsune/kitsune_bullet.atlas", config.animations);
         Entity kitsuneProjectile = createProjectile("Kitsune Projectile", config, direction,
                 parentPosition, animator);
@@ -149,7 +149,7 @@ public class ProjectileFactory extends LoadedFactory {
      * @return a kitsune projectile type 2 entity with given spec
      */
     public Entity createKitsuneProjectile2(Vector2 direction, Vector2 parentPosition) {
-        ProjectileConfigs.BaseProjectileConfig config = ProjectileConfigs.KITSUNE_PROJECTILE;
+        ProjectileConfigs.BaseProjectileConfig config = configs.kitsuneProjectile;
         AnimationRenderComponent animator = createAnimator("images/npc/kitsune/fire2.atlas", config.animations);
 
         return createProjectile("Kitsune Projectile2", config, direction,

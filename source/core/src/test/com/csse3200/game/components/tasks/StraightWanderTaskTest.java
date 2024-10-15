@@ -71,7 +71,7 @@ class StraightWanderTaskTest {
         Vector2 initialPosition = entity.getPosition().cpy();
 
         // Simulate movement before collision
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             entity.earlyUpdate();
             entity.update();
             ServiceLocator.getPhysicsService().getPhysics().update();
@@ -86,7 +86,7 @@ class StraightWanderTaskTest {
         entity.getEvents().trigger("collisionStart", null, null);
 
         // Simulate updates after collision
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             entity.earlyUpdate();
             entity.update();
             ServiceLocator.getPhysicsService().getPhysics().update();

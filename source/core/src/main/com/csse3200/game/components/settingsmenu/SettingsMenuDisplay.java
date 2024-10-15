@@ -76,24 +76,6 @@ public class SettingsMenuDisplay extends UIComponent {
         rootTable.add(menuBtns).fillX();
 
         stage.addActor(rootTable);
-
-        // InputMultiplexer for handling both stage and ESC key input
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(stage);  // Add stage for handling mouse clicks
-        inputMultiplexer.addProcessor(new InputAdapter() {
-            @Override
-            public boolean keyUp(int keycode) {
-                if (keycode == Input.Keys.ESCAPE) {
-                    logger.debug("Esc key pressed, triggering exit to main menu");
-                    exitMenu(); // Call the exit menu logic
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        // Set input processor to the multiplexer
-        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     private Table makeSettingsTable() {

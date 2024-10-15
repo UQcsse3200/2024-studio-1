@@ -4,19 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
-import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.components.player.PlayerFactoryFactory;
 import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -39,7 +34,6 @@ public class PlayerSelectDisplay extends UIComponent {
     private TextField seedInputField;
     private static final float ROOT_PADDING = 10f;
     private static final float STAT_TABLE_PADDING = 2f;
-    private static final float BAR_HEIGHT = 20;
     private static final float PROPORTION = 0.8f;
 
     private final PlayerFactoryFactory playerFactoryFactory = new PlayerFactoryFactory();
@@ -57,24 +51,6 @@ public class PlayerSelectDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-
-        // InputMultiplexer for handling both stage and ESC key input
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(stage);  // Add stage for handling mouse clicks
-        inputMultiplexer.addProcessor(new InputAdapter() {
-            @Override
-            public boolean keyUp(int keycode) {
-                if (keycode == Input.Keys.ESCAPE) {
-                    logger.debug("Esc key pressed, going back to main menu");
-                    game.setScreen(ScreenType.MAIN_MENU);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        // Set input processor to the multiplexer
-        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     /**

@@ -24,17 +24,13 @@ public class PlayerConfig extends BaseEntityConfig {
     public double critChance = 0.0;
 
     /**
-     * The items player has collected/picked up during the game
-     */
-    public String[] items;
-
-    /**
      * Speed of the plauer
      */
     public Vector2 speed;
 
     public Difficulty difficulty;
-
+    /** Player's IFrames (in milliseconds) */
+    public int timeInvincible = 750;
     /**
      * Player's current health
      */
@@ -43,12 +39,24 @@ public class PlayerConfig extends BaseEntityConfig {
      * Max health a player can have
      */
     public int maxHealth;
+
+
+    /**
+     * The items player has collected/picked up during the game
+     */
+    public String[] items;
+
+    public String[] buffs;
+
     public String[] pets;
+
     public int coins = 0;
+
     /**
      * The specification of player's equipped melee weapon
      */
     public String melee;
+
     /**
      * The specification of player's equipped ranged weapon
      */
@@ -58,11 +66,11 @@ public class PlayerConfig extends BaseEntityConfig {
      * The texture this player uses
      */
     public String textureFilename;
+
     /**
      * The texture atlas this player uses
      */
     public String textureAtlasFilename;
-
 
     /**
      * Make a copy of the config, used for testing.
@@ -73,11 +81,11 @@ public class PlayerConfig extends BaseEntityConfig {
         PlayerConfig other = new PlayerConfig();
         other.name = this.name;
         other.baseAttack = this.baseAttack;
-        if (this.items == null) {
-            other.items = null;
-        } else {
-            other.items = this.items.clone();
-        }
+        other.items = (this.items == null) ? null : this.items.clone();
+        other.pets = (this.pets == null) ? null : this.pets.clone();
+        other.buffs = (this.buffs == null) ? null : this.buffs.clone();
+
+
         other.speed = this.speed.cpy();
         other.health = this.health;
         other.coins = this.coins;
@@ -110,6 +118,8 @@ public class PlayerConfig extends BaseEntityConfig {
                 && health == config.health
                 && Objects.equals(coins, config.coins)
                 && Arrays.equals(items, config.items)
+                && Arrays.equals(pets, config.pets)
+                && Arrays.equals(buffs, config.buffs)
                 && Objects.equals(melee, config.melee)
                 && Objects.equals(ranged, config.ranged)
                 && Objects.equals(difficulty, config.difficulty);
@@ -126,6 +136,7 @@ public class PlayerConfig extends BaseEntityConfig {
         float multiplier = difficulty.getMultiplier();
         health = (int) (health * multiplier);
         speed.scl(multiplier);
+        timeInvincible = (int) (timeInvincible * multiplier);;
         return this;
     }
 
@@ -138,6 +149,8 @@ public class PlayerConfig extends BaseEntityConfig {
     public int hashCode() {
         int result = Objects.hashCode(baseAttack);
         result = 31 * result + Arrays.hashCode(items);
+        result = 31 * result + Arrays.hashCode(pets);
+        result = 31 * result + Arrays.hashCode(buffs);
         result = 31 * result + health;
         result = 31 * result + coins;
         result = 31 * result + Objects.hashCode(melee);

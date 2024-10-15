@@ -12,7 +12,7 @@ import com.csse3200.game.entities.Entity;
  */
 public class Armor extends BuffItem {
 
-    private final int armor = 20;
+    private final int armorValue = 20;
 
     /**
      * Returns the armor value of this item.
@@ -20,7 +20,7 @@ public class Armor extends BuffItem {
      * @return the armor value
      */
     public int getArmorValue() {
-        return armor;
+        return armorValue;
     }
 
     /**
@@ -80,6 +80,6 @@ public class Armor extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        entity.getComponent(CombatStatsComponent.class).increaseArmor(armor);
+        entity.getComponent(CombatStatsComponent.class).increaseArmor(armorValue);
     }
 }

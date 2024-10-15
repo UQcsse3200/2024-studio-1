@@ -5,7 +5,7 @@ import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
     private final float maxRunTime;  // Maximum time to run for
     private final float cooldownTime;
     private MovementTask movementTask;
-    private GameTime gameTime;
+    private final GameTime gameTime;
     private long startTime;
     private long lastExecutionTime;
 
@@ -38,7 +38,7 @@ public class RunAwayTask extends DefaultTask implements PriorityTask {
      * @param target Entity to run away from.
      * @param config Configuration for the runaway task.
      */
-    public RunAwayTask(Entity target, NPCConfigs.NPCConfig.TaskConfig.RunAwayTaskConfig config) {
+    public RunAwayTask(Entity target, TaskConfig.RunAwayTaskConfig config) {
         this.target = target;
         this.activationMinRange = config.activationMinRange;
         this.activationMaxRange = config.activationMaxRange;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.effects.EffectComponent;
 import com.csse3200.game.components.player.*;
 import com.csse3200.game.components.player.inventory.CoinsComponent;
 import com.csse3200.game.components.player.inventory.Collectible;
@@ -37,7 +38,7 @@ public class LoadPlayer {
     private final InventoryComponent inventoryComponent;
     private final PlayerActions playerActions;
     private static final float playerScale = 0.75f;
-    private static final Logger logger = getLogger(LoadPlayer.class);
+    private static final Logger LOGGER = getLogger(LoadPlayer.class);
     private final CollectibleFactory collectibleFactory;
 
 
@@ -57,7 +58,7 @@ public class LoadPlayer {
      * @return entity
      */
     public Entity createPlayer(PlayerConfig config) {
-        logger.info("Creating player with config: {}", config);
+        LOGGER.info("Creating player with config: {}", config);
 
         Entity player = new Entity();
 
@@ -84,6 +85,7 @@ public class LoadPlayer {
             case ("player 3") -> player.setScale(0.4615f, 1.2f);
             default -> player.setScale(0.6f, 1.2f);
         }
+
     }
 
     /**
@@ -101,7 +103,7 @@ public class LoadPlayer {
                 .addComponent(new CombatStatsComponent(
                 config.health, config.maxHealth,
                 config.baseAttack, true, config.armour, config.buff, config.canCrit,
-                config.critChance))
+                config.critChance, config.timeInvincible))
                 .addComponent(inventoryComponent)
                 .addComponent(playerActions)
                 .addComponent(new PlayerAchievementComponent())
@@ -114,7 +116,8 @@ public class LoadPlayer {
                 .addComponent(new PlayerAnimationController(config.textureAtlasFilename))
                 .addComponent(new DeathPlayerAnimation())
                 .addComponent(new PlayerInventoryDisplay(inventoryComponent))
-                .addComponent(new PlayerHealthDisplay());
+                .addComponent(new PlayerHealthDisplay())
+                .addComponent(new EffectComponent());
 
         CoinsComponent coinsComponent = new CoinsComponent();
 
@@ -128,6 +131,7 @@ public class LoadPlayer {
      * Creates and adds a melee weapon to the player entity.
      *
      * @param config file containing melee weapon details.
+     *
      */
     private void createMelee(PlayerConfig config) {
         Collectible melee = collectibleFactory.create(config.melee);
@@ -140,6 +144,7 @@ public class LoadPlayer {
      * Creates and adds a ranged weapon to the player entity
      *
      * @param config file containing ranged weapon details.
+     *
      */
     private void createRanged(PlayerConfig config) {
         Collectible ranged = collectibleFactory.create(config.ranged);
@@ -165,6 +170,10 @@ public class LoadPlayer {
         List<String> itemSpecs = new ArrayList<>();
         if (config.items != null) {
             itemSpecs.addAll(Arrays.stream(config.items).toList());
+        }
+
+        if (config.buffs != null) {
+            itemSpecs.addAll(Arrays.stream(config.buffs).toList());
         }
 
         // Do not load pets here, the game area isn't initialised so pets can't be spawned.
@@ -236,7 +245,6 @@ public class LoadPlayer {
                 animator.addAnimation("death_left", 0.1f, Animation.PlayMode.NORMAL);
                 animator.addAnimation("death_right", 0.1f, Animation.PlayMode.LOOP);
         }
-
         return animator;
     }
 

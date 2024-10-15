@@ -8,12 +8,14 @@ import java.util.List;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.player.PlayerConfigComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.CombatStatsComponent;
 
+import com.csse3200.game.utils.RandomNumberGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +42,7 @@ public abstract class EnemyRoom extends BaseRoom {
 
     /** List of enemy entities in the room. */
     private List<Entity> enemies = new ArrayList<>();
+    private List<String> createItemSpecs = new ArrayList<>();
 
     /**
      * Constructs a new EnemyRoom.
@@ -51,7 +54,7 @@ public abstract class EnemyRoom extends BaseRoom {
      * @param specification Room specification string.
      * @param roomName Name of the room.
      */
-    public EnemyRoom(
+    protected EnemyRoom(
             NPCFactory npcFactory,
             CollectibleFactory collectibleFactory,
             TerrainFactory terrainFactory,
@@ -61,6 +64,7 @@ public abstract class EnemyRoom extends BaseRoom {
         super(terrainFactory, collectibleFactory, roomConnections, specification, roomName);
         this.npcFactory = npcFactory;
         this.animalSpecifications = getAnimalSpecifications();
+        this.createItemSpecs = createItemSpecs();
 
         List<String> split = List.of(specification.split(","));
         this.animalGroup = Integer.parseInt(split.get(4));
@@ -79,7 +83,7 @@ public abstract class EnemyRoom extends BaseRoom {
     /**
      * Spawns Deployable Entity
      */
-    public void SpawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
+    public void spawnDeployable(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
         entities.add(entity);
         getGameAreaService().getGameArea().spawnEntityAt(entity, tilePos, centerX, centerY);
 
@@ -91,7 +95,7 @@ public abstract class EnemyRoom extends BaseRoom {
      */
     public void checkComplete() {
         if (isAllAnimalDead()) {
-            System.out.println("room is complete");
+            logger.info("room is complete");
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
@@ -109,6 +113,28 @@ public abstract class EnemyRoom extends BaseRoom {
      * @return A list of animal/enemy specification lists.
      */
     protected abstract List<List<String>> getAnimalSpecifications();
+
+    private List<String> createItemSpecs() {
+        List<String> items = new ArrayList<>();
+        RandomNumberGenerator rng = ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass());
+        int itemsGroup = 0;
+        if (rng.getRandomInt(0, 2) == 1) {
+            GameController gameController = ServiceLocator.getGameAreaService().getGameController();
+            String name = gameController.getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().name;
+            switch (name) {
+                case "bear":
+                    itemsGroup = 1;
+                    break;
+                case "necromancer":
+                    itemsGroup = 2;
+                    break;
+            }
+        }
+        List<String> selectedItemsSpec = this.itemSpecifications.get(itemsGroup);
+        items.add(selectedItemsSpec.get(rng.getRandomInt(0, selectedItemsSpec.size())));
+        items.add(selectedItemsSpec.get(rng.getRandomInt(0, selectedItemsSpec.size())));
+        return items;
+    }
 
     /**
      * Creates enemy entities based on the provided specifications.
@@ -137,6 +163,13 @@ public abstract class EnemyRoom extends BaseRoom {
         }
     }
 
+    @Override
+    protected Entity spawnItem(GameArea area, String specification, GridPoint2 pos) {
+        Entity item = super.spawnItem(area, specification, pos);
+        item.getEvents().addListener("itemChose", () -> deleteRemainingItems(item));
+        return item;
+    }
+
     /**
      * Checks if all animals/enemies in the room are dead.
      *
@@ -158,7 +191,9 @@ public abstract class EnemyRoom extends BaseRoom {
      */
     private void spawnItems() {
         GameArea area = ServiceLocator.getGameAreaService().getGameArea();
-        List<String> items = this.itemSpecifications.get(this.itemGroup);
+        List<String> items = this.createItemSpecs;
+
+
         if (items != null && items.size() >= 2) {
             spawnItem(area, items.get(0), new GridPoint2(8, 8));
             spawnItem(area, items.get(1), new GridPoint2(6, 8));
@@ -181,21 +216,13 @@ public abstract class EnemyRoom extends BaseRoom {
                 if (enemy.getComponent(CombatStatsComponent.class) != null) {
                     Vector2 playerPos = player.getPosition();
                     GridPoint2 randomPos = new GridPoint2(
-                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
-                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
+                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(3,5),
+                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(3, 9)
                     );
-                    while (Math.abs(randomPos.x-playerPos.x) <= 1 || Math.abs(randomPos.y-playerPos.y) <= 1){
-                        randomPos = new GridPoint2(
-                                ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.x, max.x + 1),
-                                ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(min.y, max.y + 1)
-                        );
-                    }
                     spawnEnemyEntity(area, enemy, randomPos);
                 }
             }
         }
-        //makeAllAnimalDead();
-        //isAllAnimalDead();
     }
 
     /**
@@ -211,9 +238,6 @@ public abstract class EnemyRoom extends BaseRoom {
         if (!isComplete()) {
             logger.info("spawning enemies");
             this.spawnAnimals(area, player, this.minGridPoint, this.maxGridPoint);
-
-            //logger.info("spawning items");
-            //this.spawnItems();
         }
     }
 

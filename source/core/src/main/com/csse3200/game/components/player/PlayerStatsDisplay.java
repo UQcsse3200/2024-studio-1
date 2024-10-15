@@ -3,11 +3,11 @@ package com.csse3200.game.components.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -99,13 +99,16 @@ public class PlayerStatsDisplay extends UIComponent {
         speedImage = new Image(ServiceLocator.getResourceService().getAsset(SPEED_TEXTURE, Texture.class));
 
         //Speed text
-        speedProgressBar = new ProgressBar(0f, 1.5f, 0.1f, false, skin);
-        speedProgressBar.setValue(entity.getComponent(PlayerActions.class).getCurrSpeedPercentage());
+        speedProgressBar = new ProgressBar(0f, 0.5f, 0.1f, false, skin);
+        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrPlayerSpeed();
+        Vector2 baseSpeed = entity.getComponent(PlayerActions.class).getBaseSpeed();
+        float newSpeedPercentage = entity.getComponent(PlayerActions.class).getSpeedProgressBarProportion(currSpeed, baseSpeed);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
+        speedProgressBar.setValue(newSpeedPercentage);
         /*
         //Temporarily commented out in case design team prefers text instead of progress bar
-        float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
+        float speedPercentage = entity.getComponent(PlayerActions.class).getTotalSpeedBoost();
         CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
         speedLabelText = new Label(speedText, skin, "small");
          */

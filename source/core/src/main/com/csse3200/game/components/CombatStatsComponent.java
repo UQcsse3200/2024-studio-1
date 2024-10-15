@@ -30,16 +30,26 @@ public class CombatStatsComponent extends Component {
     private int buff;
     private boolean critAbility;
     private double critChance;
+    private boolean canCauseBleed;
+    private int bleedDamage;
     private boolean isInvincible;
-    // change requested by character team
-    private static final int timeInvincible = 2000;
-    private final Timer timerIFrames; 
-    private static final int timeFlash = 250;
-    private final Timer timerFlashSprite;
-    private CombatStatsComponent.flashSprite flashTask;
 
-    private String lastAttackName;
-    private String filePath = "configs/LastAttack.json";
+    private int timeInvincible = 1000;
+    private final Timer timerIFrames;
+
+    private int timeFlash = 250;
+    private final Timer timerFlashSprite;
+    private CombatStatsComponent.FlashSprite flashTask;
+
+    private static final String FILE_PATH = "configs/LastAttack.json";
+
+    public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance, int timeInvincible) {
+        this(health, maxHealth, baseAttack, canBeInvincible, armor, buff, canCrit, critChance);
+        this.timeInvincible = timeInvincible;
+        int NUM_FLASH = 6;
+        this.timeFlash = timeInvincible / NUM_FLASH;
+
+    }
 
     public CombatStatsComponent(int health, int maxHealth, int baseAttack, boolean canBeInvincible, int armor, int buff, boolean canCrit, double critChance) {
         this.canBeInvincible = canBeInvincible;
@@ -50,7 +60,10 @@ public class CombatStatsComponent extends Component {
         this.buff = buff;
         this.critAbility = canCrit;
         this.critChance = critChance;
+        this.canCauseBleed = false;
+        this.bleedDamage = 0;
         setHealth(health);
+        setMaxHealth(maxHealth);
         setBaseAttack(baseAttack);
         setInvincible(false);
         this.timerIFrames = new Timer();
@@ -66,6 +79,8 @@ public class CombatStatsComponent extends Component {
         this.buff = buff;
         this.critAbility = false;
         this.critChance = 0.0;
+        this.canCauseBleed = false;
+        this.bleedDamage = 0;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
@@ -73,7 +88,7 @@ public class CombatStatsComponent extends Component {
         this.timerFlashSprite = new Timer();
     }
 
-    public CombatStatsComponent(int health, int baseAttack, boolean neverDies){
+    public CombatStatsComponent(int health, int baseAttack, boolean neverDies) {
         this(health, baseAttack, false, 0, 0);
         setInvincible(neverDies);
     }
@@ -91,18 +106,22 @@ public class CombatStatsComponent extends Component {
         public void run() {
             flashTask.cancel();
             setInvincible(false);
-            entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
+            AnimationRenderComponent animateRender = entity.getComponent(AnimationRenderComponent.class);
+            if (animateRender != null) {
+                entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
+            }
         }
     }
 
     /**
      * A TimerTask used to alternate the visibility of the entity during their IFrames
      */
-    private class flashSprite extends TimerTask {
+    private class FlashSprite extends TimerTask {
         private boolean invisible = false;
+
         @Override
         public void run() {
-            if (this.invisible){
+            if (this.invisible) {
                 entity.getComponent(AnimationRenderComponent.class).setOpacity(0);
             } else {
                 entity.getComponent(AnimationRenderComponent.class).setOpacity(1f);
@@ -117,7 +136,7 @@ public class CombatStatsComponent extends Component {
      * @return is player dead
      */
     public Boolean isDead() {
-        return health == 0;
+        return health <= 0;
     }
 
     /**
@@ -183,6 +202,7 @@ public class CombatStatsComponent extends Component {
 
     /**
      * gets the total extra damage from buff
+     *
      * @return buff value
      */
     public int getDamageBuff() {
@@ -191,6 +211,7 @@ public class CombatStatsComponent extends Component {
 
     /**
      * gets max damage cap
+     *
      * @return int of maximum damage
      */
     public int getMaxDamage() {
@@ -199,6 +220,7 @@ public class CombatStatsComponent extends Component {
 
     /**
      * Set the damage buff of the entity
+     *
      * @param damage the new buff damage
      */
     public void setBuff(int damage) {
@@ -207,6 +229,7 @@ public class CombatStatsComponent extends Component {
 
     /**
      * increases total armor to reduce additional damage
+     *
      * @param additionalArmor increases total armor
      */
     public void increaseArmor(int additionalArmor) {
@@ -215,6 +238,7 @@ public class CombatStatsComponent extends Component {
 
     /**
      * Gets the current armor of the entity
+     *
      * @return the entities armor value
      */
     public int getArmor() {
@@ -236,7 +260,7 @@ public class CombatStatsComponent extends Component {
      * @param newMaxHealth updated maximum health
      */
     public void setMaxHealth(int newMaxHealth) {
-        if (newMaxHealth > 0){
+        if (newMaxHealth > 0) {
             this.maxHealth = newMaxHealth;
         }
     }
@@ -249,11 +273,7 @@ public class CombatStatsComponent extends Component {
      * @param attacker The CombatStatsComponent of the entity attacking this entity.
      */
     public void hit(CombatStatsComponent attacker) {
-
-        if (getIsInvincible()) {
-            return;
-        }
-        if (isDead()){
+        if (getIsInvincible() || isDead()) {
             return;
         }
         ShieldComponent shield = entity.getComponent(ShieldComponent.class);
@@ -267,52 +287,67 @@ public class CombatStatsComponent extends Component {
             int newHealth = getHealth() - (int) ((attacker.getBaseAttack() + attacker.buff) * (1 - damageReduction));
             setHealth(newHealth);
 
+            String lastAttackName;
             if (attacker.getEntity() == null
                     || attacker.getEntity().getName().equals("Unknown Entity")) {
                 lastAttackName = "Unknown";
-            }
-            else {
+            } else {
                 lastAttackName = attacker.getEntity().getName();
             }
-
-            FileLoader.writeClass(lastAttackName, filePath, FileLoader.Location.EXTERNAL);
-            //ServiceLocator.getResourceService().playSound("sounds/gethit.ogg");
-            //ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
-            //ServiceLocator.getResourceService().playSound("sounds/hit3.ogg");
+            FileLoader.writeClass(lastAttackName, FILE_PATH, FileLoader.Location.EXTERNAL);
+            ServiceLocator.getResourceService().playSound("sounds/hit2.ogg");
             entity.getEvents().trigger("playerHit");
-            if (isDead()){ return; }
+            if (isDead()) {
+                return;
+            }
             setInvincible(true);
             InvincibilityRemover task = new InvincibilityRemover();
             timerIFrames.schedule(task, timeInvincible);
-            flashTask = new CombatStatsComponent.flashSprite();
+            flashTask = new CombatStatsComponent.FlashSprite();
             timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+            return;
+        }
+        Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
+        int damage;
+        if (player != null) {
+            CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);
+            damage = attacker.getBaseAttack() + playerStats.buff;
+            if (playerStats.getCanCrit()) {
+                damage = applyCrit(damage, playerStats.getCritChance());
+            }
+            if(playerStats.getCanCauseBleed()) {
+                triggerBleedEffect(entity, playerStats.getBleedDamage());
+            }
         } else {
-            Entity player = ServiceLocator.getGameAreaService().getGameController().getPlayer();
-            int damage;
-            if (player != null) {
-                CombatStatsComponent playerStats = player.getComponent(CombatStatsComponent.class);
-                damage = attacker.getBaseAttack() + playerStats.buff;
-                if (playerStats.getCanCrit()) {
-                    damage = applyCrit(damage, playerStats.getCritChance());
-                }
-            } else {
-                damage = attacker.getBaseAttack();
-            }
-            int newHealth = getHealth() - damage;
-            setHealth(newHealth);
-            //add animationcontroller
-            if (health <= 0) {
-                entity.getEvents().trigger("death");
-                entity.getEvents().trigger("died");
-                entity.getEvents().trigger("checkAnimalsDead");
-                entity.getEvents().trigger("dummyDestroyed");
-            }
+            damage = attacker.getBaseAttack();
+        }
+        int newHealth = getHealth() - damage;
+        setHealth(newHealth);
+        //add animationcontroller
+        if (health <= 0) {
+            entity.getEvents().trigger("death");
+            entity.getEvents().trigger("died");
+            entity.getEvents().trigger("checkAnimalsDead");
+            entity.getEvents().trigger("dummyDestroyed");
         }
     }
 
+    /**
+     * Makes the entity invincible for a set duration.
+     * Also flashes the entity's sprite to indicate invincibility.
+     *
+     * @param duration duration of invincibility in seconds
+     */
+    public void makeInvincible(float duration) {
+        setInvincible(true);
+        InvincibilityRemover task = new InvincibilityRemover();
+        timerIFrames.schedule(task, (int) duration * 1000L);
+        flashTask = new FlashSprite();
+        timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
+    }
 
     /**
-     *Returns if the entity can be invincible
+     * Returns if the entity can be invincible
      *
      * @return boolean can be Invincible
      */
@@ -340,6 +375,7 @@ public class CombatStatsComponent extends Component {
 
     /**
      * Returns a boolean value based on if the entity can crit or not
+     *
      * @return true if the entity can crit, false otherwise
      */
     public boolean getCanCrit() {
@@ -348,6 +384,7 @@ public class CombatStatsComponent extends Component {
 
     /**
      * Returns the entities crit chance
+     *
      * @return the crit chance value
      */
     public double getCritChance() {
@@ -370,6 +407,7 @@ public class CombatStatsComponent extends Component {
 
     /**
      * Apply critical hit based on chance
+     *
      * @return the modified damage
      */
     public int applyCrit(int damage, double critChance) {
@@ -380,5 +418,46 @@ public class CombatStatsComponent extends Component {
             newDamage *= 2;
         }
         return newDamage;
+    }
+
+    public boolean getCanCauseBleed() {
+        return canCauseBleed;
+    }
+    public int getBleedDamage() {
+        return bleedDamage;
+    }
+
+    public void updateBleedStatus() {
+        this.canCauseBleed = true;
+    }
+
+    public void updateBleedDamage(int bleedDamage) {
+        this.bleedDamage += bleedDamage;
+    }
+
+    /**
+     * Applies the bleed effect to the enemy. Reduces 5% of the enemy's health per
+     * second for 5 seconds. The damage stops if the enemy's health reaches 0.
+     *
+     * @param enemy The enemy entity to apply the bleed effect to.
+     */
+    private void triggerBleedEffect(Entity enemy, int bleedDamage) {
+        CombatStatsComponent enemyStats = enemy.getComponent(CombatStatsComponent.class);
+
+        if (enemyStats != null) {
+            // Schedule bleed damage over 3 seconds
+            com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                @Override
+                public void run() {
+                    if (enemyStats.getHealth() > 0) {
+                        float bleedAmount = enemyStats.getHealth() * (bleedDamage / 100f);
+                        enemyStats.setHealth((int) (enemyStats.getHealth() - bleedAmount));
+                    } else {
+                        // Stop applying bleed effect if the enemy is dead
+                        cancel();
+                    }
+                }
+            }, 1, 1, 3); // Reduce health for 3 seconds
+        }
     }
 }

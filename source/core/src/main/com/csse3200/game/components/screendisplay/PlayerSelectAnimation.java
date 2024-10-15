@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 
 /**
@@ -15,11 +16,11 @@ public class PlayerSelectAnimation extends Actor {
     private final PlayerAnimationType player;
 
     private enum PlayerAnimationType {
-        Player1("idle", 0.2f, PlayMode.LOOP),
-        Player2("Walk_right", 0.2f, PlayMode.LOOP),
-        Player3("Run_right", 0.2f, PlayMode.LOOP_PINGPONG),
-        Bear("idle_right", 0.5f, PlayMode.LOOP),
-        Player4("Attack1_right", 0.2f, PlayMode.LOOP_RANDOM);
+        PLAYER_1("idle", 0.2f, PlayMode.LOOP),
+        PLAYER_2("Walk_right", 0.2f, PlayMode.LOOP),
+        PLAYER_3("Run_right", 0.2f, PlayMode.LOOP_PINGPONG),
+        BEAR("idle_right", 0.5f, PlayMode.LOOP),
+        PLAYER_4("Attack1_right", 0.2f, PlayMode.LOOP_RANDOM);
 
         final String animationName;
         final float animationDuration;
@@ -34,11 +35,11 @@ public class PlayerSelectAnimation extends Actor {
         // Assign player number to the texture atlas
         static PlayerAnimationType createFromAtlas(String textureAtlas) {
             return switch (textureAtlas) {
-                case "images/player/player.atlas" -> Player1;
-                case "images/player/homeless1.atlas" -> Player2;
-                case "images/npc/bear/bear.atlas" -> Bear;
-                case "images/player/homeless2.atlas" -> Player3;
-                case "images/player/homeless3.atlas" -> Player4;
+                case "images/player/player.atlas" -> PLAYER_1;
+                case "images/player/homeless1.atlas" -> PLAYER_2;
+                case "images/npc/bear/bear.atlas" -> BEAR;
+                case "images/player/homeless2.atlas" -> PLAYER_3;
+                case "images/player/homeless3.atlas" -> PLAYER_4;
                 default -> throw new IllegalArgumentException(
                         "Unknown texture atlas: " + textureAtlas);
             };

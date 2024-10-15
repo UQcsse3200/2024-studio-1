@@ -6,7 +6,7 @@ import com.csse3200.game.components.player.inventory.BuffItem;
 import com.csse3200.game.entities.Entity;
 
 public class Syringe extends BuffItem {
-    private static final int syringeBoost = 50;
+    private static final int SYRINGE_BOOST = 50;
 
     /**
      * Get the name of this item
@@ -70,7 +70,7 @@ public class Syringe extends BuffItem {
      */
     private void syringeBoost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
-        combatStats.addHealth(syringeBoost);
+        combatStats.addHealth(SYRINGE_BOOST);
     }
 }
 

@@ -148,7 +148,7 @@ public class GameController {
         if (!List.of("Boss", "NPC", "GameRoom").contains(roomType)) {
             throw new IllegalArgumentException("Invalid room type: " + roomType);
         }
-        return currentLevel.getMap().mapData.RoomKeys.get(roomType);
+        return currentLevel.getMap().mapData.getRoomKeys().get(roomType);
     }
 
     /**
@@ -194,6 +194,9 @@ public class GameController {
         this.currentRoom = newRoom;
         this.currentRoomName = this.currentRoom.getRoomName();
 
+        // update the minimap
+        minimapFactory.updateMinimap(roomKey);
+
         this.spawnRoom = true;
     }
 
@@ -203,10 +206,10 @@ public class GameController {
      * @param roomKey the key of the room to change to.
      */
     public void changeRooms(String roomKey) {
-        this.currentRoom.removeRoom();
+        if (currentRoom != null) {
+            this.currentRoom.removeRoom();
+        }
         selectRoom(roomKey);
-        // update minimap
-        minimapFactory.updateMinimap(roomKey);
 
         // Play appropriate music based on room type
         if (this.currentRoom instanceof BossRoom) {
@@ -283,15 +286,13 @@ public class GameController {
 
         // Create and load the new level
         this.currentLevel = this.levelFactory.create(levelNumber);
-        selectRoom(this.currentLevel.getStartingRoomKey());
 
         // Initialize minimap
         this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
         MinimapComponent minimapComponent = minimapFactory.createMinimap();
+        this.gameArea.spawnEntity(new Entity().addComponent(minimapComponent));
 
-        Entity minimap = new Entity();
-        minimap.addComponent(minimapComponent);
-        this.gameArea.spawnEntity(minimap);
+        changeRooms(this.currentLevel.getStartingRoomKey());
     }
 
     /**

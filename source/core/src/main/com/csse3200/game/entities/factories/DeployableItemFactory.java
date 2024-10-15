@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
-import com.csse3200.game.components.player.inventory.usables.DummyDestroyedHandler;
+import com.csse3200.game.components.player.inventory.DummyDestroyedHandler;
 import com.csse3200.game.components.player.inventory.usables.TrapComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;

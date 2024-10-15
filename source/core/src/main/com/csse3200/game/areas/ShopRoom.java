@@ -7,9 +7,11 @@ import java.util.List;
 import com.badlogic.gdx.math.GridPoint2;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.gamearea.ShopRoomDisplay;
+import com.csse3200.game.components.player.inventory.BuyableComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.CollectibleFactory;
 import com.csse3200.game.entities.factories.NPCFactory;
+import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.utils.RandomNumberGenerator;
 
 /**
@@ -75,11 +77,24 @@ public class ShopRoom extends BaseRoom {
 
     /**
      * Removes items that have been bought from the shop room items list to be saved later.
-     *
-     * @param item item to be removed from the list of shop items to be de-spawned.
+     * @param item: item to be removed from the list of shop items to be de-spawned.
      */
     public void removeItemFromList(String item) {
         itemsSpawned.remove(item);
+    }
+
+    /**
+     * Removes the room and all its entities. Also removes any price tag labels (belonging to buyable items)
+     */
+    @Override
+    public void removeRoom() {
+        for (Entity entity : entities) {
+            if (entity.getComponent(BuyableComponent.class) != null) {
+                entity.getComponent(BuyableComponent.class).removeLabel();
+            }
+            ServiceLocator.getEntityService().markEntityForRemoval(entity);
+        }
+        entities.clear();
     }
 
     /**

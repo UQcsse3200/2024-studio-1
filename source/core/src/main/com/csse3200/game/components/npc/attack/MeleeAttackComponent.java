@@ -3,7 +3,7 @@ package com.csse3200.game.components.npc.attack;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.Component;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.entities.configs.NPCConfigs;
+import com.csse3200.game.entities.configs.AttackConfig;
 
 
 /**
@@ -11,9 +11,14 @@ import com.csse3200.game.entities.configs.NPCConfigs;
  */
 public class MeleeAttackComponent extends AttackComponent {
 
-    public MeleeAttackComponent(Entity target, float attackRange, float attackRate,
-                                NPCConfigs.NPCConfig.EffectConfig[] effectConfigs) {
-        super(target, attackRange, attackRate, effectConfigs);
+    /**
+     * Constructs a new MeleeAttackComponent.
+     *
+     * @param target The target entity for the attack.
+     * @param config The melee attack configuration.
+     */
+    public MeleeAttackComponent(Entity target, AttackConfig.MeleeAttack config) {
+        super(target, config.range, config.rate, config.effects);
         this.setEnabled(false);
     }
 
@@ -42,6 +47,7 @@ public class MeleeAttackComponent extends AttackComponent {
      */
     public void updateTarget(Entity newTarget) {
         this.target = newTarget;
+        logger.debug("Updated attack target to {}", newTarget);
     }
 
 }

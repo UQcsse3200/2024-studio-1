@@ -8,7 +8,7 @@ import com.csse3200.game.components.player.inventory.BuffItem;
 import com.csse3200.game.entities.Entity;
 
 public class DivinePotion extends BuffItem {
-    private static final int potionBoost = 30;
+    private static final int POTION_BOOST = 30;
     Vector2 maxSpeed = new Vector2(6f, 6f);
 
     /**
@@ -29,7 +29,7 @@ public class DivinePotion extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        Boost(entity);
+        boost(entity);
         speed(entity);
     }
 
@@ -58,10 +58,10 @@ public class DivinePotion extends BuffItem {
      *
      * @param entity whose health is increased.
      */
-    public void Boost(Entity entity) {
+    public void boost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         int currentHealth = combatStats.getHealth();
-        int newHealth = Math.min(currentHealth + potionBoost, combatStats.getMaxHealth());
+        int newHealth = Math.min(currentHealth + POTION_BOOST, combatStats.getMaxHealth());
         combatStats.setHealth(newHealth);
     }
 
@@ -69,8 +69,8 @@ public class DivinePotion extends BuffItem {
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
 
         // Get the current speed and speed limit
-        float currSpeedPercentage = playerActions.getCurrSpeedPercentage();
-        float speedLimit = playerActions.getMaxSpeed();
+        float currSpeedPercentage = playerActions.getTotalSpeedBoost();
+        float speedLimit = playerActions.getMaxTotalSpeedBoost();
         float speedBoost = .25f; // Fixed speed boost
 
         // Add the fixed speed boost to the current percentage
@@ -79,13 +79,13 @@ public class DivinePotion extends BuffItem {
         if (newSpeedPercentage >= speedLimit) {
             // Cap speed to the max allowed speed (6f, 6f)
             playerActions.setSpeed(this.maxSpeed); // Use maxSpeed limit
-            playerActions.setSpeedPercentage(speedLimit); // Set UI to max speed percentage
+            playerActions.setTotalSpeedBoost(speedLimit); // Set UI to max speed percentage
         } else {
             // Add the fixed speed boost (0.1) to both x and y components of the current speed
-            Vector2 currSpeed = playerActions.getCurrSpeed();
+            Vector2 currSpeed = playerActions.getCurrPlayerSpeed();
             Vector2 updatedSpeed = currSpeed.add(new Vector2(.25f, .25f)); // Fixed speed boost
             playerActions.setSpeed(updatedSpeed); // Update the actual speed
-            playerActions.setSpeedPercentage(newSpeedPercentage); // Update UI percentage
+            playerActions.setTotalSpeedBoost(newSpeedPercentage); // Update UI percentage
         }
 
         // Trigger event to update the speed percentage in the UI

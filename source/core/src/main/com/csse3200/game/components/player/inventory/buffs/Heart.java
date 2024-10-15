@@ -8,7 +8,7 @@ import com.csse3200.game.entities.Entity;
 public class Heart extends BuffItem {
 
     private static final int maxHealthIncrease = 50;
-    private static final int maxHealthLimit = 150;
+    private static final int maxHealthLimit = 250;
 
     /**
      * Provides buff specification for the item
@@ -21,10 +21,13 @@ public class Heart extends BuffItem {
     }
 
     /**
-     * Applies effect of increasing player's maximum health
-     * If player's current health max health is below the limit, it increases by a set amount
+     Applies the effect of increasing the player's maximum health.
+     * This method checks the current maximum health of the player entity. If the player's
+     * maximum health is below the defined limit (250), it increases the max health by
+     * a specified value (50), up to the limit. After increasing the max health, it
+     * sets the player's current health to match the new max health value.
      *
-     * @param entity The player entity
+     * @param entity The player entity to which the heart buff is applied.
      */
     @Override
     public void effect(Entity entity) {

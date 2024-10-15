@@ -73,7 +73,7 @@ public class MainGameLevelFactory implements LevelFactory {
     public Level create(int levelNumber) {
 
         this.map = new LevelMap(shouldLoad ? config.mapSize : DEFAULT_MAP_SIZE);
-        this.config.currentLevel = "" + levelNumber;
+//        this.config.currentLevel = "" + levelNumber;
 
         RoomFactory roomFactory = new RoomFactory(
                 new NPCFactory(),
@@ -131,6 +131,8 @@ public class MainGameLevelFactory implements LevelFactory {
             setRoomsComplete(loadedRooms);
             shouldLoad = false;
         }
+
+        this.config.currentLevel = "" + levelNumber;
         // Store the current level number
 
         return new MainGameLevel(map, levelNumber, rooms);

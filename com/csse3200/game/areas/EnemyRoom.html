@@ -240,12 +240,19 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Spawns an enemy entity and sets up its event listener for room completion check.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spawnItem(com.csse3200.game.areas.GameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)" class="member-name-link">spawnItem</a><wbr>(<a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification,
+ com.badlogic.gdx.math.GridPoint2&nbsp;pos)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Spawns an item in the room.</div>
+</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.csse3200.game.areas.BaseRoom">Methods inherited from class&nbsp;com.csse3200.game.areas.<a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></h3>
-<code><a href="BaseRoom.html#getItemSpecifications()">getItemSpecifications</a>, <a href="BaseRoom.html#getRoomConnections()">getRoomConnections</a>, <a href="BaseRoom.html#getRoomName()">getRoomName</a>, <a href="BaseRoom.html#isComplete()">isComplete</a>, <a href="BaseRoom.html#setComplete()">setComplete</a>, <a href="BaseRoom.html#spawnAnimalEntity(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)">spawnAnimalEntity</a>, <a href="BaseRoom.html#spawnDoors(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity)">spawnDoors</a>, <a href="BaseRoom.html#spawnItem(com.csse3200.game.areas.GameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">spawnItem</a>, <a href="BaseRoom.html#spawnTerrain(com.csse3200.game.areas.GameArea,float,boolean)">spawnTerrain</a></code></div>
+<code><a href="BaseRoom.html#deleteRemainingItems(com.csse3200.game.entities.Entity)">deleteRemainingItems</a>, <a href="BaseRoom.html#getItemSpecifications()">getItemSpecifications</a>, <a href="BaseRoom.html#getRoomConnections()">getRoomConnections</a>, <a href="BaseRoom.html#getRoomName()">getRoomName</a>, <a href="BaseRoom.html#isComplete()">isComplete</a>, <a href="BaseRoom.html#setComplete()">setComplete</a>, <a href="BaseRoom.html#spawnAnimalEntity(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity,com.badlogic.gdx.math.GridPoint2)">spawnAnimalEntity</a>, <a href="BaseRoom.html#spawnDoors(com.csse3200.game.areas.GameArea,com.csse3200.game.entities.Entity)">spawnDoors</a>, <a href="BaseRoom.html#spawnTerrain(com.csse3200.game.areas.GameArea,float,boolean)">spawnTerrain</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -391,6 +398,25 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">makeAllAnimalDead</span>()</div>
 <div class="block">Sets all animals/enemies in the room to dead state.
  Useful for debugging or special game events.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="spawnItem(com.csse3200.game.areas.GameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">
+<h3>spawnItem</h3>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="../entities/Entity.html" title="class in com.csse3200.game.entities">Entity</a></span>&nbsp;<span class="element-name">spawnItem</span><wbr><span class="parameters">(<a href="GameArea.html" title="class in com.csse3200.game.areas">GameArea</a>&nbsp;area,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;specification,
+ com.badlogic.gdx.math.GridPoint2&nbsp;pos)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="BaseRoom.html#spawnItem(com.csse3200.game.areas.GameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">BaseRoom</a></code></span></div>
+<div class="block">Spawns an item in the room.</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="BaseRoom.html#spawnItem(com.csse3200.game.areas.GameArea,java.lang.String,com.badlogic.gdx.math.GridPoint2)">spawnItem</a></code>&nbsp;in class&nbsp;<code><a href="BaseRoom.html" title="class in com.csse3200.game.areas">BaseRoom</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>area</code> - The game area to spawn the item in.</dd>
+<dd><code>specification</code> - The specification of the item to spawn.</dd>
+<dd><code>pos</code> - The position to spawn the item at.</dd>
+<dt>Returns:</dt>
+</dl>
 </section>
 </li>
 <li>

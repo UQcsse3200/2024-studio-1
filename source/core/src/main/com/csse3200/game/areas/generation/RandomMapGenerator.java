@@ -222,9 +222,12 @@ public class RandomMapGenerator implements MapGenerator {
     private void setShopRoom(List<String> setRooms) {
         List<String> rooms = new ArrayList<>(roomDetails.keySet());
         String randomRoomKey;
+        int blankConnections;
         do {
             randomRoomKey = rooms.get(rng.getRandomInt(0, rooms.size()));
-        } while (setRooms.contains(randomRoomKey));
+            blankConnections = Collections.frequency(relativePosition.get(randomRoomKey), "");
+        } while (setRooms.contains(randomRoomKey) ||  blankConnections != 3);
+        // blankConnections must be 3 to be a one doored room
 
         // Get the random room details
         HashMap<String, Integer> details = roomDetails.get(randomRoomKey);
@@ -242,6 +245,10 @@ public class RandomMapGenerator implements MapGenerator {
         String location = "0_0";
         int maxDist = 0;
         for (Map.Entry<String, List<String>> entry : relativePosition.entrySet()) {
+            if (Collections.frequency(entry.getValue(), "") != 3) {
+                // checking whether there is only 1 connection to room
+                continue;
+            }
             String key = entry.getKey();
             int dist = calculateDistance(key);
             if (maxDist < dist) {

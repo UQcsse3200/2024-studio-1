@@ -19,7 +19,9 @@ import org.junit.jupiter.api.Test;
 public class GoblinsGambleTest {
 
     private GoblinsGamble goblinsGamble;
+    @Mock
     private Entity entity;
+    @Mock
     private CoinsComponent coinsComponent;
     @Mock
     private RandomService randomService;
@@ -29,7 +31,7 @@ public class GoblinsGambleTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        // Initialize the GoblinsGamble object
+        // Initialise the GoblinsGamble object
         goblinsGamble = new GoblinsGamble();
 
         // Create mocks for Entity, CoinsComponent, and RandomService
@@ -82,11 +84,11 @@ public class GoblinsGambleTest {
         when(randomNumberGenerator.getRandomDouble(0.0, 1.0)).thenReturn(0.6);
 
         // Simulate a gamble with 3 coins (less than LOSE_AMOUNT)
-        when(coinsComponent.getCoins()).thenReturn(2);
+        when(coinsComponent.getCoins()).thenReturn(3);
 
         goblinsGamble.gamblePlayersCoins(entity);
 
         // Verify that the exact number of available coins (3) was spent
-        verify(coinsComponent).spend(2);
+        verify(coinsComponent).spend(3);
     }
 }

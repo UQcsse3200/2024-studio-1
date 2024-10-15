@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -11,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
+import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.components.player.PlayerFactoryFactory;
 import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.rendering.AnimationRenderComponent;
@@ -32,6 +36,7 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private final GdxGame game;
     private Table rootTable;
+    private TextField seedInputField;
     private static final float ROOT_PADDING = 10f;
     private static final float STAT_TABLE_PADDING = 2f;
     private static final float BAR_HEIGHT = 20;
@@ -52,6 +57,24 @@ public class PlayerSelectDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
+
+        // InputMultiplexer for handling both stage and ESC key input
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);  // Add stage for handling mouse clicks
+        inputMultiplexer.addProcessor(new InputAdapter() {
+            @Override
+            public boolean keyUp(int keycode) {
+                if (keycode == Input.Keys.ESCAPE) {
+                    logger.debug("Esc key pressed, going back to main menu");
+                    game.setScreen(ScreenType.MAIN_MENU);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Set input processor to the multiplexer
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     /**
@@ -116,6 +139,14 @@ public class PlayerSelectDisplay extends UIComponent {
             button.getLabel().setFontScale((float) Gdx.graphics.getWidth() / 1600);
         });
 
+        // Add seed input field at the bottom
+        rootTable.row().padTop(20);
+        Label seedLabel = new Label("Enter Seed:", skin);
+        seedInputField = new TextField("", skin);
+        rootTable.add(seedLabel).colspan(configs.size());
+        rootTable.row();
+        rootTable.add(seedInputField).colspan(configs.size()).fillX().padBottom(20);
+
         Image bgImage = new Image(getResourceService().getAsset(BG_IMAGE, Texture.class));
         bgImage.setFillParent(true);
 
@@ -141,8 +172,12 @@ public class PlayerSelectDisplay extends UIComponent {
     }
 
     private void playerSelected(String name) {
-        logger.info("Player chosen: {}", name);
-        game.gameOptions.setPlayerFactory(playerFactoryFactory.create(name));
+        String seed = seedInputField.getText().isEmpty() ? "seed" : seedInputField.getText(); // Default if empty
+        logger.info("Player chosen: {} with seed: {}", name, seed);
+
+        game.gameOptions.playerFactory = playerFactoryFactory.create(name);
+        game.gameOptions.seed = seed;
+
         game.setScreen(ScreenType.CUTSCENE);
     }
 

@@ -1,13 +1,12 @@
 package com.csse3200.game.ui.terminal;
 
 import com.badlogic.gdx.Input;
-import com.csse3200.game.components.player.KeyMapping;
-import com.csse3200.game.components.player.KeyboardPlayerInputComponent;
 import com.csse3200.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
@@ -29,16 +28,6 @@ class KeyboardTerminalInputComponentTest {
     verify(terminal).setOpen();
     verify(terminal, times(2)).setClosed();
   }
-
-  /*
-  @Test
-  void getItemTest() {
-    KeyboardPlayerInputComponent inputComponent = new KeyboardPlayerInputComponent();
-    KeyMapping.KeyBinding keyBinding = KeyMapping.KeyBinding.USE_1;
-    assertEquals(1, inputComponent.getItemNum(keyBinding));
-  }
-
-   */
 
   @Test
   void shouldUpdateMessageOnKeyTyped() {

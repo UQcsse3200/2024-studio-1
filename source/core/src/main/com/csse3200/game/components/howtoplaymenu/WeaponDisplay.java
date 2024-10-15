@@ -2,6 +2,9 @@ package com.csse3200.game.components.howtoplaymenu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -16,7 +19,7 @@ import com.csse3200.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WeaponDisplay extends UIComponent{
+public class WeaponDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(WeaponDisplay.class);
     private final GdxGame game;
 
@@ -36,6 +39,7 @@ public class WeaponDisplay extends UIComponent{
     public void create() {
         super.create();
         addActors();
+        configureInputHandling(); // Configure ESC key input handling
     }
 
     private void addActors() {
@@ -137,6 +141,24 @@ public class WeaponDisplay extends UIComponent{
         Table table = new Table();
         table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
         return table;
+    }
+
+    private void configureInputHandling() {
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stage); // Retain UI click functionality
+        multiplexer.addProcessor(new InputAdapter() {
+            @Override
+            public boolean keyUp(int keycode) {
+                if (keycode == Input.Keys.ESCAPE) {
+                    logger.debug("ESC key pressed, going back to How to Play menu");
+                    exitMenu();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     private void applyChanges() {

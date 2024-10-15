@@ -137,6 +137,13 @@ public abstract class EnemyRoom extends BaseRoom {
         }
     }
 
+    @Override
+    protected Entity spawnItem(GameArea area, String specification, GridPoint2 pos) {
+        Entity item = super.spawnItem(area, specification, pos);
+        item.getEvents().addListener("itemChose", () -> deleteRemainingItems(item));
+        return item;
+    }
+
     /**
      * Checks if all animals/enemies in the room are dead.
      *
@@ -181,8 +188,8 @@ public abstract class EnemyRoom extends BaseRoom {
                 if (enemy.getComponent(CombatStatsComponent.class) != null) {
                     Vector2 playerPos = player.getPosition();
                     GridPoint2 randomPos = new GridPoint2(
-                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(0,8),
-                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(0, 12)
+                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(3,5),
+                        ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass()).getRandomInt(3, 9)
                     );
                     spawnEnemyEntity(area, enemy, randomPos);
                 }

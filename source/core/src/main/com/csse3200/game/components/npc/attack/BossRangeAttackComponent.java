@@ -66,14 +66,13 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
         }
         logger.info("{} shoots {}", entity, target);
         // Shoot target
-        Vector2 direction = getDirection(target);
         setAnimationID(0);
         entity.getEvents().trigger("attack");
         String baseName = "Dragon";
         if (entity.getComponent(NameComponent.class) == null) {
             // Use for test entity
-            projectileNames = new String[]{"dragonProjectile"};
-            attackTriggers = new String[]{"fire_attack"};
+            setProjectileNames(new String[]{"dragonProjectile"});
+            setAttackTriggers(new String[]{"fire_attack"});
         } else {
             baseName = entity.getComponent(NameComponent.class).getName();
         }
@@ -84,14 +83,8 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
             numShot = 5;
             setSpreadAngle(0.4f);
         }
-        spreadShoot(direction, numShot);
+        spreadShoot(getDirection(target), numShot);
         shoot();
-        // Uncomment this for testing change projectile animation
-
-        // Attack effects
-//        if (effects != null) {
-//            applyEffects(target);
-//        }
     }
 
     private void shoot() {
@@ -106,12 +99,12 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
     }
 
     private void singleShoot(Vector2 spawnLocation, Vector2 movingDirection) {
-        Entity projectile = projectileFactory.create(projectileNames[animationID], movingDirection, spawnLocation);
+        Entity projectile = projectileFactory.create(getProjectileNames()[getAnimationID()], movingDirection, spawnLocation);
         projectile.getComponent(com.csse3200.game.components.projectile.ProjectileAttackComponent.class).create();
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9),
                 true, true);
         updateDirection(projectile, movingDirection);
-        projectile.getEvents().trigger(attackTriggers[animationID]);
+        projectile.getEvents().trigger(getAttackTriggers()[getAnimationID()]);
     }
 
     private void spreadShoot(Vector2 spawnLocation, Vector2 movingDirection, int numShot) {
@@ -120,7 +113,7 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
             return;
         }
         for (int i = 0; i < numShot; i++) {
-            singleShoot(spawnLocation, rotate(movingDirection, spreadAngle * ((numShot - 1) - 2 * i)));
+            singleShoot(spawnLocation, rotate(movingDirection, getSpreadAngle() * ((numShot - 1) - 2 * i)));
         }
     }
 }

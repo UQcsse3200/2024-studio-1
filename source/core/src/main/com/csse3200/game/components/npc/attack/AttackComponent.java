@@ -37,7 +37,7 @@ public abstract class AttackComponent extends Component implements AttackBehavio
                            EffectConfig[] effectConfigs) {
         this.target = target;
         this.attackRange = attackRange;
-        this.attackCooldown = 1/attackRate;
+        this.attackCooldown = 1 / attackRate;
         this.effectConfigs = effectConfigs;
         this.timeSinceLastAttack = attackCooldown;
     }

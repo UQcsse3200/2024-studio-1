@@ -40,7 +40,7 @@ public class MainMenuActions extends Component {
      */
     private void onPlayerSelect(Difficulty difficulty) {
         logger.info("Going to player selection");
-        game.gameOptions.difficulty = difficulty;
+        game.gameOptions.setDifficulty(difficulty);
         game.setScreen(ScreenType.PLAYER_SELECT);
     }
 

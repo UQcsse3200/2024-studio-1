@@ -31,6 +31,7 @@ public class ProjectileAttackComponent extends Component {
     private final Vector2 speed;
     private final Vector2 direction;
     private final Vector2 parentPosition;
+    private final float range;
 
     /**
      *  Sets up vars for a projectile attack.
@@ -38,11 +39,12 @@ public class ProjectileAttackComponent extends Component {
      *  @param direction Direction being shot. Example - Vector2Utils. LEFT shoots left.
      *  @param speed Set in the projectileConfig. Example - Vector2(3,3) is 3m\s etc.
     */
-    public ProjectileAttackComponent(short layer, Vector2 direction, Vector2 speed, Vector2 parentPosition) {
+    public ProjectileAttackComponent(short layer, Vector2 direction, Vector2 speed, Vector2 parentPosition, float range) {
         this.targetLayer = layer;
         this.speed = speed;
         this.direction = direction;
         this.parentPosition = parentPosition;
+        this.range = range;
     }
 
     /**
@@ -54,7 +56,7 @@ public class ProjectileAttackComponent extends Component {
         combatStats = entity.getComponent(CombatStatsComponent.class);
         hitboxComponent = entity.getComponent(HitboxComponent.class);
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
-        entity.getComponent(ProjectileActions.class).shoot(direction, speed, parentPosition);
+        entity.getComponent(ProjectileActions.class).shoot(direction, speed, parentPosition, range);
     }
 
     /**

@@ -85,15 +85,15 @@ public class MainGameLevelFactory implements LevelFactory {
                 new TerrainFactory(levelNumber)
         );
 
-        Set<String> roomKeySet = map.mapData.getPositions().keySet();
+        Set<String> roomKeySet = map.getMapData().getPositions().keySet();
         for (String roomKey : roomKeySet) {
-            int itemIndex = map.mapData.getRoomDetails().get(roomKey).get("item_index");
-            int animalIndex = map.mapData.getRoomDetails().get(roomKey).get("animal_index");
-            int roomType = map.mapData.getRoomDetails().get(roomKey).get("room_type");
+            int itemIndex = map.getMapData().getRoomDetails().get(roomKey).get("item_index");
+            int animalIndex = map.getMapData().getRoomDetails().get(roomKey).get("animal_index");
+            int roomType = map.getMapData().getRoomDetails().get(roomKey).get("room_type");
             switch (roomType) {
                 case MapGenerator.BOSSROOM:
                     rooms.put(roomKey, roomFactory.createBossRoom(
-                            map.mapData.getPositions().get(roomKey),
+                            map.getMapData().getPositions().get(roomKey),
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case MapGenerator.NPCROOM:
@@ -107,18 +107,18 @@ public class MainGameLevelFactory implements LevelFactory {
                         itemsToBeSpawned = createShopItemsList();
                     }
                     ShopRoom shop = (ShopRoom) roomFactory.createShopRoom(
-                            map.mapData.getPositions().get(roomKey),
+                            map.getMapData().getPositions().get(roomKey),
                             "0,0,14,10," + 0 + "," + levelNumber, roomKey, itemsToBeSpawned);
                     rooms.put(roomKey, shop);
                     break;
                 case MapGenerator.GAMEROOM:
                     rooms.put(roomKey, roomFactory.createGambleRoom(
-                            map.mapData.getPositions().get(roomKey),
+                            map.getMapData().getPositions().get(roomKey),
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 default:
                     rooms.put(roomKey, roomFactory.createRoom(
-                            map.mapData.getPositions().get(roomKey),
+                            map.getMapData().getPositions().get(roomKey),
                             "0,0,14,10," + animalIndex + "," + itemIndex, roomKey));
                     break;
             }
@@ -144,7 +144,7 @@ public class MainGameLevelFactory implements LevelFactory {
         List<String> compRooms = new ArrayList<String>();
         List<String> items = new ArrayList<String>();
         MapLoadConfig config = new MapLoadConfig();
-        String gameSeed = map.mapData.getMapSeed();
+        String gameSeed = map.getMapData().getMapSeed();
         String seedOnly = gameSeed.substring(0, gameSeed.length() - 1);
         config.seed = seedOnly;
         config.currentLevel = level; 
@@ -152,8 +152,8 @@ public class MainGameLevelFactory implements LevelFactory {
 
         for (Room room : rooms.values()) {
             if (room.isComplete()){
-                if(map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
-                    if(map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1) {
+                if(map.getMapData().getRoomDetails().get(room.getRoomName()) != null) {
+                    if(map.getMapData().getRoomDetails().get(room.getRoomName()).get("room_type") != 1) {
                         compRooms.add(room.getRoomName());
                     }
                 }

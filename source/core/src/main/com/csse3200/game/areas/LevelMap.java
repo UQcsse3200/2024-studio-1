@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class LevelMap {
 
-    public MapGenerator mapData;
+    private MapGenerator mapData;
 
 
     public LevelMap(String seed, int mapSize) {
@@ -24,6 +24,12 @@ public class LevelMap {
         } 
     }
 
+    public void setMapData(MapGenerator map){
+        this.mapData = map;
+    }
+    public MapGenerator getMapData(){
+        return this.mapData;
+    }
     public void exportMapGenerator(String path) {
         FileLoader.writeClass(mapData.getClass(), path);
     }

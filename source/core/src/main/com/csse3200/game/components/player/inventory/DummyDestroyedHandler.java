@@ -1,4 +1,4 @@
-package com.csse3200.game.components.player.inventory.usables;
+package com.csse3200.game.components.player.inventory;
 
 import com.csse3200.game.components.Component;
 import com.csse3200.game.services.ServiceLocator;

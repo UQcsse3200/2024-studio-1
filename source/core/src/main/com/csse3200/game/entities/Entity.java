@@ -174,7 +174,7 @@ public class Entity {
         ComponentType componentType = ComponentType.getFrom(type);
         T component = (T) components.get(componentType.getId());
         if (component == null && !type.equals(NameComponent.class)) {
-            logger.error("{} does not have a {} component", getName(), componentType.getClass().getSimpleName());
+            logger.error("{} does not have a {} component", getName(), type.getSimpleName());
         }
         return component;
     }

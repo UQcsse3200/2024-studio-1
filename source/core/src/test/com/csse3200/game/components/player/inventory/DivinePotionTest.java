@@ -88,9 +88,9 @@ public class DivinePotionTest {
         float maxSpeed = 1.0f;  // Maximum allowed speed percentage
 
         // Mock the initial state of player actions
-        when(playerActions.getCurrSpeed()).thenReturn(initialSpeed);
-        when(playerActions.getCurrSpeedPercentage()).thenReturn(initialSpeedPercentage);
-        when(playerActions.getMaxSpeed()).thenReturn(maxSpeed);
+        when(playerActions.getCurrPlayerSpeed()).thenReturn(initialSpeed);
+        when(playerActions.getTotalSpeedBoost()).thenReturn(initialSpeedPercentage);
+        when(playerActions.getMaxTotalSpeedBoost()).thenReturn(maxSpeed);
 
         // Create an instance of your class
         DivinePotion divinePotion = new DivinePotion();
@@ -100,7 +100,7 @@ public class DivinePotionTest {
 
         // Verify that speed is capped at the max allowed speed
         verify(playerActions).setSpeed(new Vector2(6f, 6f)); // Expected capped speed
-        verify(playerActions).setSpeedPercentage(maxSpeed); // Speed percentage capped to max
+        verify(playerActions).setTotalSpeedBoost(maxSpeed); // Speed percentage capped to max
 
         // Verify that the event to update the UI is triggered with the correct value
         verify(entity.getEvents()).trigger(eq("updateSpeedUI"), eq(maxSpeed));
@@ -114,9 +114,9 @@ public class DivinePotionTest {
         float maxSpeed = 1.0f;  // Maximum allowed speed percentage
 
         // Mock the initial state of player actions
-        when(playerActions.getCurrSpeed()).thenReturn(initialSpeed);
-        when(playerActions.getCurrSpeedPercentage()).thenReturn(initialSpeedPercentage);
-        when(playerActions.getMaxSpeed()).thenReturn(maxSpeed);
+        when(playerActions.getCurrPlayerSpeed()).thenReturn(initialSpeed);
+        when(playerActions.getTotalSpeedBoost()).thenReturn(initialSpeedPercentage);
+        when(playerActions.getMaxTotalSpeedBoost()).thenReturn(maxSpeed);
 
         // Create an instance of your class
         DivinePotion divinePotion = new DivinePotion();
@@ -130,7 +130,7 @@ public class DivinePotionTest {
 
         // Verify the updated speed and percentage
         verify(playerActions).setSpeed(expectedUpdatedSpeed);
-        verify(playerActions).setSpeedPercentage(expectedNewSpeedPercentage);
+        verify(playerActions).setTotalSpeedBoost(expectedNewSpeedPercentage);
 
         // Verify that the event to update the UI is triggered with the correct value
         verify(entity.getEvents()).trigger(eq("updateSpeedUI"), eq(expectedNewSpeedPercentage));

@@ -38,7 +38,6 @@ public class PositionTrackerTest {
         renderService.setDebug(mock(DebugRenderer.class));
         ServiceLocator.registerRenderService(renderService);
         GameTime gameTime = mock(GameTime.class);
-        //when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
         ServiceLocator.registerTimeSource(gameTime);
 
         ServiceLocator.registerEntityService(new EntityService());
@@ -61,17 +60,18 @@ public class PositionTrackerTest {
     public void testCreatePositionTracker() {
         PositionTracker positionTracker = new PositionTracker();
 
-        assert positionTracker instanceof PositionTracker;
+        //assert positionTracker instanceof PositionTracker;
+        assertEquals(true, positionTracker instanceof PositionTracker);
     }
 
     @org.junit.jupiter.api.Test
     public void testConnectAndDisconnectPlayer() {
         PositionTracker positionTracker = new PositionTracker();
         positionTracker.connectPlayer(player);
-        assertEquals(positionTracker.getPlayer(), player);
+        assertEquals(player, positionTracker.getPlayer());
 
         positionTracker.disconnectPlayer();
-        assertEquals(positionTracker.getPlayer(), null);
+        assertEquals(null, positionTracker.getPlayer());
     }
 
     @org.junit.jupiter.api.Test
@@ -87,13 +87,13 @@ public class PositionTrackerTest {
         // change player position
         player.setPosition(new Vector2(20, 20));
         positionTracker.update();
-        assertEquals(weaponEntity.getPosition(), new Vector2(20, 20));
+        assertEquals(new Vector2(20, 20), weaponEntity.getPosition());
     }
 
     @org.junit.jupiter.api.Test
     public void testGetOffset() {
         PositionTracker positionTracker = new PositionTracker();
         positionTracker.connectPlayer(player);
-        assertEquals(positionTracker.getOffset(), new Vector2(0, 0));
+        assertEquals(new Vector2(0, 0), positionTracker.getOffset());
     }
 }

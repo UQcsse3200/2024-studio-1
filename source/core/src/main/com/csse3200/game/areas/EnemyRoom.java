@@ -194,7 +194,7 @@ public abstract class EnemyRoom extends BaseRoom {
                     spawnEnemyEntity(area, enemy, randomPos);
                 }
             }
-        }
+        }makeAllAnimalDead();
     }
 
     /**

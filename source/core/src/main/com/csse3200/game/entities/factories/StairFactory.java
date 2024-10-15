@@ -85,24 +85,11 @@ public class StairFactory {
     /**
      * Moves the player to the next level
      */
-
     private static void moveToNextLevel() {
         int currentLevel = ServiceLocator.getGameAreaService().getGameController().getCurrentLevel().getLevelNumber();
-        if (currentLevel == 2) { // Check if it's the third level (0-indexed)
-            showGameWonDialog();
-        } else {
-            ServiceLocator.getEntityService().markEntityForRemoval(stair);
-            ServiceLocator.getGameAreaService().getGameController().changeLevel(currentLevel + 1);
-        }
+        ServiceLocator.getEntityService().markEntityForRemoval(stair);
+        ServiceLocator.getGameAreaService().getGameController()
+                .changeLevel(currentLevel + 1);
     }
 
-    private static void showGameWonDialog() {
-        ServiceLocator.getAlertBoxService().showGameWonDialog("Congratulations!", "You've completed all levels!", new AlertBoxService.GameWonListener() {
-            @Override
-            public void onExit() {
-                // Exit the game
-                Gdx.app.exit();
-            }
-        });
-    }
 }

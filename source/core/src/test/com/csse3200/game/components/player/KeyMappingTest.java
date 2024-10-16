@@ -18,8 +18,7 @@ public class KeyMappingTest {
     @BeforeEach
     public void setUp() {
         // Initialize with default key mappings
-        UserSettings.get().walkWithWASD = true;
-        UserSettings.get().shootWithWASD = false;
+        UserSettings.get().controlsWithWASD = true;
         keyMapping = new KeyMapping();
         defaultKeyMap = keyMapping.getKeyMap();
     }

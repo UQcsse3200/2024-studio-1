@@ -22,7 +22,6 @@ com.csse3200.game.components.player.inventory.pets
 com.csse3200.game.components.player.inventory.usables
 com.csse3200.game.components.player.inventory.weapons
 com.csse3200.game.components.projectile
-com.csse3200.game.components.scorescreen
 com.csse3200.game.components.screendisplay
 com.csse3200.game.components.settingsmenu
 com.csse3200.game.components.tasks

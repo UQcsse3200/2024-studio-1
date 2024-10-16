@@ -7,9 +7,12 @@ import com.csse3200.game.components.player.PlayerActions;
 import com.csse3200.game.components.player.inventory.BuffItem;
 import com.csse3200.game.entities.Entity;
 
+/**
+ * Boosts the max speed and heal.
+ */
 public class DivinePotion extends BuffItem {
     private static final int POTION_BOOST = 30;
-    Vector2 maxSpeed = new Vector2(6f, 6f);
+    private final Vector2 maxSpeed = new Vector2(6f, 6f);
 
     /**
      * Return a string representation of this collectible that can be parsed by CollectibleFactory
@@ -65,6 +68,11 @@ public class DivinePotion extends BuffItem {
         combatStats.setHealth(newHealth);
     }
 
+    /**
+     * Gain only the speed component of the Divine Potion.
+     *
+     * @param entity the entity to boost the speed of.
+     */
     public void speed(Entity entity) {
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
 
@@ -89,7 +97,7 @@ public class DivinePotion extends BuffItem {
         }
 
         // Trigger event to update the speed percentage in the UI
-        entity.getEvents().trigger("updateSpeedUI", newSpeedPercentage);
+        entity.getEvents().trigger("updateSpeedUI", newSpeedPercentage, "divine");
     }
 
 }

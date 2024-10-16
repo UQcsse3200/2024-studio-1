@@ -30,7 +30,7 @@ public class LoseScreenDisplay extends UIComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(LoseScreenDisplay.class);
     private static final float Z_INDEX = 2f;
-    private static final float Y_PADDING = 100f;
+    private static final float Y_PADDING = 20f;
     private final GdxGame game;
     private Table table;
     private String LastAttackAnimal;
@@ -160,7 +160,6 @@ public class LoseScreenDisplay extends UIComponent {
         Label animalName;
         Image playerDead;
 
-   
         if(animals.contains(LastAttackAnimal)){
             backgroundTexture = new Texture(Gdx.files.internal(backgroundPaths[animals.indexOf(LastAttackAnimal)]));
             Image background = new Image(backgroundTexture);
@@ -200,23 +199,24 @@ public class LoseScreenDisplay extends UIComponent {
             }
         });
 
-// Score section 
-
+        // Score section
         table.row();
         Label scoreLabel = new Label("Final Scores", skin, "cutscene");
-        table.add(scoreLabel).center().padBottom(20).padTop(10);
+        table.add(scoreLabel).center().padTop(40f);
 
         table.row();
-        Label coinsLabel = new Label("Coins:     "+String.valueOf(scoreList.getScore().get("coins")), skin, "cutscene");
+        Label coinsLabel = new Label(
+                "Coins:     " + scoreList.getScore().get("coins"), skin, "cutscene");
         table.add(coinsLabel).padLeft(10);
         table.row();
-        Label killsLabel = new Label("Kills:     "+String.valueOf(scoreList.getScore().get("kills") ),skin, "cutscene");
+        Label killsLabel = new Label(
+                "Kills:     " + scoreList.getScore().get("kills"), skin, "cutscene");
         table.add(killsLabel);
 
         table.row();
         table.add(exitBtn).colspan(3).center().padTop(Y_PADDING);
 
-// Add table to the stage
+        // Add table to the stage
         stage.addActor(table);
     }
 

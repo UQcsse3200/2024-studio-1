@@ -73,8 +73,10 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
         if (bossRangeAttack != null) {
             setShootPattern(bossRangeAttack, numShot);
             bossRangeAttack.setSpeedCoefficient(0.4f);
+            bossRangeAttack.setAttackCooldown(bossRangeAttack.getAttackCooldown() * 1.8f);
             if (rangeAttack != null) {
                 rangeAttack.setSpeedCoefficient(0.4f);
+                rangeAttack.setAttackCooldown(rangeAttack.getAttackCooldown() * 1.8f);
             }
             bossRangeAttack.setEnabled(true);
             logger.debug("BossRangeAttackComponent enabled.");
@@ -132,6 +134,7 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
             RangeAttackComponent rangeAttack = owner.getEntity().getComponent(RangeAttackComponent.class);
             if (rangeAttack != null) {
                 rangeAttack.setSpeedCoefficient(1f);
+                rangeAttack.setAttackCooldown(rangeAttack.getAttackCooldown() * 0.55f);
             }
 
             logger.debug("BossRangeAttackComponent disabled.");

@@ -18,6 +18,7 @@ import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.services.RandomService;
 import com.csse3200.game.physics.PhysicsService;
 import com.csse3200.game.physics.PhysicsEngine;
 import com.badlogic.gdx.physics.box2d.World;
@@ -29,9 +30,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Optional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class GameControllerTest {
 
@@ -65,6 +64,7 @@ class GameControllerTest {
         when(spyPhysicsService.getPhysics().getWorld().isLocked()).thenReturn(false);
 
         ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerRandomService(new RandomService(""));
         ServiceLocator.registerPhysicsService(spyPhysicsService);
         ServiceLocator.registerRenderService(spyRenderService);
         ServiceLocator.registerResourceService(spyResourceService);
@@ -96,16 +96,6 @@ class GameControllerTest {
     }
 
     @Test
-    void testGetFlaggedRoom() {
-        when(mockLevel.getMap()).thenReturn(mock(LevelMap.class));
-        when(mockLevel.getMap().getMapData()).thenReturn(mock(MapGenerator.class));
-        when(mockLevel.getMap().getMapData().getRoomKey("Boss")).thenReturn("bossRoom");
-
-        assertEquals("bossRoom", gameController.getFlaggedRoom("Boss"));
-        assertThrows(IllegalArgumentException.class, () -> gameController.getFlaggedRoom("InvalidType"));
-    }
-
-    @Test
     void testChangeRooms() {
         gameController.changeRooms("newRoom");
         verify(mockRoom).removeRoom();
@@ -113,8 +103,9 @@ class GameControllerTest {
     }
 
     @Test
-    void testChangeLevelB() {
+    void testUpdateLevel() {
         gameController.changeLevel(1);
+        gameController.updateLevel();
         verify(mockLevelFactory).create(1);
         verify(spyGameArea).spawnEntity(any(Entity.class));
     }

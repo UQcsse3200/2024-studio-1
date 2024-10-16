@@ -29,6 +29,18 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	}
 }
 com.badlogic.gdx.graphics.Color: {
+	darkgray: {
+		r: 0.2
+		g: 0.2
+		b: 0.2
+		a: 1
+	}
+	lightgray: {
+		r: 0.8
+		g: 0.8
+		b: 0.8
+		a: 1
+	}
 	black: {
 		r: 0
 		g: 0
@@ -89,11 +101,11 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0.33725490196078434
 		a: 1
 	}
-}
+},
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	action-button-c: {
 		name: button
-		color: palette-purple
+		color: lightgray
 	}
 	action-button-p: {
 		name: button,
@@ -377,8 +389,8 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: font
-		fontColor: black
+		font: font,
+		fontColor: gray
 	}
 	button: {
 		font: button
@@ -403,6 +415,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	terminal: {
 		font: pixel_font,
 		fontColor: black
+	}
+	"whiteTitle": {
+		"font": pixel_font,
+		"fontColor": white,
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
@@ -483,7 +499,7 @@ com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		font: button
-		fontColor: color_dark
+		fontColor: lightgray
 		downFontColor: black
 		overFontColor: gray
 		up: button-c
@@ -491,8 +507,8 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		over: button-h
 	}
 	action: {
-		font: button
-		fontColor: color
+		font: button,
+		fontColor: palette-purple,
 		downFontColor: white
 		overFontColor: gray
 		up: action-button-c

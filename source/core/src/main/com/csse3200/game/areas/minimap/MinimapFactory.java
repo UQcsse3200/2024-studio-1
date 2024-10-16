@@ -64,18 +64,14 @@ public class MinimapFactory {
                 minimapSkin.getRegion("0001"),
                 minimapSkin.getRegion("1011"),
                 minimapSkin.getRegion("0000"),
-                minimapSkin.getRegion("1000_gambling"),
-                minimapSkin.getRegion("0100_gambling"),
-                minimapSkin.getRegion("0010_gambling"),
-                minimapSkin.getRegion("0001_gambling"),
                 minimapSkin.getRegion("1000_boss"),
                 minimapSkin.getRegion("0100_boss"),
                 minimapSkin.getRegion("0010_boss"),
                 minimapSkin.getRegion("0001_boss"),
-                minimapSkin.getRegion("1000_npc"),
-                minimapSkin.getRegion("0100_npc"),
-                minimapSkin.getRegion("0010_npc"),
-                minimapSkin.getRegion("0001_npc")
+                minimapSkin.getRegion("1000_shop"),
+                minimapSkin.getRegion("0100_shop"),
+                minimapSkin.getRegion("0010_shop"),
+                minimapSkin.getRegion("0001_shop")
         };
     }
 
@@ -140,10 +136,8 @@ public class MinimapFactory {
 
                     if (tempRoom instanceof BossRoom) {
                         connectionCode += "_boss";
-                    } else if (tempRoom instanceof GambleRoom) {
-                        connectionCode += "_gambling";
                     } else if (tempRoom instanceof ShopRoom) {
-                        connectionCode += "_npc";
+                        connectionCode += "_shop";
                     }
 
                     // Assign the correct tile based on the connection code
@@ -261,30 +255,22 @@ public class MinimapFactory {
                 return 13;
             case "1011":
                 return 14;
-            case "1000_gambling":
-                return 16;
-            case "0100_gambling":
-                return 17;
-            case "0010_gambling":
-                return 18;
-            case "0001_gambling":
-                return 19;
             case "1000_boss":
-                return 20;
+                return 16;
             case "0100_boss":
-                return 21;
+                return 17;
             case "0010_boss":
-                return 22;
+                return 18;
             case "0001_boss":
+                return 19;
+            case "1000_shop":
+                return 20;
+            case "0100_shop":
+                return 21;
+            case "0010_shop":
+                return 22;
+            case "0001_shop":
                 return 23;
-            case "1000_npc":
-                return 24;
-            case "0100_npc":
-                return 25;
-            case "0010_npc":
-                return 26;
-            case "0001_npc":
-                return 27;
             default:
                 return 15; // 0000 (no connections)
         }

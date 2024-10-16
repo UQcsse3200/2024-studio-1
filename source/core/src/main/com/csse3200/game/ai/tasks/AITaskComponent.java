@@ -37,9 +37,19 @@ public class AITaskComponent extends Component implements TaskRunner {
    */
   public AITaskComponent addTask(PriorityTask task) {
     logger.debug("{} Adding task {}", this, task);
-    priorityTasks.add(task);
-    task.create(this);
 
+    // Check if the task is targeting a dummy
+    if (task instanceof ChaseTask chaseTask && chaseTask.getTarget().getName().equals("Target Dummy")) {
+      // Add the dummy-related task to the front of the priority list
+      priorityTasks.addFirst(task);
+    } else if (task instanceof ChargeTask chargeTask && chargeTask.getTarget().getName().equals("Target Dummy")) {
+      // Add the dummy-related task to the front of the priority list
+      priorityTasks.addFirst(task);
+    } else {
+      priorityTasks.add(task);
+    }
+
+    task.create(this);
     return this;
   }
 
@@ -65,6 +75,30 @@ public class AITaskComponent extends Component implements TaskRunner {
     if (currentTask != null) {
       currentTask.stop();
     }
+  }
+
+  /**
+   * Retrieves a copy of the current list of tasks.
+   *
+   * @return A list of current PriorityTasks.
+   */
+  public List<PriorityTask> getTasks() {
+    return new ArrayList<>(priorityTasks);
+  }
+
+  /**
+   * Stops all tasks and clears the task list.
+   */
+  public void stopAllTasks() {
+    if (currentTask != null && currentTask.getStatus() != Task.Status.INACTIVE) {
+      currentTask.stop();
+    }
+    for (PriorityTask task : priorityTasks) {
+      if (task.getStatus() != Task.Status.INACTIVE) {
+        task.stop();
+      }
+    }
+    priorityTasks.clear();
   }
 
   private PriorityTask getHighestPriorityTask() {

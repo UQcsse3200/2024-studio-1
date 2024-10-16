@@ -24,12 +24,15 @@ import com.csse3200.game.rendering.WeaponAnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * A factory that creates weapons.
  */
 public class WeaponFactory extends LoadedFactory {
 
-    private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeaponFactory.class);
 
     public WeaponFactory() {
         super(logger);
@@ -92,6 +95,7 @@ public class WeaponFactory extends LoadedFactory {
 
     /**
      * Create weapon entity for player to use. Should only be invoke from WeaponComponent
+     *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      * @throws IllegalArgumentException with invalid input collectible
@@ -104,8 +108,7 @@ public class WeaponFactory extends LoadedFactory {
                 return createRangeEntity((RangedWeapon) collectible);
             }
             throw new IllegalArgumentException();
-        }
-        catch (IllegalArgumentException | NullPointerException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             logger.error("Failed to create weapon entity:{}", e.toString());
             throw new IllegalArgumentException("Invalid collectible");
         }
@@ -114,6 +117,7 @@ public class WeaponFactory extends LoadedFactory {
     /**
      * Create melee for the player to use. This weapon entity will not have the collectible
      * component
+     *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      * @throws IllegalArgumentException with invalid input collectible
@@ -139,7 +143,7 @@ public class WeaponFactory extends LoadedFactory {
         meleeEntity.getComponent(ColliderComponent.class).setAsBox(new Vector2(1, 1));
         meleeEntity.setScale(2.0f, 2.0f);
 
-        logger.info("Created melee weapon entity: " + collectible);
+        logger.info("Created melee weapon entity: {}", collectible);
 
         return meleeEntity;
     }
@@ -147,6 +151,7 @@ public class WeaponFactory extends LoadedFactory {
     /**
      * Create range weapon for the player to use. This weapon entity will not have the collectible
      * component
+     *
      * @param collectible the weapon to convert
      * @return the final entity containing the weapon.
      * @throws IllegalArgumentException with invalid input collectible
@@ -171,8 +176,7 @@ public class WeaponFactory extends LoadedFactory {
         rangedEntity.getComponent(ColliderComponent.class).setSensor(true);
         rangedEntity.getComponent(WeaponAnimationRenderComponent.class).startAnimation("idle");
         rangedEntity.getComponent(HitboxComponent.class).setSize(new Vector2(3f, 3f));
-        logger.info("Created range weapon entity: " + collectible);
-
+        logger.info("Created range weapon entity: {}", collectible);
         return rangedEntity;
     }
 
@@ -194,8 +198,7 @@ public class WeaponFactory extends LoadedFactory {
         } else if (weapon.getType() == Collectible.Type.OFF_HAND) {
             // Only for swords
             animator.addAnimation("item", 0.05f, Animation.PlayMode.NORMAL);
-        }
-        else {
+        } else {
             logger.warn("Invalid collectible passed");
         }
         return animator;
@@ -221,7 +224,7 @@ public class WeaponFactory extends LoadedFactory {
      * @return the filepath needed.
      */
     @Override
-    protected String[] getTextureAtlasFilepaths(){
+    protected String[] getTextureAtlasFilepaths() {
         return new String[]{
                 "images/Weapons/knife.atlas",
                 "images/Weapons/axe.atlas",
@@ -231,5 +234,15 @@ public class WeaponFactory extends LoadedFactory {
                 "images/Weapons/pistol.atlas",
                 "images/Weapons/plasmablaster.atlas"
         };
+    }
+
+    public Collection<String> getAllSpecs() {
+        return List.of(
+                "ranged:shotgun",
+                "ranged:plasmablaster",
+                "ranged:supersoaker",
+                "melee:knife",
+                "melee:axe"
+        );
     }
 }

@@ -160,7 +160,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         if (this.taskShoot != null) {
             this.taskShoot.cancel();
         }
-        if (this.directionShooting.isZero()){
+        if (this.directionShooting.isZero()) {
             this.taskShoot.cancel();
             return true;
         }
@@ -227,6 +227,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case 6 -> entity.getEvents().trigger("use6");
             case 7 -> entity.getEvents().trigger("use7");
             case 8 -> entity.getEvents().trigger("useReroll");
+            case 9 -> entity.getEvents().trigger("use9");
         }
         return true;
     }
@@ -243,6 +244,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     /**
      * Switches all the pets for the necromancer to target their closest Entity
+     *
      * @return true
      */
     private boolean petTargetSwitch() {
@@ -265,6 +267,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     /**
+     * Teleport the player to the boss room.
      *
      * @return true if the key binding is done or if the entity is already in the boss room
      */
@@ -310,6 +313,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         actionMap.put(USE_5, (i) -> useItem(5));
         actionMap.put(USE_6, (i) -> useItem(6));
         actionMap.put(USE_7, (i) -> useItem(7));
+        actionMap.put(USE_9, (i) -> useItem(9));
 
         actionMap.put(ENTER_BOSS, (i) -> bossTeleport());
         actionMap.put(ENTER_SHOP, (i) -> shopTeleport());
@@ -405,19 +409,18 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private void triggerWalkEvent() {
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("walkStop");
-        } else {
-            entity.getEvents().trigger("walk", walkDirection);
-            String direction = getDirection(walkDirection);
-            switch (direction) {
-                case "LEFT" -> entity.getEvents().trigger("walkLeft");
-                case "UP" -> entity.getEvents().trigger("walkUp");
-                case "RIGHT" -> entity.getEvents().trigger("walkRight");
-                case "DOWN" -> entity.getEvents().trigger("walkDown");
-                case "NONE" -> {
-                    // Handle no movement or default case
-                }
+            return;
+        }
+        entity.getEvents().trigger("walk", walkDirection);
+        String direction = getDirection(walkDirection);
+        switch (direction) {
+            case "LEFT" -> entity.getEvents().trigger("walkLeft");
+            case "UP" -> entity.getEvents().trigger("walkUp");
+            case "RIGHT" -> entity.getEvents().trigger("walkRight");
+            case "DOWN" -> entity.getEvents().trigger("walkDown");
+            case "NONE" -> {
+                // Handle no movement or default case
             }
         }
     }
 }
-

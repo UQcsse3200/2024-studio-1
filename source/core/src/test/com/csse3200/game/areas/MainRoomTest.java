@@ -20,6 +20,8 @@ import com.csse3200.game.events.EventHandler;
 import com.csse3200.game.areas.GameAreaService;
 import com.csse3200.game.components.CameraComponent;
 import com.csse3200.game.services.ResourceService;
+import com.csse3200.game.components.player.PlayerConfigComponent;
+import com.csse3200.game.entities.configs.PlayerConfig;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.components.CombatStatsComponent;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +39,9 @@ class MainRoomTest {
     private Entity mockPlayer;
     private EntityService mockEntityService;
     private ResourceService mockResourceService;
+    private GameController mockGameController;
+    private PlayerConfigComponent mockComponent;
+    private PlayerConfig mockConfig;
 
     @BeforeEach
     void setUp() {
@@ -49,6 +54,10 @@ class MainRoomTest {
         mockPlayer = mock(Entity.class);
         mockEntityService = mock(EntityService.class);
         mockResourceService = mock(ResourceService.class);
+        mockGameController = mock(GameController.class);
+        mockComponent = mock(PlayerConfigComponent.class);
+        mockConfig = mock(PlayerConfig.class);
+        mockConfig.name = "bear";
 
         // Set up ServiceLocator mocks
         ServiceLocator.registerGameAreaService(mockGameAreaService);
@@ -56,6 +65,11 @@ class MainRoomTest {
         ServiceLocator.registerResourceService(mockResourceService);
 
         when(mockGameAreaService.getGameArea()).thenReturn(mockGameArea);
+        when(mockGameAreaService.getGameController()).thenReturn(mockGameController);
+        when(mockGameController.getPlayer()).thenReturn(mockPlayer);
+        when(mockPlayer.getComponent(PlayerConfigComponent.class)).thenReturn(mockComponent);
+        when(mockComponent.getPlayerConfig()).thenReturn(mockConfig);
+        //when(mockConfig.name).thenReturn("bear");
 
         List<String> roomConnections = new ArrayList<>();
         mainRoom = new MainRoom(mockNpcFactory, mockCollectibleFactory, spyTerrainFactory,

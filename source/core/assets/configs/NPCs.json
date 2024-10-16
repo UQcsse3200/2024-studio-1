@@ -283,7 +283,7 @@
         "wanderSpeed": 1.5
       },
       "chase": {
-        "chaseSpeed": 2.5,
+        "chaseSpeed": 2,
         "viewDistance": 4,
         "chaseDistance": 5
       },
@@ -517,7 +517,7 @@
   ]
 },
   "cthulu": {
-    "health": 1000,
+    "health": 9000,
     "strength": 9,
     "baseAttack": 30,
     "variableDensity": true,
@@ -621,7 +621,7 @@
       ]
   },
   "kitsune": {
-    "health": 1000,
+    "health": 6000,
     "baseAttack": 40,
     "isDirectional": true,
     "variableDensity": true,
@@ -689,7 +689,7 @@
       },
       "ranged": {
         "range": 12,
-        "rate": 2,
+        "rate": 0.5,
         "type": 1
       }
     },
@@ -711,7 +711,7 @@
       ]
   },
   "birdman": {
-    "health": 1500,
+    "health": 4500,
     "strength": 9,
     "baseAttack": 40,
     "variableDensity": true,
@@ -730,7 +730,7 @@
         "wanderSpeed": 0.4
       },
       "chase": {
-        "chaseSpeed": 2,
+        "chaseSpeed": 1.5,
         "viewDistance": 10,
         "chaseDistance": 10.5,
         "maxTime": 5
@@ -767,7 +767,7 @@
         "effects": [
             {
               "type": "STUN",
-              "duration": 1
+              "duration": 0.4
             }
           ]
       },

@@ -5,14 +5,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
 import com.csse3200.game.components.player.PlayerFactoryFactory;
 import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.files.UserSettings;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -32,9 +31,9 @@ public class PlayerSelectDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private final GdxGame game;
     private Table rootTable;
+    private TextField seedInputField;
     private static final float ROOT_PADDING = 10f;
     private static final float STAT_TABLE_PADDING = 2f;
-    private static final float BAR_HEIGHT = 20;
     private static final float PROPORTION = 0.8f;
 
     private final PlayerFactoryFactory playerFactoryFactory = new PlayerFactoryFactory();
@@ -116,6 +115,14 @@ public class PlayerSelectDisplay extends UIComponent {
             button.getLabel().setFontScale((float) Gdx.graphics.getWidth() / 1600);
         });
 
+        // Add seed input field at the bottom
+        rootTable.row().padTop(20);
+        Label seedLabel = new Label("Enter Seed:", skin);
+        seedInputField = new TextField("", skin);
+        rootTable.add(seedLabel).colspan(configs.size());
+        rootTable.row();
+        rootTable.add(seedInputField).colspan(configs.size()).fillX().padBottom(20);
+
         Image bgImage = new Image(getResourceService().getAsset(BG_IMAGE, Texture.class));
         bgImage.setFillParent(true);
 
@@ -141,9 +148,24 @@ public class PlayerSelectDisplay extends UIComponent {
     }
 
     private void playerSelected(String name) {
-        logger.info("Player chosen: {}", name);
-        game.gameOptions.setPlayerFactory(playerFactoryFactory.create(name));
-        game.setScreen(ScreenType.CUTSCENE);
+        // Check if seed input field is empty, and use default "seed" if empty
+        String seed = seedInputField.getText().isEmpty() ? "seed" : seedInputField.getText();
+        logger.info("Player chosen: {} with seed: {}", name, seed);
+
+        // Assign selected player and seed to game options
+        game.gameOptions.playerFactory = playerFactoryFactory.create(name);
+        game.gameOptions.seed = seed;
+
+        // Fetch user settings to check if cutscene is enabled
+        UserSettings.Settings currentSettings = UserSettings.get();
+        boolean cutsceneEnabled = currentSettings.enableCutscene;
+
+        // Redirect to cutscene or main game based on the cutscene setting
+        if (cutsceneEnabled) {
+            game.setScreen(ScreenType.CUTSCENE); // If cutscene is enabled
+        } else {
+            game.setScreen(ScreenType.MAIN_GAME); // If cutscene is disabled
+        }
     }
 
     @Override

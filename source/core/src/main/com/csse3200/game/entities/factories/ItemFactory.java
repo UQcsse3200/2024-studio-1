@@ -1,12 +1,15 @@
 package com.csse3200.game.entities.factories;
 
 import com.csse3200.game.components.player.inventory.Collectible;
+import com.csse3200.game.components.player.inventory.buffs.GoblinsGamble;
+import com.csse3200.game.components.player.inventory.buffs.WerewolfFang;
 import com.csse3200.game.components.player.inventory.buffs.*;
 import com.csse3200.game.components.player.inventory.pets.RingFire;
 import com.csse3200.game.components.player.inventory.pets.Tombstone;
 import com.csse3200.game.components.player.inventory.usables.*;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,9 +37,11 @@ public class ItemFactory {
                                                             : new Tombstone(args[0]));
         creators.put("ringfire", (args) -> new RingFire());
         creators.put("divinepotion", (args) -> new DivinePotion());
-        creators.put("bleedbuff", (args) -> new BleedBuff());
         creators.put("bigredbutton", (args) -> new BigRedButton());
         creators.put("teleporter", (args) -> new TeleporterItem());
+        creators.put("goblinsgamble", (args) -> new GoblinsGamble());
+        creators.put("fang", (args)-> new WerewolfFang());
+        creators.put("gasoline", (args) -> new Gasoline());
         return creators;
     }
 
@@ -50,6 +55,7 @@ public class ItemFactory {
         String[] arguments = specification.split(":");
         String type = arguments[0];
 
+
         arguments = Arrays.stream(Arrays.copyOfRange(arguments, 1, arguments.length))
                 .filter(s -> !s.equals("mystery"))
                 .toArray(String[]::new);
@@ -59,6 +65,19 @@ public class ItemFactory {
         });
 
         return creator.create(arguments);
+    }
+
+    /**
+     * Generate a list of all valid specifications this factory can generate.
+     *
+     * @return the specifications as a List.
+     */
+    public Collection<String> getAllSpecs() {
+        return creators.keySet()
+                .stream()
+                .filter(s -> !s.equals("energydrink"))
+                .map(s -> "item:" + s)
+                .toList();
     }
 
     private interface ItemCreator {

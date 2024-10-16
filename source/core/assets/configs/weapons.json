@@ -1,6 +1,6 @@
 {
   "knife":{
-    "damage": 10,
+    "damage": 40,
     "range": 1,
     "attackSpeed": 1,
     "attackType": "melee",
@@ -8,7 +8,7 @@
     "attackSoundVolume": 0.5
   },
   "pistol":{
-      "damage": 20,
+      "damage": 50,
       "range": 10,
       "attackSpeed": 1,
       "attackType": "ranged",

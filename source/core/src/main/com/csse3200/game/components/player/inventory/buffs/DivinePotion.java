@@ -61,7 +61,7 @@ public class DivinePotion extends BuffItem {
      *
      * @param entity whose health is increased.
      */
-    public void boost(Entity entity) {
+    private void boost(Entity entity) {
         CombatStatsComponent combatStats = entity.getComponent(CombatStatsComponent.class);
         int currentHealth = combatStats.getHealth();
         int newHealth = Math.min(currentHealth + POTION_BOOST, combatStats.getMaxHealth());
@@ -73,7 +73,7 @@ public class DivinePotion extends BuffItem {
      *
      * @param entity the entity to boost the speed of.
      */
-    public void speed(Entity entity) {
+    private void speed(Entity entity) {
         PlayerActions playerActions = entity.getComponent(PlayerActions.class);
 
         // Get the current speed and speed limit

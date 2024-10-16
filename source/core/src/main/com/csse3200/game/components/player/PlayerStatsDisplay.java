@@ -3,6 +3,7 @@ package com.csse3200.game.components.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -37,11 +38,13 @@ public class PlayerStatsDisplay extends UIComponent {
 
     private Image damageImage;
     private ProgressBar damageProgressBar;
-
+    private Image armorImage;
+    private ProgressBar armorProgressBar;
     private ArrayList<Label> labels;
     public static final String HEART_TEXTURE = "images/heart.png";
     public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
     public static final String DAMAGE_BUFF_TEXTURE = "images/items/damage_buff.png";
+    public static final String ARMOR_TEXTURE = "images/items/armor.png";
 
     /**
      * Creates reusable UI styles and adds actors to the stage.
@@ -62,7 +65,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
         entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
-
+        entity.getEvents().addListener("updateArmor", this::updateArmorUI);
         initializeWeaponsAndAmmo();
     }
 
@@ -126,21 +129,41 @@ public class PlayerStatsDisplay extends UIComponent {
         float speedSideLength = 100f;
         speedImage = new Image(ServiceLocator.getResourceService().getAsset(SPEED_TEXTURE, Texture.class));
 
-        // Speed progress bar
-        speedProgressBar = new ProgressBar(0f, 1.5f, 0.1f, false, skin);
+        //Speed text
+        speedProgressBar = new ProgressBar(0f, 0.5f, 0.1f, false, skin);
+        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrPlayerSpeed();
+        Vector2 baseSpeed = entity.getComponent(PlayerActions.class).getBaseSpeed();
+        float newSpeedPercentage = entity.getComponent(PlayerActions.class).getSpeedProgressBarProportion(currSpeed, baseSpeed);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
+        speedProgressBar.setValue(newSpeedPercentage);
+        /*
+        //Temporarily commented out in case design team prefers text instead of progress bar
+        float speedPercentage = entity.getComponent(PlayerActions.class).getTotalSpeedBoost();
+        CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
+        speedLabelText = new Label(speedText, skin, "small");
+         */
 
-        // Damage progress bar
+        //Damage Progress bar
+        //Will need to check values
         float damageSideLength = 50f;
         damageImage = new Image(ServiceLocator.getResourceService().getAsset(DAMAGE_BUFF_TEXTURE, Texture.class));
-        damageProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        damageProgressBar = new ProgressBar(0f, 200f, 0.1f, false, skin);
         damageProgressBar.setWidth(200f);
         damageProgressBar.setAnimateDuration(2.0f);
-
+      
         // Weapon labels
         meleeLabel = new Label("Melee x 1", skin, "small");   // Updated melee label
         gunLabel = new Label("Gun: 0", skin, "small");       // Updated gun label
+
+        // Armor image and progress bar
+        float armorSideLength = 50f;
+        armorImage = new Image(ServiceLocator.getResourceService().getAsset(ARMOR_TEXTURE, Texture.class));
+
+        // Armor progress bar (update the max armor as per the player's max armor value)
+        armorProgressBar = new ProgressBar(0f, 100f, 1f, false, skin);
+        armorProgressBar.setWidth(200f);
+        armorProgressBar.setAnimateDuration(2.0f);
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
@@ -158,7 +181,9 @@ public class PlayerStatsDisplay extends UIComponent {
         table.add(meleeLabel).colspan(2).padLeft(10).left();
         labels.add(meleeLabel);
 
-        // Add the gun label
+        table.add(armorImage).size(armorSideLength).pad(5);
+        table.add(armorProgressBar).padLeft(10).left().width(200);
+        
         table.row().padTop(10);
         table.add(gunLabel).colspan(2).padLeft(10).left();
 
@@ -263,6 +288,10 @@ public class PlayerStatsDisplay extends UIComponent {
 
     public void updateDamageUI(int damage) {
         damageProgressBar.setValue(damage);
+    }
+
+    public void updateArmorUI(int currentArmor) {
+        armorProgressBar.setValue(currentArmor);
     }
 
     @Override

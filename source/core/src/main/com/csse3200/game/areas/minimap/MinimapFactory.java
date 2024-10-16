@@ -68,10 +68,10 @@ public class MinimapFactory {
                 minimapSkin.getRegion("0100_boss"),
                 minimapSkin.getRegion("0010_boss"),
                 minimapSkin.getRegion("0001_boss"),
-                minimapSkin.getRegion("1000_shop"),
-                minimapSkin.getRegion("0100_shop"),
-                minimapSkin.getRegion("0010_shop"),
-                minimapSkin.getRegion("0001_shop")
+                minimapSkin.getRegion("1000_npc"),
+                minimapSkin.getRegion("0100_npc"),
+                minimapSkin.getRegion("0010_npc"),
+                minimapSkin.getRegion("0001_npc")
         };
     }
 
@@ -137,7 +137,7 @@ public class MinimapFactory {
                     if (tempRoom instanceof BossRoom) {
                         connectionCode += "_boss";
                     } else if (tempRoom instanceof ShopRoom) {
-                        connectionCode += "_shop";
+                        connectionCode += "_npc";
                     }
 
                     // Assign the correct tile based on the connection code
@@ -263,13 +263,13 @@ public class MinimapFactory {
                 return 18;
             case "0001_boss":
                 return 19;
-            case "1000_shop":
+            case "1000_npc":
                 return 20;
-            case "0100_shop":
+            case "0100_npc":
                 return 21;
-            case "0010_shop":
+            case "0010_npc":
                 return 22;
-            case "0001_shop":
+            case "0001_npc":
                 return 23;
             default:
                 return 15; // 0000 (no connections)

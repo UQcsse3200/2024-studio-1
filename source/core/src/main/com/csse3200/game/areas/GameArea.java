@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.terrain.TerrainComponent;
 import com.csse3200.game.components.NameComponent;
-import com.csse3200.game.areas.minimap.MinimapFactory;
-import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.components.gamearea.GameAreaDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.LoadedFactory;
@@ -26,10 +24,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * <p>Support for enabling/disabling game areas could be added by making this a Component instead.
  */
 public class GameArea extends LoadedFactory {
-    /**
-     * Factory for creating minimaps.
-     */
-    private MinimapFactory minimapFactory;
     private static final Logger log = LoggerFactory.getLogger(GameArea.class);
     protected TerrainComponent terrain;
     protected List<Entity> areaEntities;
@@ -84,19 +78,6 @@ public class GameArea extends LoadedFactory {
         ServiceLocator.getEntityService().register(entity);
     }
 
-
-    public void updateMinimap(String roomKey){
-        minimapFactory.updateMinimap(roomKey);
-    }
-
-    public void generateMinimap(Level curLevel){
-        this.minimapFactory = new MinimapFactory(curLevel, 0.5f);
-        MinimapComponent minimapComponent = minimapFactory.createMinimap();
-
-        Entity minimap = new Entity();
-        minimap.addComponent(minimapComponent);
-        spawnEntity(minimap);
-    }
     /**
      * Spawn entity on a given tile. Requires the terrain to be set first.
      *

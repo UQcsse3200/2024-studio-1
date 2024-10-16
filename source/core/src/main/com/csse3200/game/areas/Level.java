@@ -1,39 +1,39 @@
 package com.csse3200.game.areas;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+
 /**
- * A public interface for interacting with Levels.
- * <p>
- * Levels represent a collection of rooms,
- * typically ending in a Boss Room with stairs to a new Level.
+ * A layer of the game consisting of a number of rooms for the player to overcome.
  */
-public interface Level {
+public class Level {
+    private static final Logger log = LoggerFactory.getLogger(Level.class);
+    private final LevelMap map;
+    private final int levelNumber;
+    private final Map<String, Room> rooms;
 
-    /**
-     * Get a room by door key.
-     *
-     * @param roomKey the key that selects the room.
-     * @return the fully constructed room.
-     */
-    Room getRoom(String roomKey);
+    public Level(LevelMap map, int levelNumber, Map<String, Room> rooms) {
+        this.map = map;
+        this.levelNumber = levelNumber;
+        this.rooms = rooms;
+    }
+    public Room getRoom(String roomKey) {
+        log.info("event recognised");
+        return rooms.get(roomKey);
+    }
 
-    /**
-     * Get the key for the first room the player should spawn into on this level.
-     *
-     * @return the key for the first room.
-     */
-    String getStartingRoomKey();
+    public String getStartingRoomKey() {
+        return "0_0";
+    }
 
-    /**
-     * Get number for this level (the "height" in the building.)
-     *
-     * @return the level number.
-     */
-    int getLevelNumber();
+    public int getLevelNumber() {
+        return levelNumber;
+    }
 
-    /**
-     * Get the map for this level.
-     *
-     * @return the level map.
-     */
-    LevelMap getMap();
+    public LevelMap getMap() {return map;}
+    public String toString(){
+        return ""+levelNumber;
+    }
 }

@@ -160,7 +160,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         if (this.taskShoot != null) {
             this.taskShoot.cancel();
         }
-        if (this.directionShooting.isZero()) {
+        if (this.directionShooting.isZero()){
             this.taskShoot.cancel();
             return true;
         }
@@ -244,7 +244,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     /**
      * Switches all the pets for the necromancer to target their closest Entity
-     *
      * @return true
      */
     private boolean petTargetSwitch() {
@@ -267,7 +266,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     /**
-     * Teleport the player to the boss room.
      *
      * @return true if the key binding is done or if the entity is already in the boss room
      */
@@ -409,18 +407,19 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private void triggerWalkEvent() {
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("walkStop");
-            return;
-        }
-        entity.getEvents().trigger("walk", walkDirection);
-        String direction = getDirection(walkDirection);
-        switch (direction) {
-            case "LEFT" -> entity.getEvents().trigger("walkLeft");
-            case "UP" -> entity.getEvents().trigger("walkUp");
-            case "RIGHT" -> entity.getEvents().trigger("walkRight");
-            case "DOWN" -> entity.getEvents().trigger("walkDown");
-            case "NONE" -> {
-                // Handle no movement or default case
+        } else {
+            entity.getEvents().trigger("walk", walkDirection);
+            String direction = getDirection(walkDirection);
+            switch (direction) {
+                case "LEFT" -> entity.getEvents().trigger("walkLeft");
+                case "UP" -> entity.getEvents().trigger("walkUp");
+                case "RIGHT" -> entity.getEvents().trigger("walkRight");
+                case "DOWN" -> entity.getEvents().trigger("walkDown");
+                case "NONE" -> {
+                    // Handle no movement or default case
+                }
             }
         }
     }
 }
+

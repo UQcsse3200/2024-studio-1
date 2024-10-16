@@ -94,6 +94,7 @@ public class PlayerInventoryDisplay extends UIComponent {
     public void create() {
         super.create();
         itemLabels = new HashMap<>();
+        //itemIcons = new HashMap<>();
         addActors();
         updateInventoryUI();
         if (entity.getEvents() != null) {
@@ -168,6 +169,7 @@ public class PlayerInventoryDisplay extends UIComponent {
      * This method will update the quantities of existing items.
      */
     public void updateInventoryUI() {
+
         Map<String, Integer> itemQuantities = getItemQuantities();
 
         // Update the displayed quantities

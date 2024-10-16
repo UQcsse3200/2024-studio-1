@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
@@ -187,7 +188,12 @@ public class SettingsMenuDisplay extends UIComponent {
 
         // ButtonGroup ensures only one checkbox is selected at a time
         ButtonGroup<CheckBox> walkButtonGroup = new ButtonGroup<>(wasdWalkCheckbox, arrowWalkCheckbox);
-        walkButtonGroup.setChecked("WASD"); // Default to WASD
+
+         if (settings.walkWithWASD) {
+            walkButtonGroup.setChecked("WASD");
+        } else {
+            walkButtonGroup.setChecked("Arrows");
+        }
 
         // Shoot Control Label and Checkboxes
         Label shootLabel = new Label("Shoot Control: ", skin);
@@ -195,7 +201,12 @@ public class SettingsMenuDisplay extends UIComponent {
         arrowShootCheckbox = new CheckBox("Arrows", skin);
 
         ButtonGroup<CheckBox> shootButtonGroup = new ButtonGroup<>(wasdShootCheckbox, arrowShootCheckbox);
-        shootButtonGroup.setChecked("Arrows"); // Default to Arrows
+
+         if (settings.shootWithWASD) {
+            shootButtonGroup.setChecked("WASD");
+        } else {
+            shootButtonGroup.setChecked("Arrows");
+        }
 
         table.row();
         // Add elements to the table
@@ -208,6 +219,46 @@ public class SettingsMenuDisplay extends UIComponent {
         table.add(arrowShootCheckbox).pad(10).row();
 
 
+         wasdWalkCheckbox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (wasdWalkCheckbox.isChecked()) {
+                    wasdShootCheckbox.setDisabled(true); // Disable WASD for shooting if WASD is selected for walking
+                } else {
+                    wasdShootCheckbox.setDisabled(false); // Re-enable WASD for shooting if walking is no longer WASD
+                }
+            }
+        });
+
+        arrowWalkCheckbox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (arrowWalkCheckbox.isChecked()) {
+                    wasdShootCheckbox.setDisabled(false);
+                }
+            }
+        });
+
+// Listener for shooting controls
+        wasdShootCheckbox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (wasdShootCheckbox.isChecked()) {
+                    wasdWalkCheckbox.setDisabled(true); // Disable WASD for walking if WASD is selected for shooting
+                } else {
+                    wasdWalkCheckbox.setDisabled(false); // Re-enable WASD for walking if shooting is no longer WASD
+                }
+            }
+        });
+
+        arrowShootCheckbox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (arrowShootCheckbox.isChecked()) {
+                    wasdWalkCheckbox.setDisabled(false); // Enable WASD for walking if Arrows is selected for shooting
+                }
+            }
+        });
 
 
 
@@ -327,8 +378,23 @@ public class SettingsMenuDisplay extends UIComponent {
             }
         };
 
-        // Add dialog text and buttons
-        confirmationDialog.text("Are you sure you want to apply these changes?");
+    
+
+        Table textTable = new Table();
+        textTable.align(Align.left);
+        Label confirmationText = new Label("Are you sure you want to apply these changes?", skin);
+        textTable.add(confirmationText).row();
+
+         // Add the warning text if conditions are met
+        if ((wasdWalkCheckbox.isChecked() && wasdShootCheckbox.isChecked()) ||
+                (arrowWalkCheckbox.isChecked() && arrowShootCheckbox.isChecked())) {
+            Label warningText = new Label("Both controls cannot be handled by the same keys", skin);
+            textTable.add(warningText).row(); // Add the warning text and move to the next row
+        }
+
+         // Add the table to the dialog
+        confirmationDialog.getContentTable().add(textTable).pad(20); // Add padding to the table
+
         confirmationDialog.button("Cancel", false); // "Cancel" button dismisses the dialog
         confirmationDialog.button("Okay", true);    // "Okay" button applies the changes
 

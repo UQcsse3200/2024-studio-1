@@ -63,9 +63,9 @@ public class AnimalDisplay extends UIComponent {
                 "Snake - 300 Health, 10 Base Attack, 1 Attack Range, 0.8 Attack Rate",
                 "Bear - 600 Health, 35 Base Attack, 1.5 Attack Range, 0.5 Attack Rate",
                 "Dragon - 200 Health, 15 Base Attack, 12 Max Attack Range, 1.5 Max Attack Rate",
-                "Kitsune - 1000 Health, 40 Base Attack, 12 Max Attack Range, 0.8 Max Attack Rate",
-                "Birdman - 1500 Health, 40 Base Attack, 2 Max Attack Range, 10 Max Attack Rate",
-                "Cthulu - 1000 Health, 30 Base Attack, 3 Max Attack Range, 10 Max Attack Rate",
+                "Kitsune - 6000 Health, 40 Base Attack, 12 Max Attack Range, 0.8 Max Attack Rate",
+                "Birdman - 4500 Health, 40 Base Attack, 2 Max Attack Range, 10 Max Attack Rate",
+                "Cthulu - 9000 Health, 30 Base Attack, 3 Max Attack Range, 10 Max Attack Rate",
                 "Werewolf - 1000 Health, 30 Base Attack, 3 Max Attack Range, 10 Max Attack Rate"
         };
 

@@ -22,6 +22,7 @@ public class EndgameService {
   } 
   public boolean shouldEnd(){
     return this.shouldEnd;}
+
   public void winGame(){
     if(shouldEnd){
             game.setScreen(GdxGame.ScreenType.WIN); 

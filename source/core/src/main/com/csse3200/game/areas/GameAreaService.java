@@ -19,7 +19,7 @@ public class GameAreaService {
 
     public void update() {
         EndgameService endGame = ServiceLocator.getEndgameService();
-        if(endGame.shouldEnd()){
+        if(endGame != null && endGame.shouldEnd()){
             endGame.winGame(); 
             return;
         }

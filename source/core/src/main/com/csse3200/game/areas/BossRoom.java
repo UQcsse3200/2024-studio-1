@@ -44,9 +44,9 @@ public class BossRoom extends EnemyRoom {
     protected List<List<String>> getItemSpecifications() {
         return List.of(
                 //List of three lists of items for 3 different levels to be spawned in base on which level player is in.
-                List.of("buff:energydrink:High", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
-                List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink:High", "item:shieldpotion"),
-                List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:High")
+                List.of("buff:energydrink:high", "item:medkit", "melee:knife", "ranged:shotgun", "item:shieldpotion"),
+                List.of("item:bandage", "melee:knife", "ranged:shotgun", "buff:energydrink:high", "item:shieldpotion"),
+                List.of("ranged:shotgun", "item:medkit", "melee:knife", "item:bandage", "buff:energydrink:high")
         );
     }
 

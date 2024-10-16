@@ -42,7 +42,7 @@ public class MainGameLevelFactory implements LevelFactory {
      */
     protected List<String> getShopRoomItems() {
         return List.of("buff:heart:buyable", "item:medkit:buyable", "item:shieldpotion:buyable",
-                "item:bandage:buyable", "buff:energydrink:Low:buyable", "buff:energydrink:Low:buyable",
+                "item:bandage:buyable", "buff:energydrink:low:buyable", "buff:energydrink:low:buyable",
                 "buff:syringe:buyable", "buff:armor:buyable", "buff:damagebuff:buyable",
                 "item:beartrap:buyable", "item:targetdummy:buyable", "item:reroll:buyable",
                 "buff:feather:buyable", "item:heart:buyable", "buff:divinepotion:buyable"

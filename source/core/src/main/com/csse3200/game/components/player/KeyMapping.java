@@ -110,27 +110,25 @@ public class KeyMapping {
 
             Map<Integer, KeyBinding> keyMap = new HashMap<>();
 
-        if (UserSettings.get().walkWithWASD) {
+       if (UserSettings.get().controlsWithWASD) {
             keyMap.put(Input.Keys.W, KeyBinding.WALK_UP);
             keyMap.put(Input.Keys.A, KeyBinding.WALK_LEFT);
             keyMap.put(Input.Keys.S, KeyBinding.WALK_DOWN);
             keyMap.put(Input.Keys.D, KeyBinding.WALK_RIGHT);
-        } else {
-            keyMap.put(Input.Keys.UP, KeyBinding.WALK_UP);
-            keyMap.put(Input.Keys.LEFT, KeyBinding.WALK_LEFT);
-            keyMap.put(Input.Keys.DOWN, KeyBinding.WALK_DOWN);
-            keyMap.put(Input.Keys.RIGHT, KeyBinding.WALK_RIGHT);
-        }
-        if (UserSettings.get().shootWithWASD) {
-            keyMap.put(Input.Keys.W, KeyBinding.SHOOT_UP);
-            keyMap.put(Input.Keys.A, KeyBinding.SHOOT_LEFT);
-            keyMap.put(Input.Keys.S, KeyBinding.SHOOT_DOWN);
-            keyMap.put(Input.Keys.D, KeyBinding.SHOOT_RIGHT);
-        } else {
             keyMap.put(Input.Keys.UP, KeyBinding.SHOOT_UP);
             keyMap.put(Input.Keys.LEFT, KeyBinding.SHOOT_LEFT);
             keyMap.put(Input.Keys.DOWN, KeyBinding.SHOOT_DOWN);
             keyMap.put(Input.Keys.RIGHT, KeyBinding.SHOOT_RIGHT);
+        }
+        else{
+            keyMap.put(Input.Keys.W, KeyBinding.SHOOT_UP);
+            keyMap.put(Input.Keys.A, KeyBinding.SHOOT_LEFT);
+            keyMap.put(Input.Keys.S, KeyBinding.SHOOT_DOWN);
+            keyMap.put(Input.Keys.D, KeyBinding.SHOOT_RIGHT);
+            keyMap.put(Input.Keys.UP, KeyBinding.WALK_UP);
+            keyMap.put(Input.Keys.LEFT, KeyBinding.WALK_LEFT);
+            keyMap.put(Input.Keys.DOWN, KeyBinding.WALK_DOWN);
+            keyMap.put(Input.Keys.RIGHT, KeyBinding.WALK_RIGHT);
         }
             keyMap.put(Input.Keys.SPACE, MELEE);
             keyMap.put(Input.Keys.NUM_1, USE_1);

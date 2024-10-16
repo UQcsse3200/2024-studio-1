@@ -28,7 +28,7 @@ public class ProjectileAttackComponent extends Component {
     private final short targetLayer;
     private CombatStatsComponent combatStats;
     private HitboxComponent hitboxComponent;
-    private final Vector2 speed;
+    private Vector2 speed;
     private final Vector2 direction;
     private final Vector2 parentPosition;
     private final float range;
@@ -45,6 +45,14 @@ public class ProjectileAttackComponent extends Component {
         this.direction = direction;
         this.parentPosition = parentPosition;
         this.range = range;
+    }
+
+    public void setSpeed(Vector2 v) {
+        speed = v;
+    }
+
+    public Vector2 getSpeed() {
+        return speed;
     }
 
     /**

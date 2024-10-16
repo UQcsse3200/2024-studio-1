@@ -29,6 +29,11 @@ public class LevelChangeListener extends UIComponent {
     @Override
     public void draw(SpriteBatch batch) {
         logger.debug("Drawing the corpse");
+        if (ServiceLocator.getGameAreaService() == null) {
+            // Not sure what is causing this, it might be this method being called after the
+            // service gets disposed but before the component gets disposed
+            return;
+        }
         int tempLevel = ServiceLocator.getGameAreaService().getGameController().getCurrentLevelNumber();
 
         if (tempLevel > currentLevel) {
@@ -48,6 +53,7 @@ public class LevelChangeListener extends UIComponent {
      */
     @Override
     public void dispose() {
+        logger.debug("Disposing the LevelChangeListener component");
         super.dispose();
     }
 }

@@ -29,9 +29,9 @@ public class WeaponConfig {
                 0, 4, 15, 15, 1,
                 "images" + "/Weapons/Centered/pistol.png"));
         WEAPON_CONFIGS.put("knife", new WeaponData("knife", 20,
-                4, 3, "images/Weapons/Centered/knife.png"));
+                3, 3, "images/Weapons/Centered/knife.png"));
         WEAPON_CONFIGS.put("axe", new WeaponData("axe", 80,
-                6, 1, "images/Weapons/Centered/axe.png"));
+                4, 1, "images/Weapons/Centered/axe.png"));
 
     }
 

@@ -1,5 +1,6 @@
 package com.csse3200.game.areas;
 
+import com.csse3200.game.areas.generation.RandomMapGenerator;
 import com.csse3200.game.areas.generation.RoomType;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.entities.configs.MapLoadConfig;
@@ -30,12 +31,15 @@ public class MainGameLevelFactory implements LevelFactory {
         this.shouldLoad = shouldLoad;
         this.config = config;
         this.rooms = new HashMap<>();
-        if (!shouldLoad) this.loadedRooms = new ArrayList<>();
-        else this.loadedRooms = config.roomsCompleted;
+        if (!shouldLoad) {
+            this.loadedRooms = new ArrayList<>();
+        } else {
+            this.loadedRooms = config.roomsCompleted;
+        }
     }
 
     /**
-     * List of all the items the game contains as buuyables. Will be used to randomly pick 6 items that will
+     * List of all the items the game contains as buyables. Will be used to randomly pick 6 items that will
      * be spawned in the shop room.
      *
      * @return List of items specifications.
@@ -71,7 +75,10 @@ public class MainGameLevelFactory implements LevelFactory {
 
     @Override
     public Level create(int levelNumber) {
-
+        for (int i = 1; i < levelNumber; i++) {
+            // this is shit but last minute hotfix
+            ServiceLocator.getRandomService().getRandomNumberGenerator(RandomMapGenerator.class);
+        }
         this.map = new LevelMap(shouldLoad ? config.mapSize : DEFAULT_MAP_SIZE);
 
         RoomFactory roomFactory = new RoomFactory(

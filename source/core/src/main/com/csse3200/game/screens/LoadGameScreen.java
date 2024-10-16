@@ -47,12 +47,10 @@ public class LoadGameScreen extends GameScreen {
         Entity player = gameOptions.createPlayer(config.difficulty);
         player.getEvents().addListener("player_finished_dying", this::loseGame);
 
-       // loadBuffs(player, config);
-
         logger.debug("Initialising load game screen entities");
         MapLoadConfig mapLoadConfig = FileLoader.readClass(MapLoadConfig.class,
                 MAP_SAVE_PATH, FileLoader.Location.EXTERNAL);
-        logger.debug("The gameOptions are", mapLoadConfig.seed);
+        logger.debug("The gameOptions are: {}", mapLoadConfig.seed);
         ServiceLocator.registerRandomService(new RandomService(mapLoadConfig.seed));
         LevelFactory levelFactory = new MainGameLevelFactory(true, mapLoadConfig);
         new GameController(new GameArea(), levelFactory, player, true, mapLoadConfig);
@@ -65,16 +63,6 @@ public class LoadGameScreen extends GameScreen {
             for (String petName : config.pets) {
                 Collectible pet = collectibleFactory.create(petName);
                 player.getComponent(InventoryComponent.class).pickup(pet);
-            }
-        }
-    }
-
-    private void loadBuffs(Entity player, PlayerConfig config) {
-        if (config.buffs != null) {
-            CollectibleFactory collectibleFactory = new CollectibleFactory();
-            for (String buffName: config.buffs) {
-                Collectible buff = collectibleFactory.create(buffName);
-                player.getComponent(InventoryComponent.class).pickup(buff);
             }
         }
     }

@@ -98,7 +98,6 @@ public class RandomMapGenerator implements MapGenerator {
         return this.playerPosition;
     }
 
-
     /**
      * Adds a blank room to the map.
      *

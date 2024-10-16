@@ -1,12 +1,10 @@
 package com.csse3200.game.areas;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.areas.minimap.MinimapComponent;
 import com.csse3200.game.areas.minimap.MinimapFactory;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
 import com.csse3200.game.entities.Entity;
-import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.entities.configs.MapLoadConfig;
 
@@ -131,17 +129,8 @@ public class GameController {
         getGameArea().load();
         logger.error("loaded all assets");
 
-
-
-
-        if (shouldLoad) {
-            changeLevel(Integer.parseInt(config.currentLevel));
-            updateLevel();
-            changeRooms(config.currentRoom);
-        } else {
-            changeLevel(0);
-            updateLevel();
-        }
+        changeLevel(shouldLoad ? Integer.parseInt(config.currentLevel) : 0);
+        updateLevel();
         getGameArea().playMusic(0);
     }
 
@@ -243,7 +232,7 @@ public class GameController {
         if (currentLevelNumber < 3) {
             // Create and load the new level
             this.currentLevel = this.levelFactory.create(currentLevelNumber);
-            selectRoom(this.currentLevel.getStartingRoomKey());
+            changeRooms((shouldLoad) ? config.currentRoom : this.currentLevel.getStartingRoomKey());
 
             // Initialize minimap
             // Initialize minimap

@@ -200,22 +200,18 @@ public class LoseScreenDisplay extends UIComponent {
             }
         });
 
-// Score section
-        Image coins = new Image(new Texture(Gdx.files.internal("images/items/coin.png")));
-        Image kills = new Image(new Texture(Gdx.files.internal("images/player/player_dead.png")));
+// Score section 
 
         table.row();
-        Label scoreLabel = new Label("Final Scores", skin, "title");
+        Label scoreLabel = new Label("Final Scores", skin, "cutscene");
         table.add(scoreLabel).center().padBottom(20).padTop(10);
 
         table.row();
-        Label coinsLabel = new Label("Coins:     "+String.valueOf(scoreList.getScore().get("coins")), skin, "title");
+        Label coinsLabel = new Label("Coins:     "+String.valueOf(scoreList.getScore().get("coins")), skin, "cutscene");
         table.add(coinsLabel).padLeft(10);
-        table.add(coins).center().width(50).height(50);
         table.row();
-        Label killsLabel = new Label("Kills:     "+String.valueOf(scoreList.getScore().get("kills") ),skin, "title");
+        Label killsLabel = new Label("Kills:     "+String.valueOf(scoreList.getScore().get("kills") ),skin, "cutscene");
         table.add(killsLabel);
-        table.add(kills).width(50).height(50).center();
 
         table.row();
         table.add(exitBtn).colspan(3).center().padTop(Y_PADDING);

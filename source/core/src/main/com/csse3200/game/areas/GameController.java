@@ -206,7 +206,7 @@ public class GameController {
         if (minimapFactory != null) {
             // update minimap
             gameArea.updateMinimap(roomKey);
-            //minimapFactory.updateMinimap(roomKey);
+            minimapFactory.updateMinimap(roomKey);
         } else {
             logger.error("MinimapFactory is null when updating minimap");
         }
@@ -248,12 +248,12 @@ public class GameController {
             // Initialize minimap
             // Initialize minimap
             gameArea.generateMinimap(getCurrentLevel());
-    //        this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
-    //        MinimapComponent minimapComponent = minimapFactory.createMinimap();
-    //
-    //        Entity minimap = new Entity();
-    //        minimap.addComponent(minimapComponent);
-    //        this.gameArea.spawnEntity(minimap);
+            this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
+            MinimapComponent minimapComponent = minimapFactory.createMinimap();
+
+            Entity minimap = new Entity();
+            minimap.addComponent(minimapComponent);
+            this.gameArea.spawnEntity(minimap);
         }
     }
 

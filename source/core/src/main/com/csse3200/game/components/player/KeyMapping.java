@@ -1,6 +1,7 @@
 package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.Input;
+import com.csse3200.game.files.UserSettings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -108,14 +109,27 @@ public class KeyMapping {
     public KeyMapping() {
 
             Map<Integer, KeyBinding> keyMap = new HashMap<>();
-            keyMap.put(Input.Keys.W, WALK_UP);
-            keyMap.put(Input.Keys.A, WALK_LEFT);
-            keyMap.put(Input.Keys.D, WALK_RIGHT);
-            keyMap.put(Input.Keys.S, WALK_DOWN);
-            keyMap.put(Input.Keys.LEFT, SHOOT_LEFT);
-            keyMap.put(Input.Keys.UP, SHOOT_UP);
-            keyMap.put(Input.Keys.RIGHT, SHOOT_RIGHT);
-            keyMap.put(Input.Keys.DOWN, SHOOT_DOWN);
+
+       if (UserSettings.get().controlsWithWASD) {
+            keyMap.put(Input.Keys.W, KeyBinding.WALK_UP);
+            keyMap.put(Input.Keys.A, KeyBinding.WALK_LEFT);
+            keyMap.put(Input.Keys.S, KeyBinding.WALK_DOWN);
+            keyMap.put(Input.Keys.D, KeyBinding.WALK_RIGHT);
+            keyMap.put(Input.Keys.UP, KeyBinding.SHOOT_UP);
+            keyMap.put(Input.Keys.LEFT, KeyBinding.SHOOT_LEFT);
+            keyMap.put(Input.Keys.DOWN, KeyBinding.SHOOT_DOWN);
+            keyMap.put(Input.Keys.RIGHT, KeyBinding.SHOOT_RIGHT);
+        }
+        else{
+            keyMap.put(Input.Keys.W, KeyBinding.SHOOT_UP);
+            keyMap.put(Input.Keys.A, KeyBinding.SHOOT_LEFT);
+            keyMap.put(Input.Keys.S, KeyBinding.SHOOT_DOWN);
+            keyMap.put(Input.Keys.D, KeyBinding.SHOOT_RIGHT);
+            keyMap.put(Input.Keys.UP, KeyBinding.WALK_UP);
+            keyMap.put(Input.Keys.LEFT, KeyBinding.WALK_LEFT);
+            keyMap.put(Input.Keys.DOWN, KeyBinding.WALK_DOWN);
+            keyMap.put(Input.Keys.RIGHT, KeyBinding.WALK_RIGHT);
+        }
             keyMap.put(Input.Keys.SPACE, MELEE);
             keyMap.put(Input.Keys.NUM_1, USE_1);
             keyMap.put(Input.Keys.NUM_2, USE_2);

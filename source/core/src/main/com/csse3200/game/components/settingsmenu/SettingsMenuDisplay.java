@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.csse3200.game.GdxGame;
 import com.csse3200.game.GdxGame.ScreenType;
@@ -43,6 +44,8 @@ public class SettingsMenuDisplay extends UIComponent {
     private Slider musicVolumeSlider;
     private Slider soundVolumeSlider;
     private CheckBox muteCheck;
+    private CheckBox WASDCheckbox;
+    private CheckBox ArrowsCheckbox;
     private CheckBox cutsceneCheck;
     private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
     private SelectBox<String> actionSelect;
@@ -124,13 +127,6 @@ public class SettingsMenuDisplay extends UIComponent {
         displayModeSelect.setItems(getDisplayModes(selectedMonitor));
         displayModeSelect.setSelected(getActiveMode(displayModeSelect.getItems()));
 
-        Label actionLabel = new Label("Action: ", skin);
-        actionSelect = new SelectBox<>(skin);
-        actionSelect.setItems(actions);
-        Label keyLabel = new Label("Key: ", skin);
-        keySelect = new SelectBox<>(skin);
-        keySelect.setItems(keys);
-
         // Position Components on table
         Table table = new Table();
 
@@ -182,11 +178,23 @@ public class SettingsMenuDisplay extends UIComponent {
         table.add(soundVolumeTable).left();
 
         table.row().padTop(10f);
-        table.add(actionLabel).right().padRight(15f);
-        table.add(actionSelect).left();
-        table.add(keyLabel).right().padRight(15f);
-        table.add(keySelect).left();
 
+        Label walkLabel = new Label("Key Control: ", skin);
+        WASDCheckbox = new CheckBox("move WASD - shoot arrows", skin);
+        ArrowsCheckbox=new  CheckBox("shoot WASD move arrows", skin);
+
+        ButtonGroup<CheckBox> walkButtonGroup = new ButtonGroup<>(WASDCheckbox,ArrowsCheckbox);
+
+        if (settings.controlsWithWASD) {
+            walkButtonGroup.setChecked("move with WASD - shoot with arrows");
+        } else {
+            walkButtonGroup.setChecked("shoot with WASD - move with arrows");
+        }
+        table.row();
+        table.add(walkLabel).pad(10);
+        table.row();
+        table.add(WASDCheckbox).pad(10);
+        table.add(ArrowsCheckbox).pad(10);
 
         // Listener for uiScaleSlider
         uiScaleSlider.addListener(
@@ -291,6 +299,7 @@ public class SettingsMenuDisplay extends UIComponent {
                     settings.musicVolume = musicVolumeSlider.getValue();
                     settings.enableCutscene = cutsceneCheck.isChecked();
                     settings.soundVolume = soundVolumeSlider.getValue();
+                    settings.controlsWithWASD = WASDCheckbox.isChecked();
 
                     UserSettings.set(settings, true);
                     game.setScreen(ScreenType.MAIN_MENU); // Redirect to main menu
@@ -301,8 +310,10 @@ public class SettingsMenuDisplay extends UIComponent {
             }
         };
 
-        // Add dialog text and buttons
+    
+
         confirmationDialog.text("Are you sure you want to apply these changes?");
+
         confirmationDialog.button("Cancel", false); // "Cancel" button dismisses the dialog
         confirmationDialog.button("Okay", true);    // "Okay" button applies the changes
 

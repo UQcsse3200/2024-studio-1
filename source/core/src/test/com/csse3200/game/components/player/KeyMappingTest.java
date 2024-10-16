@@ -2,6 +2,7 @@ package com.csse3200.game.components.player;
 
 import com.badlogic.gdx.Input;
 import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.files.UserSettings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,11 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(GameExtension.class)
 public class KeyMappingTest {
     private KeyMapping keyMapping;
-
+    Map<Integer, KeyMapping.KeyBinding> defaultKeyMap;
     @BeforeEach
     public void setUp() {
         // Initialize with default key mappings
+        UserSettings.get().controlsWithWASD = true;
         keyMapping = new KeyMapping();
+        defaultKeyMap = keyMapping.getKeyMap();
     }
 
     /**
@@ -25,7 +28,6 @@ public class KeyMappingTest {
      */
     @Test
     public void testDefaultWalkKeyMapping() {
-        Map<Integer, KeyMapping.KeyBinding> defaultKeyMap = keyMapping.getKeyMap();
         assertEquals(KeyMapping.KeyBinding.WALK_UP, defaultKeyMap.get(Input.Keys.W));
         assertEquals(KeyMapping.KeyBinding.WALK_LEFT, defaultKeyMap.get(Input.Keys.A));
         assertEquals(KeyMapping.KeyBinding.WALK_RIGHT, defaultKeyMap.get(Input.Keys.D));
@@ -39,7 +41,6 @@ public class KeyMappingTest {
      */
     @Test
     public void testDefaultShootKeyMapping() {
-        Map<Integer, KeyMapping.KeyBinding> defaultKeyMap = keyMapping.getKeyMap();
         assertEquals(KeyMapping.KeyBinding.SHOOT_LEFT, defaultKeyMap.get(Input.Keys.LEFT));
         assertEquals(KeyMapping.KeyBinding.SHOOT_UP, defaultKeyMap.get(Input.Keys.UP));
         assertEquals(KeyMapping.KeyBinding.SHOOT_RIGHT, defaultKeyMap.get(Input.Keys.RIGHT));

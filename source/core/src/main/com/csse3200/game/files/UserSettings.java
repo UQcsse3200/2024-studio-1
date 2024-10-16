@@ -106,6 +106,7 @@ public class UserSettings {
         public DisplaySettings displayMode = null;
         public float musicVolume = 0.3f;
         public float soundVolume = 0.5f;
+        public boolean controlsWithWASD =true;
     }
 
     /**

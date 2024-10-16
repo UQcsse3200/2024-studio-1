@@ -6,6 +6,7 @@ import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.ai.tasks.Task;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.npc.attack.BossRangeAttackComponent;
+import com.csse3200.game.components.npc.attack.RangeAttackComponent;
 import com.csse3200.game.entities.configs.TaskConfig;
 import com.csse3200.game.services.GameTime;
 import com.csse3200.game.services.ServiceLocator;
@@ -66,12 +67,18 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
         logger.debug("Boss is moving to the center of the room at {}", centerPosition);
 
         // Enable the BossRangeAttackComponent
-        BossRangeAttackComponent rangeAttack = owner.getEntity().getComponent(BossRangeAttackComponent.class);
+        BossRangeAttackComponent bossRangeAttack = owner.getEntity().getComponent(BossRangeAttackComponent.class);
+        RangeAttackComponent rangeAttack = owner.getEntity().getComponent(RangeAttackComponent.class);
         int numShot = 4;
-        if (rangeAttack != null) {
-            setShootPattern(rangeAttack, numShot);
-
-            rangeAttack.setEnabled(true);
+        if (bossRangeAttack != null) {
+            setShootPattern(bossRangeAttack, numShot);
+            bossRangeAttack.setSpeedCoefficient(0.4f);
+            bossRangeAttack.setAttackCooldown(bossRangeAttack.getAttackCooldown() * 1.8f);
+            if (rangeAttack != null) {
+                rangeAttack.setSpeedCoefficient(0.4f);
+                rangeAttack.setAttackCooldown(rangeAttack.getAttackCooldown() * 1.8f);
+            }
+            bossRangeAttack.setEnabled(true);
             logger.debug("BossRangeAttackComponent enabled.");
         } else {
             logger.warn("BossRangeAttackComponent not found on the boss entity.");
@@ -120,9 +127,16 @@ public class BulletStormTask extends DefaultTask implements PriorityTask {
         logger.debug("Stopping BulletStormTask.");
 
         // Disable the BossRangeAttackComponent
-        BossRangeAttackComponent rangeAttack = owner.getEntity().getComponent(BossRangeAttackComponent.class);
-        if (rangeAttack != null) {
-            rangeAttack.setEnabled(false);
+        BossRangeAttackComponent bossRangeAttack = owner.getEntity().getComponent(BossRangeAttackComponent.class);
+        if (bossRangeAttack != null) {
+            bossRangeAttack.setEnabled(false);
+            // Convert the attack speed back to normal
+            RangeAttackComponent rangeAttack = owner.getEntity().getComponent(RangeAttackComponent.class);
+            if (rangeAttack != null) {
+                rangeAttack.setSpeedCoefficient(1f);
+                rangeAttack.setAttackCooldown(rangeAttack.getAttackCooldown() * 0.55f);
+            }
+
             logger.debug("BossRangeAttackComponent disabled.");
         }
 

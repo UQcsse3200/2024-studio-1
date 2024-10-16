@@ -42,6 +42,14 @@ public abstract class AttackComponent extends Component implements AttackBehavio
         this.timeSinceLastAttack = attackCooldown;
     }
 
+    public void setAttackCooldown(float attackCooldown) {
+        this.attackCooldown = attackCooldown;
+    }
+
+    public float getAttackCooldown() {
+        return this.attackCooldown;
+    }
+
     @Override
     public void create() {
         super.create();

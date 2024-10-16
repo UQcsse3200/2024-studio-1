@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
+import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
@@ -19,6 +20,7 @@ public class RangeAttackComponent extends AttackComponent {
     private String[] projectileNames;
     private String[] attackTriggers;
     private int animationID = 0;
+    float speedCoefficient = 1.0f;
 
     private final ProjectileFactory projectileFactory = new ProjectileFactory();
 
@@ -49,6 +51,10 @@ public class RangeAttackComponent extends AttackComponent {
 
     protected int getAnimationID() {
         return animationID;
+    }
+
+     public void setSpeedCoefficient(float f) {
+        speedCoefficient = f;
     }
 
     /**
@@ -197,6 +203,9 @@ public class RangeAttackComponent extends AttackComponent {
      */
     private void singleShoot(Vector2 direction) {
         Entity projectile = projectileFactory.create(getProjectileNames()[getAnimationID()], direction, entity.getPosition());
+        ProjectileAttackComponent projectileAttackComponent = projectile.getComponent(ProjectileAttackComponent.class);
+        Vector2 v = projectileAttackComponent.getSpeed();
+        projectileAttackComponent.setSpeed(new Vector2(v.x * speedCoefficient, v.y * speedCoefficient));
         projectile.getComponent(com.csse3200.game.components.projectile.ProjectileAttackComponent.class).create();
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9, 9),
                 true, true);

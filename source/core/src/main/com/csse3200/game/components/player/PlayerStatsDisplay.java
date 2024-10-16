@@ -139,7 +139,7 @@ public class PlayerStatsDisplay extends UIComponent {
         damageProgressBar.setAnimateDuration(2.0f);
 
         // Weapon labels
-        meleeLabel = new Label("Melee: 0", skin, "small");   // Updated melee label
+        meleeLabel = new Label("Melee x 1", skin, "small");   // Updated melee label
         gunLabel = new Label("Gun: 0", skin, "small");       // Updated gun label
 
         table.add(heartImage).size(heartSideLength).pad(5);

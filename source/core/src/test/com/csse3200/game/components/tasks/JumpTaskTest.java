@@ -1,11 +1,15 @@
 // JumpTaskTest.java
 package com.csse3200.game.components.tasks;
 
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.ai.tasks.AITaskComponent;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.TaskConfig;
+import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.GameTime;
@@ -13,39 +17,51 @@ import com.csse3200.game.services.ServiceLocator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class JumpTaskTest {
     private GameTime gameTime;
-    private Entity owner;
+    private Fixture fixture;
+    private AOEAttackComponent aoeAttackComponent;
     private Entity target;
     private JumpTask jumpTask;
-    private PhysicsComponent physicsComponent;
-    private ColliderComponent colliderComponent;
-    private DirectionalNPCComponent directionalComponent;
-    private AOEAttackComponent aoeAttackComponent;
-    private AITaskComponent aiComponent;
+    private Filter originalFilter;
 
     @Before
     public void setUp() {
-        // Mock the GameTime service
+        // Initialize mocks
         gameTime = mock(GameTime.class);
+        PhysicsComponent physicsComponent = mock(PhysicsComponent.class);
+        ColliderComponent colliderComponent = mock(ColliderComponent.class);
+        Body body = mock(Body.class);
+        fixture = mock(Fixture.class);
+        aoeAttackComponent = mock(AOEAttackComponent.class);
+
+        // Set up mocks
+        when(physicsComponent.getBody()).thenReturn(body);
+        when(colliderComponent.getFixture()).thenReturn(fixture);
+
+        // Set up the fixture to return a default filter initially
+        originalFilter = new Filter();
+        originalFilter.categoryBits = PhysicsLayer.NPC;
+        originalFilter.maskBits = PhysicsLayer.OBSTACLE | PhysicsLayer.PLAYER | PhysicsLayer.NPC;
+        originalFilter.groupIndex = 0;
+
+        when(fixture.getFilterData()).thenReturn(originalFilter);
         ServiceLocator.registerTimeSource(gameTime);
 
         // Create owner and target entities
-        owner = new Entity();
+        Entity owner = new Entity();
         target = new Entity();
 
         // Add necessary components to the owner
-        physicsComponent = mock(PhysicsComponent.class);
         when(physicsComponent.getBody()).thenReturn(mock(com.badlogic.gdx.physics.box2d.Body.class));
 
-        colliderComponent = mock(ColliderComponent.class);
-        directionalComponent = new DirectionalNPCComponent(true);
-        aoeAttackComponent = mock(AOEAttackComponent.class);
-
+        DirectionalNPCComponent directionalComponent = new DirectionalNPCComponent(true);
         owner.addComponent(physicsComponent);
         owner.addComponent(colliderComponent);
         owner.addComponent(directionalComponent);
@@ -65,7 +81,7 @@ public class JumpTaskTest {
 
         // Create the JumpTask
         jumpTask = new JumpTask(target, config);
-        aiComponent = new AITaskComponent().addTask(jumpTask);
+        AITaskComponent aiComponent = new AITaskComponent().addTask(jumpTask);
         owner.addComponent(aiComponent);
         owner.create();
     }
@@ -110,13 +126,17 @@ public class JumpTaskTest {
     public void testStart() {
         jumpTask.start();
 
-        // Verify components are retrieved
-        assertNotNull("PhysicsComponent should be initialised", physicsComponent);
-        assertNotNull("ColliderComponent should be initialised", colliderComponent);
-        assertNotNull("DirectionalNPCComponent should be initialised", directionalComponent);
+        // Verify that modifyCollisionFilter was called by checking setFilterData with correct parameters
+        ArgumentCaptor<Filter> filterCaptor = ArgumentCaptor.forClass(Filter.class);
+        verify(fixture).setFilterData(filterCaptor.capture());
+        verify(fixture).refilter();
 
-        // Verify collider is set to sensor
-        verify(colliderComponent).setSensor(true);
+        Filter appliedFilter = filterCaptor.getValue();
+
+        // Assert that maskBits are set to only OBSTACLE and groupIndex is 0
+        assertEquals("CategoryBits should remain unchanged", originalFilter.categoryBits, appliedFilter.categoryBits);
+        assertEquals("MaskBits should only include OBSTACLE", PhysicsLayer.OBSTACLE, appliedFilter.maskBits);
+        assertEquals("GroupIndex should be 0", 0, appliedFilter.groupIndex);
     }
 
     @Test
@@ -139,8 +159,16 @@ public class JumpTaskTest {
         jumpTask.start();
         jumpTask.update();
 
-        // Collider should be reset after landing
-        verify(colliderComponent).setSensor(false);
+        // Verify that the original filter is restored
+        ArgumentCaptor<Filter> filterCaptor = ArgumentCaptor.forClass(Filter.class);
+        verify(fixture, times(2)).setFilterData(filterCaptor.capture()); // Once in start(), once in restore
+        verify(fixture, times(2)).refilter();
+
+        // The second filter set should be the original filter
+        Filter restoredFilter = filterCaptor.getAllValues().get(1);
+        assertEquals("Original CategoryBits should be restored", originalFilter.categoryBits, restoredFilter.categoryBits);
+        assertEquals("Original MaskBits should be restored", originalFilter.maskBits, restoredFilter.maskBits);
+        assertEquals("Original GroupIndex should be restored", originalFilter.groupIndex, restoredFilter.groupIndex);
     }
 
     @Test

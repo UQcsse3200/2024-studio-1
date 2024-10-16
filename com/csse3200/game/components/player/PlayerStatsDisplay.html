@@ -101,7 +101,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">PlayerStatsDisplay</span>
 <span class="extends-implements">extends <a href="../../ui/UIComponent.html" title="class in com.csse3200.game.ui">UIComponent</a></span></div>
-<div class="block">A ui component for displaying player stats, e.g. health.</div>
+<div class="block">A UI component for displaying player stats, e.g., health, weapon, ammo.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -165,7 +165,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates reusable ui styles and adds actors to the stage.</div>
+<div class="block">Creates reusable UI styles and adds actors to the stage.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#dispose()" class="member-name-link">dispose</a>()</code></div>
@@ -188,21 +188,30 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateDamageUI(int)" class="member-name-link">updateDamageUI</a><wbr>(int&nbsp;damage)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateMeleeWeaponUI()" class="member-name-link">updateMeleeWeaponUI</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateGunLabel(int,java.lang.String)" class="member-name-link">updateGunLabel</a><wbr>(int&nbsp;maxAmmo,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;weaponName)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Updates the gun label with the specified ammo count.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePlayerHealthUI(int)" class="member-name-link">updatePlayerHealthUI</a><wbr>(int&nbsp;health)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateMeleeWeaponUI()" class="member-name-link">updateMeleeWeaponUI</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePlayerHealthUI(int)" class="member-name-link">updatePlayerHealthUI</a><wbr>(int&nbsp;health)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Updates the player's health on the UI.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateRangedWeaponUI(int,java.lang.String)" class="member-name-link">updateRangedWeaponUI</a><wbr>(int&nbsp;maxAmmo,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;weaponName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Updates the player's health on the ui.</div>
+<div class="block">Updates the ranged weapon UI.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateRangedWeaponUI(int)" class="member-name-link">updateRangedWeaponUI</a><wbr>(int&nbsp;maxAmmo)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateSpeedPercentageUI(float,java.lang.String)" class="member-name-link">updateSpeedPercentageUI</a><wbr>(float&nbsp;speedPercentage,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateSpeedPercentageUI(float,java.lang.String)" class="member-name-link">updateSpeedPercentageUI</a><wbr>(float&nbsp;speedPercentage,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;speedType)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Updates the player's speed on the ui.</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Updates the player's speed on the UI.</div>
 </div>
 </div>
 </div>
@@ -318,7 +327,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="create()">
 <h3>create</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">create</span>()</div>
-<div class="block">Creates reusable ui styles and adds actors to the stage.</div>
+<div class="block">Creates reusable UI styles and adds actors to the stage.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="../../ui/UIComponent.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../../ui/UIComponent.html" title="class in com.csse3200.game.ui">UIComponent</a></code></dd>
@@ -350,7 +359,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="updatePlayerHealthUI(int)">
 <h3>updatePlayerHealthUI</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updatePlayerHealthUI</span><wbr><span class="parameters">(int&nbsp;health)</span></div>
-<div class="block">Updates the player's health on the ui.</div>
+<div class="block">Updates the player's health on the UI.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>health</code> - player health</dd>
@@ -364,9 +373,24 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="updateRangedWeaponUI(int)">
+<section class="detail" id="updateRangedWeaponUI(int,java.lang.String)">
 <h3>updateRangedWeaponUI</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateRangedWeaponUI</span><wbr><span class="parameters">(int&nbsp;maxAmmo)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateRangedWeaponUI</span><wbr><span class="parameters">(int&nbsp;maxAmmo,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;weaponName)</span></div>
+<div class="block">Updates the ranged weapon UI.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>maxAmmo</code> - the maximum ammo count for the weapon.</dd>
+<dd><code>weaponName</code> - the name of the weapon (e.g., "Gun").</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="updateGunLabel(int,java.lang.String)">
+<h3>updateGunLabel</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateGunLabel</span><wbr><span class="parameters">(int&nbsp;maxAmmo,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;weaponName)</span></div>
+<div class="block">Updates the gun label with the specified ammo count.</div>
 </section>
 </li>
 <li>
@@ -374,7 +398,7 @@ loadScripts(document, 'script');</script>
 <h3>updateSpeedPercentageUI</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateSpeedPercentageUI</span><wbr><span class="parameters">(float&nbsp;speedPercentage,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;speedType)</span></div>
-<div class="block">Updates the player's speed on the ui.</div>
+<div class="block">Updates the player's speed on the UI.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>speedPercentage</code> - the player's new speed percentage to update the UI to</dd>

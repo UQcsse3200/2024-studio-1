@@ -10,10 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.csse3200.game.components.player.inventory.Collectible;
 import com.csse3200.game.components.player.inventory.InventoryComponent;
+import com.csse3200.game.components.player.inventory.UsableItem;
 import com.csse3200.game.components.player.inventory.usables.*;
 import com.csse3200.game.ui.UIComponent;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,6 +65,16 @@ public class PlayerInventoryDisplay extends UIComponent {
      */
     private Map<String, Label> itemLabels;  // To store labels for each item for easy updating
 
+    private final List<UsableItem> usableItemList =
+            List.of(new MedKit(),
+                    new ShieldPotion(),
+                    new Bandage(),
+                    new TargetDummy(),
+                    new BigRedButton(),
+                    new BearTrap(),
+                    new TeleporterItem(),
+                    new Reroll()
+            );
 
     /**
      * Constructor to initialise the inventory component of Player that needs to be displayed
@@ -108,14 +120,9 @@ public class PlayerInventoryDisplay extends UIComponent {
      * to player's inventory
      */
     private void addItems() {
-        addItem("Medkit", new MedKit().getIcon());
-        addItem("Shield", new ShieldPotion().getIcon());
-        addItem("Bandage", new Bandage().getIcon());
-        addItem("Target Dummy", new TargetDummy().getIcon());
-        addItem("Bear Trap", new BearTrap().getIcon());
-        //addItem("Big Red Button", new BigRedButton().getIcon());
-        addItem("Teleport Item", new TeleporterItem().getIcon());
-        addItem("ReRoll", new Reroll().getIcon());
+        for (UsableItem items : usableItemList) {
+            addItem(items.getName(), items.getIcon());
+        }
     }
 
     /**

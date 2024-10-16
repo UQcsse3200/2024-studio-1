@@ -72,9 +72,7 @@ public class ProjectileFactory extends LoadedFactory {
     public Entity create(String specification, Vector2 direction, Vector2 parentPosition) {
         return switch (specification) {
             case "dragonProjectile" -> this.createDragonProjectile(direction, parentPosition);
-            case "kitsuneProjectile1" -> this.createKitsuneProjectile1(direction, parentPosition);
-            case "kitsuneProjectile2" -> this.createKitsuneProjectile2(direction, parentPosition);
-            case "kitsuneProjectile" -> this.createKitsuneProjectile(direction, parentPosition);
+            case "kitsuneProjectile1", "kitsuneProjectile2", "kitsuneProjectile" -> this.createKitsuneProjectile(direction, parentPosition);
             case "cthuluProjectile" -> this.createCthuluProjectile(direction, parentPosition);
             default -> throw new IllegalArgumentException("Unknown animal: " + specification);
         };

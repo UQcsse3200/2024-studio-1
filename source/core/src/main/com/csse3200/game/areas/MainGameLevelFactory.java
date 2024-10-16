@@ -42,7 +42,7 @@ public class MainGameLevelFactory implements LevelFactory {
      */
     protected List<String> getShopRoomItems() {
         return List.of("buff:heart:buyable", "item:medkit:buyable", "item:shieldpotion:buyable",
-                "item:bandage:buyable", "buff:energydrink:Low:buyable", "buff:energydrink:Low:buyable",
+                "item:bandage:buyable", "buff:energydrink:low:buyable", "buff:energydrink:low:buyable",
                 "buff:syringe:buyable", "buff:armor:buyable", "buff:damagebuff:buyable",
                 "item:beartrap:buyable", "item:targetdummy:buyable", "item:reroll:buyable",
                 "buff:feather:buyable", "item:heart:buyable", "buff:divinepotion:buyable"
@@ -80,11 +80,11 @@ public class MainGameLevelFactory implements LevelFactory {
                 new TerrainFactory(levelNumber)
         );
 
-        Set<String> roomKeySet = map.mapData.getPositions().keySet();
+        Set<String> roomKeySet = map.getMapData().getPositions().keySet();
         for (String roomKey : roomKeySet) {
-            int itemIndex = map.mapData.getRoomDetails().get(roomKey).get("item_index");
-            int animalIndex = map.mapData.getRoomDetails().get(roomKey).get("animal_index");
-            int roomType = map.mapData.getRoomDetails().get(roomKey).get("room_type");
+            int itemIndex = map.getMapData().getRoomDetails().get(roomKey).get("item_index");
+            int animalIndex = map.getMapData().getRoomDetails().get(roomKey).get("animal_index");
+            int roomType = map.getMapData().getRoomDetails().get(roomKey).get("room_type");
             RoomType type = Arrays.stream(RoomType.values())
                     .filter(t -> t.num == roomType)
                     .findFirst()
@@ -93,7 +93,7 @@ public class MainGameLevelFactory implements LevelFactory {
             switch (type) {
                 case RoomType.BOSS_ROOM:
                     rooms.put(roomKey, roomFactory.createBossRoom(
-                            map.mapData.getPositions().get(roomKey),
+                            map.getMapData().getPositions().get(roomKey),
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case RoomType.SHOP_ROOM:
@@ -107,7 +107,7 @@ public class MainGameLevelFactory implements LevelFactory {
                         itemsToBeSpawned = createShopItemsList();
                     }
                     ShopRoom shop = (ShopRoom) roomFactory.createShopRoom(
-                            map.mapData.getPositions().get(roomKey),
+                            map.getMapData().getPositions().get(roomKey),
                             "0,0,14,10," + 0 + "," + levelNumber, roomKey, itemsToBeSpawned);
                     rooms.put(roomKey, shop);
                     break;
@@ -115,7 +115,7 @@ public class MainGameLevelFactory implements LevelFactory {
                     throw new IllegalArgumentException("Invalid room type.");
                 default:
                     rooms.put(roomKey, roomFactory.createRoom(
-                            map.mapData.getPositions().get(roomKey),
+                            map.getMapData().getPositions().get(roomKey),
                             "0,0,14,10," + animalIndex + "," + itemIndex, roomKey));
                     break;
             }
@@ -140,8 +140,8 @@ public class MainGameLevelFactory implements LevelFactory {
         config.currentRoom = ServiceLocator.getGameAreaService().getGameController().getCurrentRoom().getRoomName();
         for (Room room : rooms.values()) {
             if (room.isComplete()) {
-                if (map.mapData.getRoomDetails().get(room.getRoomName()) != null) {
-                    if (map.mapData.getRoomDetails().get(room.getRoomName()).get("room_type") != 1) {
+                if (map.getMapData().getRoomDetails().get(room.getRoomName()) != null) {
+                    if (map.getMapData().getRoomDetails().get(room.getRoomName()).get("room_type") != 1) {
                         compRooms.add(room.getRoomName());
                     }
                 }

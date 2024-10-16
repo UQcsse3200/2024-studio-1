@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Timer;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -16,16 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A ui component for displaying player stats, e.g. health.
+ * A UI component for displaying player stats, e.g., health, weapon, ammo.
  */
 public class PlayerStatsDisplay extends UIComponent {
     Table table;
     Table ammoTable;
     private Image heartImage;
     private Label healthLabel;
-    private Label pickaxeLabel;
-    private Label shotgunLabel;
-
+    private Label meleeLabel;   // Updated label for melee weapon
+    private Label gunLabel;     // Updated label for gun
     private Texture ammoTexture;
     private List<Image> ammoImages;
     private int currentAmmo;
@@ -33,21 +31,21 @@ public class PlayerStatsDisplay extends UIComponent {
     float screenWidth = Gdx.graphics.getWidth();
 
     private Image speedImage;
-    private Label speedLabelText;
-
     private ProgressBar speedProgressBar;
 
     private Image damageImage;
     private ProgressBar damageProgressBar;
+    private Image armorImage;
+    private ProgressBar armorProgressBar;
 
     private ArrayList<Label> labels;
     public static final String HEART_TEXTURE = "images/heart.png";
     public static final String SPEED_TEXTURE = "images/items/energy_drink.png";
     public static final String DAMAGE_BUFF_TEXTURE = "images/items/damage_buff.png";
-
+    public static final String ARMOR_TEXTURE = "images/items/armor.png";
 
     /**
-     * Creates reusable ui styles and adds actors to the stage.
+     * Creates reusable UI styles and adds actors to the stage.
      */
     @Override
     public void create() {
@@ -57,12 +55,49 @@ public class PlayerStatsDisplay extends UIComponent {
 
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
         entity.getEvents().addListener("melee_pickup", this::updateMeleeWeaponUI);
-        entity.getEvents().addListener("ranged_pickup", this::updateRangedWeaponUI);
+        entity.getEvents().addListener("ranged_pickup", (Integer maxAmmo) -> {
+            updateGunLabel(6, "Gun");
+            updateRangedWeaponUI(maxAmmo, "Gun");
+        });
         entity.getEvents().addListener("ranged_activate", this::updateAmmoDisplay);
         entity.getEvents().addListener("updateSpeedPercentage", this::updateSpeedPercentageUI);
         entity.getEvents().addListener("updateDamageBuff", this::updateDamageUI);
         entity.getEvents().addListener("updateSpeedUI", this::updateSpeedPercentageUI);
+        entity.getEvents().addListener("updateArmor", this::updateArmorUI);
+
+        initializeWeaponsAndAmmo();
     }
+
+    /**
+     * Initializes the weapon and ammo counts based on the player selected.
+     * Retrieves the player type from PlayerAnimationController.
+     */
+    private void initializeWeaponsAndAmmo() {
+        // Retrieve the PlayerAnimationController component from the entity
+        PlayerAnimationController playerController = entity.getComponent(PlayerAnimationController.class);
+
+        // Get the current player number
+        PlayerAnimationController.PlayerNum playerNum = playerController.getPlayerNum();
+
+        if (playerNum == PlayerAnimationController.PlayerNum.PLAYER_1) {
+            // Player 1 always starts with 20 ammo
+            updateGunLabel(6, "Gun");
+            updateRangedWeaponUI(6, "Gun");
+        } else {
+            // Other players start with 7 ammo
+            updateGunLabel(15, "Gun");
+            updateRangedWeaponUI(15, "Gun");
+
+            // Set an event listener to update ammo to 20 when a ranged weapon is picked up
+            entity.getEvents().addListener("ranged_pickup", (Integer maxAmmo) -> {
+                if (maxAmmo == 6) {
+                    updateGunLabel(6, "Gun");
+                    updateRangedWeaponUI(6, "Gun");
+                }
+            });
+        }
+    }
+
 
     /**
      * Creates actors and positions them on the stage using a table.
@@ -70,7 +105,7 @@ public class PlayerStatsDisplay extends UIComponent {
      * @see Table for positioning options
      */
     private void addActors() {
-        labels = new ArrayList<Label>();
+        labels = new ArrayList<>();
 
         table = new Table();
         ammoTable = new Table();
@@ -94,75 +129,77 @@ public class PlayerStatsDisplay extends UIComponent {
         CharSequence healthText = String.format("Health: %d", health);
         healthLabel = new Label(healthText, skin, "small");
 
-        //Speed image
+        // Speed image
         float speedSideLength = 100f;
         speedImage = new Image(ServiceLocator.getResourceService().getAsset(SPEED_TEXTURE, Texture.class));
 
-        //Speed text
+        // Speed progress bar
         speedProgressBar = new ProgressBar(0f, 1.5f, 0.1f, false, skin);
         speedProgressBar.setWidth(200f);
         speedProgressBar.setAnimateDuration(2.0f);
-        /*
-        //Temporarily commented out in case design team prefers text instead of progress bar
-        float speedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
-        CharSequence speedText = String.format("Speed: %.1f%%", speedPercentage);
-        speedLabelText = new Label(speedText, skin, "small");
-         */
 
-        //Damage Progress bar
-        //Will need to check values
+        // Damage progress bar
         float damageSideLength = 50f;
-//        damageImage = new Image(
-//                ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
         damageImage = new Image(ServiceLocator.getResourceService().getAsset(DAMAGE_BUFF_TEXTURE, Texture.class));
-        damageProgressBar = new ProgressBar(0f, 5.0f, 0.1f, false, skin);
+        damageProgressBar = new ProgressBar(0f, 200f, 0.1f, false, skin);
         damageProgressBar.setWidth(200f);
         damageProgressBar.setAnimateDuration(2.0f);
 
-        //Weapon text, like the name of weapon
-        //entity.getComponent(WeaponComponent.class).getWeaponType();
-        pickaxeLabel = new Label("Pickaxe: 0", skin, "small");
-        shotgunLabel = new Label("Shotgun: 0", skin, "small");
+        // Armor image and progress bar
+        float armorSideLength = 50f;
+        armorImage = new Image(ServiceLocator.getResourceService().getAsset(ARMOR_TEXTURE, Texture.class));
+        armorProgressBar = new ProgressBar(0f, 100f, 1f, false, skin);
+        armorProgressBar.setWidth(200f);
+        armorProgressBar.setAnimateDuration(2.0f);
 
+        // Weapon labels
+        meleeLabel = new Label("Melee x 1", skin, "small");   // Updated melee label
+        gunLabel = new Label("Gun: 0", skin, "small");       // Updated gun label
 
         table.add(heartImage).size(heartSideLength).pad(5);
         table.add(healthLabel).padLeft(10).left();
         labels.add(healthLabel);
 
-
         table.row().padTop(10);
         table.add(speedImage).size(speedSideLength).pad(5);
         table.add(speedProgressBar).padLeft(10).left().width(200);
 
-        //Don't know if values are correct, may overlap
         table.row().padTop(10);
         table.add(damageImage).size(damageSideLength).pad(5);
         table.add(damageProgressBar).padLeft(10).left().width(200);
 
         table.row().padTop(10);
-        table.add(pickaxeLabel).colspan(2).padLeft(10).left();
-        labels.add(pickaxeLabel);
+        table.add(armorImage).size(armorSideLength).pad(5);
+        table.add(armorProgressBar).padLeft(10).left().width(200);
+
         table.row().padTop(10);
-        table.add(shotgunLabel).colspan(2).padLeft(10).left();
+        table.add(meleeLabel).colspan(2).padLeft(10).left();
+        labels.add(meleeLabel);
+
+        // Add the gun label
+        table.row().padTop(10);
+        table.add(gunLabel).colspan(2).padLeft(10).left();
+
         table.row().padTop(10);
         table.add(ammoTable).colspan(2).left().padLeft(2);
         stage.addActor(table);
     }
 
-    public void resize(int width, int height)
-    {
-        if (labels != null)
-            for(Label label : labels)
-                label.setFontScale(width/1100f);
+    public void resize(int width, int height) {
+        if (labels != null) {
+            for (Label label : labels) {
+                label.setFontScale(width / 1100f);
+            }
+        }
     }
-    
+
     @Override
     public void draw(SpriteBatch batch) {
-
+        // Drawing handled automatically by the stage and actors
     }
 
     /**
-     * Updates the player's health on the ui.
+     * Updates the player's health on the UI.
      *
      * @param health player health
      */
@@ -172,22 +209,34 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
     public void updateMeleeWeaponUI() {
-        CharSequence text = String.format("Pickaxe x %d", 1);
-        pickaxeLabel.setText(text);
-    }
-
-    public void updateRangedWeaponUI(int maxAmmo) {
-        CharSequence text = String.format("Shotgun x %d", 1);
-        shotgunLabel.setText(text);
-
-        currentAmmo = maxAmmo; // Initialize ammo count from WeaponComponent
-        displayAllAmmo();
+        CharSequence text = String.format("Melee x %d", 1);   // Updated melee label
+        meleeLabel.setText(text);
     }
 
     /**
-     * Displays ammo based on the count of the shotgun or other ranged weapon.
-     * This method is called when the shotgun count is greater than 0.
-     * Displays ammo in rows of 8 within a separate ammo table.
+     * Updates the ranged weapon UI.
+     *
+     * @param maxAmmo the maximum ammo count for the weapon.
+     * @param weaponName the name of the weapon (e.g., "Gun").
+     */
+    public void updateRangedWeaponUI(int maxAmmo, String weaponName) {
+        currentAmmo = maxAmmo;  // Initialize ammo count from WeaponComponent
+        displayAllAmmo();
+
+        CharSequence text = String.format("%s x %d", weaponName, 1);
+        gunLabel.setText(text);   // Update gun label
+    }
+
+    /**
+     * Updates the gun label with the specified ammo count.
+     */
+    public void updateGunLabel(int maxAmmo, String weaponName) {
+        CharSequence text = String.format("%s x %d", weaponName, maxAmmo);
+        gunLabel.setText(text);
+    }
+
+    /**
+     * Displays ammo based on the count of the ranged weapon.
      */
     private void displayAllAmmo() {
         ammoTable.clear(); // Clear existing ammo from the ammoTable
@@ -196,12 +245,12 @@ public class PlayerStatsDisplay extends UIComponent {
 
         // Always display ammo up to currentAmmo
         for (int i = 0; i < currentAmmo; i++) {
-            if (itemsInRow == 8) {
-                ammoTable.row().padTop(2f); // Start a new row after 8 ammo items
+            if (itemsInRow == 5) {
+                ammoTable.row().padTop(2f); // Start a new row after 5 ammo items
                 itemsInRow = 0;
             }
             ammoImages.get(i).setVisible(true);
-            ammoTable.add(ammoImages.get(i)).size(screenWidth/45f);
+            ammoTable.add(ammoImages.get(i)).size(screenWidth / 45f);
             itemsInRow++;
         }
 
@@ -210,7 +259,6 @@ public class PlayerStatsDisplay extends UIComponent {
 
     /**
      * Updates the ammo display based on the current ammo count.
-     * Ammo icons beyond the current count will be hidden.
      */
     private void updateAmmoDisplay(int ammoCount) {
         for (int i = 0; i < ammoImages.size(); i++) {
@@ -223,19 +271,20 @@ public class PlayerStatsDisplay extends UIComponent {
     }
 
     /**
-     * Updates the player's speed on the ui.
+     * Updates the player's speed on the UI.
      *
      * @param speedPercentage the player's new speed percentage to update the UI to
      */
     public void updateSpeedPercentageUI(float speedPercentage, String speedType) {
-        //Temporarily commented out in case design team prefers text over a progress bar
-//        CharSequence text = String.format("Speed: %.1f%%", speedPercentage);
-//        speedLabelText.setText(text);
         speedProgressBar.setValue(speedPercentage);
     }
 
     public void updateDamageUI(int damage) {
         damageProgressBar.setValue(damage);
+    }
+
+    public void updateArmorUI(int currentArmor) {
+        armorProgressBar.setValue(currentArmor);
     }
 
     @Override

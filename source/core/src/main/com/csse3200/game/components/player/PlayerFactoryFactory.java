@@ -120,6 +120,7 @@ public class PlayerFactoryFactory extends LoadedFactory {
             return new String[]{
                     PlayerStatsDisplay.DAMAGE_BUFF_TEXTURE,
                     PlayerStatsDisplay.SPEED_TEXTURE,
+                    PlayerStatsDisplay.ARMOR_TEXTURE,
                     this.config.textureFilename
             };
         }

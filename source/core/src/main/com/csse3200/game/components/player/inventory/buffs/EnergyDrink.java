@@ -45,10 +45,10 @@ public class EnergyDrink extends BuffItem {
      */
     public EnergyDrink(String speedType) {
         this.speedType = speedType;
-        if (!List.of("High", "Medium", "Low").contains(speedType)) {
+        if (!List.of("high", "medium", "low").contains(speedType)) {
             throw new IllegalArgumentException("Invalid speedType: " + speedType);
         }
-        setScalar(speedType);
+//        setScalar(speedType);
         setIcon(speedType);
     }
 
@@ -79,9 +79,9 @@ public class EnergyDrink extends BuffItem {
      */
     public void setIcon(String speedType) {
         switch (speedType) {
-            case "Low" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
-            case "Medium" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
-            case "High" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_red.png");
+            case "low" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
+            case "medium" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
+            case "high" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_red.png");
         }
     }
 
@@ -123,22 +123,25 @@ public class EnergyDrink extends BuffItem {
      */
     @Override
     public void effect(Entity entity) {
-        float currSpeedPercentage = entity.getComponent(PlayerActions.class).getCurrSpeedPercentage();
-        float newSpeedPercentage = currSpeedPercentage + getSpeedPercentage();
-        float speedLimit = entity.getComponent(PlayerActions.class).getMaxSpeed();
-        //Check that picking up this item will not result in the speed going above the maximum
-        if (newSpeedPercentage >= speedLimit) {
-            entity.getComponent(PlayerActions.class).setSpeed(this.maxSpeed); //Cap it at the max speed
-            entity.getComponent(PlayerActions.class).setSpeedPercentage(speedLimit); //Cap the UI percentage at max
-            newSpeedPercentage = speedLimit;
+        setScalar(speedType, entity);
+        Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrPlayerSpeed();
+        //Add the current speed with the boost (vector) associated with this energy drink
+        Vector2 updatedSpeed = new Vector2(currSpeed.x + getSpeed().x, currSpeed.y + getSpeed().y);
+        Vector2 baseSpeed = entity.getComponent(PlayerActions.class).getBaseSpeed();
+        //Get the new proportion of the progress bar for the UI
+        float newSpeedPercentage = entity.getComponent(PlayerActions.class).getSpeedProgressBarProportion(updatedSpeed, baseSpeed);
+        float maxBoost = entity.getComponent(PlayerActions.class).getMaxTotalSpeedBoost();
+
+        //Check that picking up the item will not result in the speed going above the maximum
+        if (newSpeedPercentage >= maxBoost) {
+            Vector2 maxSpeed = entity.getComponent(PlayerActions.class).getMaxPlayerSpeed();
+            entity.getComponent(PlayerActions.class).setSpeed(maxSpeed); //Cap it at the max speed
+            newSpeedPercentage = maxBoost;
+            //Update the UI
             entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage, speedType);
         } else {
-            //Add the current speed with the boost (vector) associated with this energy drink
-            Vector2 currSpeed = entity.getComponent(PlayerActions.class).getCurrSpeed();
-            Vector2 updatedSpeed = currSpeed.add(getSpeed()); //Add the vectors
             entity.getComponent(PlayerActions.class).setSpeed(updatedSpeed);
             //Update the UI
-            entity.getComponent(PlayerActions.class).setSpeedPercentage(newSpeedPercentage);
             entity.getEvents().trigger("updateSpeedPercentage", newSpeedPercentage, speedType);
         }
     }
@@ -167,18 +170,18 @@ public class EnergyDrink extends BuffItem {
      *
      * @param speedType the string identification representing the type of energy drink
      */
-    public void setScalar(String speedType) {
-        Vector2 baseSpeed = new Vector2(3f, 3f); //Improvement: actually get the default speed somehow
+    public void setScalar(String speedType, Entity entity) {
+        Vector2 baseSpeed = entity.getComponent(PlayerActions.class).getBaseSpeed();
         switch (speedType) {
-            case "Low" -> {
+            case "low" -> {
                 this.speed = baseSpeed.scl(0.03f); //0.03% of the base speed
                 this.speedPercentage = 0.03f; //% Increase
             }
-            case "Medium" -> {
+            case "medium" -> {
                 this.speed = baseSpeed.scl(0.05f);
                 this.speedPercentage = 0.05f;
             }
-            case "High" -> {
+            case "high" -> {
                 this.speed = baseSpeed.scl(0.1f);
                 this.speedPercentage = 0.1f;
             }

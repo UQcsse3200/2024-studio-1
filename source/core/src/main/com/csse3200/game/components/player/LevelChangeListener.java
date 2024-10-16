@@ -28,6 +28,7 @@ public class LevelChangeListener extends UIComponent {
      */
     @Override
     public void draw(SpriteBatch batch) {
+        logger.debug("Drawing the corpse");
         int tempLevel = ServiceLocator.getGameAreaService().getGameController().getCurrentLevelNumber();
 
         if (tempLevel > currentLevel) {

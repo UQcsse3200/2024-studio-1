@@ -112,6 +112,7 @@ public class ServiceLocator {
     }
 
     public static void clear() {
+        logger.debug("Clearing the resource service");
         entityService = null;
         renderService = null;
         physicsService = null;

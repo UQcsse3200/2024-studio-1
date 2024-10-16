@@ -8,12 +8,14 @@ import java.util.List;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.csse3200.game.components.player.PlayerConfigComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.factories.*;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.areas.terrain.TerrainFactory;
 import com.csse3200.game.components.CombatStatsComponent;
 
+import com.csse3200.game.utils.RandomNumberGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +42,7 @@ public abstract class EnemyRoom extends BaseRoom {
 
     /** List of enemy entities in the room. */
     private List<Entity> enemies = new ArrayList<>();
+    private List<String> createItemSpecs = new ArrayList<>();
 
     /**
      * Constructs a new EnemyRoom.
@@ -61,6 +64,7 @@ public abstract class EnemyRoom extends BaseRoom {
         super(terrainFactory, collectibleFactory, roomConnections, specification, roomName);
         this.npcFactory = npcFactory;
         this.animalSpecifications = getAnimalSpecifications();
+        this.createItemSpecs = createItemSpecs();
 
         List<String> split = List.of(specification.split(","));
         this.animalGroup = Integer.parseInt(split.get(4));
@@ -109,6 +113,28 @@ public abstract class EnemyRoom extends BaseRoom {
      * @return A list of animal/enemy specification lists.
      */
     protected abstract List<List<String>> getAnimalSpecifications();
+
+    private List<String> createItemSpecs() {
+        List<String> items = new ArrayList<>();
+        RandomNumberGenerator rng = ServiceLocator.getRandomService().getRandomNumberGenerator(this.getClass());
+        int itemsGroup = 0;
+        if (rng.getRandomInt(0, 2) == 1) {
+            GameController gameController = ServiceLocator.getGameAreaService().getGameController();
+            String name = gameController.getPlayer().getComponent(PlayerConfigComponent.class).getPlayerConfig().name;
+            switch (name) {
+                case "bear":
+                    itemsGroup = 1;
+                    break;
+                case "necromancer":
+                    itemsGroup = 2;
+                    break;
+            }
+        }
+        List<String> selectedItemsSpec = this.itemSpecifications.get(itemsGroup);
+        items.add(selectedItemsSpec.get(rng.getRandomInt(0, selectedItemsSpec.size())));
+        items.add(selectedItemsSpec.get(rng.getRandomInt(0, selectedItemsSpec.size())));
+        return items;
+    }
 
     /**
      * Creates enemy entities based on the provided specifications.
@@ -165,7 +191,9 @@ public abstract class EnemyRoom extends BaseRoom {
      */
     private void spawnItems() {
         GameArea area = ServiceLocator.getGameAreaService().getGameArea();
-        List<String> items = this.itemSpecifications.get(this.itemGroup);
+        List<String> items = this.createItemSpecs;
+
+
         if (items != null && items.size() >= 2) {
             spawnItem(area, items.get(0), new GridPoint2(8, 8));
             spawnItem(area, items.get(1), new GridPoint2(6, 8));

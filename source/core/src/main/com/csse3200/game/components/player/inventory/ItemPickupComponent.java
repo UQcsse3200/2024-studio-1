@@ -168,12 +168,14 @@ public class ItemPickupComponent extends Component {
                 coinsComponent.spend(cost);
                 entity.getComponent(InventoryComponent.class).pickup(item);
 
+
                 GameController controller = ServiceLocator.getGameAreaService().getGameController();
 
                 if (controller != null) {
                     Room room = controller.getCurrentRoom();
                     if (room instanceof ShopRoom shop) {
                         shop.removeItemFromList(item.getSpecification() + ":buyable");
+                        itemEntity.getComponent(BuyableComponent.class).removeLabel();
                         markEntityForRemoval(itemEntity);
                     }
                 }
@@ -240,6 +242,7 @@ public class ItemPickupComponent extends Component {
             case 12 -> specification = "buff:feather";
             case 13 -> specification = "item:heart";
             case 14 -> specification = "buff:divinepotion";
+            case 15 -> specification = "item:gasoline";
         }
 
         return this.collectibleFactory.createCollectibleEntity(specification);

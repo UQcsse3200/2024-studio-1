@@ -1,12 +1,14 @@
 package com.csse3200.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.csse3200.game.ai.tasks.DefaultTask;
 import com.csse3200.game.ai.tasks.PriorityTask;
 import com.csse3200.game.components.npc.DirectionalNPCComponent;
 import com.csse3200.game.components.npc.attack.AOEAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.TaskConfig;
+import com.csse3200.game.physics.PhysicsLayer;
 import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.services.GameTime;
@@ -43,6 +45,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private long lastExecutionTime;
     private WaitTask waitTask;
     private boolean hasAttacked;
+    private Filter originalFilter;
 
     /**
      * Creates a JumpTask towards the target with a specified jump height and duration.
@@ -89,8 +92,9 @@ public class JumpTask extends DefaultTask implements PriorityTask {
             }
         }
 
-        // Set the collider to sensor mode to allow passing through obstacles
-        colliderComponent.setSensor(true);
+        // Modify collision filter to ignore PLAYER and NPC layers
+        modifyCollisionFilter();
+
         this.owner.getEntity().getEvents().trigger("jump");
     }
 
@@ -117,7 +121,10 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         // Check if the jump is finished
         if (t >= 1 && !hasAttacked) {
             physicsComponent.getBody().setLinearVelocity(Vector2.Zero);
-            colliderComponent.setSensor(false);
+
+            // Restore the original collision filter
+            colliderComponent.getFixture().setFilterData(originalFilter);
+            colliderComponent.getFixture().refilter();
 
             // Perform the AOE attack immediately upon landing
             aoeAttackComponent.enableForNumAttacks(1);
@@ -183,5 +190,28 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         }
         long currentTime = gameTime.getTime();
         return (currentTime - lastExecutionTime) >= (cooldownTime * 1000);
+    }
+
+    /**
+     * Modifies the collision filter of the entity to ignore all layers during the jump besides OBSTACLE.
+     */
+    private void modifyCollisionFilter() {
+        originalFilter = new Filter();
+        Filter currentFilter = colliderComponent.getFixture().getFilterData();
+        originalFilter.categoryBits = currentFilter.categoryBits;
+        originalFilter.maskBits = currentFilter.maskBits;
+        originalFilter.groupIndex = currentFilter.groupIndex;
+
+        // Include only obstacle layer
+        short newMaskBits = PhysicsLayer.OBSTACLE;
+
+        // Modify the collision filter
+        Filter jumpFilter = new Filter();
+        jumpFilter.categoryBits = currentFilter.categoryBits;
+        jumpFilter.maskBits = newMaskBits;
+        jumpFilter.groupIndex = 0;
+
+        colliderComponent.getFixture().setFilterData(jumpFilter);
+        colliderComponent.getFixture().refilter();
     }
 }

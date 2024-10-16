@@ -1,9 +1,7 @@
 package com.csse3200.game.components;
 
-import com.csse3200.game.entities.Entity;
-
 import com.csse3200.game.components.player.ShieldComponent;
-
+import com.csse3200.game.entities.Entity;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.rendering.AnimationRenderComponent;
 import com.csse3200.game.services.ServiceLocator;
@@ -30,6 +28,8 @@ public class CombatStatsComponent extends Component {
     private int buff;
     private boolean critAbility;
     private double critChance;
+    private boolean canCauseBleed;
+    private int bleedDamage;
     private boolean isInvincible;
 
     private int timeInvincible = 1000;
@@ -58,6 +58,8 @@ public class CombatStatsComponent extends Component {
         this.buff = buff;
         this.critAbility = canCrit;
         this.critChance = critChance;
+        this.canCauseBleed = false;
+        this.bleedDamage = 0;
         setHealth(health);
         setMaxHealth(maxHealth);
         setBaseAttack(baseAttack);
@@ -75,6 +77,8 @@ public class CombatStatsComponent extends Component {
         this.buff = buff;
         this.critAbility = false;
         this.critChance = 0.0;
+        this.canCauseBleed = false;
+        this.bleedDamage = 0;
         setHealth(health);
         setBaseAttack(baseAttack);
         setInvincible(false);
@@ -98,7 +102,10 @@ public class CombatStatsComponent extends Component {
     private class InvincibilityRemover extends TimerTask {
         @Override
         public void run() {
-            flashTask.cancel();
+            logger.debug("Removing invincibility and stopping flash task");
+            if (flashTask != null) {
+                flashTask.cancel();
+            }
             setInvincible(false);
             AnimationRenderComponent animateRender = entity.getComponent(AnimationRenderComponent.class);
             if (animateRender != null) {
@@ -309,6 +316,9 @@ public class CombatStatsComponent extends Component {
             if (playerStats.getCanCrit()) {
                 damage = applyCrit(damage, playerStats.getCritChance());
             }
+            if(playerStats.getCanCauseBleed()) {
+                triggerBleedEffect(entity, playerStats.getBleedDamage());
+            }
         } else {
             damage = attacker.getBaseAttack();
         }
@@ -330,10 +340,14 @@ public class CombatStatsComponent extends Component {
      * @param duration duration of invincibility in seconds
      */
     public void makeInvincible(float duration) {
+        logger.debug("Making entity invincible for {} seconds", duration);
         setInvincible(true);
         InvincibilityRemover task = new InvincibilityRemover();
         timerIFrames.schedule(task, (int) duration * 1000L);
-        flashTask = new FlashSprite();
+        if (flashTask != null) {
+            flashTask.cancel();
+        }
+        flashTask = new CombatStatsComponent.FlashSprite();
         timerFlashSprite.scheduleAtFixedRate(flashTask, 0, timeFlash);
     }
 
@@ -409,5 +423,46 @@ public class CombatStatsComponent extends Component {
             newDamage *= 2;
         }
         return newDamage;
+    }
+
+    public boolean getCanCauseBleed() {
+        return canCauseBleed;
+    }
+    public int getBleedDamage() {
+        return bleedDamage;
+    }
+
+    public void updateBleedStatus() {
+        this.canCauseBleed = true;
+    }
+
+    public void updateBleedDamage(int bleedDamage) {
+        this.bleedDamage += bleedDamage;
+    }
+
+    /**
+     * Applies the bleed effect to the enemy. Reduces 5% of the enemy's health per
+     * second for 5 seconds. The damage stops if the enemy's health reaches 0.
+     *
+     * @param enemy The enemy entity to apply the bleed effect to.
+     */
+    private void triggerBleedEffect(Entity enemy, int bleedDamage) {
+        CombatStatsComponent enemyStats = enemy.getComponent(CombatStatsComponent.class);
+
+        if (enemyStats != null) {
+            // Schedule bleed damage over 3 seconds
+            com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                @Override
+                public void run() {
+                    if (enemyStats.getHealth() > 0) {
+                        float bleedAmount = enemyStats.getHealth() * (bleedDamage / 100f);
+                        enemyStats.setHealth((int) (enemyStats.getHealth() - bleedAmount));
+                    } else {
+                        // Stop applying bleed effect if the enemy is dead
+                        cancel();
+                    }
+                }
+            }, 1, 1, 3); // Reduce health for 3 seconds
+        }
     }
 }

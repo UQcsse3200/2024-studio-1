@@ -79,9 +79,9 @@ public class EnergyDrink extends BuffItem {
      */
     public void setIcon(String speedType) {
         switch (speedType) {
-            case "Low" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
-            case "Medium" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
-            case "High" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_red.png");
+            case "low" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_blue.png");
+            case "medium" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_purple.png");
+            case "high" -> this.energyDrinkIcon = new Texture("images/items/energy_drink_red.png");
         }
     }
 

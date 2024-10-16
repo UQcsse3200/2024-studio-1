@@ -230,9 +230,9 @@ public class ItemPickupComponent extends Component {
             case 0 -> specification = "item:shieldpotion";
             case 1 -> specification = "item:bandage";
             case 2 -> specification = "item:medkit";
-            case 3 -> specification = "buff:energydrink:High";
-            case 4 -> specification = "buff:energydrink:Low";
-            case 5 -> specification = "buff:energydrink:Medium";
+            case 3 -> specification = "buff:energydrink:high";
+            case 4 -> specification = "buff:energydrink:low";
+            case 5 -> specification = "buff:energydrink:medium";
             case 6 -> specification = "buff:syringe";
             case 7 -> specification = "buff:armor";
             case 8 -> specification = "buff:damagebuff";

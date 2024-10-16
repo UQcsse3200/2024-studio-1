@@ -24,6 +24,7 @@ public class MainGameLevelFactory implements LevelFactory {
     private boolean shouldLoad;
     private List<String> loadedRooms;
     private MapLoadConfig config;
+    private int levelNumber;
 
     public MainGameLevelFactory(boolean shouldLoad, MapLoadConfig config) {
         this.shouldLoad = shouldLoad;
@@ -70,6 +71,7 @@ public class MainGameLevelFactory implements LevelFactory {
 
     @Override
     public Level create(int levelNumber) {
+
         this.map = new LevelMap(shouldLoad ? config.mapSize : DEFAULT_MAP_SIZE);
 
         RoomFactory roomFactory = new RoomFactory(
@@ -94,7 +96,7 @@ public class MainGameLevelFactory implements LevelFactory {
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
-                case RoomType.NPC_ROOM:
+                case RoomType.SHOP_ROOM:
                     //If the game is loaded the items to be spawned is loaded from the config
                     //if not uses the createShopItems method to create a random list which is then loaded into the shop
                     // room to be spawned.
@@ -108,11 +110,6 @@ public class MainGameLevelFactory implements LevelFactory {
                             map.mapData.getPositions().get(roomKey),
                             "0,0,14,10," + 0 + "," + levelNumber, roomKey, itemsToBeSpawned);
                     rooms.put(roomKey, shop);
-                    break;
-                case RoomType.GAME_ROOM:
-                    rooms.put(roomKey, roomFactory.createGambleRoom(
-                            map.mapData.getPositions().get(roomKey),
-                            "0,0,14,10," + levelNumber + "," + levelNumber, roomKey));
                     break;
                 case null:
                     throw new IllegalArgumentException("Invalid room type.");
@@ -129,7 +126,7 @@ public class MainGameLevelFactory implements LevelFactory {
             shouldLoad = false;
         }
         // Store the current level number
-
+        this.config.currentLevel = "" + levelNumber;
         return new MainGameLevel(map, levelNumber, rooms);
     }
 
@@ -150,8 +147,9 @@ public class MainGameLevelFactory implements LevelFactory {
                 }
             }
         }
-        ShopRoom shopRoom = (ShopRoom) rooms.get(ServiceLocator.getGameAreaService().getGameController().getFlaggedRoom("NPC"));
-        config.shopRoomItems = shopRoom.itemsSpawned;
+        ShopRoom shopRoom = (ShopRoom) rooms.get(ServiceLocator.getGameAreaService().getGameController().getFlaggedRoom("Shop"));
+        List<String> shopSave = shopRoom.itemsSpawned;
+        config.shopRoomItems.addAll(shopSave);
         config.roomsCompleted = compRooms;
         config.mapSize = map.getMapSize();
         FileLoader.writeClass(config, filePath, FileLoader.Location.EXTERNAL);

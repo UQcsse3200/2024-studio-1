@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.csse3200.game.components.CombatStatsComponent;
 import com.csse3200.game.components.NameComponent;
 import com.csse3200.game.components.npc.NPCHealthBarComponent;
-import com.csse3200.game.components.player.inventory.usables.DummyDestroyedHandler;
+import com.csse3200.game.components.player.inventory.DummyDestroyedHandler;
 import com.csse3200.game.components.player.inventory.usables.TrapComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.physics.PhysicsLayer;
@@ -50,8 +50,8 @@ public class DeployableItemFactory extends LoadedFactory {
     public Entity createRingFire() {
         Entity ringFire = new Entity()
                 .addComponent(new HitboxComponent())
-                .addComponent(new CombatStatsComponent(100,5))
-                .addComponent(new TextureRenderComponent(new Texture("images/items/fire.png")))
+                .addComponent(new CombatStatsComponent(200,20))
+                .addComponent(new TextureRenderComponent(new Texture("images/items/Fire.png")))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new TrapComponent());
 

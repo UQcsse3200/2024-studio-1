@@ -1,5 +1,6 @@
 package com.csse3200.game.entities.factories;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.csse3200.game.areas.EnemyRoom;
 import com.csse3200.game.components.NameComponent;
@@ -9,6 +10,7 @@ import com.csse3200.game.physics.components.ColliderComponent;
 import com.csse3200.game.physics.components.PhysicsComponent;
 import com.csse3200.game.rendering.TextureRenderComponent;
 
+import com.csse3200.game.services.AlertBoxService;
 import com.csse3200.game.services.ServiceLocator;
 
 /**
@@ -63,7 +65,6 @@ public class StairFactory {
     /**
      * Moves the player to the next level
      */
-
     private static void moveToNextLevel() {
         int currentLevel = ServiceLocator.getGameAreaService().getGameController().getCurrentLevel().getLevelNumber();
         if(currentLevel != 2){
@@ -74,4 +75,5 @@ public class StairFactory {
         ServiceLocator.getEndgameService().flagEnd(); 
         
     }
+
 }

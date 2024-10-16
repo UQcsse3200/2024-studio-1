@@ -1,17 +1,21 @@
 package com.csse3200.game.areas.Levels;
 
-import com.csse3200.game.areas.Level;
-import com.csse3200.game.areas.MainGameLevel;
-import com.csse3200.game.areas.LevelFactory;
-import com.csse3200.game.areas.MainGameLevelFactory;
+import com.csse3200.game.areas.*;
 import com.csse3200.game.components.CameraComponent;
+import com.csse3200.game.components.player.PlayerConfigComponent;
+import com.csse3200.game.entities.Entity;
+import com.csse3200.game.entities.configs.PlayerConfig;
+import com.csse3200.game.extensions.GameExtension;
+import com.csse3200.game.entities.configs.MapLoadConfig;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.services.RandomService;
 import com.csse3200.game.services.ResourceService;
 import com.csse3200.game.services.ServiceLocator;
+import com.csse3200.game.utils.RandomNumberGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -19,10 +23,13 @@ import org.mockito.MockitoAnnotations;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 import java.util.*;
 
+@ExtendWith(GameExtension.class)
 class MainGameLevelFactoryTest {
 
     private LevelFactory levelFactory;
@@ -31,22 +38,63 @@ class MainGameLevelFactoryTest {
 
     @Mock
     private RenderService mockRenderService;
+
+    @Mock
+    private RandomService mockRandomService;
+
+    @Mock
+    private RandomNumberGenerator mockRNG;
+
+    @Mock
+    private GameAreaService mockGameAreaService;
+
     @Mock
     private CameraComponent mockCamera;
+
+    @Mock
+    private GameController mockGameController;
+
+    @Mock
+    Entity entity;
+    @Mock
+    private PlayerConfig playerConfig;
+    @Mock
+    private PlayerConfigComponent playerConfigComponent;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
+        playerConfig = mock(PlayerConfig.class);
+        entity = mock(Entity.class);
+        playerConfigComponent = mock(PlayerConfigComponent.class);
+
         // Set up mock RenderService
         when(mockRenderService.getCamera()).thenReturn(mockCamera);
+        MapLoadConfig mapLoadConfig = new MapLoadConfig();
+        mapLoadConfig.currentLevel = "1";
         ServiceLocator.registerRenderService(mockRenderService);
+
+        // Mock the RandomService and RandomNumberGenerator
+        when(mockRandomService.getRandomNumberGenerator(any(Class.class))).thenReturn(mockRNG);
+        ServiceLocator.registerRandomService(mockRandomService);
+
+        ServiceLocator.registerGameAreaService(mockGameAreaService);
+        when(mockGameAreaService.getGameController()).thenReturn(mockGameController);
+        playerConfig.name = "bear";
+        when(mockGameController.getPlayer()).thenReturn(entity);
+        when(entity.getComponent(PlayerConfigComponent.class)).thenReturn(playerConfigComponent);
+        when(playerConfigComponent.getPlayerConfig()).thenReturn(playerConfig);
+
+
+        // Mock behavior for RandomNumberGenerator if needed
+        when(mockRNG.getRandomInt(anyInt(), anyInt())).thenReturn(0); // Adjust return value as necessary
 
         // Set up ResourceService (or mock it if necessary)
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRandomService(new RandomService(""));
 
-        levelFactory = new MainGameLevelFactory(false, null);
+        levelFactory = new MainGameLevelFactory(false, mapLoadConfig);
     }
 
     @AfterEach
@@ -54,15 +102,14 @@ class MainGameLevelFactoryTest {
         ServiceLocator.clear();
     }
 
-    @Test
-    void testCreate() {
-        Level level = levelFactory.create(1);
-
-        assertNotNull(level);
-        assertEquals(1, level.getLevelNumber());
-        assertNotNull(level.getMap());
-        assertNotNull(level.getStartingRoomKey());
-    }
+   @Test
+   void testCreate() {
+       Level level = levelFactory.create(1);
+       assertNotNull(level);
+       assertEquals(1, level.getLevelNumber());
+       assertNotNull(level.getMap());
+       assertNotNull(level.getStartingRoomKey());
+   }
 
     @Test
     void testCorrectType() {

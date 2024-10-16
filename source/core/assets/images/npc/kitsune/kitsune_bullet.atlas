@@ -1,0 +1,46 @@
+kitsune_bullet.png
+size: 62, 14
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+default
+  rotate: false
+  xy: 41, 1
+  size: 9, 9
+  orig: 9, 9
+  offset: 0, 0
+kitsune_bullet
+  rotate: false
+  xy: 41, 1
+  size: 9, 9
+  orig: 9, 9
+  offset: 0, 0
+  index: 0
+kitsune_bullet
+  rotate: false
+  xy: 52, 1
+  size: 9, 9
+  orig: 9, 9
+  offset: 0, 0
+  index: 1
+kitsune_bullet
+  rotate: false
+  xy: 15, 1
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: 2
+kitsune_bullet
+  rotate: false
+  xy: 28, 1
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: 3
+kitsune_bullet
+  rotate: false
+  xy: 1, 1
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: 4

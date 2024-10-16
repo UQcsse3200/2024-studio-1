@@ -18,7 +18,7 @@ public class PlayerAnimationController extends Component {
     /**
      Indicate the selected player.
      */
-    private enum PlayerNum {
+    enum PlayerNum {
         PLAYER_1,
         PLAYER_2,
         PLAYER_3,
@@ -232,5 +232,12 @@ public class PlayerAnimationController extends Component {
 
             animationController.startAnimation(animationName);
         }
+    }
+    /**
+     * Returns the currently selected player number.
+     * @return The selected player number (e.g. PLAYER_1, PLAYER_2, etc.)
+     */
+    public PlayerNum getPlayerNum() {
+        return playerNum;
     }
 }

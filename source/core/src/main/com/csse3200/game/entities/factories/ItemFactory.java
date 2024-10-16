@@ -8,10 +8,7 @@ import com.csse3200.game.components.player.inventory.pets.RingFire;
 import com.csse3200.game.components.player.inventory.pets.Tombstone;
 import com.csse3200.game.components.player.inventory.usables.*;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A factory that creates usable items and buffs.
@@ -40,7 +37,7 @@ public class ItemFactory {
         creators.put("bigredbutton", (args) -> new BigRedButton());
         creators.put("teleporter", (args) -> new TeleporterItem());
         creators.put("goblinsgamble", (args) -> new GoblinsGamble());
-        creators.put("fang", (args)-> new WerewolfFang());
+        creators.put("fang", (args) -> new WerewolfFang());
         creators.put("gasoline", (args) -> new Gasoline());
         return creators;
     }
@@ -73,11 +70,23 @@ public class ItemFactory {
      * @return the specifications as a List.
      */
     public Collection<String> getAllSpecs() {
-        return creators.keySet()
+        List<String> specs = new ArrayList<>(creators.keySet()
                 .stream()
-                .filter(s -> !s.equals("energydrink"))
+                .filter(s -> !Set.of("energydrink", "tombstone").contains(s))
                 .map(s -> "item:" + s)
-                .toList();
+                .toList());
+        specs.addAll(List.of(
+                "item:energydrink:low",
+                "item:energydrink:medium",
+                "item:energydrink:high",
+                "pet:tombstone:Bear",
+                "pet:tombstone:Snake",
+                "pet:tombstone:Bat",
+                "pet:tombstone:Dog",
+                "pet:tombstone:Minotaur",
+                "pet:tombstone:Rat"
+        ));
+        return specs;
     }
 
     private interface ItemCreator {

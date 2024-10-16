@@ -2,6 +2,7 @@ package com.csse3200.game.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.components.scorescreen.ScoreListComponent;
 import com.csse3200.game.components.screendisplay.LoseScreenDisplay;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.input.InputDecorator;
@@ -36,7 +37,8 @@ public class LoseScreen extends StaticScreen {
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
         ui.addComponent(new InputDecorator(stage, 10))
-                .addComponent(new LoseScreenDisplay(game));
+                .addComponent(new LoseScreenDisplay(game))
+                .addComponent(new ScoreListComponent());
         return ui;
     }
 }

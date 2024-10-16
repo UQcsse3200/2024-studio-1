@@ -26,7 +26,7 @@ class MainGameLevelMapTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         levelMap = new LevelMap(10);
-        levelMap.mapData = mockRandomMapGenerator;
+        levelMap.setMapData(mockRandomMapGenerator);
     }
 
     @Test

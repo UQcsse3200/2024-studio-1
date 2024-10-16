@@ -156,7 +156,7 @@ public class GameController {
         if (!List.of("Boss", "Shop").contains(roomType)) {
             throw new IllegalArgumentException("Invalid room type: " + roomType);
         }
-        return currentLevel.getMap().mapData.getRoomKeys().get(roomType);
+        return currentLevel.getMap().getMapData().getRoomKeys().get(roomType);
     }
 
     /**
@@ -204,6 +204,8 @@ public class GameController {
 
         // update the minimap
         if (minimapFactory != null) {
+            // update minimap
+            gameArea.updateMinimap(roomKey);
             minimapFactory.updateMinimap(roomKey);
         } else {
             logger.error("MinimapFactory is null when updating minimap");
@@ -244,6 +246,8 @@ public class GameController {
             selectRoom(this.currentLevel.getStartingRoomKey());
 
             // Initialize minimap
+            // Initialize minimap
+            gameArea.generateMinimap(getCurrentLevel());
             this.minimapFactory = new MinimapFactory(getCurrentLevel(), 0.5f);
             MinimapComponent minimapComponent = minimapFactory.createMinimap();
 
@@ -308,7 +312,6 @@ public class GameController {
         logger.info("Spawned new room, {}", ServiceLocator.getEntityService());
         spawnRoom = false;
     }
-
 
 
     /**

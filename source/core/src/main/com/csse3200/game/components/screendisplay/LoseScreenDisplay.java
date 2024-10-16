@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.csse3200.game.GdxGame;
+import com.csse3200.game.components.scorescreen.ScoreListComponent;
 import com.csse3200.game.files.FileLoader;
 import com.csse3200.game.services.ServiceLocator;
 import com.csse3200.game.ui.UIComponent;
@@ -29,10 +30,11 @@ public class LoseScreenDisplay extends UIComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(LoseScreenDisplay.class);
     private static final float Z_INDEX = 2f;
-    private static final float Y_PADDING = 100f;
+    private static final float Y_PADDING = 20f;
     private final GdxGame game;
     private Table table;
     private String LastAttackAnimal;
+    private ScoreListComponent scoreList;
 
     private ArrayList<String> animals = new ArrayList<String>();
     private ArrayList<String> animalDeathScreens = new ArrayList<String>();
@@ -89,6 +91,7 @@ public class LoseScreenDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
+        scoreList = entity.getComponent(ScoreListComponent.class);
         addActors();
 
         // Use InputMultiplexer to handle both stage (for button clicks) and custom input (for ESC key)
@@ -115,6 +118,7 @@ public class LoseScreenDisplay extends UIComponent {
     }
 
     private void addActors() {
+      
         animals.add("Rat");
         animals.add("Bear");
         animals.add("Bat");
@@ -186,18 +190,33 @@ public class LoseScreenDisplay extends UIComponent {
             table.row();
             table.add(youDied).padTop(30f);
         }
-
         Button exitBtn = new TextButton("Back to menu", skin);
         exitBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                logger.debug("Going back to menu from death screen");
+                logger.debug("Going to score screen");
                 game.setScreen(MAIN_MENU);
             }
         });
-        table.row();
-        table.add(exitBtn).padTop(Y_PADDING);
 
+        // Score section
+        table.row();
+        Label scoreLabel = new Label("Final Scores", skin, "cutscene");
+        table.add(scoreLabel).center().padTop(40f);
+
+        table.row();
+        Label coinsLabel = new Label(
+                "Coins:     " + scoreList.getScore().get("coins"), skin, "cutscene");
+        table.add(coinsLabel).padLeft(10);
+        table.row();
+        Label killsLabel = new Label(
+                "Kills:     " + scoreList.getScore().get("kills"), skin, "cutscene");
+        table.add(killsLabel);
+
+        table.row();
+        table.add(exitBtn).colspan(3).center().padTop(Y_PADDING);
+
+        // Add table to the stage
         stage.addActor(table);
     }
 

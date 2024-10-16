@@ -48,8 +48,8 @@ public class ArmouryRoom extends BaseRoom {
 
     private ArrayList<GridPoint2> getItemPositions() {
         ArrayList<GridPoint2> positions = new ArrayList<>();
-        for (int x = this.minGridPoint.x; x < this.maxGridPoint.x; x++) {
-            for (int y = this.minGridPoint.y; y < this.maxGridPoint.y; y++) {
+        for (int x = this.minGridPoint.x; x <= this.maxGridPoint.x; x++) {
+            for (int y = this.minGridPoint.y; y <= this.maxGridPoint.y; y++) {
                 // If pos is on edge of screen
                 Set<Integer> verticalEdges = Set.of(this.minGridPoint.x, this.maxGridPoint.x);
                 Set<Integer> horizontalEdges = Set.of(this.minGridPoint.y, this.maxGridPoint.y);

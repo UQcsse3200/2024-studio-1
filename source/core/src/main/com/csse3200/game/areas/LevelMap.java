@@ -9,7 +9,8 @@ import java.util.List;
  * A Factory responsible for loading and managing json file data for the game's Map
  */
 public class LevelMap {
-    public MapGenerator mapData;
+
+    private MapGenerator mapData;
 
     /**
      * Generate a Level Map from a provided MapGenerator
@@ -19,6 +20,13 @@ public class LevelMap {
     public LevelMap(MapGenerator mapData) {
         this.mapData = mapData;
         this.mapData.createMap();
+    }
+
+    public void setMapData(MapGenerator map){
+        this.mapData = map;
+    }
+    public MapGenerator getMapData(){
+        return this.mapData;
     }
 
     /**

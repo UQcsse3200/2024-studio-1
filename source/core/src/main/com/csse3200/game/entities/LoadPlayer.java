@@ -107,6 +107,7 @@ public class LoadPlayer {
                 .addComponent(inventoryComponent)
                 .addComponent(playerActions)
                 .addComponent(new PlayerAchievementComponent())
+                .addComponent(new PlayerScoreComponent())
                 .addComponent(new ItemPickupComponent())
                 .addComponent(new FundsDisplayComponent())
                 .addComponent(new ShieldComponent())

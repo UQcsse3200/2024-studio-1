@@ -689,7 +689,7 @@
       },
       "ranged": {
         "range": 12,
-        "rate": 2,
+        "rate": 1.5,
         "type": 1
       }
     },

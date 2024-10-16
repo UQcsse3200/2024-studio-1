@@ -1,4 +1,5 @@
 package com.csse3200.game.areas;
+import com.csse3200.game.services.*;
 
 public class GameAreaService {
 //    private static final Logger log = LoggerFactory.getLogger(GameAreaService.class);
@@ -17,6 +18,11 @@ public class GameAreaService {
     }
 
     public void update() {
+        EndgameService endGame = ServiceLocator.getEndgameService();
+        if(endGame.shouldEnd()){
+            endGame.winGame(); 
+            return;
+        }
         this.gameController.spawnCurrentRoom();
     }
 }

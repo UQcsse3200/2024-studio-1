@@ -70,7 +70,7 @@ public class RandomMapGenerator implements MapGenerator {
             if (relativePosition.containsKey(new_Room_key) || !relativePosition.containsKey(randomRoomKey)) {
                 continue;
             }
-            int animal_index = rng.getRandomInt(0, 7);
+            int animal_index = rng.getRandomInt(0, 43);
             int item_index = rng.getRandomInt(0, 6);
             addBlankRoom(new_Room_key, animal_index, item_index, BASE_ROOM.num);
             connectRooms(randomRoomKey, new_Room_key, detlas_index);

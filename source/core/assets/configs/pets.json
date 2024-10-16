@@ -2,7 +2,7 @@
   "rat": {
     "health": 100,
     "strength": 3,
-    "baseAttack": 10,
+    "baseAttack": 30,
     "isScaled": true,
     "scale": {
         "x": 0.7,
@@ -10,15 +10,10 @@
     },
     "tasks": {
       "follow": {
-        "followRadius": 3,
-        "waitTime": 2,
+        "followRadius": 2,
+        "waitTime": 0.2,
         "followDistance": 2,
         "followSpeed": 5
-      },
-      "chase": {
-        "viewDistance": 4,
-        "chaseDistance": 5,
-        "chaseSpeed": 2
       },
       "charge": {
         "activationMinRange": 1,
@@ -44,7 +39,7 @@
   "bear": {
     "strength": 6,
     "health": 600,
-    "baseAttack": 35,
+    "baseAttack": 80,
     "isDirectional": true,
     "isScaled": true,
     "scale": {
@@ -53,15 +48,10 @@
     },
     "tasks": {
       "follow": {
-        "followRadius": 3,
-        "waitTime": 2,
+        "followRadius": 2,
+        "waitTime": 0.2,
         "followDistance": 2,
         "followSpeed": 5
-      },
-      "wander": {
-        "wanderRadius": 3,
-        "waitTime": 2,
-        "wanderSpeed": 0.5
       },
       "chase": {
         "chaseSpeed": 1.5,
@@ -98,7 +88,7 @@
   "bat": {
     "health": 50,
     "strength": 3,
-    "baseAttack": 10,
+    "baseAttack": 30,
     "isScaled": true,
     "scale": {
         "x": 0.8,
@@ -106,8 +96,8 @@
     },
     "tasks": {
       "follow": {
-        "followRadius": 3,
-        "waitTime": 2,
+        "followRadius": 2,
+        "waitTime": 0.2,
         "followDistance": 2,
         "followSpeed": 5
       },
@@ -141,7 +131,7 @@
   "dog": {
     "health": 300,
     "strength": 3,
-    "baseAttack": 20,
+    "baseAttack": 60,
     "isDirectional": true,
     "isScaled": true,
     "scale": {
@@ -149,6 +139,12 @@
         "y": 1.0
     },
     "tasks": {
+      "follow": {
+        "followRadius": 3,
+        "waitTime": 1,
+        "followDistance": 2,
+        "followSpeed": 5
+      },
       "charge": {
         "activationMinRange": 0,
         "activationMaxRange": 5,
@@ -158,9 +154,9 @@
       }
     },
     "attacks": {
-      "aoe": {
-        "range": 2,
-        "rate": 1
+      "melee": {
+        "range": 1,
+        "rate": 1.2
       }
     },
     "animations": [
@@ -179,7 +175,7 @@
   "snake": {
     "health": 300,
     "strength":6,
-    "baseAttack": 10,
+    "baseAttack": 30,
     "isDirectional": true,
     "isScaled": true,
     "scale": {
@@ -225,7 +221,7 @@
   "minotaur": {
     "health": 400,
     "strength":10,
-    "baseAttack": 35,
+    "baseAttack": 80,
     "isScaled": true,
     "scale": {
         "x": 1.5,
@@ -234,7 +230,7 @@
     "tasks": {
       "follow": {
         "followRadius": 3,
-        "waitTime": 2,
+        "waitTime": 1,
         "followDistance": 2,
         "followSpeed": 5
       },

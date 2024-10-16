@@ -180,18 +180,19 @@ public class SettingsMenuDisplay extends UIComponent {
         table.row().padTop(10f);
 
         Label walkLabel = new Label("Key Control: ", skin);
-        WASDCheckbox = new CheckBox("move with WASD and shoot with arrows", skin);
-        ArrowsCheckbox=new  CheckBox("shoot with WASD and move with arrows", skin);
+        WASDCheckbox = new CheckBox("move WASD - shoot arrows", skin);
+        ArrowsCheckbox=new  CheckBox("shoot WASD move arrows", skin);
 
         ButtonGroup<CheckBox> walkButtonGroup = new ButtonGroup<>(WASDCheckbox,ArrowsCheckbox);
 
         if (settings.controlsWithWASD) {
-            walkButtonGroup.setChecked("move with WASD and shoot with arrows");  
+            walkButtonGroup.setChecked("move with WASD - shoot with arrows");
         } else {
-            walkButtonGroup.setChecked("shoot with WASD and move with arrows");  
+            walkButtonGroup.setChecked("shoot with WASD - move with arrows");
         }
         table.row();
         table.add(walkLabel).pad(10);
+        table.row();
         table.add(WASDCheckbox).pad(10);
         table.add(ArrowsCheckbox).pad(10);
 

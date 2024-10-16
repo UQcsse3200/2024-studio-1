@@ -18,7 +18,7 @@ public class PlayerAnimationController extends Component {
     /**
      Indicate the selected player.
      */
-    enum PlayerNum {
+    public enum PlayerNum {
         PLAYER_1,
         PLAYER_2,
         PLAYER_3,

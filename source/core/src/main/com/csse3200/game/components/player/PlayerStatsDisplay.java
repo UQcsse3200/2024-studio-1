@@ -56,7 +56,7 @@ public class PlayerStatsDisplay extends UIComponent {
         entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
         entity.getEvents().addListener("melee_pickup", this::updateMeleeWeaponUI);
         entity.getEvents().addListener("ranged_pickup", (Integer maxAmmo) -> {
-            updateGunLabel(20, "Gun");
+            updateGunLabel(6, "Gun");
             updateRangedWeaponUI(maxAmmo, "Gun");
         });
         entity.getEvents().addListener("ranged_activate", this::updateAmmoDisplay);
@@ -79,20 +79,25 @@ public class PlayerStatsDisplay extends UIComponent {
         // Get the current player number
         PlayerAnimationController.PlayerNum playerNum = playerController.getPlayerNum();
 
-        // Based on the selected player, display appropriate weapon and ammo counts
-        if (playerNum == PlayerAnimationController.PlayerNum.PLAYER_4 ||
-                playerNum == PlayerAnimationController.PlayerNum.PLAYER_2 ||
-                playerNum == PlayerAnimationController.PlayerNum.PLAYER_3 ||
-                playerNum == PlayerAnimationController.PlayerNum.BEAR) {
-            // Players 2, 3, 4, and Bear have 7 ammo with the gun
-            updateGunLabel(7, "Gun");
-            updateRangedWeaponUI(7, "Gun");
+        if (playerNum == PlayerAnimationController.PlayerNum.PLAYER_1) {
+            // Player 1 always starts with 20 ammo
+            updateGunLabel(6, "Gun");
+            updateRangedWeaponUI(6, "Gun");
         } else {
-            // For other players, set the gun to have 20 ammo
-            updateGunLabel(20, "Gun");
-            updateRangedWeaponUI(20, "Gun");
+            // Other players start with 7 ammo
+            updateGunLabel(15, "Gun");
+            updateRangedWeaponUI(15, "Gun");
+
+            // Set an event listener to update ammo to 20 when a ranged weapon is picked up
+            entity.getEvents().addListener("ranged_pickup", (Integer maxAmmo) -> {
+                if (maxAmmo == 6) {
+                    updateGunLabel(6, "Gun");
+                    updateRangedWeaponUI(6, "Gun");
+                }
+            });
         }
     }
+
 
     /**
      * Creates actors and positions them on the stage using a table.

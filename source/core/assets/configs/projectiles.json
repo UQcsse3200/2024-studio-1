@@ -20,8 +20,8 @@
     "baseAttack": 10,
     "isDirectional": true,
     "speed": {
-      "x": 3,
-      "y": 3
+      "x": 7,
+      "y": 7
     },
     "Layer": 2,
     "scaleX": 1.2,

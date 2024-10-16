@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
 
 import com.csse3200.game.components.NameComponent;
+import com.csse3200.game.components.projectile.ProjectileAttackComponent;
 import com.csse3200.game.entities.Entity;
 import com.csse3200.game.entities.configs.AttackConfig;
 import com.csse3200.game.entities.factories.ProjectileFactory;
@@ -21,6 +22,7 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
     private Vector2[] spawnLocations;
     private Vector2[] movingDirections;
     private final Random rand = new Random();
+
 
     private final ProjectileFactory projectileFactory = new ProjectileFactory();
 
@@ -41,6 +43,8 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
     public void setMovingDirections(Vector2[] movingDirections) {
         this.movingDirections = movingDirections;
     }
+
+
 
     /**
      * Set shoot patterns for each projectile (each projectile must have location and direction)
@@ -100,6 +104,9 @@ public class BossRangeAttackComponent extends RangeAttackComponent {
 
     private void singleShoot(Vector2 spawnLocation, Vector2 movingDirection) {
         Entity projectile = projectileFactory.create(getProjectileNames()[getAnimationID()], movingDirection, spawnLocation);
+        ProjectileAttackComponent projectileAttackComponent = projectile.getComponent(ProjectileAttackComponent.class);
+        Vector2 v = projectileAttackComponent.getSpeed();
+        projectileAttackComponent.setSpeed(new Vector2(v.x * speedCoefficient, v.y * speedCoefficient));
         projectile.getComponent(com.csse3200.game.components.projectile.ProjectileAttackComponent.class).create();
         ServiceLocator.getGameAreaService().getGameArea().spawnEntityAt(projectile, new GridPoint2(9,9),
                 true, true);

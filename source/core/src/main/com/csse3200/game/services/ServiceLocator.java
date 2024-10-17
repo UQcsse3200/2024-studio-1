@@ -3,6 +3,7 @@ package com.csse3200.game.services;
 import com.csse3200.game.entities.EntityService;
 import com.csse3200.game.input.InputService;
 import com.csse3200.game.physics.PhysicsService;
+import com.csse3200.game.services.*;
 import com.csse3200.game.rendering.RenderService;
 import com.csse3200.game.areas.GameAreaService;
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ public class ServiceLocator {
     private static ResourceService resourceService;
     private static GameAreaService gameAreaService;
     private static RandomService randomService;
+    private static EndgameService endgameService;
 
     private static AlertBoxService alertBoxService;
 
@@ -63,6 +65,11 @@ public class ServiceLocator {
 
     public static AlertBoxService getAlertBoxService() {
         return alertBoxService;
+
+    }
+
+    public static EndgameService getEndgameService() {
+        return endgameService;
 
     }
 
@@ -109,6 +116,11 @@ public class ServiceLocator {
     public static void registerAlertBoxService(AlertBoxService source) {
         logger.debug("Registering alertBox service {}", source);
         alertBoxService = source;
+    }
+
+    public static void registerEndgameService(EndgameService source) {
+        logger.debug("Registering Endgame service {}", source);
+        endgameService = source;
     }
 
     public static void clear() {

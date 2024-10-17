@@ -63,33 +63,17 @@ public class StairFactory {
     }
 
     /**
-     * checks if the player wants to move to next level
-     */
-   /* private static void alertGoToNextLevel(int currentLevel) {
-        ServiceLocator.getAlertBoxService().showConfirmationDialog("Confirm", "Do you want to proceed to the next level?", new AlertBoxService.ConfirmationListener() {
-            @Override
-            public void onYes() {
-                // TODO: Move to next level
-                ServiceLocator.getEntityService().markEntityForRemoval(stair);
-                ServiceLocator.getGameAreaService().getGameArea().changeLevel(currentLevel+1);
-            }
-
-            @Override
-            public void onNo() {
-                // TODO: Restart level
-                ServiceLocator.getGameAreaService().getGameArea().changeLevel(currentLevel);
-            }
-        });
-    }*/
-
-    /**
      * Moves the player to the next level
      */
     private static void moveToNextLevel() {
         int currentLevel = ServiceLocator.getGameAreaService().getGameController().getCurrentLevel().getLevelNumber();
-        ServiceLocator.getEntityService().markEntityForRemoval(stair);
-        ServiceLocator.getGameAreaService().getGameController()
-                .changeLevel(currentLevel + 1);
+        if(currentLevel != 2){
+            ServiceLocator.getEntityService().markEntityForRemoval(stair);
+            ServiceLocator.getGameAreaService().getGameController().changeLevel(currentLevel + 1);
+            return;
+        }
+        ServiceLocator.getEndgameService().flagEnd(); 
+        
     }
 
 }

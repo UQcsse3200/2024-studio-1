@@ -82,6 +82,9 @@ public class GameScreen extends ScreenAdapter {
 
         PhysicsService physicsService = new PhysicsService();
         ServiceLocator.registerPhysicsService(physicsService);
+        EndgameService endgameService = new EndgameService(game);
+        ServiceLocator.registerEndgameService(endgameService);
+        ServiceLocator.registerPhysicsService(physicsService);
         this.physicsEngine = physicsService.getPhysics();
 
         ServiceLocator.registerInputService(new InputService());

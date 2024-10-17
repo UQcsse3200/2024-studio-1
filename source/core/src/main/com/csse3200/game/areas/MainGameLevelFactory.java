@@ -37,11 +37,11 @@ public class MainGameLevelFactory implements LevelFactory {
     /**
      * List of all the items the game contains as buuyables. Will be used to randomly pick 6 items that will
      * be spawned in the shop room.
-     * @return List of items specifications.
+ "item:bigredbutton"    * @return List of items specifications.
      */
     protected List<String> getShopRoomItems() {
         return List.of("buff:heart:buyable","item:medkit:buyable", "item:shieldpotion:buyable",
-                        "item:bandage:buyable", "buff:energydrink:Low:buyable", "buff:energydrink:Low:buyable",
+                        "item:bandage:buyable", "buff:energydrink:low:buyable", "buff:energydrink:low:buyable",
                         "buff:syringe:buyable", "buff:armor:buyable", "buff:damagebuff:buyable",
                         "item:beartrap:buyable", "item:targetdummy:buyable", "item:reroll:buyable",
                         "buff:feather:buyable", "item:heart:buyable", "buff:divinepotion:buyable"
